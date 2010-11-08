@@ -1,0 +1,178 @@
+// +--------------------------------------------------------------------------------------------+
+// |                                                                          					|
+// |  © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)	|
+// | creator : Matthieu BERTIN                                                   				|
+// |                                                                          					|
+// |    récapitulatif des champs de lien traités lors de l'import UNIMARC             			|
+// |                                                                          					|
+// +--------------------------------------------------------------------------------------------+
+
+
+---------------------------- niveau hiérarchique (<hl>) et bibliographique ( <bl> ) en fonction de la notice ------------------
+
+Notice de monographie : <bl>m<bl>
+						<hl>0<hl>
+
+Notice mère de périodique : <bl>s<bl>
+							<hl>1<hl>
+
+Notice de bulletin : <bl>s<bl>
+					 <hl>2<hl>
+
+Notice d'article : <bl>a<bl>
+				   <hl>2<hl>
+				   
+Attention pour avoir les bulletins sans notice associée il faut cocher "Générer le bulletinage pour les notices de périodique"
+
+
+-------------------------- lien dans une notice mère vers une notice fille ----------------------------
+
+champ 464 :
+	sous champ "0" : identifiant de la notice fille (si on export les notices liées)
+	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice fille
+	sous champ "9" commençant par "id:" : identifiant de la notice fille
+	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices
+	sous champ "9" commençant par "lnk:child" : définit le lien
+	sous champ "t" : titre de la notice fille
+	
+Si la fille est une monographie :
+	sous champ "y" : code (isbn) de la notice
+Si la fille est un périodique :
+	sous champ "x" : code (issn) du périodique
+Si la fille est un article :
+	sous champ "t" : titre du bulletin
+	sous champ "t" : titre du périodique
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "x" : code (isbn) du périodique
+Si la fille est une notice de bulletin :
+	sous champ "t" : titre du bulletin
+	sous champ "t" : titre du périodique
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "x" : code (isbn) du périodique
+	
+-------------------------- lien dans une notice fille vers une notice mère ----------------------------
+
+champ 463 :
+	sous champ "0" : identifiant de la notice mere (si on export les notices liées)
+	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice mère
+	sous champ "9" commençant par "id:" : identifiant de la notice mere
+	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices
+	sous champ "9" commençant par "lnk:parent" : définit le lien
+	sous champ "t" : titre de la notice mere
+	
+Si la mere est une monographie :
+	sous champ "y" : code (isbn) de la notice
+Si la mere est un périodique :
+	sous champ "x" : code (issn) du périodique
+Si la mere est un article :
+	sous champ "t" : titre du bulletin
+	sous champ "t" : titre du périodique
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "x" : code (isbn) du périodique
+Si la mere est une notice de bulletin :
+	sous champ "t" : titre du bulletin
+	sous champ "t" : titre du périodique
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "x" : code (isbn) du périodique
+	
+-------------------------- lien dans une notice mère de périodique ------------------------------------
+
+champ 462 : lien entre le périodique et bulletin
+	--------Sous champ présent si il n'y a pas de notice de bulletin
+	sous champ "t" : titre du bulletin
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "9" commençant par "id:" : identifiant du bulletin
+	sous champ "9" commençant par "lnk:bull" : définit le lien
+
+	--------Sous champs présent si il y a une notice de bulletin
+	sous champ "t" : titre de la notice de bulletin
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage) (si on export les notices liées)
+	sous champ "0" : identifiant de la notice de bulletin
+	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice de bulletin (=b2)
+	sous champ "9" commençant par "id:" : identifiant de la notice de bulletin
+	sous champ "9" commençant par "rank:" : ordre d'aparition dans les liens
+	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices (ici : b)
+	sous champ "9" commençant par "lnk:child" : définit le lien
+	
+champ 464 : lien entre le périodique et l'article
+	sous champ "0" : identifiant de la notice d'article (si on export les notices liées)
+	sous champ "t" : titre de la notice d'article
+	sous champ "t" : titre du bulletin
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "9" commençant par "id:" : identifiant de la notice d'article
+	sous champ "9" commençant par "page:" : la pagination
+	sous champ "9" commençant par "lnk:art" : définit le lien
+	
+champ 421 : lien entre le périodique et une notice fille
+	sous champ "0" : identifiant de la notice (si on export les notices liées)
+	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice
+	sous champ "9" commençant par "id:" : identifiant de la notice
+	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices
+	sous champ "9" commençant par "lnk:child" : définit le lien
+	sous champ "x" : ISSN/ISBN
+	sous champ "t" : titre de la notice
+	
+champ 422 : lien entre le périodique et une notice mere
+	sous champ "0" : identifiant de la notice (si on export les notices liées)
+	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice
+	sous champ "9" commençant par "id:" : identifiant de la notice
+	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices
+	sous champ "9" commençant par "lnk:parent" : définit le lien
+	sous champ "x" : ISSN/ISBN
+	sous champ "t" : titre de la notice
+	
+	
+-------------------------- lien dans une notice de bulletin ---------------------------------------------
+ 
+ info pour identifier le bulletin :
+ 	champ 200
+ 		sous champ "h" : numéro du bulletin
+ 		sous champ "i" : titre du bulletin
+ 	champ 210
+ 		sous champ "h" : date du bulletin (format "machine")
+ 		sous champ "d" : date du bulletin (format d'affichage)
+ 		
+ champ 530
+ 	sous champ "a" : titre du périodique
+ 			
+ champ 461 : lien vers la notice de périodique
+ 	sous champ "0" : identifiant de la notice de périodique (si on export les notices liées)
+ 	sous champ "9" commençant par "bl:" définit le niveau hiérarchique et bibliographique de la notice (ici : s1)
+ 	sous champ "9" commençant par "id:" : identifiant de la notice de périodique
+ 	sous champ "9" commençant par "rank:" : ordre d'aparition dans les liens
+ 	sous champ "9" commençant par "type_lnk:" : type de lien entre les deux notices (ici : b)
+ 	sous champ "9" commençant par "lnk:parent" : définit le lien
+ 	sous champ "x" : ISSN/ISBN
+ 	sous champ "t" : titre du périodique
+ 	
+ -------------------------- lien dans une notice d'article  ---------------------------------------------
+ 
+ champ 463 : lien vers le bulletin
+ 	sous champ "t" : titre du bulletin
+	sous champ "v" : numéro du bulletin
+	sous champ "d" : date du bulletin (format "machine")
+	sous champ "e" : date du bulletin (format d'affichage)
+	sous champ "9" commençant par "id:" : identifiant du bulletin
+	sous champ "9" commençant par "lnk:bull" : définit le lien
+ 
+ champ 461 : lien vers la notice de périodique
+ 	sous champ "0" : identifiant de la notice de périodique (si on export les notices liées)
+ 	sous champ "9" commençant par "id:" : identifiant de la notice de périodique
+ 	sous champ "9" commençant par "lnk:perio" : définit le lien
+ 	sous champ "x" : ISSN/ISBN
+ 	sous champ "t" : titre du périodique
+ 

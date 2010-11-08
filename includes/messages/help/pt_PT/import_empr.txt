@@ -1,0 +1,28 @@
+<?php
+
+// $Id: import_empr.txt,v 0.1 2003/11/21 9:44:264 Jonathan charest
+
+// Documentation sur l'utilisation de l'import
+
+$content = "
+  <p><b>PMB: import-mini-howto</b> </p>
+  <p><strong>Na coluna da esquerda</strong> tem o nome dos campos da base de 
+  dados.<br />
+    É nestes campos que se introduzirá as informações sobre os leitores.</p>
+  <p><strong>Na coluna do centro</strong> figura a posição do campo no ficheiro ex:<br />
+    2003,&quot;3&quot;,&quot;Archambault&quot;,... <br />2003 é a primeira posição,
+    é o ano em que o estudante entrou na escola, &quot;3&quot; está na segunda posição, 
+  é a sessão em curso do estudante, 
+    &quot;Archambault&quot; está na terceira posição, é o nome de família do 
+  estudante.</p>
+  <p><strong>Na coluna da direita</strong>, é um exemplo da primeira linha do ficheiro, 
+  pode ser muito útil se se quiser mudar a posição dentro do ficheiro. Não 
+  esquecer de clicar sobre Actualizar para que as mudanças sejam tomadas em 
+  conta.</p>
+  <p><strong>Os campos a vermelho</strong> são os campos não modificáveis pelo 
+  utilizador, eles preenchem-se sozinhos.</p>
+";
+
+print $content;
+
+?>

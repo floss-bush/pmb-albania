@@ -1,0 +1,11 @@
+<h1>Administration des services externes</h1>
+
+<p>Les services externes sont des fonctions utilisables par d'autres programmes pour accéder à des fonctionnalités de PMB de manière externe à l'application</p>
+
+<p>Vous pouvez administrer les droits d'utilisation de ces différentes fonctions :</p>
+<ul>
+<li>Autorisations générales : définit la politique globale d'accès à ces fonctions (autorisées, inetrdites, accès anonyme)</li>
+<li>Autorisations par utilisateur : définit la politique d'accès à ces fonctions (autorisées, interdites, accèes anonyme) par utilisateur</li>
+<li>Utilisateurs externes : définit des utilisateurs externes qui pourront utiliser les fonctions des services externes</li>
+<li>Groupes d'utilisateurs externes : classe les utilisateurs externes dans des groupes</li>
+</ul>

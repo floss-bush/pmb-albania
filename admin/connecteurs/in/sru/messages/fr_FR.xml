@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur SRU
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2008-08-26 07:13:20 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="rec_addr">Enregistrez une adresse pour pouvoir accéder aux propriétés du serveur</entry>
+	<entry code="error_contact_server">Erreur d'accès au serveur SRU : %s</entry>
+	<entry code="sru_url">URL</entry>
+	<entry code="sru_title">Titre</entry>
+	<entry code="sru_description">Description</entry>
+	<entry code="sru_author">Auteur</entry>
+	<entry code="sru_contact">Contact</entry>
+	<entry code="default_schema">Par défaut</entry>
+	<entry code="sru_chosen_schema">Schema choisi</entry>
+	<entry code="sru_searchfields">Autoriser la recherche sur les champs:</entry>
+	<entry code="sru_maxrecordpersearch">Nombre maximum d'enregistrements par recherche:</entry>
+	<entry code="sru_is_mapped_to"> équivaut à:</entry>
+	<entry code="sru_no_index_match">Cette source ne permet pas la recherche sur %s.</entry>
+	<entry code="sru_no_query">Impossible d'effectuer cette recherche sur cette source.</entry>
+	<entry code="sru_automap">Remplir automatiquement.</entry>
+	<entry code="sru_global_search">Recherche globale</entry>
+	<entry code="sru_xsl_to_pmbunimarc">Feuilles de style à appliquer pour arriver à du PMB Unimarc</entry>
+	<entry code="sru_xsl_custom">Fichier personnalisé</entry>
+	<entry code="sru_cqlfail_means_global">En cas d'échec de construction de la requête, effectuer une recherche globale</entry>
+</XMLlist>

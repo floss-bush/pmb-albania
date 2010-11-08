@@ -1,0 +1,149 @@
+<?PHP
+// $Id: empty_words,v 1.3 2008-04-14 05:33:40 rgarcia Exp $
+
+// tableau contenant les mots vides
+
+$empty_word[] = 'a';
+$empty_word[] = 'abans';
+$empty_word[] = 'això';
+$empty_word[] = 'al';
+$empty_word[] = 'algun';
+$empty_word[] = 'algunes';
+$empty_word[] = 'alguns';
+$empty_word[] = 'allà';
+$empty_word[] = 'allò';
+$empty_word[] = 'als';
+$empty_word[] = 'altre';
+$empty_word[] = 'altres';
+$empty_word[] = 'amb';
+$empty_word[] = 'aquell';
+$empty_word[] = 'aquella';
+$empty_word[] = 'aquelles';
+$empty_word[] = 'aquells';
+$empty_word[] = 'aquest';
+$empty_word[] = 'aquesta';
+$empty_word[] = 'aquestos';
+$empty_word[] = 'aquestes';
+$empty_word[] = 'aquests';
+$empty_word[] = 'aquí';
+$empty_word[] = 'ara';
+
+$empty_word[] = 'baix';
+$empty_word[] = 'baixa';
+$empty_word[] = 'bastant';
+$empty_word[] = 'bé';
+$empty_word[] = 'bis';
+$empty_word[] = 'bo';
+$empty_word[] = 'bona';
+$empty_word[] = 'bones';
+$empty_word[] = 'bons';
+
+$empty_word[] = 'cada';
+$empty_word[] = 'cadascú';
+$empty_word[] = 'cadascuna';
+$empty_word[] = 'cap';
+$empty_word[] = 'causa';
+$empty_word[] = 'cert';
+$empty_word[] = 'certa';
+$empty_word[] = 'certes';
+$empty_word[] = 'certs';
+$empty_word[] = 'com';
+$empty_word[] = 'començament';
+$empty_word[] = 'contra';
+$empty_word[] = 'cosa';
+$empty_word[] = 'coses';
+$empty_word[] = 'costat';
+$empty_word[] = 'curt';
+$empty_word[] = 'curtes';
+$empty_word[] = 'curts';
+
+$empty_word[] = 'dalt';
+$empty_word[] = 'davant';
+$empty_word[] = 'de';
+$empty_word[] = 'degut';
+$empty_word[] = 'del';
+$empty_word[] = 'des';
+$empty_word[] = 'després';
+$empty_word[] = 'dins';
+$empty_word[] = 'doncs';
+$empty_word[] = 'durant';
+
+$empty_word[] = 'el';
+$empty_word[] = 'ell';
+$empty_word[] = 'ella';
+$empty_word[] = 'ells';
+$empty_word[] = 'els';
+$empty_word[] = 'en';
+$empty_word[] = 'encara';
+$empty_word[] = 'enrera';
+$empty_word[] = 'enrere';
+$empty_word[] = 'entre';
+$empty_word[] = 'és';
+$empty_word[] = 'està';
+$empty_word[] = 'estant';
+$empty_word[] = 'estar';
+$empty_word[] = 'etc';
+
+$empty_word[] = 'falta';
+$empty_word[] = 'fer';
+$empty_word[] = 'fi';
+$empty_word[] = 'fins';
+
+$empty_word[] = 'i';
+
+$empty_word[] = 'ja';
+$empty_word[] = 'jo';
+
+$empty_word[] = 'l';
+$empty_word[] = 'la';
+$empty_word[] = 'les';
+$empty_word[] = 'llavors';
+$empty_word[] = 'lo';
+
+$empty_word[] = 'manera';
+$empty_word[] = 'massa';
+$empty_word[] = 'mateix';
+$empty_word[] = 'menys';
+$empty_word[] = 'mentre';
+$empty_word[] = 'molts';
+$empty_word[] = 'meu';
+$empty_word[] = 'meus';
+$empty_word[] = 'millor';
+$empty_word[] = 'molt';
+$empty_word[] = 'molta';
+$empty_word[] = 'moltes';
+$empty_word[] = 'molts';
+
+$empty_word[] = 'no';
+
+$empty_word[] = 'on';
+
+$empty_word[] = 'què';
+$empty_word[] = 'que';
+$empty_word[] = 'qual';
+$empty_word[] = 'quals';
+
+$empty_word[] = 'per';
+$empty_word[] = 'però';
+$empty_word[] = 'perquè';
+$empty_word[] = 'poc';
+
+$empty_word[] = 'ser';
+$empty_word[] = 'seu';
+$empty_word[] = 'seva';
+$empty_word[] = 'seus';
+$empty_word[] = 'seves';
+$empty_word[] = 'si';
+$empty_word[] = 'sobre';
+
+$empty_word[] = 'també';
+$empty_word[] = 'tenien';
+$empty_word[] = 'tenia';
+$empty_word[] = 'tenim';
+$empty_word[] = 'tothom';
+$empty_word[] = 'tu';
+
+$empty_word[] = 'vegada';
+$empty_word[] = 'vegades';
+$empty_word[] = 'voltant';
+?>

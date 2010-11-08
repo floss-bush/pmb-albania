@@ -1,0 +1,61 @@
+#
+#	Note explicative
+#
+#	Les contenus decrits ici ont pour but de renseigner les parametres
+#	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+#	suivant les directives #obligatoire #recommande...
+#
+#	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+#	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+#	implementer le parametre en question.
+#	
+#	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+#	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+#
+
+
+/*************************
+biblio_important_p1
+#obligatoire
+*************************/
+<map name="map_lien_retour" id="map_lien_retour">
+<area shape="rect" coords="0,0,250,100" href="index.php?lvl=index" alt="Retour à l'accueil"/>
+</map>
+
+
+/*************************
+biblio_important_p2
+#obligatoire a_personnaliser
+*************************/
+biblio_important_p2 (limité à 120 caractères)
+<ul>
+<li><a href="">Accueil</a></li>
+<li><a href="">Plan du site</a></li>
+<li><a href="">Aide à la navigation</a></li>
+<li><a href="">Aide pour la Recherche</a></li>
+<li><a href="">Liens</a></li>
+</ul>
+
+
+/*************************
+biblio_preamble_p1
+#obligatoire
+*************************/
+<img src="./images/bar_spacer.gif" usemap="#map_lien_retour" class="lien_accueil" alt="" />
+#apres quoi on peut inserer du contenu facultatif
+
+/*************************
+biblio_preamble_p2
+#facultatif
+*************************/
+#contenu, image de 100px si desire
+#mais ne pas inserer de balises <center> !
+<p style="text-align:center;font-weight:bold;color:#535389;"> 
+Base de mutualisation de <a href="http://www.citedoc.net/">Citédoc</a></div>
+</p>
+<p>
+41762 notices proposées par des documentalistes de Bretagne (dont 150 revues dépouillées).
+
+<br /><br />Toutes les notices de cette base sont libres de droit et récupérables par le z3950 ou par le panier de l'Opac (fiches pmb 4.4.2 et pmb 4.4.5 pour Bcdi sur Citedoc). <br /><br />Si vous repérez des erreurs, signalez-les. Merci ! <br /><br />
+Recherche simple : ET par défaut (ne pas mettre +)
+</p>

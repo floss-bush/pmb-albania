@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.3 2009-11-07 12:56:11 erwanmartin Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+  <entry code="pmbesOPACGeneric_description">Fonctions relatives à l'OPAC, qui s'utilisent aussi bien en anonyme qu'en loggué</entry>
+  <!--
+    list_shelves
+  -->
+  <entry code="list_shelves_description">Liste les différentes étagères visibles dans l'opac</entry>
+  <entry code="list_shelves_input_description"></entry>
+  <entry code="list_shelves_output_description"></entry>
+  <entry code="list_shelves_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+    -1: Ne pas tenir compte
+    0: emprunteur anonyme
+    x: id de l'emprunteur</entry>
+  <entry code="list_shelves_shelves">Les différentes étagères</entry>
+  <!--
+    retrieve_shelf_content
+  -->
+  <entry code="retrieve_shelf_content_description">Liste les différentes notices contenues dans une étagère</entry>
+  <entry code="retrieve_shelf_content_input_description"></entry>
+  <entry code="retrieve_shelf_content_output_description">Cette fonction tient compte des différents droits d'accès appliquables à l'emprunteur</entry>
+  <entry code="retrieve_shelf_content_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+    -1: Ne pas tenir compte
+    0: emprunteur anonyme
+    x: id de l'emprunteur</entry>
+  <entry code="retrieve_shelf_content_self_id">L'id de l'étagère</entry>
+  <entry code="retrieve_shelf_content_shelf_content">Les ids des notices</entry>
+  
+  <entry code="list_locations_description">Liste les différentes localisations de l'OPAC</entry>
+  <entry code="list_locations_input_description"></entry>
+  <entry code="list_locations_output_description"></entry>
+  <entry code="list_locations_locations">Les différentes localications</entry>
+
+   <!--
+is_also_borrowed_enabled
+--><entry code="is_also_borrowed_enabled_description">Permet de savoir si la fonction "Autre Lecture" est activée ou non</entry>
+   <entry code="is_also_borrowed_enabled_input_description"></entry>
+   <entry code="is_also_borrowed_enabled_output_description"></entry>
+   <entry code="is_also_borrowed_enabled_result">Si la fonction est activée ou non</entry>
+
+  <entry code="also_borrowed_description">Renvoi les autres lectures associées à une notice</entry>
+  <entry code="also_borrowed_input_description"></entry>
+  <entry code="also_borrowed_input_notice_id">L'id de la notice</entry>
+  <entry code="also_borrowed_input_bulletin_id">L'id du bulletin</entry>
+  <entry code="also_borrowed_output_description"></entry>
+  <entry code="also_borrowed_notice_reference">Les différentes autres lectures</entry>
+  <entry code="also_borrowed_list_also_borrowed_notice_reference">L'id de la notice</entry>
+  <entry code="also_borrowed_notice_reference_notice_id">L'id de la notice</entry>
+  <entry code="also_borrowed_notice_reference_notice_title">Le titre de la notice</entry>
+  <entry code="also_borrowed_notice_reference_notice_author">L'auteur de la notice</entry>
+
+   <!--
+list_sections
+--><entry code="list_sections_description">Liste les différentes sections visible de l'OPAC</entry>
+   <entry code="list_sections_input_description"></entry>
+   <entry code="list_sections_output_description"></entry>
+   <entry code="list_sections_location">La localisation des sections</entry>
+   <entry code="list_sections_sections">Les différentes sections</entry>
+
+	<!--
+	get_location_information
+	-->
+	<entry code="get_location_information_description">Renvoi les informations associées à une localisation</entry>
+	<entry code="get_location_information_input_description"></entry>
+	<entry code="get_location_information_output_description"></entry>
+	<entry code="get_location_information_location_id">L'id de la localisation</entry>
+	<entry code="get_location_information_location">Les informations</entry>
+	<!--
+	get_location_information_and_sections
+	-->
+	<entry code="get_location_information_and_sections_description">Renvoi les informations et les différentes sections associées à une localisation</entry>
+	<entry code="get_location_information_and_sections_input_description"></entry>
+	<entry code="get_location_information_and_sections_output_description"></entry>
+	<entry code="get_location_information_and_sections_location_id">L'id de la localisation</entry>
+	<entry code="get_location_information_and_sections_location">Les informations</entry>
+	<entry code="get_location_information_and_sections_sections">Les différentes sections</entry>
+	
+	<!--
+	get_section_information
+	-->
+	<entry code="get_section_information_description">Renvoi les informations associées à une section</entry>
+	<entry code="get_section_information_input_description"></entry>
+	<entry code="get_section_information_output_description"></entry>
+	<entry code="get_section_information_section_id">L'id de la section</entry>
+	<entry code="get_section_information_section">Les informations</entry>
+
+</XMLlist>

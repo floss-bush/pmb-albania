@@ -1,0 +1,12 @@
+<br />
+<b>checking of imported items... 
+</b>
+<br />
+Here you can check all the items received. you'll change their status then they can be borrowed.
+<br /><br />
+<OL>
+<LI>select status and section</LI>
+<LI>check the documents with the scanner head</LI>
+</OL>
+<br />
+			

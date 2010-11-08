@@ -1,0 +1,6 @@
+<h1>Membership management</h1>
+
+<p>The various codes attached to each of the library's users allows you to obtain statistics on your library's readership.</p>
+<p>By combining these codes you should be able to adapt the application to the needs of your library.</p>
+
+

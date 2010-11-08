@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+$Id: params.xml,v 1.2 2008-07-16 15:06:10 ohennequin Exp $ -->
+
+<params>
+    <!-- Nom de l'import -->
+    <importname>EPIRES -&gt; UNIMARC</importname>
+    <!-- Nombre de notices traitées par passe -->
+    <nperpass>200</nperpass>
+    <!-- Type de l'entrée -->
+    <input type="custom" script="input_webepires.inc.php"/>
+    <!-- type de la sortie -->
+    <output importable="yes" type="iso_2709" suffix="uni">
+        <rootelement>unimarc</rootelement>
+    </output>
+
+    <step type="custom">
+        <!-- Conversion texte EPIRES en unimarc -->
+        <script>webepires2xmluni.inc.php</script>
+		<callback>convert_webepires</callback>
+		<localbase>epires</localbase>
+    </step>
+	<step type="toiso">
+        <!-- Conversion xml unimarc en iso2709 unimarc -->
+        <rootelement>unimarc</rootelement>
+        <il>2</il>
+        <sl>2</sl>
+        <dm1>4</dm1>
+        <dm2>5</dm2>
+        <dm3>0</dm3>
+    </step>
+</params>

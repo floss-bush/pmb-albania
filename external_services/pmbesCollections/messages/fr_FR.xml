@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- messages localisés en français pour la classe de fonctions search_functions
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2009-11-07 12:56:17 erwanmartin Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+<!--
+pmbesCollections
+--><entry code="pmbesCollections_description">Fonctions relatives aux collections et sous collections</entry>
+<!--
+get_collection_information
+-->
+<entry code="get_collection_information_description">Renvoi les informations d'une collection</entry>
+<entry code="get_collection_information_input_description"></entry>
+<entry code="get_collection_information_output_description"></entry>
+<entry code="get_collection_information_collection_id">L'id de la collection</entry>
+<entry code="get_collection_information_result">Les informations</entry>
+<!--
+get_subcollection_information
+-->
+<entry code="get_subcollection_information_description">Renvoi les informations d'une sous collection</entry>
+<entry code="get_subcollection_information_input_description"></entry>
+<entry code="get_subcollection_information_output_description"></entry>
+<entry code="get_subcollection_information_subcollection_id">L'id de la sous collection</entry>
+<entry code="get_subcollection_information_result">Les informations</entry>
+<!--
+list_collection_notices
+-->
+<entry code="list_collection_notices_description">Renvoi les ids des notices appartenant à une collection</entry>
+<entry code="list_collection_notices_input_description"></entry>
+<entry code="list_collection_notices_output_description"></entry>
+<entry code="list_collection_notices_collection_id">L'id de la collection</entry>
+<entry code="list_collection_notices_OPACUserId">l'id d'un emprunteur, pour filtrer les résultats selon les droits d'accès
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+<entry code="list_collection_notices_notice_ids">Les ids des notices</entry>
+<!--
+list_subcollection_notices
+-->
+<entry code="list_subcollection_notices_description">Renvoi les ids des notices appartenant à une sous-collection</entry>
+<entry code="list_subcollection_notices_input_description"></entry>
+<entry code="list_subcollection_notices_output_description"></entry>
+<entry code="list_subcollection_notices_subcollection_id">L'id de la sous collection</entry>
+<entry code="list_subcollection_notices_OPACUserId">l'id d'un emprunteur, pour filtrer les résultats selon les droits d'accès
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+<entry code="list_subcollection_notices_notice_ids">Les ids des notices</entry>
+
+<!--
+get_collection_information_and_notices
+-->
+<entry code="get_collection_information_and_notices_description">Combine les fonctions get_collection_information et list_collection_notices</entry>
+<entry code="get_collection_information_and_notices_input_description"></entry>
+<entry code="get_collection_information_and_notices_output_description"></entry>
+<entry code="get_collection_information_and_notices_collection_id"></entry>
+<entry code="get_collection_information_and_notices_OPACUserId"></entry>
+<entry code="get_collection_information_and_notices_information"></entry>
+<entry code="get_collection_information_and_notices_notice_ids"></entry>
+<!--
+get_subcollection_information_and_notices
+-->
+<entry code="get_subcollection_information_and_notices_description">Combine les fonctions get_subcollection_information et list_subcollection_notices</entry>
+<entry code="get_subcollection_information_and_notices_input_description"></entry>
+<entry code="get_subcollection_information_and_notices_output_description"></entry>
+<entry code="get_subcollection_information_and_notices_subcollection_id"></entry>
+<entry code="get_subcollection_information_and_notices_OPACUserId"></entry>
+<entry code="get_subcollection_information_and_notices_information"></entry>
+<entry code="get_subcollection_information_and_notices_notice_ids"></entry>
+<!--
+list_collection_subcollections
+-->
+<entry code="list_collection_subcollections_description">Liste les sous collections contenues dans une collection</entry>
+<entry code="list_collection_subcollections_input_description"></entry>
+<entry code="list_collection_subcollections_output_description"></entry>
+<entry code="list_collection_subcollections_collection_id">L'id de la collection</entry>
+<entry code="list_collection_subcollections_sub_collections">Les sous collections</entry>
+
+</XMLlist>

@@ -1,0 +1,13 @@
+<br />
+<b>Tagging new records module... 
+</b>
+<br /><br />
+You will be able to "tag on" all newly received records and change their status so as to render them available on loan.
+<br /><br />
+<OL>
+<LI>Choose the required status and section</LI>
+<LI>Scan all the documents one by one</LI>
+</OL>
+<br /><br />
+	
+		

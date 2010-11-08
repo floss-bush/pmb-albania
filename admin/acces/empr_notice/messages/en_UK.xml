@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour la gestion des droits d'accès Emprunteurs Notices
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.2 2009-07-28 17:01:07 dbellamy Exp $ -->
+
+<XMLlist>
+	<entry code="long_name">Droits d'accès Emprunteurs - Notices</entry>
+	<entry code="menu_name">Emprunteurs - Notices</entry>
+	<entry code="user_prf_lib">Rôles emprunteurs</entry>
+	<entry code="user_prf_bt_add">Ajouter un rôle</entry>
+	<entry code="user_prf_bt_calc">Calcul automatique des rôles</entry>
+	<entry code="user_prf_calc_list_lib">Rôles emprunteurs calculés</entry>
+	<entry code="user_prf_used_list_lib">Rôles emprunteurs définis</entry>
+	<entry code="user_prf_unused_list_lib">Rôles emprunteurs précédents à réaffecter</entry>
+	<entry code="user_prf_calc_lib">Rôle emprunteur</entry>
+	<entry code="user_prf_def_lib">Rôle emprunteur par défaut (non précisé)</entry>
+	
+	<entry code="res_prf_lib">Profils Notices</entry>
+	<entry code="res_prf_bt_add">Ajouter un profil</entry>
+	<entry code="res_prf_bt_calc">Calcul automatique des profils</entry>
+	<entry code="res_prf_calc_list_lib">Profils notices calculés</entry>
+	<entry code="res_prf_used_list_lib">Profils notices définis</entry>
+	<entry code="res_prf_unused_list_lib">Profils notices précédents à réaffecter</entry>
+	<entry code="res_prf_calc_lib">Profil notice</entry>
+	<entry code="res_prf_def_lib">Profil notice par défaut (non précisé)</entry>
+	
+	<entry code="dom_mod_pro">Modifier profil notice</entry>
+	<entry code="view_noti_opac">Voir notice</entry>
+	<entry code="view_expl_opac">Voir exemplaires</entry>
+	<entry code="view_doc_opac">Voir doc. numériques</entry>
+</XMLlist>

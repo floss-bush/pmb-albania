@@ -1,0 +1,12 @@
+<h2>Recèrca simpla</h2>
+<p><strong>sasissètz lo títol o l'autor de cercar, puèi clicatz <i>Recercar</i></strong></p>
+<hr />
+
+<p>Podètz sasir des noms comuns o de noms pròpris.</p>
+<p>La recèrca <b>ten pas compte</b>dels <b>caractèrs accentuats</b> e de la <b>ponctuacion</b> (é, è, à, ò, ç, !, ', etc.).</p>
+<p>Podètz tanben cercar entre los editors, las colleccions, sotacolleccions, categorias (tesaurus), indexacions (per exemple Dewey), mots claus, resumit e nòtas.</p>
+<p>Per aquò far, marcatz <img src="images/coche.gif" align="absmiddle">
+ d'en primièr la o las casas correspondentas puèi saisissèz vòstre(s) critèri(s) de recèrca e enfin clicatz <i>Recercar</i>.</p>
+<hr />
+<p>Vòstra recèrca pòt èsser tanben una 
+<a href="help.php?whatis=expbool">expression booleana</a>.<br />

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (hongrois)
+$Id: doctype.xml,v 1.4 2009-08-17 21:18:50 bencze Exp $ -->
+
+<XMLlist>
+	<entry code="a">nyomtatott szöveg</entry>
+	<entry code="b">archív, kézirat</entry>
+	<entry code="c">nyomtatott kotta</entry>
+	<entry code="d">kéziratos kotta</entry>
+	<entry code="e">nyomtatott térkép</entry>
+	<entry code="f">kéziratos térkép</entry>
+	<entry code="g">kivetíthető képek</entry>
+	<entry code="i">nem zenei hangfelvétel</entry>
+	<entry code="j">zenei hangfelvétel</entry>
+	<entry code="k">két dimenziós nem vetített képek</entry>
+	<entry code="l">elektronikus dokumentum</entry>
+	<entry code="m">komputer fájl</entry>
+	<entry code="r">három dimenziós műalkotás, természeti tárgy, ...</entry>
+</XMLlist>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<convert>
+	<field code="001" tag="idNotice">
+	</field>
+	<field code="010" tag="prixISBN">
+		<subfield code="a" tag="ISBN"/>
+		<subfield code="c" tag="prix"/>
+	</field>
+	<field code="100" tag="zoneCodageUnimarc">
+		<subfield code="a" tag="codage"/>
+	</field>
+	<field code="101" tag="zoneLangues">
+		<subfield code="a" tag="langueDocument"/>
+		<subfield code="c" tag="langueOriginale"/>
+	</field>
+	<field code="200" tag="zoneTitre">
+		<subfield code="a" tag="titrePrincipal"/>
+		<subfield code="c" tag="titrePropreAuteurDiff"/>
+		<subfield code="d" tag="titreParallele"/>
+		<subfield code="e" tag="titreComplement"/>
+	</field>
+	<field code="205" tag="zoneMentionEdition">
+		<subfield code="a" tag="mention"/>
+	</field>
+	<field code="210" tag="zoneEditeur">
+		<subfield code="a" tag="ville"/>
+		<subfield code="c" tag="nom"/>
+		<subfield code="d" tag="annee"/>
+	</field>
+	<field code="215" tag="zoneCollation">
+		<subfield code="a" tag="nbPages"/>
+		<subfield code="c" tag="illustration"/>
+		<subfield code="d" tag="taille"/>
+		<subfield code="e" tag="materielAccompagnement"/>
+	</field>
+	<field code="225" tag="zoneCollection225">
+		<subfield code="a" tag="nom"/>
+		<subfield code="i" tag="sousCollection"/>
+		<subfield code="v" tag="numDansCollection"/>
+		<subfield code="x" tag="ISSN"/>
+	</field>
+	<field code="300" tag="zoneNotes">
+		<subfield code="a" tag="noteGenerale"/>
+	</field>
+	<field code="327" tag="zoneNotes">
+		<subfield code="a" tag="noteContenu"/>
+	</field>
+	<field code="330" tag="zoneNotes">
+		<subfield code="a" tag="noteResume"/>
+	</field>
+	<field code="410" tag="zoneCollection410">
+		<subfield code="t" tag="nom"/>
+	</field>
+	<field code="410" tag="zoneSousCollection">
+		<subfield code="t" tag="nom"/>
+	</field>
+	<field code="461" tag="zoneMere">
+		<subfield code="t" tag="titre"/>
+		<subfield code="v" tag="numero"/>
+		<subfield code="x" tag="issn"/>
+	</field>
+	<field code="463" tag="zoneBulletin">
+		<subfield code="t" tag="titre"/>
+		<subfield code="v" tag="numero"/>
+		<subfield code="d" tag="date"/>
+		<subfield code="e" tag="mention_date"/>
+	</field>
+	<field code="606" tag="zoneCategories">
+		<subfield code="a" tag="categorie"/>
+	</field>
+	<field code="610" tag="zoneMotsClesLibres">
+		<subfield code="a" tag="mot"/>
+	</field>
+	<field code="676" tag="zoneIndexationDecimale">
+		<subfield code="a" tag="nom"/>
+	</field>
+	<field code="686" tag="zoneIndexationDecimaleCDU">
+		<subfield code="a" tag="nom"/>
+	</field>
+	<field code="700" tag="zoneAuteurPrincipal">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="prenom"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="701" tag="zoneAuteursSecondaires">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="prenom"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="702" tag="zoneAuteursAutres">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="prenom"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="710" tag="zoneAuteurPrincipalCollectivite">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="subdivision"/>
+		<subfield code="d" tag="numero"/>
+		<subfield code="e" tag="lieu"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="g" tag="prenom"/>
+		<subfield code="K" tag="lieu"/>
+		<subfield code="L" tag="ville"/>
+		<subfield code="M" tag="pays"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="711" tag="zoneAuteursSecondairesCollectivite">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="subdivision"/>
+		<subfield code="d" tag="numero"/>
+		<subfield code="e" tag="lieu"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="g" tag="prenom"/>
+		<subfield code="K" tag="lieu"/>
+		<subfield code="L" tag="ville"/>
+		<subfield code="M" tag="pays"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="712" tag="zoneAuteursAutresCollectivite">
+		<subfield code="a" tag="nom"/>
+		<subfield code="b" tag="subdivision"/>
+		<subfield code="d" tag="numero"/>
+		<subfield code="e" tag="lieu"/>
+		<subfield code="f" tag="dates"/>
+		<subfield code="g" tag="prenom"/>
+		<subfield code="K" tag="lieu"/>
+		<subfield code="L" tag="ville"/>
+		<subfield code="M" tag="pays"/>
+		<subfield code="N" tag="siteWeb"/>
+		<subfield code="4" tag="codeFonction"/>
+	</field>
+	<field code="856" tag="zoneLiens">
+		<subfield code="u" tag="lien"/>
+		<subfield code="q" tag="eFormat"/>
+	</field>
+	<field code="801" tag="zoneOrigineNotice">
+		<subfield code="a" tag="paysOrigine"/>
+		<subfield code="b" tag="organismeOrigine"/>
+	</field>
+	<field code="995" tag="exemplaires">
+		<subfield code="k" tag="cote"/>
+		<subfield code="f" tag="codeBarre"/>
+		<subfield code="q" tag="publicVise"/>
+		<subfield code="r" tag="typDocument"/>
+		<subfield code="u" tag="note"/>
+	</field>
+	<field code="996" tag="exemplairesComplets">
+		<subfield code="a" tag="proprietaireLibelle"/>
+		<subfield code="b" tag="proprietaireCode"/>
+		<subfield code="k" tag="cote"/>
+		<subfield code="f" tag="codeBarre"/>
+		<subfield code="u" tag="note"/>
+		<subfield code="m" tag="dateDepot"/>
+		<subfield code="n" tag="dateRetour"/>
+		<subfield code="v" tag="localisationLibelle"/>
+		<subfield code="w" tag="localisationCode"/>
+		<subfield code="x" tag="sectionLibelle"/>
+		<subfield code="y" tag="sectionCode"/>
+		<subfield code="e" tag="typDocLibelle"/>
+		<subfield code="r" tag="typDocCode"/>
+		<subfield code="1" tag="statutLibelle"/>
+		<subfield code="2" tag="statutCode"/>
+		<subfield code="3" tag="pretable"/>
+	</field>
+</convert>

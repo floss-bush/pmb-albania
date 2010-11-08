@@ -1,0 +1,18 @@
+<h2>B&uacute;squeda por t&eacute;rminos del Tesauro</h2>
+<p><strong>La b&uacute;squeda por t&eacute;rminos del tesauro permite navegar entre las diferentes materias de las obras de la 
+biblioteca.</strong></p>
+<p>Las categor&iacute;as equivalen a une clasificaci&oacute;n de las obras (un tesauro) creada para la biblioteca con ayuda de palabras 
+o de expresiones; por ejemplo <i>Literatura medieval</i> o <i>Mamíferos marinos</i></p>
+<p>En esta b&uacute;squeda comience por <b>introducir uno o varios t&eacute;rminos a buscar</b>, 
+por ejemplo <i>historia</i>. Los resultados de la b&uacute;squeda aparecen en dos partes : </p>
+<p>La parte superior le remite a la categor&iacute;a que corresponde a su b&uacute;squeda. Un clic en una de las categor&iacute;as 
+de la parte superior (por ejemplo <i>historia pol&iacute;tica</i>) 
+hace aparecer en la <b>parte inferior m&aacute;s informaci&oacute;n</b> sobre la categor&iacute;a escogida y sobre eventuales 
+<b>reenv&iacute;os</b>.</p>
+<hr />
+<p>Haciendo clic en uno de los enlaces de la parte inferior, usted se deplaza de categor&iacute;a en categor&iacute;a.</p>
+<hr />
+<p>Para seleccionar una categor&iacute;a y que aparezcan las obras correspondientes, haga clic en la lupa 
+<img src='images/search.gif' align='absmiddle'>ubicada al comienzo de la l&iacute;nea.</p>
+<hr />
+<p>Si la lupa no aparece, significa que no hay obras que correspondan a esa categor&iacute;a.</p>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.3 2008-08-26 19:30:23 touraine37 Exp $ -->
+
+<manifest>
+	<name>oai</name>
+	<repository>yes</repository>
+	<comment>Moissonnage d'un entrepôt OAI</comment>
+	<author>Florent TETART</author>
+	<org>PMB Services</org>
+	<date>2007-08-30</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

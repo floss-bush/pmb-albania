@@ -1,0 +1,77 @@
+<?php
+
+// $Id: regex.txt,v 1.5 2009-05-16 11:05:14 dbellamy Exp $
+
+// documentation succincte sur les expressions r&eacute;guli&egrave;res
+
+$content = "
+<table border='0' width='100%'>
+<tr>
+<td align='left'>
+<b>PMB: Les expressions bool&eacute;ennes</b>
+</td>
+<td align='right'>
+<a href='#' onclick='window.close()'>
+<!--<img src='./images/close.gif' border='0' alt='[$msg[197]]' title='$msg[197]'>-->
+[$msg[197]]
+</a>
+</td>
+</tr>
+</table>
+<hr />
+<b>Recherche simple</b>
+<p class='pn-normal'>Par d&eacute;faut, le moteur cherche les &eacute;l&eacute;ments qui contiennent <b>au moins</b> (OU implicite) un des mots saisis. Le tri se fait selon le nombre d&eacute;croissant de mots trouv&eacute;s, puis par ordre alphab&eacute;tique.
+<br />Ex. <em>jambon bayonne</em> signifie les &eacute;l&eacute;ments qui contiennent les mots jambon <b>ou</b> bayonne (jambon de bayonne, jambon de parme, l'histoire de Bayonne, ...).
+<br />Les accents ne sont pas pris en compte ainsi que les majuscules/minuscules. Si deux mots sont s&eacute;par&eacute;s par un autre signe que espace, +, ou -, les deux mots sont consid&eacute;r&eacute;s comme devant appara&icirc;tre dans le r&eacute;sultat <br />Ex. <em>Saint Jean/mer</em> sera analys&eacute; comme : chercher les &eacute;l&eacute;ments qui contiennent <em>saint</em> <b>ou</b> les &eacute;l&eacute;ments qui contiennent <em>jean et mer</em> <b>ou</b> les deux.
+<br />Certains mots sont ignor&eacute;s car trop courants ou sans signification pertinente en fran&ccedil;ais (ex : de, du, da, t, l, d, s, son, sa, ...).
+</p>
+<b>Cas du tiret</b>
+<p class='pn-normal'>
+Le tiret est consid&eacute;r&eacute; comme un op&eacute;rateur entre deux mots (voir plus bas le chapitre : Op&eacute;rateurs logiques entre deux mots). Ainsi, tout mot compos&eacute; avec un tiret doit &ecirc;tre entour&eacute; de guillemets pour faire une recherche en terme exact (voir plus bas le chapitre Recherche avec des termes exacts).
+</p>
+<b>Troncature</b>
+<p class='pn-normal'>Les mots peuvent &ecirc;tre tronqu&eacute;s &agrave; gauche, droite ou partiellement par le caract&egrave;re *
+<br />Ex. <em>chev*</em> cherchera les mots commen&ccedil;ant par <em>chev</em> (cheval, chevaux, cheveux, ...), <em>*logie</em> cherchera les mots finissant par 'logie' (psychologie, th&eacute;ologie, trilogie, ...), <em>p*logie</em> cherchera les mots commen&ccedil;ant par p et finissant par logie (psychologie, pal&eacute;onthologie, pathologie, ...).
+<br />Plusieurs troncatures peuvent-&ecirc;tre utilis&eacute;es dans un m&ecirc;me mot.</p>
+<b>Recherche avec des termes exacts</b>
+<p class='pn-normal'>Un terme exact est d&eacute;fini par un texte entour&eacute; de guillemets. Si le moteur de recherche rencontre un terme exact, il cherche les &eacute;l&eacute;ments contenant exactement ce texte. La troncature peut-&ecirc;tre utilis&eacute;e dans les termes exacts.
+<br />Ex. <em>\"dent\"</em> signifie tous les &eacute;l&eacute;ments contenant le texte dent (dentition, accident, indentation, ...).
+<br />La recherche exacte est pratique pour la recherche d'expressions contenant des espaces ou des signes de ponctuation. (un sigle par exemple).
+	<br />Ex. <em>\"A.N.P.E.\"</em> cherche les &eacute;l&eacute;ments qui contiennent le texte A.N.P.E., <em>A.N.P.E.</em> cherche les &eacute;l&eacute;ments qui continnent les mots A ou N ou P ou E .
+<br />Les accents et les majuscules/miniscules ne sont pas pris en compte dans un terme exact. Enfin, les termes exacts peuvent &ecirc;tres utilis&eacute;s dans toutes les expressions complexes d&eacute;crites ci-dessous.
+</p>
+<b>N&eacute;gation</b>
+<p class='pn-normal'>Le symbole ~ devant un terme repr&eacute;sente un n&eacute;gation de ce terme. Cela signifie la recherche de tous les &eacute;l&eacute;ments ne contenant pas ce terme
+<br />Ex. <em>~travail</em> signifie tous les &eacute;l&eacute;ments sauf ceux qui contiennent le mot travail.
+</p>
+<b>Op&eacute;rateurs logiques entre deux mots</b>
+<p class='pn-normal'>Des op&eacute;rateurs logiques peuvent &ecirc;tre utilis&eacute;s entre les mots :</p>
+<ul><li><b>+</b> : op&eacute;rateur ET<br />Ex. <em>disque + dur</em> signifie les &eacute;l&eacute;ments qui contiennent les mots disque <b>et</b> dur.</li>
+<li><b>-</b> : op&eacute;rateur SAUF (ET NON)<br />Ex. <em>disque - dur</em> signifie les &eacute;l&eacute;ments qui contiennent le mot disque, <b>sauf ceux qui contiennent aussi</b> le mot dur.</li>
+</ul>
+<p class='pn-normal'>Plusieurs op&eacute;rateurs peuvent-&ecirc;tre enchain&eacute;s dans une m&ecirc;me expression. Ils sont appliqu&eacute;s dans l'ordre, de gauche &agrave; droite.
+<br />Ex. <em>po&eacute;sie + fran&ccedil;ais* - romantique*</em> signifie les &eacute;l&eacute;ments contenant <em>po&eacute;sie et fran&ccedil;ais(e)(s)</em> <b>sans</b> <em>romantique(s)</em>.
+<br /><br />Attention, deux op&eacute;rateurs ne peuvent se suivre, une n&eacute;gation ne peut-&ecirc;tre combin&eacute;e &agrave; un op&eacute;rateur (<b>+~</b> revient au m&ecirc;me que l'op&eacute;rateur <b>-</b>).
+</p>
+<b>Regroupements</b>
+<p class='pn-normal'>Une expression peut-&ecirc;tre regroup&eacute;e pour devenir un terme. Ce regroupement se fait avec les <b>parenth&egrave;ses</b>. Cela permet de changer l'ordre d'application des op&eacute;rateurs ou de combiner les r&eacute;sultats d'expressions complexes.
+<br />Ex.</p>
+<ul>
+<li><em>po&eacute;sie + (fran&ccedil;aise romantique)</em> signifie dans tous les &eacute;l&eacute;ments qui contiennent francaise ou romantique, uniquement ceux qui contiennent <em>po&eacute;sie</em>.</li>
+<li><em>(po&eacute;sie + fran&ccedil;aise) romantique</em> signifie tous les &eacute;l&eacute;ments qui contiennent <em>po&eacute;sie et fran&ccedil;aise</em> <b>ou</b> tous les &eacute;l&eacute;ments qui contiennent <em>romantique</em></li>
+<li><em>~(po&eacute;sie + fran&ccedil;aise) + (litt&eacute;rature am&eacute;ri*)</em> signifie <em>tous les &eacute;l&eacute;ments qui ne contiennent pas po&eacute;sie et fran&ccedil;aise</em> <b>et</b> <em>les &eacute;l&eacute;ments qui contiennent litt&eacute;rature ou am&eacute;ri*</em></li>
+</ul>
+<p class='pn-normal'>Les parenth&egrave;ses peuvent-&ecirc;tre imbriqu&eacute;es sans limite.<br />Ex. <em>(po&eacute;sie + (fran&ccedil;aise romantique)) (litt&eacute;rature + XIX)</em> signifie <em>dans tous les &eacute;l&eacute;ments qui contiennent francaise ou romantique, uniquement ceux qui contiennent po&eacute;sie</em> <b>ou</b> <em>les &eacute;l&eacute;ments qui contiennent litt&eacute;rature et XIX</em> 
+</p>
+<b>Pertinence</b>
+<p class='pn-normal'>Les r&eacute;sultats sont tri&eacute; par ordre de pertinence puis par ordre alphab&eacute;tique. La pertinence est calcul&eacute;e simplement par le nombre total de mots ou de termes exacts trouv&eacute;s.
+<br />Ex.</p>
+<ul>
+<li><em>jambon bayonne</em> trouvera tous les &eacute;l&eacute;ments contenant jambon ou bayonne, ceux qui contiennent les deux mots seront au d&eacute;but de la liste de r&eacute;sultat</li>
+<li><em>~(po&eacute;sie + fran&ccedil;aise) (litt&eacute;rature am&eacute;ri*)</em> trouvera tous les &eacute;l&eacute;ments qui ne contiennent pas <em>po&eacute;sie et fran&ccedil;aise</em>, dans ces &eacute;l&eacute;ments, ceux qui contiennent <em>litt&eacute;rature ou am&eacute;ri*</em> apparaitront en premier dans la liste de r&eacute;sultats (d'abord litt&eacute;rature et am&eacute;ri*, puis am&eacute;ri*, puis litt&eacute;rature)</li>
+</ul>
+";
+
+print $content;
+
+?>

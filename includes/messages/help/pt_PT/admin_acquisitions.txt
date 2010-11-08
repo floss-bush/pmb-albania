@@ -1,0 +1,24 @@
+<h1>Aquisi&ccedil;&otilde;es</h1>
+<p><b>Dados</b> ficha de identifica&ccedil;&atilde;o da biblioteca. 
+</p>
+<p><b>Transac&ccedil;&otilde;es contabil&iacute;sticas</b> defini&ccedil;&atilde;o
+das transac&ccedil;&otilde;es contabil&iacute;sticas. 
+</p>
+<p><b>IVA sobre compras</b> gest&atilde;o dos diferentes impostos ou
+taxas de IVA sobre as compras (se a gest&atilde;o
+do IVA est&aacute; activada). 
+</p>
+<p><b>Tipos de produtos</b> categor&iacute;as de produtos a comprar,
+permite fazer o c&aacute;lculo das entregas e como afecta as contas
+de compras. 
+</p>
+<p><b>Despesas Suplementares</b> eventuais associadas &agrave;s
+aquisi&ccedil;&otilde;es e &agrave;s suas contas. 
+</p>
+<p><b>Modos de pagamento</b> e atrasos. 
+</p>
+<p><b>Or&ccedil;amentos</b> reparti&ccedil;&atilde;o dos or&ccedil;amentos.
+</p>
+
+
+

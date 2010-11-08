@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Mimetypes supportés par la classe
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.3 2010-07-08 15:28:34 arenou Exp $ -->
+
+
+<manifest name="images">
+	<desc msg="Affichage classique des images, possibilité d'inclure un watermark"/>
+	<screenshoot url="images/images.class.png" />
+	<mimetypes>
+		<mimetype name="image/png"/>
+		<mimetype name="image/x-png"/>
+		<mimetype name="image/jpg"/>
+		<mimetype name="image/jpeg"/>
+		<mimetype name="image/gif"/>
+	</mimetypes>
+</manifest>

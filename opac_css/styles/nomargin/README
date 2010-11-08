@@ -1,0 +1,30 @@
+
+/*****************************************************************************************
+	Note explicative
+
+	Les contenus decrits ici ont pour but de renseigner les parametres
+	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+	suivant les directives #obligatoire #recommande...
+
+	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+	implementer le parametre en question.
+	
+	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+	
+*****************************************************************************************/
+
+
+/*************************
+biblio_important_p1
+#facultatif a personaliser
+*************************/
+<div><img src="styles/nomargin/images/bandeau.png" id="imgbandeau" alt="" />Catalogue en ligne</ div>
+
+
+/*************************
+biblio_preamble_p1
+#facultatif a personaliser
+*************************/
+informations sur la bibliothèque

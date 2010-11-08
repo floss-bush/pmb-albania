@@ -1,0 +1,15 @@
+<h1>Selective Dissemination of Information module</h1>
+<p>SDI is a current awareness system which regularly alerts readers to the latest publications in their field(s) of interest corresponding to their reader's profiles.</p>
+
+<h2>Routing</h2>
+Informing readers by email.<br />
+<h2>SDI basket</h2>
+An SDI basket is where references to newly received or published material are placed. Its content will be routed to readers.<br />
+<h2>Equations </h2>
+Equations fill in the SDI baskets.<br />
+<h2>Classifications </h2>
+The classifications will help you organize your baskets and equations.<br />
+
+
+
+ 

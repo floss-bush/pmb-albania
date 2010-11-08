@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- messages localisés en français pour la classe de fonctions search_functions
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.1 2009-10-15 16:31:32 erwanmartin Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+
+<!--
+pmbesAuthor
+-->
+	<entry code="pmbesAuthors_description">Funksione per autoret</entry>
+<!--
+get_author_information
+-->
+<entry code="get_author_information_description">Merr te dhenat e autorit duke u nisur nga ID i tij</entry>
+<entry code="get_author_information_input_description"></entry>
+<entry code="get_author_information_output_description"></entry>
+<entry code="get_author_information_author_id">ID i autorit</entry>
+<entry code="get_author_information_result">Te dhenat</entry>
+<!--
+list_author_notices
+-->
+<entry code="list_author_notices_description">Lista e referencave te autorit</entry>
+<entry code="list_author_notices_input_description"></entry>
+<entry code="list_author_notices_output_description"></entry>
+<entry code="list_author_notices_author_id">ID i autorit</entry>
+<entry code="list_author_notices_OPACUserId">ID e nje huazuesi, per te filtruar rezultatet ne baze te te drejtave te aksesit
+	-1: te mos perfillen
+	0: huazues anonim
+	x: ID e huazuesit</entry>
+<entry code="list_author_notices_notice_ids">ID e referencave te autorit</entry>
+
+<!--
+get_author_information_and_notices
+-->
+<entry code="get_author_information_and_notices_description">Kombino funksionet get_author_information dhe list_author_notices</entry>
+<entry code="get_author_information_and_notices_input_description">Shfaq te dhenat hyrese te funksioneve te kombinuara</entry>
+<entry code="get_author_information_and_notices_output_description">Shfaq rezultatet e funksioneve te kombinuara</entry>
+<entry code="get_author_information_and_notices_author_id"></entry>
+<entry code="get_author_information_and_notices_OPACUserId"></entry>
+<entry code="get_author_information_and_notices_information"></entry>
+<entry code="get_author_information_and_notices_notice_ids"></entry>
+
+</XMLlist>

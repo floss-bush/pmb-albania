@@ -1,0 +1,1 @@
+yaz-ztest.exe -c zserver.ini tcp:amboise:210

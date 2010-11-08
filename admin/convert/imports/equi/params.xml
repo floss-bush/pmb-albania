@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>Base PMB -&gt; pmb-XML MARC</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+	<!-- Type de sortie -->
+	<output importable="no" type="xml" suffix="xml">
+		<rootelement>unimarc</rootelement>
+	</output>
+</params>

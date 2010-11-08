@@ -1,0 +1,89 @@
+// +-------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: pre_requisite_en_US.txt,v 1.2 2005-02-02 07:53:14 touraine37 Exp $
+
+-------------------------------------------------------------------------------
+Configuration of PHP : php.ini
+
+Place of this file for Windows :
+    \windows\
+    or :
+    \install_dir_of_apache\apache\
+   
+What to check :
+    GD : check if it is available and activated (barcode printing)
+    PHP_YAZ : check if it is available and activated (z3950 search)
+    PHP_BZ2 : check if it is available and activated (backup of the database)
+    PHP_XSLT : check if it is available and activated (XML/UNIMARC/RTF conversions)
+   
+What must be modified in php.ini :
+    ;;;;;;;;;;;;;;;;;;;
+    ; Resource Limits ;
+    ;;;;;;;;;;;;;;;;;;;
+
+    max_execution_time = 120     ; Maximum execution time of each script, in seconds
+   
+increase to 120 seconds
+
+    Extensions :
+   
+    extension=php_bz2.dll
+    extension=php_gd.dll or extension=php_gd2.dll
+    extension=php_yaz.dll
+    extension=php_xslt.dll
+
+The corresponding DLL files must be copied in \windows\system32,
+Take the files which are with your PHP distribution, the versions must 
+be compatible.
+
+These DLL files should be avalaible in
+    PHP directory or php\dlls directory
+    or in EasyPHP\php directory if you install EasyPHP 
+
+These DLL are :
+    expat.dll, iconv.dll, sablot.dll, yaz.dll
+   
+In order to be able to upload and store files bigger than 2Mb,
+increase size of max upload :
+    ; Maximum allowed size for uploaded files.
+    upload_max_filesize = 16M
+
+---------------------
+Trick :
+    extension=php_mime_magic.dll
+    mime_magic.magicfile = "c:\easyphp\php\magic.mime"
+This extension (not mandatory) allow you PMB to know what type of file 
+you are trying to store. Without this extension,  PMB uses the file 
+extension to guess what type of file it is.
+Check (or create) the following line :
+    mime_magic.magicfile = "c:\easyphp\php\magic.mime"
+give the right path to magic.mime !
+
+---------------------
+LDAP : import et authentification des lecteurs sur serveur LDAP :
+	extension=php_ldap.dll
+	PHP <= 4.2.0 requiert libsasl.dll  (fournie), PHP >= 4.3.0 requiert libeay32.dll , ssleay32.dll  (fournies)
+	Ces DLL sont copier dans le répertoire Windows/system32
+
+-----------------------------------------------------------------------
+For an installation on Linux, the parameters of php.ini are the same but 
+the extensions which are "*.so". Maybe you will have to recompile PHP.
+
+Lots of distributions now include these packages, or they can be 
+downloaded without recompiling.
+have a look at :
+    compilation_yaz_mdk.pdf
+    Installation YAZ Slackware.pdf
+    installation_debian.pdf
+   
+-----------------------------------------------------------------------
+Configuration of MySQL
+In order to be able to store files bigger than 2Mb,
+increase size of max packet .
+lokk for the file my.ini or equivalent
+look for :
+    set-variable    = max_allowed_packet=1M
+change it to
+    set-variable    = max_allowed_packet=16M
+16M will allow you to store files up to 16 Mb

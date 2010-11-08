@@ -1,0 +1,76 @@
+<h2>Expresi&oacute;n booleana</h2>
+<p class='pn-normal'>Por defecto, el motor de b&uacute;squeda busca los elementos que contienen <b>al menos</b> una de las palabras ingresadas. 
+Los resultados se muestran seg&uacute;n el n&uacute;mero decreciente de palabras encontradas; y, por orden alfab&eacute;tico.
+<br />Ej. <em>jamon bellota</em> al realizar una b&uacute;squeda con estas dos palabras, el motor buscar&aacute; registros que
+    contengan jam&oacute;n <b>o</b> bellota (jam&oacute;n de bellota, jam&oacute;n york, &aacute;rbol de bellota, ...).
+<br />Los caracteres que no sean num&eacute;ricos o alfab&eacute;ticos son reemplazados por espacios, los acentos no son tomados en cuenta, 
+tampoco las may&uacute;sculas/min&uacute;sculas.
+	<br />Ej. <em>Lyc&eacute;e Saint-Jean</em> ser&aacute; analizado como tres palabras : <em>lycee saint jean</em> 
+<br />Algunas palabras no se toman en cuenta por ser vac&iacute;as de contenido (ej : la, de, el, las, los, su, suyo, ...).
+</p>
+<br />
+<b>Truncamiento</b>
+<p class='pn-normal'>Las palabras pueden truncarse por la derecha, la izquierda o parcialmente introduciendo el signo *.
+<br />Ex. <em>cam*</em> buscar&aacute las palabras que comienzan con <em>cam</em> (cama, camino, caminar, ...), 
+<em>*log&iacute;a</em> buscar&aacute; las palabras que terminan en 'log&iacute;a' (psicolog&iacute;a, teolog&iacute;a, trilog&iacute;a, ...), 
+<em>p*log&iacute;a</em> buscar&aacute; las palabras que comienzan con p y terminan en log&iacute;a (psicolog&iacute;a, paleontolog&iacute;a, patolog&iacute;a, ...).
+<br />Se puede utilizar m&aacute;s de un truncamiento para una misma palabra.</p>
+<b>B&uacute;squeda por t&eacute;rminos exactos</b>
+<p class='pn-normal'>Un t&eacute;rmino es definido por un texto entre comillas. Si el motor de b&uacute;squeda encuentra un t&eacute;rmino 
+exacto, busca los elementos que contienen exactamente ese texto. El truncamiento tambi&eacute;n se puede utilizar con t&eacute;rminos exactos.
+<br />Ej. <em>\"dent\"</em> representa todos los textos que contienen el elemento dent (dentista, accidente, identificaci&oacute;n, ...).
+<br />La b&uacute;squeda exacta resulta pr&aacute;ctica para la b&uacute;squeda de expresiones que contienen espacios o signos de 
+puntuaci&oacute;n (una abreviatura por ejemplo).
+<br />Ej. <em>\"A.N.P.E.\"</em> busca los elementos que contienen las palabras A o N o P o E.
+<br />Los acentos y las may&uacute;sculas/min&uacute;sculas no se toman en cuenta en un t&eacute;rmino exacto. Finalmente, los 
+t&eacute;rminos exactos pueden ser utilizados con todos los operadores complejos que se describen m&aacute;s abajo.
+</p>
+<b>Negaci&oacute;n</b>
+<p class='pn-normal'>El s&iacute;mbolo ~ delante de un t&eacute;rmino representa una negaci&oacute;n de este t&eacute;rmino. 
+Esto significa la b&uacute;squeda de todos los elementos que <u>no</u> contienen ese t&eacute;rmino.
+<br />Ej. <em>~trabajo</em> representa todos los elementos menos aquellos que contienen la palabra trabajo.
+</p>
+<b>Operadores l&oacute;gicos entre dos palabras</b>
+<p class='pn-normal'>Los operadores l&oacute;gicos pueden utilizarse entre palabras :</p>
+<ul><li><b>+</b> : operador Y<br />Ej. <em>disco + duro</em> representa los elementos que contienen las palabras 
+disco <b>y</b> duro.</li>
+<li><b>-</b> : operador EXCEPTO (Y NO)<br />Ej. <em>disco - duro</em> representa los elementos que contienen la palabra disco, 
+<b>excepto aquellos que contienen tambi&eacute;n la palabra </b>duro.</li>
+</ul>
+<p class='pn-normal'>Varios operadores pueden encadenarse en una misma b&uacute;squeda. Su aplicaci&oacute;n mantiene un orden, 
+de izquierda a derecha.
+<br />Ej. <em>poes&iacute;a + frances* - rom&aacute;ntica*</em> representa los elementos que contienen <em>poes&iacute;a et frances(a)(s)</em> 
+<b>sin</b> <em>rom&aacute;ntica(s)</em>.
+<br /><br />Atenci&oacute;n ! dos operadores no pueden sucederse, una negaci&oacute;n no se puede combinar con un operador 
+(<b>+~</b> es igual que el operador <b>-</b>).
+</p>
+<b>Reagrupaciones</b>
+<p class='pn-normal'>Una expresi&oacute;n puede ser reagrupada para convertirse en un conjunto a buscar. Este reagrupamiento se 
+hace mediante <b>par&eacute;ntesis</b>. Esto permite cambiar el orden de aplicaci&oacute;n de los operadores o combinar los resultados 
+de expresiones complejas.
+<br />Ej.</p>
+<ul>
+<li><em>poes&iacute;a + (francesa rom&aacute;ntica)</em> representa, dentro de todos los elementos que contienen francesa o rom&aacute;ntica, 
+&uacute;nicamente aquellos que contienen <em>poes&iacute;a</em>.</li>
+<li><em>(poes&iacute;a + francesa) rom&aacute;ntica</em> representa todos los elementos que contienen <em>poes&iacute;a y francesa</em> <b>o</b> 
+todos los elementos que contienen <em>rom&aacute;ntica</em></li>
+<li><em>~(poes&iacute;a + francesa) + (literatura am&eacute;ri*)</em> representa los elementos <em>que no contienen ni poes&iacute;a ni francesa</em>
+ <b>y</b> <em>que contienen literatura o am&eacute;ri*</em></li>
+</ul>
+<p class='pn-normal'>Los par&eacute;ntesis pueden ser intercalados sin l&iacute;mite.<br />Ej. <em>(poes&iacute;a + 
+(francesa rom&aacute;ntica)) (literatura + XIX)</em> representa <em>dentro de todos los elementos que contienen francesa o rom&aacute;ntica, 
+s&oacute;lo aquellos que contienen poes&iacute;a</em> <b>o</b> <em>los elementos que contienen literatura y XIX</em> 
+</p>
+<b>Pertinencia</b>
+<p class='pn-normal'>Los resultados est&aacute;n clasificados por orden de pertinencia y luego por orden alfab&eacute;tico. 
+La pertinencia se calcula simplemente seg&uacute;n el n&uacute;mero total de palabras o de t&eacute;rminos exactos encontrados.
+<br />Ej.</p>
+<ul>
+<li><em>jam&oacute;n bellota</em> encontrar&aacute; todos los elementos que contengan jam&oacute;n o bellota, aquellos que contengan las dos 
+palabras se encontrar&aacute;n al principio de la lista de resultados</li>
+<li><em>~(poes&iacute;a + francesa) (literatura ameri*)</em> encontrar&aacute; todos los elementos que no contengan <em>poes&iacute;a y francesa</em>,
+ dentro de esos elementos, aquellos que contengan <em>literatura o ameri*</em> aparecer&aacute;n primero en la lista de resultados 
+ (primero literatura y ameri*, luego ameri*, luego litterature)</li>
+</ul>
+<hr />
+<p>Los operadores booleanos pueden utilizarse en <a href="help.php?whatis=simple_search">b&uacute;squeda simple</a> y en <a href="help.php?whatis=search_multi">b&uacute;squeda avanzada</a>.</p>

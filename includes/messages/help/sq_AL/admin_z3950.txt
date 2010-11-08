@@ -1,0 +1,4 @@
+<h1>Z 39.50</h1>
+<p>Z 39.50 client configuration for volumes import.</p>
+
+<b>Servers</b> list of Z39.50 servers. You can add or delete servers.

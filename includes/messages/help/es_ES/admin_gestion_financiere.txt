@@ -1,0 +1,13 @@
+<h1>Gesti&oacute;n financiera de los usuarios</h1>
+<p>La gesti&oacute;n financiera de los usuarios permite generar los movimientos financieros asociados a cada usuario :
+</p>
+<ul>
+<li>abonos
+<li>multas como consecuencia de la devoluci&oacute;n con retraso de los documentos
+<li>tarifa de los pr&eacute;stamos seg&uacute;n el tipo de documento
+</ul>
+<p>Si usted ha escogido la gesti&oacute;n simple de las tarifas de los abonos, &eacute;stas est&aacute;n visibles en
+ <a href='admin.php?categ=empr&sub=categ'>Administraci&oacute;n; Usuarios; Categor&iacute;as de usuarios</a>.</p>
+<p>Si usted ha escogido la gesti&oacute;n simple de las tarifas de pr&eacute;stamos, &eacute;stas est&aacute;n visibles en 
+<a href='admin.php?categ=docs&sub=typdoc'>Administraci&oacute;n ; Ejemplares ; Tipos de documentos</a>.</p>
+

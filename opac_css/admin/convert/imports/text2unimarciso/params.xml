@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+$Id: params.xml,v 1.1 2006-04-27 21:33:43 gueluneau Exp $ -->
+
+<params>
+    <!-- Nom de l'import -->
+    <importname>Fichier texte -&gt; UNIMARC ISO 2709</importname>
+    <!-- Nombre de notices traitées par passe -->
+    <nperpass>200</nperpass>
+    <!-- Type de l'entrée -->
+    <input type="text" header="yes"/>
+    <!-- type de la sortie -->
+    <output importable="yes" type="iso_2709" suffix="uni"/>
+    <step type="texttoxml">
+        <!-- Conversion texte en unimarc -->
+        <trootelement>unimarc</trootelement>
+        <separator>|</separator>
+        <delimitedby></delimitedby>
+        <escaped>yes</escaped>
+        <cols>
+            <col id="1">
+                <field>010</field>
+                <subfield>a</subfield>
+            </col>
+            <col id="2,3">
+                <field>995</field>
+                <subfield>f,k</subfield>
+            </col>
+            <col id="4,5">
+                <field>700</field>
+                <subfield>a,b</subfield>
+            </col>
+            <col id="6,7">
+                <field>200</field>
+                <subfield>a,d</subfield>
+                <ind>1 </ind>
+            </col>
+            <col id="8,9,10">
+                <field>210</field>
+                <subfield>a,c,d</subfield>
+            </col>
+            <col id="11">
+                <field>010</field>
+                <subfield>d</subfield>
+            </col>
+            <col id="12,13">
+                <field>225</field>
+                <subfield>a,h</subfield>
+            </col>
+            <col id="14,15,16">
+                <field>215</field>
+                <subfield>a,c,d</subfield>
+            </col>
+            <col id="17">
+                <field>676</field>
+                <subfield>a</subfield>
+            </col>
+        </cols>
+    </step>
+    <step type="toiso">
+        <!-- Conversion xml unimarc en iso2709 unimarc -->
+        <rootelement>unimarc</rootelement>
+        <il>2</il>
+        <sl>2</sl>
+        <dm1>4</dm1>
+        <dm2>5</dm2>
+        <dm3>0</dm3>
+    </step>
+</params>

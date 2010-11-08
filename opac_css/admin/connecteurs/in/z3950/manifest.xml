@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<manifest>
+	<name>z3950</name>
+	<repository>no</repository>
+	<comment>Interrogation Z 39.50</comment>
+	<author>Florent TETART</author>
+	<org>PMB Services</org>
+	<date>2007-08-30</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

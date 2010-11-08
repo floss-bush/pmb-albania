@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisŽs en franais pour le connecteur fichier
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.1 2009-11-06 16:38:23 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="cfile_conversion">Conversion to apply</entry>
+	<entry code="cfile_noconversion_unimarc">No conversion - Import UNIMARC-2709</entry>
+	<entry code="cfile_noconversion_pmbxml">No conversion - Import pmb-XML UNIMARC</entry>
+	<entry code="cfile_please_enter_file">Please enter the file to import</entry>
+	<entry code="cfile_xsl_exemplaire">Style sheet to apply to the records</entry>
+	<entry code="cfile_keep_xsl_exemplaire">Keep the file %s</entry>
+	<entry code="cfile_delete_xsl_exemplaire">Remove / Replace the current file</entry>
+</XMLlist>

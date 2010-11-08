@@ -1,0 +1,594 @@
+/* +---------------------------------------------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +---------------------------------------------------------------------------------------+
+// $Id: 1.css,v 1.56 2005-07-30 06:11:34 touraine37 Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attributs généraux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+BODY  { 	
+		font-size: 10pt;
+		font-family: verdana, geneva, helvetica, arial;
+		background-color: #FFF0A7;
+		margin: 0em 0em 0em 0em; }
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliquées à des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* #container : partie d'affichage principale à droite de l'écran */
+#container {
+	position: absolute;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding: 0px; 
+	background:transparent;
+	color: #000;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	z-index: 10; 
+	height: 100%;
+	width: 100%;}
+
+#intro {
+	margin-top: 0px;
+	margin-left: 14%;
+	width:86%;
+	padding: 0px;
+	}
+	
+#intro_message {
+	display:none;}
+		
+#intro_bibli {	
+		padding-right: 0px;
+		z-index: 2;
+		}
+	
+	#intro_bibli h3 {	
+		font-weight: semibold;
+		font-size: 13pt;
+		color : #ffffff;
+		background : #0023A4;
+		}
+	
+	#intro_bibli h3.span {	
+		padding-left:10px;
+		background : #0023A4;
+		margin-bottom:15px;	
+		}
+	
+	#intro_bibli .p1,
+	#intro_bibli .p2 { 
+		padding: 0px 0px 0px 0px ;
+		margin: 0px 0px 0px 0px ;
+		}
+	#intro_bibli .p2 { 	
+		padding-bottom:8px ;
+		}
+		
+
+#main {	
+		position:absolute;
+		left: 14%;
+		margin-right: 10px;
+		padding: 0px;
+		height: 100%;
+		width:86%;
+		top:110px;
+		}
+
+	#main h3
+	{	margin-top: 0px;
+		margin-left: 0px;
+		margin-bottom: 15px;
+		margin-right: 0px;
+		padding-top: 0px;
+		padding-left: 0px;
+		padding-bottom: 0px;
+		padding-right: 0px;
+		font-weight: bold;
+		text-align: left;
+		border-bottom: dotted 1px #0023A4;
+		font-size:11pt; }
+
+	#main h3 span 
+	{ 	color:#0023A4;
+		padding-left: 0px;
+		padding-right: 20px;
+		padding-bottom:-10px;
+		margin-bottom:-10px; }
+
+	#main ul.search_tabs{
+	      margin:0;
+	      padding:0;
+          list-style:none;
+          clear:right;
+          height:24px;
+          background : url("pointsable.gif") repeat-x bottom left;
+          }
+
+	#main ul.search_tabs li{
+		  float:left;
+		  padding:3px 6px 0px 6px;
+      border:1px solid #765;  
+      margin-right:4px;
+		  margin-bottom:5px;
+      height:19px;
+      border-bottom:none;  
+		  background:#DFD087;
+		  color:#0023A4;}
+
+	#main ul.search_tabs li a{
+		text-decoration:none;
+		font-weight:normal;
+		color:#333366;}
+          
+	#main ul.search_tabs li#current{
+		  float:left;
+		  padding:3px 6px 0px 6px;
+		  background:#FFF0A7;
+      border-bottom:1px solid #FFF0A7;
+	    margin-bottom:4px;
+      height:19px;
+      }
+          
+#main #search_crl {
+    	clear:both;
+    	}      
+
+.div_clr {
+    	clear:both;
+    	}  
+
+
+#location {
+	clear:both;
+	}
+
+/* Colonnes */
+.colonne2 {
+  float: left;
+  width: 50%;
+}
+
+.colonne_suite {
+  float: left;
+}
+
+/* informations pour afficher les catégories */
+div.row_categ {
+ clear: both;
+}
+
+#categories {
+	display: block;
+	}
+
+#categories H1  
+	{ 	font-weight: 500; 
+		font-size: 1.5em; 
+		background-color: transparent; 
+		letter-spacing: 150%; 
+		margin: 0.5em 0.2em 0.5em 0.5em; 
+		display: inline; 
+		}
+
+div.category 
+	{ 	float:left; 
+		padding: 0.5em 0.2em; 
+		width:30%;
+		}
+		
+#categories-container H2  
+	{ 	font-weight: bold; 
+		font-size: 1em; 
+		background: transparent; 
+		margin-top: 0em; 
+		margin-bottom: 0em; 
+		}
+		
+#categories-container LI  
+	{ 	font-size: 0.9em; 
+		display: inline;
+		}
+
+#categories-container LI:after  
+	{ 	font-size: 0.8em; 
+		content: ", "; 
+		}
+		
+#categories-container UL 
+	{ 	margin-top: 0em;
+		margin-bottom: 0em; 
+		padding-left: 0em; 
+		}
+		
+/* reset des largeurs de #categories */
+/* après un float:left; l'élément bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+.last_entries { clear:both; }
+#etageres { 
+	margin-top:10px;
+	clear:both; 
+	}
+
+#bandeau
+	{	font-size: 0.8em;
+		text-align: left;
+		color:#000;
+		background : transparent url("bandeau_gauche.gif")  no-repeat top left;
+		position: absolute;
+		margin: 0px;
+		padding: 0px;
+		padding-left:5px;
+		padding-right:5px;
+		padding-bottom:50px;
+		height:100%;
+		width: 12%;
+		top:0px;
+		}
+
+	#bandeau A 
+		{	color:#555555; }
+
+	#bandeau form 
+		{	padding: 0 0 0 0 ;
+			margin: 0 0 0 0 ; }
+
+	#bandeau h3 
+	{	color:#0023A4;
+		font-weight: bold;
+		font-size:9pt;
+		text-align: left;
+		background-color: #FFF0A7;
+		margin: 0 0 0px 0 ;
+		margin-left: -4px;
+		padding-left:4px;
+		margin-top: 0px ; }
+
+	#bandeau span.meteo 
+	{	text-transform:lowercase; 	}
+
+	#bandeau ul 
+	{	margin-top: 0px;
+		margin-bottom: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 0px;}
+		
+	#bandeau li 
+	{	line-height: 1em;
+		list-style-type: none;
+		background: transparent no-repeat top center;
+		display: block;
+		padding-top: 0px;
+		margin-bottom: 0px; }
+
+
+#container #all_footer {
+	position:absolute;
+	margin-left:20%;
+	display:none;
+	width:1px;
+	height:1px;
+	z-index:1;
+	background:#000000;
+}
+
+	
+	#llogin li, #lmeteo li 
+	{	background: no-repeat 0px 0px;
+		padding-left: 0px;	}
+
+	#llogin a, #lmeteo a 
+	{ 	display:block; text-transform:lowercase; }
+	
+	#llogin a.c, #lmeteo a.c 
+	{	display:inline; text-transform: none; }
+
+
+#extraDiv1 	{ }
+#extraDiv2 	{ }
+#extraDiv3 	{ }
+#extraDiv4 	{ }
+#extraDiv5 	{ }
+#extraDiv6 	{ }
+
+#footer 
+	{	
+		clear:both;
+		margin-top: 0px;
+		margin-left: 0px;
+		margin-bottom: 0px;
+		margin-right: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		width: 100%;
+		background: #FFFFCC;
+		color: transparent;
+		text-align: center;
+		voice-family: "\"}\"";
+		voice-family:inherit; }
+	
+	#footer a:link, #footer a:visited 
+	{	margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		color:#A75204;
+		font-size:9pt;
+		font-weight: bold;	}
+
+#notice 
+	{ 	font-size:10pt; }
+
+	#notice h3
+	{	border-bottom: 1px solid #ddcB8C;
+		border-top: 1px solid #ddcB8C; }
+		
+	#notice span 
+	{	margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 5px;
+		margin-bottom: 5px; }
+
+#aut_details h3 {
+	margin-bottom:4px;
+}
+
+
+#aut_see {
+	border-bottom:1px solid #ddcB8C;
+}
+
+#aut_see H3 {
+	border:none;
+}
+
+#aut_details_liste {
+	margin-top:5px;
+}
+#aut_details_liste H3 {
+	font-weight:bold;
+	font-size:10pt;
+	border:none;
+}
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliquées à des balises sans classes ni id spécifiés  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+P
+	{ 	margin:8px;	}
+
+P.centered
+	{	text-align:center;	}
+A 
+	{	color: #A75204; }
+
+A:hover 
+	{ 	color: #000000; }
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+	{ 	border-collapse: collapse; }
+
+tr
+	{ }
+
+th
+	{ 
+	background: #C8D79B;
+	text-align: left; 
+	}
+
+td.jauge
+	{	background: #FFEBAC;
+		border-top: 1px solid #ddcB8C;
+		font-size: 11pt;
+		text-align: center;
+		border-right: 1px solid #b8da75;
+		border-left: 1px solid #b8da75;	}
+
+td.visible
+	{	border-bottom: 1px solid #ddcB8C;
+		border-top: 1px solid #ddcB8C; }
+
+td.visible-centered
+	{	border-bottom: 1px solid #ddcB8C;
+		border-top: 1px solid #ddcB8C;
+		text-align:center; }
+
+tr.even
+	{
+	background: #FFF0A7;
+	color: #000;
+	}
+
+tr.odd
+	{
+	background: #CFA087;
+	color: #000;
+	}
+
+tr.tr_spacer 
+	{
+	height: 0px;
+	}
+td.td_spacer 
+	{
+	height: 0px;
+	}
+
+
+#bandeau DIV {	
+	padding-bottom: 10px;
+	width:100%;
+	}
+
+.bandeau DIV H3 SPAN {	
+	color:#0023A4;
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliquées à des balises sans classes ni id spécifiés  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton 
+	{	background:#DFD087;
+		color:#7F7027;
+		margin-left: 0px;
+		margin-right: 0px; }
+
+input.numero_page 
+	{ border: 0px;}
+
+
+#iframe_resume_panier {
+	clear:both;
+	position:relative;
+	top:0px;
+	left:0px;
+	height:35px;
+	width:100%;
+	border:none;
+	}
+
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                      */
+/*                                                                            */
+/* pour l'impression, masquage de tags                                        */
+/*                                                                            */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+ul#onglets_isbd_public {
+    font: bold 11px verdana, arial, sans-serif;
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #6c6;
+    margin: 0;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 21px;
+    background-color: #cfc;
+    margin: 2px 2px 0 2px;
+    border: 1px solid #6c6;
+    background-color: #EFE097;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #FFF0A7;
+    background-color: #FFF0A7;
+}
+
+#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #666;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default ;
+}
+#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    cursor: pointer ;
+    }
+
+/* Etageres */
+#etagere {
+	border: 1px solid #0023A4;
+	padding-bottom:1em;
+	margin-bottom:1em;
+}
+
+#etagere-titre h1 {
+	font-size:15pt;
+	font-color:#0023A4;
+}
+
+#etagere-titre a {
+	color:#0023A4;
+}
+
+#etagere-comment h2 {
+	padding-left:2em;
+	font-size:11pt;
+}
+
+#etagere-notice-list {
+	padding-left:2em;
+}
+
+#navigator {
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+
+#navigator table {
+	background:#EFE097;
+	border-collapse:collapse;
+	}
+
+#navigator td {
+	border-left:3px #FFF0A7 solid;
+	border-right:3px #FFF0A7 solid;
+	text-align:center;
+	font-size:0.9em;
+	font-style:italic;
+	}
+
+/* informations à ajouter pour afficher le cadre de recherche */
+#search {
+	}
+	
+#all_footer {
+	display:none;
+}
+
+table.exemplaires {
+	margin-bottom:10px;
+}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+
+.alerte {
+	color: red;
+	font-size:14px;
+	}

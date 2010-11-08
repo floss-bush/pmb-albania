@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Catalogue des formats d'export des rapports de demande
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.2 2009-10-07 12:45:49 kantin Exp $ -->
+
+<catalog>
+	<item name="exp_rtf" classname="report_to_rtf" libelle="RTF" id="1"/>
+	<!--<item name="exp_pdf" classname="report_to_pdf" libelle="PDF" id="2"/>
+	<item name="exp_txt" classname="report_to_txt" libelle="Texte" id="3"/>-->
+</catalog>

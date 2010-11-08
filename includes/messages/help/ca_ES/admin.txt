@@ -1,0 +1,35 @@
+<h1>Mòdul d'administració</h1>
+<p>Acabes d'accedir al mòdul d'administració de PMB. Les accions portades a terme 
+en aquest mòdul afectaran de manera substancial al bon funcionament del programa. 
+Els creadors d'aquest programa et conviden a utilitzar les funcions aquí previstes amb molt de compte.
+Abans de qualsevol acció, tingues en compte l'impacte que tindrà a les teves dades.  
+Si tens qualsevol dubte, envia'ns un missatge a <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a>.  
+Amb molt de gust t'atendrem.</p>
+
+<h2>Exemplar, registres</h2>
+<p>Les seccions d'Exemplars i Registres permeten definir els paràmetres de l'aplicació sobre préstecs i  
+estadístiques dels documents.</p>
+
+<h2>Usuaris</h2>
+<p>La secció d'Usuaris permet configurar els paràmetres associats a la creació
+d'usuaris : categories i estadístiques. També permet importar dades externes sobre els usuaris.
+</p>
+
+
+
+<h2>Administradors</h2>
+<p>Aquesta secció ens permet generar els identificadors i els drets associats
+als diferents administradors del sistema de gestió de la biblioteca. Determineu 
+quins són els administradors que podran realitzar les operacions de préstec, 
+aquells que podran accedir al mòdul de catalogació i per últim, aquells que estant 
+autoritzats a generar autoritats.
+Utilitzeu també aquet mòdul per la gestió de contrassenyes i identificadors 
+de connexió.</p>
+
+
+<h2>Eines</h2>
+<p>Les eines són un conjunt de funcions per facilitar les feines d'administració 
+de la base de dades. Et recordem de la necessitat de fer còpies de seguretat periòdicament.</p>
+
+
+ 

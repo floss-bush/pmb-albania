@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Classe d'affichage par défaut
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: defaultClassMimetype.xml,v 1.2 2010-07-05 08:48:31 arenou Exp $ -->
+
+<mimetypes>
+	<mimetype type="application/pdf" class="pdf"/>
+	<mimetype type="image/jpg" class="images"/>
+	<mimetype type="image/jpeg" class="images"/>
+	<mimetype type="image/png" class="images"/>
+	<mimetype type="image/x-png" class="images"/>
+	<mimetype type="image/gif" class="images"/>
+	<mimetype type="unknown" class="affichage"/>
+</mimetypes>

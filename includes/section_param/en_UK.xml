@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbsections>
+	<section name="a_general">General OPAC functions</section>
+	<section name="b_aff_general">Library or Resource Centre Information</section>
+	<section name="c_recherche">OPAC Search options</section>
+	<section name="d_aff_recherche">Display Options for search results</section>
+	<section name="e_aff_notice">Displaying records</section>
+	<section name="f_modules">Modules displayed in OPAC</section>
+	<section name="h_cart">Basket Options</section>
+	<section name="i_categories">Options for displaying and browsing categories</section>
+	<section name="j_etagere">Options relating to shelves</section>
+	<section name="k_section">Options relating to browsing by section</section>
+	<section name="l_dsi">Options relating to S.D.I.</section>
+	<section name="m_photo">Options relating to pictures</section>
+	<section name="z_unused">Unused</section>
+	<section name="pdfcde">Layout options for order sheets</section>
+	<section name="pdfdev">Layout options for quotation requests</section>
+	<section name="pdfliv">Layout options for delivery slips</section>
+	<section name="pdffac">Layout options for invoices</section>
+	<section name="pdfsug">Layout options for suggestions lists</section>	
+	<section name="mel">Layout options for suggestions by email</section>	
+	<section name="categories">Options for categories</section>	
+	<section name="thesaurus">Options for thesauri</section>	
+	<section name="classement">Options for classification systems</section>	
+	<section name="transferts">General options for Interlibrary Loans</section>
+</pmbsections>
+
+	

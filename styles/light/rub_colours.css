@@ -1,0 +1,371 @@
+/* +--------------------------------------------------------------------------+
+// © 2002-2008 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +--------------------------------------------------------------------------+
+*/
+
+/*
+ *	Couleurs de niveau 1 
+ *	Satuation élevée
+ *  --------------------------
+ *	gris : #dddddd;
+ *	ciel : #3594bb;
+ *	or : #f99c09;
+ *  bleu : #3840be;
+ *  violet : #bb3a84;
+ *  orange : #d18c3b;
+ *  vert : #90b636;
+ *  rouge : #a02c35;
+*/
+
+/* ------------------- CONTENEUR ------------------- */
+
+#conteneur{border-top:2px solid #aaa;}
+.circ #conteneur{border-top:2px solid #3594bb;}
+.catalog #conteneur{border-top:2px solid #f99c09;}
+.autorites #conteneur{border-top:2px solid #3840be;}
+.edit #conteneur{border-top:2px solid #bb3a84;}
+.dsi #conteneur{border-top:2px solid #d18c3b;}
+.acquisition #conteneur{border-top:2px solid #90b636;}
+.admin #conteneur{border-top:2px solid #a02c35;}
+
+/* ------------------- H1 H2 H3 ------------------- */
+
+#conteneur #contenu h1,
+#conteneur #contenu h2,
+#conteneur #contenu h3{
+	color:#444;
+}
+#conteneur.circ #contenu h1,
+#conteneur.circ #contenu h2,
+#conteneur.circ #contenu h3{
+	color:#3594bb;
+}
+#conteneur.catalog #contenu h1,
+#conteneur.catalog #contenu h2,
+#conteneur.catalog #contenu h3{
+	color:#f99c09;
+}
+#conteneur.autorites #contenu h1,
+#conteneur.autorites #contenu h2,
+#conteneur.autorites #contenu h3{
+	color:#3840be;
+}
+#conteneur.edit #contenu h1,
+#conteneur.edit #contenu h2,
+#conteneur.edit #contenu h3{
+	color:#solid #3840;
+}
+#conteneur.dsi #contenu h1,
+#conteneur.dsi #contenu h2,
+#conteneur.dsi #contenu h3{
+	color:#d18c3b;
+}
+#conteneur.acquisition #contenu h1,
+#conteneur.acquisition #contenu h2,
+#conteneur.acquisition #contenu h3{
+	color:#90b636;
+}
+#conteneur.admin #contenu h1,
+#conteneur.admin #contenu h2,
+#conteneur.admin #contenu h3{
+	color:#a02c35;
+}
+
+
+/* ------------------- NAVBAR ------------------- */
+#navbar-index.current,
+#navbar-index:hover{
+	background-color:#aaa;
+}
+#navbar-opac.current,
+#navbar-opac:hover{
+	background-color:#f99c09;
+}
+#navbar-circ.current,
+#navbar-circ:hover{
+	background-color:#3594bb;
+}
+#navbar-catalog.current,
+#navbar-catalog:hover{
+	background-color:#f99c09;
+}
+#navbar-autorites.current,
+#navbar-autorites:hover{
+	background-color:#3840be;
+}
+#navbar-edit.current,
+#navbar-edit:hover{
+	background-color:#bb3a84;
+}
+#navbar-dsi.current,
+#navbar-dsi:hover{
+	background-color:#d18c3b;
+}
+#navbar-acquisition.current,
+#navbar-acquisition:hover{
+	background-color:#90b636;
+}
+#navbar-admin.current,#navbar-extensions.current,
+#navbar-admin:hover,#navbar-extensions:hover{
+	background-color:#a02c35;
+}
+/* ------------------- Autres NAVbarres ------------------- */
+
+ul.sel_navbar li.sel_navbar_current{
+	background-color:#f99c09;
+}
+
+/* ------------------- #MENU H3 ------------------- */
+   
+/* General */
+#menu h3{background-color:#aaa;}
+
+/* Circulation */
+#conteneur.circ #menu h3{background-color:#3594bb;}
+
+/* Catalog */
+#conteneur.catalog #menu h3{background-color:#f99c09;}
+
+/* Autorites */
+#conteneur.autorites #menu h3{background-color:#3840be;}
+
+/* Editions */
+#conteneur.edit #menu h3{background-color:#bb3a84;}
+
+/* D.S.I. */
+#conteneur.dsi #menu h3{background-color:#d18c3b;}
+
+/* Acquisitions */
+#conteneur.acquisition #menu h3{background-color:#90b636;}
+
+/* Administration */
+#conteneur.admin #menu h3{background-color:#a02c35;}
+
+
+/* ------------------- CHAMPS DE SAISIE ------------------- */
+/* General */
+.saisie-5emr,
+.saisie-10emr,
+.saisie-15emr,
+.saisie-20emr,
+.saisie-30emr,
+.saisie-50emr,
+.saisie-80emr{
+	background:#ffffff;
+}
+/* Circulation */
+.circ .saisie-5emr,
+.circ .saisie-10emr,
+.circ .saisie-15emr,
+.circ .saisie-20emr,
+.circ .saisie-30emr,
+.circ .saisie-50emr,
+.circ .saisie-80emr{
+	background:#3594bb;
+}
+/* Catalogue */
+.catalog .saisie-5emr,
+.catalog .saisie-10emr,
+.catalog .saisie-15emr,
+.catalog .saisie-20emr,
+.catalog .saisie-30emr,
+.catalog .saisie-50emr,
+.catalog .saisie-80emr{
+	background:#f99c09;
+}
+/* Autorites */
+.autorites .saisie-5emr,
+.autorites .saisie-10emr,
+.autorites .saisie-15emr,
+.autorites .saisie-20emr,
+.autorites .saisie-30emr,
+.autorites .saisie-50emr,
+.autorites .saisie-80emr{
+	background:#aeb3ee;
+}
+/* Editions */
+.edit .saisie-5emr,
+.edit .saisie-10emr,
+.edit .saisie-15emr,
+.edit .saisie-20emr,
+.edit .saisie-30emr,
+.edit .saisie-50emr,
+.edit .saisie-80emr{
+	background:#bb3a84;
+}
+/* DSI */
+.dsi .saisie-5emr,
+.dsi .saisie-10emr,
+.dsi .saisie-15emr,
+.dsi .saisie-20emr,
+.dsi .saisie-30emr,
+.dsi .saisie-50emr,
+.dsi .saisie-80emr{
+	background:#d18c3b;
+}
+/* Acquisitions */
+.acquisition .saisie-5emr,
+.acquisition .saisie-10emr,
+.acquisition .saisie-15emr,
+.acquisition .saisie-20emr,
+.acquisition .saisie-30emr,
+.acquisition .saisie-50emr,
+.acquisition .saisie-80emr{
+	background:#90b636;
+}
+/* Administration */
+.admin .saisie-5emr,
+.admin .saisie-10emr,
+.admin .saisie-15emr,
+.admin .saisie-20emr,
+.admin .saisie-30emr,
+.admin .saisie-50emr,
+.admin .saisie-80emr{
+	background:#a02c35;
+}
+
+/* ------------------- ICONES EXTRA ------------------- */
+/* General */
+#extra .icon_history,
+#extra .icon_help,
+#extra .icon_param,
+#extra .icon_opac,
+#extra .icon_sauv,
+#extra .icon_quit{
+	background-color:#444;
+}
+
+/* Circulation */
+.circ #extra .icon_history,
+.circ #extra .icon_help,
+.circ #extra .icon_param,
+.circ #extra .icon_opac,
+.circ #extra .icon_sauv,
+.circ #extra .icon_quit{
+	background-color:#3594bb;
+}
+
+/* Catalogue */
+.catalog #extra .icon_history,
+.catalog #extra .icon_help,
+.catalog #extra .icon_param,
+.catalog #extra .icon_opac,
+.catalog #extra .icon_sauv,
+.catalog #extra .icon_quit{
+	background-color:#f99c09;
+}
+
+/* Autorites */
+.autorites #extra .icon_history,
+.autorites #extra .icon_help,
+.autorites #extra .icon_param,
+.autorites #extra .icon_opac,
+.autorites #extra .icon_sauv,
+.autorites #extra .icon_quit{
+	background-color:#3840be;
+}
+
+/* Editions */
+.edit #extra .icon_history,
+.edit #extra .icon_help,
+.edit #extra .icon_param,
+.edit #extra .icon_opac,
+.edit #extra .icon_sauv,
+.edit #extra .icon_quit{
+	background-color:#bb3a84;
+}
+
+/* D.S.I. */
+.dsi #extra .icon_history,
+.dsi #extra .icon_help,
+.dsi #extra .icon_param,
+.dsi #extra .icon_opac,
+.dsi #extra .icon_sauv,
+.dsi #extra .icon_quit{
+	background-color:#d18c3b;
+}
+
+/* Acquisitions */
+.acquisition #extra .icon_history,
+.acquisition #extra .icon_help,
+.acquisition #extra .icon_param,
+.acquisition #extra .icon_opac,
+.acquisition #extra .icon_sauv,
+.acquisition #extra .icon_quit{
+	background-color:#90b636;
+}
+
+/* Administration */
+.admin #extra .icon_history,
+.admin #extra .icon_help,
+.admin #extra .icon_param,
+.admin #extra .icon_opac,
+.admin #extra .icon_sauv,
+.admin #extra .icon_quit{
+	background-color:#a02c35;
+}
+
+
+/* ------------------- BOUTONS ------------------- */
+/* Circulation */
+body.circ .bouton,
+body.circ .bouton_small{
+	background:#3594bb;
+}
+
+/* Catalogue */
+body.catalog .bouton,
+body.catalog .bouton_small,
+body.pointage_exemplarise .bouton,
+body.pointage_exemplarise .bouton_small,
+body.abonnement_parution_edition .bouton,
+body.abonnement_parution_edition .bouton_small{
+	background:#f99c09;
+}
+
+/* Autorites */
+body.autorites .bouton,
+body.autorites .bouton_small{
+	background:#3840be;
+}
+
+/* Editions */
+body.edit .bouton,
+body.edit bouton_small{
+	background:#bb3a84;
+}
+
+/* DSI */
+body.dsi .bouton,
+body.dsi .bouton_small{
+	background:#d18c3b;
+}
+
+/* Acquisitions */
+body.acquisition .bouton,
+body.acquisition .bouton_small{
+	background:#90b636;
+}
+
+/* Administration */
+body.admin .bouton,
+body.admin .bouton_small{
+	background:#a02c35;
+}
+
+
+/* ------------------- Boutons extension/réduction +/- ------------------- */
+/* Circulation */
+.circ .img_plus{background:#3594bb;}
+/* Catalogue */
+.catalog .img_plus{background:#f99c09;}
+/* Autorites */
+.autorites .img_plus{background:#3840be;}
+/* Editions */
+.edit .img_plus{background:#bb3a84;}
+/* DSI */
+.dsi .img_plus{background:#d18c3b;}
+/* Acquisitions */
+.acquisition .img_plus{background:#90b636;}
+/* Administration */
+.admin .img_plus{background:#a02c35;}

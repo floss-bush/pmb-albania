@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbquotas table="quotas_finance">
+	<elements>
+
+	  	<element name="READER_CATEG" id="2" comment="Categorías de usuarios">
+			<linkedto>READER</linkedto>
+			<tablelinked>empr</tablelinked>
+			<linkedfield>empr_categ</linkedfield>
+			<linkedid>id_empr</linkedid>
+			<table>empr_categ</table>
+			<field>id_categ_empr</field>
+			<label>libelle</label>
+		</element>
+	
+		<element name="DOCTYPE" id="1" comment="Tipos de ejemplar">
+			<linkedto>EXPL</linkedto>
+			<tablelinked>exemplaires</tablelinked>
+			<linkedfield>expl_typdoc</linkedfield>
+			<linkedid>expl_id</linkedid>	
+			<table>docs_type</table>
+			<field>idtyp_doc</field>
+			<label>tdoc_libelle</label>
+		</element>
+
+		<element name="TYP_ABO" id="4" comment="Tipos de abonos">
+			<linkedto>READER</linkedto>
+			<tablelinked>empr</tablelinked>
+			<linkedfield>type_abt</linkedfield>
+			<linkedid>id_empr</linkedid>
+			<table>type_abts</table>
+			<field>id_type_abt</field>
+			<label>type_abt_libelle</label>
+		</element>
+
+		<element name="LOCATION" id="8" comment="Localización">
+            <linkedto>EXPL</linkedto>
+            <tablelinked>exemplaires</tablelinked>
+            <linkedfield>expl_location</linkedfield>
+            <linkedid>expl_id</linkedid>
+            <table>docs_location</table>
+            <field>idlocation</field>
+            <label>location_libelle</label>
+        </element>
+
+	</elements>
+	
+	<types>
+
+		<type name="COST_LEND_QUOTA" id="1" max="no" min="no" forcelend="no" comment="Cuotas de tarifas de préstamo" short_comment="tarifas de préstamo" filter_id="tarif_pret">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+				<on>TYP_ABO,DOCTYPE</on>
+				<on>READER_CATEG,TYP_ABO,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_BY_DAY" id="2" max="no" min="no" forcelend="no" comment="Cuotas de valor de multa por día" short_comment="multa por día" filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_DELAI" id="4" max="no" min="no" forcelend="no" comment="Cuotas de retraso antes de contabilizar la multa" short_comment="retraso antes de contabilizar " filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_1_2" id="32" max="no" min="no" forcelend="no" comment="Cuotas de retraso entre el 1er y 2º rappel" short_comment="retraso entre 1r et 2º rapel" filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_2_3" id="64" max="no" min="no" forcelend="no" comment="Cuotas de retraso entre el 2º y 3r rappel" short_comment="retraso entre 2º y 3r rappel" filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_DELAI_RECOUVREMENT" id="128" max="no" min="no" forcelend="no" comment="Cuotas de retraso entre 3r rappel y recouvrement" short_comment="retraso entre 3r rappel y recouvrement" filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDE_MAXIMUM" id="16" max="no" min="no" forcelend="no" comment="Cuotas de multa máxima" short_comment="multa máxima" filter_id="amende">
+			<quotas>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>LOCATION,DOCTYPE</on>
+				<on>LOCATION,READER_CATEG</on>
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDERELANCE_FRAISPREMIERERELANCE" id="256" max="no" min="no" forcelend="no" comment="Frais de la première relance" short_comment="Frais de la première relance" filter_id="amende_relance">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>LOCATION_READER</on>
+				<on>LOCATION_READER,READER_CATEG</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDERELANCE_FRAISDEUXIEMERELANCE" id="512" max="no" min="no" forcelend="no" comment="Frais de la deuxième relance" short_comment="Frais de la deuxième relance" filter_id="amende_relance">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>LOCATION_READER</on>
+				<on>LOCATION_READER,READER_CATEG</on>
+			</quotas>
+		</type>
+		
+		<type name="AMENDERELANCE_FRAISTROISIEMERELANCE" id="1024" max="no" min="no" forcelend="no" comment="Frais de la troisième relance" short_comment="Frais de la troisième relance" filter_id="amende_relance">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>LOCATION_READER</on>
+				<on>LOCATION_READER,READER_CATEG</on>
+			</quotas>
+		</type>
+	</types>
+</pmbquotas>

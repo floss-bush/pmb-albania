@@ -1,0 +1,13 @@
+<h1>C&oacute;pias de Seguran&ccedil;a</h1>
+</p><p>
+<b>Locais</b> localiza&ccedil;&atilde;o dos c&oacute;pias de seguran&ccedil;a no disco ou na rede
+</p><p>
+<b>Grupos de tabelas</b> a guardar</p><p>
+<b>Conjuntos de c&oacute;pias de seguran&ccedil;a</b> correspond&ecirc;ncia locais/grupos de tabelas
+</p><p>
+<b>In&iacute;cio</b> 
+</p><p>
+<b>C&oacute;pias de Seguran&ccedil;a realizadas</b> mostra a lista de c&oacute;pias de seguran&ccedil;a realizadas
+
+
+

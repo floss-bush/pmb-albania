@@ -1,0 +1,12 @@
+<h1>Administració de les importacions</h1>
+<p>Aquest apartat permet generar les importacions de dades associats a les obres
+o als exemplars.</p>
+<p>El procediment es realitza en diferents passos : definició del prestador 
+(ex : biblioteca departamental de préstec), importació dels registres o 
+importació dels exemplars (i dels registres associats), i finalment marcar 
+les importacions per verificar la correspondència entre el llistat de préstec i 
+les obres realment transmeses.</p>
+<p>Aquesta darrera verificació és ràpida i pot ésser integrament realitzada amb 
+un lector òptic.</p>
+
+

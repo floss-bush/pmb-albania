@@ -1,0 +1,35 @@
+// +---------------------------------------------------------------------------------------+
+// © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +---------------------------------------------------------------------------------------+
+// $Id: sql.txt,v 1.2 2005-05-12 09:42:26 gautier Exp $
+
+AIDE POUR LES DEVELOPPEURS
+
+Règles de requetage SQL :
+
+INSERT :
+	préférer la forme insert into TABLE (COL1, COL2, ...) values (VAL1, VAL2, ...)
+		à la forme insert into TABLE set COL1=VAL1, COL2=VAL2, ...
+	La seconde forme vous interdit radicalement de fixer la colonne éventuelle en id auto_increment
+	D'une manière générale, on ne fixe jamais la valeur d'une colonne auto_increment, c'est le serveur qui va la gérer
+	On ne met donc pas cette colonne auto_increment dans la rqt insert
+		Si on veut la mettre : on met ZERO pour la valeur
+		
+UPDATE : 
+	On n'update jamais la clé primaire d'une table, partez du principe que c'est une colonne
+		gérée par le serveur, elle ne vous appartient pas.
+	Si update d'un enregistrement complet, inutile de regarder quelles colonnes ont été modifiées
+		pour savoir quoi mettre dans le SET COL=VAL, y mettre tout sans se poser de question,
+		meilleur pour la performance.
+	
+; à la fin des requetes :
+	Pas de ; à la fin de vos requetes SQL en PHP, c'est le parser qui envoie lui-même le 
+	séparateur de requetes.
+	
+LOCK TABLES :
+	A proscrire, en principe vous n'avez pas à vous en servir
+	
+SELECT : 
+	TOUJOURS nommer les colonnes, pas de select *. 
+	On ne remonte, sélectionne que ce dont on a besoin, question de perf !
+	On fixe un tri si nécessaire (si plusieurs lignes : tri obligatoire)

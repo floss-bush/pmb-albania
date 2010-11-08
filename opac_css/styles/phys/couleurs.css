@@ -1,0 +1,299 @@
+BODY
+{
+scrollbar-face-color: #7189AB;
+scrollbar-shadow-color: #000000;
+scrollbar-highlight-color: #FFFFFF;
+scrollbar-3dlight-color: #000000;
+scrollbar-darkshadow-color: #000000;
+scrollbar-track-color: #94A9CA;
+scrollbar-arrow-color: #FFCC00;
+}
+
+	#main {
+	
+	}
+
+	#main b {
+	margin-left:5px;
+	color:#990100;
+	}
+
+	#main h3 {
+	color:#768187;
+	} 
+
+
+	#main h3 span {
+	margin-left:5px;
+	color:#768187;
+	}
+
+	#main span {
+	color:#000000;
+	}
+
+	#etageres h3 {
+	padding-left:5px;
+	}
+
+	#main a {
+	color:#990100;
+	}
+
+	#rss {
+	padding-left:5px;
+	}
+
+	#rss a {
+	color:#990100;
+	}
+
+	#rss h3 {
+	color:#768187;
+	}
+
+	#main ul.search_tabs{
+          background : url("pointsable.gif") repeat-x bottom left;
+          }
+
+	#main ul.search_tabs li{
+		border:1px solid #666666;  
+          	border-bottom:none;  
+		background:#FFFFFF;
+		color:#000000;}
+
+	#main ul.search_tabs li a{
+		color:#990100;
+		}
+          
+	#main ul.search_tabs li#current{
+	  	background:#FFFFFF;
+         	border:1px solid #cccccc;  
+          	border-bottom:1px solid #FFFFFF;
+          }
+
+	#search_result {
+	color:#000000;
+	}
+
+#search_result h3 {
+	margin-top:-10px;
+	}
+
+#search {
+	border:0px solid #cccccc;
+}
+
+#aut_see {
+	border:0px solid #cccccc;
+}
+
+a, a:visited, a:hover {
+    	color:#990100;
+	}
+
+#aut_details {
+	}
+
+#aut_details h3 {
+	}
+
+#aut_details h3 span {
+	margin-left:5px;
+	color:#990100;
+}
+
+#aut_details_liste {
+	margin-left:5px;
+}
+	
+#aut_details_container {
+}
+
+#navigator {
+	border:1px solid #cccccc;
+	color:#000000;
+}
+
+#navigator table {
+		background:#ccccee;
+}
+
+#navigator td {
+		border-left:1px #FFFFFF solid;
+		border-right:1px #FFFFFF solid;
+		background:#FFFFFF;
+}
+
+#navigator td a{
+	color:#990100;
+}
+
+#resultatrech_liste {
+}
+
+#categories h3 {
+}	
+
+#categories A {
+}
+
+#categories A:hover {
+}
+
+/* informations ‡ ajouter pour afficher les cat»gories */
+#categories-container {
+	color:#990100;
+}
+
+div.category 	{	
+		}
+		
+#categories-container H2 {
+		}
+		
+#categories-container A {
+		}
+#categories-container h2 A {
+		color:#990100;
+		}
+#categories-container h2 A:hover{
+		color:#990100;
+		}
+#categorie ul.search_tabs li{
+		background:#990100;
+		color:#5ab9f9;
+}
+
+#categories ul.search_tabs li a{
+		color:#000000;
+		}
+          
+#categories ul.search_tabs li#current{
+	  	background:#E99180;
+}          	
+
+
+#bandeau { 
+	 border:#768187 0px solid;
+}
+#connexion span A {
+	color:#990100
+	}
+
+#adresse span A {
+	color:#990100
+	}
+
+#footer {
+	margin-top:50px;
+	color:#000000;
+	}
+	
+#footer a {
+	color:#444444;	}
+
+#footer a:hover {
+	color:#444444;
+}
+
+ul#onglets_isbd_public {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+ul#onglets_isbd_public li {
+    border: 1px solid #aaaaaa;
+    background-color: #cccccc;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #eeeeee;
+    background-color: #eeeeee;
+}
+
+
+
+#onglets_isbd_public a {
+    color: #666;
+}
+#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    }
+
+/* Colonnes */
+
+.bg-grey {
+  background-color: #eeeeee;
+}
+
+/* Etageres */
+#etageres {
+}
+
+#etagere {
+	border-top:#cccccc 1px solid;
+}
+
+#etagere-titre h1 {
+	background: url("liens.png") top left;
+}
+#etagere-titre h1 a {
+	color:#000000;
+}
+
+#etagere-comment h2 {
+}
+
+
+/* barre de navigation */
+.notice-parent {
+    color: #000000;
+}
+.notice-child {
+    border-bottom-color: #c0c0c0;
+    border-left-color: #c0c0c0;
+	
+}
+
+.parent {
+    color: #000000;
+}
+.child {
+    border-bottom-color: #c0c0c0;
+    border-left-color: #c0c0c0;
+}
+
+/* Bannettes */
+#bannette {
+	background:#EEEEFF; 
+	border:#cccccc 1px solid;
+}
+
+#bannette-titre h1 {
+	background: url("liens.png") top left;
+}
+#bannette-titre h1 a {
+	color:#000000;
+}
+
+#bannette-comment h2 {
+}
+
+.alerte {
+	color: red;
+	}
+
+.echelle_avis {
+	background-color: #eeeeee;
+	border:1px solid #BBBBCC;
+}
+
+#titre-popup {
+		background:#CCCCEE;
+		border:1px solid #BBBBCC;
+		color: #fee064;
+	}
+
+table a
+	{color:#990100; }
+

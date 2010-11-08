@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Liste des états des checkbox de la fenetre d'impression -->
+<XMLlist>
+	<entry code="all">1</entry>
+	<entry code="selected">0</entry>
+	<entry code="isbd">1</entry>
+	<entry code="public">0</entry>
+	<entry code="s1">1</entry>
+	<entry code="s0">0</entry>
+	<entry code="header">1</entry>
+	<entry code="outp">1</entry>
+	<entry code="outt">0</entry>
+	<entry code="oute">0</entry>	
+</XMLlist>

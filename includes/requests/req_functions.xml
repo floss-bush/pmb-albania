@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- descriptif des FONCTIONS
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: req_functions.xml,v 1.1 2009-06-25 16:33:21 dbellamy Exp $ -->
+
+<REQ_FUNCTIONS>
+
+	<REQ_FUNCTION_GROUP id="1" name="de comparaison" />
+	<REQ_FUNCTION_GROUP id="2" name="logiques" />
+	<REQ_FUNCTION_GROUP id="3" name="de contrôle" />
+	<REQ_FUNCTION_GROUP id="4" name="de chaînes de caractères" />
+	<REQ_FUNCTION_GROUP id="5" name="numériques" />
+	<REQ_FUNCTION_GROUP id="6" name="de dates et d'heures" />
+	<REQ_FUNCTION_GROUP id="7" name="de regroupement" />
+	
+<!-- <REQ_FUNCTION_GROUP id="" name="de recherche en Texte intégral" /> -->
+<!-- <REQ_FUNCTION_GROUP id="" name="de transtypage" /> -->
+<!-- <REQ_FUNCTION_GROUP id="" name="autres" /> -->
+	
+<!--  **************************************************************************************** -->
+
+
+	<REQ_FUNCTION id="1001" name="=" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="=" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="1002" name="&lt;=&gt;" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="&lt;=&gt;" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1003" name="!=" group="1" remove="2"  filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="!=" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="1004" name="&lt;=" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="&lt;=" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1005" name="&lt;" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="&lt;" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1006" name="&gt;=" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="&gt;=" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1007" name="&gt;" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value="&gt;" />	
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1008" name="IS NULL" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" IS NULL" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1009" name="IS NOT NULL" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" IS NOT NULL" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1010" name="BETWEEN" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" BETWEEN " />
+		<FCT_PARAM order="3" content="arg" />	
+		<FCT_PARAM order="4" content="keyword" value=" AND " />
+		<FCT_PARAM order="5" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1011" name="NOT BETWEEN" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" NOT BETWEEN " />
+		<FCT_PARAM order="3" content="arg" />	
+		<FCT_PARAM order="4" content="keyword" value=" AND " />
+		<FCT_PARAM order="5" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1012" name="COALESCE" group="1" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="COALESCE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," repeat_from="3" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1013" name="GREATEST" group="1" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="GREATEST" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," repeat_from="3" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1014" name="IN" group="1" parenthesis="2" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" IN" />
+		<FCT_PARAM order="3" content="arg" />	
+		<FCT_PARAM order="4" content="arg" optional="yes" repeat_from="4" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1015" name="NOT IN" group="1" parenthesis="2" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" NOT IN" />
+		<FCT_PARAM order="3" content="arg" />	
+		<FCT_PARAM order="4" content="arg" optional="yes" repeat_from="4" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1016" name="ISNULL" group="1" parenthesis="1" remove="2" >
+		<FCT_PARAM order="1" content="keyword" value="ISNULL" />
+		<FCT_PARAM order="2" content="arg" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1017" name="INTERVAL" group="1" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="INTERVAL" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," repeat_from="3" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1018" name="LEAST" group="1" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LEAST" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," repeat_from="3" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="1019" name="LIKE" group="1" parenthesis="2" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" LIKE" />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1020" name="NOT LIKE" group="1" parenthesis="2" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" NOT LIKE" />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="1021" name="REGEXP" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" REGEXP " />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="1022" name="NOT REGEXP" group="1" remove="2" filter="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" NOT REGEXP " />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="1023" name="STRCMP" group="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="STRCMP" />		
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />	
+	</REQ_FUNCTION>
+	
+
+<!--  **************************************************************************************** -->
+
+	<REQ_FUNCTION id="2001" name="NOT" group="2" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="NOT " />
+		<FCT_PARAM order="2" content="arg" />	
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="2002" name="AND" group="2" remove="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" AND " />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>
+		
+	<REQ_FUNCTION id="2003" name="OR" group="2" remove="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" OR " />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>		
+
+	<REQ_FUNCTION id="2004" name="XOR" group="2" remove="2" >
+		<FCT_PARAM order="1" content="arg" />		
+		<FCT_PARAM order="2" content="keyword" value=" XOR " />
+		<FCT_PARAM order="3" content="arg" />	
+	</REQ_FUNCTION>		
+		
+<!--  **************************************************************************************** -->
+
+	<REQ_FUNCTION id="3001" name="IF" group="3" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="IF" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="3002" name="CASE" group="3" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CASE " />
+		<FCT_PARAM order="2" content="arg" optional="yes" />
+		<FCT_PARAM order="3" content="keyword" value=" WHEN " />
+		<FCT_PARAM order="4" content="arg" />
+		<FCT_PARAM order="5" content="keyword" value=" THEN " />
+		<FCT_PARAM order="6" content="arg" optional="yes" repeat_from="3" />
+		<FCT_PARAM order="7" content="keyword" optional="yes" value=" ELSE " />
+		<FCT_PARAM order="8" content="arg" optional="yes" before_sep=" ELSE " />
+		<FCT_PARAM order="9" content="keyword" value=" END" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="3003" name="IFNULL" group="3" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="IFNULL" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="3004" name="NULLIF" group="3" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="NULLIF" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+<!--  **************************************************************************************** -->
+
+	<REQ_FUNCTION id="4001" name="ASCII" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ASCII" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4002" name="BIN" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="BIN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4003" name="BIT_LENGTH" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="BIT_LENGTH" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4004" name="CHAR" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CHAR" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" repeat_from="3" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4005" name="CHAR_LENGTH" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CHAR_LENGTH" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="4006" name="COMPRESS" group="4" />
+-->
+	<REQ_FUNCTION id="4007" name="CONCAT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CONCAT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," repeat_from="3" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4008" name="CONCAT_WS" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CONCAT_WS" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" optional="yes" before_sep="," repeat_from="4" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4009" name="CONV" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CONV" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="4010" name="ELT" group="4" />
+	<REQ_FUNCTION id="4011" name="EXPORT_SET" group="4" />
+	<REQ_FUNCTION id="4012" name="FIELD" group="4" />
+	<REQ_FUNCTION id="4013" name="FIND_IN_SET" group="4" />
+	<REQ_FUNCTION id="4014" name="HEX" group="4" />
+-->
+	<REQ_FUNCTION id="4015" name="INSERT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="INSERT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+		<FCT_PARAM order="5" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4016" name="INSTR" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="INSTR" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4017" name="LEFT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LEFT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4018" name="LENGTH" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LENGTH" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="4019" name="LOAD_FILE" group="4" />
+-->
+	<REQ_FUNCTION id="4020" name="LOCATE" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LOCATE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" optional="yes" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4021" name="LOWER" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LOWER" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4022" name="LPAD" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LPAD" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4023" name="LTRIM" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LTRIM" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="4024" name="MAKE_SET" group="4" />
+-->
+	<REQ_FUNCTION id="4025" name="OCT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="OCT" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="4026" name="ORD" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ORD" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4027" name="QUOTE" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="QUOTE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4028" name="REPEAT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="REPEAT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4029" name="REPLACE" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="REPLACE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4030" name="REVERSE" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="REVERSE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4031" name="RIGHT" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="RIGHT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4032" name="RPAD" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="RPAD" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep=","  />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4033" name="RTRIM" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="RTRIM" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4034" name="SOUNDEX" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SOUNDEX" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4035" name="SOUNDS LIKE" group="4" remove="2" >
+		<FCT_PARAM order="1" content="arg" />	
+		<FCT_PARAM order="2" content="keyword" value="SOUNDS LIKE" />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4036" name="SPACE" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SPACE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4037" name="SUBSTRING" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SUBSTRING" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" optional="yes" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="4038" name="SUBSTRING_INDEX" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SUBSTRING_INDEX" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+ 	
+	<REQ_FUNCTION id="4039" name="TRIM" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="TRIM" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="4040" name="UNCOMPRESS" group="4" />
+	<REQ_FUNCTION id="4041" name="UNCOMPRESS_LENGTH" group="4" />
+	<REQ_FUNCTION id="4042" name="UNHEX" group="4" />
+-->
+	<REQ_FUNCTION id="4043" name="UPPER" group="4" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="UPPER" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+<!--  **************************************************************************************** -->
+
+	<REQ_FUNCTION id="5001" name="+" group="5" remove="2" >
+		<FCT_PARAM order="1" content="arg" />
+		<FCT_PARAM order="2" content="keyword" value="+" />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5002" name="-" group="5" remove="2" >
+		<FCT_PARAM order="1" content="arg" />
+		<FCT_PARAM order="2" content="keyword" value="-" />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5003" name="*" group="5" remove="2" >
+		<FCT_PARAM order="1" content="arg" />
+		<FCT_PARAM order="2" content="keyword" value="*" />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5004" name="/" group="5" remove="2" >
+		<FCT_PARAM order="1" content="arg" />
+		<FCT_PARAM order="2" content="keyword" value="/" />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5005" name="DIV" group="5" remove="2" >
+		<FCT_PARAM order="1" content="arg" />
+		<FCT_PARAM order="2" content="keyword" value=" DIV " />
+		<FCT_PARAM order="3" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5006" name="ABS" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ABS" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5007" name="ACOS" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ACOS" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5008" name="ASIN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ASIN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5009" name="ATAN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ATAN" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5010" name="CEIL" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CEIL" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5011" name="COS" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="COS" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5012" name="COT" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="COT" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5013" name="CRC32" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CRC32" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5014" name="DEGREES" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DEGREES" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5015" name="EXP" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="EXP" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5016" name="FLOOR" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="FLOOR" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5017" name="LN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5018" name="LOG" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LOG" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5019" name="LOG2" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LOG2" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5020" name="LOG10" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LOG10" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5021" name="MOD" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MOD" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep=","/>
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5022" name="PI" group="5" parenthesis="1" remove="1">
+		<FCT_PARAM order="1" content="keyword" value="PI" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5023" name="POW" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="POW" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep=","/>
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5024" name="RADIANS" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="RADIANS" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5025" name="RAND" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="RAND" />
+		<FCT_PARAM order="2" content="arg" optional="yes" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5026" name="ROUND" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="ROUND" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" optional="yes" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="5027" name="SIGN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SIGN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5028" name="SIN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SIN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5029" name="SQRT" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SQRT" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5030" name="TAN" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="TAN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="5031" name="TRUNCATE" group="5" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="TRUNCATE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+	
+
+<!--  **************************************************************************************** -->
+
+<!--	
+	<REQ_FUNCTION id="6001" name="ADDDATE" group="6" />		
+	<REQ_FUNCTION id="6002" name="ADDTIME" group="6" />
+-->	
+	<REQ_FUNCTION id="6003" name="CURDATE()" group="6" remove="1" >
+		<FCT_PARAM order="1" content="keyword"  value="CURDATE()" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6004" name="CURTIME()" group="6" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="CURTIME()" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6005" name="DATE" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DATE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6006" name="DATEDIFF" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DATEDIFF" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6007" name="DATE_ADD" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DATE_ADD" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="keyword" value=" INTERVAL " />
+		<FCT_PARAM order="4" content="arg" />
+		<FCT_PARAM order="5" content="list" value="SECOND,MINUTE,HOUR,DAY,WEEK,MONTH,QUARTER,YEAR" before_sep=" " />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6008" name="DATE_SUB" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DATE_SUB" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="keyword" value=" INTERVAL " />
+		<FCT_PARAM order="4" content="arg" />
+		<FCT_PARAM order="5" content="list" value="SECOND,MINUTE,HOUR,DAY,WEEK,MONTH,QUARTER,YEAR" before_sep=" " />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6009" name="DATE_FORMAT" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DATE_FORMAT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>	
+<!-- 	
+	<REQ_FUNCTION id="6010" name="DAY" group="6" />
+-->	
+	<REQ_FUNCTION id="6011" name="DAYNAME" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DAYNAME" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6012" name="DAYOFMONTH" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DAYOFMONTH" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6013" name="DAYOFWEEK" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DAYOFWEEK" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6014" name="DAYOFYEAR" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DAYOFYEAR" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="6015" name="EXTRACT" group="6" />
+	<REQ_FUNCTION id="6016" name="FROM_DAYS" group="6" />
+	<REQ_FUNCTION id="6017" name="FROM_UNIXTIME" group="6" />
+	<REQ_FUNCTION id="6018" name="GET_FORMAT" group="6" />
+-->
+	<REQ_FUNCTION id="6019" name="HOUR" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="HOUR" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6020" name="LAST_DAY" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="LAST_DAY" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6021" name="MAKEDATE" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MAKEDATE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6022" name="MAKETIME" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MAKETIME" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+		<FCT_PARAM order="4" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="6023" name="MICROSECOND" group="6" />
+-->	
+	<REQ_FUNCTION id="6024" name="MINUTE" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MINUTE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6025" name="MONTH" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MONTH" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6026" name="MONTHNAME" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MONTHNAME" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6027" name="NOW()" group="6" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="NOW()" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="6028" name="PERIOD_ADD" group="6" />
+	<REQ_FUNCTION id="6029" name="PERIOD_DIFF" group="6" />
+-->
+	<REQ_FUNCTION id="6030" name="QUARTER" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="QUARTER" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="6031" name="SECOND" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SECOND" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 	
+	<REQ_FUNCTION id="6032" name="SEC_TO_TIME" group="6" />
+-->
+	<REQ_FUNCTION id="6033" name="STR_TO_DATE" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="STR_TO_DATE" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="6034" name="SUBDATE" group="6" />
+	<REQ_FUNCTION id="6035" name="SUBTIME" group="6" />
+-->		
+	<REQ_FUNCTION id="6036" name="TIME" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="TIME" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6037" name="TIMEDIFF" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="TIMEDIFF" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep=","/>
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="6038" name="TIMESTAMP" group="6" />
+	<REQ_FUNCTION id="6039" name="TIMESTAMPADD" group="6" />
+	<REQ_FUNCTION id="6040" name="TIMESTAMPDIFF" group="6" />
+	<REQ_FUNCTION id="6041" name="TIME_FORMAT" group="6" />
+	<REQ_FUNCTION id="6042" name="TIME_TO_SEC" group="6" />
+	<REQ_FUNCTION id="6043" name="TO_DAYS" group="6" />
+	<REQ_FUNCTION id="6044" name="UNIX_TIMESTAMP" group="6" />
+	<REQ_FUNCTION id="6045" name="UTC_DATE" group="6" />
+	<REQ_FUNCTION id="6046" name="UTC_TIME" group="6" />
+	<REQ_FUNCTION id="6047" name="UTC_TIMESTAMP" group="6" />
+	<REQ_FUNCTION id="6048" name="WEEK" group="6" />
+-->
+	<REQ_FUNCTION id="6049" name="WEEKDAY" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="WEEKDAY" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6050" name="WEEKOFYEAR" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="WEEKOFYEAR" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="6051" name="YEAR" group="6" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="YEAR" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 	
+	<REQ_FUNCTION id="6052" name="YEARWEEK" group="6" />
+-->	
+
+<!--  **************************************************************************************** -->
+
+	<REQ_FUNCTION id="7001" name="AVG" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="AVG" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!-- 
+	<REQ_FUNCTION id="7002" name="BIT_AND" group="7" />
+	<REQ_FUNCTION id="7003" name="BIT_OR" group="7" />
+	<REQ_FUNCTION id="7004" name="BIT_XOR" group="7" />
+-->
+	<REQ_FUNCTION id="7005" name="COUNT" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="COUNT" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="7006" name="COUNT(*)" group="7" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="COUNT(*)" />
+	</REQ_FUNCTION>
+	
+
+	<REQ_FUNCTION id="7007" name="DISTINCT" group="7" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="DISTINCT " />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+		
+	<REQ_FUNCTION id="7008" name="GROUP_CONCAT" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="GROUP_CONCAT" />
+		<FCT_PARAM order="2" content="arg" />
+		<FCT_PARAM order="3" content="arg" before_sep="," optional="yes" repeat_from="3" />
+		<FCT_PARAM order="4" content="keyword" optional="yes" value="SEPARATOR" />
+		<FCT_PARAM order="5" content="arg" before_sep=" SEPARATOR "/>
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="7009" name="MIN" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MIN" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+	<REQ_FUNCTION id="7010" name="MAX" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="MAX" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="7011" name="STD" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="STD" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+<!--
+	<REQ_FUNCTION id="7012" name="STDDEV" group="7" />
+-->
+	<REQ_FUNCTION id="7013" name="SUM" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="SUM" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+	
+	<REQ_FUNCTION id="7014" name="VARIANCE" group="7" parenthesis="1" remove="1" >
+		<FCT_PARAM order="1" content="keyword" value="VARIANCE" />
+		<FCT_PARAM order="2" content="arg" />
+	</REQ_FUNCTION>
+
+
+<!--  **************************************************************************************** -->
+	
+</REQ_FUNCTIONS>
+
+
+

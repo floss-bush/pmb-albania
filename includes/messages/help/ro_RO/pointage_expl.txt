@@ -1,0 +1,12 @@
+<br />
+<b>Module de pointage des documents re&ccedil;us... 
+</b>
+<br />
+Vous allez pouvoir "pointer" tous les documents re&ccedil;us afin de les faire changer de statut pour les rendre pr&ecirc;tables.
+<br /><br />
+<OL>
+<LI>S&eacute;lectionner le statut et la section applicables</LI>
+<LI>Passer les documents un par un &agrave; la douchette</LI>
+</OL>
+<br />
+			

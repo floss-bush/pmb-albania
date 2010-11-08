@@ -1,0 +1,15 @@
+<h1>Transferts</h1>
+<p>Vous trouverez ici les options pour param&eacute;trer les transferts. </p>
+<p>
+<b>Général</b> Les parametres généraux
+</p><p>
+<b>Circulation</b> Les parametres pour la circulation
+</p><p>
+<b>OPAC</b> Les parametres pour l'OPAC
+</p><p>
+<b>Ordre de recherche</b> permet de gérer l'ordre des sites dans lequel on recherche l'exemplaire à transférer 
+</p><p>
+<b>Statuts par défaut</b> Statuts par défaut lors de la réception d'un exemplaire sur un site 
+</p><p>
+<b>Purge historique</b> Suppression de l'historique des transferts 
+</p>

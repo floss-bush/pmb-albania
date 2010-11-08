@@ -1,0 +1,868 @@
+/* +--------------------------------------------------------------------------+
+// | PMB est sous licence GPL, la r.utilisation du code est cadr.e            |
+// +--------------------------------------------------------------------------+
+// $Id: uni_bleu.css,v 1.33 2010-01-26 13:56:38 kantin Exp $                 */
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attrbitus g.n.raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+BODY  
+	{ 	font-size: 10pt;
+		font-family: Georgia, Garamond, "Times New Roman" ;
+		background-color: #efefff;
+		margin: 0em 0em 0em }
+td{
+	font-size : 11px;	
+}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu.es . des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* #container : partie d'affichage principal */
+#container {
+	position: absolute;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding: 0px; 
+	width: 99%;
+	}
+
+#intro {
+	margin-top: 0px;
+	margin-left: 14%;
+	width:85%;
+	padding: 0px;
+	}
+#intro_bibli 
+	{
+	}
+	
+#intro_bibli h3 {
+	font-weight: semibold;
+	font-size: 12pt;
+	color : #ffffff;
+	background : #6B7B7B;
+	text-align: right;
+	margin-top: 0px;
+	}
+	
+#intro_bibli h3.span  {
+	padding-left:10px;
+	background : #0023A4;
+	margin-top: 0px;
+	padding-top: 0px;
+	}
+	
+
+#intro_pmb {
+	width:100%;
+	display:none;
+	}
+
+#intro_pmb h1, h1 a, h1 a visited {
+	text-align: right;
+	font-size:0.8em;
+	color:#6B7B3B;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;	
+	}
+#intro_pmb h2 {
+	text-align: right;
+	font-size:0.7em;
+	color:#8EA1AD;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	}
+
+#intro_message {
+	font-style:italic;
+	}
+
+	#intro_message .p1,		
+	#intro_message .p2 {
+		/* display:none; */ 
+		border-top: 1px dashed #5A9C6B;
+		margin: 0 0 0 0;
+		padding : 0 0 0 0;
+		text-align: justify;
+	}
+		
+	#intro_bibli .p2{
+		padding-bottom:8px ;
+	}
+		
+
+#main 	{
+	margin-top: 0px;
+	left: 14%;
+	margin-right: 1%;
+	padding: 0px;
+	position:absolute;
+	height: 100%;
+	width: 85%;
+	top:100px;
+	}
+
+#main h3
+	{	margin-top: 0px;
+		margin-left: 0px;
+		margin-bottom: 15px;
+		margin-right: 0px;
+		padding-top: 1px;
+		padding-left: 0px;
+		padding-bottom: 0px;
+		padding-right: 0px;
+		font-weight: bold;
+		text-align: left;
+		border-bottom: dotted 1px #0023A4;
+		font-size:11pt; }
+
+#main h3 span 
+	{ 	color:#6B7B7B;
+		padding-left: 0px;
+		padding-right: 20px;
+		padding-bottom:-10px;
+		margin-bottom:-10px; }
+
+#main ul.search_tabs, #onglets_list ul.list_tabs{
+	margin:0;
+	padding:0;
+        list-style:none;
+        clear:right;
+        height:24px;
+        font-size:11pt; 
+       	background : url("pointvert.gif") repeat-x bottom left;
+        }
+
+#main ul.search_tabs li, #onglets_list ul.list_tabs li{
+	  float:left;
+	  padding:3px 6px 0px 6px;
+          border:1px solid #6B7B7B;  
+          margin-right:4px;
+	  margin-bottom:5px;
+          border-bottom:none; 
+          height:19px;
+	  background:#d0d0e0;
+	  color:#0023A4;
+	  }
+
+#main ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+	text-decoration:none;
+	font-weight:normal;
+	color:#333366;
+	}
+          
+#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+	  float:left;
+	  padding:3px 6px 0px 6px;
+	  background:#fBfBfB;
+          border-bottom:1px solid #fBfBfB; 
+	  margin-bottom:4px; 
+          height:19px;
+          }
+          
+#search_crl {
+    	clear:both;
+    	}      
+
+.div_clr {
+    	clear:both;
+    	}  
+
+
+#location {
+	clear:both;
+	border:2px solid #6B7B7B;
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+
+/* informations . ajouter pour afficher les cat.gories */
+#categories {
+	border:2px solid #6B7B7B;
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+	
+#categories H1  
+	{
+	font-weight: 500; 
+	font-size: 1.5em; 
+	background-color: transparent; 
+	letter-spacing: 150%; 
+	margin: 0.5em 0.2em 0.5em 0.5em; 
+	}
+
+/* informations . ajouter pour afficher les cat�gories */
+#categories-container {
+	}
+
+/* informations . ajouter pour afficher les cat�gories */
+div.row_categ {
+	display: block ;
+	clear: left;
+	}
+
+div.category 
+	{ 	
+	float:left;
+	margin: 0.5em 0.2em; 
+	width: 31%; 
+	}
+
+#categories-container H2  
+	{
+	font-weight: bold; 
+	font-size: 0.8em; 
+	background: transparent; 
+	margin-top: 0em; 
+	margin-bottom: 0em; 
+	}
+		
+#categories-container LI  
+	{
+	font-size: 0.9em; 
+	display: inline;
+	}
+
+#categories-container LI:after  
+	{
+	font-size: 0.8em; 
+	content: ", "; 
+	}
+		
+#categories-container UL 
+	{
+	margin-top: 0em;
+	margin-bottom: 0em; 
+	padding-left: 0em; 
+	}
+		
+/* Mise en page des colonnes d'affichage des recherches 
+   par auteurs, �diteurs, collections , sous-collections et cat�gories */
+.categ_colonne {
+	width:33%;
+	float:left;
+}
+/* reset des largeurs de #categories */
+/* apr.s un float:left; l'.l.ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+#last_entries { clear:both; }
+
+/* reset des largeurs de #categories */
+/* apr.s un float:left; l'.l.ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+.last_entries { clear:both; }
+
+#bandeau 
+	{
+	font-size: 0.8em;
+	text-align: left;
+	color:#000;
+	background : transparent ;
+	position: absolute;
+	padding: 6px;
+	padding-top:0px;
+	top: 6px;
+	left: 0px;
+	width: 13%;
+	height : 100%;
+	}
+
+#bandeau A 
+	{
+	color:#555555;
+	}
+
+#bandeau form 
+	{
+	padding: 0 0 0 0 ;
+	margin: 0 0 0 0 ;
+	}
+
+#bandeau h3 
+	{
+	color:#fff;
+	font-weight: bold;
+	font-size:9pt;
+	text-align: left;
+	width: 100%;
+	background-color: #6B7B7B;
+	margin: 0 0 0px 0 ;
+	margin-top: 0px ;
+	}
+
+#bandeau ul 
+	{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	}
+		
+#bandeau li 
+	{
+	line-height: 1em;
+	list-style-type: none;
+	background: transparent no-repeat top center;
+	display: block;
+	padding-top: 0px;
+	margin-bottom: 0px;
+	}
+
+#bandeau DIV h3 span
+	{
+	background: #6B7B7B;
+	color: #FFFFFF;
+	padding-left: 0px;
+	}
+
+#footer 
+	{
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	background: #6B7B7B;
+	color: #FFFFFF;
+	text-align: center;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	}
+	
+#footer a:link, #footer a:visited 
+	{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	color:#FFFFFF;
+	font-size:9pt;
+	font-weight: bold;
+	}
+
+#notice 
+	{
+	font-size:10pt;
+	}
+
+#notice h3
+	{
+	border-bottom: 1px solid #ddcB8C;
+	border-top: 1px solid #ddcB8C;
+	}
+		
+#notice span 
+	{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	}
+
+.notice-parent {
+	font-family: verdana, helvetica, arial, geneva, sans-serif;
+	color: #000000;
+	margin-left: 0px;
+	font-size: 8pt;
+	text-decoration: none
+	}
+.img_plus {
+	background-color: #8CC6FF;
+}
+.notice-child {
+	font-family: arial, helvetica, geneva, sans-serif;
+	font-size: 0.9em;
+	margin-left: 30px;
+	width: 98%;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-align: justify;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #c0c0c0;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #c0c0c0;
+	border-right-style: none;
+	border-top-style: none;
+	}
+
+#bandeau DIV {	
+	margin-bottom: 20px; 
+	}
+
+#bandeau DIV H3 {	
+	color: #FFFFFF; 
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliqu.es . des balises sans classes ni id sp.cifi.s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+P { 	
+	margin:8px;
+	}
+
+P.centered {	
+	text-align:center;
+	}
+
+A {	
+	color: #A75204;
+	}
+
+A:hover { 
+	color: #000000; 
+	}
+
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+	{
+	border-collapse: collapse;
+	}
+
+tr
+	{ }
+
+th
+	{ 
+	background: #C897DB;
+	text-align: left; 
+	}
+
+td.visible
+	{	border-bottom: 1px solid #ddcB8C;
+		border-top: 1px solid #ddcB8C; }
+
+td.visible-centered
+	{	border-bottom: 1px solid #ddcB8C;
+		border-top: 1px solid #ddcB8C;
+		text-align:center; }
+
+.text_search0 {
+	background-color: yellow;
+	text-decoration: underline;
+}
+
+.text_search1 {
+	background-color: red;
+	text-decoration: underline;
+}
+
+.text_search2 {
+	background-color: green;
+	text-decoration: underline;
+}
+
+.text_search3 {
+	background-color: blue;
+	text-decoration: underline;
+}
+
+.text_search4 {
+	background-color: maroon;
+	text-decoration: underline;
+}
+
+.text_search5 {
+	background-color: blank;
+	text-decoration: underline;
+}
+
+tr.even {
+	background: #eDf0f7;
+	color: #000;
+	}
+tr.odd {
+	background: #f3F7f9;
+	color: #000;
+	}
+tr.surbrillance {
+	background: #EECCCC;
+	}
+
+tr.tr_spacer 
+	{
+	height: 0px;
+	}
+td.td_spacer 
+	{
+	height: 0px;
+	}
+
+/*------------------------------------
+/*	tableaux des exemplaires de la fiche emprunteur
+/------------------------------------*/
+table.liste-expl-empr-late 
+	{
+	}
+table.liste-expl-empr-all 
+	{
+	}
+
+td.expl-empr-retard {
+	background: #DD0000;
+	color: #FFFFFF;
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliqu.es . classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+.row
+	{ clear: both;
+	  width: 80%;
+	  margin-left:30px; }
+
+.right,
+.right-50,
+.right-15,
+.right-85 
+	{	float: right; }
+
+.right-50 {	width: 50%; }
+
+.right-15 {	width: 15%; }
+
+.right-85 {	width: 85%; }
+
+
+.right-clear-right,
+.right-50-clear-right
+	{	float: right;
+		clear: right; }
+
+.left-clear-left,
+.left-50-clear-left
+	{	float: left;
+		clear: left; }
+
+.left,
+.left-50,
+.left-15
+	{	float: left;}
+
+.left-50
+	{	width: 50%;}
+
+.left-15
+	{	width: 15%;}
+
+.left-85
+	{	width: 85%;}
+
+.spacer
+	{	clear: both;
+		visibility: hidden;
+		display: none;
+		margin-bottom: -10px;
+		margin-top: -10px; }
+
+.p1 {	font-size:10pt; }
+	
+.text_query 
+	{ 	width: 20em; }
+
+.fond-mere {
+	background-color: #4f72ff;
+	}
+
+.fond-article {
+	background-color: #68df00;
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliqu.es . des balises sans classes ni id sp.cifi.s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton, input.boutonrechercher 
+	{	background:#DFD087;
+		color:#7F7027;
+		margin-left: 0px;
+		margin-right: 0px; }
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                      */
+/*                                                                            */
+/* pour l'impression, masquage de tags                                        */
+/*                                                                            */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+ul#onglets_isbd_public {
+    font: bold 11px verdana, arial, sans-serif;
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #6c6;
+    margin: 0;
+	padding-left:0px;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 21px;
+    background-color: #cfc;
+    margin: 2px 2px 0 2px;
+    border: 1px solid #6c6;
+    background-color: #B9A8F0;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #DDF0A7;
+    background-color: #DDF0A7;
+}
+
+#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #666;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default ;
+}
+#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    cursor: pointer ;
+    }
+
+/* Colonnes */
+.colonne2 {
+  float: left;
+  width: 50%;
+}
+
+.colonne_suite {
+  float: left;
+}
+
+/* Etageres */
+#etageres {
+	border:2px solid #6B7B7B;
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+
+#etagere-container {
+	}
+
+#etagere {
+	background: transparent;
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+
+#etagere-titre h1 {
+	width:99%;
+	margin:0px;
+	padding:5px;
+	font-size:1.3em;
+	font-weight:bold;
+	}
+
+#etagere-titre h1 a {
+	color: #A75204 ;
+	}
+
+#etagere-titre a {
+}
+
+#etagere-comment h2 {
+	text-align:left;
+	font-style:italic;
+	font-size:16px;
+	color:#6B7B7B;
+	margin:0px;
+	padding:5px;
+	}
+#etagere-notice-list {
+	padding-left:5px;
+
+	}
+#etagere-notice-list A {
+	}
+#etagere-notice-list A:hover {
+	}
+
+#navigator {
+	border:2px solid #6B7B7B;
+	margin-top:5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+
+#navigator table {
+	background:#CDE0A0;
+	border-collapse:collapse;
+	}
+
+#navigator td {
+	border-left:3px #DDF0A7 solid;
+	border-right:3px #DDF0A7 solid;
+	text-align:center;
+	font-size:0.9em;
+	font-style:italic;
+	}
+
+/* informations . ajouter pour afficher le cadre de recherche */
+#search {
+	border:2px solid #6B7B7B;
+	margin-top:5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 5px;
+	}
+	
+#all_footer {
+	position:absolute;
+	top:500px;
+	padding-left:0px;
+	width: 13%;
+	left:0;
+}
+	
+iframe#iframe_resume_panier {
+	width:100%;
+	height:35px;
+	border:none;
+}
+
+.alerte {
+	color: red;
+	font-size:14px;
+}
+.etiq_champ {
+	font-weight:bold;
+}
+
+ul#onglets_isbd_public li.onglet_basket,
+ul#onglets_isbd_public li.onglet_basket a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	width:25px;
+}
+
+ul#onglets_isbd_public li.onglet_tags,
+ul#onglets_isbd_public li.onglet_tags a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	text-decoration:underline;
+}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}

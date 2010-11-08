@@ -1,0 +1,325 @@
+/* +--------------------------------------------------------------------------+
+// © 2002-2008 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +--------------------------------------------------------------------------+
+*/
+
+/*
+ *	Couleurs de niveau 1 
+ *	Satuation élevée
+ *  --------------------------
+ *	gris : #dddddd;
+ *	emeraude : #368e80
+ *	or : #f99c09
+ *  ciel : #9fd9d9
+ *  violet : #6e0070
+ *  orange : #f66623
+ *  vert : #9bc14b
+ *  rouge : #ce000c  
+*/
+
+/* ------------------- NAVBAR ------------------- */
+
+/* li.current */
+#navbar-index.current,
+#navbar-index:hover{
+	background-color:#aaa;
+}
+#navbar-opac.current,
+#navbar-opac:hover{
+	background-color:#f99c09;
+}
+#navbar-circ.current,
+#navbar-circ:hover{
+	background-color:#368e80;
+}
+#navbar-catalog.current,
+#navbar-catalog:hover{
+	background-color:#f99c09;
+}
+#navbar-autorites.current,
+#navbar-autorites:hover{
+	background-color:#9fd9d9;
+}
+#navbar-edit.current,
+#navbar-edit:hover{
+	background-color:#6e0070;
+}
+#navbar-dsi.current,
+#navbar-dsi:hover{
+	background-color:#f66623;
+}
+#navbar-acquisition.current,
+#navbar-acquisition:hover{
+	background-color:#9bc14b;
+}
+#navbar-admin.current,#navbar-extensions.current,
+#navbar-admin:hover,#navbar-extensions:hover{
+	background-color:#ce000c;
+}
+
+/* ------------------- Autres NAVbarres ------------------- */
+
+ul.sel_navbar li.sel_navbar_current{
+	background-color:#f99c09;
+}
+/* ------------------- #MENU H3 ------------------- */
+   
+/* General */
+#menu h3{background-color:#dddddd;}
+
+/* Circulation */
+#conteneur.circ #menu h3{background-color:#368e80;}
+
+/* Catalog */
+#conteneur.catalog #menu h3{background-color:#f99c09;}
+
+/* Autorites */
+#conteneur.autorites #menu h3{background-color:#9fd9d9;}
+
+/* Editions */
+#conteneur.edit #menu h3{background-color:#6e0070;}
+
+/* D.S.I. */
+#conteneur.dsi #menu h3{background-color:#f66623;}
+
+/* Acquisitions */
+#conteneur.acquisition #menu h3{background-color:#9bc14b;}
+
+/* Administration */
+#conteneur.admin #menu h3{background-color:#ce000c;}
+
+
+/* ------------------- CHAMPS DE SAISIE ------------------- */
+/* General */
+.saisie-5emr,
+.saisie-10emr,
+.saisie-15emr,
+.saisie-20emr,
+.saisie-30emr,
+.saisie-50emr,
+.saisie-80emr{
+	background:#dddddd;
+}
+/* Circulation */
+.circ .saisie-5emr,
+.circ .saisie-10emr,
+.circ .saisie-15emr,
+.circ .saisie-20emr,
+.circ .saisie-30emr,
+.circ .saisie-50emr,
+.circ .saisie-80emr{
+	background:#368e80;
+}
+/* Catalogue */
+.catalog .saisie-5emr,
+.catalog .saisie-10emr,
+.catalog .saisie-15emr,
+.catalog .saisie-20emr,
+.catalog .saisie-30emr,
+.catalog .saisie-50emr,
+.catalog .saisie-80emr{
+	background:#f9bd5d;
+}
+/* Autorites */
+.autorites .saisie-5emr,
+.autorites .saisie-10emr,
+.autorites .saisie-15emr,
+.autorites .saisie-20emr,
+.autorites .saisie-30emr,
+.autorites .saisie-50emr,
+.autorites .saisie-80emr{
+	background:#b1d0cf;
+}
+/* Editions */
+.edit .saisie-5emr,
+.edit .saisie-10emr,
+.edit .saisie-15emr,
+.edit .saisie-20emr,
+.edit .saisie-30emr,
+.edit .saisie-50emr,
+.edit .saisie-80emr{
+	background:#6f5070;
+}
+/* DSI */
+.dsi .saisie-5emr,
+.dsi .saisie-10emr,
+.dsi .saisie-15emr,
+.dsi .saisie-20emr,
+.dsi .saisie-30emr,
+.dsi .saisie-50emr,
+.dsi .saisie-80emr{
+	background:#dc7454;
+}
+/* Acquisitions */
+.acquisition .saisie-5emr,
+.acquisition .saisie-10emr,
+.acquisition .saisie-15emr,
+.acquisition .saisie-20emr,
+.acquisition .saisie-30emr,
+.acquisition .saisie-50emr,
+.acquisition .saisie-80emr{
+	background:#9bc14b;
+}
+/* Administration */
+.admin .saisie-5emr,
+.admin .saisie-10emr,
+.admin .saisie-15emr,
+.admin .saisie-20emr,
+.admin .saisie-30emr,
+.admin .saisie-50emr,
+.admin .saisie-80emr{
+	background:#ce4e56;
+}
+
+/* ------------------- BOUTONS ------------------- */
+* General */
+body .bouton, .bouton_small{background:#ddd;}
+/* Circulation */
+body.circ .bouton,
+body.circ .bouton_small{
+	background:#368e80;
+	color:white;
+}
+
+/* Catalogue */
+body.catalog .bouton,
+body.catalog .bouton_small,
+body.pointage_exemplarise .bouton,
+body.pointage_exemplarise .bouton_small,
+body.abonnement_parution_edition .bouton,
+body.abonnement_parution_edition .bouton_small{
+	background:#f99c09;
+	color:white;
+}
+
+/* Autorites */
+body.autorites .bouton,
+body.autorites .bouton_small{
+	background:#9fd9d9;
+}
+
+/* Editions */
+body.edit .bouton,
+body.edit .bouton_small{
+	background:#6f5070;
+	color:white;
+}
+
+/* DSI */
+body.dsi .bouton,
+body.dsi .bouton_small{
+	background:#dc7454;
+	color:white;
+}
+
+/* Acquisitions */
+body.acquisition .bouton,
+body.acquisition .bouton_small{
+	background:#9bc14b;
+	color:white;
+}
+
+/* Administration */
+body.admin .bouton,
+body.admin .bouton_small{
+	background:#ce4e56;
+	color:white;
+}
+
+
+/* ------------------- ICONES EXTRA ------------------- */
+/* General */
+#extra .icon_history,
+#extra .icon_help,
+#extra .icon_param,
+#extra .icon_opac,
+#extra .icon_sauv,
+#extra .icon_quit{
+	background-color:#666;
+}
+
+/* Circulation */
+.circ #extra .icon_history,
+.circ #extra .icon_help,
+.circ #extra .icon_param,
+.circ #extra .icon_opac,
+.circ #extra .icon_sauv,
+.circ #extra .icon_quit{
+	background-color:#368e80;
+}
+
+/* Catalogue */
+.catalog #extra .icon_history,
+.catalog #extra .icon_help,
+.catalog #extra .icon_param,
+.catalog #extra .icon_opac,
+.catalog #extra .icon_sauv,
+.catalog #extra .icon_quit{
+	background-color:#f99c09;
+}
+
+/* Autorites */
+.autorites #extra .icon_history,
+.autorites #extra .icon_help,
+.autorites #extra .icon_param,
+.autorites #extra .icon_opac,
+.autorites #extra .icon_sauv,
+.autorites #extra .icon_quit{
+	background-color:#9fd9d9;
+}
+
+/* Editions */
+.edit #extra .icon_history,
+.edit #extra .icon_help,
+.edit #extra .icon_param,
+.edit #extra .icon_opac,
+.edit #extra .icon_sauv,
+.edit #extra .icon_quit{
+	background-color:#6e0070;
+}
+
+/* D.S.I. */
+.dsi #extra .icon_history,
+.dsi #extra .icon_help,
+.dsi #extra .icon_param,
+.dsi #extra .icon_opac,
+.dsi #extra .icon_sauv,
+.dsi #extra .icon_quit{
+	background-color:#f66623;
+}
+
+/* Acquisitions */
+.acquisition #extra .icon_history,
+.acquisition #extra .icon_help,
+.acquisition #extra .icon_param,
+.acquisition #extra .icon_opac,
+.acquisition #extra .icon_sauv,
+.acquisition #extra .icon_quit{
+	background-color:#9bc14b;
+}
+
+/* Administration */
+.admin #extra .icon_history,
+.admin #extra .icon_help,
+.admin #extra .icon_param,
+.admin #extra .icon_opac,
+.admin #extra .icon_sauv,
+.admin #extra .icon_quit{
+	background-color:#ce000c;
+}
+
+/* ------------------- Boutons extension/réduction +/- ------------------- */
+/* Circulation */
+.circ .img_plus{background:#368e80;}
+/* Catalogue */
+.catalog .img_plus{background:#ff9c00;}
+/* Autorites */
+.autorites .img_plus{background:#c136c3;}
+/* Editions */
+.edit .img_plus{background:#952396;}
+/* DSI */
+.dsi .img_plus{background:#dc7454;}
+/* Acquisitions */
+.acquisition .img_plus{background:#9bc14b;}
+/* Administration */
+.admin .img_plus{background:#da000d;}

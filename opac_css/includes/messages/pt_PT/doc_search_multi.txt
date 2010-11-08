@@ -1,0 +1,39 @@
+<h2>Procura Multi-crit&eacute;rio</h2>
+<p><strong>A procura multi-crit&eacute;rio permite a combina&ccedil;&atilde;o
+de diferentes crit&eacute;rios de modo a criar uma consulta precisa. </strong>
+</p>
+<p>Pode seleccionar um ou mais campos de procura &nbsp;: t&iacute;tulo,
+autor, campos personalizados...</p>
+<p>Para iniciar uma procura avan&ccedil;ada:</p>
+<ul>
+	<li><b>escolha um</b> primeiro <b>campo</b>
+	onde levar&aacute; a cabo a procura. Por exemplo : Autor 
+	</li>
+	<li>clique em <b>Adicionar</b> para
+	definir o primeiro campo de procura 
+	</li>
+	<li><b>seleccione</b> em seguida<b>um
+	tipo de procura</b> para o campo escolhido. Para um campo de pode
+	escolher uma &quot;Express&atilde;o booleana&quot;, &quot;Come&ccedil;a
+	por&quot;, &quot;Acaba com&quot; ou &quot;Exactamente como&quot;.
+	Este tipo de procura varia de acordo com o campo em quest&atilde;o.
+	Porexemplo, para Autor &quot;Come&ccedil;a por&quot; 
+	</li>
+	<li><b>se o campo precisa de um valor</b>,
+	<b>insira-o</b> na caixa de entrada; se o campo precisa de uma
+	escolha (por exemplo o tipo de material), seleccione uma ou mais
+	op&ccedil;&otilde;es clicando e premindo o bot&atilde;o Ctrl no seu
+	teclado. Por exemplo, para o nosso autor, come&ccedil;a com &quot;Cam&quot;
+		</li>
+	<li><b>Adicione outros crit&eacute;rios
+	&agrave; sua escolha</b>. Seguindo o mesmo exemplo, poderia
+	adicionar T&iacute;tulo exactamente como &quot;Lusiadas&quot;. 
+	</li>
+	<li>Finalmente, valide clicando em <b>Procurar</b></li>
+</ul>
+<hr />
+<p>A sua procura pode ser uma <a href=help.php?whatis=expbool>express&atilde;o
+booleana</a>.</p>
+<hr />
+<p>Uma procura multi-crit&eacute;rio pode ser realizada em todo o
+cat&aacute;logo da base de dados da biblioteca.</p>

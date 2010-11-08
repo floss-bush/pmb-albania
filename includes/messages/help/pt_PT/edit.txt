@@ -1,0 +1,3 @@
+<img src="./images/idea.gif" hspace="6" vspace="6" align="left">
+<h1>edições</h1>
+<p>Por favor, escolher uma acção do menu.</p>

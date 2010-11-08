@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- descriptif workflow 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: workflow.xml,v 1.2 2010-02-23 16:27:22 kantin Exp $ -->
+
+<structure>
+	<!-- Liste des états applicables aux objets -->
+	<states>
+		<state name="TODO" comment="msg:etat_todo"/>
+		<state name="VALIDATE" comment="msg:etat_validate"/>
+		<state name="REFUSED" comment="msg:etat_refused"/>
+		<state name="FINISHED" comment="msg:etat_finished"/>
+		<state name="GIVENUP" comment="msg:etat_givenup"/>
+		<state name="CLASSIFIED" comment="msg:etat_classified"/>		
+		<state name="AWAITING" comment="msg:etat_awaiting"/>
+		<state name="OPENED" comment="msg:etat_opened"/>
+		<state name="CLOSED" comment="msg:etat_closed"/>
+	</states>
+	
+	<!-- Liste des objets et attributs associés  -->	
+	<objects>
+		<!-- Définition de l'objet Demandes -->
+		<object  name="DEMANDES">
+			<states>
+				<state id="1" name="TODO"/>
+				<state id="2" name="VALIDATE"/>
+				<state id="3" name="REFUSED"/>
+				<state id="4" name="FINISHED"/>
+				<state id="5" name="GIVENUP"/>
+				<state id="6" name="CLASSIFIED"/>
+			</states>
+			<workflow name="INITIAL">
+				<startstate>TODO</startstate>
+				<source name="TODO">
+					<target name="VALIDATE"/>
+					<target name="REFUSED"/>
+				</source>
+				<source name="VALIDATE">
+					<target name="FINISHED"/>
+					<target name="GIVENUP"/>
+				</source>
+				<source name="REFUSED">
+					<target name="FINISHED"/>
+					<target name="GIVENUP"/>
+					<target name="VALIDATE"/>
+				</source>	
+				<source name="FINISHED">
+					<target name="CLASSIFIED"/>
+				</source>
+				<source name="GIVENUP">
+					<target name="CLASSIFIED"/>
+				</source>
+				<source name="CLASSIFIED">
+					<target name="VALIDATE"/>
+				</source>
+			</workflow>
+			<workflow name="INIT">
+				<startstate name="TODO"/>
+			</workflow>
+		</object>
+		<!-- Définition de l'objet Action -->
+		<object  name="ACTIONS" >
+			<states>
+				<state id="2" name="AWAITING"/>
+				<state id="1" name="OPENED"/>				
+				<state id="3" name="CLOSED"/>
+			</states>
+			<types>
+				<type id="1" name="QUERY" comment="msg:type_question"/>
+				<type id="2" name="SEARCH" comment="msg:type_search"/>
+				<type id="3" name="INFOS" comment="msg:type_info"/>
+				<type id="4" name="MEETING" comment="msg:type_rdv"/>	
+			</types>
+		</object>
+	</objects>
+</structure>

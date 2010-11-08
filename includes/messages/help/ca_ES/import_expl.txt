@@ -1,0 +1,17 @@
+<br />
+<b>¡CUIDADO!  Esta herramienta crea las fichas y los ejemplares de ser necesario solamente.
+<br />Éstos serán creados y marcados como <i>disponibles</i>.</b>
+<br /><br />
+
+El fichero tiene que estar en <b>formato UNIMARC</b> (zona 995).<br />
+<ul>
+<li>La importación se hace en tres partes:
+<OL>
+<LI><b>Enviar</b> del fichero,</LI>
+<LI><b>Cargar</b> el fichero,</LI>
+<LI><b>Transferir</b> a la base de datos de fichas.</LI>
+</OL></li>
+<br /><li>En lugar de enviar el fichero mediante su navegador web, éste puede enviarse directamente al servidor por métodos alternos (por ejemplo, FTP).  El fichero <b>tiene</b> que llamarse <i>unimarc.inc</i> y, en caso de envío por métodos alternos, se puede saltar directamente a la parte de <a href="iimport_expl.php?categ=import&sub=import_expl&action=preload">cargar</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import_expl&action=beforeupload">Parte 1: Enviar el fichero</a>
+

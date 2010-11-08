@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+/*************************************************************************
+ *																		 * 
+ * Fichier qui regroupe les différents types d'action 					 *
+ *					d'une demande de recherche  						 *
+ *																		 *		
+ *************************************************************************/
+-->
+<XMLlist>
+	<entry code="1">Question/Réponse</entry>
+	<entry code="2">Recherche</entry>
+	<entry code="3">Information Complémentaire</entry>
+	<entry code="4">Rendez-vous</entry>
+</XMLlist>

@@ -1,0 +1,13 @@
+<h2>Search by thesaurus terms</h2>
+<p><strong>The search by thesaurus terms allows you to browse the library collection by subject.</strong></p>
+<p>The Subject index is made up of keywords or terms (known as a thesaurus) established by the library, to help find items by a phrase or expression: for example <i>Medieval Literature</i> or 
+<i>Mammals</i>.</p>
+<p>In this search, start by <b>entering one or more terms to search for</b>, 
+for example <i>history</i>. The search results are displayed under a two-section form. </p>
+<p>The upper section shows you the corresponding subjects</b> for your search. Clicking on one of the headings in the main section (for example <i>political history</i>) will display <b>more information in the lower section</b> about the selected subject and possible <b>cross-references</b>.</p>
+<hr />
+<p>When clicking on one of the entries in the lower section, you will move from one heading to another one.</p>
+<hr />
+<p>To select a heading and display the related references, click on the magnifying glass <img src='images/search.gif' align='absmiddle'> located at the start of the line.</p>
+<hr />
+<p>If the magnifying glass is not displayed, no item is related to the subject.</p>

@@ -1,0 +1,17 @@
+<h1>Administra&ccedil;&atilde;o dos documentos</h1>
+
+<p>A sec&ccedil;&atilde;o de <b>administra&ccedil;&atilde;o dos documentos</b> permite definir os par&acirc;metros 
+da aplica&ccedil;&atilde;o para o empr&eacute;stimo e as estat&iacute;sticas sobre os documentos.
+<ul>
+<li><b>tipos de documentos</b> permite parametrizar os diferentes suportes em 
+empr&eacute;stimo e para cada um deles a dura&ccedil;&atilde;o do empr&eacute;stimo em dias.</li>
+<li><b>c&oacute;digos estat&iacute;sticos</b> este c&oacute;digo &eacute; utilizado para a constitui&ccedil;&atilde;o das 
+estat&iacute;sticas de empr&eacute;stimo e sobre os fundos da biblioteca</li>
+<li><b>sec&ccedil;&otilde;es</b> a sec&ccedil;&atilde;o &eacute; o sector da mediateca onde o documento se localiza (sector 
+adulto, juventude, discoteca...). Este 
+c&oacute;digo &eacute; igualmente tido em conta na constitui&ccedil;&atilde;o das estat&iacute;sticas</li>
+<li><b>estado</b> a no&ccedil;&atilde;o de estado &eacute; utilizada para especificar se o documento 
+pode ser emprestado ou n&atilde;o</li>
+<li><b>localiza&ccedil;&otilde;es</b> a localiza&ccedil;&atilde;o pode ser utilizada para anexar o documento a uma localiza&ccedil;&atilde;o particular (exemplo: em reserva)</li>
+<li><b>personaliz&aacute;veis</b> campos personaliz&aacute;veis dos exemplares</li>
+</ul></p>

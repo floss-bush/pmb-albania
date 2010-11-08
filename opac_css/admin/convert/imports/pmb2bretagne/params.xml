@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<!-- $Id: params.xml,v 1.3 2007-02-28 12:37:00 mhalm Exp $ -->
+<params>
+	<!--  Nom de l'import--> 
+	<importname>Base PMB -> UNIMARC</importname> 
+	<!--  Nombre de notices traitées par passe--> 
+	<nperpass>200</nperpass> 
+	<!--  Type de l'entrée --> 
+	<input type="xml" rootelement="*" noticeelement="notice" specialexport="yes" /> 
+	 <!-- type de la sortie -->
+    <output importable="yes" type="iso_2709" suffix="uni"/>
+	<step type="toiso">
+        <!-- Conversion xml unimarc en iso2709 unimarc -->
+        <rootelement>unimarc</rootelement>
+        <il>2</il>
+        <sl>2</sl>
+        <dm1>4</dm1>
+        <dm2>5</dm2>
+        <dm3>0</dm3>
+    </step>
+</params>

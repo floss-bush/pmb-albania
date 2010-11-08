@@ -1,0 +1,116 @@
+<?php
+
+// $Id: regex.txt,v 1.10 2009-05-16 11:05:14 dbellamy Exp $
+
+// documentación sobre los operadores booleanos
+
+$content = "
+<table border='0' width='100%'>
+<tr>
+<td align='left'>
+<b>PMB: Los operadores booleanos</b>
+</td>
+<td align='right'>
+<a href='#' onclick='window.close()'>
+<!--<img src='./images/close.gif' border='0' alt='[$msg[197]]' title='$msg[197]'>-->
+[$msg[197]]
+</a>
+</td>
+</tr>
+</table>
+<hr />
+<b>Búsqueda simple</b>
+<p class='pn-normal'>Por defecto, el motor de búsqueda busca los elementos que contienen <b>alguna</b> (O implícito) de las palabras 
+	introducidas. Los resultados se muestran según el número decreciente de palabras encontradas, y por orden alfabético.
+<br />Ej. <em>jamon bellota</em> al realizar una búsqueda con estas dos palabras, el motor buscará registros que
+    contengan jamón <b>o</b> bellota (jamón de bellota, jamón york, árbol de bellota, ...)
+<br />Los acentos no se tienen en cuenta así cómo las mayúsculas/minúsculas. Si dos palabras están separadas por un signo
+    que no sea espacio, , +, o -, las dos palabras se buscarán tal cual en los resultados.
+<br />Ej. <em>Santa Juana/mar</em> será analizado como: busca los elementos que contengan <em>santa</em> <b>o</b> los
+    elementos que contengan <em>juana y mar</em> <b>o</b> los dos.
+<br />Algunas palabras son ignoradas porque se consideran vacías de contenido, por ejemplo: la, de, el, su, suyo, ...
+</p>
+
+<b>El guión</b>
+<p class='pn-normal'>
+	El guión se considera como un operador entre dos palabras (ver un poco más abajo el capítulo : Operadores lógicos entre dos
+	palabras). Así que toda palabra compuesta por un guión debe estar rodeada de de comillas para hacer la búsqueda por el término 
+	exacto (ver más abajo Búqueda exacta).
+</p>
+      
+<b>Truncamiento</b>
+<p class='pn-normal'>
+	Las palabras pueden truncarse por la derecha, la izquierda o parcialmente introduciendo el carácter *
+	<br />Ej. <em>cam*</em> buscará las palabras que empiecen por <em>cam</em> (cama, camino, caminar, ...)
+	<em>*ogia</em> buscará las palabras que acaben con 'ogia' (psicología, teología, trilogía, ...)
+	<em>p*logía</em> buscará las palabras que empiezan por p y acaban con logía (psicología, paleontología, patología, ...)
+	<br />Se puede utilizar más de un truncamiento para una misma palabra.</p>
+	
+<b>Búsqueda por términos exactos</b>
+<p class='pn-normal'>
+	Un término exacto debe estar rodeado de comillas. El motor de búsqueda buscará exactamente los elementos contenidos entre las
+    comillas. Con la búsqueda exacta también se puede truncar. 
+	<br />Ej. <em>\'dent\'</em> buscará todos los elementos que contengan el texto dent (dentista, accedente, intendente, ...).
+	<br />La búsqueda exacta es práctica para buscar expresiones que contengan espacios o signos de puntuación. (una sigla por ejemplo).
+	<br />Ex. <em>\'A.N.P.E.\'</em> buscará los elementos que contentag el texto A.N.P.E., 
+	<em>A.N.P.E.</em> buscará los elementos que contengan las letras A o N o P o E .
+	<br />Los acentos y las mayúsculas/minúsculas non se tienen en cuenta en una búsqueda exacta.
+	Finalmente, los términos exactos pueden ser utilizados junto con todos operadores complejos descritos más abajo.
+</p>
+  
+<b>Negación</b>
+<p class='pn-normal'>
+	El símbolo ~ delante de un término representa una negación de ese término, se buscará todos los registros que no contengan 
+	ese término.		  
+	<br />Ej. <em>~trabajo</em> se buscarán todos los registros excepto aquellos que incluyan la palabra trabajo.
+</p>
+
+<b>Operadores lógicos entre dos palabras</b>
+<p class='pn-normal'>Los operadores lógicos pueden utilizarse entre palabras:</p>
+<ul>
+	<li><b>+</b> : operador Y<br />Ej. <em>disco + duro</em>buscará los elementos que contengan las palabras disco <b>y</b> duro.</li>
+	<li><b>-</b> : operador EXCEPTO (Y NO)<br />Ej. <em>disco - duro</em> buscará los registros que contengan la palabra disco <b>excepto 
+				aquellos que contengan también</b> la palabra duro. </li>
+</ul>
+<p class='pn-normal'>Los operadores pueden encadenarse dentro de una misma búsqueda. Se aplican según su orden, de izquierda a derecha.
+<br />Ej. <em>poesía + frances* - romántica* </em> buscará los elementos que contengan<em> poesía y francés(a)(s)</em> 
+	<b>sin</b><em> romántica(s)</em>.
+<br /><br />Atención, no se pueden poner seguidos dos operadores, una negación no puede ir combinada con un operador 
+(<b>+~</b> significa lo mismo que el operador <b>-</b>).
+</p>
+
+ <b>Reagrupaciones</b>
+<p class='pn-normal'>Una expresión puede ser reagrupada para convertirse en un conjunto a buscar. Estos agrupamientos se hacen usando los
+          <b>paréntesis</b>. Esto permite cambiar el orden de aplicación de los operadores para combinar resultados en búsquedas complejas.
+		  <br />Ej.</p>
+		<ul>
+		<li><em>poesía + (francesa romántica)</em> buscará de todos los registros que contengan francesa o romántica, únicamente 
+		aquellos que contengan <em>poesía</em>.</li>
+		<li><em>(poesía + francesa) romántica</em> buscará todos los elementos que contengan <em>poesía y francesa </em><b>o</b> todos 
+		los elementos que contengan <em>romántica</em></li>
+		<li><em>~(poesía + francesa) + (literatura ameri*)</em> buscará <em>todos los elementos que no contengan poesía y francesa</em>
+		<b>y</b> <em>los elementos que contengan literatura o ameri*.</li>
+		</ul>
+<p class='pn-normal'> Los paréntesis pueden colocarse sin límites.
+<br />Ej. <em>(poesía + (francesa romántica)) (literatura + XIX)</em> buscará <em>de todos los elementos que contengan francesa o 
+romántica, aquellos que contengan poesía</em> <b>o</b> <em>los elementos que contengan literatura y XIX</em>
+</p>
+
+<b>Pertinencia</b>
+<p class='pn-normal'>Los resultados se muestran por orden de pertinencia y por orden alfabético. La pertinencia se calcula 
+	simplemente por el número total de palabras o términos exactos encontrados.
+	<br />Ej.</p>
+<ul>
+	<li><em>jamón bellota </em> encontrará todos los elementos que contengan jamón o bellota, aquellos que contengan las dos palabras 
+			se mostrarán al inicio de la lista</li>
+	<li><em>~(poesía + francesa) (literatura ameri*)</em> encontrará todos los elementos que no contienen <em>poesía y francesa</em>, 
+	de estos elementos, aquellos que contienen <em>literatura o améri* </em>aparecerán en primer lugar en la lista de resultados 
+	(en primer lugar literatura y ameri*, luego ameri*, y luego literatura)</li>
+</ul>
+        
+ 
+";
+
+print $content;
+
+?>

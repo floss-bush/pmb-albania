@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement en UNIMARC (breton)
+$Id: recordtype.xml,v 1.2 2005-10-31 15:34:50 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="m">unskrid</entry>
+	<entry code="a">dielfennet</entry>
+	<entry code="s">embannadenn a-heul</entry>
+	<entry code="c">faosdastumadenn</entry>
+</XMLlist>

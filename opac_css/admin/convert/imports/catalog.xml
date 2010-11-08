@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id: catalog.xml,v 1.9 2010-08-04 13:18:50 dbellamy Exp $ -->
+<catalog>
+	<item name="Base PMB -&gt; pmb-XML MARC" path="equi" export="yes" exportname="UNIMARC PMB XML" visible="no"/>
+	<item name="Base PMB -&gt; UNIMARC Bretagne" path="pmb2bretagne" export="yes" exportname="UNIMARC Bretagne" visible="no"/>
+	<item name="MARC ISO2709 -&gt; HTML MARC" path="marciso2html"/>
+	<item name="MARC ISO2709 -&gt; pmb-XML MARC" path="marciso2pmbxml"/>
+	<item name="MARC ISO2709 -&gt; TEXTE MARC" path="marciso2txt"/>
+	<item name="Text -&gt; UNIMARC ISO2709" path="text2unimarciso" import="yes"/>
+	<item name="Text -&gt; pmb-XML UNIMARC" path="text2pmbxml"/>
+	<item name="MEMO NOTICES BCDI -&gt; UNIMARC ISO2709" path="bcdi2uniiso" import="yes"/>
+	<item name="MEMO NOTICES BCDI -&gt; pmb-XML UNIMARC" path="bcdi2pmbxmluni"/>
+	<item name="pmb-XML MARC -&gt; HTML MARC" path="pmbxml2html" export="yes" exportname="HTML MARC"/>
+	<item name="pmb-XML MARC -&gt; TEXTE MARC" path="pmbxml2txt" export="yes" exportname="TEXTE MARC"/>
+	<item name="pmb-XML UNIMARC -&gt; RTF" path="word" export="yes" exportname="WORD RTF"/>
+	<item name="pmb-XML MARC -&gt; MARC ISO2709" path="pmbxml2marciso" export="yes" exportname="UNIMARC ISO2709" import="yes"/>
+	<!--<item name="UNIMARC Atalante -&gt; PMB XML UNIMARC" path="atalanteuni2pmbxml"/>-->
+	<!--<item name="UNIMARC Atalante -&gt; UNIMARC ISO2709" path="atalanteuni2uniiso" import="yes"/>-->
+	<item name="Superdoc -&gt; UNIMARC" path="txt2pmbxml"/>
+	<item name="Superdoc -&gt; PMB XML UNIMARC" path="superdoc2pmbxml"/>
+	<item name="MARC ISO2709 MMN -&gt; MARC ISO2709 Bretagne" path="mmnuni2bretagneuni" import="yes"/>
+	<item name="MARC ISO2709 -&gt; Code-barres exemplaires" path="uni2cbex"/>
+	<item name="USMARC ISO2709 -&gt; UNIMARC ISO2709" path="usmarciso2unimarciso" import="yes"/>
+	<item name="USMARC ISO2709 -&gt; pmb-XML UNIMARC" path="usmarciso2pmbxmlunimarc"/>
+	<item name="USMARC @BOOKS -&gt; UNIMARC ISO2709" path="ebooks2unimarciso" import="yes"/>	
+	<item name="pmb-XML MARC -&gt; BibTex" path="pmb2bibtex" export="yes" exportname="BibTex"/>
+	<item name="pmb-XML MARC -&gt; EndNote" path="pmb2endnote" export="yes" exportname="EndNote"/>
+	<item name="pmb-XML MARC -&gt; MEDLINE" path="pmbxml2medline" export="yes" exportname="Medline"/>
+	<item name="pmb-XML MARC -&gt; RIS" path="pmbxml2ris" export="yes" exportname="RIS"/>
+</catalog>

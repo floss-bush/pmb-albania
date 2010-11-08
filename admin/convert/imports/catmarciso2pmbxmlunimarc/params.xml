@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>USMARC ISO2709 -&gt; pmb-XML UNIMARC</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+	<!-- Type de sortie -->
+	<output importable="no" type="xml" suffix="xml">
+		<rootelement>unimarc</rootelement>
+	</output>
+
+	<!-- Début de conversion -->	
+
+	<step type="custom">
+		<script>catmarc.inc.php</script>
+		<callback>cut_header</callback>
+	</step>
+	<step type="isotoxml">
+		<!-- Conversion en xml usmarc -->
+		<trootelement>unimarc</trootelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Conversion en xml unimarc -->
+		<xslfile>cat2uni.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+	
+</params>

@@ -1,0 +1,14 @@
+<h2>Cerca per termes del tesaurus</h2>
+<p><strong>La cerca per termes del tesaurus permet navegar entre les matèries dels documents que hi ha a la biblioteca.</strong></p>
+<p>Les categories són un sistema de classificació (conegut com a tesaurus) establert per la biblioteca, per facilitar trobar paraules o 
+expressions per cercar: per exemple, <i>Literatura Medieval</i> 
+o <i>Mamífers Marins</i>.</p>
+<p>Per fer aquesta cerca, cal començar <b>introduint un o més termes que es volen buscar</b>, per exemple, <i>història</i>. 
+Els resultats de la cerca es presenten en dos apartats.</p>
+<p>L'apartat situat a la part superior de la pantalla, mostra les categories corresponents</b> a la cerca. Si cliques en una 
+de les categories d'aquesta apartat (per exemple, <i>història política</i>) se't mostrarà <b>a la part inferior de la pantalla</b> 
+més informació sobre la categoria triada.</p>
+<hr /><p>Si fas clic en una de les categories de l'apartat inferior, aniràs navegant de categoria en categoria.</p>
+<hr /><p>Per seleccionar una categoria i veure els docuemnts corresponents, fes clic a la lupa <img src='images/search.gif' align='absmiddle'> 
+situada al començament de la línia.</p> 
+<hr /><p>Si no apareix la lupa, vol dir que no hi ha cap document amb aquella matèria.</p>

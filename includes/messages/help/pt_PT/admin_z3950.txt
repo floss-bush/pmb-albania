@@ -1,0 +1,6 @@
+<h1>Z 39.50</h1>
+<p>Configura&ccedil;&atilde;o do cliente Z39.50 para a importa&ccedil;&atilde;o de registos.</p>
+
+<b>Servidores</b> lista os servidores Z39.50 e permite adicionar ou remover.
+
+<img src="./images/idea.gif" hspace="6" vspace="6" align="left">

@@ -1,0 +1,10 @@
+<h2>Quick search</h2>
+<p><strong>Enter the title or the author to search for, then click on <i>Search</i></strong></p>
+<hr />
+
+<p>You may enter common nouns or proper nouns</p>
+<p><b>Accented characters</b> and <b>punctuation</b> are<b>ignored</b> during the search (é, è, à, ç, !, ', etc.).</p>
+<p>You can also search in publishers, series, sub-series, subjects (thesaurus), classmarks (for example Dewey), keywords, summaries and notes.</p>
+<p>To do this, first click the corresponding check boxes <img src="./images/coche.gif" align="absmiddle">, enter your search criteria, and then click on Search.</p>
+<hr />
+<p>Your search can also be a <a href="help.php?whatis=expbool">Boolean expression</a>.<br />

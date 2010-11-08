@@ -1,0 +1,17 @@
+<h2>Recherche par termes du thésaurus</h2>
+<p><strong>La recherche par termes du thésaurus permet de naviguer entre les sujets des ouvrages de la bibliothèque.</strong></p>
+<p>Les catégories sont un classement des ouvrages (c'est un thésaurus) établi par la bibliothèque 
+à l'aide de mots ou d'expression : par exemple <i>Littérature médiévale</i> ou 
+<i>Mammifères marins</i></p>
+<p>Dans cette recherche, commencez par <b>saisir un ou plusieurs termes à chercher</b>, 
+par exemple <i>histoire</i>. Les résultats de la recherche sont affichés sous le forme de 
+deux parties. </p>
+<p>La partie supérieure vous renvoie les catégories correspondantes</b> à votre 
+recherche. Un clic sur une des catégories de la partie supérieure (par exemple <i>histoire politique</i>) 
+vous affiche dans la <b>partie inférieure plus d'informations</b> sur la catégorie choisie et d'éventuels <b>renvois</b>.</p>
+<hr />
+<p>En cliquant sur un des liens de la partie inférieure, vous vous déplacez de catégorie en catégorie.</p>
+<hr />
+<p>Pour sélectionner une catégorie et afficher les ouvrages correspondants, cliquez sur la loupe <img src='images/search.gif' align='absmiddle'>située en début de ligne.</p>
+<hr />
+<p>Si la loupe n'est pas affichée, aucun ouvrage ne correspond à la catégorie.</p>

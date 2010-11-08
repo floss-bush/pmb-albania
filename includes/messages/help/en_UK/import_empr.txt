@@ -1,0 +1,24 @@
+<?php
+
+// $Id: import_empr.txt,v 0.1 2003/11/21 9:44:264 Jonathan charest
+
+// Documentation sur l'utilisation de l'import
+
+$content = "
+  <p><b>PMB : import-mini-howto</b> </p>
+  <p><strong>In the left hand column</strong> are the field names of your database.<br />
+    This is where you enter borrowers' data.</p>
+  <p><strong>The column in the centre </strong> indicates the position of the field in the file ex:<br />
+    &quot;12527&quot;,&quot;Archambault&quot;,&quot;rue de... <br />
+    &quot;12528&quot;,&quot;Baudin&quot;,&quot;rue de... <br /> <br />12527 is in 1st position,
+    it is the borrower's barcode, in 2nd position is his/her surname and in 3rd position, is his/her address, etc.</p>
+  <p><strong>In the right hand column</strong>, there is an example of the 1st line of the file, it can be very useful if you want to change its position in the file. Don't forget to click on Update to confirm changes made.</p>
+  <p><strong>Fields shown in red</strong> cannot be modified by the user, they will be automatically filled in by the application.</p>
+";
+
+print $content;
+
+?>
+
+
+ 

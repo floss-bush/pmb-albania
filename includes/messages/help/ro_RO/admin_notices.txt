@@ -1,0 +1,8 @@
+<h1>Administration des notices</h1>
+
+<p>La section <b>administration des notices</b> permet de d&eacute;finir les param&egrave;tres de l'application pour les notices.
+<ul>
+<li><b>origines</b> permet de d&eacute;finir les origines des notices, afin de distinguer les droits de rediffusion</li>
+<li><b>personnalisable</b> champs personnalisables sur les notices</li>
+</ul></p>
+ 

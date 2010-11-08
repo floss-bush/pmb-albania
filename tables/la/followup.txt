@@ -1,0 +1,55 @@
+1./install.php
+
+pour ajouter le bouton pour la luangue laotient, il suffit d'ajouter les 2 lignes suivantes apres la ligne 64
+	
+	<td>&nbsp;&nbsp;</td>
+	<td><input type='submit' class='bouton' name='submit' value='Lao'></td>
+	
+	et ajoute aussi les lignes suivantes pares la ligne 82 
+	
+	case 'Lao':
+		$lang='la';
+		break;
+		
+2./ dans le repertoire /pmb/selectors/ il faut modiffier 3 fichiers 
+	-country.inc.php
+	-lang.inc.php
+	-func.inc.php
+	il faut remplacer la ligne $letter = "a"; par $letter = "";
+	
+3./ dans le repertoire /pmb/edit/ il faut modiffier le fichier lettre-retard.inc.php
+	remplacer la ligne:
+	$ourPDF = new FPDF($format_page, 'mm', $taille_doc);
+	par la ligne:
+	$ourPDF = new UFPDF($format_page, 'mm', $taille_doc);
+	
+4./ dans le repertoire pmb/styles/default/ il faut changer les polices de fichier *.css a "Saysettha OT" c'est a dire 
+	font-family: "Saysettha OT";
+	
+5./ dans le repertoire /pmb/includes/ 
+	il faut modiffier le fichier 
+	- config.inc.php
+
+	remplacer la ligne 
+	$default_lang = 'fr_FR'; par $default_lang = 'la_LA';
+	et la ligne $charset= 'ISO-8859-1'; par $charset= 'utf-8';
+	
+	- db_param.inc.php
+	remplacer la ligne $charset= 'ISO-8859-1'; par $charset= 'utf-8';
+6./ dans le repertoire /pmb/includes/ 
+	il faut modiffier le fichier misc.inc.php
+
+	remplacer la ligne:
+	$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));
+	par la ligne:
+	//$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));	
+	
+7./ dans le repertoire /pmb/includes/messages/ il faut modiffier le fichier languages.xml
+	ajouter une ligne 
+    <entry code="la_LA">Lao</entry>
+	apres la ligne 
+	<entry code="ar">Arabic</entry> 
+	
+
+	
+	

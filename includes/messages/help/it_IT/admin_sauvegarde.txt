@@ -1,0 +1,12 @@
+<h1>Salvataggi</h1>
+</p><p>
+<b>Destinazioni di salvataggio</b> luoghi di destinazione sul hard disk o percorsi di salvataggio mediante ftp.
+</p><p>
+<b>Gruppi di tabelle</b> da salvare.
+</p><p>
+<b>Procedure di salvataggio</b> corrispondenza tra luoghi e gruppi di tabelle.</p><p>
+<b>Avvio salvataggio</b> permette di gestire l'avvio di un salvataggio.
+</p><p>
+<b>Salvataggi effettuati</b> mostra l'elenco dei salvataggi effettuati.
+
+

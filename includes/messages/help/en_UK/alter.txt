@@ -1,0 +1,7 @@
+<br />
+<b>BE CAREFUL, this update may take long or it may be risky...
+<br />It is imperative that you make a backup beforehand.</b>
+<br /><br />Ignore error messages, they may be related with your database version which is not up to date.
+<br />If the messages are still present at the end of the update, we may have to find out the cause.
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Click here to start update.</a>
+			

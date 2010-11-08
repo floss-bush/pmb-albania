@@ -1,0 +1,13 @@
+<h1>Backups</h1>
+</p><p>
+<b>Locations</b>, where backups are located on your hard disk or network
+</p><p>
+<b>Groups of tables</b> to backup
+</p><p>
+<b>Backup sets</b> places/groups of tables correspondence
+</p><p>
+<b>Running a backup</b> 
+</p><p>
+<b>Backups made</b> displays the list of backups already made.
+
+

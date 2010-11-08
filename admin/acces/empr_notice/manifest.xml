@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un domaine de gestion des droits d'acces
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2008-10-02 11:35:19 dbellamy Exp $ -->
+
+<manifest>
+	<name>empr_notice</name>
+	<comment>dom_empr_notice</comment>
+	<activation_param>gestion_acces_empr_notice</activation_param>
+	<author>Didier BELLAMY</author>
+	<org>PMB Services</org>
+	<date>2008-09-09</date>
+	<url>http://www.sigb.net</url>
+</manifest>

@@ -1,0 +1,17 @@
+<h2>Advanced Search</h2>
+<p><strong>Advanced search allows you to combine several criteria to create a precise search request.</strong></p>
+<p>
+You can select one or more search fields: title, author, custom fields...</p>
+<p>To start an advanced search:</p>
+<ul><li><b>choose </b> first a <b>field</b> to search in from the drop-down menu. For example: Author</li>
+<li>click on <b>Add</b> to display the first search field on your screen</li>
+<li><b>select a search type</b> for the field you have just added. Choose from among the following - <b>"boolean expression", "starts with", "ends with" or "exactly like"</b> 
+- the one that best corresponds to the type of search you want to conduct. Types of search may vary from field to field, e.g., for Author "starts with" </li>
+<li><b>if the field needs a value</b>, <b>enter it</b> directly in the input box; if the field needs a choice (e.g. the material type), select one or more options by clicking and holding down the Ctrl button on your keyboard. E.g., for our Author, starts with "Shake"</li>
+<li><b>Add any other criteria as you wish</b>. Following the above example, you could add Title exactly like "Othello".
+<li>Then, confirm by clicking on <b>Search</b></li></ul>
+<hr />
+<p>Your search can be a <a href=help.php?whatis=expbool>boolean expression</a>.</p>
+<hr />
+<p>An advanced search can be carried out on the entire library catalogue database.</p>
+

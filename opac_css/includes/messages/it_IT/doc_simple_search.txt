@@ -1,0 +1,11 @@
+<h2>Ricerca semplice</h2>
+<p><strong>Immettere il titolo o l'autore da ricercare poi cliccare su <i>Cerca</i></strong></p>
+<hr />
+
+<p>Si possono immettere sia nomi comuni che nomi propri.</p>
+<p>I <b>caratteri accentuati</b> e la <b>punteggiatura</b> sono <b>ignorati</b> durante la ricerca (�, �, �, �, !, ', etc.).</p>
+<p>Si può allo stesso modo cercare per editore, collana, sottocollana, categoria (tesaurus), indicizzazione (ad esempio Dewey), parole chiave, sommario e note.</p>
+<p>A questo scopo, spuntare <img src="images/coche.gif" align="absmiddle">
+ la o le voci corripondenti pi immettere le parole da cercare e cliccare su <i>Cerca</i>.</p>
+<hr />
+<p>La vostra ricerca può anche essere fatta mediante un'<a href="help.php?whatis=expbool">espressione booleana</a>.<br />

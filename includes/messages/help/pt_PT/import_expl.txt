@@ -1,0 +1,17 @@
+<br />
+<b>ATEN&Ccedil;&Atilde;O, esta ferramenta adiciona registos e exemplares somente se necess&aacute;rio</b>.
+<br />Estes ser&atilde;o adicionados e marcados como dispon&iacute;veis.</b>
+<br /><br />
+
+
+O ficheiro deve estar no formato UNIMARC, &eacute; a zona 995 que informar&aacute; os exemplares.<br /><br />
+<ul>
+<li>A <i>importa&ccedil;&atilde;o</i> &eacute; feita em <b>tr&ecirc;s etapas</b>:
+<OL>
+<LI><b>Carregar</b> o seu ficheiro,</LI>
+<LI><b>Pr&eacute;-carregar</b> o seu ficheiro,</LI>
+<LI><b>Transferir</b> para o registo da base de dados.</LI>
+</OL></li>
+<br /><li>Em vez de carregar o ficheiro via web browser, poder&aacute; enviar directamente ao servidor por outros meios (FTP por examplo). O ficheiro <b>deve ser nomeado</b> <i><?php echo $nom_fichier_transfert_ftp; ?></i>, e, neste caso,  dever&aacute; saltar directamente para o passo <a href="iimport_expl.php?categ=import&sub=import_expl&action=preload">Preload</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import_expl&action=beforeupload">Passo 1: Carregar</a>

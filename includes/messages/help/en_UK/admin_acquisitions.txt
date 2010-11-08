@@ -1,0 +1,20 @@
+<h1>Acquisitions</h1>
+</p><p>
+<b>Name</b> and <b>address</b> of the library.
+</p><p>
+<b>Financial years</b> to define periods covered.
+</p><p>
+<b>Input VAT</b> for managing various VAT rates and accounts for purchases (if VAT management is enabled).
+</p><p>
+<b>Types of materials</b> categories of materials purchased allowing for the calculation of discounts and the appropriation of funds for purchases.
+</p><p>
+<b>Supplementary expenditure</b> for acquisitions and accounts related thereto.
+</p><p>
+<b>Methods of payment</b> and settlement delays.
+</p><p>
+<b>Budgets</b> breakdown of purchases.
+
+
+
+
+

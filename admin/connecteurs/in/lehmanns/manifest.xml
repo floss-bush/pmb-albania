@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<manifest>
+	<name>lehmanns</name>
+	<repository>no</repository>
+	<comment>Lehmanns</comment>
+	<author>Florent TETART</author>
+	<org>PMB Services</org>
+	<date>2009-11-15</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

@@ -1,0 +1,19 @@
+<h1>Adquisicions</h1>
+</p><p>
+<b>Dades</b> fitxa d'identificació de la biblioteca.
+</p><p>
+<b>Exercicis comptables</b> definició dels exercicis comptables.
+</p><p>
+<b>IVA sobres les compres</b> gestió dels diferents impostos i comptes sobre les compres (trobarem aquest apartat si la gestió de 
+l'IVA  està activada).
+</p><p>
+<b>Tipus de productes</b> categories de productes a comprar, permet calcular les quantitats i els descomptes sobre les compres.
+</p><p>
+<b>Despeses relacionades</b> Despeses eventuals associades a les adquisicions i comptes associats.
+</p><p>
+<b>Mode de pagament</b> i normatives.
+</p><p>
+<b>Pressupostos</b> repartiment de les comres.
+
+
+

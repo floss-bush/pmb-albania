@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2009-12-02 20:21:00 erwanmartin Exp $ -->
+
+<manifest>
+	<name>JSON-RPC</name>
+	<comment>Connecteur qui implémente en JSON-RPC les fonctions de l'API</comment>
+	<author>Erwan MARTIN (utilise l'API de Sergio Vaccaro)</author>
+	<org>PMB Services</org>
+	<date>2009-12-02</date>
+	<url>http://www.sigb.net</url>
+	<api_requirements>
+
+	</api_requirements>
+</manifest>

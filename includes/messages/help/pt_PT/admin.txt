@@ -1,0 +1,36 @@
+<h1>Administra&ccedil;&atilde;o</h1>
+<p>Acedeu ao m&oacute;dulo de administra&ccedil;&atilde;o do PMB. As opera&ccedil;&otilde;es efectuadas afectar&atilde;o toda a funcionalidade da aplica&ccedil;&atilde;o. Por favor <b>tenha cuidado</b> quando usa este m&oacute;dulo. Antes de fazer qualquer coisa aqui, pense no impacto que causar&aacute; nos dados. Na d&uacute;vida, convidamo-lo(a) a <b>enviar-nos um email</b> para <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a>. Teremos todo o gosto em ajudar!</p>
+
+
+<h2>cat&aacute;logo</h2>
+<p>Esta sec&ccedil;&atilde;o permite-lhe definir as propriedades da aplica&ccedil;&atilde;o para <b>empr&eacute;stimos e estat&iacute;sticas</b>.
+<ul>
+<li><b>tipos de exemplares</b> permite-lhe configurar as v&aacute;rias <b>op&ccedil;&otilde;es de empr&eacute;stimo</b>, incluindo <b>dura&ccedil;&atilde;o de empr&eacute;stimo</b> em dias.</li>
+<li><b>c&oacute;digos estat&iacute;sticos</b> s&atilde;o usados para manter uma vigilância nos empr&eacute;stimos e nas estat&iacute;sticas das reservas da  biblioteca.</li>
+<li><b>c&oacute;digos da sec&ccedil;&atilde;o</b> s&atilde;o destinados para etiquetar as sec&ccedil;&otilde;es para o p&uacute;blico cujos exemplares est&atilde;o dispon&iacute;veis para empr&eacute;stimos (adultos, adolescentes, etc.). Estes c&oacute;digos s&atilde;o considerados para o c&aacute;lculo das estat&iacute;sticas.
+<li><b>estado</b> &eacute; utilizado para especificar a disponibilidade dos exemplares.</li>
+<li><b>situa&ccedil;&atilde;o</b> pode ser usada para marcar exemplares para locais espec&iacute;ficos (por exemplo: reserva).</li>
+</ul></p>
+
+
+<h2>utentes</h2>
+<p>Os v&aacute;rios <b>c&oacute;digos</b>  que lhe permitem manter <b>estat&iacute;sticas</b> acerca dos <b>utentes</b> da biblioteca.</p>
+<p>Ao combinar estes c&oacute;digos, dever&aacute; ser capaz de adaptar a aplica&ccedil;&atilde;o &agrave;s necessidades espec&iacute;ficas da biblioteca.</p>
+
+<h2>utilizadores</h2>
+<p>Esta sec&ccedil;&atilde;o permite gerir os  <b>utilizadores</b> do PMB e os seus <b>privil&eacute;gios</b>. 
+Particularmente, poder&aacute; escolher qual o utilizador que gere os empr&eacute;stimos, cataloga&ccedil;&atilde;o e autoridades. <b>ID de utilizadores e passwords</b> podem ser alterados aqui.</p>
+
+<h2>limpeza da base de dados</h2>
+<p>Esta funcionalidade permite manter a base de dados da aplica&ccedil;&atilde;o actualizada. Grande cuidado tem sido tomado para eliminar quaisquer possibilidades de perda de dados. 
+
+De entre as ferramentas dispon&iacute;veis nesta funcionalidade est&atilde;o a habilidade para "limpeza", a reorganiza&ccedil;&atilde;o dos ind&iacute;ces utilizados nas pesquisas e elimina&ccedil;&atilde;o dos dados desnecess&aacute;rios para o funcionamento da aplica&ccedil;&atilde;o.
+Dever&aacute; usar estas ferramentas, provavelmente, no caso de problemas com dados.</p>
+ 
+
+<h2>ferramentas</h2>
+<p>Aqui encontrar&aacute; as ferramentas para <b>gerir as base de dados</b>. Recomendamos fortemente que fa&ccedil;a periodicamente <b>backups da base de dados</b>.</p>
+
+<div align="right">A equipa de desenvolvimento</div>
+
+

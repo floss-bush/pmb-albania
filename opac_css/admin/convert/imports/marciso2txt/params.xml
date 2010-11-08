@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id: params.xml,v 1.2 2006-04-28 05:35:04 touraine37 Exp $ -->
+<params>
+	<!-- Nom de l'import -->
+	<importname>MARC ISO 2709 -&gt; TEXTE MARC</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+
+	<!-- Type de la sortie -->
+	<output importable="no" type="txt" suffix="txt" mimetype="text/text"/>
+	
+	<step type="isotoxml">
+		<!-- Conversion iso2709 unimarc en xml-->
+		<trootelement>pmbmarc</trootelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Conversion en html -->
+		<xslfile>txt_tab.xsl</xslfile>
+		<rootelement>pmbmarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement></trootelement>
+		<tnoticeelement></tnoticeelement>
+	</step>
+</params>

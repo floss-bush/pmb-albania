@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Onglets du l'application mobile
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: tabs.xml,v 1.1 2010-08-11 10:25:38 arenou Exp $ -->
+
+<tabs>
+	<tab name="infoPage" label="Accueil" desc="Mini-site construit avec les InfoPages"/>
+	<tab name="myAccount" label="Mon Compte" desc="Récapitulatif des informations associées au lecteur"/>
+	<tab name="search" label="Recherche Simple" desc="Recherche simple dans le catalogue"/>
+	<tab name="shelf" label="Coup de coeur" desc="Affichage d'une étagère Coup de Coeur"/>
+	<tab name="selfCheck" label="Prêt Autonome" desc="Gestion autonome du prêt/retour"/>
+</tabs>

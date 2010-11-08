@@ -1,0 +1,33 @@
+<h1>Modulo di amministrazione</h1>
+<p>Sei entrato nel modulo di amministrazione di PMB. Qui le tue azioni avranno effetto sulla funzionalit&agrave; dell'intera applicazione.  Per favore <b>sii molto attento</b> nell'usare questo modulo. Prima di fare una qualsiasi cosa, rifletti sull'impatto che avr&agrave; sui tuoi archivi. Se hai qualche dubbio, ti invitiamo a <b>inviare un messaggio</b> a <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a> Saremo lieti di aiutarti!</p>
+
+
+<h2>esemplari</h2>
+<p>Questa sezione permette di definire i parametri per la gestione dei vari documenti (nel programma detti anche <b>esemplari</b>) gestiti dalla mediateca. &Egrave; inoltre possibile definire dei <b>codici</b> per generare delle statistiche.</p>
+
+<h2>schede</h2>
+<p>Questa sezione permette di definire le fonti di provenienza delle <b>schede bibliografiche</b>. E' inoltre possibile definire dei campi aggiuntivi per le schede.</p>
+
+<h2>utenti</h2>
+<p>Questa sezione permette la configurazione dei parametri legati alla creazione degli <b>utenti della mediateca</b>: categorie e codici statistici. E' anche possibile importare dati corrispondenti a degli utenti da aggiungere.</p>
+
+<h2>operatori</h2>
+<p>Questa sezione permette la gestione degli <b>operatori</b> di PMB e i loro <b>privilegi</b> nell'uso del programma. In particolare, puoi scegliere quali utenti possono gestire i prestiti, la catalogazione e le responsabilit&agrave;. <b>Userid</b> e <b>password</b> d'accesso al programma possono essere cambiati qui.</p>
+
+<h2>importa</h2>
+<p>Da questa sezione &egrave; possibile importare dati riguardanti le schede bibliografiche e/o gli esemplari.</p>
+
+<h2>converti/esporta</h2>
+<p>Da questa sezione &egrave; possibile convertire o esportare i dati delle schede bibliografiche e/o degli esemplari in vari formati.</p>
+
+<h2>strumenti</h2>
+<p>La sezione strumenti fornisce un insieme di utilit&agrave; create per facilitare l'amministrazione del database e in genere di PMB.</p>
+
+<h2>z39.50</h2>
+<p>Configurazione del client Z39.50 per l'importazione delle schede bibliografiche.</p>
+
+<h2>copie di sicurezza</h2>
+<p>&Egrave; inutile sottolineare l'importanza di effettuare dei <b>salvataggi</b> periodici degli archivi.</p>
+
+<p align="right">Il Gruppo di Sviluppo</p>
+

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- messages localisés en français pour la classe de fonctions search_functions
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.4 2010-08-11 10:25:38 arenou Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+  <!--
+pmbesNotices
+-->
+  <entry code="pmbesNotices_description">Fonctions relatives aux notices</entry>
+  <!--
+fetchNoticeList
+-->
+  <entry code="fetchNoticeList_description">Récupère une liste de notices à partir de leurs ids, sous un format spécifique</entry>
+  <entry code="fetchNoticeList_input_description">Attention, aux exigences des protocoles en matière de charset si vous utilisez cette fonction. Par exemple, si vous utilisez SOAP, vous devez transporter les notices en utf-8.</entry>
+  <entry code="fetchNoticeList_output_description"></entry>
+  <entry code="fetchNoticeList_noticelist">un tableau contenant la liste des id des notices que l'on souhaite récupérer</entry>
+  <entry code="fetchNoticeList_recordFormat">le format dans lequel on souhaite ces notices</entry>
+  <entry code="fetchNoticeList_recordCharset">le charset dans lequel on souhaite les résultats</entry>
+  <entry code="fetchNoticeList_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
+  <entry code="fetchNoticeList_includeItems">inclure les exemplaires dans la zone 995</entry>
+  <entry code="fetchNoticeList_results">Les différentes notices</entry>
+  <entry code="fetchNoticeList_results_noticeId">l'id de la notice</entry>
+  <entry code="fetchNoticeList_results_noticeContent">la notice dans le format demandé</entry>
+<!--
+fetchNoticeListArray
+-->
+	<entry code="fetchNoticeListArray_description">Se comporte comme la fonction fetchNoticeList, sauf que les notices ne sont pas converties dans un format spécifiques, mais sont envoyé directement sous la forme d'un tableau unimarc</entry>
+	<entry code="fetchNoticeListArray_input_description">Attention, aux exigences des protocoles en matière de charset si vous utilisez cette fonction. Par exemple, si vous utilisez SOAP, vous devez transporter les notices en utf-8.</entry>
+	<entry code="fetchNoticeListArray_output_description"></entry>
+	<entry code="fetchNoticeListArray_noticelist">un tableau contenant la liste des id des notices que l'on souhaite récupérer</entry>
+	<entry code="fetchNoticeListArray_recordCharset">le charset dans lequel on souhaite les résultats</entry>
+	<entry code="fetchNoticeListArray_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
+	<entry code="fetchNoticeListArray_includeItems">inclure les exemplaires dans la zone 995</entry>
+	<entry code="fetchNoticeListArray_results">Les différentes notices</entry>
+  <!--
+listNoticeExplNums
+-->
+  <entry code="listNoticeExplNums_description">Liste les documents numériques associés à une notice</entry>
+  <entry code="listNoticeExplNums_input_description"></entry>
+  <entry code="listNoticeExplNums_output_description"></entry>
+  <entry code="listNoticeExplNums_noticeId">l'id de la notice concernée</entry>
+  <entry code="listNoticeExplNums_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+  <entry code="listNoticeExplNums_results">des informations sur les documents numériques s'ils existent</entry>
+  <!--
+listBulletinExplNums
+-->
+  <entry code="listBulletinExplNums_description">Liste les documents numériques associés à un bulletin</entry>
+  <entry code="listBulletinExplNums_input_description"></entry>
+  <entry code="listBulletinExplNums_output_description"></entry>
+  <entry code="listBulletinExplNums_bulletinId">l'id du bulletin concerné</entry>
+  <entry code="listBulletinExplNums_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+  <entry code="listBulletinExplNums_results">des informations sur les documents numériques s'ils existent</entry>
+
+<!--
+listNoticesExplNums
+-->
+	<entry code="listNoticesExplNums_description">Fait la même chose que listNoticeExplNums mais pour plusieurs notices à la fois</entry>
+	<entry code="listNoticesExplNums_input_description"></entry>
+	<entry code="listNoticesExplNums_output_description"></entry>
+	<entry code="listNoticesExplNums_noticesid">Un tableau contenant les ids des notices</entry>
+	<entry code="listNoticesExplNums_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+	<entry code="listNoticesExplNums_result">Les résultats</entry>
+	<entry code="listNoticesExplNums_result_noticeid">L'id de la notice</entry>
+	<entry code="listNoticesExplNums_result_explnums">Les exemplaires numériques de la notice</entry>
+
+<!--
+listBulletinsExplNums
+-->
+	<entry code="listBulletinsExplNums_description">Fait la même chose que listBulletinsExplNums mais pour plusieurs bulletins à la fois</entry>
+	<entry code="listBulletinsExplNums_input_description"></entry>
+	<entry code="listBulletinsExplNums_output_description"></entry>
+	<entry code="listBulletinsExplNums_bulletin_ids">Un tableau contenant les ids des bulletins</entry>
+	<entry code="listBulletinsExplNums_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+	<entry code="listBulletinsExplNums_results">Les résultats</entry>
+	<entry code="listBulletinsExplNums_results_bulletin_id">L'id du bulletin</entry>
+	<entry code="listBulletinsExplNums_results_bulletin_explnums">Les exemplaires numériques du bulletin</entry>
+
+<!--
+fetch_notices_bulletins
+-->
+	<entry code="fetch_notices_bulletins_description">Retourne les bulletins associé à des notices de périodique</entry>
+	<entry code="fetch_notices_bulletins_input_description"></entry>
+	<entry code="fetch_notices_bulletins_output_description"></entry>
+	<entry code="fetch_notices_bulletins_noticesid">Un tableau contenant les ids des notices</entry>
+	<entry code="fetch_notices_bulletins_noticesid_anoticeid"></entry>
+	<entry code="fetch_notices_bulletins_OPACUserId">l'id d'un emprunteur, pour vérifier les droits d'accès sur cette notice.
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+	<entry code="fetch_notices_bulletins_result">Les résultats</entry>
+	<entry code="fetch_notices_bulletins_result_noticeid">L'id de la notice</entry>
+	<entry code="fetch_notices_bulletins_result_bulletins">Les bulletins de la notice</entry>
+
+<!--
+fetchNoticeListFull
+-->
+	<entry code="fetchNoticeListFull_description">Renvoi le plus d'informations possible sur une série de notices</entry>
+	<entry code="fetchNoticeListFull_input_description"></entry>
+	<entry code="fetchNoticeListFull_output_description"></entry>
+	<entry code="fetchNoticeListFull_noticelist">Un tableau contenant les ids des notices que l'on souhaite retrouver</entry>
+	<entry code="fetchNoticeListFull_recordFormat">Le format dans lequel on veut retrouver la notice</entry>
+	<entry code="fetchNoticeListFull_recordCharset">Le charset du format. Mettre utf-8 si c'est pour utiliser à travers un connecteur</entry>
+	<entry code="fetchNoticeListFull_includeLinks">Inclure les liens entre notices</entry>
+	<entry code="fetchNoticeListFull_results">Les résultats</entry>
+	<entry code="fetchNoticeListFull_results_noticeId">L'id de la notice</entry>
+	<entry code="fetchNoticeListFull_results_noticeContent">La notice dans le format demandé</entry>
+	<entry code="fetchNoticeListFull_results_noticeItems">Les exemplaires de la notice</entry>
+	<entry code="fetchNoticeListFull_results_noticeDocNums">Les exemplaires numériques de la notice</entry>
+	<entry code="fetchNoticeListFull_results_noticeBulletins">Les bulletins de la notice, si c'est une notice de périodique</entry>
+
+<!--
+fetch_bulletin_list
+-->
+	<entry code="fetch_bulletin_list_description">Renvoi une liste de bulletins</entry>
+	<entry code="fetch_bulletin_list_input_description"></entry>
+	<entry code="fetch_bulletin_list_output_description"></entry>
+	<entry code="fetch_bulletin_list_bulletin_ids">Les ids des bulletins</entry>
+	<entry code="fetch_bulletin_list_result">Les bulletins</entry>
+
+<!--
+fetchBulletinListFull
+-->
+	<entry code="fetchBulletinListFull_description">Renvoi le plus d'information sur une série de bulletins</entry>
+	<entry code="fetchBulletinListFull_input_description"></entry>
+	<entry code="fetchBulletinListFull_output_description"></entry>
+	<entry code="fetchBulletinListFull_bulletinlist">Le ids des bulletins à récupérer</entry>
+	<entry code="fetchBulletinListFull_recordFormat">Le format dans lequel on veut la notice du bulletin (si elle existe)</entry>
+	<entry code="fetchBulletinListFull_recordCharset">Le charset du format. Mettre utf-8 si c'est pour utiliser à travers un connecteur</entry>
+	<entry code="fetchBulletinListFull_results">Les résultats</entry>
+	<entry code="fetchBulletinListFull_results_bulletin_id">L'id du bulletin</entry>
+	<entry code="fetchBulletinListFull_results_bulletin_bulletin">Le bulletin en lui même</entry>
+	<entry code="fetchBulletinListFull_results_bulletin_notice">La notice associée au bulletin, si elle existe</entry>
+	<entry code="fetchBulletinListFull_results_bulletin_items">Les exemplaires du bulletin</entry>
+	<entry code="fetchBulletinListFull_results_bulletin_doc_nums">Les documents numériques du bulletin</entry>
+ 
+  <!--
+fetchNoticeCollstates
+-->
+
+  <entry code="fetchNoticeCollstates_description"></entry>
+  <entry code="fetchNoticeCollstates_input_description"></entry>
+  <entry code="fetchNoticeCollstates_output_description"></entry>
+  <entry code="fetchNoticeCollstates_serial_id"></entry>
+  <entry code="fetchNoticeCollstates_OPACUserId"></entry>
+  <entry code="fetchNoticeCollstates_result"></entry>
+
+</XMLlist>

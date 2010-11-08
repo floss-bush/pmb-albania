@@ -1,0 +1,17 @@
+<br />
+<b>ATTENTION, cet import cr&eacute;e les notices si besoin et surtout les exemplaires. 
+<br />Ceux-ci seront cr&eacute;&eacute;s en &eacute;tant marqu&eacute;s comme vous &eacute;tant mis &agrave; disposition par une biblioth&egrave;que de pr&ecirc;t.</b>
+<br /><br />
+
+Le fichier doit &ecirc;tre au format UNIMARC, c'est la zone 995 qui renseignera vos exemplaires.<br /><br />
+<ul>
+<li>L'import se d&eacute;roule en trois phases :
+<OL>
+<LI>T&eacute;l&eacute;chargement de votre fichier</LI>
+<LI>Pr&eacute;-chargement du fichier</LI>
+<LI>Transfert dans la base des notices</LI>
+</OL></li>
+<br /><li>Au lieu de t&eacute;l&eacute;charger votre fichier, vous pouvez le mettre &agrave; disposition sur le serveur par la m&eacute;thode qui vous convient (FTP par exemple). Il doit alors &ecirc;tre nomm&eacute; imp&eacute;rativement "<?php echo $nom_fichier_transfert_ftp; ?>" et dans ce cas utilisez directement le <a href="iimport_expl.php?categ=import&sub=import_expl&action=preload">pr&eacute;chargement</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import_expl&action=beforeupload">Commencer : t&eacute;l&eacute;charger votre fichier</a>
+			

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<sip version="2.0">
+	<messages>
+		<message id="23" name="PATRON_STATUS_REQUEST" from="SC" reply_id="24">
+			<fixedfields>LANGUAGE,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,TERMINAL_PASSWORD,PATRON_PASSWORD</fields>
+		</message>
+		<message id="24" name="PATRON_STATUS_RESPONSE" from="ACS" request_id="23,01">
+			<fixedfields>PATRON_STATUS,LANGUAGE,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,PERSONAL_NAME,VALID_PATRON*,VALID_PATRON_PASSWORD*,CURRENCY_TYPE*,FEE_AMOUNT*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="11" name="CHECKOUT" from="SC" reply_id="12">
+			<fixedfields>SC_RENEWAL_POLICY,NO_BLOCK,TRANSACTION_DATE,NB_DUE_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,ITEM_IDENTIFIER,TERMINAL_PASSWORD,ITEM_PROPERTIES*,PATRON_PASSWORD*,FEE_ACKNOWLEDGED*,CANCEL*</fields>
+		</message>
+		<message id="12" name="CHECKOUT_RESPONSE" from="ACS" request_id="11">
+			<fixedfields>OK,RENEWAL_OK,MAGNETIC_MEDIA,DESENSITIZE,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,ITEM_IDENTIFIER,TITLE_IDENTIFIER,DUE_DATE,FEE_TYPE*,SECURITY_INHIBIT*,CURRENCY_TYPE*,FEE_AMOUNT*,MEDIA_TYPE*,ITEM_PROPERTIES*,TRANSACTION_ID*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="09" name="CHECKIN" from="SC" reply_id="10">
+			<fixedfields>NO_BLOCK,TRANSACTION_DATE,RETURN_DATE</fixedfields>
+			<fields>CURRENT_LOCATION,INSTITUTION_ID,ITEM_IDENTIFIER,TERMINAL_PASSWORD,ITEM_PROPERTIES*,CANCEL*</fields>
+		</message>
+		<message id="10" name="CHECKIN_RESPONSE" from="ACS" request_id="09">
+			<fixedfields>OK,RESENSITIZE,MAGNETIC_MEDIA,ALERT,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,ITEM_IDENTIFIER,PERMANENT_LOCATION,TITLE_IDENTIFIER*,SORT_BIN*,PATRON_IDENTIFIER*,MEDIA_TYPE*,ITEM_PROPERTIES*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="01" name="BLOCK_PATRON" from="SC" reply_id="24">
+			<fixedfields>CARD_RETAINED,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,BLOCKED_CARD_MESSAGE,PATRON_IDENTIFIER,TERMINAL_PASSWORD</fields>
+		</message>
+		<message id="99" name="SC_STATUS" from="SC" reply_id="98">
+			<fixedfields>STATUS_CODE,MAX_PRINT_WIDTH,PROTOCOL_VERSION</fixedfields>
+		</message>
+		<message id="98" name="ACS_STATUS" from="ACS" request_id="99">
+			<fixedfields>ON_LINE_STATUS,CHECKIN_OK,CHECKOUT_OK,ACS_RENEWAL_POLICY,STATUS_UPDATE_OK,OFF_LINE_OK,TIMEOUT_PERIOD,RETRIES_ALLOWED,DATE_TIME_SYNC,PROTOCOL_VERSION</fixedfields>
+			<fields>INSTITUTION_ID,LIBRARY_NAME*,SUPPORTED_MESSAGES,TERMINAL_LOCATION*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="97" name="REQUEST_ACS_RESEND" from="SC">
+		</message>
+		<message id="96" name="REQUEST_SC_RESEND" from="ACS">
+		</message>
+		<message id="93" name="LOGIN" from="SC" reply_id="94">
+			<fixedfields>UID_ALGORITHM,PWD_ALGORITHM</fixedfields>
+			<fields>LOGIN_USER_ID,LOGIN_PASSWORD,LOCATION_CODE*</fields>
+		</message>
+		<message id="94" name="LOGIN_RESPONSE" from="ACS" request_id="93">
+			<fixedfields>OK</fixedfields>
+		</message>
+		<message id="63" name="PATRON_INFORMATION" from="SC" reply_id="64">
+			<fixedfields>LANGUAGE,TRANSACTION_DATE,SUMMARY</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,TERMINAL_PASSWORD*,PATRON_PASSWORD*,START_ITEM*,END_ITEM*</fields>
+		</message>
+		<message id="64" name="PATRON_INFORMATION_RESPONSE" from="ACS" request_id="64">
+			<fixedfields>PATRON_STATUS,LANGUAGE,TRANSACTION_DATE,HOLD_ITEMS_COUNT,OVERDUE_ITEMS_COUNT,CHARGED_ITEMS_COUNT,FINE_ITEMS_COUNT,RECALL_ITEMS_COUNT,UNAVAILABLE_HOLDS_COUNT</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,PERSONAL_NAME,HOLD_ITEMS_LIMIT*,OVERDUE_ITEMS_LIMIT*,CHARGED_ITEMS_LIMIT*,VALID_PATRON*,VALID_PATRON_PASSWORD*,CURRENCY_TYPE*,FEE_AMOUNT*,FEE_LIMIT*</fields>
+			<fields>HOLD_ITEMS*,OVERDUE_ITEMS*,CHARGED_ITEMS*,FINE_ITEMS*,RECALL_ITEMS*,UNAVAILABLE_HOLD_ITEMS*,HOME_ADDRESS*,EMAIL_ADDRESS*,HOME_PHONE_NUMBER*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="35" name="END_PATRON_SESSION" from="SC" reply_id="36">
+			<fixedfields>TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,TERMINAL_PASSWORD*,PATRON_PASSWORD*</fields>
+		</message>
+		<message id="36" name="END_SESSION_RESPONSE" from="ACS" request_id="35">
+			<fixedfields>END_SESSION,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="37" name="FEE_PAID" from="SC" reply_id="38">
+			<fixedfields>TRANSACTION_DATE,FEE_TYPE,PAYMENT_TYPE,CURRENCY_TYPE</fixedfields>
+			<fields>FEE_AMOUNT,INSTITUTION_ID,PATRON_IDENTIFIER,TERMINAL_PASSWORD*,PATRON_PASSWORD*,FEE_IDENTIFIER*,TRANSACTION_ID*</fields>
+		</message>
+		<message id="38" name="FEE_PAID_RESPONSE" from="ACS" request_id="37">
+			<fixedfields>PAYMENT_ACCEPTED,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,TRANSACTION_ID*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="17" name="ITEM_INFORMATION" from="SC" reply_id="18">
+			<fixedfields>TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,ITEM_IDENTIFIER,TERMINAL_PASSWORD*</fields>
+		</message>
+		<message id="18" name="ITEM_INFORMATION_RESPONSE" from="ACS" request_id="17">
+			<fixedfields>CIRCULATION_STATUS,SECURITY_MARKER,FEE_TYPE,TRANSACTION_DATE</fixedfields>
+			<fields>HOLD_QUEUE_LENGTH*,DUE_DATE*,RECALL_DATE*,HOLD_PICKUP_DATE*,ITEM_IDENTIFIER,TITLE_IDENTIFIER,OWNER*,CURRENCY_TYPE*,FEE_AMOUNT*</fields>
+			<fields>MEDIA_TYPE*,PERMANENT_LOCATION*,CURRENT_LOCATION*,ITEM_PROPERTIES*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="19" name="ITEM_STATUS_UPDATE" from="SC" reply_id="20">
+			<fixedfields>TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,ITEM_IDENTIFIER,TERMINAL_PASSWORD*,ITEM_PROPERTIES</fields>
+		</message>
+		<message id="20" name="ITEM_STATUS_UPDATE_RESPONSE" from="ACS" request_id="19">
+			<fixedfields>ITEM_PROPERTIES_OK,TRANSACTION_DATE</fixedfields>
+			<fields>ITEM_IDENTIFIER,TITLE_IDENTIFIER*,ITEM_PROPERTIES*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="25" name="PATRON_ENABLE" from="SC" reply_id="26">
+			<fixedfields>TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,TERMINAL_PASSWORD*,PATRON_PASSWORD*</fields>
+		</message>
+		<message id="26" name="PATRON_ENABLE_RESPONSE" from="ACS" request_id="25">
+			<fixedfields>PATRON_STATUS,LANGUAGE,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,PERSONAL_NAME,VALID_PATRON*,VALID_PATRON_PASSWORD*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="15" name="HOLD" from="SC" reply_id="16">
+			<fixedfields>HOLD_MODE,TRANSACTION_DATE</fixedfields>
+			<fields>EXPIRATION_DATE*,PICKUP_LOCATION*,HOLD_TYPE*,INSTITUTION_ID,PATRON_IDENTIFIER,PATRON_PASSWORD*,ITEM_IDENTIFIER*,TITLE_IDENTIFIER*,TERMINAL_PASSWORD*,FEE_ACKNOWLEDGED*</fields>
+		</message>
+		<message id="16" name="HOLD_RESPONSE" from="ACS" request_id="15">
+			<fixedfields>OK,AVAILABLE,TRANSACTION_DATE</fixedfields>
+			<fields>EXPIRATION_DATE*,QUEUE_POSITION*,PICKUP_LOCATION,INSTITUTION_ID,PATRON_IDENTIFIER,ITEM_IDENTIFIER*,TITLE_IDENTIFIER*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="29" name="RENEW" from="SC" reply_id="30">
+			<fixedfields>THIRD_PARTY_ALLOWED,NO_BLOCK,TRANSACTION_DATE,NB_DUE_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,PATRON_PASSWORD*,ITEM_IDENTIFIER*,TITLE_IDENTIFIER*,TERMINAL_PASSWORD*,ITEM_PROPERTIES*,FEE_ACKNOWLEDGED*</fields>
+		</message>
+		<message id="30" name="RENEW_RESPONSE" from="ACS" request_id="29">
+			<fixedfields>OK,RENEWAL_OK,MAGNETIC_MEDIA,DESENSITIZE,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,ITEM_IDENTIFIER,TITLE_IDENTIFIER,DUE_DATE,FEE_TYPE*,SECURITY_INHIBIT*,CURRENCY_TYPE*,FEE_AMOUNT*,MEDIA_TYPE*,ITEM_PROPERTIES*,TRANSACTION_ID*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+		<message id="65" name="RENEW_ALL" from="SC" reply_id="66">
+			<fixedfields>TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,PATRON_IDENTIFIER,PATRON_PASSWORD*,TERMINAL_PASSWORD*,FEE_ACKNOLEDGED*</fields>
+		</message>
+		<message id="66" name="RENEW_ALL_RESPONSE" from="ACS" request_id="65">
+			<fixedfields>OK,RENEWED_COUNT,UNRENEWED_COUNT,TRANSACTION_DATE</fixedfields>
+			<fields>INSTITUTION_ID,RENEWED_ITEMS*,UNRENEWED_ITEMS*,SCREEN_MESSAGE*,PRINT_LINE*</fields>
+		</message>
+	</messages>
+	<fields>
+		<field id="ACS_RENEWAL_POLICY" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="ALERT" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="AVAILABLE" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="BLOCKED_CARD_MSG" type="identity_variable" length="255" datatype="string" identifier="AL"/>
+		<field id="CANCEL" type="identify_fixed" length="1" datatype="itemlist" identifier="BI">
+			<items>Y,N</items>
+		</field>
+		<field id="CARD_RETAIN" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="CHARGED_ITEMS" type="identity_variable" length="255" datatype="string" identifier="AU"/>
+		<field id="CHARGED_ITEMS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="CHARGED_ITEMS_LIMIT" type="identify_fixed" length="4" datatype="integer"/>
+		<field id="CHECKIN_OK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="CHECKOUT_OK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="CIRCULATION_STATUS" type="fixed" length="2" datatype="itemlist">
+			<items>1,2,3,4,5,6,7,8,9,10,11,12,13</items>
+		</field>
+		<field id="CURRENCY_TYPE" type="identify_fixed" length="3" datatype="itemlist" identifier="BH">
+			<items>USD,CAD,GBP,FRF,DEM,ITL,ESP,JPY</items>
+		</field>
+		<field id="CURRENT_LOCATION" type="identity_variable" length="255" datatype="string" identifier="AP"/>
+		<field id="DATE_TIME_SYNC" type="fixed" length="18" datatype="datetime"/>
+		<field id="DESENSITIZE" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N,U</items>
+		</field>
+		<field id="DUE_DATE" type="identity_variable" length="255" datatype="string" identifier="AH"/>
+		<field id="EMAIL_ADDRESS" type="identity_variable" length="255" datatype="string" identifier="BE"/>
+		<field id="END_ITEM" type="identity_variable" length="255" datatype="integer" identifier="BQ"/>
+		<field id="END_SESSION" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="EXPIRATION_DATE" type="identity_fixed" length="18" datatype="datetime" identifier="BW"/>
+		<field id="FEE_ACKNOWLEDGED" type="identify_fixed" length="1" datatype="itemlist" identifier="BO">
+			<items>Y,N</items>
+		</field>
+		<field id="FEE_AMOUNT" type="identity_variable" length="255" datatype="string" identifier="BV"/>
+		<field id="FEE_IDENTIFIER" type="identity_variable" length="255" datatype="string" identifier="CG"/>
+		<field id="FEE_LIMIT" type="identity_variable" length="255" datatype="string" identifier="CC"/>
+		<field id="FEE_TYPE" type="identify_fixed" length="2" datatype="itemlist" identifier="BT">
+			<items>01,02,03,04,05,06,07,08,09</items>
+		</field>
+		<field id="FINE_ITEMS" type="identity_variable" length="255" datatype="string" identifier="AV"/>
+		<field id="FINE_ITEMS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="HOLD_ITEMS" type="identity_variable" length="255" datatype="string" identifier="AS"/>
+		<field id="HOLD_ITEMS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="HOLD_ITEMS_LIMIT" type="identify_fixed" length="4" datatype="integer" identifier="BZ"/>
+		<field id="HOLD_MODE" type="fixed" length="1" datatype="itemlist">
+			<items>+,-,*</items>
+		</field>
+		<field id="HOLD_PICKUP_DATE" type="identity_fixed" length="18" datatype="datetime" identifier="CM"/>
+		<field id="HOLD_QUEUE_LENGTH" type="identify_variable" length="255" datatype="integer" identifier="CF"/>
+		<field id="HOLD_TYPE" type="identify_fixed" length="1" datatype="itemlist" identifier="BY">
+			<items>1,2,3,4</items>
+		</field>
+		<field id="HOME_ADDRESS" type="identity_variable" length="255" datatype="string" identifier="BD"/>
+		<field id="HOME_PHONE_NUMBER" type="identity_variable" length="255" datatype="string" identifier="BF"/>
+		<field id="INSTITUTION_ID" type="identity_variable" length="255" datatype="string" identifier="AO"/>
+		<field id="ITEM_IDENTIFIER" type="identity_variable" length="255" datatype="string" identifier="AB"/>
+		<field id="ITEM_PROPERTIES" type="identity_variable" length="255" datatype="string" identifier="CH"/>
+		<field id="ITEM_PROPERTIES_OK" type="fixed" length="1" datatype="string"/>
+		<field id="LANGUAGE" type="fixed" length="3" datatype="itemlist">
+			<items>000,001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027</items>
+		</field>
+		<field id="LIBRARY_NAME" type="identity_variable" length="255" datatype="string" identifier="AM"/>
+		<field id="LOCATION_CODE" type="identity_variable" length="255" datatype="string" identifier="CP"/>
+		<field id="LOGIN_PASSWORD" type="identity_variable" length="255" datatype="string" identifier="CO"/>
+		<field id="LOGIN_USER_ID" type="identity_variable" length="255" datatype="string" identifier="CN"/>
+		<field id="MAGNETIC_MEDIA" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N,U</items>
+		</field>
+		<field id="MAX_PRINT_WIDTH" type="fixed" length="3" datatype="integer"/>
+		<field id="MEDIA_TYPE" type="identify_fixed" length="3" datatype="itemlist" identifier="CK">
+			<items>000,001,002,003,004,005,006,007,008,009,010</items>
+		</field>
+		<field id="NB_DUE_DATE" type="fixed" length="18" datatype="datetime"/>
+		<field id="NO_BLOCK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="OFF_LINE_OK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="OK" type="fixed" length="1" datatype="itemlist">
+			<items>0,1</items>
+		</field>
+		<field id="ON_LINE_STATUS" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="OVERDUE_ITEMS" type="identity_variable" length="255" datatype="string" identifier="AT"/>
+		<field id="OVERDUE_ITEMS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="OVERDUE_ITEMS_LIMIT" type="identify_fixed" length="4" datatype="integer" identifier="CA"/>
+		<field id="OWNER" type="identity_variable" length="255" datatype="string" identifier="BG"/>
+		<field id="PATRON_IDENTIFIER" type="identity_variable" length="255" datatype="string" identifier="AA"/>
+		<field id="PATRON_PASSWORD" type="identity_variable" length="255" datatype="string" identifier="AD"/>
+		<field id="PATRON_STATUS" type="fixed" length="14" datatype="string"/>
+		<field id="PAYMENT_ACCEPTED" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="PAYMENT_TYPE" type="fixed" length="2" datatype="itemlist">
+			<items>00,01,02</items>
+		</field>
+		<field id="PERMANENT_LOCATION" type="identity_variable" length="255" datatype="string" identifier="AQ"/>
+		<field id="PERSONAL_NAME" type="identity_variable" length="255" datatype="string" identifier="AE"/>
+		<field id="PICKUP_LOCATION" type="identity_variable" length="255" datatype="string" identifier="BS"/>
+		<field id="PRINT_LINE" type="identity_variable" length="255" datatype="string" identifier="AG"/>
+		<field id="PROTOCOL_VERSION" type="fixed" length="4" datatype="string"/>
+		<field id="PWD_ALGORITHM" type="fixed" length="1" datatype="string"/>
+		<field id="QUEUE_POSITION" type="identity_variable" length="255" datatype="integer" identifier="BR"/>
+		<field id="RECALL_DATE" type="identity_fixed" length="18" datatype="datetime" identifier="CJ"/>
+		<field id="RECALL_ITEMS" type="identity_variable" length="255" datatype="string" identifier="BU"/>
+		<field id="RECALL_ITEMS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="RENEWAL_OK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="RENEWAL_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="RENEWED_ITEMS" type="identity_variable" length="255" datatype="string" identifier="BM"/>
+		<field id="RESENSITIZE" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="RETRIES_ALLOWED" type="fixed" length="3" datatype="integer"/>
+		<field id="RETURN_DATE" type="fixed" length="18" datatype="datetime"/>
+		<field id="SC_RENEWAL_POLICY" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="SCREEN_MESSAGE" type="identity_variable" length="255" datatype="string" identifier="AF"/>
+		<field id="SECURITY_INHIBIT" type="identify_fixed" length="1" datatype="itemlist" identifier="CI">
+			<items>Y,N</items>
+		</field>
+		<field id="SEQUENCE_NUMBER" type="identify_fixed" length="1" datatype="integer" identifier="AY"/>
+		<field id="SORT_BIN" type="identity_variable" length="255" datatype="string" identifier="CL"/>
+		<field id="START_ITEM" type="identity_variable" length="255" datatype="integer" identifier="BP"/>
+		<field id="SECURITY_MARKER" type="fixed" length="2" datatype="itemlist">
+			<items>00,01,02,03</items>
+		</field>
+		<field id="STATUS_CODE" type="fixed" length="1" datatype="itemlist">
+			<items>0,1,2</items>
+		</field>
+		<field id="STATUS_UPDATE_OK" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="SUMMARY" type="fixed" length="10" datatype="string"/>
+		<field id="SUPPORTED_MESSAGES" type="identity_variable" length="255" datatype="string" identifier="BX"/>
+		<field id="TERMINAL_LOCATION" type="identity_variable" length="255" datatype="string" identifier="AN"/>
+		<field id="TERMINAL_PASSWORD" type="identity_variable" length="255" datatype="string" identifier="AC"/>
+		<field id="THIRD_PARTY_ALLOWED" type="fixed" length="1" datatype="itemlist">
+			<items>Y,N</items>
+		</field>
+		<field id="TIMEOUT_PERIOD" type="fixed" length="3" datatype="integer"/>
+		<field id="TITLE_IDENTIFIER" type="identity_variable" length="255" datatype="string" identifier="AJ"/>
+		<field id="TRANSACTION_DATE" type="fixed" length="18" datatype="datetime"/>
+		<field id="TRANSACTION_ID" type="identity_variable" length="255" datatype="string" identifier="BK"/>
+		<field id="UID_ALGORITHM" type="fixed" length="1" datatype="string"/>
+		<field id="UNAVAILABLE_HOLDS_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="UNAVAILABLE_HOLD_ITEMS" type="identity_variable" length="255" datatype="string" identifier="CD"/>
+		<field id="UNRENEWED_COUNT" type="fixed" length="4" datatype="integer"/>
+		<field id="UNRENEWED_ITEMS" type="identity_variable" length="255" datatype="string" identifier="BN"/>
+		<field id="VALID_PATRON" type="identify_fixed" length="1" datatype="itemlist" identifier="BL">
+			<items>Y,N</items>
+		</field>
+		<field id="VALID_PATRON_PASSWORD" type="identify_fixed" length="1" datatype="itemlist" identifier="CQ">
+			<items>Y,N</items>
+		</field>
+	</fields>
+</sip>

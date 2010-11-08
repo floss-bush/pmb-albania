@@ -1,0 +1,124 @@
+/* +--------------------------------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: print.css,v 1.1 2008/01/28 08:24:17 jokester Exp $
+*/
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                      */
+/*                                                                            */
+/* pour l'impression, masquage de tags                                        */
+/* nécessite nécessite @media screen sur #main (uniquement racine)            */
+/* nécessite nécessite @media screen sur #container (uniquement racine)       */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+@media print {
+
+	#container 	{
+		position: relative;
+		clear:both;
+		}
+
+	#main 	{
+		display: inline;
+		position:absolute;
+		top:45px;
+		left:0px;
+		width:100%;
+	}
+
+	HTML BODY #main {
+		top:0px;
+	}
+
+	#intro {
+		position:absolute;
+		padding:2px;
+		top: 4px;
+		border-bottom:1px solid gray;
+		width:100%;	
+	}
+		
+	#intro_bibli {
+		margin-bottom:10px;
+		padding-top:0px;
+	}
+
+	#main {
+		margin-top:50px;
+	}
+
+	#all_footer,
+	#bandeau,
+	#navigator,
+	#intro .p1,
+	#intro .p2,
+	#footer
+	 {
+	display:none;
+	}
+
+	#main ul.search_tabs{
+	      margin:0;
+	      padding:0;
+          list-style:none;
+          clear:right;
+          height:24px;
+          background : url("pointsable.gif") repeat-x bottom left;
+          }
+
+	#main ul.search_tabs li{
+		float:left;
+		padding:3px 6px 0px 6px;
+         	border:1px solid #666666;  
+          	margin-right:4px;
+		margin-bottom:5px;
+          	height:19px;
+          	border-bottom:none;  
+		background:#999999;
+		color:#000000;}
+
+	#main ul.search_tabs li a{
+		text-decoration:none;
+		font-weight:normal;
+		color:#000000;
+		}
+          
+	#main ul.search_tabs li#current{
+	  	float:left;
+	  	padding:3px 6px 0px 6px;
+	  	background:#FFFFFF;
+         	border:1px solid #cccccc;  
+          	border-bottom:1px solid #FFFFFF;
+	  	margin-bottom:4px;
+          	height:19px;
+          }
+          
+    #main  #search_crl {
+    	clear:both;
+    	}      
+
+	.notice-parent {
+		margin:0px;
+		padding:0px;
+
+	}
+	
+	.notice-child {
+	    margin-left: 5px;
+	    text-align: justify;
+    	border-style: none;
+	}
+
+	#resultatrech_liste blockquote {
+		margin:0px;
+		padding:0px;
+	}
+
+
+}
+

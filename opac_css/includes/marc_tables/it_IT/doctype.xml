@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (français)
+$Id: doctype.xml,v 1.2 2005-02-27 16:18:35 martizva Exp $ -->
+
+<XMLlist>
+	<entry code="a">materiale a stampa</entry>
+	<entry code="b">materiale manoscritto</entry>
+	<entry code="c">spartiti musicali a stampa</entry>
+	<entry code="d">spartiti musicali manoscritti</entry>
+	<entry code="e">materiale cartografico a stampa</entry>
+	<entry code="f">materiale cartografico manoscritto</entry>
+	<entry code="g">materiale visuale</entry>
+	<entry code="i">registrazioni sonore non musicali</entry>
+	<entry code="j">registrazioni sonore musicali</entry>
+	<entry code="k">grafici bidimensionali</entry>
+	<entry code="l">archivi di elaboratore</entry>
+	<entry code="m">documento multimediale</entry>
+	<entry code="r">oggetti tridimensionali</entry>
+</XMLlist>

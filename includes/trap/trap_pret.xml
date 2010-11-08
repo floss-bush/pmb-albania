@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<traps>
+	<trap id="1" name="emprunteur_exist">
+		<function name="check_emprunteur_exist">	
+			<arg>id_empr</arg>
+			<arg>empr_cb</arg>						
+		</function>	
+	</trap>		
+	<trap id="2" name="document_exist">
+		<function name="check_document_exist">	
+			<arg>id_expl</arg>
+			<arg>cb_expl</arg>					
+		</function>	
+	</trap>			
+	<trap id="3" name="emprunteur_adhesion_false">
+		<function name="check_emprunteur_adhesion_false">	
+			<arg>id_empr</arg>				
+		</function>	
+	</trap>			
+	<trap id="4" name="document_pretable">
+		<function name="check_document_pretable">
+			<arg>id_expl</arg>		
+		</function>
+	</trap>
+	<trap id="5" name="document_has_note">
+		<function name="check_document_has_note">
+			<arg>id_expl</arg>		
+		</function>
+	</trap>
+	<trap id="6" name="document_already_loaned">		
+		<function name="check_document_already_loaned">
+			<arg>id_empr</arg>				
+			<arg>id_expl</arg>					
+		</function>
+	</trap>
+	<trap id="7" name="document_already_borrowed">		
+		<function name="check_document_already_borrowed">
+			<arg>id_empr</arg>				
+			<arg>id_expl</arg>							
+		</function>
+	</trap>	
+	<trap id="8" name="document_has_resa_false">		
+		<function name="check_document_has_resa_false">
+			<arg>id_empr</arg>				
+			<arg>id_expl</arg>				
+		</function>
+	</trap>		
+	<trap id="9" name="quotas">		
+		<function name="check_quotas">
+			<arg>id_empr</arg>				
+			<arg>id_expl</arg>					
+		</function>
+	</trap>	
+	<trap id="10" name="document_has_todo">
+		<function name="check_document_has_todo">
+			<arg>id_expl</arg>		
+		</function>
+	</trap>
+	<order>
+		<check id="1"/>
+		<check id="2"/>
+		<check id="3"/>
+		<check id="4"/>
+		<check id="10"/>
+		<check id="5"/>
+		<check id="6"/>
+		<check id="7"/>
+		<check id="8"/>
+		<check id="9"/>
+	</order>
+</traps>

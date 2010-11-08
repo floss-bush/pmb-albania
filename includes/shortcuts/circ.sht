@@ -1,0 +1,36 @@
+<?php
+// +-------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: circ.sht,v 1.11 2009-10-09 03:52:51 touraine37 Exp $
+
+// raccourcis clavier pour la page main
+
+$raclavier[] = array("C" , "./circ.php");									// Circulation
+$raclavier[] = array("R" , "./circ.php?categ=retour");	 					// Retour de documents
+$raclavier[] = array("V" , "./circ.php?categ=visu_ex"); 					// Visu exemplaire
+$raclavier[] = array("U" , "./circ.php?categ=retour_secouru");	 			// Prêt secouru
+
+$raclavier[] = array("D" , "./catalog.php");								// catalogage
+$raclavier[] = array("G" , "./catalog.php");								// cataloGage
+$raclavier[] = array("Z" , "./catalog.php?categ=z3950");					// rech Z39.50
+$raclavier[] = array("B" , "./catalog.php?shcut=B");						// rech par code-Barre
+$raclavier[] = array("N" , "./catalog.php?categ=create");	 				// création Notice
+
+$raclavier[] = array("S" , "./admin.php?categ=sauvegarde&sub=launch");		// page de Sauvegarde
+
+$raclavier[] = array("I" , "./dsi.php?categ=diffuser&sub=lancer");			// dIffusion dsi
+
+$raclavier[] = array("A" , "./autorites.php");								// Autorités
+
+$raclavier[] = array("E" , "./edit.php");									// Editions
+$raclavier[] = array("T" , "./edit.php?categ=notices&sub=resa_a_traiter");	// éditions des réservations à Traiter
+
+$raclavier[] = array("P" , "./account.php");								// Préférences
+$raclavier[] = array("Q" , "./logout.php");									// Quitter
+
+$raclavier[] = array("M" , "./catalog.php?categ=search&mode=6");			// Recherche multi-critères
+
+$raclavier[] = array("X" , "./admin.php?categ=param&action=");				// Admin > Paramètres
+
+include("$include_path/shortcuts/shortcuts.php");

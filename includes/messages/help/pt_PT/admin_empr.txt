@@ -1,0 +1,8 @@
+<h1>Administra&ccedil;&atilde;o de leitores</h1>
+<p>Os diferentes c&oacute;digos associados a cada um dos utilizadores da biblioteca permitem obter as estat&iacute;sticas sobre o p&uacute;blico da mesma.
+</p>
+
+<p>Na combina&ccedil;&atilde;o dos c&oacute;digos descritos anteriormente, dever&aacute; ter em considera&ccedil;&atilde;o 
+a adapta&ccedil;&atilde;o da aplica&ccedil;&atilde;o ao funcionamento particular da institui&ccedil;&atilde;o em que est&aacute;.</p>
+
+

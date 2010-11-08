@@ -1,0 +1,896 @@
+/* +--------------------------------------------------------------------------+
+// � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: bueil.css,v 1.48 2010-01-26 13:56:38 kantin Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attrbitus generaux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+body { 
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	background:white;
+}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliquees e des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+#pmbopac {
+	margin:0;
+}
+
+/* partie d'affichage principale a droite de l'ecran */
+#container 	{}
+#intro {
+	width:165px;
+	padding:2px;
+	padding-top:15px;
+	padding-bottom:10px;
+	padding-left:5px;
+	margin-left:10px;
+}
+#intro_pmb {}
+	#intro_pmb h1{}
+	#intro_pmb h2 {}
+	#intro_pmb h3 {}
+
+#intro_message {}
+	#intro_message .p1,	
+	#intro_message .p2 {}
+		
+#intro_bibli {
+	width:155px;
+}
+	
+	#intro_bibli h3 {font-size:11px;}
+	
+	#intro_bibli h3{}
+	
+	#intro_bibli .p1,
+	#intro_bibli .p2{
+		text-indent:15px;
+		margin-bottom:10px;
+	}
+		
+#all_footer {
+	position:absolute;
+	top:660px;
+	padding-left:10px;
+	left:0;
+}
+
+#main {
+		margin:5px 10px 5px 195px;
+		position:absolute;
+		width:80%;
+	}
+
+	#main h3 { 
+		font-size:14px;
+		padding-left:14px;
+		background:transparent url('pointsable.gif') no-repeat 3px 4px;
+	}
+
+	#main h3 span {
+		font-size:14px;
+		color:#008cc6; /*009cdc*/
+	}
+#main_hors_footer {}
+#main #search {
+		border:1px solid #bbbbbb;
+    	margin-top:26px;
+    	margin-top:35px\9;
+    	margin-bottom:10px;
+    	padding:0 5px 15px 5px;
+    	background:#eeeeee;
+    	min-height:100px;
+    	
+		-moz-border-radius-bottomright:10px;
+	 	-webkit-border-radius-bottom-right:10px;
+		border-radius-bottom-right:10px;
+		-moz-border-radius-topright:10px;
+	 	-webkit-border-radius-top-right:10px;
+		border-radius-top-right:10px;
+	}
+	
+	#main ul.search_tabs, #onglets_list ul.list_tabs{
+	      margin-top:-24px!important;
+	      margin-top:0;
+	      position:relative\9;
+	      top:-24px\9;
+	      
+	      margin-left:0px;
+	      padding:0;
+          list-style:none;
+          clear:right;
+          height:24px;
+          font-size:13px;
+	}
+
+	#main ul.search_tabs li, #onglets_list ul.list_tabs li{
+		float:left;
+		padding:4px 6px 0px 6px;
+        border:1px solid #bbbbbb;  
+        margin-right:6px;
+		margin-bottom:5px;
+        height:19px;
+        border-bottom:none;  
+		background:#bbb;
+		color:#000000;
+	}
+
+	#main ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+		text-decoration:none;
+		font-weight:normal;
+		color:#000000;
+	}
+	
+	#main ul.search_tabs li:hover, #onglets_list ul.list_tabs li:hover {
+		background:#eee;
+	}
+          
+	#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+	  	float:left;
+	  	padding:3px 8px 0px 15px;
+	  	background:#eee url('pointsable.gif') no-repeat 4px 7px;
+       	border:1px solid #bbbbbb;  
+        border-bottom:1px solid #eee;
+	  	margin-bottom:4px;
+        height:19px;
+        font-size:14px;
+    }
+    
+    
+    
+    #main  #search_crl {
+    	clear:both;
+    	}      
+
+.div_clr {
+    	clear:both;
+    	}  
+
+	#location {
+		clear:both;
+	}
+
+	#aut_see {
+			border:1px solid #cccccc;
+    	margin-top:-1px;
+    	padding:5px;
+    	background:#eeeeee;
+    	margin-bottom:10px;
+	}
+
+	#navigator {
+		margin-top:5px;
+		border:1px solid #cccccc;
+		padding:2px 0 0 5px;
+	}
+
+
+	#navigator td {
+		border-left:1px #FFFFFF solid;
+		border-right:1px #FFFFFF solid;
+		text-align:center;
+		font-size:11px;
+		font-weight:italic;
+	}
+/* informations e ajouter pour afficher les categories */
+div.row_categ {
+ display: block;
+ clear: left;
+}
+
+#categories {
+	/*display: block;*/
+	margin:0px;
+	padding:0px;
+	height:100%;
+	}
+
+#categories h1{}
+#categories h3{padding-bottom:6px;}
+
+#categories a{
+	color:#666;
+	text-decoration:none;
+}
+
+#categories a:hover {
+	color:#999;
+	text-decoration:underline;
+}
+
+/* informations e ajouter pour afficher les categories */
+#categories-container {
+	background:#eee;
+	border: 1px solid #bbbbbb;
+	padding-left:10px;
+	display:block;
+	padding-bottom:15px;
+	padding-top:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+div.category 	{	
+		float:left;
+		width:31%;
+		color:#666;
+		padding:2px;
+		}
+		
+#categories-container H2 {
+		font-size:13px;
+		padding-bottom :0px;
+		margin:0px;
+		color:#666;
+		}
+		
+#categories-container H2 IMG {
+		padding-top:3px;
+		}
+#categories-container A {
+		color:#666;
+		}
+#categories-container h2 A {
+		color:#666;
+		}
+#categories-container UL {margin:2px;}
+
+#categories-container LI  {
+	display: inline;
+	}
+
+#categories-container LI A {
+	text-decoration:none;
+	}
+	
+#categories-container LI A:hover {
+	text-decoration:underline;
+	}
+
+#categories-container LI:after  {
+	content: " - "; 
+	}
+	
+#categories ul.search_tabs {
+	border:none;
+	margin-left:20px;
+	display:block;
+	position:relative;
+	top:13px;
+}	
+
+#categorie ul.search_tabs li{
+	float:left;
+    margin-right:4px;
+	background:#5ab9f9;
+	color:#5ab9f9;
+	-moz-border-radius-topleft:5px;
+   	-moz-border-radius-topright:5px;
+}
+
+#categories ul.search_tabs li a{
+	text-decoration:none;
+	font-weight:normal;
+	color:#000000;
+	height:20px;
+	border:none;
+	-moz-border-radius-topleft:5px;
+   	-moz-border-radius-topright:5px;
+}
+          
+#categories ul.search_tabs li#current{
+  	background:#5ab9f9;
+   	color:#ffffff;
+   	border:none;
+   	height:20px;
+   	padding-left:5px;
+   	border-top:1px solid #5ab9f9;
+   	-moz-border-radius-topleft:5px;
+   	-moz-border-radius-topright:5px;
+}          	
+
+/* Mise en page des colonnes d'affichage des recherches 
+   par auteurs, editeurs, collections , sous-collections et categories */
+.categ_colonne {
+	width:33%;
+	float:left;
+}
+/* reset des largeurs de #categories */
+/* apres un float:left; l'element bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+
+#last_entries { clear:both; }
+
+.etageres { clear:both; }
+
+#pageHeader 
+	{ }
+
+#bandeau { 
+	 width:155px;
+	 padding:0px 5px 15px 10px;
+	 margin-left:10px;
+	 background: #eeeeee;
+	 border:#bbbbbb 1px solid;
+	 -moz-border-radius:10px;
+	 -webkit-border-radius:10px;
+	 border-radius:10px;
+}
+
+	#bandeau a{}
+
+	#bandeau div{
+		padding:0px;
+	}
+	
+	#bandeau form {
+		margin: 0px 0px 0px 0px ;
+	}
+
+	#bandeau h3 {
+		margin: 15px -5px 5px -10px ;
+		font-weight:bold;
+		font-size:12px;
+		background:#fff url('pointsable.gif') no-repeat 4px 4px;
+		padding:2px 0px 2px 22px;
+	}
+
+	#bandeau P.centered {
+	margin: 0px 0px 0px 0px ;
+	text-align:center;
+	}
+
+	#bandeau span {
+	font-size:11px;
+	}
+		
+	#bandeau h3 span {
+	font-size:12px;
+	}
+	#bandeau li 
+	{}
+
+#footer {
+		clear:both;
+		margin-top: 15px;
+		margin-left: 0px;
+		margin-bottom: 0px;
+		margin-right: 0px;
+		padding: 5px;
+		color: transparent;
+		voice-family: "\"}\"";
+		voice-family:inherit;
+		background: url("liens.png") top left;
+		border:#bbbbbb 1px solid;
+		text-align:center;
+	}
+	
+#footer a {
+	color:#444444;	}
+
+#footer a:hover {
+	color:#444444;
+	text-decoration:underline;	}
+
+#notice 
+	{  }
+
+	#notice h3
+	{ }
+		
+	#notice span 
+	{ }
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliquees e des balises sans classes ni id specifies  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+A 	{
+	color:#444444;
+	}
+
+A:hover {
+	}
+
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+	{ }
+
+tr
+	{ }
+
+th
+	{ text-align: left ;}
+
+td {
+	font-size : 11px;	
+	}
+
+td.jauge
+	{	}
+
+td.visible
+	{ }
+
+td.visible-centered
+	{ }
+
+tr.even {
+	background: #E0E0E0;
+	}
+tr.surbrillance {
+	background: #EECCCC;
+	}
+tr.odd
+	{ }
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliquees e classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+
+.row
+	{ clear: both; }
+
+.right,
+.right-50,
+.right-15,
+.right-85 
+	{	float: right; }
+
+.right-50 {	width: 50%; }
+
+.right-15 {	width: 15%; }
+
+.right-85 {	width: 85%; }
+
+
+.right-clear-right,
+.right-50-clear-right
+	{	float: right;
+		clear: right; }
+
+.left-clear-left,
+.left-50-clear-left
+	{	float: left;
+		clear: left; }
+
+.left,
+.left-50,
+.left-15
+	{	float: left;}
+
+.left-50
+	{	width: 50%;}
+
+.left-15
+	{	width: 15%;}
+
+.left-85
+	{	width: 85%;}
+
+.spacer
+	{	clear: both;
+		visibility: hidden;
+		display: none;
+		margin-bottom: -10px;
+		margin-top: -10px; }
+
+.p1 {	}
+	
+.text_query 
+	{  }
+
+.fond-mere {
+	}
+
+.fond-article {
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliquees e des balises sans classes ni id specifies  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton, input.boutonrechercher 
+	{ }
+
+input.numero_page 
+	{ }
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+ul#onglets_isbd_public {
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #aaaaaa;
+    margin: 0;
+    padding-left:2px;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 21px;
+    margin: 2px 2px 0 2px;
+    border: 1px solid #aaaaaa;
+    background-color: #cccccc;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #ffffff;
+    background-color: #ffffff;
+}
+
+ul#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #666;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default ;
+}
+
+ul#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    cursor: pointer ;
+    }
+
+ul#onglets_isbd_public li.onglet_basket,
+ul#onglets_isbd_public li.onglet_basket a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	width:25px;
+	}
+
+ul#onglets_isbd_public li.onglet_tags,
+ul#onglets_isbd_public li.onglet_tags a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	text-decoration:underline;
+	}
+
+/* Colonnes */
+.colonne2 {
+  float: left;
+  width: 50%;
+}
+
+.colonne_suite {
+  float: left;
+}
+
+.bg-grey {
+  background-color: #eeeeee;
+  border-top:1px solid white;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  border-radius:2px;
+  vertical-align: top;
+}
+
+/* Etageres */
+#etagere {
+	background:#fff;
+	border:#cccccc 1px solid;
+}
+
+#etagere-titre h1 {
+	background: url("liens.png") top left;
+	margin:0px;
+	padding:5px;
+	font-size:13px;
+	font-weight:bold;
+}
+#etagere-titre h1 a {
+	color:#000000;
+}
+
+#etagere-titre a {
+}
+
+#etagere-comment h2 {
+	text-align:right;
+	font-style:italic;
+	font-size:16px;
+	color:#ffffff;
+	margin:0px;
+	padding:0px;
+	margin-top:-3px;
+	padding-bottom:5px;
+}
+
+#etagere-notice-list {
+	padding-left:5px;
+
+}
+
+#etagere-notice-list A {
+}
+#etagere-notice-list A:hover {
+}
+
+/*********************    correction espacement de gauche dans la notice    ********************/
+
+
+#etagere-notice-list tbody tr td table {
+	padding-top:5px;
+	float:left!important;
+}
+#resultatrech_liste tbody tr td table,
+#resultatrech_liste tbody{
+	padding-top:5px;
+	float:left!important;
+}
+
+/**********************************************************************************************/
+/* barre de navigation */
+#navigator table {
+}
+
+#navigator td {
+}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+.notice-heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+	padding-top:5px;
+}
+.notice-parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    font-size: 8pt;
+    text-decoration: none
+}
+.img_plus {
+	background-color: #8CC6FF;
+}
+.notice-child {
+    font-family: arial, helvetica, geneva, sans-serif;
+    margin-left: 25px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+
+.heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-weight: bold;
+}
+.parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    text-decoration: none
+}
+.child {
+    font-family: arial, helvetica, geneva, sans-serif;
+   margin-left: 25px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+iframe#iframe_resume_panier {
+	width:100%;
+	height:35px;
+	border:none;
+	}
+
+/* Bannettes */
+#bannette {
+	background:#EEEEFF; 
+	border:#cccccc 1px solid;
+}
+
+#bannette-titre h1 {
+	background: url("liens.png") top left;
+	margin:0px;
+	padding:5px;
+	font-size:13px;
+	font-weight:bold;
+}
+#bannette-titre h1 a {
+	color:#000000;
+}
+
+#bannette-titre a {
+}
+
+	text-align:right;
+	font-style:italic;
+	font-size:16px;
+	color:#ffffff;
+	margin:0px;
+	padding:0px;
+	margin-top:-3px;
+	padding-bottom:5px;
+}
+
+#bannette-notice-list {
+	padding-left:5px;
+
+}
+
+#bannette-notice-list A {
+}
+#bannette-notice-list A:hover {
+}
+
+.alerte {
+	color: red;
+	font-size:14px;
+	}
+
+.echelle_avis {
+	background-color: #eeeeee;
+	padding: 7px;
+	margin: 3px;
+	border:1px solid #BBBBCC;
+}
+
+.text_search0 {
+	background-color: yellow;
+	text-decoration: underline;
+}
+
+.text_search1 {
+	background-color: #dd9797;
+	text-decoration: underline;
+}
+
+.text_search2 {
+	background-color: #ddb397;
+	text-decoration: underline;
+}
+
+.text_search3 {
+	background-color: #cd97dd;
+	text-decoration: underline;
+}
+
+.text_search4 {
+	background-color: #97c2dd;
+	text-decoration: underline;
+}
+
+.text_search5 {
+	background-color: #97ddae;
+	text-decoration: underline;
+}
+
+#titre-popup {
+		margin-top:5px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		background:#CCCCEE;
+		border:1px solid #BBBBCC;
+		color: #fee064;
+	}
+
+.etiq_champ {
+	font-weight:bold;
+	}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- descriptif des UNIVERS 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: req_universes.xml,v 1.4 2008-03-20 11:18:42 dbellamy Exp $ -->
+
+<REQ_UNIVERSES>
+
+	<REQ_UNIVERSE id="1" name="req_univ_noti" ref="notices" >
+		<REQ_RELATION id="1" type="0N" from="notices.tparent_id" to="series.serie_id" desc="Série"/>
+		<REQ_RELATION id="2" type="0N" from="notices.ed1_id" to="publishers.ed_id" desc="Editeur"/> 
+		<REQ_RELATION id="3" type="0N" from="notices.ed2_id" to="publishers.ed_id" desc="2nd Editeur"/>
+		<REQ_RELATION id="4" type="0N" from="notices.coll_id" to="collections.collection_id" desc="Collection" except="collections.collection_parent"/>
+		<REQ_RELATION id="5" type="0N" from="notices.subcoll_id" to="sub_collections.sub_coll_id" desc="Sous-collection" except="sub_collections.sub_coll_parent"/>
+		<REQ_RELATION id="6" type="0N" from="notices.indexint" to="indexint.indexint_id" desc="Indexation décimale"/>
+			<REQ_RELATION id="7" prev="6" type="1N" from="indexint.num_pclass" to="pclassement.id_pclass" desc="Plan de classement"/>
+		<REQ_RELATION id="8" type="0N" from="notices.origine_catalogage" to="origine_notice.orinot_id" desc="Organisme catalogueur"/>
+		<REQ_RELATION id="9" type="1N" from="notices.statut" to="notice_statut.id_notice_statut" desc="Statut notice"/>
+		<REQ_RELATION id="10" type="N1" from="notices.notice_id" to="resa.resa_idnotice" desc="Réservations" except="resa.resa_idbulletin"/>
+			<REQ_RELATION id="11" prev="10" type="1N" from="resa.resa_idempr" to="empr.id_empr" desc="Réservataire"/>
+		<REQ_RELATION id="12" type="N1" from="notices.notice_id" to="bulletins.bulletin_notice" desc="Bulletins de périodiques"/>
+			<REQ_RELATION id="13" prev="12" type="N1" from="bulletins.bulletin_id" to="exemplaires.expl_bulletin" desc="Exemplaires de bulletin" except="exemplaires.expl_notice"/>
+			<REQ_RELATION id="14" prev="12" type="N1" from="bulletins.bulletin_id" to="explnum.explnum_bulletin" desc="Document numérique de bulletin" except="explnum.explnum_notice"/>
+			<REQ_RELATION id="15" prev="12" type="01" from="bulletins.num_notice" to="notices.notice_id" desc="Notice de bulletin" except="explnum.explnum_notice"/>
+			<REQ_RELATION id="16" prev="12" type="N1" from="bulletins.bulletin_id" to="notices.notice_id" desc="Notices de dépouillement">
+				<REQ_THROUGH through="analysis.analysis_bulletin,analysis_notice"/>
+			</REQ_RELATION> 
+		<REQ_RELATION id="17" type="N1" from="notices.notice_id" to="explnum.explnum_notice" desc="Document numérique" except="explnum.explnum_bulletin"/>
+		<REQ_RELATION id="18" type="N1" from="notices.notice_id" to="exemplaires.expl_notice" desc="Exemplaires" except="exemplaires.expl_bulletin"/>
+			<REQ_RELATION id="19" prev="18" type="11" from="exemplaires.expl_typdoc" to="docs_type.idtyp_doc" desc="Support"/>
+			<REQ_RELATION id="20" prev="18" type="11" from="exemplaires.expl_section" to="docs_section.idsection" desc="Section"/>
+			<REQ_RELATION id="21" prev="18" type="11" from="exemplaires.expl_statut" to="docs_statut.idstatut" desc="Statut"/>
+			<REQ_RELATION id="22" prev="18" type="11" from="exemplaires.expl_location" to="docs_location.idlocation" desc="Localisation"/>
+			<REQ_RELATION id="23" prev="18" type="11" from="exemplaires.expl_codestat" to="docs_codestat.idlcode" desc="Code statistique"/>
+			<REQ_RELATION id="24" prev="18" type="11" from="exemplaires.expl_owner" to="lenders.idlender" desc="Propriétaire"/>
+			<REQ_RELATION id="25" prev="18" type="N1" from="exemplaires.expl_id" to="expl_custom_values.expl_custom_origine"  desc="Valeur champs perso exemplaire"/>
+				<REQ_RELATION id="251" prev="25" type="1N" from="expl_custom_values.expl_custom_champ" to="expl_custom.idchamp" desc="Champs perso exemplaire"/>
+					<REQ_RELATION id="2511" prev="251" type="0N" from="expl_custom.idchamp" to="expl_custom_lists.expl_custom_champ" desc="Liste champs perso exemplaire"/>
+		<REQ_RELATION id="26" type="N1" from="notices.notice_id" to="avis.num_notice" desc="Avis"/>
+			<REQ_RELATION id="27" prev="26" type="1N" from="avis.num_empr" to="empr.id_empr" desc="Emetteur de l'avis"/>
+		<REQ_RELATION id="28" type="N1" from="notices.notice_id" to="tags.num_notice" desc="Tag"/>
+			<REQ_RELATION id="29" prev="28" type="0N" from="tags.user_code" to="empr.empr_login" desc="Emetteur du tag"/>
+		<REQ_RELATION id="30" type="N1" from="notices.notice_id" to="notices.notice_id" desc="Notices filles">
+			<REQ_THROUGH through="notices_relations.num_notice,linked_notice"/>
+		</REQ_RELATION>
+		<REQ_RELATION id="31" type="01" from="notices.notice_id" to="notices.notice_id" desc="Notice mère">
+			<REQ_THROUGH through="notices_relations.linked_notice,num_notice"/>
+		</REQ_RELATION>
+<!--			<REQ_RELATION id="311" prev="31" type="01" from="notices.notice_id" to="notices.notice_id" desc="Notice grand-mère">
+			<REQ_THROUGH through="notices_relations.linked_notice,num_notice"/>
+			</REQ_RELATION>				
+-->			<REQ_RELATION id="32" type="N1" from="notices.notice_id" to="collections_state.id_serial" desc="Etats de collection"/>
+			<REQ_RELATION id="33" prev="32" type="0N" from="collections_state.location_id" to="docs_location.idlocation" desc="Localisation etat de collection"/>
+		<REQ_RELATION id="34" type="N1" from="notices.notice_id" to="notices_custom_values.notices_custom_origine"  desc="Valeur champs perso notice"/>
+			<REQ_RELATION id="341" prev="34" type="1N" from="notices_custom_values.notices_custom_champ" to="notices_custom.idchamp" desc="Champs perso notice"/>
+				<REQ_RELATION id="3411" prev="341" type="01" from="notices_custom.idchamp" to="notices_custom_lists.notices_custom_champ" desc="Liste champs perso notice"/>
+		<REQ_RELATION id="35" type="NN" from="notices.notice_id" to="authors.author_id" except="authors.author_see" desc="Auteurs">
+			<REQ_THROUGH through="responsability.responsability_notice,responsability_author"/>
+		</REQ_RELATION>
+			<REQ_RELATION id="351" prev="35" type="0N" from="authors.author_id"  to="authors.author_see" desc="Pseudonymes"/>
+		<REQ_RELATION id="36" type="S1" from="notices.notice_id" to="categories.libelle_categorie" desc="Descripteurs"/>
+		<REQ_RELATION id="37" type="NN" from="notices.notice_id" to="notices_langues.num_notice"  desc="Langue de publication"/>
+	</REQ_UNIVERSE>
+
+	<REQ_UNIVERSE id="2" name="req_univ_empr" ref="empr">
+		<REQ_RELATION id="1" type="11" from="empr.empr_categ" to="empr_categ.id_categ_empr" desc="Catégorie d'emprunteur"/>
+		<REQ_RELATION id="2" type="11" from="empr.empr_codestat" to="empr_codestat.idcode" desc="Code statistique d'emprunteur"/>
+		<REQ_RELATION id="3" type="0N" from="empr.type_abt" to="type_abts.id_type_abt" desc="Abonnement"/>
+		<REQ_RELATION id="4" type="0N" from="empr.empr_location" to="docs_location.idlocation" desc="Localisation emprunteur"/>
+		<REQ_RELATION id="5" type="0N" from="empr.empr_statut" to="empr_statut.idstatut" desc="Statut emprunteur"/>
+		<REQ_RELATION id="6" type="N0" from="empr.id_empr" to="pret.pret_idempr" desc="Prets"/>
+			<REQ_RELATION id="7" prev="6" type="1N" from="pret.pret_idexpl" to="exemplaires.expl_id" desc="Exemplaires prêtés"/>		
+	</REQ_UNIVERSE>
+	
+<!--
+	<REQ_UNIVERSE id="3" name="req_univ_pret" ref="pret">
+	</REQ_UNIVERSE>
+-->
+</REQ_UNIVERSES>

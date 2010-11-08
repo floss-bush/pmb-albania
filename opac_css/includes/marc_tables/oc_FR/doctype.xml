@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (occitan)
+$Id: doctype.xml,v 1.1 2005-03-10 18:28:33 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="a">tèxt imprimit</entry>
+	<entry code="b">tèxt manuscrich</entry>
+	<entry code="c">particion musicala imprimida</entry>
+	<entry code="d">particion musicala manuscricha</entry>
+	<entry code="e">document cartografic imprimit</entry>
+	<entry code="f">document cartografic manuscrich</entry>
+	<entry code="g">document projectat o vidèo</entry>
+	<entry code="i">registrament sonòr non musical</entry>
+	<entry code="j">registrament sonòr musical</entry>
+	<entry code="k">document grafic de doas dimensions</entry>
+	<entry code="l">document electronic</entry>
+	<entry code="m">document multimèdia</entry>
+	<entry code="r">objècte de 3 dimensions, artefactes, ...</entry>
+</XMLlist>

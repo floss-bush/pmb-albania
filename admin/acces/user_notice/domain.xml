@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Profils de gestion droits d'acces Utilisateurs - Notices
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: domain.xml,v 1.7 2009-10-20 19:19:06 dbellamy Exp $ -->
+
+
+<!-- format du fichier 
+****************************************************************************************
+Ce fichier décrit les propriétés qui permettent de définir les droits d'accès d'un 
+utilisateur à une ressource en fonction de propriétés de l'utilisateur et de la ressource  
+****************************************************************************************
+<domain>
+
+****************************************************************************************
+définition du rôle utilisateur
+
+<user lib="USR_LIBELLE" properties="P1_ID,P2_ID,...,PN_ID">
+	<ref type="USR_REF_TYPE" name="USR_REF_NAME" key="USR_REF_KEY" />
+	<property_link with="P1_ID">
+		<r_query type="USR_R_QUERY_TYPE" value="USR_R_QUERY_VALUE" />
+	</property_link>
+	...
+	<property_link with="PN_ID">
+		<r_query type="USR_R_QUERY_TYPE" value="USR_R_QUERY_VALUE" />
+	</property_link>
+</user>
+
+Avec :
+USR_LIBELLE				Libellé affiché pour le rôle (si msg:xxx, xxx sera repris dans la liste 
+						des messages, sinon, dans le fichier situé dans le répertoire des messages 
+						pour les droits d'accés courants).
+P1_ID,P2_ID,...,PN_ID	Identifiants des propriétés associées à l'utilisateur et permettant de définir les différents rôles
+
+USR_REF_TYPE			Type donnée utilisateur (table, marc_table)
+USR_REF_NAME			Nom donnée
+USR_REF_KEY				Identifiant pour donnée de type table
+
+USR_R_QUERY_TYPE		Type donnée permettant de connaître le rôle utilisateur lors de l'accès à la ressource 
+						(var=variable postée, session=variable session, field=champ dans une table)
+USR_R_QUERY_VALUE		Nom donnée
+****************************************************************************************
+
+
+****************************************************************************************
+définition du profil ressource
+
+<resource lib="RES_LIBELLE" properties="P1_ID,P2_ID,...,PN_ID">
+	<ref type="RES_REF_TYPE" name="RES_REF_NAME" key="RES_REF_KEY" />
+	<property_link with="PN_ID">
+		<c_query type="RES_C_QUERY_TYPE" value="RES_C_QUERY_VALUE" />
+		<i_query type="RES_I_QUERY_TYPE" value="RES_I_QUERY_VALUE" />
+	</property_link>
+</resource>
+
+Avec :
+RES_LIBELLE				Libellé affiché pour le profil (si msg:xxx, xxx sera repris dans la liste 
+						des messages, sinon, dans le fichier situé dans le répertoire des messages 
+						pour les droits d'accés courants).
+P1_ID,P2_ID,...,PN_ID	Identifiants des propriétés associées à la ressource ou à l'utilisateur et permettant de définir les différents profils
+
+RES_REF_TYPE			Type donnée ressource (table, marc_table)
+RES_REF_NAME			Nom donnée 
+RES_REF_KEY				Identifiant pour donnée de type table
+
+RES_C_QUERY_TYPE		Type donnée permettant de définir le profil ressource à la création 
+						(var=variable postée, session=variable session, field=champ dans une table)
+RES_C_QUERY_VALUE		Nom donnée
+
+RES_I_QUERY_TYPE		Type donnée permettant de définir le profil ressource à l'initialisation
+						(field=champ dans la table ressource, sql=valeur calculee a partir d'une requete)
+RES_I_QUERY_VALUE		Nom champ, requete
+****************************************************************************************
+
+
+****************************************************************************************
+définition des propriétés permettant de calculer les droits d'accès d'un utilisateur à une ressource
+
+<properties>
+	<property id="PN_ID" lib="PN_LIBELLE">
+		<ref type="PN_REF_TYPE" name="PN_REF_NAME" key="PN_REF_KEY" value="PN_REF_VALUE" />
+	</property>
+</properties>
+
+Avec :
+PN_ID					Identifiant propriété
+PN_LIBELLE				Libellé affiché pour la propriété (si msg:xxx, xxx sera repris dans la liste 
+						des messages, sinon, dans le fichier situé dans le répertoire des messages 
+						pour les droits d'accés courants).
+PN_REF_TYPE				Type donnée propriété (table, marc_table)
+PN_REF_NAME				Nom donnée
+PN_REF_KEY				Identifiant pour donnée de type table				
+PN_REF_VALUE			Valeur affichée pour donnée de type table
+****************************************************************************************
+
+
+****************************************************************************************
+définition des droits atomiques qu'il est possible de spécifier pour chaque ressource
+
+<controls>
+	<control id='1' global='GLOBAL' lib='CTL1_LIB' />
+	<control id='2' global='GLOBAL' lib='CTL1_LIB' />
+
+
+	<control id='CTL3_ID' lib='CTL3_LIB' />
+	...
+	<control id='CTLN_ID' lib='CTLN_LIB' />
+</controls>
+
+Avec :
+
+les ids 1 et 2 sont réservés :
+1 = modification possible du profil ressource
+2 = modification possibledu masque des droits
+si GLOBAL=yes, les droits de modification s'appliquent indépendemment du profil utilisateur.
+
+CTLN_ID					Identifiant et position du bit permettant de préciser si le droit atomique est autorisé
+CTLN_LIB				Libellé affiché pour le droit atomique (si msg:xxx, xxx sera repris dans la liste 
+						des messages, sinon, dans le fichier situé dans le répertoire des messages 
+						pour les droits d'accés courants).
+****************************************************************************************
+
+</domain>
+****************************************************************************************
+ -->
+
+
+<domain>
+
+	<!--  users -->
+	<user lib="msg:25" properties="1,2,3" >
+		<ref type="table" name="users" key="userid" />
+		<property_link with="1">
+			<r_query type="var" value="deflt_docs_location" />			<!--  variable utilisateur globale Localisation du document par défaut en création d'exemplaire -->
+		</property_link>
+		<property_link with="2">
+		 	<r_query type="var" value="xmlta_doctype" />				<!--  variable utilisateur globale Type de document par défaut en création -->
+		 </property_link>
+		<property_link with="3">
+		 	<r_query type="var" value="PMBgrp_num" />					<!--  variable utilisateur globale Groupe utilisateur -->
+		 </property_link>
+	</user>
+
+	<!--  notices -->
+	<resource lib="msg:130" properties="1,2,3,4" >
+		<ref type="table" name="notices" key="notice_id" />
+		<property_link with="1">
+			<c_query type="var" value="deflt_docs_location" />			<!-- variable utilisateur globale Localisation du document par défaut en création d'exemplaire -->
+			<i_query type="sql" value="SELECT ifnull(deflt_docs_location,0) FROM audit left join users on user_id=userid where type_obj=1 and object_id=!!res_id!! and type_modif=1 limit 1" />
+		</property_link>
+		<property_link with="2" >
+			<c_query type="var" value="typdoc" />						<!--  variable notice type de document postée lors de la création de la notice -->
+			<i_query type="field" value="typdoc" />						<!--  variable notice type de document stockée dans la table notice -->
+		</property_link>
+		<property_link with="3">
+		 	<c_query type="var" value="PMBgrp_num" />					<!--  variable utilisateur globale Groupe utilisateur -->
+		 	<i_query type="sql" value="SELECT ifnull(grp_num,0) FROM audit left join users on user_id=userid where type_obj=1 and object_id=!!res_id!! and type_modif=1 limit 1" />
+		 </property_link>
+		<property_link with="4">
+		 	<c_query type="var" value="form_notice_statut" />			<!--  variable notice statut postée lors de la création de la notice -->
+		 	<i_query type="field" value="statut" />						<!--  variable notice statut stockée dans la table notice -->
+		 </property_link>
+	</resource>
+
+	<properties>
+		<property id="1" lib="msg:4017" >
+			<ref type="table" name="docs_location" key="idlocation" value="location_libelle" />
+		</property>
+		
+		<property id="2" lib="msg:type_doc_sort">
+			<ref type="marc_table" name="doctype.xml" />
+		</property>
+
+		<property id="3" lib="msg:admin_usr_grp" >
+			<ref type="table" name="users_groups" key="grp_id" value="grp_name" />
+		</property>
+
+		<property id="4" lib="msg:noti_statut_noti" >
+			<ref type="table" name="notice_statut" key="id_notice_statut" value="gestion_libelle" />
+		</property>
+	</properties>
+
+	<controls>
+		<control id='1' lib='msg:dom_mod_rights' label="MOD_RIGHTS"/>
+		<control id='2' lib='dom_mod_pro' label="MOD_PROFILES"/>
+		
+		<control id='3' lib='view_noti_gestion' label="VIEW_ITEM"/>
+		<control id='4' lib='mod_noti_gestion' label="MOD_ITEM"/>
+	</controls>
+
+</domain>

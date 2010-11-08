@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+$Id: params.xml,v 1.2 2009-11-25 09:10:11 kantin Exp $ -->
+
+<params>
+    <!-- Nom de l'import -->
+    <importname>ENDNOTE -&gt; PMBXML</importname>
+    <!-- Nombre de notices traitées par passe -->
+    <nperpass>200</nperpass>
+    <!-- Type de l'entrée -->
+    <input type="custom" script="input_endnote.inc.php"/>
+    <!-- type de la sortie -->
+    <output importable="no" type="xml" suffix="xml">
+		<rootelement>pmbmarc</rootelement>
+	</output>
+
+    <step type="custom">
+        <!-- Conversion Endnote en pmbxml -->
+        <script>endnote2pmbxml.inc.php</script>
+		<callback>convert_endnote</callback>
+    </step>
+</params>

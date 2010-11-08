@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en anglais pour le connecteur z3950
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: sq_AL.xml,v 1.5 2009-03-20 09:48:41 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="z3950_url">Adresa e Server Z39.50</entry>
+	<entry code="z3950_base">Emri i Database</entry>
+	<entry code="z3950_login">Perdoruesi</entry>
+	<entry code="z3950_password">Fjalekalimi</entry>
+	<entry code="z3950_max_notices">Numri maksimal i elementeve ne pergjigje</entry>
+	<entry code="z3950_format">Formati i kerkeses</entry>
+	<entry code="z3950_port">Porta</entry>
+	<entry code="z3950_convert">Lloji i konversionit qe do te aplikohet</entry>
+	<entry code="z3950_no_convert">Import direkt (serveri pergjigjet ne UNIMARC ISO 2709)</entry>
+	<entry code="z3950_bib1">Atributet Bib-1</entry>
+	<entry code="z3950_very_simple">Minimum</entry>
+	<entry code="z3950_simple">Thjeshte</entry>
+	<entry code="z3950_complete">Plote</entry>
+	<entry code="z3950_profils">Profile Bib-1</entry>
+	<entry code="z3950_xsl_exemplaire">Stili qe do ti aplikohet elementeve per te marre informacionin e kerkuar</entry>
+	<entry code="z3950_keep_xsl_exemplaire">Ruaje file %s</entry>
+	<entry code="z3950_delete_xsl_exemplaire">Fshij / Zevendeso file aktual</entry>
+	<entry code="z3950_warning_bib1">Kujdes, Ju lutemi ruani ndryshimet tuaja para se te aplikoni kete procedure</entry>
+	<entry code="z3950_bib1_calculate">Llogarit</entry>	
+</XMLlist>

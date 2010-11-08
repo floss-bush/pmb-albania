@@ -1,0 +1,82 @@
+<h2>Operadors booleans</h2>
+<p class='pn-normal'>Per defecte, el motor de cerca busca els elements que contenen alguna de les paraules introduïdes.  
+Els resultats es mostren en ordre decreixent de rellevància (segons el número de paraules trobades), i després en ordre alfabètic. 
+<br /><br />Exemple: 
+<em>Pernil salat</em>
+implica els elements que contenen les paraules pernil <b>o</b> salat (pernil salat, pernil d'ànec, pernil dolç, bacallà salat...).
+<br /><br />Tots els caràcters no-alfabètics o no-numèrics es substitueixen amb espais, els accents no es tenen en compte, ni 
+les majúscules o les minúscules.
+<br /><br />Exemple:
+<em> Escola sant-joan
+</em> s'analitzarà com a tres paraules:
+<em>escola sant joan</em> 
+<br /><br /> Algunes paraules s'ignoren perquè són molt comunes o perquè no tenen un significant rellevant (exemple: de, el, la, a, seu, ...).</p>
+<br /><b>Truncament</b>
+<p class='pn-normal'>Les paraules es poden truncar per la dreta, l'esquerra o parcialment fent servir el caràcter *<br />
+<br />Exemple: 
+<em>xoc*</em>
+ trobarà paraules començades per
+<em>xoc</em> (xocolata, xocar, xocolateria, ...), 
+<em>*logia</em> 
+trobarà les paraules acabades per 'logia' (psicologia, teologia, trilogia, ...), 
+<em>p*logia</em> 
+trobarà les paraules començades per p i acabades per logia (psicologia, paleontologia, patologia, ...).<br />
+<br />Es pot emprar més d'un truncament en una mateixa paraula.</p>
+<b>Cerca amb termes exactes</b>
+<p class='pn-normal'>Un terme exacte és un text delimitat per cometes. Si el motor de cerca reconeix un terme exacte, 
+busca els elements que contenen exactament aquest text. En aquest tipus de cerques també es pot usar el truncament.<br />
+<br />Exemple:<em>"dent"</em> 
+implica tots els elements que continguen el text dent (dentista, accident, ...).<br />
+<br />La cerca exacta és útil amb expressions que contenen espais o signes de puntuació (per exemple inicials).<br />
+<br />Exemple:<em>"R.N.L.I."</em>busca els elements que contenen el text R.N.L.I., <em>R.N.L.I.</em>busca els elements que contenen les paraules R o N o L o I.<br />
+<br />Accents i majúscules/minúscules no es tenen en compte en els termes exactes. Finalment, els termes exactes es poden usar en totes les expressions complexes explicades baix.</p>
+<b>Negacions</b>
+<p class='pn-normal'>El símbol ~ abans d'un terme representa la negació del terme, és a dir, que es busquen tots els elements que no continguen aquest terme.<br />
+<br />Exemple: <em>~treball</em> 
+implica tots els elements excepte els que contenen la paraula treball.</p>
+<b>Operadors lògics entre dues paraules</b>
+<p class='pn-normal'>Els operadors lògics es poden usar entre dues paraules:</p>
+<ul><li><b>+</b>: operador I<br />
+<br />Exemple:<em>frase + feta</em> 
+implica tots els elements que contenen les paraules frase 
+<b>i</b> feta.</li>
+<li><b>-</b>: operador NOMÉS (I NO)<br />
+<br />Exemple:<em>frase - feta</em> 
+implica tots els elements que contenen la paraula frase,
+<b>excepte aquells contenen també </b> 
+la paraula feta.</li></ul>
+<p class='pn-normal'>Molts operadors es poden encadenar alhora en la mateixa expressió. S'apliquen en ordre, d'esquerra a dreta. <br />
+<br />Exemple:<em>
+poesia + anglesa - romantic*</em> 
+implica els elements que contenen 
+<em>poesia i anglesa</em> 
+<b>sense</b> <em>romàntic, romàntica o romanticisme</em>.<br />
+<br />Atenció, un operador no pot anar seguit d'un altre operador, una negació no es pot combinar amb un operador (<b>+~</b> dóna el mateix resultat que amb l'operador <b>-</b>).</p>
+<b>Agrupament</b>
+<p class='pn-normal'>Una expressió es pot agrupar per a transformar-la en un terme. Aquest agrupament es fa amb <b>parèntesis</b>. 
+Això permet canviar l'ordre d'aplicació dels operadors o combinar els resultats de les expressions complexes. <br />
+<br />Exemple:</p>
+<ul><li><em>poesia + (anglesa romantica)</em> 
+implica tots els elements que contenen <em>anglesa o romàntica</em>, només aquells que contenen <em>poesia</em>.</li>
+<li><em>(poesia + anglesa) romantica</em> 
+implica tots els elements que contenen <em>poesia i anglesa</em> <b>o</b> tots els elements que contenen <em>romàntica</em></li>
+<li><em>~(poesia + anglesa) + (literatura fra*)</em> 
+implica <em>tots els elements que no contenen poesia i anglesa</em> 
+<b>i</b> 
+<em>els elements que contenen fra* o literatura</em></li></ul>
+<p class='pn-normal'>Els parèntesis es poden afegir sense límit.<br />
+<br />Exemple:<em>
+(poesia + (anglesa romantica)) (literatura + XIX)</em> 
+implica <em>tots els elements que contenen anglesa o romantica, només aquells que contenen poesia </em> 
+<b>o</b> 
+<em>els elements que contenen literatura i XIX</em> </p>
+<b>Rellevància</b>
+<p class='pn-normal'>Els resultats es classifiquen en ordre de rellevància, i després en ordre alfabètic. La rellevància es calcula simplement d'acord amb el número total de paraules o termes exactes trobat.
+<br />Exemple:</p>
+<ul><li><em>formatge cheddar</em> 
+trobarà tots els elements que contenen cheddar o formatge, i aquells que contenen les dues paraules apareixeran a la part superior de la llista de resultats.</li>
+<li><em>~(poesia + anglesa) (literatura fra*)</em> 
+trobarà tots els elements que no contenen <em>poesia i anglesa</em>, entre aquests elements, aquells que contenen <em>literatura o fra*</em>apareixeran primer en la llista de resultats (abans de literatura i fra*, després fra*, després literatura)</li></ul>
+<hr /><p>Els operadors booleans s'usen en 
+<a href="help.php?whatis=simple_search">cerques simples</a> 
+i en <a href="help.php?whatis=search_multi">cerques avançades</a>.</p>

@@ -1,0 +1,20 @@
+Notes de développement.
+
+Ce qu'il faut faire pour les périodiques :
+
+1. notice-chapeau :
+
+le lien du chapeau pointe sur une page de résa affichant la liste des éléments bulletinés.
+pour chaque élément bulletiné, affichage de la mention titre_perio. numérotation (période).
+La mention est un lien conduisant à la réservation du périodique par l'emprunteur.
+
+2. notice de dépouillement :
+
+Le chapeau n'est pas un lien. Par contre, dans le corps de la notice, le lien vers l'élément bulletiné
+associé est cliquable pour résa du bulletin.
+
+pb. dans la table des réservations, distinguer ce qui est notice et id_bulletin, donc ajouter
+un champ pour les bulletins (notice ou bulletin)
+
+FL 5.12.2003
+

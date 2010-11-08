@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
+
+<!-- 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: champs_base.xml,v 1.3 2009-06-19 13:17:25 dbellamy Exp $ -->
+
+<indexation>
+
+	<!-- Table d'origine (référence)-->
+	<reference>notices</reference>
+	<!-- Clé primaire de la table de référence -->
+	<referencekey>notice_id</referencekey>
+
+	<field name="237" id="1">
+		<tablefield>tit1</tablefield>
+	</field>
+
+	<field name="238" id="2">
+		<tablefield>tit2</tablefield>
+	</field>
+
+	<field name="239" id="3">
+		<tablefield>tit3</tablefield>
+	</field>
+
+	<field name="240" id="4">
+		<tablefield>tit4</tablefield>
+	</field>
+
+	<field name="241" id="5">
+		<tablefield>tparent_id</tablefield>
+	</field>
+
+	<field name="242" id="6">
+		<tablefield>tnvol</tablefield>
+	</field>
+
+	<field name="252" id="7">
+		<tablefield>year</tablefield>
+	</field>
+
+	<field name="mention_edition" id="8">
+		<tablefield>mention_edition</tablefield>
+	</field>
+
+	<field name="259" id="9">
+		<tablefield>npages</tablefield>
+	</field>
+
+	<field name="260" id="10">
+		<tablefield>ill</tablefield>
+	</field>
+
+	<field name="262" id="11">
+		<tablefield>accomp</tablefield>
+	</field>
+
+	<field name="265" id="12">
+		<tablefield>n_gen</tablefield>
+	</field>
+
+	<field name="266" id="13">
+		<tablefield>n_contenu</tablefield>
+	</field>
+
+	<field name="267" id="14">
+		<tablefield>n_resume</tablefield>
+	</field>
+
+	<field name="275" id="15">
+		<tablefield>lien</tablefield>
+	</field>
+
+	<field name="276" id="16">
+		<tablefield>eformat</tablefield>
+	</field>
+	
+	<!-- table authors -->	
+	<field name="234" external="yes" id="17" datatype="author">
+		<table>authors</table>
+		<tablefield>author_name</tablefield>
+		<tablefield>author_rejete</tablefield>
+		<tablefield>author_date</tablefield>
+		<tablefield>author_web</tablefield>
+		<tablefield>author_comment</tablefield>
+		<tablekey>author_id</tablekey>
+		<link type="nn">
+			<table>responsability</table>
+			<referencefield>responsability_notice</referencefield>
+			<externalfield>responsability_author</externalfield>
+		</link>
+	</field>
+	
+	
+	<!-- table publishers -->	
+	<field name="searcher_publisher" external="yes" id="18" datatype="publisher">
+		<table>publishers</table>
+		<tablefield>ed_name</tablefield>
+		<tablefield>ed_adr1</tablefield>
+		<tablefield>ed_adr2</tablefield>
+		<tablefield>ed_cp</tablefield>
+		<tablefield>ed_ville</tablefield>
+		<tablefield>ed_pays</tablefield>
+		<tablefield>ed_web</tablefield>
+		<tablefield>ed_comment</tablefield>
+		<tablekey>ed_id</tablekey>
+		<link type="1n">
+			<referencefield>ed1_id</referencefield>
+		</link>
+	</field>
+
+	<!-- table indexint -->	
+	<field name="indexint_catal_title" external="yes" id="19" datatype="indexint">
+		<table>indexint</table>
+		<tablefield>indexint_name</tablefield>
+		<tablefield>indexint_comment</tablefield>
+		<tablekey>indexint_id</tablekey>
+		<link type="1n">
+			<referencefield>indexint</referencefield>
+		</link>
+	</field>
+
+	<!-- table collections -->	
+	<field name="136" external="yes" id="20" datatype="collection">
+		<table>collections</table>
+		<tablefield>collection_name</tablefield>
+		<tablefield>collection_parent</tablefield>
+		<tablekey>collection_id</tablekey>
+		<link type="1n">
+			<referencefield>coll_id</referencefield>
+		</link>
+	</field>
+	
+	<!-- table bulletins -->
+	<field name="abts_onglet_bull" external="yes" id="21" datatype="bulletin">
+		<table>bulletins</table>
+		<tablefield>bulletin_numero</tablefield>
+		<tablefield>mention_date</tablefield>
+		<tablefield>date_date</tablefield>
+		<tablefield>bulletin_titre</tablefield>
+		<tablekey>bulletin_notice</tablekey>
+		<link type="1n">
+			<referencefield>notice_id</referencefield>
+		</link>
+	</field>
+	
+	<!-- table series -->
+	<field name="series" external="yes" id="22" datatype="serie">
+		<table>series</table>
+		<tablefield>serie_name</tablefield>
+		<tablekey>serie_id</tablekey>
+		<link type="1n">
+			<referencefield>index_serie</referencefield>
+		</link>
+	</field>
+
+	<!-- table sub_collections -->	
+	<field name="137" external="yes" id="23" datatype="subcollection">
+		<table>sub_collections</table>
+		<tablefield>sub_coll_name</tablefield>
+		<tablekey>sub_coll_id</tablekey>
+		<link type="1n">
+			<referencefield>subcoll_id</referencefield>
+		</link>
+	</field>
+
+	<!-- table categories -->	
+	<field name="134" external="yes" id="24" datatype="subject">
+		<table>categories</table>
+		<tablefield>libelle_categorie</tablefield>
+		<tablekey>num_noeud</tablekey>
+		<link type="nn">
+			<table>notices_categories</table>
+			<referencefield>notcateg_notice</referencefield>
+			<externalfield>num_noeud</externalfield>
+		</link>
+	</field>
+
+</indexation>

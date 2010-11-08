@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbsections>
+	<section name="a_general">Opcions generals de funcionament de l'OPAC</section>
+	<section name="b_aff_general">Informacions de la biblioteca</section>
+	<section name="c_recherche">Opcions per les cerques dins l'OPAC</section>
+	<section name="d_aff_recherche">Opcions per la visualització de resultats de les cerques</section>
+	<section name="e_aff_notice">Visualització de registres</section>
+	<section name="f_modules">Mòduls de visualització dins l'OPAC</section>
+	<section name="h_cart">Opcions del panells</section>
+	<section name="i_categories">Opcions per la visualització i la navegació dins les classificacions</section>
+	<section name="j_etagere">Opcions referents a les prestatgeries</section>
+	<section name="k_section">Opcions referents a la navegació entre seccions</section>
+	<section name="l_dsi">Opcions referents a la D.S.I.</section>
+	<section name="m_photo">Opcions referents a les fotos</section>
+	<section name="z_unused">No emprat</section>
+	<section name="pdfcde">Opcions de format de la carta de comanda</section>
+	<section name="pdfdev">Opcions de format de la carta de petició de pressupost</section>
+	<section name="pdfliv">Opcions de format del lliurament</section>
+	<section name="pdffac">Opcions de format de les factures</section>
+	<section name="pdfsug">Opcions de format dels llistats de suggeriments</section>	
+	<section name="mel">Opcions de format dels correus electrònics de suggeriments</section>	
+	<section name="categories">Options pour les categories</section>	
+	<section name="thesaurus">Options pour les thésaurus</section>	
+	<section name="classement">Options pour les plans de classement</section>
+	<section name="transferts">Options générales des transferts</section>
+</pmbsections>

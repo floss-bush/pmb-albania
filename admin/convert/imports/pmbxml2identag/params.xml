@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>PMB XML UNIMARC -&gt; Récollement Identag</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+	<!--<input type="xml" rootelement="unimarc" noticeelement="notice"/>-->
+	<!-- Type de la sortie -->
+	<output importable="no" type="txt" suffix="txt"/>
+	
+	<step type="xmltransform">
+		<!-- Conversion en xml -->
+		<xslfile>uni2ident.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+</params>

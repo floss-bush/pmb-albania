@@ -1,0 +1,17 @@
+<h1>Herramientas</h1>
+<p>Aqu&iacute; encontrar&aacute; diferentes opciones. </p>
+<p>
+<b>Mantenimiento de la base de datos</b> permite gestionar la base de datos : suprimir los registros sin ejemplares, etc.
+</p><p>
+<b>Acciones personalizables</b> hace referencia a las estad&iacute;sticas personalizables visibles en la pestaña Pr&eacute;stamos o a las consultas de actualizaci&oacute;n peri&oacute;dica que pueden ser almacenadas aqu&iacute;.
+</p><p>
+<b>Act. base</b> esta funci&oacute;n es muy importante. Permite la actualizaci&oacute;n de la estructura de la base de datos despu&eacute;s de que usted 
+haya actualizado los archivos PMB cargando una nueva versi&oacute;n. En este proceso no se pierde ning&uacute;n dato.
+</p><p>
+<b>Descripci&oacute;n de las tablas</b>, como su nombre indica.
+</p><p>
+<b>Mantenimineto MySQL</b>, funciones de mantenimiento de la base de datos. Permite verificar la integridad de las tablas.
+</p><p>
+<b>Par&aacute;metros</b> hace referencia a los aspectos de personalizaci&oacute;n de la aplicaci&oacute;n, por ejemplo la direcci&oacute;n de la biblioteca, 
+o la activaci&oacute;n del tiempo en el opac.
+

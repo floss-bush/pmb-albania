@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>pmb-XML UNIMARC -&gt; EAD</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice" specialexport="yes" />
+	<!-- Type de sortie -->
+	<output importable="no" type="custom" script="output_ead.inc.php" suffix="xml" />
+
+	<step type="xmltransform">
+		<!-- Conversion en xml ead -->
+		<xslfile>pmbxml2ead.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>ead</trootelement>
+		<tnoticeelement>dsc</tnoticeelement>
+	</step>
+
+</params>

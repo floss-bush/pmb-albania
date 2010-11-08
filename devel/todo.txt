@@ -1,0 +1,242 @@
+Réservations : 
+	Planning id date de début positionnable
+	à partir d'un ouvrage et pas seulement à partir d'un lecteur
+		>> à partir d'un panier...
+
+Localisations à faire :
+	Sections
+	Jours d'ouverture
+
+	Types de supports
+	Statuts d'exemplaires
+	catégories de lecteurs
+	codes statistiques
+	
+	Filtrage à partir d'une localisation
+
+DSI <--> Paniers
+
+
+> 
+> Les prochaines versions de PMB vous proposeront entre autres:
+>     -Reprise BCDi
+>     -Multi-thésaurus
+>     -Planning de réservations
+>     -Combinaisons de recherches
+>     -Module acquisitions
+>     -Catalogue collectif
+>     -Support UNICODE
+> 
+> Nous poursuivons par ailleurs nos recherches sur un certain nombre de points 
+> comme par exemple :
+>     -La recherche sémantique
+>     -Bibliothèque numérique et gestion des droits d'accès
+>     -L'intégration et la génération de fils RSS
+> 
+> 
+pmb-ldap (multi ldap) 
+Indexation multi-lingue
+
+
+PMB développements en cours :
+  1 rappel de la feuille de route
+  2 divers
+  3 Qui fait quoi
+  4 les points à reprendre
+
+1 : Feuille de route :
+----------------------
+
+  ???? 2005
+  ---------
+    -Module abonnements des périodiques : abonnements et suivi des
+       réceptions, état des collections
+
+  ???? 2005
+  ------------
+    -Extension des recherches dans l'OPAC aux bibliothèques d'un réseau
+     (par exemple BDP) par client Z39.50 et/ou dépot de notices
+    -Module acquisitions
+
+2 : Divers :
+------------
+Vous trouverez ci-dessous un extrait des divers besoins évoqués au cours
+des rencontres, des présentations ou de la maintenance de PMB. Ces points
+seront inclus au fur et à mesure à PMB en fonction du temps et
+des urgences.
+
+	**Pagination des résultats 1j
+		faite en gestion, voir en OPAC
+	
+	**En affichage de notices, OPAC ou Gestion, n'afficher que le terme de plus bas niveau et pas la construction complète, paramétrable
+	
+	**Sauvegarde de la chaine de paramétrage d'import des lecteurs en base de données
+	
+	**Colonnes d'audit des notices et exemplaires 2j
+		Peut-être à affiner en affichage
+	**Mail d'information de réservation posée dans l'OPAC 1j
+	
+	**Informations sur l’emprunteur fournies lors des prêts et retour : 1j
+		Livres empruntés non encore rendus, retards éventuels, réservations
+		
+	**OPAC : ne pas afficher les exemplaires des sections ou localisations invisibles
+		
+	**Calendrier des jours d'ouverture et calculs du retour 2j
+
+	**Masquer les champs persos quand vides dans l'OPAC et en gestion 0,25j
+
+	**Alerte sur ISBN/ISSN dupliqué 1j
+
+	**Correction bug alerte de réservation à valider
+
+	**Editions : affichage des retards par date possible
+
+	**Modifier URL image vignette AMAZON 0,25j
+	
+	**Prolongation des prêts par lot (case à cocher et bouton)
+	
+	**Ajout de mention d'édition : "n ième édition" 0,25j
+	
+	**Popup d'ajout dans panier à mettre dimensionnable
+
+	**Prêts express : pouvoir prêter en urgence un livre non catalogué
+	
+	**Internationalisation de l'installation
+	
+	**Choix de la langue dans l'OPAC par le visiteur
+	
+	**Mise à jour de notices par Z3950 1j
+	
+	*Statut de notices (afin de préparer le module acquisition notamment) 1j
+	**affichage dans les résumés de notices
+	**extension de recherche "tout le catalogue" "notice en commande"...
+		
+	**Ajout des colonnes de date de dernier emprunt sur exemplaires et emprunteurs
+	
+	**Désactiver les images dans les PDF si pas renseignées
+	
+	**Correction bug modif collection/sous-collection/éditeur en autorités
+		reporter les modifs dans la table notices
+	
+	**En rech par code-barre : étendre si le CB expl est un ISBN ou un EAN.
+	
+	**Ajout des colonnes de dates de création/modification sur notices et exemplaires
+	
+	**Possibilité de substituer les messages ou libellés officiels par ses propres textes en fichier XML.
+		Exemple : pour avoir une version française personnalisée : créer au même endroit que fr_FR.xml un fichier fr_FR_subst.xml qui contient ce qui doit être substitué.
+	
+	**Paramètre de limitation de l'indexation Dewey en import UNIMARC ou Z3950
+		-1 : aucun import, 0 : aucune limitation, si non nb caractères
+	
+	**Calendrier des jours d'ouverture de l'établissement
+		
+	**Mail d'information à l'usager de réservation validée, prioritaire par rapport à la lettre PDF
+	**Lettre de résa : si paramètre ==3 > ne rien faire	
+	**Nouveau paramètre pour l'impression manuelle sur clic bouton, là aussi on peut appliquer des priorités.
+	**Nouvelle colonne de gestion de confirmation de résa adressée ou pas au lecteur
+		
+	**Recherche sur les bulletins en filtrant par date de parution
+	
+	**Catégories, tri en affichage dans l'OPAC ou en gestion
+	
+	**Affichage possible des vignettes des monographies en gestion
+	
+	**Gestion financière des comptes lecteurs
+	
+	**Relances multiples
+	
+	**Ajout automatique des lecteurs dans les bannettes de leur catégorie en création
+	
+	**Pouvoir poser une résa sans être authentifié au préalable dans l'OPAC.
+	
+	**Localisation des éditions si lecteurs localisés
+	
+	**Ajouter critère de sélection par nom des abonnés DSI
+	
+	**Changer la clé primaire sur la table pret, ajouter des index sur les dates de empr
+	
+	**En saisie dans input text classe "emr" : sur saisie de qques lettres déclencher l'ouverture du popup de sélection d'autorité.
+		reste à faire un changement de couleur pour distinguer si id ou pas...
+	
+	**Pouvoir supprimer le droit "Préférences" à un utilisateur
+	
+	** DSI : diffusion dans un panier
+
+	*Diffusion sélective de l'information/Push
+		Reste à mettre en place le tout automatique par planificateur des tâches
+		
+	*En catalogage/indexation par catégorie, pouvoir créer dans le pop-up les sous-catégories manquantes. 0,5
+		reste à faire en recherche par termes...
+	
+	Archivage de toutes les recherches de l'OPAC
+
+	Réservations : prévoir date de début et date de fin modifiables (notion de réservation/planning)
+	
+	Autopostage en recherche sur le thésaurus
+
+	Requete analyse croisée des auteurs
+	
+	Impressions de signets, de cotes
+	
+	Impressions de cartes de lecteurs à partir d'un fichier de cb_lecteur ?
+	
+	Gestion des suites (hiérarchies/associations de monographies)
+	
+Circulation
+
+	** Supprimer une réservation depuis la fiche du lecteur (utile lorsqu'il est face au bibliothécaire/documentaliste). GautierMichelin
+
+   2. Ajouter un paramètre "piège" lors de la prolongation d'un document réservé. Si le document est réservé, il faut parfois pouvoir en limiter la prolongation du prêt. GautierMichelin
+   3. Déplacer les boutons de prolongation de l'abonnement du lecteur sur sa fiche lorsque son adhésion est dépassée pour ne pas avoir à modifier la fiche. GautierMichelin
+   4. Rechercher parmi les fonctions des autorités comme pour les auteurs. Par ex, saisir dans le champ du formulaire i* pour sélectionner illustrateur. GautierMichelin
+   5. Dans le PDF ou le mail de relance, signaler pour les ouvrages demandés le fait qu'il y ait une ou des réservations placées sur ces ouvrages. GautierMichelin
+
+
+Catalogue
+
+   1. TRI : Pouvoir trier les notices dans un panier suivant un critère.
+      1.2) TRI (suite) Pour le travail quotidien des bibliothécaires, ne peut-on pas inclure directement dans la page de recherche simple le TRI via une liste box, ou des boutons aux choix, plutôt que de passer par un panier (ce qui rajoute pas mal de clics avant de trouver ce qu'on cherche) ? Voici une image pour exemple. Le tri associé à la recherche est très pratique, on l'utilise quasi tout le temps : Recherche simple avec Tri Mettre à jour. AnneSoubis?.
+
+
+   1. Avoir un raccourci clavier pour développer toute le formulaire en Catalogue > Nouvelle notice. GautierMichelin
+   2. Une fois un éditeur sélectionné dans le formulaire de création de notice, cliquer sur "..." pour les sous-collections pourraît n'afficher que les sous-collections de cet éditeur. GautierMichelin
+   3. Recherche Simple : Inclure la recherche par cote sur la recherche simple, comme pour les num d'exemplaires. Ceci est utile pour ceux qui n'utilise pas la Dewey/CDU, et/ou dans le cas où le système de cote est différent selon les sections de la bibliothèque. Ex. une planche de livres : E420-001, E420-002... => Rechercher le début de la cote : E420, et trier sur la cote. AnneSoubis?.
+   4. répéter le champ de l'indice Dewey ? RéponsePmb : En cours de développement, ça sera même mieux que cela puisque ça permettra de gérer du multi-indexations, donc au choix une Dewey pour les bouquins, une autre CDU pour les CD audio, etc etc ! Livraison possible pour le printemps en principe. EricRobert?
+   5. Est-il envisageable de proposer dans la langue de publication la mention "bilingue" et donc de spécifier les langues de publication ? RéponsePmb : On va passer au multi-linguisme généralisé! EricRobert?
+
+
+Autorités
+
+   1. Ajouter un bouton permettant d'imprimer tout ou partie des auteurs, éditeurs... pour faire ensuite le ménage dans les autorités (secondaire) GautierMichelin
+   2. Pour les autorités "Catégories", prévoir une ouverture de l'arborescence par de +/- (comme les formulaires de création de notice) pour ceux qui utilisent un thésaurus. AnonymE
+   3. Pouvoir faire des paniers d'autorités, ce qui pourrait (entre autre) permettre de créer des paniers avec les doublons (comme pour les paniers de doublons de notice biblio). NicolasB
+
+
+OPAC
+
+   1. Je propose de permettre la création d'états personnalisables? accessibles dans l'OPAC pour faciliter certaines recherches complexes.
+
+C'est différent des bannettes à mon sens, ou alors je n'en ai pas encore bien compris le fonctionnement (question en cours sur la ML) AnonymE
+
+   1. L'affichage actuel présente, lors d'une recherche par indexation, la liste non paramétrable des indexation proches, et ce AVANT le contenu de l'indexation souhaitée. Il serait tou d'abord logique de faire cet affichage après, pour ne pas parasiter le résultat attendu. AnonymE
+   2. Il serait utile pour certaines indexation (comme celle du centre de documentation musicale) de pouvoir personnalisé le degré de proximité qui sera affiché. En ce qui nous concerne, il y a parfois plus de 30 voisins, ce qui rend la réponse illisible. AnonymE
+   3. Ajouter un pictogramme même pour les notices de livre (auj. uniquement les médias)
+   4. dans l'OPAC, peut-on changer l'intitulé du champ "nombre de pages" car pour les CD, ce n'est pas très explicite ? Des idées ? EricRobert?
+
+
+
+Texte
+
+   1. Changer "Editer" en "Modifier" le bouton qui permet de modifier un panier en Catalogue > Gestion des Paniers. GautierMichelin
+
+3 : Qui fait quoi
+-----------------
+
+4 : les points à reprendre
+--------------------------
+Ces points nécessitent des changements d'une certaine importance et donc
+une étude approfondie.
+  -Traitement des multi-volumes
+  -Indexations multilingues
+
+	

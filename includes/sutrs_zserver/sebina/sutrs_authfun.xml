@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes fonction en UNIMARC (français)
+$Id: sutrs_authfun.xml,v 1.2 2005-03-15 17:19:59 maxman Exp $ -->
+
+<XMLlist>
+	<entry code="075">Postfazione di</entry>
+	<entry code="080">Prefazione di|Introduzione di</entry>
+	<entry code="212">Commento di|Note di</entry>
+	<entry code="340">A cura di</entry>
+	<entry code="440">Illustrazioni di</entry>
+	<entry code="690">Sceneggiatura di</entry>
+	<entry code="730">Traduzione di</entry>
+</XMLlist>

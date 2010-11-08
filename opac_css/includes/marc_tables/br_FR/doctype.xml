@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (français)
+$Id: doctype.xml,v 1.2 2005-10-31 15:34:49 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="a">testenn voulet</entry>
+	<entry code="b">testenn zornskrivet</entry>
+	<entry code="c">skrid sonerezh moulet</entry>
+	<entry code="d">skrid sonerezh dornskrivet</entry>
+	<entry code="e">kartenn voulet</entry>
+	<entry code="f">kartenn zornskrivet</entry>
+	<entry code="g">teul klewelet</entry>
+	<entry code="i">enrolladenn da selaou ha n'eo ket sonerezh</entry>
+	<entry code="j">enrolladenn da selaou (sonerezh)</entry>
+	<entry code="k">teul treset war zaou vent</entry>
+	<entry code="l">teul elektronek</entry>
+	<entry code="m">teul liesmedia</entry>
+	<entry code="r">tra war dri ment, artefakts, ...</entry>
+</XMLlist>

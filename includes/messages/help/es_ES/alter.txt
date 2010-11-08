@@ -1,0 +1,7 @@
+<br />
+<b>ATENCI&Oacute;N, esta actualizaci&oacute;n puede ser larga y arriesgada...
+<br />Antes de iniciar la actualizaci&oacute;n, realiza una copia de seguridad.</b>
+<br /><br />Ignora los mensajes de error que puedan aparecer, son debidos a la versi&oacute;n de la base de datos, que no est&aacute; actualizada.
+<br />Si los mensajes contin&uacute;an al finalizar la actualizaci&oacute;n, ser&aacute; necesario mirar la causa.
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Clica aquí para empezar la actualizaci&oacute;n.</a>
+			

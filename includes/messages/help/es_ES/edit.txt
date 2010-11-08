@@ -1,0 +1,4 @@
+<h1><img src="./images/icone_editions.gif" hspace="6" vspace="6" align="middle"> M&oacute;dule de pr&eacute;stamos</h1>
+<p>Acabas de acceder al m&oacute;dulo de pr&eacute;stamos de la aplicaci&oacute;n PMB.</p>
+<div align="right">El equipo de desarroladores del proyecto</div>
+ 

@@ -1,0 +1,245 @@
+/* +--------------------------------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: navbar.css,v 1.2 2006-11-17 10:55:36 touraine37 Exp $ */
+
+/* navbar : écran de login */
+#navbar-index li {
+	float:right;
+	margin:0;
+	margin-left:20px;
+	padding:0px 14px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #A6DCDC;
+	background: #A6DCDC;
+	}
+#navbar-index a {
+	float:right;
+	padding:5px 6px 2px 15px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-index .current {
+	border-bottom:1px solid #A6DCDC;
+	}
+#navbar-index .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;
+	}
+
+#navbar-opac li {
+	float:right;
+	margin:0;
+	margin-left:20px;
+	padding:0px 14px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #DDF0A7;
+	}
+#navbar-opac a {
+	float:right;
+	padding:5px 6px 2px 15px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-opac .current {
+	border-bottom:1px solid #F6DCDC;
+	}
+#navbar-opac .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;
+	}
+
+
+#navbar-circ li  {
+	float:right;
+	margin:0;
+	margin-right:5px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #DDF0A7;
+	}
+#navbar-circ a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-circ .current {
+	border-bottom:1px solid #DDF0A7;
+	}
+#navbar-circ .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#navbar-catalog li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #FAF5BC;
+	}
+#navbar-catalog a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-catalog .current {
+	border-bottom:1px solid #FAF5BC;
+	}
+#navbar-catalog .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#navbar-autorites li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #E0D9FF;
+	}
+#navbar-autorites a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-autorites .current {
+	border-bottom:1px solid #E0D9FF;
+	}
+#navbar-autorites .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#navbar-edit li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #FEFFA3;
+	}
+#navbar-edit a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-edit .current {
+	border-bottom:1px solid #FEFFA3;	
+	}
+	
+#navbar-edit .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#navbar-admin li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #F6DCDC;
+	}
+#navbar-admin a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-admin .current {
+	border-bottom:1px solid #F6DCDC;
+	}
+#navbar-admin .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;
+	}
+
+#navbar-dsi li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #FFC587;
+	}
+#navbar-dsi a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-dsi .current {
+	border-bottom:1px solid #FFC587;
+	}
+#navbar-dsi .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#navbar-acquisition li {
+	float:right;
+	margin:0;
+	margin-right:10px;
+	padding:0px 10px 0px 0px;
+	border-top:2px solid #765;
+	border-right:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #C0F1C3;
+	}
+#navbar-acquisition a {
+	float:left;
+	padding:5px 6px 2px 13px;
+	border-left:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-acquisition .current {
+	border-bottom:1px solid #C0F1C3;
+	}
+#navbar-acquisition .current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+

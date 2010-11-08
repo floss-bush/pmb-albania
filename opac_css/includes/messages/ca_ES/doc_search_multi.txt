@@ -1,0 +1,20 @@
+<h2>Cerca avançada</h2>
+<p><strong>La cerca avançada permet combinar diferents criteris per realitzar una cerca molt precisa.</strong></p>
+<p>Pots seleccionar un o més camps de cerca: títol, autor, camps personalitzats...</p>
+<p>Per començar una recerca avançada:</p>
+<ul><li><b>tria un</b>primer<b>camp</b> 
+en el qual es cercarà. Per exemple: Autor</li>
+<li>Clica a <b>Afegir</b>per definir el primer camp de cerca</li>
+<li><b>selecciona</b> després <b>un tipus de cerca</b> pel camp triat. Per exemple, per un camp de títol pots triar una 
+ "cerca amb operadors booleans", "comença amb", "acaba amb" o "exactament com". Aquest tipus de cerca varia segons el camp seleccionat. 
+ Per exemple, amb el camp Autor "comença per" </li>
+<li><b>el camp necessita un valor</b>, 
+<b>introdueix-lo</b> a la casella d'entrada de dades; 
+si el camp necessita un llistat d'opcions (per exemple, el tipus de material), selecciona el valor que necessites del menú desplegable 
+(amb la tecla Ctrl del teclat per seleleccionar més d'una opció). 
+Per exemple, si el nostre Autor, comença per "Zol"</li>
+<li><b>Afegeix altres criteris que necessitis</b>. 
+Seguint amb el mateix exemple, pots afegir Títol exactament com "germinal".
+<li>Finalment, valida clicant a <b>Cercar</b></li></ul>
+<hr /><p>Pots utilitzar també els <a href=help.php?whatis=expbool>operadors booleans</a>.</p>
+<hr /><p>La cerca avançada permet buscar a totes les dades del catàleg de la biblioteca.</p>

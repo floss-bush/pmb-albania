@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Profil d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: profil.xml,v 1.2 2008-08-26 19:30:23 touraine37 Exp $ -->
+
+<AWSConfig>
+	<sites>
+		<site country="US" comment="msg:amazon_us">
+			<address url="http://webservices.amazon.com/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Artist'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Orchestra'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="DigitalMusic" comment="msg:amazon_digital_music">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Video" comment="msg:amazon_video">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+		<site country="DE" comment="msg:amazon_de">
+			<address url="http://webservices.amazon.de/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Artist'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="ForeignBooks" comment="msg:amazon_foreignbooks">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Magazines" comment="msg:amazon_magazines">
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Video" comment="msg:amazon_video">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+		<site country="JP" comment="msg:amazon_jp">
+			<address url="http://webservices.amazon.co.jp/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Artist'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Orchestra'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="ForeignBooks" comment="msg:amazon_foreignbooks">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Video" comment="msg:amazon_video">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+		<site country="UK" comment="msg:amazon_uk">
+			<address url="http://webservices.amazon.uk/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Artist'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Orchestra'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Video" comment="msg:amazon_video">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+		<site country="FR" comment="msg:amazon_fr">
+			<address url="http://webservices.amazon.fr/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Author'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="ForeignBooks" comment="msg:amazon_foreignbooks">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+		<site country="CA" comment="msg:amazon_ca">
+			<address url="http://webservices.amazon.ca/onca/xml"/>
+			<searchIndexes>
+				<searchIndex type="Books" comment="msg:amazon_books" power="yes">
+					<criteria name='Author'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Classical" comment="msg:amazon_classical">
+					<criteria name='Author'/>
+					<criteria name='Composer'/>
+					<criteria name='Conductor'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="DVD" comment="msg:amazon_dvd">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="ForeignBooks" comment="msg:amazon_foreignbooks" power="yes">
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Music" comment="msg:amazon_music">
+					<criteria name='Artist'/>
+					<criteria name='Keywords'/>
+					<criteria name='MusicLabel'/>
+					<criteria name='Power'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="VHS" comment="msg:amazon_vhs">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+				<searchIndex type="Video" comment="msg:amazon_video">
+					<criteria name='Actor'/>
+					<criteria name='Director'/>
+					<criteria name='Keywords'/>
+					<criteria name='Publisher'/>
+					<criteria name='Title'/>
+				</searchIndex>
+			</searchIndexes>
+		</site>
+	</sites>
+	<matches>
+		<match type="simple">
+			<criteria name="Author" unimarcField="7XX"/>
+			<criteria name='Publisher' unimarcField='210$c'/>
+			<criteria name='Title' unimarcField='200$a,461$t'/>
+			<criteria name='Artist' unimarcField='7XX'/>
+			<criteria name='Composer' unimarcField='7XX'/>
+			<criteria name='Conductor' unimarcField='7XX'/>
+			<criteria name='MusicLabel' unimarcField='210$c'/>
+			<criteria name='Orchestra' unimarcField='7XX'/>
+			<criteria name='Actor' unimarcField='7XX'/>
+			<criteria name='Director' unimarcField='7XX'/>
+			<criteria name='Keywords' unimarcField='ALLOTHERS'/>
+		</match>
+		<match type="power">
+			<criteria name='author' unimarcField='7XX' excludeOperators="EXACT,STARTWITH"/>
+			<criteria name='author-exact' unimarcField='7XX' operators="EXACT"/>
+			<criteria name='author-begins' unimarcField='7XX' operators="STARTWITH"/>
+			<criteria name='language' unimarcField='101$a,101$c'/>
+			<criteria name='publisher' unimarcField='210$c'/>
+			<criteria name='subject' unimarcField='60X,610' excludeOperators="CONTAINS_AT_LEAST,STARTWITH"/>
+			<criteria name='subject-words-begin' unimarcField='60X,610' operators="CONTAINS_AT_LEAST"/>
+			<criteria name='subject-begins' unimarcField='60X,610' operators="STARTWITH"/>
+			<criteria name='title' unimarcField='200$a' excludeOperators="CONTAINS_AT_LEAST,STARTWITH"/>
+			<criteria name='title-words-begin' unimarcField='200$a' operators="CONTAINS_AT_LEAST"/>
+			<criteria name='title-begins' unimarcField='200$a' operators="STARTWITH"/>
+			<!--<criteria name='keywords' unimarcField='ALLOTHERS' excludeOperators="STARTWITH"/>
+			<criteria name='keywords-begin' unimarcField='ALLOTHERS' operators="STARTWITH"/>-->
+			<criteria name='keywords' unimarcField='ALLOTHERS'/>
+		</match>
+	</matches>
+	<types>
+		<type name="Books" dt="a"/>
+		<type name="ForeignBooks" dt="a"/>
+		<type name="Music" dt="j"/>
+		<type name="Classical" dt="j"/>
+		<type name="DigitalMusic" dt="j"/>
+		<type name="DVD" dt="g"/>
+		<type name="VHS" dt="g"/>
+		<type name="Video" dt="g"/>
+	</types>
+</AWSConfig>

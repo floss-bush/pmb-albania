@@ -1,0 +1,29 @@
+<h1>Administraci&oacute;n de las importaciones</h1>
+<p>Este m&oacute;dulo permite administrar las importaciones de datos asociados a documentos o ejemplares.</p>
+<p>El procedimiento se realiza en diferentes tiempos : 
+<ul>
+	<li>Definici&oacute;n de los par&aacute;metros a importar :<br />
+		Para los registros :
+		<ul>
+		<li>ISBN obligatorio</li>
+		<li>Duplicaci&oacute;n del ISBN (si s&iacute;, los registros existentes no ser&aacute;n creados)</li>
+		<li>Actulizaci&oacute;n de los registros (de ISBN id&eacute;nticos)</li>
+		<li>Ignorar los ISSN (para las publicaciones peri&oacute;dicas) </li>
+		<li>Estado de los registros (para identificar los registros a importar)</li>
+		</ul>
+		Pera los ejemplares :
+		<ul>
+		<li>qui&eacute;n presta (ej : biblioteca departamental)</li>
+		<li>estado del ejemplar (ej : "import&aacute;ndose")</li>
+		<li>Localizaci&oacute;n de los ejemplares</li>
+		<li>Signatura obligatoria</li>
+		<li>Correspondecia entre el c&oacute;digo 995 y vuestros fondos para los tipos de soporte, c&oacute;digos estad&iacute;sticos y de secciones</li>
+		</ul>
+	</li>
+	<li>Cargar el archivo,</li>
+	<li>Importaci&oacute;n de los registros o los ejemplares,</li>
+	<li>Para los ejemplares, marcar las importaciones para verificar la correspondencia entre la lista de pr&eacute;stamos y 
+	las obras realmente importadas.</li>
+	</ul>
+	</p>
+<p>Esta &uacute;ltima verficicaci&oacute;n es r&aacute;pida y puede totalmente realizada con un lector de c&oacute;digos de barras.</p>

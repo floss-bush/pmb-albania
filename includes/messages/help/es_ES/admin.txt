@@ -1,0 +1,29 @@
+<h1>M&oacute;dulo de administraci&oacute;n</h1>
+<p>Acaba de acceder al m&oacute;dulo de administraci&oacute;n de PMB. Las acciones llevadas a cabo en este m&oacute;dulo afectar&aacute;n de manera sustancial 
+al buen funcionamiento del programa. Por lo tanto, le sugerimos utilice estas funciones con el mayor cuidado.  Antes de cualquier acci&oacute;n,
+ tenga en cuenta el impacto que tendr&aacute; en sus datos.  Si tiene cualquier duda, env&iacute;enos un mensaje 
+ a <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a>. Le atenderemos con gusto.</p>
+
+<h2>Ejemplares, registros</h2>
+<p>El apartado ejemplares y registros permite definir los par&aacute;metros de la aplicaci&oacute;n respecto a los pr&eacute;stamos y las estad&iacute;sticas 
+de los documentos.
+</p>
+
+<h2>Usuarios</h2>
+<p>El apartado usuarios permite configurar los par&aacute;metros asociados a la creaci&oacute;n de un usuario: categor&iacute;as y c&oacute;digos estast&iacute;scos. 
+Este apartado permite tambi&eacute;n importar datos externos de usuarios.
+</p>
+
+<h2>Administradores</h2>
+<p>Este apartado permite generar los identificadores o nombres de usuario y los derechos asociados a cada administrador del sistema.
+ La configuraci&oacute;n permite diferenciar entre aquellos usuarios que pueden realizar operaciones de pr&eacute;stamo, aquellos  que pueden 
+ acceder al m&oacute;dulo de catalogaci&oacute;n y para estos &uacute;ltimos, aquellos que est&aacute;n autorizados a crear autoridades y los que no. 
+ Utilice este apartado tambi&eacute;n para gestionar las contraseñas y de los identificadores de conexi&oacute;n.</p>
+
+<h2>Herramientas</h2>
+<p>El apartado herramientas contiene un conjunto de funciones que facilitan las tareas de administraci&oacute;n de la base de datos. 
+Le sugerimos hacer copias de seguridad peri&oacute;dicamente.
+
+
+<p align="right">El Equipo de Desarrolladores</p>
+ 

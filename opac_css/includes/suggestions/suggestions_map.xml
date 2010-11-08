@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE SUGGESTS SYSTEM "./suggestions_map.dtd">
+
+<!-- descriptif etat suggestions 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: suggestions_map.xml,v 1.3 2008-02-05 13:01:04 dbellamy Exp $ -->
+
+
+<SUGGESTS>
+
+	<STATES>
+		
+		<!-- Etats possibles pour une suggestion -->
+		<!-- Ne pas modifier -->
+		<STATE NAME="TODO" ID="1" ADD="NO" DISPLAY="NORMAL" MERGE="FROM" CATALOG="NO" CATEG="YES" COMMENT="acquisition_sug_enc" >
+			<ACTION NAME="GOTOFIRSTSTATE" />
+		</STATE>
+
+		<STATE NAME="VALIDATED" ID="2" ADD="NO" DISPLAY="NORMAL" MERGE="TO" CATALOG="YES" CATEG="YES" COMMENT="acquisition_sug_val" >
+		</STATE>
+
+		<STATE NAME="REJECTED" ID="4" ADD="NO" DISPLAY="NORMAL" MERGE="NO" CATALOG="NO" CATEG="NO" COMMENT="acquisition_sug_rej" >
+		</STATE>
+
+		<STATE NAME="CONFIRMED" ID="8" ADD="NO" DISPLAY="NORMAL"  MERGE="NO" CATALOG="YES" CATEG="NO" COMMENT="acquisition_sug_con" >
+		</STATE>
+
+		<STATE NAME="GIVENUP" ID="16" ADD="NO" DISPLAY="NORMAL" MERGE="NO" CATALOG="NO" CATEG="NO" COMMENT="acquisition_sug_aba" >
+		</STATE>
+
+		<STATE NAME="ESTIMATED" ID="1024" ADD="NO" DISPLAY="NORMAL" MERGE="NO" CATALOG="YES" CATEG="NO" COMMENT="acquisition_sug_dev" >
+		</STATE>
+
+		<STATE NAME="ORDERED" ID="32" ADD="NO" DISPLAY="NORMAL" MERGE="NO" CATALOG="YES" CATEG="NO" COMMENT="acquisition_sug_cde" >
+		</STATE>
+
+		<STATE NAME="RECEIVED" ID="64" ADD="NO" DISPLAY="NORMAL" MERGE="NO" CATALOG="NO" CATEG="NO" COMMENT="acquisition_sug_rec" >
+		</STATE>
+
+		<STATE NAME="FILED" ID="128" ADD="YES" DISPLAY="STRIPED" MERGE="NO" CATALOG="NO" CATEG="NO" COMMENT="acquisition_sug_arc" >
+		</STATE>
+
+		<STATE NAME="DELETED" ID="512" ADD="NO" DISPLAY="NO" MERGE="NO" CATALOG="NO" CATEG="NO" COMMENT="" >
+			<ACTION NAME="DELETE" />
+		</STATE>
+
+	</STATES>
+	
+	
+	<ALLOWEDFLOW>
+		
+		<!-- Flux autorisés -->
+		<!-- Ne pas modifier -->
+		<FIRSTSTATE>TODO</FIRSTSTATE>
+		<FIRSTSTATE>VALIDATED</FIRSTSTATE>
+		<LASTSTATE>DELETED</LASTSTATE>
+
+		<FROMSTATE NAME="TODO">
+			<TOSTATE NAME="VALIDATED" />
+			<TOSTATE NAME="REJECTED" />
+			<TOSTATE NAME="CONFIRMED" />
+			<TOSTATE NAME="DELETED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="VALIDATED">
+			<TOSTATE NAME="CONFIRMED" />
+			<TOSTATE NAME="GIVENUP" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="REJECTED">
+			<TOSTATE NAME="TODO" />
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="CONFIRMED">
+			<TOSTATE NAME="ORDERED" />
+			<TOSTATE NAME="ESTIMATED" />
+			<TOSTATE NAME="GIVENUP" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="GIVENUP">
+			<TOSTATE NAME="TODO" />
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="ORDERED">
+			<TOSTATE NAME="GIVENUP" />
+			<TOSTATE NAME="RECEIVED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="RECEIVED">
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="FILED">
+			<TOSTATE NAME="DELETED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="DELETED">
+		</FROMSTATE>	
+		
+		<FROMSTATE NAME="ESTIMATED">
+			<TOSTATE NAME="GIVENUP" />
+			<TOSTATE NAME="ORDERED" />
+		</FROMSTATE>	
+
+	</ALLOWEDFLOW>
+	
+	
+	<WORKFLOW>
+		
+		<!-- Flux définis par defaut -->
+		<!-- Ne pas modifier, utiliser un fichier suggestions_map_subst.xml pour redefinir le workflow-->
+		<FIRSTSTATE>TODO</FIRSTSTATE>
+		<LASTSTATE>DELETED</LASTSTATE>
+
+		<FROMSTATE NAME="TODO">
+			<TOSTATE NAME="DELETED" />
+			<TOSTATE NAME="VALIDATED" />
+			<TOSTATE NAME="REJECTED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="VALIDATED">
+			<TOSTATE NAME="CONFIRMED" />
+			<TOSTATE NAME="GIVENUP" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="REJECTED">
+			<TOSTATE NAME="TODO" />
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="CONFIRMED">
+			<TOSTATE NAME="ORDERED" />
+			<TOSTATE NAME="ESTIMATED" />
+			<TOSTATE NAME="GIVENUP" />			
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="GIVENUP">
+			<TOSTATE NAME="TODO" />
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="ORDERED">
+			<TOSTATE NAME="GIVENUP" />
+			<TOSTATE NAME="RECEIVED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="RECEIVED">
+			<TOSTATE NAME="FILED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="FILED">
+			<TOSTATE NAME="DELETED" />
+		</FROMSTATE>	
+	
+		<FROMSTATE NAME="DELETED">
+		</FROMSTATE>	
+
+		<FROMSTATE NAME="ESTIMATED">
+			<TOSTATE NAME="GIVENUP" />
+			<TOSTATE NAME="ORDERED" />
+		</FROMSTATE>	
+
+	</WORKFLOW>
+	
+</SUGGESTS>

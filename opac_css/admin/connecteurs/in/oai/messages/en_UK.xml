@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.3 2010-06-08 19:33:38 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="rec_addr">Register an address to be able to access the repository properties</entry>
+	<entry code="error_contact_server">Error accessing the OAI server: %s</entry>
+	<entry code="oai_desc">Description</entry>
+	<entry code="oai_older_metatdatas">Earliest date of metadata</entry>
+	<entry code="oai_email_admin">Admin email</entry>
+	<entry code="oai_granularity">Granularity</entry>
+	<entry code="oai_one_day">1 day</entry>
+	<entry code="oai_minute">Immediately</entry>
+	<entry code="oai_sets_to_sync">Sets to synchronize</entry>
+	<entry code="oai_preference_format">Data preferences format</entry>
+	<entry code="oai_xslt_file">xslt file to convert to unimarc</entry>
+	<entry code="oai_xslt_file_linked">An xslt file has been associated: %s</entry>
+	<entry code="oai_del_xslt_file">Delete it</entry>
+	<entry code="oai_del_marked_elts">Deleting items marked by server? (the server keeps them in this way %s)</entry>
+	<entry code="oai_del_marked_persistent">persistent</entry>
+	<entry code="oai_del_marked_temp">temporary</entry>
+	<entry code="oai_yes">Yes</entry>
+	<entry code="oai_no">No</entry>
+	<entry code="oai_get_notices">Get the records published</entry>
+	<entry code="oai_between_part1">Between the</entry>
+	<entry code="oai_between_part2">And the</entry>
+	<entry code="oai_syncinfo_date_baserecent">Latest notice date in the database: %s</entry>
+	<entry code="oai_syncinfo_date_serverearlyiest">Earliest notice date on the server: %s</entry>
+	<entry code="oai_syncinfo_nonotice">No notice in the database.</entry>
+	<entry code="oai_clean_url">Keep canonical form of returned url</entry>
+</XMLlist>

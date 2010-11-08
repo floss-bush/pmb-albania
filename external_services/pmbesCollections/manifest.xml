@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.3 2009-11-28 19:57:11 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesCollections</name>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="collection" imported="true" imported_from="pmbesTypes"/>
+		<type name="sous_collection" imported="true" imported_from="pmbesTypes"/>
+	</types>
+	<methods>
+		<method name="get_collection_information" rights="" version="1.0" language_independant="true" comment="msg:get_collection_information_description">
+			<inputs>
+				<description>msg:get_collection_information_input_description</description>
+				<param name="collection_id" type="scalar" dataType="integer" description="msg:get_collection_information_collection_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_collection_information_output_description</description>
+				<result name="result" type="scalar" dataType="collection" description="msg:get_collection_information_result"/>
+			</outputs>
+		</method>
+		<method name="get_subcollection_information" rights="" version="1.0" language_independant="true" comment="msg:get_subcollection_information_description">
+			<inputs>
+				<description>msg:get_subcollection_information_input_description</description>
+				<param name="subcollection_id" type="scalar" dataType="integer" description="msg:get_subcollection_information_subcollection_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_subcollection_information_output_description</description>
+				<result name="result" type="scalar" dataType="sous_collection" description="msg:get_subcollection_information_result"/>
+			</outputs>
+		</method>
+		<method name="list_collection_notices" rights="" version="1.0" language_independant="true" comment="msg:list_collection_notices_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_collection_notices_input_description</description>
+				<param name="collection_id" type="scalar" dataType="integer" description="msg:list_collection_notices_collection_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:list_collection_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_collection_notices_output_description</description>
+				<result type="array" name="notice_ids" description="msg:list_collection_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_collection_subcollections" rights="" version="1.0" language_independant="true" comment="msg:list_collection_subcollections_description">
+			<inputs>
+				<description>msg:list_collection_subcollections_input_description</description>
+				<param name="collection_id" type="scalar" dataType="integer" description="msg:list_collection_subcollections_collection_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_collection_subcollections_output_description</description>
+				<result type="array" name="sub_collections" description="msg:list_collection_subcollections_sub_collections">
+					<result name="item" type="scalar" dataType="sous_collection"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_subcollection_notices" rights="" version="1.0" language_independant="true" comment="msg:list_subcollection_notices_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_subcollection_notices_input_description</description>
+				<param name="subcollection_id" type="scalar" dataType="integer" description="msg:list_subcollection_notices_subcollection_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:list_subcollection_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_subcollection_notices_output_description</description>
+				<result type="array" name="notice_ids" description="msg:list_subcollection_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_collection_information_and_notices_description">
+			<requirements>
+		  		<requirement group="pmbesCollections" name="get_collection_information" version="1.0"/>
+		  		<requirement group="pmbesCollections" name="list_collection_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_collection_information_and_notices_input_description</description>
+				<param name="collection_id" type="scalar" dataType="integer" description="msg:get_collection_information_and_notices_collection_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:get_collection_information_and_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_collection_information_and_notices_output_description</description>
+				<result name="information" type="scalar" dataType="collection" description="msg:get_collection_information_and_notices_information"/>
+				<result type="array" name="notice_ids" description="msg:get_collection_information_and_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_subcollection_information_and_notices_description">
+			<requirements>
+		  		<requirement group="pmbesCollections" name="get_subcollection_information" version="1.0"/>
+		  		<requirement group="pmbesCollections" name="list_subcollection_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_subcollection_information_and_notices_input_description</description>
+				<param name="subcollection_id" type="scalar" dataType="integer" description="msg:get_subcollection_information_and_notices_subcollection_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:get_subcollection_information_and_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_subcollection_information_and_notices_output_description</description>
+				<result name="information" type="scalar" dataType="sous_collection" description="msg:get_subcollection_information_and_notices_information"/>
+				<result type="array" name="notice_ids" description="msg:get_subcollection_information_and_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

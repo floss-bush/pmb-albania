@@ -1,0 +1,19 @@
+<br />
+<b>WARNING, this tool adds records and authorities only if necessary.
+<br />This feature does not update existing records.</b>
+<br /><br />
+
+The file must be in UNIMARC format<br />
+<ul>
+<li>The import is done in three steps:
+<OL>
+<LI>Upload your file</LI>
+<LI>Preload your file</LI>
+<LI>Transfer into the records database</LI>
+</OL></li>
+<br /><li>Instead of uploading your file, you may send it directly to the server by other means (FTP for example). The file must be named <i><?php echo $nom_fichier_transfert_ftp; ?></i> and located in admin/import. In this case, you should jump right to the <a href="iimport_expl.php?categ=import&sub=import&action=preload">Preload</a> step.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import&action=beforeupload">Step 1: Upload</a>
+
+
+	

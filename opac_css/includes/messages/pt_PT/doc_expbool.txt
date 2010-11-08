@@ -1,0 +1,128 @@
+<h2>Express&atilde;o Booleana</h2>
+<p class='pn-normal'>Por omiss&atilde;o, o motor de busca procura os elementos que
+cont&eacute;m pelo menos uma das palavras entradas. Os resultados s&atilde;o
+ordenados por ordem decrescente de relev&acirc;ncia (de acordo com o
+n&uacute;mero de palavras encontradas) e, depois, por ordem
+alfab&eacute;tica. <br /><br />E.g. <em>vinho do Porto</em> concerne aos
+elementos que cont&eacute;m as palavras vinho <b>ou</b> Porto (vinho
+do Porto, vinho do D&atilde;o, a hist&oacute;ria da cidade do Porto,
+...).<br /><br />Todos os caracteres n&atilde;o alfab&eacute;ticos ou n&atilde;o
+num&eacute;ricos s&atilde;o substitu&iacute;dos por espa&ccedil;os,
+acentos n&atilde;o s&atilde;o levados em considera&ccedil;&atilde;o,
+nem letras mai&uacute;sculas ou min&uacute;sculas.<br /><br />E.g.<em>
+Caf&eacute; s&atilde;o-Jo&atilde;o</em> seria analizado como tr&ecirc;s
+palavras: <em>cafe sao joao</em> <br /><br />Certas palavras s&atilde;o
+ignoradas porque s&atilde;o particularmente comuns ou n&atilde;o t&ecirc;m
+um significado relevante em portugu&ecirc;s (e.g. : o, do, &agrave;,
+um, ...). 
+</p>
+<p><b>Truncagem</b> 
+</p>
+<p class='pn-normal'>As palavras podem ser truncadas &agrave; esquerda, direita ou
+parcialmente usando o caracter *<br /><br />E.g. <em>hor*</em>
+encontraria palavras come&ccedil;adas por <em>hor</em> (hora,
+horticultura, horror, ...), <em>*logia</em> encontraria palavras
+acabadas em 'logia' (psicologia, teologia, triologia, ...), <em>p*logia</em>
+encontraria palavras come&ccedil;adas por would p e finalizando em
+logia (psicologia, paleontologia, patologia, ...).<br /><br />Muitas
+truncagens podem ser usadas na mesma palavra.</p>
+<p><b>Procura com termos exactos</b> 
+</p>
+<p class='pn-normal'>Um termo exacto &eacute; definido por texto encerrado por aspas.
+Se o motor de busca reconhece um termo exacto, procura os elementos
+contendo exactamente esse texto. A truncagem pode ser usada em termos
+exactos.<br /><br />E.g. <em>&quot;dent&quot;</em> concerne a todos os
+elementos contendo o texto dent (dentista, acidente, indenta&ccedil;&atilde;o,
+...).<br /><br />A procura exacta &eacute; &uacute;til para express&otilde;es
+que cont&eacute;m espa&ccedil;os ou sinais de pontua&ccedil;&atilde;o.
+(por exemplo iniciais).<br /><br />Ex. <em>&quot;R.N.L.I.&quot;</em>
+preocura pelos elementos que cont&eacute;m o texto R.N.L.I., <em>R.N.L.I.</em>
+procura por elementos que cont&eacute;m as palavras R ou N ou L ou I
+.<br /><br />Acentos e letras mai&uacute;sculas/min&uacute;sculas letras
+n&atilde;o s&atilde;o levadas em conta num termo exacto. Finalmente,
+termos exactos podem ser usados em todas as express&otilde;es
+complexas descritas abaixo. 
+</p>
+<p><b>Nega&ccedil;&atilde;o</b> 
+</p>
+<p class='pn-normal'>O s&iacute;mbolo ~ antes de um termo representa a nega&ccedil;&atilde;o
+deste termo. Isto significa a procura de todos os elementos que n&atilde;o
+cont&eacute;m o termo.<br /><br />E.g. <em>~trabalho</em> concerne a
+todos os elementos excepto aqueles que cont&eacute;m a palavra
+trabalho. 
+</p>
+<p><b>Operadores l&oacute;gicos entre duas palavras</b> 
+</p>
+<p class='pn-normal'>Os operadores l&oacute;gicos poem ser usados entre duas palavras:</p>
+<ul>
+	<li><b>+</b> : operador E<br /><br />E.g.
+	<em>disco + duro</em> concerne aos elementos que cont&eacute;m as
+	palavras disco <b>e</b> duro.</li>
+	<li><b>-</b> : operador EXCEPTO (E N&Atilde;O)<br /><br />E.g. <em>disco
+	- duro</em> concerne aos elementos que cont&eacute;m a palavra
+	disco, <b>excepto aquelas que tamb&eacute;m cont&eacute;m</b> a
+	palavra duro. 
+	</li>
+</ul>
+<p class='pn-normal'>Muitos operadores podem ser encadeados na mesma express&atilde;o.
+S&atilde;o aplicados por ordem, da esquerda para a direita.<br /><br />E.g.
+<em>poesia + portuguesa - rom&acirc;ntico*</em> concerne aos
+elementos que cont&eacute;m <em>poesia e portuguesa</em> <b>sem</b>
+<em>romantico(s)</em>. <br /><br />Aten&ccedil;&atilde;o, dois operadores
+n&atilde;o podem ser seguidos, uma nega&ccedil;&atilde;o n&atilde;o
+pode ser combinada com um operador (<b>+~</b> devolve o mesmo que o
+operador <b>-</b>). 
+</p>
+<p><b>Agrupar</b> 
+</p>
+<p class='pn-normal'>Uma express&atilde;o poder ser agrupada de modo a tornar-se um
+termo. Este agrupamento &eacute; efectuado com <b>par&ecirc;nteses</b>.
+Isto permite a troca da ordem de aplica&ccedil;&atilde;o dos
+operadores ou a combina&ccedil;&atilde;o do resultado de express&otilde;es
+complexas.<br /><br />E.g.</p>
+<ul>
+	<li><em>poesia + (portuguesa
+	rom&acirc;ntico)</em> concerne a todos os elementos que cont&eacute;m
+	<em>portuguesa ou rom&acirc;ntico</em>, mas apenas os que cont&eacute;m
+	<em>poesia</em>. 
+	</li>
+	<li><em>(poesia + portuguesa)
+	rom&acirc;ntico</em> concerne a todos os elementos que cont&eacute;m
+	<em>poesia e portuguesa</em> <b>ou</b> todos os elementos que cont&eacute;m
+	<em>rom&acirc;ntico</em> 
+	</li>
+	<li><em>~(poesia + portuguesa) + (Fra* literatura)</em> concerne
+	<em>a todos os elementos que n&atilde;o cont&eacute;m poesia e
+	portuguesa</em> <b>e</b> <em>os elementos que cont&eacute;m Fra* ou
+	literatura</em> 
+	</li>
+</ul>
+<p class='pn-normal'>Os par&ecirc;nteses podem ser aninhados consecutivamente sem
+limite.<br /><br />E.g. <em>(poesia + (portuguesa rom&acirc;ntico))
+(literatura + XIX)</em> concerne <em>a todos os elementos que cont&eacute;m
+portuguesa ou rom&acirc;ntico, apenas os que cont&eacute;m poesia</em>
+<b>ou</b> <em>os elementos que cont&eacute;m literatura e XIX</em> 
+</p>
+<p><b>Relev&acirc;ncia</b> 
+</p>
+<p class='pn-normal'>Os resultados s&atilde;o ordenados por ordem de relev&acirc;ncia e
+depois por ordem alfab&eacute;tica. A relev&acirc;ncia &eacute;
+calculada simplesmente pelo n&uacute;mero total de palavras ou termos
+exactos encontrados. <br /><br />E.g.</p>
+<ul>
+	<li><em>Vinho do Porto</em>
+	encontraria todos os elementos contendo Porto ou vinho, os que
+	contivessem as duas palavras apareceriam no topo da lista de
+	resultados 
+	</li>
+	<li><em>~(poesia + portuguesa) (literatura Fra*)</em> encontraria
+	todos os elementos que n&atilde;o contivessem <em>poesia e
+	portuguesa</em>, nesses elementos, os que contivessem <em>literatura
+	ou Fra*</em> apareceriam no topo da lista de resultados (literatura
+	e Fra* antes, depois Fra*, depois literatura) 
+	</li>
+</ul>
+<hr />
+<p>As express&otilde;es booleanas s&atilde;o usadas em <a href="help.php?whatis=simple_search">procuras
+r&aacute;pidas</a> e em <a href="help.php?whatis=search_multi">procuras
+multi-crit&eacute;rio</a>.</p>

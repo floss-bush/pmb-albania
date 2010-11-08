@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.3 2010-04-12 07:05:45 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesSpecialTypes</name>
+	<description>msg:pmbesSpecialTypes_description</description>
+	<types>
+		<type name="unimarc_notice" description="msg:unimarc_notice_description">
+			<part name="id" type="scalar" dataType="string" description="msg:unimarc_notice_id"/>
+			<part name="header" type="array" description="msg:unimarc_notice_header">
+				<part name="name" type="scalar" dataType="string" description="msg:unimarc_header_field_name"/>
+				<part name="value" type="scalar" dataType="string" description="msg:unimarc_header_field_value"/>
+			</part>
+			<part name="f" type="array" description="msg:unimarc_notice_f">
+				<part name="c" type="scalar" dataType="string" description="msg:unimarc_f_field_c"/>
+				<part name="ind" type="scalar" dataType="string" description="msg:unimarc_f_field_ind"/>
+				<part name="id" type="scalar" dataType="string" description="msg:unimarc_f_field_id"/>
+				<part name="value" type="scalar" dataType="string" optional="true"/>
+				<part name="s" type="array" description="msg:unimarc_f_field_s">
+					<part name="c" type="scalar" dataType="string" description="msg:unimarc_s_field_c"/>
+					<part name="value" type="scalar" dataType="string" description="msg:unimarc_s_field_value"/>
+				</part>
+			</part>
+		</type>
+	</types>
+</manifest>

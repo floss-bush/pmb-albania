@@ -1,0 +1,15 @@
+<h1>Acquisitions</h1>
+</p><p>
+<b>Coordonn&eacute;es</b> fiche d'identit&eacute; de l'&eacute;tablissement.
+</p><p>
+<b>Exercices comptables</b> d&eacute;finition des exercices comptables.
+</p><p>
+<b>TVA sur achats</b> gestion des diff&eacute;rents taux de TVA et des comptes de TVA d'achats (si la gestion de la TVA est activ&eacute;e).
+</p><p>
+<b>Types de produits</b> cat&eacute;gories de produits achet&eacute;s permettant le calcul des remises et les affectations dans les comptes d'achats.
+</p><p>
+<b>Frais annexes</b> &eacute;ventuels li&eacute;s aux acquisitions et comptes associ&eacute;s.
+</p><p>
+<b>Modes de paiement</b> et d&eacute;lais de r&egrave;glements.
+</p><p>
+<b>Budgets</b> r&eacute;partition des achats.

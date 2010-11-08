@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Catalogue des domaines de gestion des droits d'accès 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.2 2009-03-13 16:36:16 dbellamy Exp $ -->
+
+<catalog>
+	<item id="2" path='empr_notice' />
+</catalog>
+ 

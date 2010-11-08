@@ -1,0 +1,50 @@
+<h2>Expression booléenne</h2>
+<p class='pn-normal'>Par défaut, le moteur cherche les éléments qui contiennent au moins un des mots saisis. Le tri se fait selon le nombre décroissant de mots trouvés, puis par ordre alphabétique.
+<br />Ex. <em>jambon bayonne</em> signifie les éléments qui contiennent les mots jambon <b>ou</b> bayonne (jambon de bayonne, jambon de parme, l'histoire de Bayonne, ...).
+<br />Tous les caractères non alphabétiques ou non numériques sont remplacés par des espaces, les accents ne sont pas pris en compte ainsi que les majuscules/minuscules<br />Ex. <em>Lycée Saint-Jean</em> sera analysé comme trois mots : <em>lycee saint jean</em> 
+<br />Certains mots sont ignorés car trop courants ou sans signification pertinente en français (ex : de, du, da, t, l, d, s, son, sa, ...).
+</p>
+<br />
+<b>Troncature</b>
+<p class='pn-normal'>Les mots peuvent être tronqués à gauche, droite ou partiellement par le caractère *
+<br />Ex. <em>chev*</em> cherchera les mots commençant par <em>chev</em> (cheval, chevaux, cheveux, ...), <em>*logie</em> cherchera les mots finissant par 'logie' (psychologie, théologie, trilogie, ...), <em>p*logie</em> cherchera les mots commençant par p et finissant par logie (psychologie, paléonthologie, pathologie, ...).
+<br />Plusieurs troncatures peuvent-être utilisées dans un même mot.</p>
+<b>Recherche avec des termes exacts</b>
+<p class='pn-normal'>Un terme exact est défini par un texte entouré de guillemets. Si le moteur de recherche rencontre un terme exact, il cherche les éléments contenant exactement ce texte. La troncature peut-être utilisée dans les termes exacts.
+<br />Ex. <em>\"dent\"</em> signifie tous les éléments contenant le texte dent (dentition, accident, indentation, ...).
+<br />La recherche exacte est pratique pour la recherche d'expressions contenant des espaces ou des signes de ponctuation. (un sigle par exemple).
+<br />Ex. <em>\"A.N.P.E.\"</em> cherche les éléments qui contiennent le texte A.N.P.E., <em>A.N.P.E.</em> cherche les éléments qui contiennent les mots A ou N ou P ou E .
+<br />Les accents et les majuscules/minuscules ne sont pas pris en compte dans un terme exact. Enfin, les termes exacts peuvent êtres utilisés dans toutes les expressions complexes décrites ci-dessous.
+</p>
+<b>Négation</b>
+<p class='pn-normal'>Le symbole ~ devant un terme représente une négation de ce terme. Cela signifie la recherche de tous les éléments ne contenant pas ce terme
+<br />Ex. <em>~travail</em> signifie tous les éléments sauf ceux qui contiennent le mot travail.
+</p>
+<b>Opérateurs logiques entre deux mots</b>
+<p class='pn-normal'>Des opérateurs logiques peuvent être utilisés entre les mots :</p>
+<ul><li><b>+</b> : opérateur ET<br />Ex. <em>disque + dur</em> signifie les éléments qui contiennent les mots disque <b>et</b> dur.</li>
+<li><b>-</b> : opérateur SAUF (ET NON)<br />Ex. <em>disque - dur</em> signifie les éléments qui contiennent le mot disque, <b>sauf ceux qui contiennent aussi</b> le mot dur.</li>
+</ul>
+<p class='pn-normal'>Plusieurs opérateurs peuvent-être enchainés dans une même expression. Ils sont appliqués dans l'ordre, de gauche à droite.
+<br />Ex. <em>poésie + français* - romantique*</em> signifie les éléments contenant <em>poésie et français(e)(s)</em> <b>sans</b> <em>romantique(s)</em>.
+<br /><br />Attention, deux opérateurs ne peuvent se suivre, une négation ne peut-être combinée à un opérateur (<b>+~</b> revient au même que l'opérateur <b>-</b>).
+</p>
+<b>Regroupements</b>
+<p class='pn-normal'>Une expression peut-être regroupée pour devenir un terme. Ce regroupement se fait avec les <b>parenthèses</b>. Cela permet de changer l'ordre d'application des opérateurs ou de combiner les résultats d'expressions complexes.
+<br />Ex.</p>
+<ul>
+<li><em>poésie + (française romantique)</em> signifie dans tous les éléments qui contiennent francaise ou romantique, uniquement ceux qui contiennent <em>poésie</em>.</li>
+<li><em>(poésie + française) romantique</em> signifie tous les éléments qui contiennent <em>poésie et française</em> <b>ou</b> tous les éléments qui contiennent <em>romantique</em></li>
+<li><em>~(poésie + française) + (littérature améri*)</em> signifie les éléments <em>qui ne contiennent pas poésie et française</em> <b>et</b> <em>qui contiennent littérature ou améri*</em></li>
+</ul>
+<p class='pn-normal'>Les parenthèses peuvent-être imbriquées sans limite.<br />Ex. <em>(poésie + (française romantique)) (littérature + XIX)</em> signifie <em>dans tous les éléments qui contiennent francaise ou romantique, uniquement ceux qui contiennent poésie</em> <b>ou</b> <em>les éléments qui contiennent littérature et XIX</em> 
+</p>
+<b>Pertinence</b>
+<p class='pn-normal'>Les résultats sont trié par ordre de pertinence puis par ordre alphabétique. La pertinence est calculée simplement par le nombre total de mots ou de termes exacts trouvés.
+<br />Ex.</p>
+<ul>
+<li><em>jambon bayonne</em> trouvera tous les éléments contenant jambon ou bayonne, ceux qui contiennent les deux mots seront au début de la liste de résultat</li>
+<li><em>~(poésie + française) (littérature améri*)</em> trouvera tous les éléments qui ne contiennent pas <em>poésie et française</em>, dans ces éléments, ceux qui contiennent <em>littérature ou améri*</em> apparaitront en premier dans la liste de résultats (d'abord littérature et améri*, puis améri*, puis littérature)</li>
+</ul>
+<hr />
+<p>Les expressions booléennes sont utilisables en <a href="help.php?whatis=simple_search">recherche simple</a> et en <a href="help.php?whatis=search_multi">recherche multi-critères</a>.</p>

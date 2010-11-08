@@ -1,0 +1,97 @@
+// +-------------------------------------------------+
+// | PMB                                                                      |
+// +-------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: styles.txt,v 1.5 2004-12-14 10:17:55 gautier Exp $
+
+CSS : Classes et IDs utilisés dans l'OPAC
+-----------------------------------------
+
+Tout est contenu dans #container
+
+Partie gauche (menu)
+	#bandeau
+		#accueil
+		#connexion
+		#meteo
+		#adresse
+		
+Partie droite (principale)
+	#intro (tout le bloc incluant pmb, nom de la bibli, message d'accueil)
+		#intro_pmb : pmb
+		#intro_message : message d'information s'il existe
+		#intro_bibli
+			h3 : nom de la bibli
+			p .intro_bibli_presentation_1 : texte de présentation de la bibli
+	
+	#main : contient les différents blocs d'affichage et de recherches (browsers)
+		div
+			h3 : nom du bloc
+			contenu du bloc
+		
+		pour le navigateur de catégories :
+		div .categories : l'ensemble des catégories
+			#category : une catégorie
+				ul
+					li : une sous-catégorie
+					
+	#footer : les liens en bas de page
+		
+Paramètres utilisés dans l'OPAC et correspondance avec les CSS
+--------------------------------------------------------------
+$opac_default_lang : langue chargée par défaut
+$opac_default_style : style chargé par défaut : 1 correspond à 1/1.css
+
+Tout est contenu dans #container
+
+Partie gauche (menu)
+	#bandeau affiché si $opac_show_bandeau = 1
+		#lhome
+			- contient les drapeaux de langue si lecteur non identifié
+			- contient l'image $biblio_logo_small
+		#llogin 
+			- affiché si $opac_show_loginform=1 ; contient le nom de lecteur si lecteur identifié
+		#lmeteo
+			- affiché si $opac_show_meteo=1
+		#laddress
+			- contient les infos de $biblio_name, $biblio_adr1, ...
+		
+Partie droite (principale)
+	#intro (tout le bloc incluant pmb, nom de la bibli, message d'accueil)
+		#intro_pmb
+		#intro_message : message d'information s'il existe
+			- contient les infos de $opac_biblio_quicksummary_p1 et $opac_biblio_quicksummary_p2
+		#intro_bibli
+			h3 : nom de la bibli
+				-contient $biblio_name
+			p .intro_bibli_presentation_1 : texte de présentation de la bibli
+				-contient $opac_biblio_preamble_p1 et p2
+				
+	#main : contient les différents blocs d'affichage et de recherches (browsers)
+		div #search : affiche ou non les possibilités de recherche dans les champs définis
+			par $opac_modules_search_... = 1
+
+		div .categories : affiché si $opac_show_categ_browser = 1
+			#category : une catégorie
+				ul
+					li : une sous-catégorie
+	#footer : affiché si $opac_show_liensbas = 1
+	
+Paramètres utilisés dans l'OPAC pour l'affichage des notices
+------------------------------------------------------------
+
+$opac_show_book_pics : affiche une vignette de la couverture d'un livre suivant l'ISBN
+$opac_show_exemplaires : affiche les exemplaires correspondant à la notice
+$opac_resa et $opac_resa_dispo : affiche le bouton réserver cet ouvrage si un utilisateur est loggé
+
+Paramètres utilisés dans l'OPAC pour l'affichage des catégories
+---------------------------------------------------------------
+$opac_categories_categ_path_sep : séparateur entre catégories, qui indique la filiation, dans l'affichage
+$opac_categories_categ_rec_per_page : Nombre de notices à afficher par page dans l'exploration des catégories
+$opac_categories_categ_sort_records : Explorateur de catégories : mode de tri des notices par défaut index_serie, index_tit1
+$opac_categories_columns : Nombre de colonnes du sommaire général des catégories
+$opac_categories_nb_col_subcat : Nombre de colonnes pour les sous catégories d'une catégorie (see ./includes/categ_see.inc.php)
+$opac_categories_sub_display : Nombre de sous-categories sur la première page
+$opac_categories_sub_mode : Mode affichage des sous-categories : rand() > aléatoire categ_libelle > ordre alpha
+

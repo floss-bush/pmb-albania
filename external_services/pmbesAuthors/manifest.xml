@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.2 2009-11-28 19:56:53 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesAuthors</name>
+	<description>msg:pmbesAuthors_description</description>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="author" imported="true" imported_from="pmbesTypes"/>
+	</types>
+	<methods>
+		<method name="get_author_information" rights="" version="1.0" language_independant="true" comment="msg:get_author_information_description">
+			<inputs>
+				<description>msg:get_author_information_input_description</description>
+				<param name="author_id" type="scalar" dataType="integer" description="msg:get_author_information_author_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_author_information_output_description</description>
+				<result name="result" type="scalar" dataType="author" description="msg:get_author_information_result"/>
+			</outputs>
+		</method>
+		<method name="list_author_notices" rights="" version="1.0" language_independant="true" comment="msg:list_author_notices_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_author_notices_input_description</description>
+				<param name="author_id" type="scalar" dataType="integer" description="msg:list_author_notices_author_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:list_author_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_author_notices_output_description</description>
+				<result type="array" name="notice_ids" description="msg:list_author_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_author_information_and_notices_description">
+			<requirements>
+		  		<requirement group="pmbesAuthors" name="list_author_notices" version="1.0"/>
+		  		<requirement group="pmbesAuthors" name="get_author_information" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_author_information_and_notices_input_description</description>
+				<param name="author_id" type="scalar" dataType="integer" description="msg:get_author_information_and_notices_author_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:get_author_information_and_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_author_information_and_notices_output_description</description>
+				<result name="information" type="scalar" dataType="author" description="msg:get_author_information_and_notices_information"/>
+				<result type="array" name="notice_ids" description="msg:get_author_information_and_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

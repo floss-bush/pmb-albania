@@ -1,0 +1,4 @@
+this is dummy file to prevent empty directory CVS errors
+Don't forget to give your web server write access to this directory to get the phototheque working
+
+Ok !

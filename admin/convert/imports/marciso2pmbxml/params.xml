@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>MARC ISO2709 -&gt; pmb-XML MARC</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+	<!-- Type de la sortie -->
+	<output importable="no" type="xml" suffix="xml">
+		<rootelement>pmbmarc</rootelement>
+	</output>
+
+	<step type="isotoxml">
+		<!-- Conversion iso2709 unimarc en xml-->
+		<trootelement>pmbmarc</trootelement>
+	</step>
+</params>

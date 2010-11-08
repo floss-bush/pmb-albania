@@ -1,0 +1,13 @@
+<h1>Selective dissemination of information</h1>
+<p>Selective Dissemination of Information is a service which consists in diffusing with the users, in a regular way, the result of a personalized profile of research.
+
+<h2>Disseminate</h2>
+Send mail to the subscribers<br />
+<h2>Baskets</h2>
+baskets are reserves of new items. The contents of these baskets which will be sent to the subscribers at the time of the dissemination.<br />
+<h2>Equations </h2>
+The equations are what makes it possible to fill the baskets.<br />
+<h2>Classifications </h2>
+You'll organize your baskets and your equations through the classifications<br />
+
+ 

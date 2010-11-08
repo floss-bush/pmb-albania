@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbsections>
+	<section name="a_general">Gebruik van de OPAC</section>
+	<section name="b_aff_general">Gegevens over de bibliotheek</section>
+	<section name="c_recherche">Zoeken in de OPAC</section>
+	<section name="d_aff_recherche">Weergeven van de zoekresultaten</section>
+	<section name="e_aff_notice">Weergave van de beschrijvingen</section>
+	<section name="f_modules">Modules in de OPAC</section>
+	<section name="h_cart">Het mandje</section>
+	<section name="i_categories">Weergave en gebruik van categorieën</section>
+	<section name="j_etagere">Boekenrekken</section>
+	<section name="k_section">Doorbladeren per sectie</section>
+	<section name="l_dsi">Informatie op maat</section>
+	<section name="m_photo">Afbeeldingen</section>
+	<section name="z_unused">Niet in gebruik</section>
+	<section name="pdfcde">Bestelbrieven</section>
+	<section name="pdfdev">Lettres de demande de devis</section>
+	<section name="pdfliv">Leveringsbonnen</section>
+	<section name="pdffac">Facturen</section>
+	<section name="pdfsug">Lijsten met suggesties</section>	
+	<section name="mel">Emails over suggesties</section>	
+	<section name="categories">Categorieën</section>	
+	<section name="thesaurus">Thesaurus</section>	
+	<section name="classement">Indexeringen</section>	
+	<section name="transferts">Transferts</section>
+</pmbsections>

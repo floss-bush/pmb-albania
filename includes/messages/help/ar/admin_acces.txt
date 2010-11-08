@@ -1,0 +1,5 @@
+<h1>Gestion des Droits d'acc&egrave;s</h1>
+
+<p>La gestion des droits d'acc&egrave;s permet de d&eacute;finir de façon pr&eacute;cise les droits d'utilisation des ressources du logiciel.</p>
+<br />
+ 

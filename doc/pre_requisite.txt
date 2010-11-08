@@ -1,0 +1,116 @@
+// +---------------------------------------------------------------------------------------+
+// © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +---------------------------------------------------------------------------------------+
+// $Id: pre_requisite.txt,v 1.15 2010-01-28 16:38:03 kantin Exp $
+
+Versions minimales :
+	PHP : 5
+	MySQL : 5
+
+-------------------------------------------------------------------------------
+Configuration de php : php.ini
+
+Position de ce fichier avec une installation sur Windows :
+	\windows\
+	ou :
+	\rep_install_apache\apache\
+	
+Que faut-il vérifier :
+	Librairie GD : vérifier qu'elle est disponible et activée (génération de code-barre)
+	Librairie PHP_YAZ : vérifier qu'elle est disponible et activée (recherche z3950)
+	Librairie PHP_BZ2 : vérifier qu'elle est disponible et activée (sauvegardes de la base)
+	Librairie PHP_ICONV : vérifier qu'elle est disponible et activée (installation UNICODE)
+	Librairie PHP_MBSTRING : vérifier qu'elle est disponible et activée (fonctionnement UNICODE)
+	Librairie PHP_MIME_MAGIC : vérifier qu'elle est disponible et activée (Type des fichiers attachés en GEIDE)
+	Librairie PHP_XSLT : vérifier qu'elle est disponible et activée (sauvegardes de la base)
+	Librairie PHP_CURL : vérifier qu'elle est disponible et activée (recherches fédérées)
+	
+Ce qu'il faut modifier dans le fichier php.ini :
+	;;;;;;;;;;;;;;;;;;;
+	; Resource Limits ;
+	;;;;;;;;;;;;;;;;;;;
+
+	max_execution_time = 120     ; Maximum execution time of each script, in seconds
+	
+	à pousser à 120 secondes
+
+
+	Extensions :
+	
+	extension=php_bz2.dll
+	extension=php_gd.dll ou extension=php_gd2.dll
+	extension=php_yaz.dll
+	extension=php_xslt.dll
+
+Les DLL correspondantes doivent être copiées dans \windows\system32, 
+attention, bien prendre les dll fournies avec votre distribution de php, 
+question de compatibilité de compilation.
+
+Ces DLL doivent être disponibles 
+	dans le répertoire de PHP ou php\dlls
+		pour une installation de php indépendante
+	ou EasyPHP\php pour une installation avec EasyPHP
+Les DLL sont les suivantes :
+	expat.dll, iconv.dll, sablot.dll, yaz.dll
+	
+Afin de pouvoir charger des fichiers de taille importante dans les documents numériques attachés,
+il faut agmenter la taille du max upload :
+	; Maximum allowed size for uploaded files.
+	upload_max_filesize = 16M
+
+---------------------
+Cas particulier :
+	extension=php_mime_magic.dll
+	mime_magic.magicfile = "c:\easyphp\php\magic.mime"
+Cette extension, facultative, permet de récupérer les types de fichier des documents
+numériques de façon propre. A défaut, PMB utilisera l'extension de fichier pour retrouver
+ses petits.
+Pensez à renseigner (voire à créer) la ligne 
+	mime_magic.magicfile = "c:\easyphp\php\magic.mime"
+en donnant le bon chemin d'accès au fichier magic.mime.
+
+---------------------
+LDAP : import et authentification des lecteurs sur serveur LDAP :
+	extension=php_ldap.dll
+	PHP <= 4.2.0 requiert libsasl.dll  (fournie), PHP >= 4.3.0 requiert libeay32.dll , ssleay32.dll  (fournies)
+	Ces DLL sont copier dans le répertoire Windows/system32
+
+-----------------------------------------------------------------------
+Pour une installation sous Linux, les paramètres de php.ini sont les mêmes
+mis à part les extensions qui sont des ".so" et qui vous obligeront
+vraisemblablement à recompiler si vous n'avez pas toutes les bonnes dernières
+versions à jour.
+
+Par chance, certaines distributions incluent ces packages compilés, ou 
+téléchargeables sur le web sans nécessiter de compilation.
+Consulter à ce sujet les documents :
+	compilation_yaz_mdk.pdf
+	Installation YAZ Slackware.pdf
+	installation_debian.pdf
+	
+-----------------------------------------------------------------------
+Installation de la librairie php_xslt.dll
+
+Sous windows et EasyPHP, il faut activer la librairie php_xslt.dll dans le fichier php.ini et 
+copier les dlls expat.dll, iconv.dll, sablot.dll du répertoire EasyPHP\php dans Windows\System.
+
+-----------------------------------------------------------------------
+Configuration particulière de MySQL
+Afin de pouvoir charger des documents numériques de taille importante, il faut augmenter la taille
+des paquets de MySQL.
+Recherchez le fichier my.ini ou équivalent
+recherchez la ligne :
+	set-variable	= max_allowed_packet=1M
+et fixez-la à 
+	set-variable	= max_allowed_packet=16M
+Notez le 16M qui vous donne droit à stocker des fichiers jusqu'à 16 Mo
+
+-----------------------------------------------------------------------
+Droits d'écriture
+
+Dans PMB, certains répertoires doivent être accessibles en lecture et écriture :
+
+/pmb/admin/backup/backups
+/pmb/temp
+/pmb/admin/import
+/pmb/opac_css/temp 

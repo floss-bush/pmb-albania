@@ -1,0 +1,6 @@
+<h1>Funzionalit&agrave; z39.50</h1>
+<p>Configurazione della funzionalit&agrave; z39.50 per l'importazione delle schede bibliografiche da altre istituzioni (ad es. biblioteche pubbliche con attivo un server z39.50).</p>
+
+<ul>
+<li><b>Server</b> elenco dei server z39.50 ai quali si pu&ograve; connettere il nostro client, con la possibilit&agrave; di nuove aggiunte ed eliminazioni.</li>
+</ul>

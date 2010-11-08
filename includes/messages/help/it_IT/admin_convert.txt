@@ -1,0 +1,5 @@
+<h1>Amministrazione delle conversioni/esportazioni</h1>
+<p>Questa pagina permette di gestire le conversioni da diversi formati di files contenenti schede bibliografiche o esemplari in altri formati, in modo da poter esportare il database.</p>
+<p>La procedura di conversione permette, a partire dai formati UNIMARC, USMARC, BCDI o XML PMB, di ottenere i dati nei formati UNIMARC o XML PMB. Se il risultato della conversione &egrave; in formato UNIMARC, in seguito sar&agrave; possibile importare i dati nel database di PMB. Come default &egrave; possibile fare il download del file risultante. Attenzione il passaggio da un formato all'altro pu&ograve; comportare la perdita di alcune informazioni contenute nei records.</p>
+<p>L'esportazione dei dati di PMB viene fatta sotto forma di schede bibliografiche, compresi gli esemplari, rispettando le raccomandazioni 995 della ADBDP. E' possibile convertire il risultato in schede bibliografiche UNIMARC o in XML PMB.</p>
+

@@ -1,0 +1,784 @@
+Table name;Table description;Table Abbreviation;Column name;Column datatype;Length;Precision;Domain;Primary key;Foreign key;Unique;Required;Parent table;Parent column;Column description;Column check constraint;Column default value
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;id_acte;INT;0;0;;True;False;False;True;;;Identifiant d'acte;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;date_acte;DATE;0;0;;False;False;False;True;;;Date de création;;0000-00-00
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;numero;VARCHAR(25);25;0;;False;False;False;True;;;Numéro de l'acte;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;type_acte;INT;0;0;;False;False;False;True;;;Type d'acte (0=commande, 1=Demande de devis, 2=Bon de livraison , 3=Fature,...);;0
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;statut;INT;0;0;;False;False;False;True;;;Statut de l'acte (0=A valider, 1=Validé, 2=Payé,4=Livré, 8=Facturé, 16=Archivé,...) ;;0
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;date_paiement;DATE;0;0;;False;False;False;True;;;Date du paiement (pré-paiement);;0000-00-00
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_paiement;VARCHAR(255);255;0;;False;False;False;True;;;Identifiant du paiement;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_entite;INT;0;0;;False;True;False;True;entites;id_entite;Identifiant de la bibliotheque ayant passé l'acte (indexe);;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_fournisseur;INT;0;0;;False;True;False;True;entites;id_entite;Identifiant du fournisseur de la commande (Indexe);;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_contact_livr;INT;0;0;;False;True;False;True;coordonnees;id_contact;Identifiant de l'adresse de livraison;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_contact_fact;INT;0;0;;False;True;False;True;coordonnees;id_contact;Identifiant de l'adresse de facturation;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;num_exercice;INT;0;0;;False;True;False;True;exercices;id_exercice;Numéro de l'exercice;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;commentaires;TEXT;0;0;;False;False;False;True;;;commentaire sur l'acte dans le logiciel;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;reference;VARCHAR(255);255;0;;False;False;False;True;;;référence de l'acte;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;index_acte;TEXT;0;0;;False;False;False;True;;;numéro d'index de l'acte;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;devise;VARCHAR(25);25;0;;False;False;False;True;;;type de monnaie (EURO) (par default pmbgestiondevice);;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;commentaires_i;TEXT;0;0;;False;False;False;True;;;commantaire imprimé sur la commande;;
+actes;Table des actes d'achats (commandes,demandes de devis , bon de livraison,factures);;date_valid;DATE;0;0;;False;False;False;True;;;Date de validiter de l'acte;;0000-00-00
+admin_session;Permet de connaitre l'administrateur de la session ;;userid;INT;0;0;;True;False;False;True;;;Numéro de l'utilisateur;;0
+admin_session;Permet de connaitre l'administrateur de la session ;;session;BLOB;0;0;;False;False;False;False;;;numéro de la session;;
+analysis;Dépouillement des bulletins;dépouillements;analysis_bulletin;INT;0;0;;True;True;False;True;bulletins;bulletin_id;Identifiant du bulletin;;
+analysis;Dépouillement des bulletins;dépouillements;analysis_notice;INT;0;0;;True;True;False;True;notices;notice_id;Identifiant de la notice;;
+audit;Permet d'éffectuer une audit dans pmb;;type_obj;INT;0;0;;False;False;False;True;;;type de l'objet;;0
+audit;Permet d'éffectuer une audit dans pmb;;object_id;INT;0;0;;False;False;False;True;;;Numéro de l'objet;;0
+audit;Permet d'éffectuer une audit dans pmb;;user_id;INT;0;0;;False;False;False;True;;;Numéro d'utilisateur;;0
+audit;Permet d'éffectuer une audit dans pmb;;user_name;VARCHAR(20);20;0;;False;False;False;True;;;Nom de l'utilisateur;;
+audit;Permet d'éffectuer une audit dans pmb;;type_modif;INT;0;0;;False;False;False;True;;;Type de modification;;1
+audit;Permet d'éffectuer une audit dans pmb;;quand;TIMESTAMP;0;0;;False;False;False;True;;;A quelle date a été fait cet audit ;;CURRENT_TIMESTAMP
+authors;Liste des auteurs connus;Auteurs;author_id;INT;0;0;;True;False;False;True;;;Identifiant de l'auteur;;
+authors;Liste des auteurs connus;Auteurs;author_type;ENUM('70','71');0;0;;False;False;False;True;;;Type d'auteur (70=personne individuelle, 71=collectif);;'70'
+authors;Liste des auteurs connus;Auteurs;author_name;VARCHAR(255);255;0;;False;False;False;False;;;Nom de l'auteur (ex : Zola);;
+authors;Liste des auteurs connus;Auteurs;author_rejete;VARCHAR(255);255;0;;False;False;False;False;;;Suffixe du nom rejeté (ex : Emile) author_name+author_rejete=Zola, Emile;;
+authors;Liste des auteurs connus;Auteurs;author_date;VARCHAR(255);255;0;;False;False;False;True;;;Années de l'auteur;;
+authors;Liste des auteurs connus;Auteurs;author_see;INT;0;0;;False;True;False;True;authors;author_id;Référence au nom principal du même auteur;;
+authors;Liste des auteurs connus;Auteurs;author_web;VARCHAR(255);255;0;;False;False;False;True;;;URL de l'auteur (optionnel);;
+authors;Liste des auteurs connus;Auteurs;index_author;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des auteurs pour les recherches;;
+authors;Liste des auteurs connus;Auteurs;author_comment;TEXT;0;0;;False;False;False;False;;;Champ des commentaires des auteurs;;
+authors;Liste des auteurs connus;Auteurs;responsability_fonction;CHAR(3);3;0;;False;True;False;False;responsability;responsability_fonction;Fonction de l'auteur associé à la notice;;
+authors;Liste des auteurs connus;Auteurs;responsability_notice;INT;0;0;;False;True;False;False;responsability;responsability_notice;Notice associée à l'auteur;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;id_avis;INT;0;0;;True;False;False;True;;;Identifiant de l'avis;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;num_empr;INT;0;0;;False;True;False;False;empr;id_empr;Numéro de l'emprunteur;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;num_notice;INT;0;0;;False;True;False;False;notices;notice_id;Numéro de l'emprunteur;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;note;INT;0;0;;False;False;False;False;;;Note donné pour cet avis;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;sujet;TEXT;0;0;;False;False;False;False;;;Sujet de l'avis;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;commentaire;TEXT;0;0;;False;False;False;False;;;Commentaire de l'avis;;
+avis;Stocke les avis sur les notices ou les emprunteurs;;dateajout;TIMESTAMP;0;0;;False;False;False;False;;;Date de création de l'avis;;CURRENT_TIMESTAMP
+avis;Stocke les avis sur les notices ou les emprunteurs;;valide;INT;0;0;;False;False;False;True;;;Avis validé ? (0 ou 1);;0
+bannette_abon;Mémorise les abonnements pour chaque utilisateur;;num_bannette;INT;0;0;;True;True;False;True;bannettes;id_bannette;Numéro de la bannette;;
+bannette_abon;Mémorise les abonnements pour chaque utilisateur;;num_empr;INT;0;0;;True;True;False;True;empr;id_empr;Numéro de l'emprunteur;;
+bannette_abon;Mémorise les abonnements pour chaque utilisateur;;actif;INT;0;0;;False;False;False;True;;;l'abonnement est il actif (0=non et 1=oui);;0
+bannette_contenu;Une bannette contient plusieurs notices;;num_bannette;INT;0;0;;True;True;False;True;bannettes;id_bannette;numéro de bannette;;
+bannette_contenu;Une bannette contient plusieurs notices;;num_notice;INT;0;0;;True;True;False;True;notices;notice_id;Numéro de notice;;
+bannette_contenu;Une bannette contient plusieurs notices;;date_ajout;TIMESTAMP;0;0;;False;False;False;False;;;Date de l'ajout de la notice dans la bannette;;CURRENT_TIMESTAMP
+bannette_equation;Une bannette est remplie suivant une équation;;num_bannette;INT;0;0;;True;True;False;True;bannettes;id_bannette;Identifiant de la bannette;;
+bannette_equation;Une bannette est remplie suivant une équation;;num_equation;INT;0;0;;True;True;False;True;equations;id_equation;Identifiant de l'équation;;
+bannette_exports;Permet d'exporter une bannette;;num_bannette;INT;0;0;;True;True;False;True;bannettes;id_bannette;Identifiant de la bannette;;
+bannette_exports;Permet d'exporter une bannette;;export_format;INT;0;0;;True;False;False;True;;;Format de l'export;;0
+bannette_exports;Permet d'exporter une bannette;;export_data;LONGBLOB;0;0;;False;False;False;True;;;Données de l'export;;
+bannette_exports;Permet d'exporter une bannette;;export_nomfichier;VARCHAR(255);255;0;;False;False;False;False;;;Nom du fichier d'export;;
+bannettes;Elément contenant un ensemble de document ;;id_bannette;INT;0;0;;True;False;False;True;;;Identifiant de la bannette;;
+bannettes;Elément contenant un ensemble de document ;;num_classement;INT;0;0;;False;True;False;True;classements;id_classement;Numéro de classement;;
+bannettes;Elément contenant un ensemble de document ;;nom_bannette;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la bannette;;
+bannettes;Elément contenant un ensemble de document ;;comment_gestion;VARCHAR(255);255;0;;False;False;False;True;;;Commentaire pour la gestion;;
+bannettes;Elément contenant un ensemble de document ;;comment_public;VARCHAR(255);255;0;;False;False;False;True;;;Commentaire pour le public;;
+bannettes;Elément contenant un ensemble de document ;;entete_mail;TEXT;0;0;;False;False;False;True;;;Entete de l'email envoyé à l'abonné;;
+bannettes;Elément contenant un ensemble de document ;;date_last_remplissage;DATETIME;0;0;;False;False;False;True;;;Date de dernière modification du contenu;;0000-00-00 00:00:00
+bannettes;Elément contenant un ensemble de document ;;date_last_envoi;DATETIME;0;0;;False;False;False;True;;;Date de dernier envoi;;0000-00-00 00:00:00
+bannettes;Elément contenant un ensemble de document ;;proprio_bannette;INT;0;0;;False;False;False;True;;;Identifiant de l'utilisateur propriétaire;;
+bannettes;Elément contenant un ensemble de document ;;bannette_auto;INT;0;0;;False;False;False;True;;;Bannette automatique ( 0 : non 1 : oui );;0
+bannettes;Elément contenant un ensemble de document ;;periodicite;INT;0;0;;False;False;False;True;;;Type de périodicité (hebdomadaire ...);;7
+bannettes;Elément contenant un ensemble de document ;;diffusion_email;INT;0;0;;False;False;False;True;;;Indique si l'on diffuse un email pour la bannette (0 = non, 1= oui);;0
+bannettes;Elément contenant un ensemble de document ;;categorie_lecteurs;INT;0;0;;False;False;False;True;;;Catégorie du lecteur;;0
+bannettes;Elément contenant un ensemble de document ;;nb_notices_diff;INT;0;0;;False;False;False;True;;;nombre de notices diffusées;;0
+bannettes;Elément contenant un ensemble de document ;;num_panier;INT;0;0;;False;True;False;True;caddie;idcaddie;Numéro du panier;;
+bannettes;Elément contenant un ensemble de document ;;limite_type;CHAR(1);1;0;;False;False;False;True;;;Type de limitations des notices dans la bannette (D : limitation en nombre de jours, i : limitation en nombre de notices, '' : non limité);;
+bannettes;Elément contenant un ensemble de document ;;limite_nombre;INT;0;0;;False;False;False;True;;;La valeur limite correspondant à la limitation ( nombre de notices ou durée de validité);;0
+budgets;Table des budgets;;id_budget;INT;0;0;;True;False;False;True;;;Identifiant de budget;;
+budgets;Table des budgets;;num_entite;INT;0;0;;False;True;False;True;entites;id_entite;Identifiant de l'entité propriètaire du budget;;
+budgets;Table des budgets;;num_exercice;INT;0;0;;False;True;False;True;exercices;id_exercice;Identifiant de l'exercice auquel est rattaché le budget;;
+budgets;Table des budgets;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé du budget;;
+budgets;Table des budgets;;commentaires;TEXT;0;0;;False;False;False;False;;;Commentaires sur le budget;;
+budgets;Table des budgets;;montant_global;FLOAT;0;0;;False;False;False;True;;;Montant global du budget;;0.00
+budgets;Table des budgets;;seuil_alerte;INT;0;0;;False;False;False;True;;;niveau d'alerte en % du montant global;;100
+budgets;Table des budgets;;statut;INT;0;0;;False;False;False;True;;;statut du budget ( 0=En préparation, 1= validé , 2=archive...);;0
+budgets;Table des budgets;;type_budget;INT;0;0;;False;False;False;True;;;TYpe de budget;;0
+bulletins;Liste des éditions des périodiques;Bulletins;bulletin_id;INT;0;0;;True;False;False;True;;;Identifiant du bulletin;;
+bulletins;Liste des éditions des périodiques;Bulletins;bulletin_numero;VARCHAR(255);255;0;;False;False;False;True;;;Numéro du bulletin du périodique;;
+bulletins;Liste des éditions des périodiques;Bulletins;bulletin_notice;INT;0;0;;False;True;False;True;notices;notice_id;Notice chapeau du bulletin (ou notice périodique);;
+bulletins;Liste des éditions des périodiques;Bulletins;mention_date;VARCHAR(50);50;0;;False;False;False;True;;;Date de parution (description libre ex :  trimestre 1);;
+bulletins;Liste des éditions des périodiques;Bulletins;date_date;DATE;0;0;;False;False;False;True;;;Date de parution exacte si existante;;0000-00-00
+bulletins;Liste des éditions des périodiques;Bulletins;bulletin_titre;TEXT;0;0;;False;False;False;False;;;Titre du bulletin;;
+bulletins;Liste des éditions des périodiques;Bulletins;index_titre;TEXT;0;0;;False;False;False;False;;;Index du titre du bulletin;;
+bulletins;Liste des éditions des périodiques;Bulletins;bulletin_cb;VARCHAR(30);30;0;;False;False;False;False;;;Code barre du bulletin;;
+caddie;Liste des paniers existants;Paniers;idcaddie;INT;0;0;;True;False;False;True;;;Identifiant du caddie;;
+caddie;Liste des paniers existants;Paniers;name;VARCHAR(255);255;0;;False;False;False;False;;;Nom du caddie;;
+caddie;Liste des paniers existants;Paniers;type;VARCHAR(20);20;0;;False;False;False;True;;;Type du caddie (EXPL=Exemplaires, NOTI=Notice,s BULL=Bulletins);;'NOTI'
+caddie;Liste des paniers existants;Paniers;comment;VARCHAR(255);255;0;;False;False;False;False;;;Commentaire libre;;
+caddie;Liste des paniers existants;Paniers;autorisations;MEDIUMTEXT;0;0;;False;False;False;False;;;Droits d'utilisation du caddie;;
+caddie_content;Liste des objets contenus dans les paniers;Contenu des paniers;caddie_id;INT;0;0;;False;True;False;True;caddie;idcaddie;Panier auquel appartient l'élément;;
+caddie_content;Liste des objets contenus dans les paniers;Contenu des paniers;object_id;INT;0;0;;False;False;False;True;;;Identifiant de l'objet (id issu des tables notices, exemplaires ou bulletins);;0
+caddie_content;Liste des objets contenus dans les paniers;Contenu des paniers;content;BLOB;0;0;;False;False;False;False;;;Champ de stockage d'un élément non présent dans la base (ex : une notice UNIMARC non reconnue ou code barre lu à la douchette);;
+caddie_content;Liste des objets contenus dans les paniers;Contenu des paniers;blob_type;VARCHAR(10);10;0;;False;False;False;False;;;Type de données contenues dans content (EXPL_CB pour l'instant);;
+caddie_content;Liste des objets contenus dans les paniers;Contenu des paniers;flag;VARCHAR(10);10;0;;False;False;False;False;;;Indique si l'élément a été pointé (NULL ou non NULL);;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;idproc;INT;0;0;;True;False;False;True;;;Identifiant des procédures stockées utilisables pour les paniers;;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;type;VARCHAR(20);20;0;;False;False;False;True;;;Type de procédure : SELECT = sélection des objets pour les ajouter au panier, POINTA = pointage par requête des éléments du panier, ACTION = traitement par bloc des éléments du panier;;'SELECT'
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la procédure;;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;requete;BLOB;0;0;;False;False;False;True;;;Requête SQL qui sera exécutée;;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;comment;TINYTEXT;0;0;;False;False;False;True;;;Commentaire libre;;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;autorisations;MEDIUMTEXT;0;0;;False;False;False;False;;;Droits d'accès a la procédure;;
+caddie_procs;Liste des procédures stockées utilisables pour les paniers;Procédures stockées des paniers;parameters;TEXT;0;0;;False;False;False;False;;;Description XML du type des paramètres de la procédure (si existants);;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;num_noeud;INT;0;0;;True;True;False;True;noeuds;id_noeud;Identifiant du noeud;;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;langue;VARCHAR(5);5;0;;True;False;False;True;;;Langue de la catégorie;;'fr_FR'
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;libelle_categorie;TEXT;0;0;;False;False;False;True;;;Libellé de la catégorie;;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;note_application;TEXT;0;0;;False;False;False;True;;;Note d'application de la catégorie du thésaurus;;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;comment_public;TEXT;0;0;;False;False;False;True;;;;;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;comment_voir;TEXT;0;0;;False;False;False;True;;;;;
+categories;Catégories de classement pour l'OPAC;Catégories OPAC;index_categorie;TEXT;0;0;;False;False;False;True;;;Champ d'indexation des catégories pour les recherches;;
+classements;Stocke le classement des équations pour chaque bannette;;id_classement;INT;0;0;;True;False;False;True;;;Identifiant de la bannette;;
+classements;Stocke le classement des équations pour chaque bannette;;type_classement;CHAR(3);3;0;;False;False;False;True;;;Type du classement;;'BAN'
+classements;Stocke le classement des équations pour chaque bannette;;nom_classement;VARCHAR(255);255;0;;False;False;False;True;;;Nom du classement;;
+collections;Liste des collections des éditeurs (=ISSN);Collections;collection_id;INT;0;0;;True;False;False;True;;;Identifiant de la collection;;
+collections;Liste des collections des éditeurs (=ISSN);Collections;collection_name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la collection;;
+collections;Liste des collections des éditeurs (=ISSN);Collections;collection_parent;INT;0;0;;False;True;False;True;publishers;ed_id;Editeur de la collection;;
+collections;Liste des collections des éditeurs (=ISSN);Collections;collection_issn;VARCHAR(12);12;0;;False;False;False;True;;;Numéro ISSN de la collection;;
+collections;Liste des collections des éditeurs (=ISSN);Collections;index_coll;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des collections pour les recherches;;
+comptes;Compte des emprunteurs;;id_compte;INT;0;0;;True;False;False;True;;;Identifiant du compte;;
+comptes;Compte des emprunteurs;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Description du compte;;
+comptes;Compte des emprunteurs;;type_compte_id;INT;0;0;;False;True;False;True;type_comptes;id_type_compte;Identitfiant du type de compte;;
+comptes;Compte des emprunteurs;;solde;DECIMAL(16,2);16;2;;False;False;False;False;;;Solde du compte;;0.00
+comptes;Compte des emprunteurs;;prepay_mnt;DECIMAL(16,2);16;2;;False;False;False;True;;;Montant du prépaiement;;0.00
+comptes;Compte des emprunteurs;;proprio_id;INT;0;0;;False;True;False;True;empr;id_empr;Identifiant de l'emprunteur;;
+comptes;Compte des emprunteurs;;droits;TEXT;0;0;;False;False;False;True;;;Droits sur le compte ;;
+coordonnees;Coordonnées et contacts;;id_contact;INT;0;0;;True;False;False;True;;;identifiant du contact;;
+coordonnees;Coordonnées et contacts;;type_coord;INT;0;0;;False;False;False;True;;;Type de coordonnée (0 : non précise, 1 : facture/principale, 2 : livraison);;0
+coordonnees;Coordonnées et contacts;;num_entite;INT;0;0;;False;True;False;True;entites;id_entite;entité associé à ces coordonnées;;
+coordonnees;Coordonnées et contacts;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;description des coordonnées;;
+coordonnees;Coordonnées et contacts;;contact;VARCHAR(255);255;0;;False;False;False;True;;;Nom et prénom du contact;;
+coordonnees;Coordonnées et contacts;;adr1;VARCHAR(255);255;0;;False;False;False;True;;;adresse numéro 1;;
+coordonnees;Coordonnées et contacts;;adr2;VARCHAR(255);255;0;;False;False;False;True;;;adresse numéro 2;;
+coordonnees;Coordonnées et contacts;;cp;VARCHAR(15);15;0;;False;False;False;True;;;Code postal;;
+coordonnees;Coordonnées et contacts;;ville;VARCHAR(100);100;0;;False;False;False;True;;;Ville;;
+coordonnees;Coordonnées et contacts;;etat;VARCHAR(100);100;0;;False;False;False;True;;;Etat;;
+coordonnees;Coordonnées et contacts;;pays;VARCHAR(100);100;0;;False;False;False;True;;;Pays;;
+coordonnees;Coordonnées et contacts;;tel1;VARCHAR(100);100;0;;False;False;False;True;;;Téléphone 1;;
+coordonnees;Coordonnées et contacts;;tel2;VARCHAR(100);100;0;;False;False;False;True;;;Téléphone 2;;
+coordonnees;Coordonnées et contacts;;fax;VARCHAR(100);100;0;;False;False;False;True;;;Numéro de fax;;
+coordonnees;Coordonnées et contacts;;email;VARCHAR(100);100;0;;False;False;False;True;;;Email du contact;;
+coordonnees;Coordonnées et contacts;;commentaires;TEXT;0;0;;False;False;False;False;;;Commentaires sur le contact;;
+docs_codestat;Catégorie statistique des exemplaires (libre);codestat exemplaires;idcode;INT;0;0;;True;False;False;True;;;Identifiant des catégories des statistiques des exemplaires;;
+docs_codestat;Catégorie statistique des exemplaires (libre);codestat exemplaires;statisdoc_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur de l'exemplaire;;
+docs_codestat;Catégorie statistique des exemplaires (libre);codestat exemplaires;codestat_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé de la catégorie statistique;;
+docs_codestat;Catégorie statistique des exemplaires (libre);codestat exemplaires;statisdoc_codage_import;CHAR(2);2;0;;False;False;False;True;;;Code statistique UNIMARC d'un exemplaire (issu de l'import);;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;idlocation;INT;0;0;;True;False;False;True;;;Identifiant des positions géographiques globales des exemplaires (batiment, succursale,...);;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;locdoc_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur de l'exemplaire;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;location_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du lieu;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;locdoc_codage_import;VARCHAR(255);255;0;;False;False;False;True;;;Lieu codé par le prêteur dans la notice UNIMARC (issu de l'import);;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;location_pic;VARCHAR(255);255;0;;False;False;False;True;;;Logo de la position géographique;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;location_visible_opac;TINYINT;0;0;;False;False;False;True;;;;;1
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;name;VARCHAR(255);255;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;adr1;VARCHAR(255);255;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;adr2;VARCHAR(255);255;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;cp;VARCHAR(15);15;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;town;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;state;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;country;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;phone;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;email;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;website;VARCHAR(100);100;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;logo;VARCHAR(255);255;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;logosmall;VARCHAR(255);255;0;;False;False;False;True;;;;;
+docs_location;Position géographique globale des exemplaires (batiment, succursale,...);Emplacements globaux;commentaire;TEXT;0;0;;False;False;False;True;;;;;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;idsection;INT;0;0;;True;False;False;True;;;Identifiant de la position géographique dans le lieu global (étagère, rayon, ...);;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;section_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé de la section;;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;sdoc_codage_import;VARCHAR(255);255;0;;False;False;False;True;;;Section codée par le prêteur dans la notice UNIMARC (issu de l'import);;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;sdoc_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur de l'exemplaire;;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;section_pic;VARCHAR(255);255;0;;False;False;False;True;;;Logo de la position géographique dans le lieu global (étagère, rayon, ...);;
+docs_section;Position géographique dans le lieu global (étagère, rayon, ...);Sections du lieu;section_visible_opac;TINYINT;0;0;;False;False;False;True;;;Indique si la section est visible dans l'OPAC ( 0 : non, 1 : oui );;1
+docs_statut;Statuts des exemplaires (Perdu, en cours de saisie, ...)	;Status exemplaires;idstatut;INT;0;0;;True;False;False;True;;;Identifiant du statut des exemplaires (Perdu, en cours de saisie, ...)	;;
+docs_statut;Statuts des exemplaires (Perdu, en cours de saisie, ...)	;Status exemplaires;statusdoc_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur;;
+docs_statut;Statuts des exemplaires (Perdu, en cours de saisie, ...)	;Status exemplaires;statut_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du statut;;
+docs_statut;Statuts des exemplaires (Perdu, en cours de saisie, ...)	;Status exemplaires;pret_flag;TINYINT;0;0;;False;False;False;True;;;Prêtable dans ce statut (1=prêtable, 0=non prêtable);;1
+docs_statut;Statuts des exemplaires (Perdu, en cours de saisie, ...)	;Status exemplaires;statusdoc_codage_import;CHAR(2);2;0;;False;False;False;True;;;Statut UNIMARC (issu de l'import);;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;idtyp_doc;INT;0;0;;True;False;False;True;;;Identifiant des types d'exemplaires (catégories de prêt);;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;tdoc_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur;;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;tdoc_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du type;;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;duree_pret;INT;0;0;;False;False;False;True;;;Durée autorisée de prêt pour ce type d'exemplaire (en jours);;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;duree_resa;INT;0;0;;False;False;False;True;;;Durée de réservation en fonction du type de document (en quotas simples)0;;15
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;tdoc_codage_import;VARCHAR(255);255;0;;False;False;False;True;;;Type de document UNIMARC (issu de l'import);;
+docs_type;Types d'exemplaires (catégories de prêt);Types exemplaires;tarif_pret;DECIMAL(16,2);16;2;;False;False;False;False;;;Tarif de la catégorie de prêt;;0.00
+docsloc_section;lien entre la table docs_location et docs_section;;num_location;INT;0;0;;True;True;False;True;docs_location;idlocation;Identifiant de la table docs_location;;
+docsloc_section;lien entre la table docs_location et docs_section;;num_section;INT;0;0;;True;True;False;True;docs_section;idsection;Identifiant de la table docs_section;;
+empr;Liste des emprunteurs;Emprunteurs;id_empr;INT;0;0;;True;False;False;True;;;Identifiant des emprunteurs;;
+empr;Liste des emprunteurs;Emprunteurs;empr_cb;VARCHAR(255);255;0;;False;False;False;False;;;Code barre de l'emprunteur (unique);;
+empr;Liste des emprunteurs;Emprunteurs;empr_nom;VARCHAR(255);255;0;;False;False;False;True;;;Nom de famille;;
+empr;Liste des emprunteurs;Emprunteurs;empr_prenom;VARCHAR(255);255;0;;False;False;False;True;;;Prénom;;
+empr;Liste des emprunteurs;Emprunteurs;empr_adr1;VARCHAR(255);255;0;;False;False;False;True;;;Adresse;;
+empr;Liste des emprunteurs;Emprunteurs;empr_adr2;VARCHAR(255);255;0;;False;False;False;True;;;Adresse complémentaire;;
+empr;Liste des emprunteurs;Emprunteurs;empr_cp;VARCHAR(10);10;0;;False;False;False;True;;;Code postal;;
+empr;Liste des emprunteurs;Emprunteurs;empr_ville;VARCHAR(255);255;0;;False;False;False;True;;;ville;;
+empr;Liste des emprunteurs;Emprunteurs;empr_pays;VARCHAR(255);255;0;;False;False;False;True;;;pays;;
+empr;Liste des emprunteurs;Emprunteurs;empr_mail;VARCHAR(50);50;0;;False;False;False;True;;;adresse email ;;
+empr;Liste des emprunteurs;Emprunteurs;empr_tel1;VARCHAR(255);255;0;;False;False;False;True;;;numéro de téléphone 1;;
+empr;Liste des emprunteurs;Emprunteurs;empr_tel2;VARCHAR(255);255;0;;False;False;False;True;;;numéro de téléphone 1;;
+empr;Liste des emprunteurs;Emprunteurs;empr_prof;VARCHAR(255);255;0;;False;False;False;True;;;Profession;;
+empr;Liste des emprunteurs;Emprunteurs;empr_year;INT;0;0;;False;False;False;True;;;Année de naissance;;0
+empr;Liste des emprunteurs;Emprunteurs;empr_categ;INT;0;0;;False;True;False;True;empr_categ;id_categ_empr;Categorie de l'emprunteur;;
+empr;Liste des emprunteurs;Emprunteurs;empr_codestat;INT;0;0;;False;True;False;True;empr_codestat;idcode;code statistique de l'emprunteur;;
+empr;Liste des emprunteurs;Emprunteurs;empr_creation;DATE;0;0;;False;False;False;True;;;Date de création de l'emprunteur;;0000-00-00
+empr;Liste des emprunteurs;Emprunteurs;empr_modif;DATE;0;0;;False;False;False;True;;;Date de dernière modification des informations de l'emprunteur;;0000-00-00
+empr;Liste des emprunteurs;Emprunteurs;empr_sexe;TINYINT;0;0;;False;False;False;True;;;Sexe;;0
+empr;Liste des emprunteurs;Emprunteurs;empr_login;VARCHAR(255);255;0;;False;False;False;True;;;Nom d'utilisateur pour accéder aux prêts en cours + réservation (login);;
+empr;Liste des emprunteurs;Emprunteurs;empr_password;VARCHAR(10);10;0;;False;False;False;True;;;Mot de passe pour accéder aux prêts en cours + réservation;;
+empr;Liste des emprunteurs;Emprunteurs;empr_date_adhesion;DATE;0;0;;False;False;False;False;;;Date d'adhésion;;
+empr;Liste des emprunteurs;Emprunteurs;empr_date_expiration;DATE;0;0;;False;False;False;False;;;Date d'expiration de la carte;;
+empr;Liste des emprunteurs;Emprunteurs;empr_msg;TINYTEXT;0;0;;False;False;False;False;;;Message libre concernant l'emprunteur;;
+empr;Liste des emprunteurs;Emprunteurs;empr_lang;VARCHAR(10);10;0;;False;False;False;True;;;Langue par défaut utilisée par l'emprunteur pour l'OPAC;;'fr_FR'
+empr;Liste des emprunteurs;Emprunteurs;empr_ldap;TINYINT;0;0;;False;False;False;False;;;Emprunteur synchronisé avec le LDAP ( oui : 1 non : 0);;0
+empr;Liste des emprunteurs;Emprunteurs;type_abt;INT;0;0;;False;True;False;True;type_abts;id_type_abt;Type d'abonnement;;
+empr;Liste des emprunteurs;Emprunteurs;last_loan_date;DATE;0;0;;False;False;False;False;;;Dernier date d'emprunt;;
+empr;Liste des emprunteurs;Emprunteurs;empr_location;INT;0;0;;False;True;False;False;docs_location;idlocation;Identifiant de la table docs_location;;
+empr;Liste des emprunteurs;Emprunteurs;date_fin_blocage;DATE;0;0;;False;False;False;False;;;Date de fin d'interdiction d'emprunt;;
+empr_categ;Liste des catégories d'emprunteurs (famille, classe, ...);Catégories emprunteurs;id_categ_empr;INT;0;0;;True;False;False;True;;;Identifiant des catégories d'emprunteurs (famille, classe, ...);;
+empr_categ;Liste des catégories d'emprunteurs (famille, classe, ...);Catégories emprunteurs;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé de la catégorie;;
+empr_categ;Liste des catégories d'emprunteurs (famille, classe, ...);Catégories emprunteurs;duree_adhesion;INT;0;0;;False;False;False;False;;;Durée de validité de la carte d'adhésion pour cette catégorie;;365
+empr_categ;Liste des catégories d'emprunteurs (famille, classe, ...);Catégories emprunteurs;tarif_abt;DECIMAL(16,2);16;2;;False;False;False;True;;;Tarif de l'abonnement;;0.00
+empr_codestat;Codes statistiques des emprunteurs (libres);Codestat emprunteurs;idcode;INT;0;0;;True;False;False;True;;;Identifiant code statistique des emprunteurs (libres);;
+empr_codestat;Codes statistiques des emprunteurs (libres);Codestat emprunteurs;libelle;VARCHAR(50);50;0;;False;False;False;True;;;Libellé associé au code (par défaut : 'DEFAULT');;'DEFAULT'
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;idchamp;INT;0;0;;True;False;False;True;;;Identifiant des champs personalisés ajoutés à la fiche emprunteur;;
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;name;VARCHAR(255);255;0;;False;False;False;True;;;Nom du champ;;
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;titre;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du champ affiché dans les formulaires emprunteurs;;
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;type;VARCHAR(10);10;0;;False;False;False;True;;;Type de champ(liste, texte, ..);;'text'
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;datatype;VARCHAR(10);10;0;;False;False;False;True;;;Type des données stockées dans ce champ ;;
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;options;TEXT;0;0;;False;False;False;False;;;Options d'affichage liées au type (sous forme XML);;
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;multiple;INT;0;0;;False;False;False;True;;;Le champ est-il visible dans l'OPAC ? (1=oui, 0=non);;0
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;obligatoire;INT;0;0;;False;False;False;True;;;Le champ est-il obligatoire (0=non, 1=oui);;0
+empr_custom;Liste des champs personalisés ajoutés à la fiche emprunteur;Champs personalisés emprunteur;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage dans les formulaires;;
+empr_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés;Listes de choix pour les champs personalisés;empr_custom_champ;INT;0;0;;False;True;False;False;empr_custom;idchamp;Champ associé à la liste;;
+empr_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés;Listes de choix pour les champs personalisés;empr_custom_list_value;VARCHAR(255);255;0;;False;False;False;False;;;Valeur d'un élément de choix d'une liste;;
+empr_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés;Listes de choix pour les champs personalisés;empr_custom_list_lib;VARCHAR(255);255;0;;False;False;False;False;;;Libéllé associé à la valeur de l'élément de la liste;;
+empr_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés;Listes de choix pour les champs personalisés;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage de l'élément de la liste;;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_champ;INT;0;0;;False;True;False;True;empr_custom;idchamp;Champ associé à la valeur;;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_origine;INT;0;0;;False;True;False;False;empr;id_empr;Emprunteur associé à la valeur;;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_small_text;VARCHAR(255);255;0;;False;False;False;False;;;Valeur de type de données 'small_text' (texte);;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_text;TEXT;0;0;;False;False;False;False;;;Valeur de type de données 'text' (Texte large);;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_integer;INT;0;0;;False;False;False;False;;;Valeur de type de données 'integer' (entier);;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_date;DATE;0;0;;False;False;False;False;;;Valeur de type de données 'date' (Date);;
+empr_custom_values;Valeurs saisies dans les champs personalisés pour chaque emprunteur;Valeurs des champs personalisés;empr_custom_float;FLOAT;0;0;;False;False;False;False;;;Valeur de type de données 'float' (Nombre à virgule);;
+empr_groupe;Liste des emprunteurs par groupe;Groupes lecteurs;empr_id;INT;0;0;;True;True;False;True;empr;id_empr;Emprunteur;;
+empr_groupe;Liste des emprunteurs par groupe;Groupes lecteurs;groupe_id;INT;0;0;;True;True;False;True;groupe;id_groupe;Groupe d'appartenance;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;id_entite;INT;0;0;;True;False;False;True;;;identifiant de l'entité;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;type_entite;INT;0;0;;False;False;False;True;;;type de l'entité (0=Fournisseur,1=Bibliotheque);;0
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;num_bibli;INT;0;0;;False;True;False;True;entites;id_entite;numéro de la bibliotheque;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;raison_sociale;VARCHAR(255);255;0;;False;False;False;True;;;nom de l'entité (index);;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;commentaires;TEXT;0;0;;False;False;False;False;;;commentaires optionnels sur l'entité;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;siret;VARCHAR(25);25;0;;False;False;False;True;;;numéro de SIRET;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;naf;VARCHAR(5);5;0;;False;False;False;True;;;Code NAF;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;rcs;VARCHAR(25);25;0;;False;False;False;True;;;Numéro RCS;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;tva;VARCHAR(25);25;0;;False;False;False;True;;;Numéro de TVA Intra;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;num_cp_client;VARCHAR(25);25;0;;False;False;False;True;;;Numéro de compte chez le fournisseur;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;num_cp_compta;VARCHAR(255);255;0;;False;False;False;True;;;Numéro de compte comptable du fournisseur;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;site_web;VARCHAR(100);100;0;;False;False;False;True;;;url du site web de l'entité;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;logo;VARCHAR(255);255;0;;False;False;False;True;;;url du logo de l'entité (pour bibliotheque);;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;autorisations;MEDIUMTEXT;0;0;;False;False;False;True;;;Indique les autorisations que possède l'entité;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;num_frais;INT;0;0;;False;True;False;True;frais;id_frais;Identifiant des frais associés;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;num_paiement;INT;0;0;;False;True;False;True;paiements;id_paiement;Identifiant des paiements;;
+entites;Structures définies dans PMB (Bibliothéques,Fournisseur, ...);;index_entite;TEXT;0;0;;False;False;False;True;;;Index de l'entité pour la recherche;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;id_equation;INT;0;0;;True;False;False;True;;;Identifiant de l'équation;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;num_classement;INT;0;0;;False;True;False;True;classements;id_classement;Identifiant sur le classement;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;nom_equation;VARCHAR(255);255;0;;False;False;False;True;;;Nom de l'équation;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;comment_equation;VARCHAR(255);255;0;;False;False;False;True;;;Commentaire sur l'équation;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;requete;BLOB;0;0;;False;False;False;True;;;requete de remplissage de l'équation;;
+equations;Requête permettant de remplir au mieu les bannette suivant l'attente du lecteur;;proprio_equation;INT;0;0;;False;False;False;True;;;propriètaire de l'équation;;
+error_log;Logs des erreurs lors de l'importation de notices;Logs import;error_date;TIMESTAMP;0;0;;False;False;False;False;;;Date et heure de l'erreur;;CURRENT_TIMESTAMP
+error_log;Logs des erreurs lors de l'importation de notices;Logs import;error_origin;VARCHAR(255);255;0;;False;False;False;False;;;Origine de l'erreur : (exemplaire ignoré, notice présente, ...);;
+error_log;Logs des erreurs lors de l'importation de notices;Logs import;error_text;TEXT;0;0;;False;False;False;False;;;Message de l'erreur;;
+etagere;LIste des étagéres virtuelles;;idetagere;INT;0;0;;True;False;False;True;;;Numéro unique de l'étagère;;
+etagere;LIste des étagéres virtuelles;;name;VARCHAR(100);100;0;;False;False;False;True;;;Nom de l'étagère;;
+etagere;LIste des étagéres virtuelles;;comment;BLOB;0;0;;False;False;False;True;;;Commentaire associé à l'étage;;
+etagere;LIste des étagéres virtuelles;;validite;INT;0;0;;False;False;False;True;;;Etagère valide ou non (= visible ou non : 1=oui, 0=non);;0
+etagere;LIste des étagéres virtuelles;;validite_date_deb;DATE;0;0;;False;False;False;True;;;Date de début de validité (la validité peut être restreinte à une période);;0000-00-00
+etagere;LIste des étagéres virtuelles;;validite_date_fin;DATE;0;0;;False;False;False;True;;;Date de fin de validité;;0000-00-00
+etagere;LIste des étagéres virtuelles;;visible_accueil;INT;0;0;;False;False;False;True;;;L'étagère est-elle visible dans l'OPAC si elle est valide ? (1=oui, 0=non);;1
+etagere;LIste des étagéres virtuelles;;autorisations;MEDIUMTEXT;0;0;;False;False;False;False;;;Liste des autorisations d'accès pour les utilisateurs de PMB (IDS des utilisateurs autorisés séparés par des espaces);;
+etagere_caddie;Caddies contenus dans les étagères;;etagere_id;INT;0;0;;True;True;False;True;etagere;idetagere;Etagères;;
+etagere_caddie;Caddies contenus dans les étagères;;caddie_id;INT;0;0;;True;True;False;True;caddie;idcaddie;Caddies;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_id;INT;0;0;;True;False;False;True;;;Identifiant de l'exemplaire;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_cb;VARCHAR(50);50;0;;False;False;False;True;;;Code barre de l'exemplaire propre à la bibliothèque ou au prêteur;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_notice;INT;0;0;;False;True;False;False;notices;notice_id;Notice associée à l'exemplaire (si notice=0 alors bulletin forcément existant);;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_bulletin;INT;0;0;;False;True;False;False;bulletins;bulletin_id;Bulletin associé à l'exemplaire (si bulletin=0 alors notice forcément existante)!;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_typdoc;INT;0;0;;False;True;False;True;docs_type;idtyp_doc;Type d'exemplaire (=categorie de pret de la bibliothèque;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_cote;VARCHAR(50);50;0;;False;False;False;True;;;Cote du document (libre);;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_section;INT;0;0;;False;True;False;True;docs_section;idsection;Position géographique précise (section);;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_statut;INT;0;0;;False;True;False;True;docs_statut;idstatut;Statut de l'exemplaire (en cours de saisie, prêté, ...);;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_location;INT;0;0;;False;True;False;True;docs_location;idlocation;Position géographique globale (lieu);;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_codestat;INT;0;0;;False;True;False;True;docs_codestat;idcode;Code statistique de l'exemplaire;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_date_depot;DATE;0;0;;False;False;False;True;;;Date de depot de l'exemplaire;;0000-00-00
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_date_retour;DATE;0;0;;False;False;False;True;;;Date de retour d'exemplaire ;;0000-00-00
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_note;TINYTEXT;0;0;;False;False;False;True;;;Texte libre pour une note supplémentaire;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_prix;VARCHAR(255);255;0;;False;False;False;True;;;Prix de l'exemplaire;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_owner;INT;0;0;;False;True;False;True;lenders;idlender;Prêteur de l'exemplaire;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;expl_lastempr;INT;0;0;;False;True;False;False;empr;id_empr;Identifiant du dernier emprunteur;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;last_loan_date;DATE;0;0;;False;False;False;False;;;Dernière date d'emprunt;;
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;create_date;DATETIME;0;0;;False;False;False;True;;;Date de création de l"exemplaire;;2005-01-01 00:00:00
+exemplaires;Liste des exemplaires de la bibliothèque;Exemplaires;update_date;TIMESTAMP;0;0;;False;False;False;False;;;Date de mise à jour de l"exemplaire;;CURRENT_TIMESTAMP
+exercices;Exercices comptables;;id_exercice;INT;0;0;;True;False;False;True;;;Identifiant de l' exercice;;
+exercices;Exercices comptables;;num_entite;INT;0;0;;False;True;False;True;entites;id_entite;Identifiant de l'entité associée;;
+exercices;Exercices comptables;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;LIbellé de l'exercice;;
+exercices;Exercices comptables;;date_debut;DATE;0;0;;False;False;False;True;;;Date de début d'exercice;;2006-01-01
+exercices;Exercices comptables;;date_fin;DATE;0;0;;False;False;False;True;;;Date de fin d'exercice;;2006-01-01
+exercices;Exercices comptables;;statut;INT;0;0;;False;False;False;True;;;Statut de l'exercice;;1
+expl_custom;Champs personalisés pour les exemplaires;;idchamp;INT;0;0;;True;False;False;True;;;Numéro unique du champ;;
+expl_custom;Champs personalisés pour les exemplaires;;name;VARCHAR(255);255;0;;False;False;False;True;;;Nom du champ ;;
+expl_custom;Champs personalisés pour les exemplaires;;titre;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du champ affiché dans les formulaires exemplaires;;
+expl_custom;Champs personalisés pour les exemplaires;;type;VARCHAR(10);10;0;;False;False;False;True;;;Type du champ (liste, texte...);;'text'
+expl_custom;Champs personalisés pour les exemplaires;;datatype;VARCHAR(10);10;0;;False;False;False;True;;;Type des données du champ (integer, text, etc...);;
+expl_custom;Champs personalisés pour les exemplaires;;options;TEXT;0;0;;False;False;False;False;;;Options d'affichage liées au champ (sous forme XML);;
+expl_custom;Champs personalisés pour les exemplaires;;multiple;INT;0;0;;False;False;False;True;;;Champ visible dans l'OPAC (1=oui, 0=non);;0
+expl_custom;Champs personalisés pour les exemplaires;;obligatoire;INT;0;0;;False;False;False;True;;;Champ obligatoire ? (1=oui 0=non);;0
+expl_custom;Champs personalisés pour les exemplaires;;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage du champ;;
+expl_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés exemplaires;;expl_custom_champ;INT;0;0;;False;True;False;False;expl_custom;idchamp;Numéro du champ associé à la liste de choix;;
+expl_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés exemplaires;;expl_custom_list_value;VARCHAR(255);255;0;;False;False;False;False;;;Valeur associée à un choix de liste;;
+expl_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés exemplaires;;expl_custom_list_lib;VARCHAR(255);255;0;;False;False;False;False;;;LIbellé associé à un choix de liste;;
+expl_custom_lists;Liste des valeurs et des libellés des listes de choix associées aux champs personalisés exemplaires;;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage de l'élément de choix de la liste;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_id;INT;0;0;;True;False;False;True;;;Numéro unique d'exemplaire numérique;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_notice;INT;0;0;;False;True;False;False;notices;notice_id;Notice associée à l'exemplaire numérique;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_bulletin;INT;0;0;;False;True;False;False;bulletins;bulletin_id;Bulletin associée à l'exemplaire numérique;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_nom;VARCHAR(255);255;0;;False;False;False;True;;;Nom du document numérique (texte libre);;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_mimetype;VARCHAR(255);255;0;;False;False;False;True;;;Mimetype du document numérique;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_url;TEXT;0;0;;False;False;False;True;;;Si le document n'est pas stoqué dans le base, ce peut être une url pour y accéder;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_data;LONGBLOB;0;0;;False;False;False;False;;;Document lui même si stoqué dans la base;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_vignette;LONGBLOB;0;0;;False;False;False;False;;;Vignette affichée dans les notices fournie ou générée automatiquement;;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_extfichier;VARCHAR(20);20;0;;False;False;False;False;;;Extension initiale du fichier transmis (si pas URL);;
+explnum;Exemplaires numériques associés à une notice;Exemplaires numériques;explnum_nomfichier;TEXT;0;0;;False;False;False;False;;;Nom initial du fichier transmis (si pas URL);;
+frais;Types de frais (ports,commissions,....);;id_frais;INT;0;0;;True;False;False;True;;;Identifiant ;;
+frais;Types de frais (ports,commissions,....);;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé;;
+frais;Types de frais (ports,commissions,....);;condition_frais;TEXT;0;0;;False;False;False;True;;;Condition des frais;;
+frais;Types de frais (ports,commissions,....);;montant;FLOAT;0;0;;False;False;False;True;;;Montant des frais;;0.00
+frais;Types de frais (ports,commissions,....);;num_cp_compta;VARCHAR(25);25;0;;False;False;False;True;;;Numéro du compte comptable;;
+frais;Types de frais (ports,commissions,....);;num_tva_achat;VARCHAR(25);25;0;;False;False;False;False;;;Numéro du compte TVA achats associé au frais;;
+grilles;Grille de positionnement des champs dans les formulaires de notices;;grille_typdoc;CHAR(2);2;0;;True;False;False;True;;;Type de notices;;'a'
+grilles;Grille de positionnement des champs dans les formulaires de notices;;grille_niveau_biblio;CHAR(1);1;0;;True;False;False;True;;;m : monographie, s : périodique;;'m'
+grilles;Grille de positionnement des champs dans les formulaires de notices;;grille_localisation;INT;0;0;;True;True;False;True;docs_location;idlocation;Localisation;;
+grilles;Grille de positionnement des champs dans les formulaires de notices;;descr_format;MEDIUMTEXT;0;0;;False;False;False;False;;;XML de description de positionnement des champs;;
+groupe;Groupes de lecteurs;Groupes emprunteurs;id_groupe;INT;0;0;;True;False;False;True;;;Identifiant du groupe;;
+groupe;Groupes de lecteurs;Groupes emprunteurs;libelle_groupe;VARCHAR(50);50;0;;False;False;False;True;;;Libellé du groupe;;
+groupe;Groupes de lecteurs;Groupes emprunteurs;resp_groupe;INT;0;0;;False;False;False;False;;;Responsable du groupe;;0
+groupe;Groupes de lecteurs;Groupes emprunteurs;id_empr;INT;0;0;;False;True;False;True;empr;id_empr;Identifiant de l'emprunteur;;
+import_marc;Table temporaire d'import pour stocker les notices d'un fichier avant traitement!;Import MARC;id_import;INT;0;0;;True;False;False;True;;;Identifiant de l'import;;
+import_marc;Table temporaire d'import pour stocker les notices d'un fichier avant traitement!;Import MARC;notice;LONGBLOB;0;0;;False;False;False;True;;;Notice brute;;
+import_marc;Table temporaire d'import pour stocker les notices d'un fichier avant traitement!;Import MARC;origine;VARCHAR(50);50;0;;False;False;False;False;;;Numéro unique pour la session de l'import;;
+import_marc;Table temporaire d'import pour stocker les notices d'un fichier avant traitement!;Import MARC;no_notice;INT;0;0;;False;False;False;False;;;Numéro d'import;;0
+indexint;Liste des indexes numériques (Dewey);;indexint_id;INT;0;0;;True;False;False;True;;;Identifiant de l'indexation numérique;;
+indexint;Liste des indexes numériques (Dewey);;indexint_name;VARCHAR(255);255;0;;False;False;False;True;;;Indexation;;
+indexint;Liste des indexes numériques (Dewey);;indexint_comment;TEXT;0;0;;False;False;False;False;;;Description libre de l'indexation;;
+indexint;Liste des indexes numériques (Dewey);;index_indexint;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des indices numériques pour la recherche;;
+lenders;Liste des prêteurs;Prêteurs;idlender;INT;0;0;;True;False;False;True;;;Identifiant du prêteur;;
+lenders;Liste des prêteurs;Prêteurs;lender_libelle;VARCHAR(30);30;0;;False;False;False;True;;;Nom du prêteur;;
+liens_actes;Table de lien entre les actes;;num_acte;INT;0;0;;True;False;False;True;;;Identifiant de l'acte;;0
+liens_actes;Table de lien entre les actes;;num_acte_lie;INT;0;0;;True;True;False;True;actes;id_acte;Identifiant Acte lié;;
+lignes_actes;Table des lignes par actes d'achats;;id_ligne;INT;0;0;;True;False;False;True;;;Identifiant de ligne;;
+lignes_actes;Table des lignes par actes d'achats;;type_ligne;INT;0;0;;False;False;False;True;;;Type de la ligne (notice,bulletin,frais,texte,...);;0
+lignes_actes;Table des lignes par actes d'achats;;num_acte;INT;0;0;;False;True;False;True;actes;id_acte;Identifiant de l'acte auquel est rattachée la ligne;;
+lignes_actes;Table des lignes par actes d'achats;;lig_ref;INT;0;0;;False;True;False;False;lignes_actes;id_ligne;Référence de la ligne;;
+lignes_actes;Table des lignes par actes d'achats;;num_acquisition;INT;0;0;;False;True;False;True;suggestions;id_suggestion;Identifiant de l'acquisition auquel est rattachée la ligne de l'acte;;
+lignes_actes;Table des lignes par actes d'achats;;num_rubrique;INT;0;0;;False;True;False;False;rubriques;id_rubrique;Identifiant de la rubrique;;
+lignes_actes;Table des lignes par actes d'achats;;num_produit;INT;0;0;;False;False;False;True;;;Numéro du produit (soit num_notice , num_bulletin , num_frais);;0
+lignes_actes;Table des lignes par actes d'achats;;num_type;INT;0;0;;False;True;False;False;types_produits;id_produit;Identifiant du type de produit;;
+lignes_actes;Table des lignes par actes d'achats;;libelle;TEXT;0;0;;False;False;False;True;;;Libellé de la ligne;;
+lignes_actes;Table des lignes par actes d'achats;;code;VARCHAR(255);255;0;;False;False;False;True;;;ISBN , ISSN;;
+lignes_actes;Table des lignes par actes d'achats;;prix;FLOAT;0;0;;False;False;False;True;;;Prix de l'ouvrage;;0.00
+lignes_actes;Table des lignes par actes d'achats;;tva;FLOAT;0;0;;False;False;False;True;;;Montant de la tva sur l'ouvrage;;0.00
+lignes_actes;Table des lignes par actes d'achats;;nb;INT;0;0;;False;False;False;True;;;Nombre d'exemplaires commandés;;1
+lignes_actes;Table des lignes par actes d'achats;;date_ech;DATE;0;0;;False;False;False;True;;;Date de livraison prévue;;0000-00-00
+lignes_actes;Table des lignes par actes d'achats;;date_cre;DATE;0;0;;False;False;False;True;;;Date création ligne;;0000-00-00
+lignes_actes;Table des lignes par actes d'achats;;statut;INT;0;0;;False;False;False;True;;;Sattut de ligne (0=valider,1=validée,2=payé,4=livré,8=Facturé,16=Archivé....);;0
+lignes_actes;Table des lignes par actes d'achats;;remise;FLOAT;0;0;;False;False;False;True;;;Montant de la remise;;0.00
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;id_noeud;INT;0;0;;True;False;False;True;;;Identifiant du noeud;;
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;autorite;VARCHAR(255);255;0;;False;False;False;True;;;autorisation sur le noeud;;
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;num_parent;INT;0;0;;False;True;False;False;noeuds;id_noeud;Identifiant du noeud parent;;
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;num_renvoi_voir;INT;0;0;;False;True;False;False;noeuds;id_noeud;Identifiant sur la table voir aussi;;
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;visible;CHAR(1);1;0;;False;False;False;True;;;Le noeud est-il visible (0 = non , 1 = oui);;'1'
+noeuds;C'est un mot cle qui permet de classer une notice dans un thésaurus;;num_thesaurus;INT;0;0;;False;True;False;False;thesaurus;id_thesaurus;Identifiant du thésaurus;;
+notice_statut;;;id_notice_statut;INT;0;0;;True;False;False;True;;;Identifiant du statut de la notice;;
+notice_statut;;;gestion_libelle;VARCHAR(255);255;0;;False;False;False;False;;;;;
+notice_statut;;;opac_libelle;VARCHAR(255);255;0;;False;False;False;False;;;;;
+notice_statut;;;notice_visible_opac;TINYINT;0;0;;False;False;False;True;;;;;1
+notice_statut;;;notice_visible_gestion;TINYINT;0;0;;False;False;False;True;;;;;1
+notice_statut;;;expl_visible_opac;TINYINT;0;0;;False;False;False;True;;;;;1
+notice_statut;;;class_html;VARCHAR(255);255;0;;False;False;False;True;;;;;
+notice_statut;;;notice_visible_opac_abon;TINYINT;0;0;;False;False;False;True;;;;;0
+notice_statut;;;expl_visible_opac_abon;INT;0;0;;False;False;False;True;;;;;0
+notice_statut;;;explum_visible_opac;INT;0;0;;False;False;False;True;;;;;1
+notice_statut;;;explum_visible_opac_abon;INT;0;0;;False;False;False;True;;;;;0
+notices;Liste des notices;Notices;notice_id;INT;0;0;;True;False;False;True;;;Identifiant de la notice;;
+notices;Liste des notices;Notices;typdoc;CHAR(2);2;0;;False;False;False;True;;;Type de support de la notice;;'a'
+notices;Liste des notices;Notices;tit1;TINYTEXT;0;0;;False;False;False;True;;;Titre propre de la notice;;
+notices;Liste des notices;Notices;tit2;TINYTEXT;0;0;;False;False;False;True;;;Titre propre d'un auteur différent;;
+notices;Liste des notices;Notices;tit3;TINYTEXT;0;0;;False;False;False;True;;;Titre parallèle;;
+notices;Liste des notices;Notices;tit4;TINYTEXT;0;0;;False;False;False;True;;;Complément du titre;;
+notices;Liste des notices;Notices;tparent_id;MEDIUMINT;0;0;;False;False;False;False;;;Identifiant de la série;;0
+notices;Liste des notices;Notices;tnvol;VARCHAR(16);16;0;;False;False;False;False;;;Numéro dans la série;;
+notices;Liste des notices;Notices;ed1_id;INT;0;0;;False;True;False;False;publishers;ed_id;L'éditeur;;
+notices;Liste des notices;Notices;ed2_id;INT;0;0;;False;True;False;False;publishers;ed_id;lien vers une autre éditeur;;
+notices;Liste des notices;Notices;coll_id;INT;0;0;;False;True;False;False;collections;collection_id;Collection de l'éditeur 1;;
+notices;Liste des notices;Notices;subcoll_id;INT;0;0;;False;True;False;False;sub_collections;sub_coll_id;Sous collection de l'éditeur 1;;
+notices;Liste des notices;Notices;year;VARCHAR(16);16;0;;False;False;False;False;;;Année d'édition ;;
+notices;Liste des notices;Notices;nocoll;VARCHAR(16);16;0;;False;False;False;False;;;Numéro de l'oeuvre dans la collection;;
+notices;Liste des notices;Notices;mention_edition;VARCHAR(255);255;0;;False;False;False;True;;;Mention liée à l'edition de la notice;;
+notices;Liste des notices;Notices;code;VARCHAR(16);16;0;;False;False;False;True;;;ISBN ou identifiant unique normalisé;;
+notices;Liste des notices;Notices;npages;VARCHAR(54);54;0;;False;False;False;True;;;Nombre de pages;;
+notices;Liste des notices;Notices;ill;VARCHAR(54);54;0;;False;False;False;True;;;Autres caractéristiques matérielles (notemment illustrations);;
+notices;Liste des notices;Notices;size;VARCHAR(54);54;0;;False;False;False;True;;;Format (taille en cm);;
+notices;Liste des notices;Notices;accomp;VARCHAR(54);54;0;;False;False;False;True;;;Matériel d'accompagnement (ex : CDROM);;
+notices;Liste des notices;Notices;n_gen;TEXT;0;0;;False;False;False;True;;;Note générale(texte);;
+notices;Liste des notices;Notices;n_contenu;TEXT;0;0;;False;False;False;True;;;Note de contenu (texte);;
+notices;Liste des notices;Notices;n_resume;TEXT;0;0;;False;False;False;True;;;Note de résumé (texte);;
+notices;Liste des notices;Notices;lien;TINYTEXT;0;0;;False;False;False;True;;;Ressources electroniques liées à l'oeuvre (ex : URL);;
+notices;Liste des notices;Notices;eformat;VARCHAR(54);54;0;;False;False;False;True;;;Format de la ressource électronique (ex: HTTP, gopher,...);;
+notices;Liste des notices;Notices;index_l;TEXT;0;0;;False;False;False;True;;;Indexation libre ( mots clefs saisis par l'utilisateur);;
+notices;Liste des notices;Notices;indexint;INT;0;0;;False;True;False;False;indexint;indexint_id;Indexation numérique de la notice;;
+notices;Liste des notices;Notices;index_serie;INT;0;0;;False;True;False;False;series;serie_id;Champ interne : mots clés du titre de la série;;
+notices;Liste des notices;Notices;index_matieres;TEXT;0;0;;False;False;False;True;;;Champ interne : mots clés des notes générale, note de contenu, note de résumé;;
+notices;Liste des notices;Notices;niveau_biblio;CHAR(1);1;0;;False;False;False;True;;;Niveau bibliographique (a=partie d'un document, m=monographie, s=série, c=recueil factice) par défaut 'm';;'m'
+notices;Liste des notices;Notices;niveau_hierar;CHAR(1);1;0;;False;False;False;True;;;niveau hiérarchique (0=Pas de hiérarchie, 1=Notice mère, 2=Notice fille)!;;'0'
+notices;Liste des notices;Notices;origine_catalogage;INT;0;0;;False;True;False;False;origine_notice;orinot_id;Diffuseur à l'origine de la notice (Champ 801 UNIMARC);;
+notices;Liste des notices;Notices;prix;VARCHAR(255);255;0;;False;False;False;True;;;Prix du document édité associé à la notice;;
+notices;Liste des notices;Notices;index_n_gen;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des notes générales pour les recherches;;
+notices;Liste des notices;Notices;index_n_contenu;TEXT;0;0;;False;False;False;False;;;Champ d'indexation de la note de contenu pour les recherches;;
+notices;Liste des notices;Notices;index_n_resume;TEXT;0;0;;False;False;False;False;;;Champ d'indexation de la note de résumé pour les recherches;;
+notices;Liste des notices;Notices;index_sew;TEXT;0;0;;False;False;False;False;;;Index de série + numéro série + titre 1 à 4;;
+notices;Liste des notices;Notices;index_wew;TEXT;0;0;;False;False;False;False;;;Concaténation de série + numéro série + titre 1 à 4 pour recherche exacte;;
+notices;Liste des notices;Notices;statut;INT;0;0;;False;True;False;False;notice_statut;id_notice_statut;Identifiant de notice_statut;;
+notices;Liste des notices;Notices;commentaire_gestion;TEXT;0;0;;False;False;False;True;;;Commentaire lié à la gestion de la notice;;
+notices;Liste des notices;Notices;create_date;DATETIME;0;0;;False;False;False;True;;;Date de création de la notice;;2005-01-01 00:00:00
+notices;Liste des notices;Notices;update_date;TIMESTAMP;0;0;;False;False;False;False;;;Date de mise à jour de la notice;;CURRENT_TIMESTAMP
+notices;Liste des notices;Notices;notice_parent;INT;0;0;;False;False;False;True;;;Identifiant de la notice parent;;0
+notices;Liste des notices;Notices;relation_type;CHAR(1);1;0;;False;False;False;True;;;Type de la relation;;'a'
+notices;Liste des notices;Notices;id_resa;INT;0;0;;False;True;False;False;resa_planning;id_resa;Identifiant de la réservation;;
+notices;Liste des notices;Notices;responsability_fonction;CHAR(3);3;0;;False;True;False;False;responsability;responsability_fonction;Fonction de l'auteur associé à la notice;;
+notices;Liste des notices;Notices;responsability_author;INT;0;0;;False;True;False;False;responsability;responsability_author;Auteur associé à la notice;;
+notices_categories;Classement des notices dans les catégories;;notcateg_notice;INT;0;0;;True;True;False;True;notices;notice_id;Notice associée à la catégorie;;
+notices_categories;Classement des notices dans les catégories;;num_noeud;INT;0;0;;True;True;False;True;noeuds;id_noeud;Catégorie associée à la notice;;
+notices_categories;Classement des notices dans les catégories;;num_vedette;INT;0;0;;True;False;False;True;;;Numéro de la vedette;;0
+notices_categories;Classement des notices dans les catégories;;ordre_vedette;INT;0;0;;False;False;False;True;;;Ordre de la vedette;;1
+notices_custom;Champs personnalisés des notices;;idchamp;INT;0;0;;True;False;False;True;;;Numéro unique du champ;;
+notices_custom;Champs personnalisés des notices;;name;VARCHAR(255);255;0;;False;False;False;True;;;Nom du champ;;
+notices_custom;Champs personnalisés des notices;;titre;VARCHAR(255);255;0;;False;False;False;False;;;Intitulé du champ affiché à l'écran;;
+notices_custom;Champs personnalisés des notices;;type;VARCHAR(10);10;0;;False;False;False;True;;;Type de saisie pour le champ ( boite texte, liste, ...);;'text'
+notices_custom;Champs personnalisés des notices;;datatype;VARCHAR(10);10;0;;False;False;False;True;;;Type de données stoquées ( text,intéger,etc ...);;
+notices_custom;Champs personnalisés des notices;;options;TEXT;0;0;;False;False;False;False;;;Options d'affichage liées au type (exprimé en format XML);;
+notices_custom;Champs personnalisés des notices;;multiple;INT;0;0;;False;False;False;True;;;Champ visible ou non dans l'OPAC (1=oui, 0=non);;0
+notices_custom;Champs personnalisés des notices;;obligatoire;INT;0;0;;False;False;False;True;;;Champ obligatoire (1=oui, 0=non);;0
+notices_custom;Champs personnalisés des notices;;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage du champ;;
+notices_custom_lists;Listes de choix associées aux champs personalisés;;notices_custom_champ;INT;0;0;;False;True;False;False;notices_custom;idchamp;Champ associé à la liste;;
+notices_custom_lists;Listes de choix associées aux champs personalisés;;notices_custom_list_value;VARCHAR(255);255;0;;False;False;False;False;;;Valeur renvoyée pour l'élement de choix de la liste;;
+notices_custom_lists;Listes de choix associées aux champs personalisés;;notices_custom_list_lib;VARCHAR(255);255;0;;False;False;False;False;;;Libellé affcihé dans la liste pour l'élément de choix;;
+notices_custom_lists;Listes de choix associées aux champs personalisés;;ordre;INT;0;0;;False;False;False;False;;;Ordre d'affichage de l'élément de choix;;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_champ;INT;0;0;;False;True;False;False;notices_custom;idchamp;Champs associé à la notice et à la valeur;;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_origine;INT;0;0;;False;True;False;False;notices;notice_id;Notice associée au champ et à la valeur;;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_small_text;VARCHAR(255);255;0;;False;False;False;False;;;Valeur de type 'small_text' (Texte);;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_text;TEXT;0;0;;False;False;False;False;;;Valeur de type 'text' (Texte large);;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_integer;INT;0;0;;False;False;False;False;;;Valeur de type 'interger' (Entier);;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_date;DATE;0;0;;False;False;False;False;;;Valeur de type 'date' (Date);;
+notices_custom_values;Valeurs saisies dans les champs personalisés pour chaque notice;Valeurs des champs personnalisés;notices_custom_float;FLOAT;0;0;;False;False;False;False;;;Valeur de type 'float' (Nombre à virgule);;
+notices_global_index;Table permettant d'indexer les notices pour la recherche;;num_notice;INT;0;0;;True;True;False;True;notices;notice_id;Identifiant de la notice;;
+notices_global_index;Table permettant d'indexer les notices pour la recherche;;no_index;MEDIUMINT;0;0;;True;False;False;True;;;Index de la notice;;0
+notices_global_index;Table permettant d'indexer les notices pour la recherche;;infos_global;TEXT;0;0;;False;False;False;True;;;Informations globales de la notice;;
+notices_global_index;Table permettant d'indexer les notices pour la recherche;;index_infos_global;TEXT;0;0;;False;False;False;True;;;Index de l'information globale;;
+notices_langues;Langues de la notice;;num_notice;INT;0;0;;True;True;False;True;notices;notice_id;Identifiant de la notice;;
+notices_langues;Langues de la notice;;type_langue;INT;0;0;;True;False;False;True;;;Type de la langue;;0
+notices_langues;Langues de la notice;;code_langue;CHAR(3);3;0;;True;False;False;True;;;Code de la langue;;
+offres_remises;Conditions de remises chez le fournisseur;;num_fournisseur;INT;0;0;;True;True;False;True;entites;id_entite;Identifiant du fournisseur;;
+offres_remises;Conditions de remises chez le fournisseur;;num_produit;INT;0;0;;True;True;False;True;types_produits;id_produit;Identifiant du produit;;
+offres_remises;Conditions de remises chez le fournisseur;;remise;FLOAT;0;0;;False;False;False;True;;;Pourcentage de remise ;;0.00
+offres_remises;Conditions de remises chez le fournisseur;;condition_remise;TEXT;0;0;;False;False;False;False;;;Conditions pour bénéficier de la remise;;
+opac_sessions;;;empr_id;INT;0;0;;True;True;False;True;empr;id_empr;Identifiant de l'emprunteur;;
+opac_sessions;;;session;BLOB;0;0;;False;False;False;False;;;Numéro de session;;
+opac_sessions;;;date_rec;TIMESTAMP;0;0;;False;False;False;False;;;Date de dernier accès dans la Session;;CURRENT_TIMESTAMP
+origine_notice;Liste des organismes à l'origine des notices pour controle éventuel des droits de diffusion (Champ 801 UNIMARC);;orinot_id;INT;0;0;;True;False;False;True;;;Numéro unique de l'organisme;;
+origine_notice;Liste des organismes à l'origine des notices pour controle éventuel des droits de diffusion (Champ 801 UNIMARC);;orinot_nom;VARCHAR(255);255;0;;False;False;False;True;;;Nom de l'organisme à l'origine de la notice;;
+origine_notice;Liste des organismes à l'origine des notices pour controle éventuel des droits de diffusion (Champ 801 UNIMARC);;orinot_pays;VARCHAR(255);255;0;;False;False;False;True;;;Pays de l'organisme émetteur;;'FR'
+origine_notice;Liste des organismes à l'origine des notices pour controle éventuel des droits de diffusion (Champ 801 UNIMARC);;orinot_diffusion;INT;0;0;;False;False;False;True;;;La notice peut-elle etre rediffusée? (1=oui 0= non);;1
+ouvertures;Horaires d'ouverture des établissements;;date_ouverture;DATE;0;0;;True;False;False;True;;;Dates d'ouverture de l'établissement;;0000-00-00
+ouvertures;Horaires d'ouverture des établissements;;idlocation;INT;0;0;;False;True;False;True;docs_location;idlocation;Identifiant de la position géographique;;
+ouvertures;Horaires d'ouverture des établissements;;ouvert;INT;0;0;;False;False;False;True;;;ouvert = 1, fermé = 0;;1
+ouvertures;Horaires d'ouverture des établissements;;commentaire;VARCHAR(255);255;0;;False;False;False;True;;;Commentaires des ouvertures;;
+paiements;Types de paiements;;id_paiement;INT;0;0;;True;False;False;True;;;Identifiant ;;
+paiements;Types de paiements;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé des paiements;;
+paiements;Types de paiements;;commentaire;TEXT;0;0;;False;False;False;True;;;Commentaire du paiement;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;id_param;INT;0;0;;True;False;False;True;;;Identifiant du paramètre;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;type_param;VARCHAR(20);20;0;;False;False;False;False;;;Type du paramètre;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;sstype_param;VARCHAR(255);255;0;;False;False;False;False;;;Elément du type;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;valeur_param;TEXT;0;0;;False;False;False;False;;;Valeur courante;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;comment_param;VARCHAR(255);255;0;;False;False;False;False;;;Description libre du paramètre;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;section_param;VARCHAR(255);255;0;;False;False;False;True;;;Section du paramètre;;
+parametres;Paramètres de l'application (permet la personnalisation, N° Version, version BDD);Paramètres;gestion;INT;0;0;;False;False;False;True;;;Visible ou non dans Administration ->outils-> paramètres ( visible = 0, invisible = 1);;0
+pret;Liste des prêts en cours;Prêts;pret_idexpl;INT;0;0;;True;True;False;True;exemplaires;expl_id;Exemplaire;;
+pret;Liste des prêts en cours;Prêts;pret_idempr;INT;0;0;;False;True;False;True;empr;id_empr;Emprunteur;;
+pret;Liste des prêts en cours;Prêts;pret_arc_id;INT;0;0;;False;True;False;False;pret_archive;arc_id;Identifiant de l'archive de prêt;;
+pret;Liste des prêts en cours;Prêts;pret_date;DATETIME;0;0;;False;False;False;True;;;Date de prêt;;0000-00-00 00:00:00
+pret;Liste des prêts en cours;Prêts;pret_retour;DATE;0;0;;False;False;False;False;;;Date de retour prevue;;
+pret;Liste des prêts en cours;Prêts;niveau_relance;INT;0;0;;False;False;False;True;;;Niveau de la relance sur le pret;;0
+pret;Liste des prêts en cours;Prêts;date_relance;DATE;0;0;;False;False;False;False;;;Date de la relance;;0000-00-00
+pret;Liste des prêts en cours;Prêts;printed;INT;0;0;;False;False;False;True;;;La lettre de relance correspondante au dernier niveau validé est imprimée = 1, non imprimé = 0;;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_id;INT;0;0;;True;False;False;True;;;Identifiant de l'archive;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_debut;DATETIME;0;0;;False;False;False;False;;;Date de début d'emprunt;;0000-00-00 00:00:00
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_fin;DATETIME;0;0;;False;False;False;False;;;Date de retour;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_cp;VARCHAR(5);5;0;;False;False;False;False;;;Code postal;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_ville;VARCHAR(40);40;0;;False;False;False;False;;;Ville;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_prof;VARCHAR(50);50;0;;False;False;False;False;;;Profession;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_year;INT;0;0;;False;False;False;False;;;Date de naissance de l'emprunteur;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_categ;SMALLINT;0;0;;False;False;False;False;;;Catégorie de l'emprunteur;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_codestat;SMALLINT;0;0;;False;False;False;False;;;Code statistique de l'emprunteur;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_empr_sexe;TINYINT;0;0;;False;False;False;False;;;Sexe de l'emprunteur 1 = homme, 2 = femme, 0 = inconnu;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_typdoc;TINYINT;0;0;;False;False;False;False;;;Type d'exemplaire (catégorie de prêt) (lien vers docs_type);;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_cote;VARCHAR(20);20;0;;False;False;False;True;;;Cote de l'exemplaire emprunté;;
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_statut;SMALLINT;0;0;;False;False;False;False;;;Statut de l'exemplaire au moment du prêt (lien vers docs_statut);;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_location;SMALLINT;0;0;;False;False;False;False;;;Position géographique globale de l'exemplaire emprunté (lien vers docs_location);;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_codestat;SMALLINT;0;0;;False;False;False;False;;;Catégorie statistique de l'exemplaire emprunté (lien vers docs_codestat);;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_owner;MEDIUMINT;0;0;;False;False;False;False;;;Prêteur de l'exemplaire emprunté (lien vers lenders);;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_section;INT;0;0;;False;False;False;True;;;Identifiant de la section associé à l"exemplaire;;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_id;INT;0;0;;False;False;False;True;;;Identifiant de l'exemplaire empreinté;;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_notice;INT;0;0;;False;False;False;True;;;Identifiant de la notice associé à l"exemplaire;;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_expl_bulletin;INT;0;0;;False;False;False;True;;;Identifiant du bulletin associé à l"exemplaire;;0
+pret_archive;Enregistrement des attributs des emprunteurs (hors identifiant) et exemplaires à chaque prêt pour les statistiques;Archives statistiques prêts;arc_groupe;VARCHAR(255);255;0;;False;False;False;True;;;Groupes de l'emprunteur;;
+procs;Liste des procédures stockées;Procédures stockées;idproc;INT;0;0;;True;False;False;True;;;Identifiant de la procédure;;
+procs;Liste des procédures stockées;Procédures stockées;name;VARCHAR(255);255;0;;False;False;False;True;;;Nom court de la procédure;;
+procs;Liste des procédures stockées;Procédures stockées;requete;BLOB;0;0;;False;False;False;True;;;Requête SQL associée;;
+procs;Liste des procédures stockées;Procédures stockées;comment;TINYTEXT;0;0;;False;False;False;True;;;Description plus détaillée de la procédure;;
+procs;Liste des procédures stockées;Procédures stockées;autorisations;MEDIUMTEXT;0;0;;False;False;False;False;;;Droits d'accès a la procédure;;
+procs;Liste des procédures stockées;Procédures stockées;parameters;TEXT;0;0;;False;False;False;False;;;Description XML du type des paramètres de la procédure (si existants);;
+publishers;Liste des éditeurs;Editeurs;ed_id;INT;0;0;;True;False;False;True;;;Identifiant de l'éditeur;;
+publishers;Liste des éditeurs;Editeurs;ed_name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de l'éditeur;;
+publishers;Liste des éditeurs;Editeurs;ed_adr1;VARCHAR(255);255;0;;False;False;False;True;;;Adresse;;
+publishers;Liste des éditeurs;Editeurs;ed_adr2;VARCHAR(255);255;0;;False;False;False;True;;;Adresse complémentaire;;
+publishers;Liste des éditeurs;Editeurs;ed_cp;VARCHAR(10);10;0;;False;False;False;True;;;Code postal;;
+publishers;Liste des éditeurs;Editeurs;ed_ville;VARCHAR(96);96;0;;False;False;False;True;;;Ville;;
+publishers;Liste des éditeurs;Editeurs;ed_pays;VARCHAR(96);96;0;;False;False;False;True;;;Pays;;
+publishers;Liste des éditeurs;Editeurs;ed_web;VARCHAR(255);255;0;;False;False;False;True;;;adresse web;;
+publishers;Liste des éditeurs;Editeurs;index_publisher;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des éditeurs pour la recherche;;
+publishers;Liste des éditeurs;Editeurs;ed_comment;TEXT;0;0;;False;False;False;False;;;Commentaire;;
+quotas;Valeurs des contraintes liées aux quotas ;;quota_type;INT;0;0;;True;False;False;True;;;Type de quota concerné (nb de pret, durée de pret, de résa, ...)9;;0
+quotas;Valeurs des contraintes liées aux quotas ;;constraint_type;VARCHAR(255);255;0;;True;False;False;True;;;Type de contrainte asscociée à la valeur (Q : quota, F: forçage, ...);;
+quotas;Valeurs des contraintes liées aux quotas ;;elements;INT;0;0;;True;False;False;True;;;Eléments concernés par la contrainte (type de doc, type d'emprunteur, type de doc x emprunteur,...);;0
+quotas;Valeurs des contraintes liées aux quotas ;;value;FLOAT;0;0;;False;False;False;False;;;Valeur de la contrainte (nombre max de pret, durée , etc...);;
+quotas_finance;;;quota_type;INT;0;0;;True;False;False;True;;;Type de quota concerné ( montant des amendes, des prêts, délais de retard );;0
+quotas_finance;;;constraint_type;VARCHAR(255);255;0;;True;False;False;True;;;Type de contrainte asscociée à la valeur (Q : quota, F: forçage, ...);;
+quotas_finance;;;elements;INT;0;0;;True;False;False;True;;;Eléments concernés par la contrainte (type de doc, type d'emprunteur, type de doc x emprunteur,...);;0
+quotas_finance;;;value;FLOAT;0;0;;False;False;False;False;;;Valeur de la contrainte (nombre max de pret, durée , etc...);;
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;recouvr_id;INT;0;0;;True;False;False;True;;;Identifiant du recouvrement;;
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;empr_id;INT;0;0;;False;True;False;False;empr;id_empr;Identifiant de l'emprunteur;;
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;id_expl;INT;0;0;;False;True;False;False;exemplaires;expl_id;Identifiant de l'exemplaire;;
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;date_rec;DATE;0;0;;False;False;False;True;;;Date de recouvrement;;0000-00-00
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du recouvrement;;
+recouvrements;Payement des exemplaires non rendu par l'emprunteur;;montant;DECIMAL(16,2);16;2;;False;False;False;False;;;Montant du recouvrement;;0.00
+resa;Liste des réservations d'oeuvres;Réservation;id_resa;INT;0;0;;True;False;False;True;;;Identifiant de la réservation;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_idempr;INT;0;0;;False;True;False;True;empr;id_empr;Identifiant emprunteur;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_idnotice;INT;0;0;;False;True;False;True;notices;notice_id;Identifiant notice;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_idbulletin;INT;0;0;;False;True;False;False;bulletins;bulletin_id;Identifiant de la notice;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_date;DATETIME;0;0;;False;False;False;False;;;Date à laquelle on a posé la réservation;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_date_debut;DATE;0;0;;False;False;False;True;;;Date de début de validité de la réservation;;0000-00-00
+resa;Liste des réservations d'oeuvres;Réservation;resa_date_fin;DATE;0;0;;False;False;False;True;;;Date de fin de validité de la réservation;;0000-00-00
+resa;Liste des réservations d'oeuvres;Réservation;resa_cb;VARCHAR(14);14;0;;False;False;False;True;;;Code bar de l'exemplaire mis de coté;;
+resa;Liste des réservations d'oeuvres;Réservation;resa_confirmee;INT;0;0;;False;False;False;True;;;Confirmation de la réservation;;0
+resa_ranger;Liste des exemplaires réservés à ranger (résa dépassée ou annulée);;resa_cd;VARCHAR(14);14;0;;True;False;False;True;;;Code barre de l'exemplaire à ranger;;
+responsability;Auteurs associés aux notices;Auteurs liés aux notices;responsability_fonction;CHAR(3);3;0;;True;False;False;True;;;Fonction de l'auteur associé à la notice	;;
+responsability;Auteurs associés aux notices;Auteurs liés aux notices;responsability_author;INT;0;0;;True;True;False;True;authors;author_id;Auteur associé à la notice;;
+responsability;Auteurs associés aux notices;Auteurs liés aux notices;responsability_notice;INT;0;0;;True;True;False;True;notices;notice_id;Notice associée à l'auteur;;
+responsability;Auteurs associés aux notices;Auteurs liés aux notices;responsability_type;MEDIUMINT;0;0;;False;False;False;True;;;Auteur principal/secondaire;;0
+rss_content;;;rss_id;INT;0;0;;True;False;False;True;;;Identifiant du rss;;0
+rss_content;;;rss_content;LONGBLOB;0;0;;False;False;False;True;;;Contenu du RSS;;
+rss_content;;;rss_last;TIMESTAMP;0;0;;False;False;False;False;;;Dernière date de rafraichissement d'un contenu RSS;;CURRENT_TIMESTAMP
+rss_flux;;;id_rss_flux;INT;0;0;;True;False;False;True;;;Identifiant du flux RSS;;
+rss_flux;;;nom_rss_flux;VARCHAR(255);255;0;;False;False;False;True;;;Nom du flux RSS;;
+rss_flux;;;link_rss_flux;BLOB;0;0;;False;False;False;True;;;Lien du flux RSS;;
+rss_flux;;;descr_rss_flux;BLOB;0;0;;False;False;False;True;;;Description du flux RSS;;
+rss_flux;;;lang_rss_flux;VARCHAR(255);255;0;;False;False;False;True;;;Langage du flux RSS;;'fr'
+rss_flux;;;copy_rss_flux;BLOB;0;0;;False;False;False;True;;;Copyright du flux RSS;;
+rss_flux;;;editor_rss_flux;VARCHAR(255);255;0;;False;False;False;True;;;Editeur du flux RSS;;
+rss_flux;;;webmaster_rss_flux;VARCHAR(255);255;0;;False;False;False;True;;;Webmaster du flux RSS;;
+rss_flux;;;ttl_rss_flux;INT;0;0;;False;False;False;True;;;Durée de validité ( Time To Live );;60
+rss_flux;;;img_url_rss_flux;BLOB;0;0;;False;False;False;True;;;Lien vers l'image;;
+rss_flux;;;img_title_rss_flux;BLOB;0;0;;False;False;False;True;;;Titre alternatif de l'image;;
+rss_flux;;;img_link_rss_flux;BLOB;0;0;;False;False;False;True;;;Lien sur l'image;;
+rss_flux;;;format_flux;BLOB;0;0;;False;False;False;True;;;Format du flux RSS;;
+rss_flux_content;;;num_rss_flux;INT;0;0;;True;True;False;True;rss_flux;id_rss_flux;Numéro du flux RSS;;
+rss_flux_content;;;type_contenant;CHAR(3);3;0;;True;False;False;True;;;Avec quoi est rempli le flux RSS ( BAN : bannettes, CAD : paniers ) ;;'BAN'
+rss_flux_content;;;num_contenant;INT;0;0;;True;False;False;True;;;Identifiant du panier ou de la bannette;;0
+rubriques;LIste des rubriques budgétaires;;id_rubrique;INT;0;0;;True;False;False;True;;;Identifiant de la rubrique ;;
+rubriques;LIste des rubriques budgétaires;;num_budget;INT;0;0;;False;True;False;True;budgets;id_budget;Identifiant du budget associé;;
+rubriques;LIste des rubriques budgétaires;;num_parent;INT;0;0;;False;True;False;True;rubriques;id_rubrique;Identifiant de la rubrique parent;;
+rubriques;LIste des rubriques budgétaires;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;LIbellé de rubrique budgetaire;;
+rubriques;LIste des rubriques budgétaires;;commentaires;TEXT;0;0;;False;False;False;True;;;Commentaire de rubrique budgetaire;;
+rubriques;LIste des rubriques budgétaires;;montant;FLOAT;0;0;;False;False;False;True;;;Montant de la rubrique;;0.00
+rubriques;LIste des rubriques budgétaires;;num_cp_compta;VARCHAR(255);255;0;;False;False;False;True;;;Numéro de compte comptable associé;;
+rubriques;LIste des rubriques budgétaires;;autorisations;MEDIUMTEXT;0;0;;False;False;False;True;;;autorisations sur les rubriques;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_id;INT;0;0;;True;False;False;True;;;Id du lieu de sauvegarde;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_nom;VARCHAR(50);50;0;;False;False;False;False;;;Nom du lieu de sauvegarde;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_url;VARCHAR(255);255;0;;False;False;False;False;;;Chemin du lieu;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_protocol;VARCHAR(10);10;0;;False;False;False;False;;;Protocole : ftp ou file;;'file'
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_host;VARCHAR(255);255;0;;False;False;False;False;;;Pour le protocole ftp : Adresse de la machine;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_login;VARCHAR(20);20;0;;False;False;False;False;;;Pour le ftp : nom d'utilisateur;;
+sauv_lieux;Liste des lieux de sauvegarde;Lieux de sauvegarde;sauv_lieu_password;VARCHAR(20);20;0;;False;False;False;False;;;Pour le ftp : mot de passe;;
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_id;INT;0;0;;True;False;False;True;;;Identifiant du fichier de sauvegarde;;
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_start_date;DATE;0;0;;False;False;False;False;;;Date de début de la sauvegarde;;
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_file;VARCHAR(255);255;0;;False;False;False;False;;;Nom du fichier contenant la sauvegarde;;
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_succeed;INT;0;0;;False;False;False;False;;;La sauvegarde a-t-elle réussie (0=non, 1=oui);;0
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_messages;MEDIUMTEXT;0;0;;False;False;False;False;;;Messages d'information ou d'erreurs lors de la sauvegarde;;
+sauv_log;Liste des sauvegardes effectuées précédemment;Sauvegardes déjà faites;sauv_log_userid;INT;0;0;;False;False;False;False;;;Utilisateur qui a lancé la sauvegarde;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_id;INT;0;0;;True;False;False;True;;;Identifiant du jeu de sauvegarde;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_nom;VARCHAR(50);50;0;;False;False;False;False;;;Nom du jeu de sauvegarde ;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_file_prefix;VARCHAR(20);20;0;;False;False;False;False;;;Préfixe du fichier qui contiendra la sauvegarde (la date sera ajoutée au nom de fichier);;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_tables;MEDIUMTEXT;0;0;;False;False;False;False;;;Liste des groupes de tables inclus dans le jeu de sauvegarde;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_lieux;MEDIUMTEXT;0;0;;False;False;False;False;;;Liste des lieux où copier la sauvegarde;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_users;MEDIUMTEXT;0;0;;False;False;False;False;;;Utilisateur des jeux de sauvegarde;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_compress;INT;0;0;;False;False;False;False;;;La sauvegarde est-elle compressée(0=oui , 1=non);;0
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_compress_command;MEDIUMTEXT;0;0;;False;False;False;False;;;Commande de compression : internal/external::commande_compression::commande_décompression;;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_crypt;INT;0;0;;False;False;False;False;;;Sauvegarde cryptée ? (0=non, 1=oui);;0
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_key1;VARCHAR(32);32;0;;False;False;False;False;;;Clé de cryptage 1 (codage MD5 d'une phrase);;
+sauv_sauvegardes;Liste des jeux de sauvegarde;Jeux de sauvegardes;sauv_sauvegarde_key2;VARCHAR(32);32;0;;False;False;False;False;;;Clé de cryptage 2 (codage MD5 d'une phrase);;
+sauv_tables;Liste des groupes de tables à inclure dans un jeu de sauvegarde;Groupes de tables à sauvegarder;sauv_table_id;INT;0;0;;True;False;False;True;;;Identifiant du groupe de tables;;
+sauv_tables;Liste des groupes de tables à inclure dans un jeu de sauvegarde;Groupes de tables à sauvegarder;sauv_table_nom;VARCHAR(50);50;0;;False;False;False;False;;;Nom du groupe de tables;;
+sauv_tables;Liste des groupes de tables à inclure dans un jeu de sauvegarde;Groupes de tables à sauvegarder;sauv_table_tables;TEXT;0;0;;False;False;False;False;;;Liste des tables incluses dans le groupe0;;
+series;Séries de livres (cas d'ouvrages liés sans ISSN));Séries;serie_id;INT;0;0;;True;False;False;True;;;Identifiant de la série;;
+series;Séries de livres (cas d'ouvrages liés sans ISSN));Séries;serie_name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la série;;
+series;Séries de livres (cas d'ouvrages liés sans ISSN));Séries;serie_index;TEXT;0;0;;False;False;False;False;;;N° dans la série;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;SESSID;VARCHAR(12);12;0;;False;False;False;True;;;ID unique de la session;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;login;VARCHAR(20);20;0;;False;False;False;True;;;Login utilisé;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;IP;VARCHAR(20);20;0;;False;False;False;True;;;Adresse IP du client;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;SESSstart;VARCHAR(12);12;0;;False;False;False;True;;;Date de début de connexion;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;LastOn;VARCHAR(12);12;0;;False;False;False;True;;;Date de la derniere requête HTTP;;
+sessions;Liste des sessions en cours des personnes connectées à l'application;Sessions PMB;SESSNAME;VARCHAR(25);25;0;;False;False;False;True;;;Nom de la session (par default 'phpmybibli');;
+sub_collections;Liste des sous collections des éditeurs;Sous collections;sub_coll_id;INT;0;0;;True;False;False;True;;;Identifiant de la sous-collection;;
+sub_collections;Liste des sous collections des éditeurs;Sous collections;sub_coll_name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la sous collection;;
+sub_collections;Liste des sous collections des éditeurs;Sous collections;sub_coll_parent;INT;0;0;;False;True;False;True;collections;collection_id;Collection parente;;
+sub_collections;Liste des sous collections des éditeurs;Sous collections;sub_coll_issn;VARCHAR(12);12;0;;False;False;False;True;;;Numéro ISSN de la sous collection;;
+sub_collections;Liste des sous collections des éditeurs;Sous collections;index_sub_coll;TEXT;0;0;;False;False;False;False;;;Champ d'indexation des sous collections pour la recherche;;
+suggestions;Liste des suggestions d'acquisitions;;id_suggestion;INT;0;0;;True;False;False;True;;;Identifiant de la suggestion;;
+suggestions;Liste des suggestions d'acquisitions;;num_notice;INT;0;0;;False;True;False;False;notices;notice_id;Identifiant de le notice;;
+suggestions;Liste des suggestions d'acquisitions;;titre;TINYTEXT;0;0;;False;False;False;True;;;Titre de l'ouvrage (obligatoire);;
+suggestions;Liste des suggestions d'acquisitions;;editeur;VARCHAR(255);255;0;;False;False;False;True;;;Editeur ou diffuseur (obligatoire);;
+suggestions;Liste des suggestions d'acquisitions;;auteur;VARCHAR(255);255;0;;False;False;False;True;;;(Optionnel);;
+suggestions;Liste des suggestions d'acquisitions;;code;VARCHAR(255);255;0;;False;False;False;True;;;ISBN,ISSN,....(optionnel);;
+suggestions;Liste des suggestions d'acquisitions;;prix;FLOAT;0;0;;False;False;False;True;;;Prix indicatif de l'ouvrage (optinnel);;0.00
+suggestions;Liste des suggestions d'acquisitions;;commentaires;TEXT;0;0;;False;False;False;False;;;(optionnel);;
+suggestions;Liste des suggestions d'acquisitions;;statut;INT;0;0;;False;False;False;True;;;Indicateur du statut ( 0 = En cours , 1=Traitement , 2= Accepté , 3= Refusé, 4 = Archive);;0
+suggestions;Liste des suggestions d'acquisitions;;num_produit;INT;0;0;;False;False;False;True;;;Identifiant produit;;
+suggestions;Liste des suggestions d'acquisitions;;num_entite;INT;0;0;;False;False;False;True;;;Identifiant entité;;
+suggestions;Liste des suggestions d'acquisitions;;index_suggestion;TEXT;0;0;;False;False;False;True;;;Index de la suggestion pour éffectuer une recherche;;
+suggestions;Liste des suggestions d'acquisitions;;nb;INT;0;0;;False;False;False;True;;;Nombre de suggestion;;1
+suggestions;Liste des suggestions d'acquisitions;;date_creation;DATE;0;0;;False;False;False;True;;;Date de création de la suggestion;;0000-00-00
+suggestions;Liste des suggestions d'acquisitions;;date_decision;DATE;0;0;;False;False;False;True;;;Date de décision;;0000-00-00
+suggestions;Liste des suggestions d'acquisitions;;num_rubrique;INT;0;0;;False;False;False;True;;;Identifiant de la rubrique (Prévu pour une liaison future);;
+suggestions;Liste des suggestions d'acquisitions;;num_fournisseur;INT;0;0;;False;False;False;True;;;Identifiant du fournisseur (Prévu pour une liaison future);;
+suggestions;Liste des suggestions d'acquisitions;;url_suggestion;VARCHAR(255);255;0;;False;False;False;True;;;URL de la suggestion;;
+suggestions_origine;Liste des suggestions d'origine;;origine;VARCHAR(100);100;0;;True;False;False;True;;;origine de la suggestion;;
+suggestions_origine;Liste des suggestions d'origine;;num_suggestion;INT;0;0;;True;True;False;True;suggestions;id_suggestion;Identifiant de suggestion;;
+suggestions_origine;Liste des suggestions d'origine;;type_origine;INT;0;0;;False;False;False;True;;;Type d'origine de la suggestion;;0
+suggestions_origine;Liste des suggestions d'origine;;date_suggestion;DATE;0;0;;False;False;False;True;;;Date de suggestion;;0000-00-00
+tags;Marquage d'un notice par un utilisateur;;id_tag;INT;0;0;;True;False;False;True;;;Identifiant du tags;;
+tags;Marquage d'un notice par un utilisateur;;libelle;VARCHAR(200);200;0;;False;False;False;True;;;Libelle du tags;;
+tags;Marquage d'un notice par un utilisateur;;num_notice;INT;0;0;;False;True;False;True;notices;notice_id;Identifiant de la notice;;
+tags;Marquage d'un notice par un utilisateur;;user_code;INT;0;0;;False;True;False;True;empr;id_empr;Identifiant de l'utilisateur;;
+tags;Marquage d'un notice par un utilisateur;;dateajout;TIMESTAMP;0;0;;False;False;False;False;;;Date de l'ajout du tags;;CURRENT_TIMESTAMP
+thesaurus;Tables des thésaurus (catégorie);;id_thesaurus;INT;0;0;;True;False;False;True;;;Identifiant du thésaurus;;
+thesaurus;Tables des thésaurus (catégorie);;libelle_thesaurus;VARCHAR(255);255;0;;False;False;False;True;;;Libellé du thésaurus;;
+thesaurus;Tables des thésaurus (catégorie);;langue_defaut;VARCHAR(5);5;0;;False;False;False;True;;;Langue du thésaurus;;'fr_FR'
+thesaurus;Tables des thésaurus (catégorie);;active;CHAR(1);1;0;;False;False;False;True;;;Thésaurus actif ou non ( non actif = non cherchable );;'1'
+thesaurus;Tables des thésaurus (catégorie);;opac_active;CHAR(1);1;0;;False;False;False;True;;;Visible ou non dans l'OPAC;;'1'
+thesaurus;Tables des thésaurus (catégorie);;num_noeud_racine;INT;0;0;;False;True;False;False;noeuds;id_noeud;Identifiant du noeud racine;;
+transactions;Enregistre les transactions des comptes;;id_transaction;INT;0;0;;True;False;False;True;;;Identifiant de la transaction;;
+transactions;Enregistre les transactions des comptes;;compte_id;INT;0;0;;False;True;False;True;comptes;id_compte;Identifiant du compte;;
+transactions;Enregistre les transactions des comptes;;user_id;INT;0;0;;False;False;False;True;;;Identifiant de l'utilisateur;;0
+transactions;Enregistre les transactions des comptes;;user_name;VARCHAR(255);255;0;;False;False;False;True;;;Nom de l'utilisateur;;
+transactions;Enregistre les transactions des comptes;;machine;VARCHAR(255);255;0;;False;False;False;True;;;Nom de la machine;;
+transactions;Enregistre les transactions des comptes;;date_enrgt;DATETIME;0;0;;False;False;False;True;;;Date d'enregistrement;;0000-00-00 00:00:00
+transactions;Enregistre les transactions des comptes;;date_prevue;DATE;0;0;;False;False;False;False;;;Date prevue de la transaction;;
+transactions;Enregistre les transactions des comptes;;date_effective;DATE;0;0;;False;False;False;False;;;Date effective de la transaction;;
+transactions;Enregistre les transactions des comptes;;montant;DECIMAL(16,2);16;2;;False;False;False;True;;;Montant de la transaction ;;0.00
+transactions;Enregistre les transactions des comptes;;sens;INT;0;0;;False;False;False;True;;;Débit = -1 ou crédit = + 1;;0
+transactions;Enregistre les transactions des comptes;;realisee;INT;0;0;;False;False;False;True;;;Transactions réalisée;;0
+transactions;Enregistre les transactions des comptes;;commentaire;TEXT;0;0;;False;False;False;False;;;Commentaires de la transaction;;
+transactions;Enregistre les transactions des comptes;;encaissement;INT;0;0;;False;False;False;True;;;Transaction encaissée ou non;;0
+tva_achats;Tables de numéros de compte TVA achats;;id_tva;INT;0;0;;True;False;False;True;;;Identifiant de TVA;;
+tva_achats;Tables de numéros de compte TVA achats;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé du copte TVA Achats ;;
+tva_achats;Tables de numéros de compte TVA achats;;taux_tva;FLOAT;0;0;;False;False;False;True;;;Taux de TVA Achats applicable;;0.00
+tva_achats;Tables de numéros de compte TVA achats;;num_cp_compta;VARCHAR(25);25;0;;False;False;False;True;;;Numéro de compte comptable associé;;'0'
+type_abts;Type d'abonnement de l'emprunteur;;id_type_abt;INT;0;0;;True;False;False;True;;;Identifiant du type d'abonnement;;
+type_abts;Type d'abonnement de l'emprunteur;;type_abt_libelle;VARCHAR(255);255;0;;False;False;False;False;;;Libellé du type d'abonnement;;
+type_abts;Type d'abonnement de l'emprunteur;;prepay;INT;0;0;;False;False;False;True;;;Prépaiement autorisé ( oui = 1 , non = 0  );;0
+type_abts;Type d'abonnement de l'emprunteur;;prepay_deflt_mnt;DECIMAL(16,2);16;2;;False;False;False;True;;;Montant par défaut du prépaiement;;0.00
+type_abts;Type d'abonnement de l'emprunteur;;tarif;DECIMAL(16,2);16;2;;False;False;False;True;;;tarif de l'abonnement;;0.00
+type_abts;Type d'abonnement de l'emprunteur;;commentaire;TEXT;0;0;;False;False;False;True;;;commentaire;;
+type_abts;Type d'abonnement de l'emprunteur;;caution;DECIMAL(16,2);16;2;;False;False;False;True;;;Caution versée;;0.00
+type_abts;Type d'abonnement de l'emprunteur;;localisations;VARCHAR(255);255;0;;False;False;False;True;;;Localisations;;
+type_comptes;Type de compte ;;id_type_compte;INT;0;0;;True;False;False;True;;;Identifiant du type de compte;;
+type_comptes;Type de compte ;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé du type de compte;;
+type_comptes;Type de compte ;;type_acces;INT;0;0;;False;False;False;True;;;Type de l'acces;;0
+type_comptes;Type de compte ;;acces_id;TEXT;0;0;;False;False;False;True;;;Identifiant de l'acces;;
+types_produits;Types de produits fournis;;id_produit;INT;0;0;;True;False;False;True;;;Identifiant de type de produit;;
+types_produits;Types de produits fournis;;libelle;VARCHAR(255);255;0;;False;False;False;True;;;Libellé de produit (Indexé) ;;
+types_produits;Types de produits fournis;;num_cp_compta;VARCHAR(25);25;0;;False;False;False;True;;;Identifiant du numéro du compte compta;;'0'
+types_produits;Types de produits fournis;;num_tva_achat;VARCHAR(25);25;0;;False;False;False;False;;;Identifiant du numéro deTVA achats associée au produit;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;userid;INT;0;0;;True;False;False;True;;;Identifiant utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;create_dt;DATE;0;0;;False;False;False;True;;;Date de création;;0000-00-00
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;last_updated_dt;DATE;0;0;;False;False;False;True;;;Dernière mise à jour;;0000-00-00
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;username;VARCHAR(20);20;0;;False;False;False;True;;;Identifiant de l'utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;pwd;VARCHAR(50);50;0;;False;False;False;True;;;Mot de passe de l'utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;nom;VARCHAR(30);30;0;;False;False;False;True;;;Nom de l'utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;prenom;VARCHAR(30);30;0;;False;False;False;False;;;Prénom de l'utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;rights;INT;0;0;;False;False;False;True;;;Droits de l'utilisateur;;0
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;user_lang;VARCHAR(5);5;0;;False;False;False;True;;;Langage par défaut de l'utilisateur;;'fr_FR'
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;nb_per_page_search;INT;0;0;;False;False;False;True;;;Affichage du nombre d'enregistrements par page de recherche;;4
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;nb_per_page_select;INT;0;0;;False;False;False;True;;;Affichage du nombre d'enregistrements par page en sélection d'autorités;;10
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;nb_per_page_gestion;INT;0;0;;False;False;False;True;;;Affichage du nombre d'enregistrements par page en gestion d'autorités;;20
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;param_popup_ticket;SMALLINT;0;0;;False;False;False;True;;;Impression du ticket de prêt automatique;;0
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;param_sounds;SMALLINT;0;0;;False;False;False;True;;;Jouer les sons ( oui = 1, non = 0 );;1
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;param_licence;INT;0;0;;False;False;False;True;;;Affichage ou non de la licence à la connexion;;0
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_notice_statut;INT;0;0;;False;True;False;False;notice_statut;id_notice_statut;notice de statut par default;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_docs_type;INT;0;0;;False;True;False;False;docs_type;idtyp_doc;Type de document par défaut de l'utilisateur lors de la création de documents;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_lenders;INT;0;0;;False;True;False;False;lenders;idlender;Prêteur par défaut des exemplaires créés;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_styles;VARCHAR(20);20;0;;False;False;False;True;;;Style par défaut;;'default'
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_docs_statut;INT;0;0;;False;True;False;False;docs_statut;idstatut;Satut par défaut des exemplaires saisis;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_docs_codestat;INT;0;0;;False;True;False;False;docs_codestat;idcode;Code statistique par défaut des exemplaires saisis;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;value_deflt_lang;VARCHAR(20);20;0;;False;False;False;False;;;Langue par défaut lors de la création d'une notice;;'fre'
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;value_deflt_fonction;VARCHAR(20);20;0;;False;False;False;False;;;Fonction d'auteur par défaut lors de la création d'une notice;;'070'
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_docs_location;INT;0;0;;False;True;False;False;docs_location;idlocation;Localisation par défaut des exemplaires saisis;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_docs_section;INT;0;0;;False;True;False;False;docs_section;idsection;Section par défaut des exemplaires saisis;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;value_deflt_module;VARCHAR(30);30;0;;False;False;False;False;;;Onglet par défaut à la connexion ( circu, catal, admin, edit, dsi, acquis, autor);;'circu'
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;user_email;VARCHAR(255);255;0;;False;False;False;False;;;Le mail de l'utilisateur;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;user_alert_resamail;INT;0;0;;False;False;False;False;;;Utilisateur destinaitaire des mails de réservation (oui = 1, non  = 0);;0
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt2docs_location;INT;0;0;;False;True;False;False;docs_location;idlocation;un lecteur par défault;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;deflt_thesaurus;INT;0;0;;False;True;False;False;thesaurus;id_thesaurus;thesaurus par default;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;value_prefix_cote;TINYBLOB;0;0;;False;False;False;True;;;Préfixe de la cote lors de la création d'un exemplaire;;
+users;Liste des utilisateurs autorisés de PMB;Utilisateurs PMB;xmlta_doctype;CHAR(2);2;0;;False;False;False;True;;;Type de document par défaut lors de la création d'une notice ;;'a'
+voir_aussi;;;num_noeud_orig;INT;0;0;;True;True;False;True;noeuds;id_noeud;Identifiant du noeud d'origine;;
+voir_aussi;;;num_noeud_dest;INT;0;0;;True;True;False;True;noeuds;id_noeud;Identifiant du noeud de destination;;
+voir_aussi;;;langue;VARCHAR(5);5;0;;True;False;False;True;;;Langage;;
+voir_aussi;;;comment_voir_aussi;TEXT;0;0;;False;False;False;True;;;Commentaire voir_aussi;;
+z_attr;Attributs de recherche applicables aux différents serveurs Z39501;z_attr;attr_bib_id;INT;0;0;;True;True;False;True;z_bib;bib_id;Serveur Z3950 concerné;;
+z_attr;Attributs de recherche applicables aux différents serveurs Z39501;z_attr;attr_libelle;VARCHAR(250);250;0;;True;False;False;True;;;Libellé de l'attribut;;
+z_attr;Attributs de recherche applicables aux différents serveurs Z39501;z_attr;attr_attr;VARCHAR(250);250;0;;False;False;False;False;;;Code protocole du libellé;;
+z_bib;Liste des serveurs Z3950 ;z_lib;bib_id;INT;0;0;;True;False;False;True;;;Identifiant du serveur;;
+z_bib;Liste des serveurs Z3950 ;z_lib;bib_nom;VARCHAR(250);250;0;;False;False;False;False;;;Nom du serveur;;
+z_bib;Liste des serveurs Z3950 ;z_lib;search_type;VARCHAR(20);20;0;;False;False;False;False;;;Type de recherche (actuellement fixé à catalogue);;
+z_bib;Liste des serveurs Z3950 ;z_lib;url;VARCHAR(250);250;0;;False;False;False;False;;;Adresse du serveur Z3950;;
+z_bib;Liste des serveurs Z3950 ;z_lib;port;VARCHAR(6);6;0;;False;False;False;False;;;N° de port TCP/IP du service;;
+z_bib;Liste des serveurs Z3950 ;z_lib;base;VARCHAR(250);250;0;;False;False;False;False;;;Nom de la base;;
+z_bib;Liste des serveurs Z3950 ;z_lib;format;VARCHAR(250);250;0;;False;False;False;False;;;Format des notices retournées : UNIMARC ou USMARC;;
+z_bib;Liste des serveurs Z3950 ;z_lib;auth_user;VARCHAR(250);250;0;;False;False;False;True;;;Authentification : utilisateur;;
+z_bib;Liste des serveurs Z3950 ;z_lib;auth_pass;VARCHAR(250);250;0;;False;False;False;True;;;Authentification : mot de passe;;
+z_bib;Liste des serveurs Z3950 ;z_lib;sutrs_lang;VARCHAR(10);10;0;;False;False;False;True;;;Langue sutrs;;
+z_bib;Liste des serveurs Z3950 ;z_lib;fichier_func;VARCHAR(255);255;0;;False;False;False;True;;;Fonctions d'import personnalisées lors de l'intégration;;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;z_notices_id;INT;0;0;;True;False;False;True;;;Identifiant notice;;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;znotices_query_id;INT;0;0;;False;True;False;True;z_query;zquery_id;Requête associée à la notice;;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;znotices_bib_id;INT;0;0;;False;True;False;True;z_bib;bib_id;Serveur associé à la notice;;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;isbd;TEXT;0;0;;False;False;False;False;;;ISBD de la notice (extrait de z_marc);;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;isbn;VARCHAR(250);250;0;;False;False;False;False;;;ISBN de la notice (extrait de z_marc);;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;titre;VARCHAR(250);250;0;;False;False;False;False;;;Titre (extrait de z_marc);;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;auteur;VARCHAR(250);250;0;;False;False;False;False;;;Auteur (extrait de z_marc);;
+z_notices;Notices récupérées aprés une requete sur les serveurs Z3950;z_notices;z_marc;LONGBLOB;0;0;;False;False;False;True;;;Notice au format MARC (UNIMARC ou USMARC, voir format de z_bib);;
+z_query;Requêtes pour les serveurs Z39500;z_query;zquery_id;INT;0;0;;True;False;False;True;;;Identifiant de la requête;;
+z_query;Requêtes pour les serveurs Z39500;z_query;search_attr;VARCHAR(255);255;0;;False;False;False;False;;;Chaine des attributs passés au serveur;;
+z_query;Requêtes pour les serveurs Z39500;z_query;zquery_date;TIMESTAMP;0;0;;False;False;False;False;;;Date de soumission de la requête pour supression après 48 heures;;CURRENT_TIMESTAMP
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_champ;INT;0;0;;False;True;False;False;expl_custom;idchamp;Numéro du champ associé à la valeur;;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_origine;INT;0;0;;False;True;False;False;exemplaires;expl_id;Numéro de l'exemplaire associé à la valeur;;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_small_text;VARCHAR(255);255;0;;False;False;False;False;;;Valeur de type de données 'small_text' (texte);;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_text;TEXT;0;0;;False;False;False;False;;;Valeur de type de données 'text' (Texte large);;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_integer;INT;0;0;;False;False;False;False;;;Valeur de type de données 'integer' (entier);;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_date;DATE;0;0;;False;False;False;False;;;Valeur de type de données 'date' (Date);;
+expl_custom_values;Valeurs saisies dans les champs personalisés pour chaque exemplaires;Valeurs des champs personalisés;expl_custom_float;FLOAT;0;0;;False;False;False;False;;;Valeur de type de données 'float' (Nombre à virgule);;
+entites_tva_achats;;;id_tva;INT;0;0;;True;True;False;True;tva_achats;id_tva;;;
+entites_tva_achats;;;id_entite;INT;0;0;;True;True;False;True;entites;id_entite;;;
+entites_types_produits;;;id_produit;INT;0;0;;True;True;False;True;types_produits;id_produit;;;
+entites_types_produits;;;id_entite;INT;0;0;;True;True;False;True;entites;id_entite;;;
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;id_resa;INT;0;0;;True;False;False;True;;;Identifiant planning de réservation;;
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_idempr;INT;0;0;;False;True;False;False;empr;id_empr;Identifiant emprunteur;;
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_idnotice;MEDIUMINT;0;0;;False;False;False;True;;;Identifiant notice;;0
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_date;DATETIME;0;0;;False;False;False;False;;;;;
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_date_debut;DATETIME;0;0;;False;False;False;True;;;Date de début de réservation;;0000-00-00
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_date_fin;DATETIME;0;0;;False;False;False;True;;;Date de fin de réservation;;0000-00-00
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_validee;INT;0;0;;False;False;False;True;;;Réservation validée;;0
+resa_planning;Permet la réservation à l'avance d'un ensemble de documents ( exemple : exposition ...);;resa_confirmee;INT;0;0;;False;False;False;True;;;Réservation confirmée;;0

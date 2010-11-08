@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
+
+<!-- 
+PMB
+table des langues supportées
+PMB est sous licence GPL, la réutilisation du code est cadrée
+modified: Armelle Nedelec - Ajout Français unicode
+$Id: languages.xml,v 1.1 2006-11-15 08:50:25 vvilaythong Exp $
+-->
+
+<XMLlist>
+	<entry code="fr_FR">français</entry>
+	<entry code="es_ES">español</entry>
+	<entry code="en_US">english (US)</entry>
+	<entry code="en_UK">english (UK)</entry>
+	<entry code="it_IT">italiano</entry>
+	<entry code="oc_FR">occitan</entry>
+	<entry code="nl_NL">neerlandais (NL)</entry>
+	<entry code="ca_ES">Català</entry> 
+	<entry code="br_FR">breton</entry>
+	<entry code="la_LA">ລາວ</entry>
+</XMLlist>

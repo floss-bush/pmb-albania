@@ -1,0 +1,29 @@
+<h1>Imports' Administration</h1>
+<p>Here you can manage volumes or items imports.</p>
+<p>The precedure use the following steps : 
+<ul>
+	<li> Definition of the parameters of importation :<br />
+		Concerning volumes :
+		<ul>
+		<li>ISBN mandatory</li>
+		<li>split on ISBN (if so, existing volumes will not be created)</li>
+		<li>volumes updates (on same ISBN)</li>
+		<li>Ignorer les ISSN (pour les p&eacute;riodiques) </li>
+		<li>Statut de notices (afin d'identifier finement les notices import&eacute;es)</li>
+		</ul>
+		Concerning items :
+		<ul>
+		<li>lender (ex : departemental library)</li>
+		<li>item status (ex : "importing")</li>
+		<li>item's location</li>
+		<li>Code mandatory</li>
+		<li>Correspondance between 995 conding and you funds for materials, statisticl codes and sections</li>
+		</ul>
+	</li>
+	<li>file uploading,</li>
+	<li>Import volumes or items,</li>
+	<li>concerning items, checking of imports for correspondance between the import and the book received.</li>
+	</ul>
+	</p>
+<p>This last checking is fast and can be carried out by scanning barcode</p>
+

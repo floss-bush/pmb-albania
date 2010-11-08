@@ -1,0 +1,15 @@
+<h1>Tools</h1>
+<p>You'll find here the following options. </p>
+<p>
+<b>Database cleanup</b> to clean the database ex : delete volumes without items, etc.
+</p><p>
+<b>stored procedures</b> Store you personnal statistic that can be used in Edition management or update queries .
+</p><p>
+<b>database update</b> Very important option. it ensures the update of the database structure when you update PMB files with a new version. No data is lost in this process.
+</p><p>
+<b>Table description</b>.
+</p><p>
+<b>MySQL maintenance</b>, maintenance of the database. Check in particular database integrity.
+</p><p>
+<b>Parameters</b> to personalize PMB, by example location of the library, or activation of the weather forecast on the public access.
+

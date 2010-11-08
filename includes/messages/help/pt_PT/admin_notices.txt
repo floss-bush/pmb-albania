@@ -1,0 +1,11 @@
+<h1>Administra&ccedil;&atilde;o dos registos</h1>
+
+<p>A sec&ccedil;&atilde;o <b>administra&ccedil;&atilde;o dos registos</b> permite definir os par&acirc;metros da aplica&ccedil;&atilde;o para 
+os 
+registos.
+<ul>
+<li><b>origens</b> permite definir as origens dos registos, a fim de distinguir 
+os direitos de redifus&atilde;o</li>
+<li><b>personaliz&aacute;vel</b> campos personaliz&aacute;veis dos registos</li>
+</ul></p>
+

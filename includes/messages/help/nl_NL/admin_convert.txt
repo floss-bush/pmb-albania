@@ -1,0 +1,5 @@
+<h1>Converteren/Exporteren</h1>
+<p>Op deze pagina kunnen verschillende formaten van beschrijvingen of exemplaren geconverteerd worden naar andere formaten. Ook kun je hier de databank van PMB exporteren naar beschrijvingen.</p>
+<p>De conversie kan gebeuren op basis van een bestand in UNIMARC, USMARC, BCDI of XML PMB naar een ander formaat UNIMARC of XML PMB. Als het doelformaat UNIMARC is, kunnen de gegevens vervolgens geïmporteerd worden in PMB. Het resultaat van de conversie kan ook steeds gedownload worden. Opgelet, het is altijd mogelijk dat er bij het omzetten van een formaat naar een ander gegevens verloren gaan.</p>
+<p>De export van de databank van PMB gebeurt onder de vorm van beschrijvingen met inbegrip van de exemplaren volgens aanbeveling 995 van het ADBDP. Het resultaat kan dan omgezet worden naar UNIMARC of XML PMB.</p>
+

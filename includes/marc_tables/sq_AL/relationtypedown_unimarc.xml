@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes et libellés type de relation parent>enfants 
+$Id: relationtypedown_unimarc.xml,v 1.1 2009/05/04 15:09:04 kantin Exp $ -->
+
+<XMLlist>
+	<!-- artikull periodiku, ekstrak i nje libri (pjese analitike te pa ndashme fizikisht)-->
+	<entry code="a">464</entry>
+
+	<!-- buletini i nje periodiku -->
+	<entry code="b">462</entry>
+
+	<!-- ben pjese ne nje seri, enciklopedi -->
+	<entry code="c">462</entry>
+
+	<!-- ben pjese ne nje kuti (pjese analatike te vera fizikisht bashke)-->
+	<entry code="d">462</entry>
+	
+	<entry code="e">421</entry>
+	<entry code="f">440</entry>
+	<entry code="g">430</entry>
+	<entry code="h">454</entry>
+	<entry code="i">453</entry>
+	<entry code="j">423</entry>
+</XMLlist>

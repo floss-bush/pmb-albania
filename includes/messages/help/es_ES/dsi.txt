@@ -1,0 +1,14 @@
+<h1>M&oacute;dulo de Difusi&oacute;n Selectiva de la Informaci&oacute;n</h1>
+<p>La difusión selectiva de la informaci&oacute;n es un servicio que consiste en hacer llegar a los usuarios, regularmente, los resultados 
+de un perfil de b&uacute;squeda personalizada.</p>
+
+<h2>Difusi&oacute;n</h2>
+Permite realizar los env&iacute;os de correos electr&oacute;nicos a los usuarios<br />
+<h2>Cestas</h2>
+Las cestas son es donde se archivan los registros o todo aquello que se quiera enviar.<br />
+<h2>Ecuaciones</h2>
+Les ecuaciones permiten llenar las cestas.<br />
+<h2>Clases</h2>
+Las clases permiten organizar las cestas y las ecuaciones.<br />
+
+ 

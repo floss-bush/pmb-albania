@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: profil.xml,v 1.2 2008-08-26 19:30:23 touraine37 Exp $ -->
+
+<profiles>
+	<profile name="very_simple" comment="msg:z3950_very_simple">
+		<ufields>
+			<ufield name="dt" ids="1031"/>
+			<ufield name="200$a" ids="4"/>
+			<ufield name="461$t" ids="5"/>
+			<ufield name="7XX" ids="1003"/>
+			<ufield name="010$a" ids="7,8,1214"/>
+			<ufield name="210$c" ids="1018"/>
+			<ufield name="225$a410$t" ids="5"/>
+			<ufield name="60X" ids="21"/>
+			<ufield name="610" ids="21"/>
+			<ufield name="101$a" ids="54"/>
+			<ufield name="empty" ids="4,5,1003,7,8,1214,1018,21"/>
+			<ufield name="XXX" ids="4,5,1003,7,8,1214,1018,21"/>
+		</ufields>
+		<operators/>
+	</profile>
+	<profile name="simple" comment="msg:z3950_simple">
+		<ufields>
+			<ufield name="dt" ids="1031"/>
+			<ufield name="bl" ids="1021"/>
+			<ufield name="dc" ids="30"/>
+			<ufield name="200$a" ids="4"/>
+			<ufield name="461$t" ids="5"/>
+			<ufield name="7XX" ids="1003"/>
+			<ufield name="010$a" ids="7,8,1214"/>
+			<ufield name="210$c" ids="1018,1020"/>
+			<ufield name="225$a410$t" ids="5"/>
+			<ufield name="60X" ids="21"/>
+			<ufield name="610" ids="21"/>
+			<ufield name="300" ids="63"/>
+			<ufield name="327" ids="62"/>
+			<ufield name="330" ids="62,63"/>
+			<ufield name="3XX" ids="62,63"/>
+			<ufield name="101$a" ids="54"/>
+			<ufield name="empty" ids="1016"/>
+			<ufield name="XXX" ids="1016"/>
+		</ufields>
+		<operators>
+			<operator name="BOOLEAN" types="2=3,4=2"/>
+			<operator name="LT" types="2=1"/>
+			<operator name="LTEG" types="2=2"/>
+			<operator name="EQ" types="2=3"/>
+			<operator name="GTEQ" types="2=4"/>
+			<operator name="GT" types="2=5"/>
+			<operator name="EXACT" types="2=3,4=1"/>
+			<operator name="STARTWITH" types="2=3,4=1"/>
+		</operators>
+	</profile>
+	<profile name="complete" comment="msg:z3950_complete">
+		<ufields>
+			<ufield name="dt" ids="1001,1031"/>
+			<ufield name="bl" ids="1021"/>
+			<ufield name="dc" ids="30"/>
+			<ufield name="200$a" ids="4,327"/>
+			<ufield name="461$t" ids="5"/>
+			<ufield name="7XX" ids="1003"/>
+			<ufield name="010$a" ids="7,8,51,60,1214"/>
+			<ufield name="210$c" ids="1018,1020"/>
+			<ufield name="210$d" ids="31"/>
+			<ufield name="225$a410$t" ids="5"/>
+			<ufield name="60X" ids="21,22,23,24,25,26,27,28,29,1008,1009"/>
+			<ufield name="676$a686$a" ids="13,14,15,20"/>
+			<ufield name="610" ids="21,22,23,24,25,26,27,28,29,1008,1009"/>
+			<ufield name="300" ids="63"/>
+			<ufield name="327" ids="62"/>
+			<ufield name="330" ids="62,63"/>
+			<ufield name="3XX" ids="62,63"/>
+			<ufield name="101$a" ids="54"/>
+			<ufield name="empty" ids="1016"/>
+			<ufield name="XXX" ids="1016"/>
+		</ufields>
+		<operators>
+			<operator name="BOOLEAN" types="2=102,4=105,5=101"/>
+			<operator name="LT" types="2=1,4=1,5=101"/>
+			<operator name="LTEG" types="2=2,4=1,5=101"/>
+			<operator name="EQ" types="2=3,4=1,5=101"/>
+			<operator name="GTEQ" types="2=4,4=1,5=101"/>
+			<operator name="GT" types="2=5,4=1,5=101"/>
+			<operator name="EXACT" types="2=3,4=1,5=101"/>
+			<operator name="STARTWITH" types="2=3,4=108,5=1"/>
+			<operator name="ENDWITH" types="2=3,4=108,5=2"/>
+			<operator name="ISEMPTY" types="2=6,4=1,5=101" string="#"/>
+			<operator name="ISNOTEMPTY" types="2=103,4=1,5=100"/>
+		</operators>
+	</profile>
+</profiles>

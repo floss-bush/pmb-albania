@@ -1,0 +1,15 @@
+<h1>Outils</h1>
+<p>Vous trouverez ici diff&eacute;rentes options. </p>
+<p>
+<b>Nettoyage de la base</b> permet de faire du m&eacute;nage dans les bases de donn&eacute;es : supprimer les notices sans exemplaires, etc.
+</p><p>
+<b>Actions personnalisables</b> concerne les statistiques personnalis&eacute;es visibles dans l'onglet &eacute;ditions ou bien des requ&ecirc;tes de mise &agrave; jour ex&eacute;cut&eacute;es p&eacute;riodiquement qui pourraient &ecirc;tre stock&eacute;es ici.
+</p><p>
+<b>MAJ de la base</b> option tr&egrave;s importante. Elle assure la mise &agrave; jour de la structure de la base lorsque vous avez mis &agrave; jour les fichiers de PMB en t&eacute;l&eacute;chargeant une nouvelle version. Aucune donn&eacute;e n'est perdue dans ce processus.
+</p><p>
+<b>Description des tables</b>, comme son nom l'indique.
+</p><p>
+<b>Maintenance MySQL</b>, fonctions de maintenance de la base. Permet de v&eacute;rifier son int&eacute;grit&eacute;, notamment.
+</p><p>
+<b>Param&egrave;tres</b> g&egrave;re les aspects de personnalisation de l'application, par exemple le lieu de la biblioth&egrave;que, ou l'activation de la m&eacute;t&eacute;o sur l'opac.
+

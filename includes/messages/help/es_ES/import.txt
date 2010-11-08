@@ -1,0 +1,20 @@
+<br />
+<b>CUIDADO, esta herramienta sirve para crear los registros y las autoridades. 
+<br />Esta herramienta no sirve para actualizar un registro ya existente.</b>
+<br /><br />
+
+El archivo debe estar en formato UNIMARC<br />
+<ul>
+<li>La importaci&oacute;n se realiza en tres fases :
+<OL>
+<LI>Primero se env&iacute;a el archivo</LI>
+<LI>Luego se carga </LI>
+<LI>Finalmente se transfieren los registros a la base de datos</LI>
+</OL></li>
+<br /><li>Puedes enviar el archivo por el m&eacute;todo que m&aacute;s te convenga (FTP por ejemplo). En este caso 
+el nombre del archivo debe ser "<?php echo $nom_fichier_transfert_ftp; ?>" y hay que utilizar directamente 
+la <a href="iimport_expl.php?categ=import&sub=import&action=preload">carga</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import&action=beforeupload">Enviar el archivo</a>
+			
+

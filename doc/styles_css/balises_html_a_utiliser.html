@@ -1,0 +1,123 @@
+<!-- Structure du fichier HTML à afficher :-->
+
+<html>
+<head>
+<title>devel/newlook/index.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<!-- La feuille de style, dont le chemin est relatif -->
+<link rel='stylesheet' type='text/css' href='../../styles/default/layout.css' />  
+
+</head>
+
+<body>
+
+<!--	#################################################################     -->
+<!--	#                                                               #     -->
+<!--	#         début du conteneur                                    #     -->
+<!--	#         ------------------                                    #     -->
+<!--	#                                                               #     -->
+<!--	#         Le conteneur contient l'ensemble des éléments         #     -->
+<!--	#         non fixes de la page                                  #     -->
+<!--	#         - contenu (partie droite de la page)                  #     -->
+<!--	#         - menu (partie gauche de la page)                     #     -->
+<!--	#                                                               #     -->
+<!--	#################################################################     -->
+
+<!--	conteneur	-->
+<div id="conteneur">
+<!-- image_recherche : illustration découpée, pour faire beau, prévoir une par formulaires
+     principaux. Signaler à GM pour la création des images.
+     le span /span doit être vide. Ainsi pas d'affichage en text-only et en no-style.
+     -->
+
+<div id="contenu">
+<!--	form	-->
+<!--	le formulaire est précédé de son titre, toujours en H1, pas d'infos entre le titre du formulaire et le form -->
+<!--    si besoin était, inclure ces infos dans le form -->
+<h1>Recherche</h1>
+<form onsubmit="return test_form(this)" action="balises_html_a_utiliser.html" method="post" name="NOTICE_author_query">
+
+<!--	une div class='row' pour chaque élément du formulaire -->
+
+	<div class="row">
+		<label for="title_query">Titre</label>
+		<input id="title_query" name="title_query" size="36" value="" type="text" class="saisie">
+	</div>
+			
+	
+	<div class="row">
+		<input value="Recherche" class="bouton" type="submit">
+	</div>
+</form>
+<!--	/form	-->
+</div>
+
+
+<!--	/contenu	-->
+
+<hr />
+
+<!--	menu	-->
+ <div id="menu">
+		<h3>Menu</h3>
+	<ul>
+
+		<li><a href="#">ss-menu 1</a></li>
+		<li><a href="#">ss-menu 2</a></li>
+		<li><a href="#">ss-menu 3</a></li>
+		<li><a href="#">ss-menu 4</a></li>
+		<li><a href="#">ss-menu 5</a></li>
+	</ul>
+
+</div>
+<!--	/menu	-->
+<div id="image_recherche"><span></span></div>
+<!--	contenu	-->
+</div>
+<!--	#################################################################     -->
+<!--	#                                                               #     -->
+<!--	#         fin du conteneur                                      #     -->
+<!--	#                                                               #     -->
+<!--	#################################################################     -->
+
+<hr />
+
+<!--	#################################################################     -->
+<!--	#                                                               #     -->
+<!--	#         début des éléments fixes dans la page                 #     -->
+<!--	#                                                               #     -->
+<!--	#################################################################     -->
+
+
+<!--	BARRE DE NAVIGATION -->
+<!--    avec une des puces marquées comme "current", les autres n'ont pas d'importance pour le style 
+-->
+<div id="navbar">
+  <ul>
+    <li id="nav-1"><a href="#">nav1</a></li>
+    <li id="current"><a href="#">nav2</a></li>
+    <li id="nav-2"><a href="#">nav3</a></li>
+    <li id="nav-3"><a href="#">nav4</a></li>
+    <li id="nav-4"><a href="#">nav5</a></li>
+  </ul>
+</div>
+<!--	-->
+<hr />
+
+<!--	footer	et logo -->
+<div id="footer">
+	<span><a href="">PMB build 2003-11-10 &copy; 2002-3 PMB Group</a></span>
+</div>
+<div id="logo">
+	<span><img src="books_small.gif" title="Gestion - PMB" /></span>
+</div>
+
+<!--	#################################################################     -->
+<!--	#                                                               #     -->
+<!--	#         fin   des éléments fixes dans la page                 #     -->
+<!--	#                                                               #     -->
+<!--	#################################################################     -->
+
+
+</body></html>

@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.9 2010-07-29 12:53:11 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesOPACGeneric</name>
+	<description>msg:pmbesOPACGeneric_description</description>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="shelf" imported="true" imported_from="pmbesTypes"/>
+		<type name="location" imported="true" imported_from="pmbesTypes"/>
+		<type name="section" imported="true" imported_from="pmbesTypes"/>
+		<type name="location_and_sections" imported="true" imported_from="pmbesTypes"/>
+		<type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes"/>
+	</types>
+	<methods>
+		<method name="list_shelves" rights="" version="1.0" comment="msg:list_shelves_description" language_independant="true">
+			<inputs>
+				<description>msg:list_shelves_input_description</description>
+				<param name="OPACUserId" type="scalar" dataType="integer"
+					description="msg:list_shelves_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_shelves_output_description</description>
+				<result name="shelves" type="array" description="msg:list_shelves_shelves">
+					<result name="a_shelf" type="scalar" dataType="shelf"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="retrieve_shelf_content" rights="" version="1.0" comment="msg:retrieve_shelf_content_description" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:retrieve_shelf_content_input_description</description>
+				<param name="shelf_id" type="scalar" dataType="integer"
+					description="msg:retrieve_shelf_content_shelf_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer"
+					description="msg:retrieve_shelf_content_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:retrieve_shelf_content_output_description</description>
+				<result name="shelf_content" type="array"
+					description="msg:retrieve_shelf_content_shelf_content">
+					<result name="notice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_locations" comment="msg:list_locations_description" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<description>msg:list_locations_input_description</description>
+			</inputs>
+			<outputs>
+				<description>msg:list_locations_output_description</description>
+				<result name="locations" type="array" description="msg:list_locations_locations">
+					<result name="alocation" type="scalar" dataType="location"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_location_information" rights="" version="1.0" comment="msg:get_location_information_description" language_independant="true">
+			<inputs>
+				<description>msg:get_location_information_input_description</description>
+				<param name="location_id" type="scalar" dataType="integer" description="msg:get_location_information_location_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_location_information_output_description</description>
+				<result name="location" type="scalar" dataType="location" description="msg:get_location_information_location"/>
+			</outputs>
+		</method>
+		<method name="get_location_information_and_sections" rights="" version="1.0" comment="msg:get_location_information_and_sections_description" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACGeneric" name="get_location_information" version="1.0"/>
+		  		<requirement group="pmbesOPACGeneric" name="list_sections" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_location_information_and_sections_input_description</description>
+				<param name="location_id" type="scalar" dataType="integer" description="msg:get_location_information_and_sections_location_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_location_information_and_sections_output_description</description>
+				<result name="result" type="scalar" dataType="location_and_sections"/>
+			</outputs>
+		</method>
+		<method name="list_sections" rights="" version="1.0" comment="msg:list_sections_description" language_independant="true">
+			<inputs>
+				<description>msg:list_sections_input_description</description>
+				<param name="location" type="scalar" dataType="integer" description="msg:list_sections_location"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_sections_output_description</description>
+				<result name="sections" type="array" description="msg:list_sections_sections">
+					<result name="asection" type="scalar" dataType="section"/>
+				</result>
+			</outputs>
+	    </method>
+		<method name="get_section_information" rights="" version="1.0" comment="msg:get_section_information_description" language_independant="true">
+			<inputs>
+				<description>msg:get_section_information_input_description</description>
+				<param name="section_id" type="scalar" dataType="integer" description="msg:get_section_information_section_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_section_information_output_description</description>
+				<result name="section" type="scalar" dataType="section" description="msg:get_section_information_section"/>
+			</outputs>
+	    </method>
+		<method name="get_all_locations_and_sections" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACGeneric" name="get_location_information" version="1.0"/>
+		  		<requirement group="pmbesOPACGeneric" name="list_sections" version="1.0"/>
+			</requirements>
+			<inputs/>
+			<outputs>
+				<result name="locations" type="array">
+					<result name="alocation" type="scalar" dataType="location_and_sections"/>
+				</result>
+			</outputs>
+		</method>
+ 		<method name="is_also_borrowed_enabled" rights="" version="1.0"
+              comment="msg:is_also_borrowed_enabled_description" language_independant="true">
+			      <inputs>
+				        <description>msg:is_also_borrowed_enabled_input_description</description>
+				
+			      </inputs>
+			      <outputs>
+				        <description>msg:is_also_borrowed_enabled_output_description</description>
+				        <result name="result" type="scalar" dataType="boolean"
+                    description="msg:is_also_borrowed_enabled_result"/>
+			      </outputs>
+		</method>
+		<method name="also_borrowed" comment="msg:also_borrowed_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+				<pmb_requirement start_path="class" file="author.class.php"/>
+				<pmb_requirement start_path="include" file="notice_authors.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:also_borrowed_input_description</description>
+				<param name="notice_id" type="scalar" dataType="integer" description="msg:also_borrowed_input_notice_id"/>
+				<param name="bulletin_id" type="scalar" dataType="integer" description="msg:also_borrowed_input_bulletin_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:also_borrowed_output_description</description>
+				<result name="notice_references" type="array" description="msg:also_borrowed_notice_reference">
+					<result name="notice_id" type="scalar" dataType="integer" description="msg:also_borrowed_notice_reference_notice_id"/>
+					<result name="notice_title" type="scalar" dataType="string" description="msg:also_borrowed_notice_reference_notice_title"/>
+					<result name="notice_author" type="scalar" dataType="string" description="msg:also_borrowed_notice_reference_notice_author"/>
+				</result>
+			</outputs>
+		</method>
+ 		<method name="get_infopage" rights="" version="1.0"
+              comment="" language_independant="true">
+			      <inputs>
+			      		<description></description>
+			      		<param name="infopage_id" type="scalar" dataType="integer" description=""/>
+			      		<param name="js_subst" type="scalar" dataType="string" description=""/>
+			      		<param name="encoding" type="scalar" dataType="string" description=""/>
+				  </inputs>
+			      <outputs>
+				        <description></description>
+				        <result name="result" type="scalar" dataType="string"
+                    description=""/>
+			      </outputs>
+		</method>
+ 		<method name="get_marc_table" rights="" version="1.0" comment="" language_independant="true">
+ 			<pmb_requirements>
+				<pmb_requirement start_path="class" file="marc_table.class.php"/>
+			</pmb_requirements>             
+			<inputs>
+				<description></description>
+				<param name="type" type="scalar" dataType="string" description=""/>
+			</inputs>
+			<outputs>
+				<description></description>
+				<result name="result" type="scalar" dataType="array" description=""/>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

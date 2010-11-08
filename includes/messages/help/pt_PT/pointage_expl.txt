@@ -1,0 +1,12 @@
+<br />
+<b>M&oacute;dulo de registo de exemplares recebidos... 
+</b>
+<br /><br />
+Poder&aacute; "registar" todos os exemplares recebidos de modo a fazer a mudan&ccedil;a do estado para os emprestados 
+restitu&iacute;dos.
+<br /><br />
+<OL>
+<LI>Seleccionar o estado e a sec&ccedil;&atilde;o aplic&aacute;vel</LI>
+<LI>Passar os documentos um por um pelo leitor </LI>
+</OL>
+<br /><br />

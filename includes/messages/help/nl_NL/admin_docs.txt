@@ -1,0 +1,13 @@
+<h1>Beheer van exemplaren</h1>
+
+<p>In <b>Beheer van exemplaren</b> kun je de instellingen voor ontlening en de statistieken van documenten definiëren.
+<ul>
+<li><b>documenttypes</b> bevat de verschillende dragers en geeft voor elke drager de duur van de ontlening in dagen aan.</li>
+<li><b>statistische codes</b> deze code wordt gebruikt voor het maken van statistieken over ontleningen en het fonds van de bibliotheek</li>
+<li><b>afdelingen</b> een afdeling is de plaats van de bibliotheek waar het document geleend kan worden (afdeling volwassenen, jeugd, multimedia...). Deze code wordt ook gebruikt in de statistieken</li>
+<li><b>statuten</b> worden gebruikt om aan te geven of een document ontleend mag worden of niet</li>
+<li><b>localisaties</b> kunnen gebruikt worden om documenten aan een specifieke locatie te linken (bijv.: in archief)</li>
+<li><b>eigenaars</b> eigenaar van de exemplaren, BDP, bijvoorbeeld</li>
+<li><b>aanpasbaar</b> gepersonaliseerde velden in exemplaren</li>
+</ul></p>
+ 

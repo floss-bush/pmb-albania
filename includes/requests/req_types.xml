@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- descriptif TYPES DE REQUETES 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: req_types.xml,v 1.2 2008-03-19 08:14:15 dbellamy Exp $ -->
+
+<REQ_TYPES>
+	<REQ_TYPE id="1" type="free" name="req_type_fre"/>
+	<REQ_TYPE id="2" type="select" name="req_type_sel"/>
+	<REQ_TYPE id="3" type="insert" name="req_type_ins"/>
+	<REQ_TYPE id="4" type="update" name="req_type_upd"/>	
+	<REQ_TYPE id="5" type="delete" name="req_type_del"/>
+</REQ_TYPES>
+

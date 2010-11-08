@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.2 2009-11-28 19:58:16 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesPublishers</name>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="publisher" imported="true" imported_from="pmbesTypes"/>
+	</types>
+	<methods>
+		<method name="get_publisher_information" rights="" version="1.0" comment="msg:get_publisher_information_description" language_independant="true">
+			<inputs>
+				<description>msg:get_publisher_information_input_description</description>
+				<param name="publisher_id" type="scalar" dataType="integer" description="msg:get_publisher_information_publisher_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_publisher_information_output_description</description>
+				<result name="result" type="scalar" dataType="publisher" description="msg:get_publisher_information_result"/>
+			</outputs>
+		</method>
+		<method name="list_publisher_notices" rights="" version="1.0" comment="msg:list_publisher_notices_description" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_publisher_notices_input_description</description>
+				<param name="publisher_id" type="scalar" dataType="integer" description="msg:list_publisher_notices_publisher_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:list_publisher_notices_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_publisher_notices_output_description</description>
+				<result type="array" name="notice_ids" description="msg:list_publisher_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesPublishers" name="get_publisher_information" version="1.0"/>
+		  		<requirement group="pmbesPublishers" name="list_publisher_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="publisher_id" type="scalar" dataType="integer"/>
+				<param name="OPACUserId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="information" type="scalar" dataType="publisher"/>
+				<result type="array" name="notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

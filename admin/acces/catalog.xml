@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Catalogue des domaines de gestion des droits d'accès 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.2 2008-12-17 16:41:47 dbellamy Exp $ -->
+
+<!--  format du fichier 
+****************************************************************************************
+Ce fichier catalogue les droits d'accès disponibles 
+****************************************************************************************
+id:		identifiant droits d'accès (1 à 99)
+path:	chemin d'accès au fichiers de définition
+****************************************************************************************
+ -->
+ 
+<catalog>
+	<item id='1' path='user_notice' />
+	<item id="2" path='empr_notice' />
+</catalog>
+ 

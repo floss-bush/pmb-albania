@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><XMLlist><!--
+pmbesRepositories
+--><entry code="pmbesRepositories_description">a</entry>
+<!--
+list_agnostic_repositories
+-->
+<entry code="list_agnostic_repositories_description">Liste les sources entrepots du connecteurs agnostique.</entry>
+<entry code="list_agnostic_repositories_input_description"></entry>
+<entry code="list_agnostic_repositories_output_description"></entry>
+<entry code="list_agnostic_repositories_repositories">Les sources</entry>
+<entry code="list_agnostic_repositories_repositories_id">L'id de la source</entry>
+<entry code="list_agnostic_repositories_repositories_name">Le nom de la source</entry>
+<entry code="list_agnostic_repositories_repositories_comment">Le commentaire de la source</entry>
+<!--
+add_unimarc_notice_to_repository
+-->
+<entry code="add_unimarc_notice_to_repository_description">Ajoute une notice unimarc dans un entrepot du connecteur agnostique</entry>
+<entry code="add_unimarc_notice_to_repository_input_description"></entry>
+<entry code="add_unimarc_notice_to_repository_output_description"></entry>
+<entry code="add_unimarc_notice_to_repository_source_id">L'id de la source dans laquelle on souhaite ajouter la notice</entry>
+<entry code="add_unimarc_notice_to_repository_notice">La notice</entry>
+</XMLlist>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes fonction en UNIMARC (français)
+$Id: function.xml,v 1.1 2005-03-10 18:28:33 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="005">Actor executant</entry>
+	<entry code="010">Adaptaire</entry>
+	<entry code="020">Anotaire</entry>
+	<entry code="030">Arrengaire</entry>
+	<entry code="040">Artista</entry>
+	<entry code="050">Cessionari de dreches</entry>
+	<entry code="060">Nom associat</entry>
+	<entry code="065">Enquantaire</entry>
+	<entry code="070">Autor</entry>
+	<entry code="072">Autor d'una citacion o d'extraches</entry>
+	<entry code="075">Autor d'un pòstfaci, del colofon, etc</entry>
+	<entry code="080">Autor del prefaci, etc</entry>
+	<entry code="090">Autor d'un dialòg. Autor d'un dialòg de filme</entry>
+	<entry code="100">Autor d'òbras adaptadas, utilizadas, contunhadas, etc</entry>
+	<entry code="110">Religaire</entry>
+	<entry code="120">Dessenhaire de la religadura</entry>
+	<entry code="130">Maquetista</entry>
+	<entry code="140">Dessenhaire de la subrecobèrta</entry>
+	<entry code="150">Dessenhaire d'èx-libris</entry>
+	<entry code="160">Librari</entry>
+	<entry code="170">Calligraf</entry>
+	<entry code="180">Cartograf</entry>
+	<entry code="190">Censor</entry>
+	<entry code="200">Coregraf</entry>
+	<entry code="205">Collaborador</entry>
+	<entry code="210">Comentator</entry>
+	<entry code="212">Comentator de tèxt escrich</entry>
+	<entry code="220">Compilaire</entry>
+	<entry code="230">Compositor</entry>
+	<entry code="240">Compositor tipograf</entry>
+	<entry code="245">Conceptor</entry>
+	<entry code="250">Cap d'orquèstra</entry>
+	<entry code="260">Detentor de copyright</entry>
+	<entry code="270">Corrector</entry>
+	<entry code="273">Comissari d'una exposicion</entry>
+	<entry code="274">Dançaire</entry>
+	<entry code="280">Dedicatari</entry>
+	<entry code="290">Autor d'un dedicadís</entry>
+	<entry code="300">Director artistic</entry>
+	<entry code="305">Doctorand</entry>
+	<entry code="310">Distributor</entry>
+	<entry code="320">Donador</entry>
+	<entry code="330">Autor dobtós</entry>
+	<entry code="340">Editor scientific</entry>
+	<entry code="350">Gravaire</entry>
+	<entry code="360">Aigafortista</entry>
+	<entry code="365">Expèrt</entry>
+	<entry code="370">Realizaire de filme</entry>
+	<entry code="380">Contrafactor, falsari</entry>
+	<entry code="390">Proprietari precedent</entry>
+	<entry code="400">Mecenàs</entry>
+	<entry code="410">Tecnician grafic</entry>
+	<entry code="420">Persona onorada</entry>
+	<entry code="430">Enluminaire</entry>
+	<entry code="440">Illustraire</entry>
+	<entry code="450">Signatari d'una presentacion</entry>
+	<entry code="460">Persona entrevistada</entry>
+	<entry code="470">Entrevistaire</entry>
+	<entry code="480">Libretista</entry>
+	<entry code="490">Titular dels dreches</entry>
+	<entry code="500">Concessor</entry>
+	<entry code="510">Litograf</entry>
+	<entry code="520">Paraulièr</entry>
+	<entry code="530">Gravaire sus metal</entry>
+	<entry code="540">Contrarotlaire</entry>
+	<entry code="545">Musician</entry>
+	<entry code="550">Narraire</entry>
+	<entry code="560">Creator</entry>
+	<entry code="570">Autres</entry>
+	<entry code="580">Fabricant de papièr</entry>
+	<entry code="590">Interprèt</entry>
+	<entry code="600">Fotograf</entry>
+	<entry code="610">Estampaire</entry>
+	<entry code="620">Estampaire de gravaduras</entry>
+	<entry code="630">Productor</entry>
+	<entry code="635">Programator</entry>
+	<entry code="640">Corrector d'espròvas</entry>
+	<entry code="650">Editor comercial</entry>
+	<entry code="651">Director de publicacion</entry>
+	<entry code="660">Destinatari</entry>
+	<entry code="660">Recebeire d'una correspondéncia</entry>
+	<entry code="670">Engenhaire del son</entry>
+	<entry code="675">Critic</entry>
+	<entry code="680">Rubricator</entry>
+	<entry code="690">Scenarista</entry>
+	<entry code="695">Conselhièr scientific</entry>
+	<entry code="700">Escrivan/copista</entry>
+	<entry code="705">Escalpraire</entry>
+	<entry code="710">Estacat de premsa</entry>
+	<entry code="720">Signatari</entry>
+	<entry code="721">Cantador</entry>
+	<entry code="723">Comanditari</entry>
+	<entry code="727">Director de tèsi</entry>
+	<entry code="730">Traductor</entry>
+	<entry code="740">Dessenhaire de caractèrs d'estampariá</entry>
+	<entry code="750">Tipograf</entry>
+	<entry code="760">Gravaire sus fusta</entry>
+	<entry code="770">Autor del material d'acompanhament</entry>
+</XMLlist>
+
+

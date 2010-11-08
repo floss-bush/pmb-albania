@@ -1,0 +1,9 @@
+<h1>Administració dels registres</h1>
+
+<p>La secció <b>administració dels registres</b> permet definir els paràmetres de l'aplicació pels registres.
+<ul>
+<li><b>Orígens</b> permet definir els orígens dels registres, per tal de distingir
+els drets de redifusió</li>
+<li><b>Personalitzables</b> camps personalitzables pels registres</li>
+</ul></p>
+ 

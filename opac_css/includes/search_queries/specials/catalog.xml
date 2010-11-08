@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<specialfields>
+	<type name="combine" class="combine_search" path="combine"></type>
+	<type name="combine_unimarc" class="combine_search_unimarc" path="combine_unimarc"></type>
+	<type name="external_sources" class="external_sources" path="external_sources"></type>
+</specialfields>

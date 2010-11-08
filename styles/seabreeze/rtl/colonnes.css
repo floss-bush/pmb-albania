@@ -1,0 +1,140 @@
+/* pour les mises en pages sur deux colonnes */
+.colonne {
+  float: right;
+}
+.colonne2 {
+  float: right;
+  width: 50%;
+}
+.colonne60 {
+  float: right;
+  width: 60%;
+}
+.colonne40 {
+  float: right;
+  width: 40%;
+}
+.colonne_suite {
+  float: right;
+}
+/* pour les mises en pages sur 4 colonnes */
+.colonne4 {
+  float: right;
+  width: 25%;
+}
+
+/* pour les mises en pages sur 5 colonnes */
+.colonne5 {
+  float: right;
+  width: 20%;
+}
+
+/* pour les mises en pages sur 3 colonnes */
+.colonne3 {
+  float: right;
+  width: 33%;
+}
+/* pour avoir une colonne toute petite ! */
+.colonne10 {
+  float: right;
+  width: 10%;
+}
+.colonne80 {
+  float: right;
+  width: 80%;
+}
+
+
+
+		/*--------------------LEGEND -----------------------+
+		|                                                   |
+		| .content   -- the content div, also the className |
+		|               for tabSystem divs                  |
+		| .tabs      -- the div that holds all tabs         |
+		| .tab       -- an inactive tab                     |
+		| .tabActive -- an active tab                       |
+		| .tabHover  -- an inactive tab onMouseOver         |
+		|___________________________________________________*/
+		
+     .content {
+         position: relative;
+         
+         /* Absolute positioning for .content and .tabs
+          * works best for nested tabsystems.
+          *
+          */
+         margin-right: 0px;
+         top: -1px;
+         font-family: Trebuchet MS, Arial, sans-serif;
+         padding: 8px 12px 12px 12px;
+         border: 1px solid #666;
+         width: 100%;
+         border-top: 1px solid #999;
+         border-right: 1px solid #666;
+         border-left: 1px solid #666;
+         
+         z-index: 500;
+         background-color: #f3f6f9;
+     }
+          
+/*	.content .content{
+		top: 38px;
+		margin-right: 20px;
+	} */
+	
+     .content .padder{
+       height: 200px;
+     }
+     
+      div.tabs {
+
+         font-size: 14px;
+         line-height: 16px;
+		
+         position: absolute;
+         top: 11px;
+         right: 174px;
+         white-space: nowrap;
+         font-family: Verdana, Arial, sans-serif;
+         cursor: default !important;
+         font-weight: 700 !important;
+         white-space:nowrap;
+         z-index: 1000;
+         -Moz-User-Select: none;
+      }
+      .content div.tabs{
+         top: 20px;
+         right: 52px;
+      }
+      
+       
+     .tab {
+         
+         border: 1px solid #347;
+         padding: 2px 9px 1px 9px;
+         background-color: #bcd;
+         color: #303036;
+         padding: 3px 3px 3px 4px;
+         z-index: 100;
+         border-bottom-width: 0;
+      }
+      .tabHover {
+         background-color: #46596f;
+         color:#fff;
+         z-index: 1200;
+         border-bottom-width: 0;
+      }
+      .tabActive { 
+         padding: 3px 9px 3px 9px;
+         color: #060610 ;
+         background-color: #f3f6f9;
+         z-index: 10000;
+      }
+      
+      #viewsrc{
+        width: 130px;
+        border: 1px solid #003;
+        margin:8px;
+        background-color: #f3f6fc;
+        position:absolute;
+      }

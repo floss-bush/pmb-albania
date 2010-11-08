@@ -1,0 +1,12 @@
+<?PHP
+// $Id: empty_words,v 1.3 2008-02-22 17:39:54 daerts Exp $
+
+// tableau contenant les mots vides
+$empty_word[] = 'de';
+$empty_word[] = 'het';
+$empty_word[] = 'een';
+$empty_word[] = 'van';
+$empty_word[] = 'in';
+$empty_word[] = 'op';
+$empty_word[] = 'aan';
+?>

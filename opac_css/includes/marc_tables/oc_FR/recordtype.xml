@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement en UNIMARC (occitan)
+$Id: recordtype.xml,v 1.1 2005-03-10 18:28:33 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="m">monografia</entry>
+	<entry code="a">analitic</entry>
+	<entry code="s">publicacion en sèria</entry>
+	<entry code="c">recuèlh factici</entry>
+</XMLlist>

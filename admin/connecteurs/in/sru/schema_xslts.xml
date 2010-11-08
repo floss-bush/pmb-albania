@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: schema_xslts.xml,v 1.2 2008-08-26 07:13:20 touraine37 Exp $ -->
+
+<schemas_xslts>
+	<schemas>
+		<schema id="dc">
+			info:srw/schema/1/dc-v1.1
+			info:srw/schema/1/dc-schema
+		</schema>
+		<schema id="dcx">
+			info:/srw/schema/1/dcx-v1.0
+		</schema>
+		<schema id="zeerex">
+			http://explain.z3950.org/dtd/2.0/
+		</schema>
+		<schema id="marcxml">
+			info:srw/schema/1/marcxml-v1.1
+			info:srw/schema/1/marc-v1.1
+		</schema>
+		<schema id="marc21slim">
+			http://www.loc.gov/MARC21/slim
+		</schema>
+		<schema id="marc">
+			http://www.loc.gov/MARC21/slim
+		</schema>
+		<schema id="mods">
+			info:srw/schema/1/mods-v3.2
+			http://www.loc.gov/mods/v3/
+		</schema>
+		<schema id="mods2">
+			info:srw/schema/1/mods-v2
+			http://www.loc.gov/mods/
+		</schema>		
+	</schemas>
+	<prefered_schema>
+		marcxml
+		mods
+		mods2
+		dc
+		dcx
+	</prefered_schema>
+	<schemas_to_pmbunimarc>
+		<schema id="dc">
+			DC2MARC21slim.xsl
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="dcx">
+			DC2MARC21slim.xsl
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="marcxml">
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="marc21slim">
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="marc">
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="mods">
+			MODS_namespace_normalizer.xslt
+			MODS2MARC21slim.xsl
+			MARCXML2PMBUnimarc.xsl
+		</schema>
+		<schema id="mods2">
+			MODS2Up2MODS3.xsl
+			MODS_namespace_normalizer.xslt
+			MODS2MARC21slim.xsl
+			MARCXML2PMBUnimarc.xsl
+		</schema>		
+	</schemas_to_pmbunimarc>
+</schemas_xslts>

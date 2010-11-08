@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.3 2008-02-08 11:12:16 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="amazon_key">Clé AWSAccessKeyID</entry>
+	<entry code="amazon_site">Site</entry>
+	<entry code="amazon_max_return">Nombre maximum de résultats</entry>
+	<entry code="amazon_search_in">Recherche dans</entry>
+	<entry code="amazon_us">Amazon US</entry>
+	<entry code="amazon_de">Amazon DE</entry>
+	<entry code="amazon_jp">Amazon JP</entry>
+	<entry code="amazon_uk">Amazon UK</entry>
+	<entry code="amazon_fr">Amazon FR</entry>
+	<entry code="amazon_ca">Amazon CA</entry>
+	<entry code="amazon_books">Livres</entry>
+	<entry code="amazon_classical">Musique classique</entry>
+	<entry code="amazon_digital_music">Musique électronique</entry>
+	<entry code="amazon_dvd">DVD</entry>
+	<entry code="amazon_music">Musique</entry>
+	<entry code="amazon_vhs">VHS</entry>
+	<entry code="amazon_video">Vidéos</entry>
+	<entry code="amazon_foreignbooks">Littérature étrangère</entry>
+	<entry code="amazon_magazines">Revues</entry>
+</XMLlist>

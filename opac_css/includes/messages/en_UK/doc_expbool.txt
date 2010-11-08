@@ -1,0 +1,50 @@
+<h2>Boolean expressions</h2>
+<p class='pn-normal'>By default, the engine looks for records containing <b>at least</b> (OR implicit) one of the words entered. The result is sorted by the number of word hits in descending order and then alphabetically.
+<br />E.g. <em>cheddar cheese</em> means catalogue records containing the words <em>cheddar</em> <b>OR</b> <em>cheese (Cheddar cheese, Red Leicester cheese, The history of the Cheddar region, ...)</em>.
+<br />Accented characters are ignored, uppercase words as well. If two words are separated by another sign other than space, +, or -, both words are regarded as having to figure in the search result <br />Ex. <em>Cheddar cheese/Australia</em> will be analysed as : find records containing <em>cheddar</em> <b>OR</b> records containing <em>cheese</em> <b>AND</b> <em>australia</em> <b>OR</b> both.
+<br />Some words are ignored because too frequent or having no significant meaning in English (ex : a, if, in, of, on, the, that, to, ...). They are referred to as stop words.</p>
+</p>
+<br />
+<b>Truncation</b>
+<p class='pn-normal'>Words can be truncated to the left, right or partially using the sign *
+<br />E.g. <em>hor*</em> would find the words starting with <em>hor</em> <em>(horse, horticulture, horror, ...)</em>, <em>*logy</em> would find the words ending with <em>logy</em> <em>(psychology, theology, trilogy, ...)</em>, <em>p*logy</em> would find the words starting with <em>p</em> and finishing with <em>logy</em> <em>(psychology, paleonthology, pathology, ...)</em>.
+<br />Several truncations can be used within one and same word.</p>
+<b>Search with exact terms</b>
+<p class='pn-normal'>An exact term is defined as a text enclosed in quotation marks. If the search engine encounters an exact term, it looks up occurences of the exact wording of the term. Truncation may be used within exact terms.
+<br />E.g. <em>"dent"</em> means all the elements containing the text dent (dentist, accident, indentation, ...).<br />
+<br />Exact terms searching is very useful for search expressions containing spaces or punctuation marks (an acronym for example).
+<br />Ex. <em>"R.N.L.I." </em>would find records containing the text R.N.L.I., <em>R.N.L.I.</em> would find records containing the words R or N or L or I.<br />
+<br />Accents and uppercase are ignored in an exact term. Finally, exact terms can be used in all complex expressions as in the examples described further below.
+</p>
+<b>Negation</b>
+<p class='pn-normal'>The sign ~ placed before a word represents a negation of that term. It actually means search all records not containing that term.
+<br />E.g. <em>~work</em> means search all records except those containing the word work.
+</p>
+<b>Logical operators in-between two words</b>
+<p class='pn-normal'>Logical operators may be used in-between words :</p>
+<ul><li><b>+</b> : operator AND<br />E.g. <em>disk + hard</em> means all records containing the words <em>disk</em> <b>AND</b> <em>hard</em>.</li><br />
+<li><b>-</b> : operator NOT<br />E.g. <em>disk - hard</em> means all records containing the word <em>disk</em>, <b>but not those containing also </b> the word <em>hard</em>.</li>
+</ul>
+<p class='pn-normal'>Several operators may be chained together in one and same equation or search expression. The precedence order applied is from left to right.
+<br />E.g. <em>poetry + french - romant*</em> means all records containing <em>poetry</em> <b>AND</b> <em>french</em> <b>NOT</b> <em>romant*</em>.
+<br /><br />Be careful, two operators cannot be placed immediately one after another, a negation cannot be combined with another operator (<b>+~</b> expresses the same thing as the operator <b>-</b>).
+</p>
+<b>Groupings</b>
+<p class='pn-normal'>A search expression may be grouped to become a single term. Groupings are made using <b>parentheses</b>. They allow you to change the order of precedence in the application of operators or to combine the results of complex search expressions or equations.
+<br />E.g.</p>
+<ul>
+<li><em>poetry + (french romantic)</em> means in all records containing the words <em>french</em> OR <em>romantic</em>, only those containing the word <em>poetry</em>.</li>
+<li><em>(poetry + french) romantic</em> means all records containing <em>poetry</em> <b>AND</b> <em>french</em> <b>OR</b> all records containing the word <em>romantic</em></li>
+<li><em>~(poetry + french) + (literature ameri*)</em> means all records <b>NOT containing the words</b> <em>poetry</em> AND <em>french</em> <b>AND</b> records containing the words <em>literature</em> <b>OR</b> <em>ameri*</em></li>
+</ul>
+<p class='pn-normal'>Parentheses can be imbricated with one another endlessly.<br />E.g. <em>(poetry + (french romantic)) (literature + XIX)</em> means in all records containing <em>french</em> <b>OR</b> <em>romantic</em>, <b>only those containing</b> <em>poetry</em> <b>OR records containing</b> <em>literature</em> <b>AND</b> <em>XIX</em> 
+</p>
+<b>Relevance</b>
+<p class='pn-normal'>Results are sorted by relevance and then alphabetically. Relevance is determined simply on the total number of words or exact terms hits.
+<br />E.g.</p>
+<ul>
+<li><em>french poetry</em> will recall all records containing <em>french</em> <b>OR</b> <em>poetry</em>, those containing both words being displayed on top</li>
+<li><em>~(poetry + french) (literature ameri*)</em> will recall all records <b>not containing</b> <em>poetry</em> <b>AND</b> <em>french</em>, from these records, those containing <em>literature</em> <b>OR</b> <em>ameri*</em> appearing on top in the results (first <em>literature</em> <b>AND</b> <em>ameri*</em>, then <em>ameri*</em>, and finally <em>literature</em>)</li>
+</ul>
+<hr />
+<p>The boolean expresions are used in <a href="help.php?whatis=simple_search">quick searches</a> and in <a href="help.php?whatis=search_multi">Advanced searches</a>.</p>

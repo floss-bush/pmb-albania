@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Fichier de substitution des paramètres en fonction de la localisation
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: per_localisations.xml,v 1.1 2009-07-12 08:33:19 erwanmartin Exp $ -->
+<parameters_list>
+	<!--<parameters comment="une_localisation" id="1">
+		<parameter name="param1">value1</parameter>
+		<parameter name="param2">value2</parameter>
+		<parameter name="param3">value3</parameter> 
+	</parameters>-->
+</parameters_list>

@@ -1,0 +1,7 @@
+<h2>Cerca simple</h2>
+<p><strong>Introdueix el títol o l'autor que vols buscar i fes clic a <i>cercar</i></strong></p>
+<hr /><p>Pots introduir noms i cognoms</p>
+<p><b>Els caràcters amb accents</b> i <b>els signes de puntuació</b><b>s'ignoren</b> durant la cerca (é, è, à, ç, !, ', etc.).</p>
+<p>També es pot buscar per editorial, col·lecció, matèries (tesaurus), classificacions (per exemple Dewey), paraules clau, resum i notes.</p>
+<p>Per a això, marca <img src="./images/coche.gif" align="absmiddle"> les caselles corresponents, introdueix les paraules a cercar i fes clic a Cercar.</p>
+<hr /><p>També pots fer una cerca utilizant els <a href="help.php?whatis=expbool">operadors booleans</a>.<br />

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbfields>
+
+	<!-- Zone fixedFields :
+		Liste des champs de recherche possibles de la base de données
+		Chaque champ est modélisé par le tag <field> :
+		<field @att=id,title> 
+			-id : numéro unique arbitraire
+			-title : Texte qui sera affiché dans l'écran de recherche
+			<field> contient les sous tags :
+				<input @type> : type de saisie
+					-type (text|list) : 
+						@type=list (dans le cas d'une saisie par liste), input contient les sous champs :
+						 	<queryList> : requete pour récupérer les values de la liste. La requete doit avoir 2 colonnes
+										  -la première donne le code à retourner
+										  -la deuxième donne le libellé dans la liste
+										  
+				<query> : requete associée au champ et à l'opérateur
+				<query @att=for,multipleWords,regDiacrit>
+					-for : nom de l'opérateur auquel correspond la requete 
+					 (les opérateurs non listés ne seront pas pris en compte), 
+					-multipleWords (yes|no) : la requete tient compte de plusieurs termes saisis avec des espaces
+					-regDiacrit (yes|no) : les termes sont passés par la fonction de nettoyage des mots vides et des accents
+			 		<query> contient les sous tags :
+					
+						<main> : Corps principal de la requete, 
+							-!!p!! sera remplacé dans la requete par le texte saisi pour la recherche, 
+							-!!multiple_term!! (uniquement si multipleWords="yes") sera remplacé par la série 
+							 de tests de la clause where pour chaque mot saisi
+						
+						<multipleTerm> : terme de condition utilisé pour remplacer !!multiple_term!!
+						<multipleOperator> : opérateur utilisé entre les termes de conditions 
+	-->
+	
+	<fixedFields>
+		<!-- catégories -->
+		<field title="msg:categories_search" id="1">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select notice_id from notices, notices_categories where notices_categories.num_noeud='!!p!!' and notices_categories.notcateg_notice=notices.notice_id order by index_serie,tnvol,index_sew]]></main>
+			</query>
+		</field>
+		<!-- indexation décimale -->
+		<field title="msg:indexint_search" id="2">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select notice_id from notices where notices.indexint like '!!p!!' order by index_serie,tnvol,index_sew]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select notice_id from notices where notices.indexint like '% !!p!! %' order by index_serie,tnvol,index_sew]]></main>	
+			</query>
+		</field>
+		<!-- éditeur -->
+		<field title="msg:publisher_search" id="3">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select distinct notice_id from notices where ed1_id='!!p!!' or ed2_id='!!p!!' order by index_serie,tnvol,index_sew]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes" >
+				<main><![CDATA[select distinct notice_id, !!pert_term!! as pert from notices join publishers on ((ed1_id=ed_id) or (ed2_id=ed_id)) where (!!where_term!!) order by index_serie,tnvol,index_sew	]]></main>
+				<table>publishers</table>
+				<index_l>ed_name</index_l>
+				<index_i>index_publisher</index_i>
+				<id_field>publisher_id</id_field>
+			</query>
+		</field>
+		<!-- collection -->
+		<field title="msg:coll_search" id="4">
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where coll_id='!!p!!' order by index_serie,tnvol,index_sew]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct notice_id, !!pert_term!! as pert from notices join collections on coll_id=collection_id where (!!where_term!!) order by index_serie,tnvol,index_sew]]></main>
+				<table>collections</table>
+				<index_l>collection_name</index_l>
+				<index_i>index_coll</index_i>
+				<id_field>collection_id</id_field>
+			</query>
+		</field>
+		<!-- sous-collection -->
+		<field title="msg:subcoll_search" id="5">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select distinct notice_id from notices where subcoll_id='!!p!!' order by index_serie,tnvol,index_sew]]></main>
+			</query>
+		</field>
+		<!-- titre -->
+		<field title="msg:title_search" id="6">
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select notice_id, !!pert_term!! as pert from notices where !!where_term!! group by notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+				<table>notices</table>
+				<index_l>index_wew</index_l>
+				<index_i>index_sew</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+		</field>	
+		<!-- tous les champs -->		
+		<field title="msg:global_search" id="7">			
+			<input type="text"/>
+			<variable name="opac_indexation_docnum_allfields" type="global" />
+			<variable name="ck_affiche" type="input">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="value">0</default>
+				<input type="hidden">
+					<value>1</value>
+				</input> 
+			</variable>
+			<variable name= "is_num" type="input" comment="msg:docnum_indexation">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">opac_indexation_docnum_allfields</default>
+				<input type="checkbox" default_on="ck_affiche">
+					<value>1</value>
+					<comments>
+						<label value="1">oui</label>
+						<label value="0">non</label>
+					</comments>
+				</input>
+			</variable>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select num_notice as notice_id,((index_infos_global like '% !!p!! %')) as pert from notices_global_index where ((index_infos_global like '% !!p!! %')) order by pert desc, index_infos_global asc]]></main>
+			</query>
+			<query for="BOOLEAN"  conditional="yes">
+				<var name="is_num" booleanSearch="yes">
+					<value>default</value>
+					<main><![CDATA[select notice_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from notices_global_index,notices where ((!!where_term_1!!) or (!!where_term_2!!)) and notice_id=num_notice and no_index=1 group by notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+						<keep_empty_words>yes</keep_empty_words>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+				</var>
+				<var name="is_num" booleanSearch="yes">
+					<value>1</value>
+					<main><![CDATA[select uni.notice_id, pert from (
+							select notice_id, ((!!pert_term_2!!)+(!!pert_term_1!!)*0.5)+ifnull((!!pert_term_3!!),0) as pert from notices 
+							join notices_global_index on num_notice=notice_id
+							left join explnum on explnum_notice=notice_id 
+							where ((!!where_term_2!!) or (!!where_term_3!!)) 
+							and notice_id=num_notice group by notice_id 
+							UNION
+							select if(num_notice,num_notice,bulletin_notice) as notice_id, ifnull((!!pert_term_3!!),0) as pert from explnum
+							join bulletins on explnum_bulletin=bulletin_id
+							where ((!!where_term_3!!))
+							group by notice_id
+						) as uni join notices n on n.notice_id=uni.notice_id order by pert desc, index_serie, tnvol, index_sew 
+					]]></main>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>explnum</table>
+						<index_l>explnum_index_wew</index_l>
+						<index_i>explnum_index_sew</index_i>
+						<id_field>explnum_notice</id_field>
+					</boolean>
+				</var>
+			</query>
+		</field>
+		<!-- auteur -->
+		<field title="msg:author_search" id="8">
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select notice_id from notices, responsability where notice_id=responsability_notice and responsability_author=!!p!! order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select responsability_notice as notice_id, !!pert_term!! as pert from responsability, authors where (!!where_term!!) and responsability_author=author_id group by notice_id order by pert desc, index_author]]></main>
+				<table>authors</table>
+				<index_l>concat(author_name,', ',author_rejete)</index_l>
+				<index_i>index_author</index_i>
+				<id_field>author_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+		</field>
+		<!-- type de document -->
+		<field title="msg:type_doc_sort" id="9">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[SELECT distinct notice_id from notices where typdoc='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+		<!-- statut de notice 
+		<field title="msg:statut_notice_sort" id="10">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[SELECT distinct notice_id from notices where statut='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field> -->
+		<!-- caddie de notices 
+		<field title="msg:caddie_de_NOTI" id="11">
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select distinct object_id as notice_id from caddie_content,notices where caddie_id='!!p!!' and object_id=notices.notice_id order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field> -->
+		<!-- Mots-clés -->
+		<field title="msg:keyword_search" id="12">
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select notice_id, !!pert_term!! as pert from notices where !!where_term!! group by notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+				<table>notices</table>
+				<index_l>index_l</index_l>
+				<index_i>index_matieres</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+		</field>
+		<!-- Résumé et notes -->
+		<field title="msg:abstract" id="13">
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select notice_id, !!pert_term!! as pert from notices where !!where_term!! group by notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+				<table>notices</table>
+				<index_l>concat(n_gen,' ',n_contenu,' ',n_resume)</index_l>
+				<index_i>concat(index_n_gen,index_n_contenu,index_n_resume)</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+		</field>
+		<!-- étagère virtuelle -->
+		<field title="msg:etagere_query" id="14">
+			<variable name="opac_etagere_order" type="global"/>
+			<query for="EQ" regdiacrit="no">
+				<main><![CDATA[select distinct notice_id from caddie_content, etagere_caddie, notices,etagere where etagere_id=!!p!! and caddie_content.caddie_id=etagere_caddie.caddie_id and notice_id=object_id and etagere.idetagere=etagere_caddie.etagere_id order by !!opac_etagere_order!!]]></main>
+			</query>
+		</field>
+		<!-- localisation et section -->
+		<field title="msg:section" id="15">
+			<variable name="search_localisation" type="global"/>
+			<query for="EQ" regdiacrit="no">
+				<main><![CDATA[select distinct notice_id from notices JOIN exemplaires ON expl_location=!!search_localisation!! and expl_section=!!p!! and notice_id=expl_notice UNION SELECT distinct notice_id FROM exemplaires JOIN bulletins ON expl_section=!!p!! and expl_location=!!search_localisation!! and expl_bulletin=bulletin_id JOIN notices ON notice_id=bulletin_notice]]></main>
+			</query>
+		</field>
+		<!-- Documents numériques -->
+		<field title="msg:docnum_indexation_contenu" id="16">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct uni.notice_id, pert from (
+				select notice_id, !!pert_term!! as pert from notices, explnum 
+				where (!!where_term!!) and explnum_notice=notice_id
+				UNION
+				select notice_id, !!pert_term!! as pert from notices, explnum, bulletins
+				where (!!where_term!!) and (explnum_bulletin=bulletin_id and bulletin_notice=notice_id)
+				) as uni join notices n on uni.notice_id=n.notice_id order by pert desc, index_serie, tnvol, index_sew 
+				]]></main>
+				<table>explnum</table>
+				<index_l>explnum_index_wew</index_l>
+				<index_i>explnum_index_sew</index_i>
+				<id_field>explnum_notice</id_field>
+			</query>
+		</field>	
+		<!-- **** RECHERCHE POUR L'API **** -->
+		<!-- ** Recherche par localisation ** -->
+		<!-- éditeur -->
+		<field title="msg:searcher_publisher" id="17">
+			<variable name="location" type="input"/>
+			<query for="BOOLEAN" booleanSearch="yes" >
+				<main><![CDATA[
+					select uni.notice_id, pert, index_serie,tnvol,index_sew from (
+					select distinct notice_id, !!pert_term!! as pert from notices join publishers on ((ed1_id=ed_id) or (ed2_id=ed_id)) join exemplaires on expl_notice=notice_id where (!!where_term!!) and expl_location=!!location!! 
+					UNION 
+					select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id join publishers on ((ed1_id=ed_id) or (ed2_id=ed_id)) where (!!where_term!!) and expl_location=!!location!!
+					) as uni, notices where uni.notice_id=notices.notice_id
+					 order by index_serie,tnvol,index_sew					
+				]]></main>
+				<table>publishers</table>
+				<index_l>ed_name</index_l>
+				<index_i>index_publisher</index_i>
+				<id_field>publisher_id</id_field>
+			</query>
+		</field>
+		<!-- collection -->
+		<field title="msg:searcher_coll" id="18">
+			<variable name="location" type="input"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[
+					select uni.notice_id, pert, index_serie,tnvol,index_sew from (
+						select distinct notice_id, !!pert_term!! as pert from notices join collections on coll_id=collection_id join exemplaires on expl_notice=notice_id where (!!where_term!!) and expl_location=!!location!!
+						UNION 
+						select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id join collections on coll_id=collection_id where (!!where_term!!) and expl_location=!!location!!
+					) as uni, notices where uni.notice_id=notices.notice_id
+					order by index_serie,tnvol,index_sew]]></main>
+				<table>collections</table>
+				<index_l>collection_name</index_l>
+				<index_i>index_coll</index_i>
+				<id_field>collection_id</id_field>
+			</query>
+		</field>
+		<!-- titre -->
+		<field title="msg:233" id="19">
+			<variable name="location" type="input"/>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select notice_id,(index_sew like '% !!p!! %') as pert from notices join exemplaires on expl_notice=notice_id where (index_sew like '% !!p!! %') and expl_location=!!location!! group by notice_id order by pert desc, index_sew asc]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">				
+				<main><![CDATA[		
+						select uni.notice_id, pert, index_serie,tnvol,index_sew from (				
+							select notice_id, !!pert_term!! as pert from notices join exemplaires on expl_notice=notice_id where !!where_term!!  and expl_location=!!location!! 
+							UNION 
+							select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id where (!!where_term!!) and expl_location=!!location!!
+						) as uni, notices where uni.notice_id=notices.notice_id
+						group by uni.notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+				<table>notices</table>
+				<index_l>index_wew</index_l>
+				<index_i>index_sew</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+		</field>	
+		<!-- tous les champs -->		
+		<field title="msg:global_search" id="20">			
+			<input type="text"/>
+			<variable name="location" type="input"/>
+			<variable name="opac_indexation_docnum_allfields" type="global" />
+			<variable name="ck_affiche" type="input">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="value">0</default>
+				<input type="hidden">
+					<value>1</value>
+				</input> 
+			</variable>
+			<variable name= "is_num" type="input" comment="msg:docnum_indexation">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">opac_indexation_docnum_allfields</default>
+				<input type="checkbox" default_on="ck_affiche">
+					<value>1</value>
+					<comments>
+						<label value="1">oui</label>
+						<label value="0">non</label>
+					</comments>
+				</input>
+			</variable>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select num_notice as notice_id,((index_infos_global like '% !!p!! %')) as pert from notices_global_index join exemplaires on expl_notice=num_notice where ((index_infos_global like '% !!p!! %')) and expl_location=!!location!! order by pert desc, index_infos_global asc]]></main>
+			</query>
+			<query for="BOOLEAN"  conditional="yes">
+				<var name="is_num" booleanSearch="yes">
+					<value>default</value>
+					<main><![CDATA[
+					select uni.notice_id, pert, index_serie,tnvol,index_sew from (		
+						select notice_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from notices_global_index join notices on  notice_id=num_notice join exemplaires on expl_notice=notice_id where ((!!where_term_1!!) or (!!where_term_2!!)) and no_index=1 and expl_location=!!location!! 
+						UNION
+						select distinct notice_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from notices_global_index join notices on notice_id=num_notice join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id where ((!!where_term_1!!) or (!!where_term_2!!)) and no_index=1 and expl_location=!!location!!
+						) as uni, notices where uni.notice_id=notices.notice_id
+						group by uni.notice_id order by pert desc, index_serie, tnvol, index_sew
+					]]></main>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+						<keep_empty_words>yes</keep_empty_words>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+				</var>
+				<var name="is_num" booleanSearch="yes">
+					<value>1</value>
+					<main><![CDATA[select uni.notice_id, pert from (
+							select notice_id, ((!!pert_term_2!!)+(!!pert_term_1!!)*0.5)+ifnull((!!pert_term_3!!),0) as pert from notices 
+							join notices_global_index on num_notice=notice_id
+							left join explnum on explnum_notice=notice_id 
+							join exemplaires on expl_notice=notice_id
+							where ((!!where_term_2!!) or (!!where_term_3!!)) 
+							and notice_id=num_notice group by notice_id 
+							and expl_location=!!location!!
+							UNION
+							select if(num_notice,num_notice,bulletin_notice) as notice_id, ifnull((!!pert_term_3!!),0) as pert from explnum
+							join bulletins on explnum_bulletin=bulletin_id
+							join exemplaires on expl_notice=notice_id
+							where ((!!where_term_3!!))
+							and expl_location=!!location!!
+							group by notice_id
+						) as uni join notices n on n.notice_id=uni.notice_id order by pert desc, index_serie, tnvol, index_sew 
+					]]></main>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>explnum</table>
+						<index_l>explnum_index_wew</index_l>
+						<index_i>explnum_index_sew</index_i>
+						<id_field>explnum_notice</id_field>
+					</boolean>
+				</var>
+			</query>
+		</field>
+		<!-- auteur -->
+		<field title="msg:234" id="21">
+			<variable name="location" type="input"/>
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select notice_id from notices join exemplaires on expl_notice=notice_id join responsability on notice_id=responsability_notice where responsability_author=!!p!! and expl_location=!!location!! order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[
+					select uni.notice_id, pert, index_serie,tnvol,index_sew from (	
+						select distinct responsability_notice as notice_id, !!pert_term!! as pert from responsability join authors on responsability_author=author_id join exemplaires on expl_notice=responsability_notice where (!!where_term!!) and expl_location=!!location!!  
+						UNION 
+						select distinct notice_id, !!pert_term!! as pert from responsability join authors on responsability_author=author_id join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id  where (!!where_term!!) and expl_location=!!location!!
+					) as uni, notices where uni.notice_id=notices.notice_id				
+					group by uni.notice_id order by pert desc, index_author]]></main>
+				<table>authors</table>
+				<index_l>concat(author_name,', ',author_rejete)</index_l>
+				<index_i>index_author</index_i>
+				<id_field>author_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+		</field>
+		<!-- Recherche par localisation et section -->
+		<!-- éditeur -->
+		<field title="msg:searcher_publisher" id="22">
+			<variable name="location" type="input"/>
+			<variable name="section" type="input"/>
+			<query for="BOOLEAN" booleanSearch="yes" >
+				select uni.notice_id, pert, index_serie,tnvol,index_sew from (
+					select distinct notice_id, !!pert_term!! as pert from notices join publishers on ((ed1_id=ed_id) or (ed2_id=ed_id)) join exemplaires on expl_notice=notice_id where (!!where_term!!) and expl_location=!!location!!  and expl_section=!!section!!
+					UNION 
+					select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id join publishers on ((ed1_id=ed_id) or (ed2_id=ed_id)) where (!!where_term!!) and expl_location=!!location!! and expl_section=!!section!!
+					) as uni, notices where uni.notice_id=notices.notice_id
+					 order by index_serie,tnvol,index_sew
+				<table>publishers</table>
+				<index_l>ed_name</index_l>
+				<index_i>index_publisher</index_i>
+				<id_field>publisher_id</id_field>
+			</query>
+		</field>
+		<!-- collection -->
+		<field title="msg:searcher_coll" id="23">
+			<variable name="location" type="input"/>
+			<variable name="section" type="input"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select uni.notice_id, pert, index_serie,tnvol,index_sew from (
+						select distinct notice_id, !!pert_term!! as pert from notices join collections on coll_id=collection_id join exemplaires on expl_notice=notice_id where (!!where_term!!) and expl_location=!!location!!  and expl_section=!!section!!
+						UNION 
+						select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id join collections on coll_id=collection_id where (!!where_term!!) and expl_location=!!location!!  and expl_section=!!section!!
+					) as uni, notices where uni.notice_id=notices.notice_id
+					order by index_serie,tnvol,index_sew]]></main>
+				<table>collections</table>
+				<index_l>collection_name</index_l>
+				<index_i>index_coll</index_i>
+				<id_field>collection_id</id_field>
+			</query>
+		</field>
+		<!-- titre -->
+		<field title="msg:233" id="24">
+			<variable name="location" type="input"/>
+			<variable name="section" type="input"/>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select notice_id,(index_sew like '% !!p!! %') as pert from notices join exemplaires on expl_notice=notice_id where (index_sew like '% !!p!! %') and expl_location=!!location!! and expl_section=!!section!! group by notice_id order by pert desc, index_sew asc]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">				
+				<main><![CDATA[select uni.notice_id, pert, index_serie,tnvol,index_sew from (				
+							select notice_id, !!pert_term!! as pert from notices join exemplaires on expl_notice=notice_id where !!where_term!!  and expl_location=!!location!!  and expl_section=!!section!!
+							UNION 
+							select distinct notice_id, !!pert_term!! as pert from notices join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id where (!!where_term!!) and expl_location=!!location!! and expl_section=!!section!!
+						) as uni, notices where uni.notice_id=notices.notice_id
+						group by uni.notice_id order by pert desc, index_serie, tnvol, index_sew]]></main>
+				<table>notices</table>
+				<index_l>index_wew</index_l>
+				<index_i>index_sew</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+		</field>	
+		<!-- tous les champs -->		
+		<field title="msg:global_search" id="25">			
+			<input type="text"/>
+			<variable name="location" type="input"/>
+			<variable name="section" type="input"/>
+			<variable name="opac_indexation_docnum_allfields" type="global" />
+			<variable name="ck_affiche" type="input">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="value">0</default>
+				<input type="hidden">
+					<value>1</value>
+				</input> 
+			</variable>
+			<variable name= "is_num" type="input" comment="msg:docnum_indexation">
+				<var name="pmb_indexation_docnum" visibility="yes" hidden="no">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">opac_indexation_docnum_allfields</default>
+				<input type="checkbox" default_on="ck_affiche">
+					<value>1</value>
+					<comments>
+						<label value="1">oui</label>
+						<label value="0">non</label>
+					</comments>
+				</input>
+			</variable>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select num_notice as notice_id,((index_infos_global like '% !!p!! %')) as pert from notices_global_index join exemplaires on expl_notice=num_notice where ((index_infos_global like '% !!p!! %')) and expl_location=!!location!! order by pert desc, index_infos_global asc]]></main>
+			</query>
+			<query for="BOOLEAN"  conditional="yes">
+				<var name="is_num" booleanSearch="yes">
+					<value>default</value>
+					<main><![CDATA[
+					select uni.notice_id, pert, index_serie,tnvol,index_sew from (		
+						select notice_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from notices_global_index join notices on  notice_id=num_notice join exemplaires on expl_notice=notice_id where ((!!where_term_1!!) or (!!where_term_2!!)) and no_index=1 and expl_location=!!location!! and expl_section=!!section!!
+						UNION
+						select distinct notice_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from notices_global_index join notices on notice_id=num_notice join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id where ((!!where_term_1!!) or (!!where_term_2!!)) and no_index=1 and expl_location=!!location!! and expl_section=!!section!!
+						) as uni, notices where uni.notice_id=notices.notice_id
+						group by uni.notice_id order by pert desc, index_serie, tnvol, index_sew
+					]]></main>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+						<keep_empty_words>yes</keep_empty_words>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+				</var>
+				<var name="is_num" booleanSearch="yes">
+					<value>1</value>
+					<main><![CDATA[select uni.notice_id, pert from (
+							select notice_id, ((!!pert_term_2!!)+(!!pert_term_1!!)*0.5)+ifnull((!!pert_term_3!!),0) as pert from notices 
+							join notices_global_index on num_notice=notice_id
+							left join explnum on explnum_notice=notice_id 
+							join exemplaires on expl_notice=notice_id
+							where ((!!where_term_2!!) or (!!where_term_3!!)) 
+							and notice_id=num_notice group by notice_id 
+							and expl_location=!!location!!
+							and expl_section=!!section!!
+							UNION
+							select if(num_notice,num_notice,bulletin_notice) as notice_id, ifnull((!!pert_term_3!!),0) as pert from explnum
+							join bulletins on explnum_bulletin=bulletin_id
+							join exemplaires on expl_notice=notice_id
+							where ((!!where_term_3!!))
+							and expl_location=!!location!!
+							and expl_section=!!section!!
+							group by notice_id
+						) as uni join notices n on n.notice_id=uni.notice_id order by pert desc, index_serie, tnvol, index_sew 
+					]]></main>
+					<boolean>
+						<table>notices</table>
+						<index_l>index_wew</index_l>
+						<index_i>index_sew</index_i>
+						<id_field>notice_id</id_field>
+					</boolean>
+					<boolean>
+						<table>notices_global_index</table>
+						<index_l>infos_global</index_l>
+						<index_i>index_infos_global</index_i>
+						<id_field>num_notice</id_field>
+					</boolean>
+					<boolean>
+						<table>explnum</table>
+						<index_l>explnum_index_wew</index_l>
+						<index_i>explnum_index_sew</index_i>
+						<id_field>explnum_notice</id_field>
+					</boolean>
+				</var>
+			</query>
+		</field>
+		<!-- auteur -->
+		<field title="msg:234" id="26">
+			<variable name="location" type="input"/>
+			<variable name="section" type="input"/>
+			<query for="EQ" regDiacrit="no">
+				<main><![CDATA[select notice_id from notices join exemplaires on expl_notice=notice_id join responsability on notice_id=responsability_notice where responsability_author=!!p!! and expl_location=!!location!! and expl_section=!!section!! order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select uni.notice_id, pert, index_serie,tnvol,index_sew from (	
+						select distinct responsability_notice as notice_id, !!pert_term!! as pert from responsability join authors on responsability_author=author_id join exemplaires on expl_notice=responsability_notice where (!!where_term!!) and expl_location=!!location!! and expl_section=!!section!!  
+						UNION 
+						select distinct notice_id, !!pert_term!! as pert from responsability join authors on responsability_author=author_id join bulletins on bulletin_notice=notice_id join exemplaires on expl_bulletin=bulletin_id  where (!!where_term!!) and expl_location=!!location!! and expl_section=!!section!!
+					) as uni, notices where uni.notice_id=notices.notice_id				
+					group by uni.notice_id order by pert desc, index_author]]></main>
+				<table>authors</table>
+				<index_l>concat(author_name,', ',author_rejete)</index_l>
+				<index_i>index_author</index_i>
+				<id_field>author_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+		</field>
+	</fixedFields>
+	
+	<!-- Zone dynamicFields :
+		Liste des champs personalisés par type de données
+			<field @att=id,dataType> 
+			-id : numéro unique arbitraire
+			-dataType : type de données du champ personalisé
+			<field> contient les sous tags :
+			
+				<query> : requete associée au champ et à l'opérateur
+				<query @att=for,multipleWords,regDiacrit>
+					-for : nom de l'opérateur auquel correspond la requete 
+					 (les opérateurs non listés ne seront pas pris en compte), 
+					-multipleWords (yes|no) : la requete tient compte de plusieurs termes saisis avec des espaces
+					-regDiacrit (yes|no) : les termes sont passés par la fonction de nettoyage des mots vides et des accents
+			 		<query> contient les sous tags :
+					
+						<main> : Corps principal de la requete, 
+							-!!p!! sera remplacé dans la requete par le texte saisi pour la recherche, 
+							-!!multiple_term!! (uniquement si multipleWords="yes") sera remplacé par la série  
+							 de tests de la clause where pour chaque mot saisi
+							-!!field!! sera remplacé par le numéro de champ personalisé
+						
+						<multipleTerm> : terme de condition utilisé pour remplacer !!multiple_term!!
+						<multipleOperator> : opérateur utilisé entre les termes de conditions 
+	-->
+	
+	<dynamicFields>
+		<field dataType="small_text" id="1">
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where !!multiple_term!! order by index_serie, tnvol, index_sew]]></main>
+				<multipleTerm>notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where !!multiple_term!! order by index_serie, tnvol, index_sew]]></main>
+				<multipleTerm>notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+			<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text like '!!p!!%' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text like '%!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="EQ">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_custom_values on notices_custom_origine=notice_id where (notices_custom_champ=!!field!! or notices_custom_champ is null) and (notices_custom_small_text='' or notices_custom_small_text is null) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_small_text!='' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+		<field dataType="text" id="2">
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where !!multiple_term!! order by index_serie, tnvol, index_sew]]></main>
+				<multipleTerm>notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where !!multiple_term!! order by index_serie, tnvol, index_sew]]></main>
+				<multipleTerm>notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+			<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text like '!!p!!%' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text like '%!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="EQ">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_custom_values on notices_custom_origine=notice_id where (notices_custom_champ=!!field!! or notices_custom_champ is null) and (notices_custom_text='' or notices_custom_text is null) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_text!='' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+		<field dataType="integer" id="3">
+			<query for="EQ">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer<'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer>'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer<='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer>='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_custom_values on notices_custom_origine=notice_id where (notices_custom_champ=!!field!! or notices_custom_champ is null) and (notices_custom_integer='' or notices_custom_integer is null) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_integer!='' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+		<field dataType="float" id="4">
+			<query for="EQ">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float<'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float>'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float<='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float>='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_custom_values on notices_custom_origine=notice_id where (notices_custom_champ=!!field!! or notices_custom_champ is null) and (notices_custom_float='' or notices_custom_float is null) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_float!='' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+		<field dataType="date" id="5">
+			<query for="EQ">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date<'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GT" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date>'!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="LTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date<='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="GTEQ" notAllowedFor="list,query_list">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date>='!!p!!' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_custom_values on notices_custom_origine=notice_id where (notices_custom_champ=!!field!! or notices_custom_champ is null) and (notices_custom_date='' or notices_custom_date='0000-00-00' or notices_custom_date is null) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices,notices_custom_values where notices_custom_champ=!!field!! and notices_custom_origine=notice_id and notices_custom_date!='' and notices_custom_date!=0 order by index_serie, tnvol, index_sew]]></main>
+			</query>
+		</field>
+	</dynamicFields>
+	
+	<operators>
+		<operator name="BOOLEAN">msg:expr_bool_query</operator>
+		<operator name="CONTAINS">msg:contient_search</operator>
+		<operator name="CONTAINS_ALL">msg:contient_tous_mots_query</operator>
+		<operator name="CONTAINS_AT_LEAST">msg:contient_plus_un_mot_query</operator>
+		<operator name="STARTWITH">msg:commence_par_query</operator>
+		<operator name="ENDWITH">msg:finit_par_query</operator>
+		<operator name="EXACT">msg:exactement_comme_query</operator>
+		<operator name="EQ">=</operator>
+		<operator name="GT">&gt;</operator>
+		<operator name="LT">&lt;</operator>
+		<operator name="GTEQ">&gt;=</operator>
+		<operator name="LTEQ">&lt;=</operator>
+		<operator name="ISEMPTY" emptyAllowed="yes">msg:est_vide_query</operator>
+		<operator name="ISNOTEMPTY" emptyAllowed="yes">msg:pas_vide_query</operator>
+	</operators>
+</pmbfields>

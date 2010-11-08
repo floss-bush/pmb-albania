@@ -1,0 +1,1107 @@
+/* +--------------------------------------------------------------------------+
+// � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: orange.css,v 1.10 2010-01-26 13:56:39 kantin Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attrbitus g�n�raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+BODY  	{ 
+	FONT-FAMILY: arial, geneva, helvetica, arial;
+	FONT-SIZE: 10pt;
+	MARGIN: 0em;  
+	BACKGROUND-COLOR: #ffffff;
+	COLOR: #333333;
+
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* #container : partie d'affichage principale � droite de l'�cran */
+#container 	{
+	position: absolute;
+	height: 100%;
+	WIDTH: 100%;
+	COLOR: #765;
+	PADDING-RIGHT: 0px; 
+	PADDING-LEFT: 0px;       
+	PADDING-BOTTOM: 0px;
+	PADDING-TOP: 0px;
+
+	MARGIN-TOP: 0px;
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	Z-INDEX: 10;
+	voice-family: inherit;
+}
+
+#container a {
+	color:#765;
+	text-decoration: none;
+}
+
+#container a:hover {
+	color:#FF6600;
+	text-decoration: underline;
+}
+
+#intro {
+	padding:2px;
+	width:16%;
+	padding-bottom:10px;
+	padding-left:5px;
+}
+
+#intro_pmb {}
+#intro_pmb h1 {}
+#intro_pmb h2 {}
+#intro_pmb h3 {}
+#intro_message {}
+#intro_message .p1,		
+#intro_message .p2 {}
+		
+#intro_bibli {
+	margin-bottom:10px;
+	padding-top:0px;
+
+}
+	
+#intro_bibli h3 { 
+	FONT-SIZE: 12pt;
+	COLOR: #FF6600;
+	HEIGHT: 90px;
+	TEXT-ALIGN: center;
+}
+	
+#intro_bibli h3.span {
+	PADDING-LEFT: 10px;
+	BACKGROUND: #ffffff; 
+	MARGIN-BOTTOM: 20px
+}
+	
+#intro_bibli .p1,
+#intro_bibli .p2{
+	PADDING-TOP: 0px; 
+	PADDING-RIGHT: 0px; 
+	PADDING-BOTTOM: 0px; 
+	PADDING-LEFT: 0px; 
+	MARGIN: 0px; 
+	COLOR: #765; 
+	TEXT-ALIGN: left
+}
+
+
+		
+#all_footer {
+	DISPLAY: none;
+}
+
+
+#main {
+	display: block;
+	position:absolute;
+	top:0px;
+	left:19%;
+	width:81%; 
+}
+
+#main h3 { 
+	PADDING-TOP: 0px; 
+	PADDING-RIGHT: 0px; 
+	PADDING-BOTTOM: 0px; 
+	PADDING-LEFT: 0px; 
+	FONT-WEIGHT: normal; 
+	FONT-SIZE: 14pt; 
+	MARGIN: 4px 0px 15px; 
+	BORDER-BOTTOM: #999999 1px solid; 
+	FONT-FAMILY: arial; 
+	TEXT-ALIGN: left;
+}
+
+#main h3 span {
+	font-size:14px;
+	PADDING-RIGHT: 20px; 
+	PADDING-LEFT: 0px; 
+	MARGIN-BOTTOM: -10px; 
+	COLOR: #ff6600;
+}
+
+#main ul.search_tabs, #onglets_list ul.list_tabs{
+    margin:0;
+	margin-left: -5px;
+	margin-right: -5px;
+    padding:0;
+	list-style:none;
+	clear:right;
+	height:24px;
+	background : #FFFFFF url("pointsable.gif") repeat-x bottom left;
+}
+
+#main ul.search_tabs li, #onglets_list ul.list_tabs li{
+	float:left;
+	padding:3px 6px 0px 6px;
+   	margin-right:4px;
+	margin-bottom:5px;
+ 	height:19px;
+	background:#999999;
+
+	BORDER: #765 1px solid;
+	COLOR: #ffffff; 
+}
+
+#main ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+	text-decoration:none;
+	font-weight:normal;
+	COLOR: #ffffff;
+}
+          
+#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+  	float:left;
+  	padding:3px 6px 0px 6px;
+  	border:1px solid #cccccc;  
+  	margin-bottom:4px;
+   	height:19px;
+
+	FONT-WEIGHT: bold; 
+	BACKGROUND: #ff6600; 
+	BORDER-BOTTOM: #333399 1px solid;
+}
+          
+#main  #search_crl {
+   	clear:both;
+}      
+
+.div_clr {
+    clear:both;
+}  
+
+#location {
+	clear:both;
+}
+
+#location h3 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#location a {
+	color: #765;
+	text-decoration: none;
+}
+
+#location a:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}
+
+#search {
+   	padding:0px 5px 5px 5px;
+   	background:#eeeeee;
+   	margin-bottom:10px;
+}
+
+#aut_see {
+	BORDER-BOTTOM: #ffe0d8 1px solid;
+}
+
+/* barre de navigation */
+#navigator {
+	margin-top:5px;
+	PADDING-RIGHT: 5px; 
+	PADDING-BOTTOM: 5px;
+	PADDING-LEFT: 5px; 
+	MARGIN-BOTTOM: 5px; 
+}
+
+#navigator table {
+	border-collapse:collapse;
+	BACKGROUND: #eeeeee;
+}
+
+#navigator td {
+	text-align:center;
+	BORDER-RIGHT: #ffffff 2px solid;
+	BORDER-LEFT: #ffffff 2px solid; 
+	FONT-SIZE: 0.9em; 
+}
+
+#navigator a{
+	text-decoration: none;
+	color: #765;	
+}
+
+#navigator a:hover{
+	color: #FF6600;	
+	text-decoration:underline;
+}
+
+/* informations � ajouter pour afficher les cat�gories */
+div.row_categ {
+	display: block;
+	clear: left;
+}
+
+#categories {
+   	padding:0px 0px 5px 0px;
+   	background:#FFFFFF;
+   	margin-bottom:10px;
+}
+
+#categories H1 {
+	DISPLAY: inline; 
+	FONT-WEIGHT: 500; 
+	FONT-SIZE: 1.5em; 
+	MARGIN: 0.5em 0.2em 0.5em 0.5em; 
+	BORDER-TOP-STYLE: double; 
+	BORDER-RIGHT-STYLE: double; 
+	BORDER-LEFT-STYLE: double; 
+	BACKGROUND-COLOR: transparent; 
+	BORDER-BOTTOM-STYLE: double
+}
+
+#categories h3 {
+	margin:0px;
+	margin-top:0px;
+	margin-bottom: -1px;
+	padding-left:5px;
+	font-size:20px;
+	font-weight:bold;
+	color:#ffffff;
+}	
+
+#categories A {
+	color:#ffffff;
+	text-decoration:none;
+}
+
+#categories A:hover {
+	color:#ffffff;
+	text-decoration:underline;
+}
+
+/* informations � ajouter pour afficher les cat�gories */
+#categories-container {
+	border:none;
+	padding-left:10px;
+	height:100%;
+	display:block;
+	padding-bottom:5px;
+
+	BACKGROUND: #EEEEEE;
+}
+
+div.category {	
+	float:left;
+	color:#ffffff;
+
+	PADDING-TOP: 0.5em
+	PADDING-RIGHT: 0.2em; 
+	PADDING-LEFT: 0.2em; 
+	PADDING-BOTTOM: 0.5em; 
+	WIDTH: 30%; 
+}
+		
+#categories-container H2 {
+	font-size:13px;
+	padding-bottom :0px;
+	margin:0px;
+
+	FONT-WEIGHT: bold; 
+	BACKGROUND: none transparent scroll repeat 0% 0%; 
+}
+		
+#categories-container H2 IMG {
+	padding-top:3px;
+}
+
+#categories-container A {
+	color:#EEEEEE;
+}
+
+#categories-container h2 A {
+	color:#765;
+}
+
+#categories-container h2 A:hover {
+	color:#FF6600;
+}
+
+#categories-container UL {
+	MARGIN-TOP: 0em; 
+	MARGIN-BOTTOM: 0em
+	PADDING-LEFT: 0em; 
+}
+
+#categories-container LI {
+	display: inline;
+
+	FONT-SIZE: 0.9em;
+}
+
+#categories-container LI A {
+	color: #765;
+	text-decoration:none;
+}
+	
+#categories-container LI A:hover {
+	color: #FF6600;
+	text-decoration:underline;
+}
+
+#categories-container LI:after {
+	color: #765;
+	content: " - "; 
+}
+	
+#categories ul.search_tabs {
+    margin:0;
+	margin-left: 0px;
+	margin-right: 0px;
+    padding:0;
+	list-style:none;
+	clear:right;
+	height:24px;
+	background : #FFFFFF url("pointsable.gif") repeat-x bottom left;
+}	
+
+#categorie ul.search_tabs li {
+	float:left;
+	padding:3px 6px 0px 6px;
+    margin-right:4px;
+	margin-bottom:5px;
+	height:19px;
+	background:#999999;
+
+	BORDER-TOP: #765 1px solid;
+	BORDER-RIGHT: #765 1px solid;
+	BORDER-BOTTOM: #765 1px;
+	BORDER-LEFT: #765 1px solid;
+	COLOR: #ffffff; 
+}
+
+#categories ul.search_tabs li a {
+	text-decoration:none;
+	font-weight:normal;
+	color:#FFFFFF;
+}
+          
+#categories ul.search_tabs li#current {
+  	float:left;
+  	padding:3px 6px 0px 6px;
+  	border:1px solid #cccccc;  
+  	margin-bottom:4px;
+   	height:19px;
+
+	FONT-WEIGHT: bold; 
+	BACKGROUND: #ff6600; 
+	BORDER-BOTTOM: #333399 1px solid;
+}          	
+
+/* Mise en page des colonnes d'affichage des recherches 
+   par auteurs, �diteurs, collections , sous-collections et cat�gories */
+.categ_colonne {
+	width:33%;
+	float:left;
+}
+/* reset des largeurs de #categories */
+/* apr�s un float:left; l'�l�ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+
+
+#last_entries { 
+	clear:both;
+	POSITION: relative
+}
+
+#search_result a:hover {
+	color: #FF6600;
+	text-decoration: underline;	
+}
+
+.etageres { 
+	clear:both;
+	MARGIN-TOP: 10px;
+}
+
+#pageHeader {}
+
+#bandeau { 
+	padding:2px;
+	padding-bottom:10px;
+	padding-left:5px;
+	width:16%;
+	background: #eeeeee;
+	border:#bbbbbb 1px solid;
+}
+
+#adresse H3 {
+	display:none;
+}
+
+#bandeau DIV {
+	height:100%;
+	padding:0px;
+}
+	
+#bandeau FORM {
+	margin: 0px 0px 0px 0px ;
+}
+
+#bandeau H3 {
+	font-weight:bold;
+	PADDING-LEFT: 4px; 
+	FONT-SIZE: 11pt; 
+	MARGIN: 3px 0px 0px -4px; 
+	COLOR: #765; 
+	TEXT-ALIGN: left;
+}
+
+#bandeau P.centered {
+	margin: 0px 0px 0px 0px ;
+	text-align:center;
+}
+
+#bandeau span {
+	font-size:9px;
+}
+
+#bandeau A {
+	font-size : 10pt;
+	color: #765;
+	text-decoration: none;
+}
+
+#bandeau A:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}		
+
+#bandeau h3 span {
+	font-size:11pt;
+}
+
+#bandeau li {
+	DISPLAY: block; 
+	BACKGROUND: no-repeat center top; 
+	MARGIN-BOTTOM: 0px; 
+	LINE-HEIGHT: 1em; 
+	PADDING-TOP: 0px; 
+	LIST-STYLE-TYPE: none;
+}
+
+#footer {
+	clear:both;
+	margin-top: 15px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding: 5px;
+	width: 99%;
+	color: transparent;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	background: url("liens.png") top left;
+	border:#bbbbbb 1px solid;
+}
+	
+#footer a {
+	color: #765;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	color:#FF6600;
+	text-decoration:underline;	
+}
+
+#notice {
+	FONT-SIZE: 10pt
+}
+
+#notice h3 {
+	BORDER-TOP: #ffe0d8 1px solid; 
+	BORDER-BOTTOM: #ffe0d8 1px solid;
+}
+		
+#notice span {
+	MARGIN: 5px 10px;
+}
+
+#cart_info_iframe_content {
+	color: #765;
+}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+A {
+	COLOR: #333333;
+}
+
+A:hover {
+	COLOR: #333333;
+}
+
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table {
+	BORDER-COLLAPSE: collapse;
+}
+
+tr {}
+
+th { 
+	text-align: left ;
+
+	BORDER-TOP: #ffe0d8 1px solid; 
+	BORDER-RIGHT: #ffe0d8 1px solid; 
+	BORDER-BOTTOM: #ffe0d8 1px solid; 
+	BORDER-LEFT: #ffe0d8 1px solid; 
+	BACKGROUND: #ff6600; 
+	COLOR: #ffffff; 
+	FONT-STYLE: normal; 
+	FONT-FAMILY: arial; 
+	LETTER-SPACING: 0.05cm;
+}
+
+td.jauge {
+	BORDER-TOP: #000 1px solid; 
+	BORDER-BOTTOM: #000 1px solid; 
+	FONT-SIZE: 12pt; 
+	BACKGROUND: #cc3366; 
+	TEXT-ALIGN: center;
+}
+
+td.visible {
+	BORDER-TOP: #ffe0d8 1px solid; 
+	BORDER-BOTTOM: #ffe0d8 1px solid;
+	BACKGROUND: #fff4f1;
+}
+
+td.visible-centered {
+	BORDER-TOP: #ffe0d8 1px solid; 
+	BORDER-BOTTOM: #ffe0d8 1px solid;
+	BACKGROUND: #fff4f1;  
+	TEXT-ALIGN: center;
+}
+
+tr.even {
+	BACKGROUND: #fff4f1; 
+	COLOR: #000;
+}
+tr.odd {
+	BACKGROUND: #f1f4ff; 
+	COLOR: #000;
+	}
+tr.surbrillance {
+	background: #EECCCC;
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+
+.row {
+	clear: both; 
+}
+
+.right,
+.right-50,
+.right-15,
+.right-85 {	
+	float: right; 
+}
+
+.right-50 {	
+	width: 50%; 
+}
+
+.right-15 {	
+	width: 15%;
+}
+
+.right-85 {	
+	width: 85%;
+}
+
+.right-clear-right,
+.right-50-clear-right {
+	float: right;
+	clear: right; 
+}
+
+.left-clear-left,
+.left-50-clear-left	{
+	float: left;
+	clear: left; 
+}
+
+.left,
+.left-50,
+.left-15 {	
+	float: left;
+}
+
+.left-50 {
+	width: 50%;
+}
+
+.left-15 {
+	width: 15%;
+}
+
+.left-85 {
+	width: 85%;
+}
+
+.spacer {	
+	clear: both;
+	visibility: hidden;
+	display: none;
+	margin-bottom: -10px;
+	margin-top: -10px; 
+}
+
+.p1 {}
+	
+.text_query {}
+
+.fond-mere {}
+
+.fond-article {}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton, input.boutonrechercher {
+	FONT-WEIGHT: bold; 
+	BACKGROUND: #e9e9e9; 
+	MARGIN-RIGHT: 0px; 
+	MARGIN-LEFT: 0px; 
+	COLOR: #999999; 
+	FONT-FAMILY: arial;
+}
+
+input.numero_page {
+	BORDER-TOP-WIDTH: 0px; 
+	BORDER-RIGHT-WIDTH: 0px;
+	BORDER-BOTTOM-WIDTH: 0px; 
+	BORDER-LEFT-WIDTH: 0px; 
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+ul#onglets_isbd_public {
+    list-style-type: none;
+    padding-bottom: 30px;
+    margin: 0;
+    padding-left:2px; 
+
+	FONT: 11px verdana, arial, sans-serif; 
+	BORDER-BOTTOM: #000000 1px solid;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 27px;
+    margin: 2px 2px 0 2px; 
+    border: 1px solid #765;
+	BACKGROUND-COLOR: #999999;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #765;
+	BACKGROUND-COLOR: #ff6600;
+	font-weight: bold;
+}
+
+ul#onglets_isbd_public a {
+    float: left;
+    display: block;
+    text-decoration: none;
+    cursor: default ;
+
+	PADDING-TOP: 4px; 
+	PADDING-RIGHT: 4px; 
+	PADDING-BOTTOM: 4px; 
+	PADDING-LEFT: 4px; 
+	COLOR: #ffffff; 
+}
+
+ul#onglets_isbd_public li.isbd_public_active a:hover {
+	CURSOR: text;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+ul#onglets_isbd_public li.isbd_public_inactive a:hover {
+	CURSOR: pointer;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+ul#onglets_isbd_public li.onglet_basket,
+ul#onglets_isbd_public li.onglet_basket a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	width:25px;
+}
+
+ul#onglets_isbd_public li.onglet_tags {
+   	border: none;
+	background:none;
+    cursor: pointer ;
+	color: none;
+	text-decoration:none;
+}
+ul#onglets_isbd_public li.onglet_tags a {
+    cursor: pointer ;
+	color: #765;
+	text-decoration: none;
+}
+
+ul#onglets_isbd_public li.onglet_tags a:hover {
+    cursor: pointer ;
+	color: #FF6600;
+	text-decoration: underline;
+}
+
+/* Colonnes */
+.colonne2 {
+ 	float: left;
+	width: 50%;
+}
+
+.colonne_suite {
+	float: left;
+}
+
+.bg-grey {
+	background-color: #eeeeee;
+}
+
+/* Etageres */
+#etageres {
+	MARGIN-BOTTOM: 1em; 
+	PADDING-BOTTOM: 1em; 
+}
+
+#titre_etagere {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#etagere-titre h1 {
+	background: url("liens.png") top left;
+	FONT-SIZE: 14px; 
+	color: #333399;
+}
+
+#etagere-titre h1 a {
+	color:#765;
+	text-decoration: none;
+}
+
+#etagere-titre h1 a:hover {
+	color:#FF6600;
+	text-decoration: underline;
+}
+
+#etagere-titre a {}
+
+.etagere-suite {
+	FONT-SIZE: 24px;
+}
+
+#etagere-comment h2 {
+	PADDING-LEFT: 2em; 
+	FONT-SIZE: 12px;
+}
+
+#etagere-notice-list {
+	PADDING-LEFT: 2em
+}
+
+#etagere-notice-list A {
+	color: #765;
+	text-decoration: none;
+}
+
+#etagere-notice-list A:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+}  
+
+.notice-heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+	color: #765;
+}
+
+.notice-parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    font-size: 8pt;
+    text-decoration: none
+}
+
+.img_plus {
+	background-color: #FF6600;
+}
+
+.notice-child {
+    font-family: arial, helvetica, geneva, sans-serif;
+    margin-left: 25px;
+    width: 98%;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+
+.heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-weight: bold;
+}
+
+.parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    text-decoration: none
+}
+
+.child {
+    font-family: arial, helvetica, geneva, sans-serif;
+	margin-left: 25px;
+    width: 98%;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+iframe#iframe_resume_panier {
+	width:100%;
+	height:35px;
+	border:none;
+}
+
+/* Bannettes */
+#bannette {
+	background:#EEEEFF; 
+	border:#cccccc 1px solid;
+}
+
+#bannette-titre h1 {
+	background: url("liens.png") top left;
+	width:99%;
+	margin:0px;
+	padding:5px;
+	font-size:13px;
+	font-weight:bold;
+}
+
+#bannette-titre h1 a {
+	color:#000000;
+}
+
+#bannette-titre a {}
+
+#bannette-comment h2 {
+	width:97%;
+	text-align:right;
+	font-style:italic;
+	font-size:16px;
+	color:#ffffff;
+	margin:0px;
+	padding:0px;
+	margin-top:-3px;
+	padding-bottom:5px;
+}
+
+#bannette-notice-list {
+	padding-left:5px;
+}
+
+#bannette-notice-list A {}
+
+#bannette-notice-list A:hover {}
+
+.alerte {
+	color: red;
+	font-size:14px;
+}
+
+.echelle_avis {
+	background-color: #eeeeee;
+	padding: 7px;
+	margin: 3px;
+	border:1px solid #BBBBCC;
+}
+
+#titre-popup {
+	margin-top:5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background:#eeeeee;
+	border:1px solid #BBBBCC;
+	color: #765;
+}
+
+.etiq_champ {
+	font-weight:bold;
+}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}
+
+
+/* surlignage des mots recherches */
+.text_search0 {
+	background-color: #FFFF51;
+	text-decoration: underline;
+}
+
+.text_search1 {
+	background-color: #66FF66;
+	text-decoration: underline;
+}
+
+.text_search2 {
+	background-color: #99FFFF;
+	text-decoration: underline;
+}
+
+.text_search3 {
+	background-color: #FF99FF;
+	text-decoration: underline;
+}
+
+.text_search4 {
+	background-color: #FCD069;
+	text-decoration: underline;
+}
+
+.text_search5 {
+	background-color: #D7D7D7;
+	text-decoration: underline;
+}
+

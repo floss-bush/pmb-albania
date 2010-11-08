@@ -1,0 +1,4 @@
+<h1>Z39.50</h1>
+<p><b>Z39.50 server settings</b> for the import of records.</p>
+
+<b>Servers</b>, list of Z39.50 servers available. New servers can be added to the list, unnecessary ones may be removed.

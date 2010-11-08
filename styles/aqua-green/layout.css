@@ -1,0 +1,1356 @@
+/* +--------------------------------------------------------------------------+
+// ? 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: layout.css,v 1.64 2010-07-02 08:15:16 arenou Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attributs g�n�raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* concerne : body */
+body
+	{
+      background: #efe ;	/*url("bande_bas.gif") repeat-x bottom*/
+      margin:0;
+      padding:0;
+      color:#000;
+      font:x-small/1.5em Verdana, Georgia, Serif;
+      voice-family: "\"}\""; voice-family:inherit;
+      font-size:small;
+      } 
+html>body {font-size:small;}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu?es ? des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* Concerne : #navbar, #menu, iframe#alerte, #conteneur, #contenu, #login-form
+   #extra, #deconnexion, #footer, #logo */
+
+/* BARRE DE NAGIVATION #navbar */
+#navbar
+	{   position: absolute;
+		top: 0; float:left;
+		width:100%;
+		background:#dae0d2 repeat-x bottom url("bg.gif");
+		font-size:93%; line-height:normal;
+		z-index:10;}
+    
+        #navbar h3 { display: none;	}
+        
+        #navbar ul {
+          margin:0;
+          padding:10px 10px 0;
+          list-style:none;}
+          
+        #navbar li {
+          float:left;
+          background:url("left_both.gif") no-repeat left top;
+          margin:0;
+          padding:0px 0px 0 14px;
+          border-bottom:1px solid #765;  }
+          
+        #navbar a {
+          float:left;
+          display:block;
+          width:.1em;
+          background:url("right_both.gif") no-repeat right top;
+          padding:5px 15px 4px 6px;
+          text-decoration:none;
+          font-weight:semibold; 
+	      color: #000;  }
+          
+        #navbar > ul a {width:auto;}
+        /* Commented Backslash Hack hides rule from IE5-Mac \*/
+        #navbar a {float:none;}
+        /* End IE5-Mac hack */
+        #navbar a:hover {
+          color:#000;
+          }
+        #navbar .current {
+          background-position:0 -150px;
+          border-width:0;
+          }
+        #navbar .current a {
+          background-position:100% -150px;
+          padding-bottom:5px;
+          color: #000;
+          }
+        #navbar li:hover, #header li:hover a {
+          background-position:0% -150px;
+          color:#000;
+          }
+        #navbar li:hover a {
+          background-position:100% -150px;
+          }
+		/* /BARRE DE NAGIVATION #navbar */
+
+/*	MENU : #menu	*/
+#menu
+{   position: absolute;
+	top: 5%;
+	left: 0;
+	width: 13em;
+	text-align: left;
+	padding: 0em;}
+
+      #menu ul
+      { margin: 0px 0px 4px 0px;
+	padding: 0px 0px 0px 0px;
+	margin-left: .5em;
+	margin-top: 2px;
+      	list-style-type: none;}
+      
+      #menu a
+      { display: block;
+      	font-size: 8pt;
+      	text-decoration: none;
+      	color: #000000;
+      	background: transparent;
+		padding: 0.1em;
+      	width: 12em; }
+      
+      #menu a:hover
+      {	color: #000000;
+      	text-decoration: underline; }
+      
+      #menu a:visited
+      { color: #000000;}
+      
+      #menu li
+      { 
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 8pt;
+      	display: block;
+      	padding-bottom: .1em;
+      	color: #000000;
+		background-image: url(fleche.gif);
+      	background-repeat: no-repeat;
+      	background-position: 0 0.1em;
+      	padding-left: 7px;}
+      
+      #menu ul li a
+      {	font-size: 8pt;
+      	text-decoration: underline;}
+      
+      #menu h3
+      {	padding: 0px 0px 0px 0px;
+      	margin : 0px 0px 0px 0px;
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 11pt;
+      	font-weight: bold;
+      	color :#000000;
+      	padding-left: 10px;}
+      /*	/MENU	*/
+
+/*    MENU : #menu_horizontal    */
+
+	.hmenu span{
+		padding:0 5px;
+   	}
+	/* General. setpref sert lors de l'enregistrement des preferences de disposition du menu. */
+	#menu h3.setpref{background:#98ba55;}
+	
+/*    MENU : #menu_vertical    */
+
+	.vmenu span{
+		display:block;
+	}
+
+iframe#alerte { 
+	visibility:visible;position:absolute;
+	left:0;top:600px;width:150px;border-style:none;
+	border-width:0px;border-color:#000000;
+	background:#efe; 
+	}
+
+/* Conteneur */
+#conteneur
+      {	position: absolute;
+      	top: 3em;
+      	width: 100%;
+      	z-index:10;  }
+      
+      #conteneur a
+      {	color: #000;
+      	font-size: 10pt;
+      	text-decoration: underline;}
+      
+      #conteneur a:hover
+      { text-decoration: underline; }
+/*  /Conteneur */
+
+/*	Contenu	*/
+#contenu
+	{ position: absolute;
+	  top: 5%;
+	  right: 0;
+	  left: 12.5em;
+	  width: 80%;}
+	
+      #contenu a
+      {	color: #000;
+      	text-decoration: underline;}
+		
+		#contenu .hidelink a:link		{ text-decoration: none; }
+		#contenu .hidelink a:visited	{ text-decoration: none; }
+/*
+		#contenu .hidelink a:hover		{ text-decoration: underline; }
+*/
+		/* utilis? pour les paniers : c'est un tag img avec un javascript onmousedown (pas un tag a) */
+		#contenu .hidelink img			{ cursor: pointer; }
+     
+      #contenu label {
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 9pt;
+      	font-weight: bold;     	}
+
+      #contenu h1
+      {	color :#98ba55;
+      	padding-top: .5em;
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 14pt;
+      	/*border-bottom: 1px dotted #b8da75;*/}
+      
+      #contenu h2
+      { color : #000;
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 12pt;     }
+      /*	/Contenu	*/
+
+/* Login-box */
+#login-box
+   {	width: 50%;
+   	margin-left: 25%;
+   	margin-right: 25%;}
+   
+   #login-box
+   {	margin-top: 10%;}
+   
+   #login-box label {
+       font-family: Verdana, Arial, sans-serif;
+       font-size: 9pt;
+       font-weight: bold;     	}
+
+   #login-box h1
+   {	color :#98ba55;
+      	padding-top: .5em;
+      	font-family: Verdana, Arial, sans-serif;
+      	font-size: 14pt;
+      	/*border-bottom: 1px dotted #b8da75;*/}
+/*    /Login-box    */	
+
+/*	Contenu	frame*/
+#contenu-frame {
+	position: absolute;
+	top: 4px;
+	right: 0;
+	left: 0em;
+	width:98%;
+	}
+
+
+   #contenu-frame a {
+   	color: #000;
+   	font-size: 10pt;
+   	text-decoration: underline;}
+   	
+   #contenu-frame a:visited
+   {	text-decoration: underline;
+   	color: #486a05;}
+   
+   #contenu-frame a:hover
+   {	text-decoration: underline;
+   	color: #A84a65;}
+   
+   #contenu-frame h1
+   {	color : #AB3F03;
+   	padding-top: .5em;
+   	font-family: Verdana, Arial, sans-serif;
+   	font-size: 11pt;
+   	/*border-bottom: 1px dotted #684;*/}
+   
+   #contenu-frame h2
+   {	color : #000000;
+   	font-family: Verdana, Arial, sans-serif;
+   	font-size: 10pt; }
+   	
+	#contenu-frame table {
+		border:none;
+		background:transparent;
+	}
+	#contenu-frame td {
+		border:none;
+		background:transparent;
+	}
+	/*	/Contenu-frame	*/
+
+/*	#extra	*/
+#extra
+      {	position: absolute;
+      	top: 0;
+      	right: 0;
+      	color: #000;
+      	padding: 10px 10px 0 0;
+      	z-index: 100;}
+      
+      #extra a { color: #000;}
+      
+      #extra a:hover { text-decoration: none; }
+
+/* #deconnexion  */      
+#deconnexion a {	color: #ff0000;}      
+/*	/#deconnexion	*/
+
+/* footer */
+#footer
+{   	display: none;
+      	float: right;
+      	padding: 0;
+      	margin: 0;
+      	z-index: 0;  }
+      
+      #footer span,
+      #footer span a
+      {	font-family: Verdana, Arial, sans-serif;
+      	color:#b8da75;
+      	font-size: 9pt;
+      	padding : 10px 0 0 5px;
+      	margin: 0 0 0 10px;}
+      
+      #footer a
+      {text-decoration: none;}
+      
+/* logo */
+#logo
+      { position: absolute;
+      	bottom: 0;
+      	left: -60px;
+      	/*background: transparent no-repeat bottom right url("books_small.gif");*/
+      	padding: 5px;
+      	margin: 0px auto;
+      	width: 200px;
+      	height:150px;
+      	z-index: 0; }
+      
+      #logo span
+      { display:none; }
+/* /footer et logo */
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliqu?es ? des balises sans classes ni id sp?cifi?s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* Concern? : form ; select ; table (tr th td) ; hr ; img ; h3                */
+
+/*	Forms  */
+form
+{
+	background-color: #C5DEFF;
+	margin: 0px auto;
+	width: 98%;
+	padding: 5px;
+}
+
+.form-contenu {
+	border-bottom: 3px solid #5450FF;
+	border-top: 3px solid #5450FF;
+	padding: 5px;
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	padding-top: 1em;
+	background-color: #C5DEFF;}
+
+form a
+{
+	color: #000;
+	font-family: Verdana, Arial, sans-serif;
+	text-decoration: underline;
+}
+
+form a:hover
+{
+	text-decoration: none;
+}
+
+/* formulaire de retour de document */
+.form-retour-expl {
+background: #BB0000;
+color: #111111;
+}
+.form-retour-expl h3 {
+color: #efe;
+}
+
+/*	/row	*/
+
+select option,
+select
+{
+	font-weight: bold;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+   {
+	margin: 0px auto;
+    padding: 5px;
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	padding-top: 1em;
+	background: #fff;
+   	border-collapse: collapse;
+   	border-bottom: 3px solid #b8da75;
+	border-top: 3px solid #b8da75;
+	border-right: 1px solid #b8da75;
+	border-left: 1px solid #b8da75;
+   	width: 100%;}
+   
+   tr
+   { }
+   
+   th
+   { background: #f0f0f0;
+   	border-bottom: 2px solid #b8da75;
+   	border-top: 2px solid #b8da75;
+   	font-size: 9pt;
+   	}
+   
+   td
+   {	border-bottom: 1px solid #b8da75;
+   	border-top: 1px solid #b8da75;
+   	text-align: left; }
+   
+   tr.even
+   {	background: #efc;
+   	color: #000; }
+   
+   tr.odd { }
+   
+   tr.surbrillance 
+   {	background: #CCFFCC;}
+
+   .table-no-border {
+	border: none; }
+	
+
+/* Documents num?riques dans les tableaux */
+table.docnum
+	{	background: none;
+	border-collapse: collapse;
+	border-right: 0px ;
+	border-left: 0px ;
+	border-top: 0px ;
+	border-bottom: 0px ;
+	width: 98%;}
+
+td.docnum
+	{	border-bottom: 0px ;
+	border-top: 0px ;
+	border-bottom: 0px solid #5450FF;
+	border-top: 0px solid #5450FF;
+	text-align: center;
+	text-align: center;}
+
+/*------------------------------------
+/	/Tableaux
+/------------------------------------*/
+
+hr
+	{ width:96%;
+	height: 0;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	/*border-bottom: 1px solid #000;*/}
+
+img
+	{ border: 0; }
+
+h3
+{	clear: both;
+	display: block;
+	margin-bottom: 2px;
+	margin-top: 4px;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	color: #3740B4;}
+
+/* les elXParent restent ici avec les h3 pour faciliter la lecture */
+#el0Parent h3, 
+#el1Parent h3,
+#el2Parent h3,
+#el3Parent h3,
+#el230Parent h3,
+#el4Parent h3,
+#el5Parent h3,
+#el6Parent h3,
+#el7Parent h3,
+#el8Parent h3,
+#el9Parent h3,
+#el10Parent h3,
+#el11Parent h3,
+#el30Parent h3,
+#el41Parent h3,
+#elbulParent h3,
+#el14Parent h3  {
+	font-size: 11pt;
+	margin-bottom: 0px;
+	margin-top: -1px;
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliqu?es ? classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* Concerne : .roundedCornerSpace .borderBR BL TR TL .content .erreur .hide   */
+/*     .aide .astuce .bool .row .etiquette .saisie-inline . saisie-XXXem      */
+/*     .saisie-XXXemr .right .right-... .left .left-... .spacer               */
+/*     .saisie-contenu .bouton .
+
+
+/*	rounded corner box	*/
+.roundedCornerSpacer {
+          margin: 0px; padding: 0px; border: 0px;
+          clear: both;
+          font-size: 1px; line-height: 1px;
+      }
+      /* In the CSS below, the numbers used are the following:
+          1px: the width of the border
+          3px: a fudge factor needed for IE5/win (see below)
+          4px: the width of the border (1px) plus the 3px IE5/win fudge factor
+          14px: the width or height of the border image
+      */
+      .borderTL, .borderTR, .borderBL, .borderBR {
+          width: 14px; height: 14px;
+          padding: 0px; border: 0px;
+      }
+      .borderTL, .borderBL { float: left; clear: both; }
+      .borderTR, .borderBR { float: right; clear: right; }
+      .borderTL { margin: -1px 0px 0px -1px; }
+      .borderTR { margin: -1px -1px 0px 0px; }
+      .borderBL { margin: -14px 0px 0px 0px; }
+      .borderBR { margin: -14px 0px 0px 0px; }
+      
+      /* IE5-5.5/win needs the border scooted to the left or right by an
+         additional 3px! Why? */
+      
+      .borderTL {
+          margin-left: -4px;
+          ma\rgin-left: -1px;
+      }
+      html>body .borderTL {
+          margin-left: -1px;
+      }
+      .borderTR {
+          margin-right: -4px;
+          margin-right: -1px;
+      }
+      html>body .borderTR {
+          margin-right: -1px;
+      }
+      .borderBL {
+          margin-left: -3px;
+          margin-left: 0px;
+      }
+      html>body .borderBL {
+          margin-left: 0px;
+      }
+      .borderBR {
+          margin-right: -3px;
+          margin-right: 0px;
+      }
+      html>body .borderBR {
+          margin-right: 0px;
+      }
+      /* To get around a known bug in IE5/win, apply the
+         border (no margin, padding or positioning) to the
+         content class and apply whatever positioning you
+         want to the contentWrapper class. */
+      
+      .content {
+          margin: 0px;
+          padding: 0px;
+          border: 1px solid #00000;
+      }
+      .contentWrapper {
+          /* position this div however you want, but
+             keep its padding and border at zero */
+          padding: 0px;
+          border: 0px;
+      }
+/*	/rounded corner box	*/
+
+ ***********************/
+.col
+{	float: left;
+	width: 100%;
+	padding: 1em;
+	margin: 1em; }
+
+.erreur
+{	color: #f00;
+	font-weight: bold;}
+
+.erreur-child
+{
+	display:none;
+	margin-left: 12%;
+    padding:0;
+    color:#000;
+    font-weight:normal;
+}
+
+.hide { display: none; }
+
+.aide
+{ cursor: help; }
+
+.astuce
+{ 	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	margin-top: 1em; }
+
+.bool
+{ 	font-family: fixed;
+	font-weight: bold; }
+
+.row {   clear: both; }
+
+.row .etiquette
+{  /* float: left; */
+  /*text-align: right;*/}
+
+.row img {	display: inline; }
+
+.saisie-inline {	width: 80%; }
+
+.saisie-2em {	width: 2em; }
+.saisie-5em {	width: 5em; }
+.saisie-10em {	width: 7.5em;}
+.saisie-15em {	width: 10em; }
+.saisie-20em {	width: 15em;}
+.saisie-30em {	width: 20em; }
+.saisie-60em {  width: 37.5em;}
+.saisie-50em {	width: 30em;}
+.saisie-80em {	width: 40em;}
+
+/* pour les champs en readonly, avec bouton parcourir */
+.saisie-5emr,
+.saisie-10emr,
+.saisie-15emr,
+.saisie-20emr,
+.saisie-30emr,
+.saisie-50emr,
+.saisie-80emr
+{	background-color: #DFB;
+	border: 1px solid #684;
+}
+
+.saisie-5emr {	width: 5em;}
+.saisie-10emr {	width: 7.5em;}
+.saisie-15emr {	width: 10em;}
+.saisie-20emr {	width: 15em;}
+.saisie-30emr {	width: 20em;}
+.saisie-50emr {	width: 30em;}
+.saisie-80emr { width: 40em;}
+
+.saisie-85 {	width: 94%;}
+
+/* pour les champs non modifiables */
+.saisie-5emd,
+.saisie-10emd,
+.saisie-15emd,
+.saisie-20emd,
+.saisie-30emd,
+.saisie-50emd,
+.saisie-80emd
+{	background-color:transparent;
+	border-color:transparent;
+	border-width:0;
+}
+.saisie-5emd {	width: 5em; }
+.saisie-10emd {	width: 7.5em;}
+.saisie-15emd {	width: 10em; }
+.saisie-20emd {	width: 15em;}
+.saisie-30emd {	width: 20em; }
+.saisie-50emd {	width: 30em;}
+.saisie-80emd {	width: 40em;}
+
+.right,
+.right-50,
+.right-15,
+.right-85
+{	float: right;}
+
+.right-50 { width: 50%;}
+.right-15 { width: 15%; }
+.right-85 { width: 85%; }
+
+
+.right-clear-right,
+.right-50-clear-right
+{ 	float: right;
+	clear: right; }
+
+.left-clear-left,
+.left-50-clear-left
+{ 	float: left;
+	clear: left; }
+
+.left,
+.left-50,
+.left-15
+{ 	float: left; }
+
+.left-50 { 	width: 50%; }
+
+.left-15 { 	width: 15%; }
+
+.left-85
+{	width: 85%;}
+
+.spacer
+{	clear: both;
+	visibility: hidden;
+	display: none;
+	margin-bottom: -10px;
+	margin-top: -10px;}
+
+.saisie-contenu
+{	padding-left: 12px;
+	padding-top: .3em;
+	margin-top: .2em;}
+
+.bouton
+{	color: #fff;
+	font-weight: bold;
+	border: 1px outset #789a35;
+	background-color: #98ba55;}
+
+.bouton_small
+{	color: #fff;
+	font-weight: bold;
+	border: 1px outset #789a35;
+	background-color: #98ba55;
+	font-size:8pt;}
+
+.bouton:hover
+{	border-style: inset;
+	background-color: #98ba55;
+ 	border: 1px solid #98ba55;	}
+
+.fond-mere {
+	background-color: #4f72ff;
+	}
+
+.fond-article {
+	background-color: #68df00;
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliqu?es ? des balises sans classes ni id sp?cifi?s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+.notice-perio
+{	border-top: 1px solid #684;
+	border-bottom: 1px solid #684;
+	border-left: 1px solid #684;
+	border-right: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;}
+
+.bulletins-perio
+{	border-top: 1px solid #684;
+	border-bottom: 1px solid #684;
+	border-left: 1px solid #684;
+	border-right: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;} 
+	
+.bulletins-perio h2 blockquote {
+		font-size:0.8em;
+		font-weight: normal;
+}	
+
+.depouillements-perio
+{   border-top: 1px solid #684;
+	border-bottom: 1px solid #684;
+	border-left: 1px solid #684;
+	border-right: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em; }
+	
+.msg-perio {
+	font-size: 150%;
+	font-weight: bold;
+	color: #f00;	}
+	
+/* barre fl?ch?e en p?rio */
+.perio-barre {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+/* classes pour l'affichage de liste d?pliantes en resultat de recherche */
+.notice-heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-size: 10pt;
+    font-weight: bold;
+}
+.notice-parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    font-size: 8pt;
+    text-decoration: none
+}
+.notice-child {
+    font-family: arial, helvetica, geneva, sans-serif;
+	font-size: 0.9em;
+    margin-left: 30px;
+    width: 98%;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+.notice-bu {
+	margin-top: 0px;
+	background-color: transparent;
+	border-style: none; }
+
+/* classes pour l'affichage de liste d?pliantes en formulaire de saisie de notice */
+.heada {
+		font-size: 10pt;
+		font-weight: bold;
+		}
+.parent {
+	color: #000000;
+	margin-left: 0px;
+	font-size: 8pt;
+	text-decoration: none
+	}
+.child {
+	margin-left: 30px;
+	}
+.bu {
+	margin-top: 15px;
+	}
+
+.titre-panier
+{ border-top: 1px solid #684;
+	border-bottom: 1px solid #684;
+	border-left: 1px solid #684;
+	border-right: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em; }
+
+
+#history_table {
+	border:0px;
+	padding:0px;
+	margin:0px;
+	background:transparent;
+}
+
+#history_table td {
+	padding:0px;
+	margin:0px;
+	border:0px;
+}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                      */
+/*                                                                            */
+/* pour l'impression, masquage de #navbar, #menu, #deconnexion, #extra,       */
+/* iframe#alerte et des boutons de classe .bouton; #contenu coll? ? gauche    */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+@media print {
+
+	#conteneur 	{
+		position: relative;
+		clear:both;
+		}
+
+	#main 	{
+		display: inline;
+		position:absolute;
+		top:45px;
+		left:0px;
+		width:100%;
+	}
+
+	HTML BODY #main {
+		top:0px;
+	}
+
+  #navbar
+	{ display: none; }
+  #menu
+	{ display: none;}
+  #contenu
+	{
+	position: relative;
+	top: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+		}
+  /*	Contenu	frame*/
+  #contenu-frame {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0em;
+	width: 100%;
+	}
+
+
+  /*	Menu	*/
+  #deconnexion 
+	{ display: none; }
+  #extra
+	{ display: none; }
+  .bouton
+	{ display:none; }
+
+  iframe#alerte
+	{ visibility:hidden;	}
+}
+
+iframe#history {
+	width:40%;
+	height:97%;
+	position:absolute; 
+	top:1%; 
+	left:1%;
+	z-index:1000;
+	}
+	
+* HTML iframe#history {
+	height:580px;
+	}
+
+/* pour affichage de pav�s de couleur pour disinction des statuts de notices */
+.statutnot1 {
+	}
+.statutnot2 {
+	background-color: #BB0000;
+	}
+.statutnot3 {
+	background-color: #00BB00;
+	}
+.statutnot4 {
+	background-color: #0000BB;
+	}
+.statutnot5 {
+	background-color: #D0686F;
+	}
+.statutnot6 {
+	background-color: #A6DCDC;
+	}
+.statutnot7 {
+	background-color: #816492;
+	}
+.statutnot8 {
+	background-color: #BCB964;
+	}
+.statutnot9 {
+	background-color: #6C75AC;
+	}
+.statutnot10 {
+	background-color: #FFC587;
+	}
+.statutnot11 {
+	background-color: #70C173;
+	}
+.statutnot12 {
+	background-color: #660000;
+	}
+.statutnot13 {
+	background-color: #006600;
+	}
+.statutnot14 {
+	background-color: #000066;
+	}
+.statutnot15 {
+	background-color: #80181F;
+	}
+.statutnot16 {
+	background-color: #668C8C;
+	}
+.statutnot17 {
+	background-color: #311442;
+	}
+.statutnot18 {
+	background-color: #7C7914;
+	}
+.statutnot19 {
+	background-color: #2C356C;
+	}
+.statutnot20 {
+	background-color: #BF8547;
+	}
+
+.gris {
+	color: grey;
+}
+
+.message_important {
+	color: #f00;
+	font-weight: bold;
+	font-size: 1.5em;
+	padding:5px;
+	margin:5px;
+	}
+	
+ul.sel_navbar {
+      margin:5px;
+      padding:0;
+      list-style:none;
+      clear:right;
+      height:23px;
+      float:left;
+      margin-bottom:-1px;
+	  border-bottom:1px solid #666666;  
+}
+
+ul.sel_navbar li {
+	float:left;
+	padding:3px 6px 0px 6px;
+    border:1px solid #666666;  
+    margin-right:4px;
+	margin-bottom:5px;
+    height:19px;
+	background:#999999;
+	color:#000000;
+}
+
+ul.sel_navbar li a {
+	text-decoration:none;
+	font-weight:normal;
+	color:#000000;
+}
+      
+ul.sel_navbar li.sel_navbar_current {
+  	float:left;
+  	padding:3px 6px 0px 6px;
+  	background:#eeffee;
+	border :1px solid #666666;  
+	border-bottom:1px solid #eeffee;
+	margin-bottom:4px;
+    height:19px;
+}
+
+.dsi table tr td {
+	border-left:1px solid #b8da75;
+	border-right:1px solid #b8da75;
+}
+
+.dsi table.dsi tr td:hover {
+	background:#BCEFBC;
+}
+
+
+#frame_notice_preview {
+ border:2px solid #777799;
+ border-radius:5px 5px; 
+ -moz-border-radius:10px;
+ padding:10px;
+ z-Index:1000;
+ position:absolute;
+ background: #F4EC92;
+ display:none;
+ width:680px;
+ height:500px;
+}
+
+#frame_periodique {
+ border:2px solid #777799;
+border-radius:5px 5px;
+ -moz-border-radius:10px;
+ padding:10px;
+ z-Index:1000;
+ position:absolute;
+ background: #FFF0A7;
+ display:none;
+ width:190px;
+ height:250px;
+}
+	
+#frame_abts {
+ border:2px solid #777799;
+ border-radius:5px 5px;
+ -moz-border-radius:10px;
+ padding:10px;
+ z-Index:1000;
+ position:absolute;
+ background: #FFF0A7;
+ display:none;
+ width:190px;
+ height:250px;
+}
+
+#frame_trans_expls {
+ border:2px solid #777799;
+ border-radius:5px 5px;
+ -moz-border-radius:10px;
+ padding:10px;
+ z-Index:1000;
+ position:absolute;
+ background: #ddf0a7;;
+ display:none;
+ width:500px;
+ height:250px;
+}
+
+.edit #contenu tr.group_title {
+	background: #bec0ce;
+	}
+	
+#a_recevoirChild .colonne_suite input {
+	margin-right:20px;
+}
+
+.form-acquisition>.form-contenu #tot_ht, #tot_tva, #tot_ttc, #adr_fou, #adr_liv, #adr_fac, #tot_expl, #devise[class=saisie-5emd]{	
+	border: 1px solid #684;
+}
+
+.req_cell {
+	table-layout:fixed;
+}
+.req_cell th,
+.req_cell td {
+	border:1px solid #000000;
+	border-collapse:collapse;
+	padding-right:4px;	
+}
+.req_cell .col_ali {
+	width:10%;
+}
+.req_cell .col_get,
+.req_cell .col_vis,
+.req_cell .col_grp,
+.req_cell .col_tri {
+	width:20px;
+	padding-right:0px;
+}
+.req_cell .col_act,
+.req_cell .col_obl {
+	width:50px;
+	padding-right:0px;
+}
+.req_cell .up_bt {
+	vertical-align:top;
+	cursor:pointer;	
+}
+.req_cell .down_bt {
+	vertical-align:bottom;
+	margin-left:-16px;
+	cursor:pointer;	
+}
+.req_cell .stop_bt,
+.req_cell .cross_bt {
+	vertical-align:middle;
+	width:16px;
+	cursor:pointer;	
+}
+.in_cell,
+.in_cell_nb,
+.in_cell_ro,
+.in_cell_nb_ro
+ {
+	width:99%;
+	border:1px solid;
+}
+.in_cell_nb,
+.in_cell_nb_ro {
+	text-align:right;
+}
+.in_cell_ro,
+.in_cell_nb_ro {	
+	background-color: #DFB;
+	border: 1px solid #684;
+}
+
+.req_ajax_div {
+	border:1px #000 solid;
+	left:0px;
+	top:0px;
+	position:absolute;
+	background-color:#FFFFFF;
+	z-Index:1000;
+	height:200px;
+	overflow:auto;
+	display:none;
+}
+
+.req_row_handler {
+	margin-left:5px;
+	top:0px;
+	cursor:pointer;	
+}
+
+#req_frame {
+	border:2px solid #777799;
+	border-radius:5px 5px;
+	-moz-border-radius:10px;
+	padding:5px;
+	z-Index:1000;
+	position:absolute;
+	background: #FFF0A7;
+	display:none;
+ }
+
+ .req_cell .bt_cross_elt {
+ 	vertical-align:bottom;
+ 	width:8px;
+	cursor:pointer;
+ }
+ .act_cell {
+	table-layout:fixed;
+}
+
+.act_cell th,
+.act_cell td {
+	border:1px solid #000000;
+	border-collapse:collapse;
+	padding-left:2px;
+	padding-right:2px;
+	vertical-align:top;	
+	overflow:hidden;
+}
+.act_cell_chkbox {
+	width:25px;
+}
+.img_plus{background:#8cc6ff;}
+
+/**
+ *  Couleur de fond et de liens du calendrier
+ *
+ **/
+#calendrier_tab td.lien_date a{
+	color:white;
+}
+#calendrier_tab td.lien_date {
+	background:green;
+}
+#calendrier_tab td.lien_date_hs {
+	background:red;
+}
+#calendrier_tab td.lien_date_hs_p {
+	background:orange;
+}
+
+#up_frame{
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background: #eee;
+}
+.recorded {
+	color: #cc0000;
+	font-weight: bold;
+}
+.pbar {
+	width:710px;
+	text-align:center;
+}
+.pbar_frame {
+	border:#000000 1px solid;
+	padding:4px';
+}
+.pbar_gauge {
+	text-align:left;
+}
+#pbar_img {
+	height: 16px;
+	width:0px;
+}
+.dom_div {
+	overflow:auto;
+}
+.dom_tab {
+	table-layout:fixed;	
+}
+.dom_col {
+	overflow:hidden;
+	width:200px;
+}
+.dom_cell_tab {
+	border:#000000 1px solid;
+	overflow:hidden;
+}
+
+/*Suggestions multiples */
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;	
+	vertical-align:center;
+	text-align: center;
+	overflow:scroll;
+	width:100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+   background:#F3F3F3;
+}
+.tab_sug select{
+	width:95%;
+}
+
+
+.erreur_saisie {
+	background-color: #ff0000;
+}

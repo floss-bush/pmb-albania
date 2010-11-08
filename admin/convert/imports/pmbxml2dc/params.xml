@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>pmb-XML UNIMARC -&gt; Dublin Core (dc)</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+	
+	<!-- Type de la sortie -->
+	<output importable="no" type="xml" mimetype="text/xml" charset='utf-8'>
+		<rootelement>dc_notices</rootelement>
+		<noticeelement>oai_dc:dc</noticeelement>
+	</output>
+	
+	<step type="xmltransform">
+		<!-- Conversion en html -->
+		<xslfile>pmbxmlunimarc2dc.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>dc_notices</trootelement>
+		<tnoticeelement>oai_dc:dc</tnoticeelement>
+		<namespace id='dc'>http://www.openarchives.org/OAI/2.0/dc/</namespace>
+	</step>
+</params>

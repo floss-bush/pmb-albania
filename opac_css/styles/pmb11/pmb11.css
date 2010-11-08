@@ -1,0 +1,636 @@
+/* +--------------------------------------------------------------------------+
+// � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: pmb11.css,v 1.20 2010-01-26 13:56:38 kantin Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attributs g�n�raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* informations � ajouter pour afficher les cat�gories, principale diff�rence avec les CSS de CSSZenGarden */
+
+BODY  { font-size: 10pt;
+font-family: verdana, geneva, helvetica, arial;
+background-color: #fff;
+margin: 0em 0em 0em }
+td{
+	font-size : 11px;	
+}
+
+#categories DIV.category { float:left; margin: 0.5em 0.2em; width: 31%; z-index :2 }
+#categories DIV.category H2  { font-weight: bold; font-size: 1em; background-color: #ffebac; margin-top: 0em; margin-bottom: 0em; z-index :2 }
+#categories DIV.category LI  { font-size: 0.9em; display: inline; z-index :2 }
+#categories DIV.category LI:after  { font-size: 0.8em; content: ", "; z-index :2 }
+#categories DIV.category UL { margin-top: 0em; margin-bottom: 0em; padding-left: 0em; z-index :2 }
+#categories H1  { font-weight: 500; font-size: 1.5em; background-color: transparent; letter-spacing: 150%; margin: 0.5em 0.2em 0.5em 0.5em; display: inline; z-index :2 }
+
+/* reset des largeurs de #categories */
+/* apr?s un float:left; l'?l?ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+	#last_entries {clear:both;}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+#container 	{
+		position: absolute;
+		font-size : 11px;
+		height: 99%;
+		width: 99%;
+		margin:0px;
+		padding:0px;
+		left:0;
+		top:0;
+		}
+	
+
+#main 
+	{
+	display: block;
+	position:absolute;
+	top:50px;
+	left:170px;
+	padding-top:0;
+	width:81%;
+}
+
+#main DIV {
+	padding-bottom:5px;
+	}
+
+#main H3
+{
+	font-family: georgia, palatino, times, serif;
+	font-size:1.5em;
+	clear:both;
+	width:100%;
+	border-bottom: solid 2px #004D73;
+	
+}
+
+#main h3 span {
+background:#004D73;
+color:#fff;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+/* Mise en page des colonnes d'affichage des recherches 
+   par auteurs, �diteurs, collections , sous-collections et cat�gories */
+.categ_colonne {
+	width:33%;
+	float:left;
+}
+/* reset des largeurs de #categories */
+/* apr�s un float:left; l'�l�ment bloc suivant doit avoir l'attribut clear:both s�lectionn� pour �viter un bug d'affichage */
+	#last_entries {clear:both;}
+
+#bandeau {
+	text-align: left;
+	color:#fff;
+	background : url("bandeau_gauche.gif")  no-repeat top left;
+	position: absolute;
+	margin: 0px;
+	padding: 5px;
+	top: 40px;
+	left: 0px;
+	width: 140px;
+	height : 520px;
+	z-index: 1;
+}
+
+#bandeau A {
+color:#ccccff;
+}
+
+	#bandeau h3 {
+		background: transparent url(h3-bandeau.gif) repeat-x top left;
+		font: 11pt arial, helvetica;
+		font-weight: bold;
+		text-align: left;
+		width: 100%;
+		background-color: #205388;
+		margin-bottom:0px;
+		padding-bottom:0px;
+	}
+
+
+	#bandeau #adresse A IMG {
+		background-color: #FFFFFF;	}
+
+	#bandeau #adresse A {
+		width:100%;
+		background-color: #FFFFFF;	
+	}
+	#bandeau #adresse {
+		padding:0px;
+	}
+
+	#bandeau #login FORM {
+		margin:0px;
+		padding:0px;
+	}
+
+
+	#bandeau ul {
+		margin-top: 0px;
+		margin-bottom: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 0px;
+	}
+		#bandeau li {
+			line-height: 2.5ex;
+			list-style-type: none;
+			background: transparent no-repeat top center;
+			display: block;
+			padding-top: 0px;
+			margin-bottom: 0px;
+		}
+
+
+			#llogin a, #lmeteo a { display:block; text-transform:lowercase; }
+			#llogin a.c, #lmeteo a.c {display:inline; text-transform: none; }
+
+A 
+	{
+	color: #A75204; 
+	}
+
+A:hover { 
+	color: #000000; 
+	}
+
+
+#intro {
+	position: relative;
+	margin-top: 0px;
+	margin-left: 170px;
+	margin-bottom: 10px;
+	margin-right: 20px;
+	padding-top: 5px;
+	padding-left: 0px;
+	padding-bottom: 10px;
+	padding-right: 5px;
+	z-index: 10;
+}
+
+#intro_bibli h3 {
+	font-size:16px;
+}
+#intro_bibli .p1 {
+	display:none;
+}
+
+#intro_bibli .p2 {
+	display:none;
+}
+		
+#footer {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+
+	width: 100%;
+
+	background: #FFEBAC;
+	color: #fff;
+
+	text-align: center;
+
+	voice-family: "\"}\"";
+	voice-family:inherit;
+}
+	#footer a:link, #footer a:visited {
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		color:#A75204;
+		font-size:9pt;
+		font-weight: bold;	
+	}
+#notice {
+		font-size:10pt;
+}
+
+#notice h3
+{
+	border-bottom: 1px solid #ddcB8C;
+	border-top: 1px solid #ddcB8C;
+}
+#notice span {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+.row
+{
+  clear: both;
+  width: 80%;
+  margin-left:30px;   
+}
+.right,
+.right-50,
+.right-15,
+.right-85
+{
+	float: right;
+}
+
+.right-50
+{
+	width: 50%;
+}
+
+.right-15
+{
+	width: 15%
+}
+
+.right-85
+{
+	width: 85%;
+}
+
+
+.right-clear-right,
+.right-50-clear-right
+{
+	float: right;
+	clear: right;
+}
+
+.left-clear-left,
+.left-50-clear-left
+{
+	float: left;
+	clear: left;
+}
+
+.left,
+.left-50,
+.left-15
+{
+	float: left;
+}
+
+.left-50
+{
+	width: 50%;
+}
+
+.left-15
+{
+	width: 15%;
+}
+
+.left-85
+{
+	width: 85%;
+}
+
+.spacer
+{
+	clear: both;
+	visibility: hidden;
+	display: none;
+	margin-bottom: -10px;
+	margin-top: -10px;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+{
+	background: #fff;
+	border-collapse: collapse;
+}
+
+TH {
+	margin:5px;
+	border-bottom:#aaaaaa 1px solid;
+	text-align:left;
+}
+tr
+{
+
+}
+
+
+td.jauge
+{	
+	background: #FFEBAC;
+	border-top: 1px solid #ddcB8C;
+	font-size: 11pt;
+	text-align: center;
+	border-right: 1px solid #b8da75;
+	border-left: 1px solid #b8da75;	
+}
+
+td.visible
+{
+	border-bottom: 1px solid #ddcB8C;
+	border-top: 1px solid #ddcB8C;
+}
+
+td.visible-centered
+{
+	border-bottom: 1px solid #ddcB8C;
+	border-top: 1px solid #ddcB8C;
+	text-align:center;
+}
+
+.text_search0 {
+	background-color: yellow;
+	text-decoration: underline;
+}
+
+.text_search1 {
+	background-color: red;
+	text-decoration: underline;
+}
+
+.text_search2 {
+	background-color: green;
+	text-decoration: underline;
+}
+
+.text_search3 {
+	background-color: blue;
+	text-decoration: underline;
+}
+
+.text_search4 {
+	background-color: maroon;
+	text-decoration: underline;
+}
+
+.text_search5 {
+	background-color: blank;
+	text-decoration: underline;
+}
+
+tr.even {
+	background: #FFEBAC;
+	color: #000;
+	}
+tr.surbrillance {
+	background: #EECCCC;
+	}
+tr.odd
+	{ }
+
+
+.p1 {
+	font-size:10pt;
+	}
+	
+.text_query {
+	width: 20em;
+	}
+
+input.bouton, input.boutonrechercher {
+background:#206D93;
+color:#fff;
+margin-left: 0px;
+margin-right: 0px;
+}
+
+
+/* A reporter dans la partie de la CSS correspondante : onglet pour les recherches */
+	#main ul.search_tabs, #onglets_list ul.list_tabs{
+	      margin:0;
+	      padding:0;
+          list-style:none;
+          clear:right;
+          border-bottom:1px solid #765;
+          height:22px;
+          }
+
+	#main ul.search_tabs li, #onglets_list ul.list_tabs li{
+		  float:left;
+		  padding:3px 6px 0px 6px;
+          border:1px solid #765;  
+          margin-right:4px;
+		  margin-bottom:5px;
+          height:18px;
+		  background:#DFD087;
+		  color:#0023A4;}
+
+	#main ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+		text-decoration:none;
+		font-weight:normal;
+		color:#000000;}
+          
+	#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+		  float:left;
+		  padding:3px 6px 0px 6px;
+		  background:#FFFFFF;
+          border-bottom:none;  
+		  margin-bottom:4px;
+          height:19px;
+          color:#000000;
+          }
+          
+    #main  #search_crl {
+    	clear:both;}      
+
+iframe#iframe_resume_panier {
+	width:100%;
+	height:35px;
+	border:none;
+	}
+
+
+#all_footer {
+	position:absolute;
+	top:10px;
+	right:0;
+	text-align:right;
+	color:#90B3C8;
+	font-size:0.9em;
+	font-weight:bold;
+}
+
+#all_footer A {
+	color:#90B3C8;
+}
+
+#etagere { }
+
+#etagere-titre H1 {
+font-size:12px;
+margin:0;
+padding:0;
+}
+
+#etagere-comment H2 {
+margin:0;
+padding:0;
+font-size:10px;
+}
+
+ul#onglets_isbd_public {
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #aaaaaa;
+    margin: 0;
+	padding-left:0px;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 21px;
+    margin: 2px 2px 0 2px;
+    border: 1px solid #aaaaaa;
+    background-color: #cccccc;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
+}
+
+
+
+#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default ;
+}
+#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    cursor: pointer ;
+    }
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+
+.notice-child {
+    margin-left: 25px;
+    width: 100%;
+    text-align: justify;
+    border: #c0c0c0 1px solid;
+    background:#f5f5f5;
+}
+
+.notice-child h3 {
+		font-size:16px;
+}
+.img_plus {
+	background-color: #8CC6FF;
+}
+
+table.exemplaires {
+	margin-bottom:10px;
+}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+
+.alerte {
+	color: red;
+	font-size:14px;
+	}
+.etiq_champ {
+	font-weight:bold;
+	}
+
+ul#onglets_isbd_public li.onglet_basket,
+ul#onglets_isbd_public li.onglet_basket a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	width:25px;
+	}
+
+ul#onglets_isbd_public li.onglet_tags,
+ul#onglets_isbd_public li.onglet_tags a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	text-decoration:underline;
+	}
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}
+	

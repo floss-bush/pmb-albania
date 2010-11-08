@@ -1,0 +1,12 @@
+<h1>Administrating Collection state</h1>
+
+<p>Section <b>Administrating Collection state</b> allows to define application settings for the periodical collections.
+<ul>
+<li><b>location</b> defines places where periodicals are located.</li>
+<li><b>media types</b> defines media types of collections.</li>
+<li><b>status</b> allows to process collections in different ways, as well as in the OPAC interface.</li>
+<li><b>custom</b> customizable fields on collection states.</li>
+</ul></p>
+
+
+ 

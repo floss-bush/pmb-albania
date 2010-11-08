@@ -1,0 +1,20 @@
+--
+J'ai des difficultés à faire fonctionner PMB avec EasyPhp sous Windows 2000
+--
+Il semble y avoir quelques problèmes avec Easyphp sous Win2k. 
+
+Gautier Michelin préconise d'essayer ceci :
+
+La solution que j'ai trouvée semble fonctionner (sur 2 pcs : 1 pc test
+et mon serveur, les 2 sous Win2k) :
+- désinstaller toute version de php, mysql, easyphp, perl, etc... pour
+nettoyer les fichiers de configuration
+- réinstaller EasyPhp (en passant par Ajout/Suppression obligatoirement
+sous Windows 2000 famille serveur)
+- externaliser du répertoire EasyPhp les répertoires www et mysql/data
+en créant les répertoires ailleurs et en faisant les modifications dans
+httpd_conf et my.ini (probablement facultatif mais je le fais toujours)
+- autoriser l'accès à "Tout le monde" sur le répertoire tmp
+c:\program files\easyphp\tmp.
+
+--

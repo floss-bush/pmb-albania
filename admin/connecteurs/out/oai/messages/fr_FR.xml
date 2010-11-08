@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../../../../includes/XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2009-07-31 15:14:43 erwanmartin Exp $ -->
+
+<XMLlist>
+	<entry code="illegal_verb">Illegal Verb</entry>
+	<entry code="set_none">[Aucun]</entry>
+	<entry code="repository_name">Nom de l'entrepot</entry>
+	<entry code="admin_email">Adresse email de l'administrateur</entry>
+	<entry code="included_sets">Sets inclus dans la source</entry>
+	<entry code="repositoryIdentifier">Identifiant de l'entrepot</entry>
+	<entry code="unconfigured_source">Cette source OAI n'est pas configurée</entry>
+	<entry code="cannotDisseminateFormat">%s n'est pas un format supporté par cet entrepot</entry>
+	<entry code="chunksize">Nombre de résultats par requête</entry>
+	<entry code="token_lifeduration">Durée de vie en seconde des tokens</entry>
+	<entry code="unknown_set">Le set spécifié n'existe pas dans cet entrepot</entry>
+	<entry code="badResumptionToken">Le token spécifié est soit expiré soit invalide</entry>
+	<entry code="cache_complete_records">Mettre en cache les enregistrements complets</entry>
+	<entry code="cache_complete_records_seconds">Durée de vie des enregistrements dans le cache (secondes)</entry>
+	<entry code="idDoesNotExist">L'enregistrement demandé n'existe pas dans cet entrepot</entry>
+	<entry code="link_status_to_deletion">Lier un statut de notice à l'information de suppression OAI</entry>
+	<entry code="linked_status_to_deletion">Statut lié</entry>
+	<entry code="noRecordsMatch">Aucun enregistrement trouvé</entry>
+	<entry code="allow_gzip_compression">Autoriser la compression gzip des requêtes</entry>
+	<entry code="allowed_admin_convert_paths">Formats de conversion supplémentaires autorisés</entry>
+	<entry code="builtin_formats">Formats inclus par défaut</entry>
+	<entry code="baseURL">URL de base de l'entrepot</entry>
+	<entry code="baseURL_default">Adresse par défaut</entry>
+	<entry code="baseURL_sourceadd">Enregistrer la source pour pouvoir modifier ce champ</entry>
+</XMLlist>

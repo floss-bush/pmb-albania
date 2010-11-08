@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- descriptif TYPES DE CONTENUS DE REQUETES 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: req_contents.xml,v 1.2 2008-03-19 08:14:15 dbellamy Exp $ -->
+
+
+<REQ_CONTENTS>
+	<!-- Champs de formulaire -->
+	<REQ_CONTAINER id="DA" type="Data" />
+	<REQ_CONTAINER id="VA" type="Value" />
+	<REQ_CONTAINER id="FI" type="Filter" />
+	<REQ_CONTAINER id="AL" type="Alias" />
+	<REQ_CONTAINER id="VI" type="Visibility" />
+	<REQ_CONTAINER id="GR" type="Group by" />
+	<REQ_CONTAINER id="SO" type="Sort" />
+	<REQ_CONTAINER id="MA" type="Mandatory" />
+	<REQ_CONTAINER id="TA" type="Table" />
+	<REQ_CONTAINER id="JO" type="Join" />
+	<REQ_CONTAINER id="BE" type="Beginning" />
+	<REQ_CONTAINER id="QU" type="Quantity" />
+
+	<!-- Type d'information -->
+	<REQ_CONTENT id="FI" type="field" name="req_cont_fiel"/>
+	<REQ_CONTENT id="FU" type="function" name="req_cont_func"/>
+	<REQ_CONTENT id="SU" type="sub_request" name="req_cont_subr"/>
+	<REQ_CONTENT id="TE" type="text" name="req_cont_free"/>
+</REQ_CONTENTS>
+
+

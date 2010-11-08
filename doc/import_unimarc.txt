@@ -1,0 +1,125 @@
+// +-------------------------------------------------+
+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// | creator : Eric ROBERT                                                    |
+// |                                                                          |
+// |    récapitulatif des champs traités lors de l'import UNIMARC             |
+// |    d'exemplaires                                                         |
+// |                                                                          |
+// +-------------------------------------------------+
+// $Id: import_unimarc.txt,v 1.13 2009-12-24 08:23:51 mbertin Exp $
+
+
+code unimarc signification >> champs dans les tables de pmb || champs dans l'interface de PMB 
+
+010 $a isbn >> notices.code || ISBN,EAN ou no.commercial
+010 $d prix >> notices.prix || (Collation) Prix
+
+011 $a issn >> notices.code || ISBN,EAN ou no.commercial
+
+071 $a music number >> pas repris pour l'instant
+
+101 $a langue >> notices_langues.lang_code || Langues de la publication
+101 $c langue originale >> notices_langues.lang_code || Langues originales
+
+200 $a titre >> notices.tit1 || Titre propre
+200 $c titre >> notices.tit2 || Titre propre d'un auteur différent
+200 $d titre >> notices.tit3 || Titre parallèle
+200 $e titre >> notices.tit4 || Complément du titre
+200 $i nom de la série, repris si pas de 461 $t >> serie.serie_name || (Titre) Partie de, (Autorité titre de série) Titre
+200 $h numéro dans la série, repris si pas de 461 $t >> notices.tnvol  || (Titre) No. de partie
+
+205 $a mention d'édition >> notices.mention_edition || (Editeurs,collection) Mention d'édition
+
+210 $a éditeur ville >> publishers.ed_ville || (Autorité éditeur) Ville
+210 $b éditeur adresse >> publishers.ed_adr1 || (Autorité éditeur) Adresse (ligne1)
+210 $c éditeur nom >> publishers.ed_name || (Autorité éditeur) Nom de l'éditeur
+210 $d éditeur année >> notices.year || (Editeurs,collection) Année
+
+215 $a nombre de pages >> notices.npages || (Collation) Importance matérielle
+215 $c illustration >> notices.ill || (Collation) Autres caractéristiques matérielles
+215 $d taille >> notices.size || (Collation) Format
+215 $e matériel d'accompagnement >> notices.accomp || (Collation) Matériel d'accompagnement
+
+225 $a nom de la collection >> collections.collection_name || (Autorité collection) Nom
+225 $x ISSN de la collection >> collections.collection_issn || (Autorité collection) ISSN
+225 $i nom de la sous-collection >> sub_collections.sub_coll_name || (Autorité sous-collection) Nom
+225 $v numéro dans la collection >> notices.nocoll || (Editeurs,collection) No. dans la collection
+
+300 $a notes générales >> notices.n_gen || (Notes) Note générale
+327 $a notes de contenu >> notices.n_contenu || (Notes) Note de contenu
+330 $a notes de résumé >> notices.n_resume || (Notes) Résumé
+
+345 $b EAN >> notices.code (ISBN) si ISBN absent || ISBN,EAN ou no.commercial
+345 $d Prix pour les CD, repris si pas de 010 $d  >> notices.prix || (Collation) Prix
+
+410 $t collection, repris en nom de la collection si 225 $a vide >> collections.collection_name || (Autorité collection) Nom
+410 $v numéro de collection, repris en numero de la collection si 225 $v vide  >> notices.nocoll || (Editeurs,collection) No. dans la collection
+410 $x issn collection, repris en issn de la collection si 225 $a vide >> collections.collection_issn || (Autorité collection) ISSN
+
+411 $t sous-collection, repris en nom de la sous-collection si 225 $i vide >> sub_collections.sub_coll_name || (Autorité collection) Nom
+411 $v numéro de sous-collection, repris en numero de la collection si 225 $v et 410 $v vide  >> notices.nocoll || (Editeurs,collection) No. dans la collection
+411 $x issn de sous-collection, repris en issn de la sous-collection si 225 $i vide >> sub_collections.sub_coll_issn || (Autorité collection) ISSN
+
+461 $t nom de la série >> serie.serie_name || (Titre) Partie de, (Autorité titre de série) Titre
+461 $v numéro dans la série >> notices.tnvol  || (Titre) No. de partie
+
+500 $a titre uniforme >> titres_uniformes.tu_name || (Autorité Titre uniforme) Nom du titre uniforme
+500 $i titre de section ou de partie du titre uniforme >> notices_titres_uniformes.ntu_titre || (Titre uniformes) Titre de section ou de partie
+500 $k date de publication du titre uniforme >> notices_titres_uniformes.ntu_date || (Titre uniformes) Date de publication
+500 $l sous-vedette de forme du titre uniforme >> notices_titres_uniformes.ntu_sous_vedette || (Titre uniformes) Sous-vedette de forme
+500 $m langue du titre uniforme >> notices_titres_uniformes.ntu_langue || (Titre uniformes) Langue
+500 $n autres informations du titre uniforme >> titres_uniformes.tu_comment || (Autorité Titre uniforme) Commentaire
+500 $q version du titre uniforme >> notices_titres_uniformes.ntu_version || (Titre uniforme) Version
+500 $u tonalité du titre uniforme >> titres_uniformes.tu_tonalite || (Autorité Titre uniforme) Tonalité
+500 $w mention d'arrangement du titre uniforme >> notices_titres_uniformes.ntu_mention || (Titre uniformes) Mention d'arrangement
+500 $r distribution instrumentale et vocale du titre uniforme >> tu_distrib.distrib_name || (Autorité Titre uniforme) Distribution instrumentale et vocale
+500 $s référence numérique du titre uniforme >> tu_ref.ref_name || (Autorité Titre uniforme) Référence numérique
+500 $j subdivision de sujet du titre uniforme >> tu_subdiv.subdiv_name || (Autorité Titre uniforme) Subdivision de forme
+
+
+610 $a mots clés >> notices.index_l || (Indexation) Mots-clés
+
+676 $a dewey >> créée dans indexint.indexint_name puis indexint.indexint_id >> notices.indexint || (Autorité indexation décimale) Libellé de l'indexation décimale
+676 $l dewey >> créée dans indexint.indexint_comment || (Autorité indexation décimale) Commentaire
+
+686 $a PCDM4 >> créée dans indexint.indexint_name puis indexint.indexint_id >> notices.indexint || (Autorité indexation décimale) Libellé de l'indexation décimale
+686 $l PCDM4 >> créée dans indexint.indexint_comment || (Autorité indexation décimale) Commentaire
+
+700 701 702 responsabilités auteurs personne
+	$a nom de l'autorité >> authors.author_name || (Autorité Auteurs "Personne Physique") Elément d'entrée ou nom
+	$b rejeté de l'autorité >> authors.author_rejete || (Autorité Auteurs "Personne Physique") Elément réjeté ou prénom
+	$c qualificatifs autres que les dates >> authors.author_comment || (Aurité Auteurs "Personne Physique") Commentaire
+	$d chiffres romains >> authors.author_comment || (Autorité Auteurs "Personne Physique") Commentaire
+	$f dates de l'autorité >> authors.author_date || (Autorité Auteurs "Personne Physique") Dates
+	$4 fonction >> responsability.responsability_fonction || (Responsabilité) Fonction 
+
+710 711 712 responsabilités auteur collectif si le premier indicateur est 0, auteur congrès si le premier indicateur est 1 
+	$a nom de l'autorité >> authors.author_name || (Autorité Auteurs "Collectivité ou Congrès") Elément d'entrée ou nom
+	$b subdivision l'autorité >> authors.author_subdivision || (Autorité Auteurs "Collectivité ou Congrès") Subdivision
+	$c élément ajouté au nom ou qualificatif de l'autorité >> authors.author_comment || (Autorité Auteurs "Collectivité ou Congrès") Commentaire
+	$d numéro de congrès et/ou de session >> authors.author_numero || (Autorité Auteurs "Collectivité ou Congrès") Numéro
+	$e lieu du congrès >> authors.author_lieu || (Autorité Auteurs "Collectivité ou Congrès") Lieu
+	$f date du congrès >> authors.author_date || (Autorité Auteurs "Collectivité ou Congrès") Dates
+	$g rejeté de l'autorité >> authors.author_rejete || (Autorité Auteurs "Collectivité ou Congrès") Elément réjeté ou prénom
+	$k lieu du congrès si pas de $e >> authors.author_lieu || (Autorité Auteurs "Collectivité ou Congrès") Lieu
+	$l ville du congrès >> authors.author_ville || (Autorité Auteurs "Collectivité ou Congrès") Ville
+	$m pays du congrès >> authors.author_pays || (Autorité Auteurs "Collectivité ou Congrès") Pays
+	$n site web de l'autorité >> authors.author_web || (Autorité Auteurs "Collectivité ou Congrès") Site web
+	$4 fonction >> responsability.responsability_fonction || (Responsabilité) Fonction
+	
+801 $a Pays origine de la notice >> origine_notice.orinot_pays || (Admin.-> Notices -> Origines des notice) Pays
+801 $b Organisme origine de la notice >> origine_notice.orinot_nom || (Admin.-> Notices -> Origines des notice) Nom de l'origine
+
+856 $u ressource électronique >> notices.lien || (Lien) URL associée
+856 $q format >> notices.eformat || (Lien) Format électronique de la resource
+
+
+995 $a localisation >> docs_location.locdoc_codage_import puis docs_location.idlocation >> exemplaires.expl_location || (Exemplaire) Localisation
+995 $f code-barre >> exemplaires.expl_cb || (Exemplaire) No. exemplaire
+995 $k cote >> exemplaires.expl_cote || (Exemplaire) Cote
+995 $q public visé >> docs_section.sdoc_codage_import puis docs_section.idsection >> exemplaires.expl_section || (Exemplaire) Section
+                   >> docs_codestat.sdoc_codage_import puis docs_codestat.idcode >> exemplaires.expl_codestat || (Exemplaire) Code statistique
+995 $r type de document >> docs_type.tdoc_codage_import puis docs_type.idtyp_doc >> exemplaires.expl_typdoc || (Exemplaire) Support
+995 $u notes >> exemplaires.expl_note || (Exemplaire) Message exemplaire
+995 $z commentaire non bloquant >> exemplaires.expl_comment || (Exemplaire) Commentaire non bloquant

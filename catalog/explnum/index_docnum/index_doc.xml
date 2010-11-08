@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+/************************************************************************************************************
+ *																											*
+ * Fichier qui regroupe toutes les associations entre les classes d'indexation et leur(s) mimetype associé  *
+ *																											*		
+ ************************************************************************************************************/
+-->
+<XMLlist>
+	<entry code="application/pdf">index_pdf</entry>
+	<entry code="text/html">index_html</entry>
+	<entry code="text/plain">index_txt</entry>
+	<entry code="text/text">index_txt</entry>
+	<entry code="application/openoffice">index_oo</entry>
+</XMLlist>

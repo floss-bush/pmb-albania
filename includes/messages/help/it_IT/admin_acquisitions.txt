@@ -1,0 +1,18 @@
+<h1>Acquisizioni</h1>
+</p><p>
+<b>Coordinate</b> scheda di identit&agrave; della biblioteca.
+</p><p>
+<b>Esercizi contabili</b> definizione degli esercizi contabili.
+</p><p>
+<b>IVA sugli acquisti</b> gestione aliquote IVA e dell'IVA sugli acquisti (se attivalta la gestione IVA).
+</p><p>
+<b>Tipo di prodotti</b> categorie dei prodotti acquistati che permettono il calcolo  di sconti e collocamenti degli acquisti.
+</p><p>
+<b>Altri costi</b> eventuali acquisizioni e conti associati.
+</p><p>
+<b>Modi di pagamento</b> e ritardi di liquidazione.
+</p><p>
+<b>Bilanci</b> ripartizione acquisti.
+
+
+

@@ -1,0 +1,93 @@
+// +---------------------------------------------------------------------------------------+
+// © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +---------------------------------------------------------------------------------------+
+// $Id: includes.txt,v 1.2 2005-05-12 08:08:08 gautier Exp $
+
+AIDE POUR LES DEVELOPPEURS
+
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+Ce fichier aborde deux points importants de programmation :
+	Inlude/require 
+	Minimum nécessaire
+
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+Problème des inlude/require :
+ 
+include génère un warning si fichier inaccessible
+require génère une erreur
+ 
+IL FAUT DONC UTILISER require.
+------------------------------
+
+require inclus et parse le fichier
+require_once inclus et parse si ça n'a pas encore été fait, autrement dit :
+ 
+	require_once ("fichier avec fonctions ou classes dedans.php");
+	require_once ("fichier avec fonctions ou classes dedans.php");
+	
+	ne posera aucun problème
+ 
+là où :
+ 
+	require ("fichier avec fonctions ou classes dedans.php"); 
+	require ("fichier avec fonctions ou classes dedans.php");
+	
+	va vous faire une erreur de cannot redeclare ....
+
+IL FAUT DONC UTILISER require_once
+----------------------------------
+
+Les chemins et tout le nécessaire sont paramétrés dans includes/init.inc.php
+ 
+Vous devez donc écrire en début de chacun de vos fichiers racines (celui que vous voyez dans l'url) :
+	// définition du minimum nécéssaire 
+	$base_path=".";                            
+	$base_auth = "ADMINISTRATION_AUTH";  
+	$base_title = "\$msg[7]";    
+	require_once ("$base_path/includes/init.inc.php");  
+	
+	// les requis par toto.php ou ses sous modules
+	...
+	
+Si vous n'êtes pas à la racine de PMB/ :
+	// définition du minimum nécéssaire 
+	$base_path="../..";                            
+	$base_auth = "ADMINISTRATION_AUTH";  
+	$base_title = "";    
+	require_once ("$base_path/includes/init.inc.php");  
+	
+	// les requis par toto.php ou ses sous modules
+	require_once("$include_path/tot.inc.php");
+	
+ 
+Avec cette façon d'inclure : 
+	Vous n'avez plus à vous soucier du chemin d'accès, faites simplement :
+		require_once("$class_path/ma_classe.inc.php");
+	Vos classes ainsi développées deviendront accessible en dehors de la racine !
+	Si, par le truchement des inclusions, il y a plusieurs require_once au même fichier, vous ne sortirez pas en carafe !
+	
+	
+*-*-*-*-*    Tiré de includes/init.inc.php    *-*-*-*-*-*-*-
+
+// Cet include permet de réduire considérablement les trucs à mettre au départ d'un script
+// Six paramêtres à fournir en fixant les valeurs avant l'include de ce fichier
+//	$base_path="../.."; par ex : = chemin pour accéder à la racine de l'applic PMB
+//	$base_auth = "SAUV_AUTH|ADMINISTRATION_AUTH"; les droits du user à tester
+//	$base_title = "Titre de la fenêtre"; le titre de la page : facultatif
+//		si besoin d'une variable : $base_title = "\$msg[28]";
+//	$base_noheader = 0; par défaut, pas obligatoire, si non vide : pas d'envoi du début de page (header & co)
+//	$base_nocheck = 0; par défaut, pas obligatoire : si non vide : pas de checkuser ( session, droits )
+//	$base_nobody = 0; par défaut, pas obligatoire : si non vide : pas de <body> après le header envoyé
+//
+//	l'exemple ci-dessus correspond à l'inclusion dans le fichier : admin/sauvegarde/launch.php :
+//		$base_path="../.."; 
+//		$base_auth = "SAUV_AUTH|ADMINISTRATION_AUTH";
+//		$base_title = "Lancement d'une sauvegarde"; 
+//		require_once ("$base_path/includes/init.inc.php");
+//	l'exemple ci-dessus correspond à l'inclusion dans le fichier : catalog/z3950/z_progession_main.php :
+//		J'ai besoin du header mais pas du <body> à cause des frames
+//		$base_path="../..";
+//		$base_auth = "CIRCULATION_AUTH";  
+//		$base_title = "";    
+//		$base_nobody = 1;    
+//		require_once ("$base_path/includes/init.inc.php");  

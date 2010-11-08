@@ -1,0 +1,121 @@
+
+1 - procédure d'installation sans traduction  - Fait
+ajout d'un iconv("iso-8859-1", $charset, $buffer_sql); si $charset != "iso-8859-1"
+ajout de la saisie du charset lors de l'installation
+Mise du charset dans db_param (si absent ce sera celui de config.php qui sera pris, donc pas de problème pour les utilisateurs déjà installés)
+transformation dans le fichiers textes des valeurs "éà.." par &eacture; &agrave;....
+
+2 - gérér les fichiers xml pour ne pas traduire  - Fait
+
+modifier les xml_create pour chercher le charset du fichier xml et d'afficher les données dans $charset.	
+
+		$xml_parser = xml_parser_create($charset);
+		
+		devient :
+
+		$rx = "/<?xml.*encoding=[\'\"](.*?)[\'\"].*?>/m";
+		if (preg_match($rx, $filein, $m)) $encoding = strtoupper($m[1]);
+			else $encoding = "ISO-8859-1";
+		$xml_parser = xml_parser_create($encoding)
+		xml_parser_set_option($xml_parser, XML_OPTION_TARGET_ENCODING, $charset);		
+
+enlever les analyser($charset) à remplacer par analyser()
+
+3 - voir la traductions des fichiers textes includes/messages/help/$lang - Fait
+modification des accents par les html entities (&eacute; ...)
+
+4 - Fichiers word et Excel  - Fait pour version html
+Probleme restant sur l'envoi en format xls sans passer par un format html.
+Ajout de : 
+		print "<html><head>" .
+	 	'<meta http-equiv=Content-Type content="text/html; charset='.$charset.'" />'.
+		"</head><body>";
+en début de chaque fichier html -> word ou Excel.
+
+5 - gerer les commandes str... par des fonction pmb_str... (voire notice affichage)
+strtolower -> mb_strtolower + Recherches (misc.inc.php) + diacritiques
+
+Modification de misc.inc.php.
+modification de reg_diacrit et convert_diacrit pour prendre en compte l'unicode.
+
+misc.inc.php :
+strtoupper(string) remplacé par pmb_strtoupper(string)
+strtolower(string) remplacé par pmb_strtolower(string)
+preg_replace('/[a-z0-9..]/','',$string)... remplace par pmb_alphabetic('a-z0-9..','',$string)
+preg_replace(regex,replace,string) remplacé par pmb_preg_replace(regex,replace,string)
+str_replace(chaine,replace,string) remplacé par pmb_str_replace(chaine,replace,string)
+strlen(string) rmplacé par pmb_strlen(string)
+$c = string[numcar] transforme en $c = pmb_getcar($current_car,string)
+substr(string,debut,longueur) remplace par pmb_substr(string,debut,longueur)
+
+espace dans javascript remplacé par fonction php $pmb_espace
+
+Tout cela lorsque la chaine de caractère risque de contenir des caractères non latins.
+pour str_replace, il est indispensable de le faire quand la chaine recherché contient un espace.
+
+7 - pdf unicode
+	utilisation de la classe updf. revue. récupéré tcpdf pour fonction multicell et write.
+	Ajout de &euro -> €
+	gestion des htmlentities
+	Variable dans misc.inc.php pour savoir quelle classe on utilise
+	Parametre pour choisir la police de caractère (une police ayant tous les caractères unicode serait trop lourde)
+	-> modifier alter_V3 pour ajouter les paramètres
+
+8 - gestion gauche droite - fait avec les "print" continuer avec "echo"
+	si pmb_rtl faire en fin de préparation d'affichage un travail sur l'arabe-l'hebreu
+	pour gerer le probleme des parentheses
+	misc.inc.php ajout de la fonction pmb_bidi
+	pour les affichages contenant des données print pmb_bidi($string)
+
+9 - Import/Export - Procédure actuelle en utf-8 - Tester l'export
+
+10 - pdf arabe - version beta faite - a completer
+	Renverser les caracteres
+	Remplacer les caractères par les caractères de présentation (ligatures)
+	
+	reste a faire :
+	tester avec () - renverser les parentheses
+	gerer les regles des "caracteres neutres"
+	lam alef
+
+11 - Traduction arabe --- etat actuel
+	Creer un outil pour la traduction
+
+12 - Probleme affichage alphabetique dans selectors
+	1 - Prendre premiere lettre quelque soit l'alphabet
+	2 - Autre option : tout d'un seul coup
+	2 - Garder : fonction en 9 = fonction ajoutée
+	3 - Mettre fonction en P = fonctions prioritaire, reprennent le code sans le P.
+	
+
+--- Suffisant pour Ecoles Libanaise
+
+14 - Import/Export - fichiers Florent - iso 5426 - iso 10646
+
+--- Suffisant pour Vieux Damas
+
+13 - gerer les fichiers alter_v1... pour chargement par charset
+Peut être faire un fichier SQL à charger après.
+
+15 - Traduction arabe - completer
+
+16 - Pb classe Excel + utf-8
+
+17 - Pb des mots vides en fonction de la langue
+
+18 - Procédure passage iso->utf8
+
+19 - phpmailer
+
+
+Pb vus :
+
+Selector emprunteur -> toujours selon l'ancienne méthode de recherche. A mettre avec analyse-query
+serial_coll et serials_manq => mettre recherche analyse_query
+Messages circ/retour_secouru
+
+
+
+Procédure d'installation unicode.
+Après la mise à jour, mettre dans les paramètres généraux, FontArial = LucidaSansRegular et FontCourier = Vera
+

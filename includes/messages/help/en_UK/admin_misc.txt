@@ -1,0 +1,10 @@
+<h1>Tools</h1>
+<p>Various options are available here.</p>
+</p>
+<b>Database cleanup</b> helps you with weeding the databases: deleting records without copies, etc.</p><p>
+<b>Customizable Actions</b> on customizable statistics visible in the Edit tab or update requests processed on a regular basis which may be saved here.</p><p>
+<b>Database update</b> is a very important option. It helps you to update the structure of your database when you install a new version of PMB. This process does not involve any risks of data loss.</p><p>
+<b>Tables description</b> as its name suggests displays the tables structure of your database and their properties.</p><p>
+<b>MySQL maintenance</b> allows you to verify the integrity of your database namely.</p><p>
+<b>Parameters</b> allow you to customize the general settings of the application, e.g the library address or the weather forecast activation in the OPAC...
+

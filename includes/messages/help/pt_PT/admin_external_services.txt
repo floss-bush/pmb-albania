@@ -1,0 +1,11 @@
+<h1>Administration des services externes</h1>
+
+<p>The external services are function aimed to be used by other programs in order to interac with PMB</p>
+
+<p>You can manage these functions :</p>
+<ul>
+<li>General authorizations : define the access rights to the functions globaly</li>
+<li>Per user authorizations : define the access rights per users</li>
+<li>External users : define external users, which then can be used to authentify users of the services</li>
+<li>External user groups : Sort the external users into groups</li>
+</ul>

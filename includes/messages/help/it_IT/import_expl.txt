@@ -1,0 +1,15 @@
+<br />
+<b>ATTENZIONE, questa funzione aggiunge schede e documenti <b>solo se necessario</b>.
+<br />Essi saranno aggiunti e segnati come disponibili.</b>
+<br /><br />
+Il documento deve essere nel formato UNIMARC, &egrave; la zona 995 che rappresenter&agrave; i tuoi esemplari.<br /><br />
+<ul>
+<li>L'<i>importazione</i> si effettua in <b>tre fasi</b>:
+<OL>
+<LI><b>Caricamento</b> del tuo documento,</LI>
+<LI><b>Pre-Caricamento</b> del tuo documento,</LI>
+<LI>Suo <b>trasferimento</b> nell'archivio</LI>
+</OL></li>
+<br /><li>Invece di caricare il tuo documento tramite il tuo programma di navigazione, puoi inviarlo direttamente al server con altri strumenti (FTP, per esempio). {0>The file <b>must be named</b> <i><?php echo $nom_fichier_transfert_ftp; ?></i>, and, in this case,  you should jump right to the <a href="iimport_expl.php?categ=import&sub=import_expl&action=preload">Preload</a> step.</li><}0{>Il documento <b>deve chiamarsi</b> <i><?php echo $nom_fichier_transfert_ftp; ?></i>, e, in questo caso, dovresti passare direttamente alla fase <a href="iimport_expl.php?categ=import&sub=import_expl&action=preload">Pre-Caricamento</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import_expl&action=beforeupload">Fase 1: Caricamento</a>

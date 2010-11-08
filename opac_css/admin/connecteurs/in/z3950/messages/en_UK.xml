@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur z3950
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.2 2009-04-27 07:36:58 pmb-translation Exp $ -->
+
+<XMLlist>
+	<entry code="z3950_url">Z39.50 Server Address</entry>
+	<entry code="z3950_base">Database Name</entry>
+	<entry code="z3950_login">User</entry>
+	<entry code="z3950_password">Password</entry>
+	<entry code="z3950_max_notices">Maximum number of returned records</entry>
+	<entry code="z3950_format">Requested Format</entry>
+	<entry code="z3950_port">Port</entry>
+	<entry code="z3950_convert">Conversion Type to apply</entry>
+	<entry code="z3950_no_convert">Direct Import (the server returns UNIMARC ISO 2709)</entry>
+	<entry code="z3950_bib1">Bib-1 Attributes</entry>
+	<entry code="z3950_very_simple">Minimum</entry>
+	<entry code="z3950_simple">Simple</entry>
+	<entry code="z3950_complete">Complete</entry>
+	<entry code="z3950_profils">Bib-1 Profile</entry>
+</XMLlist>

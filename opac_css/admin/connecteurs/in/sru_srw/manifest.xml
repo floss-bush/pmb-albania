@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<manifest>
+	<name>sru_srw</name>
+	<repository>no</repository>
+	<comment>Interrogation SRU/SRW</comment>
+	<author>Florent TETART</author>
+	<org>PMB Services</org>
+	<date>2007-08-30</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

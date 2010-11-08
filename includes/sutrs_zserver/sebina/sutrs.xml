@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
+
+<!-- codici SUTRS per PMB tradotti in italiano da Marco Vaninetti e Massimo Mancini
+$Id: sutrs.xml,v 1.2 2005-03-15 05:57:59 maxman Exp $ -->
+
+<XMLlist>
+<entry code="BiblioLevel">Livello bibliografico</entry>
+<entry code="TypeDoc">Natura</entry>
+<entry code="Authors">Autore</entry>
+<entry code="Title">Titolo</entry>
+<entry code="Edition">Edizione</entry>
+<entry code="Editor">Pubblicazione</entry>
+<entry code="Collection">Collana</entry>
+<entry code="Collation">Descrizione fisica</entry>
+<entry code="Notes">Note generali</entry>
+<entry code="Numbers">Numeri_standard</entry>
+<entry code="Names">Nomi</entry>
+<entry code="FreeIndex">Soggetto</entry>
+<entry code="DecimalIndex">Classificazione</entry>
+<entry code="Country">Paese</entry>
+<entry code="Lang">Lingua</entry>
+<entry code="Linked_notices">Altri titoli collegati</entry>
+<entry code="Places">Localizzazioni</entry>
+<entry code="Series">Fa parte di</entry>
+</XMLlist>
+

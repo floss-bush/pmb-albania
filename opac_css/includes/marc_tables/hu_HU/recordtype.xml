@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement en UNIMARC (hongrois)
+$Id: recordtype.xml,v 1.3 2009-04-22 16:38:55 bencze Exp $ -->
+
+<XMLlist>
+	<entry code="m">monográfia/tétel</entry>
+	<entry code="a">monografikus alkotórésze</entry>
+	<entry code="s">periodikus kiadvány</entry>
+	<entry code="c">gyűjtemény</entry>
+</XMLlist>

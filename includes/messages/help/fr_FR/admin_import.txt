@@ -1,0 +1,29 @@
+<h1>Administration des imports</h1>
+<p>Cette page permet de g&eacute;rer les imports de donn&eacute;es li&eacute;es &agrave; des ouvrages et/ou &agrave; des exemplaires.</p>
+<p>La proc&eacute;dure se fait en diff&eacute;rents temps : 
+<ul>
+	<li>D&eacute;finition des param&egrave;tres d'import :<br />
+		Pour les notices :
+		<ul>
+		<li>ISBN obligatoire</li>
+		<li>D&eacute;doublonnage sur ISBN (si oui, les notices existantes ne seront pas cr&eacute;&eacute;es)</li>
+		<li>Mise &agrave; jour des notices (sur ISBN identiques)</li>
+		<li>Ignorer les ISSN (pour les p&eacute;riodiques) </li>
+		<li>Statut de notices (afin d'identifier finement les notices import&eacute;es)</li>
+		</ul>
+		Pour les exemplaires :
+		<ul>
+		<li>pr&ecirc;teur (ex : biblioth&egrave;que d&eacute;partementale de pr&ecirc;t)</li>
+		<li>Statut d'exemplaire (ex : "en cours d'import")</li>
+		<li>Localisation des exemplaires</li>
+		<li>Cote obligatoire</li>
+		<li>Correspondance entre le codage 995 et votre fonds pour les types de support, codes statistiques et sections</li>
+		</ul>
+	</li>
+	<li>T&eacute;l&eacute;chargement de votre fichier,</li>
+	<li>Importation des notices ou des exemplaires,</li>
+	<li>Pour les exemplaires, pointage des imports pour v&eacute;rifier la correspondance entre le listing de pr&ecirc;t et les ouvrages r&eacute;ellement transmis.</li>
+	</ul>
+	</p>
+<p>Cette derni&egrave;re v&eacute;rification est rapide et peut &ecirc;tre int&eacute;gralement r&eacute;alis&eacute;e avec une douchette codes-barres.</p>
+

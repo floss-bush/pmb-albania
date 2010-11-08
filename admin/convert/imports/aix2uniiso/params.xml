@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>Superdoc (Aix-Marseille) -&gt; UNIMARC ISO 2709</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="inm:Recordset" noticeelement="inm:Record" />
+	<!-- Type de la sortie -->
+	<output importable="yes" type="iso_2709" suffix="uni">
+		<rootelement>unimarc</rootelement>
+	</output>
+	
+	<step type="xmltransform">
+		<!-- Conversion en xml unimarc -->
+		<xslfile>superdoc_aix.xsl</xslfile>
+		<rootelement>inm:Recordset</rootelement>
+		<noticeelement>inm:Record</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+		<namespace id='inm'>http://www.inmagic.com/webpublisher/query</namespace>
+	</step>
+	<step type="toiso">
+		<!-- Conversion xml unimarc en iso2709 unimarc -->
+		<rootelement>unimarc</rootelement>
+		<il>2</il>
+		<sl>2</sl>
+		<dm1>4</dm1>
+		<dm2>5</dm2>
+		<dm3>0</dm3>
+	</step>	
+</params>

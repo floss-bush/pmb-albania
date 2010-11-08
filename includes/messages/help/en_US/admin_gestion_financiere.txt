@@ -1,0 +1,13 @@
+<h1>financial management of the borrowers</h1>
+<p>With this module, you'll manage the financial operations related to the borrowers:
+</p>
+<ul>
+<li>subscriptions
+<li>fines due to delay in loan return
+<li>paying loan for one or several document category
+</ul>
+<p>If you chose the simple management of subscription, they can be seen in  
+<a href='admin.php?categ=empr&sub=categ'>Administration &gt; Borrowers &gt; Categories</a>.</p>
+<p>If you chose the simple management of Loans, they can be seen in 
+<a href='admin.php?categ=docs&sub=typdoc'>Administration &gt; Items &gt; Materials</a>.</p>
+

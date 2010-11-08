@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des section 995 (public visé) de AFBDP
+$Id: codstat_995.xml,v 1.2 2006-03-07 23:12:25 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="a">adulto</entry>
+	<entry code="j">jóven</entry>
+	<entry code="u">indeterminado</entry>
+	<entry code="z">otro</entry>
+</XMLlist>

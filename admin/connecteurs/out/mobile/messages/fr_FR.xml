@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../../../../includes/XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2010-08-19 07:12:21 arenou Exp $ -->
+
+<XMLlist>
+<entry code="mobile_admin_menu">Mobile</entry>
+<entry code="mobile_admin_param">Paramètres globaux</entry>
+<entry code="mobile_admin_update">L'enregistrement a été effectué</entry>
+<entry code="mobile_admin_title">Configuration</entry>
+<entry code="mobile_admin_firstTab">Premier onglet affiché</entry>
+<entry code="mobile_admin_firstInfoPage">Infopage d'Accueil</entry>
+<entry code="mobile_admin_heatShelf">Etagère Coup de Coeur</entry>
+<entry code="mobile_admin_appTitle">Titre de l'Application</entry>
+<entry code="mobile_admin_proxyUrl">Connecteur sortant dédié</entry>
+<entry code="mobile_admin_form_proxy_current">Choix courant</entry>
+<entry code="mobile_admin_error_proxy">Aucun connecteur défini, veuillez en configurer un d'abord</entry>
+<entry code="mobile_admin_error_infopage">Aucune infopage validée</entry>
+<entry code="mobile_admin_error_etageres">Aucune étagère valide visible en OPAC</entry>
+<entry code="mobile_admin_tabs">Choix des onglets</entry>
+<entry code="mobile_admin_tabs_title">Onglets disponibles dans l'application</entry>
+<entry code="mobile_admin_form_tabs_label">Onglet</entry>
+<entry code="mobile_admin_form_tabs_valid">Activer dans l'application</entry>
+<entry code="mobile_admin_form_tabs_desc">Description</entry>
+<entry code="mobile_admin_form_tabs_yes">Oui</entry>
+<entry code="mobile_admin_form_tabs_no">Non</entry>
+<entry code="mobile_service_endpoint">Adresse du web service</entry>
+<entry code="mobile_service_endpoint_unrecorded">Enregistrer la source pour l'avoir</entry>
+<entry code="mobile_admin_nbResultsByPage">Nombre de notices par page</entry>
+<entry code="mobile_admin_form_infoPagesTitle">Paramètres Accueil</entry>
+<entry code="mobile_admin_form_shelfTitle">Paramètres Coup de Coeur</entry>
+<entry code="mobile_admin_form_searchTitle">Paramètres Recherche simple</entry>
+<entry code="mobile_admin_form_selfCheckTitle">Paramètres Prets Autonome</entry>
+<entry code="mobile_admin_form_myAccountTitle">Paramètres Mon Compte</entry>
+<entry code="mobile_admin_form_search_allowSearchByTypeDoc">Autoriser le filtrage par type de documents</entry>
+<entry code="mobile_admin_form_search_allowSearchByTypeDoc_yes">Oui</entry>
+<entry code="mobile_admin_form_search_allowSearchByTypeDoc_no">Non</entry>
+<entry code="mobile_admin_form_selfCheck_allowCheckIn">Activer le retour de documents</entry>
+<entry code="mobile_admin_form_selfCheck_allowCheckIn_yes">Oui</entry>
+<entry code="mobile_admin_form_selfCheck_allowCheckIn_no">Non</entry>
+<entry code="mobile_admin_form_needOneTab">Vous devez activer un onglet au minimum...</entry>
+<entry code="mobile_admin_form_paramsGen">Paramètres d'affichage Généraux</entry>
+<entry code="mobile_admin_form_bulletinsList_nbResultsByPage">Nombre de bulletins par page</entry>
+<entry code="mobile_admin_form_analysisList_nbResultsByPage">Nombre de dépouillements par page</entry>
+</XMLlist>

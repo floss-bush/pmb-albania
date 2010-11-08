@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (fran�ais)
+$Id: doctype.xml,v 1.4 2006-11-17 17:16:35 touraine37 Exp $ -->
+
+<XMLlist>
+<entry code="a">نص مطبوع </entry>
+	<entry code="b">نص مخطوط</entry>
+	<entry code="c">طباعه التقسيم الموسيقي</entry>
+	<entry code="d">تخطيط التقسيم الموسيقي</entry>
+	<entry code="e">طبع وثائق الخرائط</entry>
+	<entry code="f">تخطيط نص خرائطي </entry>
+	<entry code="g">نص متوقع أو تلفزيوني</entry>
+	<entry code="i">حفض صوت غير موسيقي</entry>
+	<entry code="j">حفض صوت موسيقي</entry>
+	<entry code="k">وثيقة تخطيط ذات بعدين</entry>
+	<entry code="l">وثيقة الكترونية</entry>
+	<entry code="m">وثيقةالوساءط المتعددة</entry>
+	<entry code="r">جسم ثلاثي الأبعاد ،فنية  ...</entry>
+</XMLlist>

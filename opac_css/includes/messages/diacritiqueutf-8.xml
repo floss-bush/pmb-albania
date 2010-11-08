@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?><!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd"><!-- $Id$ --><XMLlist>	<entry code="a">(a|à|á|â|ã|ä|å|ā|À|Á|Â|Ã|Ä|Å|Ā)</entry>
+	<entry code="e">(e|è|é|ê|ë|E|È|É|Ê|Ë)</entry> 
+	<entry code="i">(i|ì|í|î|ï|ī|I|Ì|Í|Î|Ï|Ī)</entry>
+	<entry code="o">(o|ò|ó|ô|õ|ö|O|Ò|Ó|Ô|Õ|Ö)</entry>
+	<entry code="u">(u|ù|ú|û|ü|ū|U|Ù|Ú|Û|Ü|Ū)</entry>
+	<entry code="c">(c|ç|C|Ç)</entry>
+	<entry code="t">(ṯ|ṭ|t|Ṯ|Ṭ|T)</entry>
+	<entry code="g">(ğ|ġ|g|Ğ|Ġ|G)</entry>
+	<entry code="h">(ḥ|ḫ|h|Ḥ|Ḫ|H)</entry>
+	<entry code="d">(ḏ|ḍ|d|Ḏ|Ḍ|D)</entry>
+	<entry code="s">(š|ṣ|s|Š|Ṣ|S)</entry>
+	<entry code="z">(ẓ|z|Ẓ|Z)</entry>
+	<entry code="t">(ṯ|t|Ṯ|T)</entry>
+	<entry code="ا">(ا|أ|آ|إ)</entry>
+	<entry code="ي">(ئ|ي)</entry>
+	<entry code="و">(و|ؤ)</entry>
+</XMLlist>

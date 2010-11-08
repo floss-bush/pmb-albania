@@ -1,0 +1,878 @@
+/* +--------------------------------------------------------------------------+
+// | PMB est sous licence GPL, la r�utilisation du code est cadr�e            |
+// +--------------------------------------------------------------------------+
+// $Id: anrt.css,v 1.7 2010-01-26 13:56:38 kantin Exp $                 */
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attrbitus g�n�raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* NON UTILISE POUR L'ANRT                                                    */
+BODY{scrollbar-face-color: #ab9b8e;font-family:Verdana, Arial, sans-serif;font-size:11px;font-style:normal;color:#333333;}
+
+
+/* feinte pour IE : probl�me de calages habituels dans les frames... bah */
+* HTML BODY #cart_info_iframe_content {
+position:absolute;
+top:0px;
+left:0px;
+width:110%;
+height:100%;
+background-color:#ECECE8;
+} 
+
+
+#cart_info {background-color:#ECECE8;}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* #container : partie d'affichage principal */
+#container {
+	padding: 0px; 
+	text-align:left;
+	font-family:Verdana, Arial;
+	font-size:11px;
+	font-style:normal;
+	color:#333333;
+}
+#container-empr {
+	padding: 0px; 
+	text-align:left;
+	font-family:Verdana, Arial;
+	font-size:11px;
+	font-style:normal;
+	color:#333333;
+	margin:5px;
+}
+#identification {
+	padding: 0px; 
+	text-align:left;
+	font-family:Verdana, Arial;
+	font-size:11px;
+	font-style:normal;
+	color:#333333;
+	border:none;
+}
+
+#aut_details {
+	margin:5px;
+}
+
+#intro {
+	display:none;
+}
+#intro_bibli 
+	{
+	}
+	
+#intro_bibli h3 {
+	font-weight: semibold;
+	font-size: 11px;
+	color : #ffffff;
+	background : #6B7B3B;
+	text-align: right;
+	margin-top: 0px;
+}
+	
+#intro_bibli h3.span  {
+	background : #0023A4;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+	
+
+#intro_pmb {
+	width:100%;
+	display:none;
+}
+
+#intro_pmb h1, h1 a, h1 a visited {
+	text-align: right;
+	font-size: 11px;
+	color:#333333;
+	margin: 0;	
+	}
+#intro_pmb h2 {
+	text-align: right;
+	font-size: 11px;	
+	color:#8EA1AD;
+	margin: 0;
+	}
+
+#intro_message {
+	font-style:italic;
+	}
+
+	#intro_message .p1,		
+	#intro_message .p2 {
+		 display:none;
+	}
+		
+#intro_bibli p.p1,
+#intro_bibli p.p2 {
+ 	padding: 0;
+	margin: 0;
+	text-align: justify;
+}
+#intro_bibli .p2{
+	padding-bottom:8px ;
+}
+		
+
+#main 	{
+	margin-top: 0px;
+	margin-right: 1%;
+	padding: 0px;
+}
+#main a:hover{
+    color:#999;
+}
+	#main h3{
+		margin: 0 0 15px 0;
+		padding: 1px 0 0 11px;
+		font-weight: bold;
+		text-align: left;
+		border-bottom: solid 2px #ffffff;
+		font-size: 13px;
+	    color:#546998;
+	    background:transparent url('images/fleche.png') no-repeat 0 5px;
+	}
+	
+	#main h3 span {
+		padding: 0 0 -10px 20px;
+		margin-bottom:-10px;
+	}
+#main_hors_footer {
+	min-height:340px;
+	height:auto!important; /*car propriete min-height non reconnue par les ie < 7 */
+	height:450px;	
+}
+#main_hors_footer form{
+	padding:5px 0;
+}
+
+
+
+/* _height : hack pour IE Windows, qui d�cale la ligne sous les onglets*/
+#main ul.search_tabs{
+	margin:0 -2px 0 -2px;
+	padding:0 0 0 10px;
+        list-style:none;
+        clear:right;
+        height:24px;
+        font-size: 11px;
+	_height:19px;
+        background:#ecece8;
+}
+
+#main ul.search_tabs li {
+	  float:left;
+	  padding:6px 15px 0px 15px;
+	  padding:6px 15px 10px 15px\9;
+          margin:0 4px 0 0;
+          height:19px;
+	  color:#333333;
+  }
+
+#main ul.search_tabs li a{
+	font-weight:bold;
+	color:#333333;
+	text-decoration:none;
+}
+          
+#main ul.search_tabs li a:hover {
+	color:#666;
+}
+
+#main ul.search_tabs li#current{
+	  background:#fff;
+      font-weight:bold;
+      -moz-border-radius-topleft:8px;
+      -moz-border-radius-topright:8px;
+      -webkit-border-top-left-radius:8px;
+      -webkit-border-top-right-radius:8px;
+      border-radius-top-left:8px;
+      border-radius-top-right:8px;
+}
+          
+#search_crl {
+    	clear:both;
+}      
+
+/* informations � ajouter pour afficher le cadre de recherche */
+#search {
+	margin:20px 0 5px -10px;
+	padding:0px 2px 20px 2px!important;
+	padding:0px 2px 20px 11px;
+	background:#fff;
+        width:897px;
+	width:100%\9;
+}
+	#search .p1 {
+	margin-left:20px\9;
+	}
+
+	#search #simple_search_zone span label{
+	    width:100%;
+	    text-align:left;
+	    margin-top:-15px;
+	    padding-left:20px;
+	}
+	
+	#search .row form select{
+	    margin-bottom:2px;
+	}
+	#search form select h3{
+	}
+	#search .boutonrechercher{
+		-moz-border-radius:4px;
+		webkit-border-radius:4px;
+		border-radius:4px;		
+	}
+	#search .form-contenu {
+		padding-top:10px;
+	}
+	#search .form-contenu .erreur {
+    	color:#546998;
+	}
+.div_clr {
+    	clear:both;
+    	}  
+
+
+#location {
+	clear:both;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	padding-right: 1px;
+	margin-bottom: 1px;
+	}
+	
+/* informations � ajouter pour afficher les cat�gories */
+#categories {
+	padding-bottom: 0 1px 1px 1px;
+	margin-top:35px;
+	margin-left:5px;
+	}
+	
+#categories H1  
+	{
+	font-weight: 500; 
+	font-size: 11px;
+	background-color: transparent; 
+	letter-spacing: 150%; 
+	margin: 0.5em 0.2em 0.5em 0.5em; 
+	}
+
+/* informations � ajouter pour afficher les cat�gories */
+#categories-container {
+	}
+
+/* informations � ajouter pour afficher les cat�gories */
+div.row_categ {
+	display: block ;
+	clear: left;
+	}
+
+div.category 
+	{ 	
+	float:left;
+	margin: 0.5em 0.2em; 
+	width: 49%; 
+	}
+
+#categories-container H2  
+	{
+	font-weight: bold; 
+	font-size: 11px;
+	background: transparent; 
+	margin-top: 0em; 
+	margin-bottom: 0em; 
+	}
+		
+#categories-container LI  
+	{
+	font-size: 11px;
+	/*display: inline;*/
+	list-style-type:none;
+	}
+
+#categories-container LI:after  
+	{
+	font-size: 11px;
+	content: ""; 
+	}
+	
+#categories-container UL 
+	{
+	margin-top: 0em;
+	margin-bottom: 0em; 
+	padding-left: 0em; 
+	}
+		
+
+/* reset des largeurs de #categories */
+/* apr�s un float:left; l'�l�ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+#last_entries { clear:both; }
+
+/* reset des largeurs de #categories */
+/* apr�s un float:left; l'�l�ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+.last_entries { clear:both; }
+
+#bandeau 
+	{
+	font-size: 11px;
+	text-align: left;
+	color:#000;
+	background : transparent ;
+	}
+
+#bandeau A 
+	{
+	color:#555555;
+	}
+
+#bandeau form 
+	{
+	padding: 0 0 0 0 ;
+	margin: 0 0 0 0 ;
+	}
+
+#bandeau h3 
+	{
+	color:#fff;
+	font-weight: bold;
+	font-size: 11px;
+	text-align: left;
+	width: 100%;
+	background-color: #6B7B3B;
+	margin: 0 0 0 0;
+	}
+
+#bandeau ul 
+	{
+	margin: 0;
+	padding: 0;
+	}
+		
+#bandeau li 
+	{
+	line-height: 1em;
+	list-style-type: none;
+	background: transparent no-repeat top center;
+	display: block;
+	padding-top: 0px;
+	margin-bottom: 0px;
+	}
+
+#bandeau DIV h3 span
+	{
+	background: #6B7B3B;
+	color: #FFFFFF;
+	padding-left: 0px;
+	}
+
+#footer, #content_footer
+	{
+	}
+	
+
+#notice 
+	{
+	font-size:11px;
+	}
+
+#notice h3
+	{
+	margin-top:10px;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
+	}
+		
+#notice span 
+	{
+	margin-left: 5 10px;
+	}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+
+.notice-parent {
+	color: #333333;
+	margin-left: 0px;
+	font-size: 11px;
+	text-decoration: none
+	}
+.notice-child {
+	font-size: 11px;
+	margin-left: 30px;
+	width: 98%;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-align: justify;
+	border: 1px solid #c0c0c0;
+	border-right-style: none;
+	border-top-style: none;
+	}
+.notice-child td.bg-grey{
+	width:20%;
+	min-width:150px;
+}
+#bandeau DIV {	
+	margin-bottom: 20px; 
+	}
+
+#bandeau DIV H3 {	
+	color: #FFFFFF; 
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+P { 	
+	margin:8px;
+	}
+
+P.centered {	
+	text-align:center;
+	}
+
+A {	
+	color: #333333;
+	}
+
+A:hover { 
+	color: #333333; 
+	}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+	{
+	border-collapse: collapse;
+	font-size:11px;
+	}
+
+tr
+	{
+		font-size:11px;
+		}
+
+td 	{
+	vertical-align:top;
+	}
+	
+th
+	{ 
+	font-size:11px;
+	background: #fff;
+	text-align: left; 
+	}
+
+td.visible
+	{	border: 1px solid #ccc; }
+
+td.visible-centered
+	{	border: 1px solid #ccc;
+		text-align:center; }
+tr.even
+	{
+	background: #f2f2f2;
+	color: #000;
+	}
+
+tr.odd
+	{
+	background: #fff;
+	color: #000;
+	}
+
+tr.tr_spacer 
+	{
+	height: 0px;
+	}
+td.td_spacer 
+	{
+	height: 0px;
+	}
+
+/*------------------------------------
+/*	tableaux des exemplaires de la fiche emprunteur
+/------------------------------------*/
+table.liste-expl-empr-late 
+	{
+	}
+table.liste-expl-empr-all 
+	{
+	}
+
+td.expl-empr-retard {
+	background: #DD0000;
+	color: #FFFFFF;
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+.row
+	{ clear: both;
+	  width: 80%;
+	  margin-left:30px; }
+
+.right,
+.right-50,
+.right-15,
+.right-85 
+	{	float: right; }
+
+.right-50 {	width: 50%; }
+
+.right-15 {	width: 15%; }
+
+.right-85 {	width: 85%; }
+
+
+.right-clear-right,
+.right-50-clear-right
+	{	float: right;
+		clear: right; }
+
+.left-clear-left,
+.left-50-clear-left
+	{	float: left;
+		clear: left; }
+
+.left,
+.left-50,
+.left-15
+	{	float: left;}
+
+.left-50
+	{	width: 50%;}
+
+.left-15
+	{	width: 15%;}
+
+.left-85
+	{	width: 85%;}
+
+.spacer
+	{	clear: both;
+		visibility: hidden;
+		display: none;
+		margin-bottom: -10px;
+		margin-top: -10px; }
+
+.p1 {	font-size:10pt; }
+	
+.text_query 
+	{ 	width: 20em; }
+
+
+.fond-article {
+	background-color: #ccc;
+	}
+
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton 
+	{	background:#666666;
+		color:#FFFFFF;
+		margin-left: 2px;
+		margin-right: 0px;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px
+	 }
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                      */
+/*                                                                            */
+/* pour l'impression, masquage de tags                                        */
+/*                                                                            */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+ul#onglets_isbd_public {
+    font-size: 11px;
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    margin-bottom:5px;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 21px;
+    background-color: #cfc;
+    margin: 2px 2px 0 2px;
+    border: 1px solid #cc;
+    background-color: #ecece8;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+    border-bottom: 1px solid #DDF0A7;
+    background-color: #DDF0A7;
+}
+
+#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #333333;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default ;
+}
+#onglets_isbd_public li.isbd_public_inactive a:hover {
+    background: #FFF;
+    cursor: pointer ;
+    }
+
+/* Colonnes */
+.colonne2 {
+  float: left;
+  width: 50%;
+}
+
+.colonne_suite {
+  float: left;
+}
+
+/* Etageres */
+#etageres {
+	margin-top:35px 10px 5px 5px;
+	padding-bottom: 0 5px 5px 5px;
+	}
+
+#etagere-container {
+	}
+
+#etagere {
+	background: transparent;
+	margin-top:20px;
+	padding: 0 5px 5px 5px;
+	text-align:left;
+	font-family:Verdana, Arial, sans-serif;font-size:11px;font-style:normal;color:#333333;
+	margin-bottom: 5px;
+	margin-right:20px;	
+	}
+#etageres #onglets_isbd_public li {
+	border:none;
+	background:transparent;
+}
+#aut_details #onglets_isbd_public li {
+	border:none;
+	background:transparent;
+}
+#etagere-titre h1 {
+padding:0;
+margin:0;
+	}
+
+#etagere-titre h1 a {
+	}
+
+#etagere-titre a {
+}
+
+#etagere-comment h2 {
+font-size:11px;
+padding:0;
+margin:0;
+font-style:italic;
+font-weight:normal;
+	}
+#etagere-notice-list {
+	padding-top:15px;
+	}
+#etagere-notice-list A {
+	}
+#etagere-notice-list A:hover {
+	}
+
+#navigator {
+	margin-top:5px;
+	padding: 0 5px 5px 5px;
+	margin-bottom: 5px;
+	text-align:center;
+        }
+
+#navigator td {
+	text-align:center;
+	font-size: 11px;
+	font-style:italic;
+	}
+#all_footer {
+display:none;
+}
+	
+iframe#iframe_resume_panier {
+	width:230px;
+    position:absolute;
+    top:25px;
+    top:28px\9;
+    left:685px;
+	height:60px;
+	}
+
+iframe#cart_info{
+height:35px;
+}
+#moncompte{
+    position:relative;
+    top:-22px;
+    width:200px;
+}
+#moncompte a {
+    background:transparent url('images/fleche.png') no-repeat 0 3px;
+    padding-left:12px;
+}
+#moncompte a:hover{
+    color:#999;
+}
+.notice-heada {
+	font-weight:bold;
+}
+
+.bg-grey {
+	vertical-align:top;
+}
+
+/************************************************************** 
+ecrasement des infos presentes dans le fichier pages.css pour optimiser l'affichage du footer
+**************************************************************/
+
+
+/** Espace central (mode 3 colonnes) **/
+#content{
+	float:left;
+	width:881px;
+	padding:10px 10px 0px 10px;
+        margin-bottom:60px!important;
+	background-color:#ECECE8;
+	text-align:left;
+	min-height:450px;
+}
+/** Espace central (mode 2 colonnes) **/
+
+#content li, #content_large li{
+	margin:5px 0px 5px 0px;
+}
+#content_footer{
+	background-image: url('../../img/charte_2008/content_large_footer.png');
+	width:881px;
+}
+
+#content_footer, #content_footer_large{
+	clear:both;
+	background-position:right bottom;
+	background-repeat:no-repeat;
+	margin:0px 0px 10px 0px;
+	padding:0px;
+	height:54px;
+        position:relative;
+        top:64px;
+	top:15px\9;
+        left:-10px;
+}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}
+
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}

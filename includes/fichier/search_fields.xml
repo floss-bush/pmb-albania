@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbfields>
+	
+	<!-- Zone dynamicFields :
+		Liste des champs personalisés par type de données
+			<field @att=id,dataType> 
+			-id : numéro unique arbitraire
+			-dataType : type de données du champ personalisé
+			<field> contient les sous tags :
+			
+				<query> : requete associée au champ et à l'opérateur
+				<query @att=for,multipleWords,regDiacrit>
+					-for : nom de l'opérateur auquel correspond la requete 
+					 (les opérateurs non listés ne seront pas pris en compte), 
+					-multipleWords (yes|no) : la requete tient compte de plusieurs termes saisis avec des espaces
+					-regDiacrit (yes|no) : les termes sont passés par la fonction de nettoyage des mots vides et des accents
+			 		<query> contient les sous tags :
+					
+						<main> : Corps principal de la requete, 
+							-!!p!! sera remplacé dans la requete par le texte saisi pour la recherche, 
+							-!!multiple_term!! (uniquement si multipleWords="yes") sera remplacé par la série  
+							 de tests de la clause where pour chaque mot saisi
+							-!!field!! sera remplacé par le numéro de champ personalisé
+						
+						<multipleTerm> : terme de condition utilisé pour remplacer !!multiple_term!!
+						<multipleOperator> : opérateur utilisé entre les termes de conditions 
+	-->
+	
+	<dynamicFields>
+		<fieldType type="gestfic0" prefix="gestfic0">
+			<field dataType="small_text" id="1">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where !!multiple_term!! ]]></main>
+					<multipleTerm>gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where !!multiple_term!! ]]></main>
+					<multipleTerm>gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text like '!!p!!%' ]]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text like '%!!p!!' ]]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text='!!p!!' ]]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text='!!p!!' ]]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche left join gestfic0_custom_values on gestfic0_custom_origine=id_fiche and gestfic0_custom_champ=!!field!! where (gestfic0_custom_small_text='' or gestfic0_custom_small_text is null) ]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_small_text!='' ]]></main>
+				</query>
+			</field>
+			<field dataType="text" id="2">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where !!multiple_term!! ]]></main>
+					<multipleTerm>gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where !!multiple_term!! ]]></main>
+					<multipleTerm>gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text like '!!p!!%' ]]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text like '%!!p!!' ]]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="yes">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text='!!p!!' ]]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text='!!p!!' ]]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche left join gestfic0_custom_values on gestfic0_custom_origine=id_fiche and gestfic0_custom_champ=!!field!! where (gestfic0_custom_text='' or gestfic0_custom_text is null) ]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_text!='' ]]></main>
+				</query>
+			</field>
+			<field dataType="integer" id="3">
+				<query for="EQ">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer='!!p!!' ]]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer<'!!p!!' ]]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer>'!!p!!' ]]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer<='!!p!!' ]]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer>='!!p!!' ]]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche left join gestfic0_custom_values on gestfic0_custom_origine=id_fiche and gestfic0_custom_champ=!!field!! where (gestfic0_custom_integer='' or gestfic0_custom_integer is null) ]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_integer!='' ]]></main>
+				</query>
+			</field>
+			<field dataType="float" id="4">
+				<query for="EQ">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float='!!p!!' ]]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float<'!!p!!' ]]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float>'!!p!!' ]]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float<='!!p!!' ]]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float>='!!p!!' ]]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche left join gestfic0_custom_values on gestfic0_custom_origine=id_fiche and gestfic0_custom_champ=!!field!! where (gestfic0_custom_float='' or gestfic0_custom_float is null) ]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_float!='' ]]></main>
+				</query>
+			</field>
+			<field dataType="date" id="5">
+				<query for="EQ">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date='!!p!!' ]]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date<'!!p!!' ]]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date>'!!p!!' ]]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date<='!!p!!' ]]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date>='!!p!!' ]]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche left join gestfic0_custom_values on gestfic0_custom_origine=id_fiche and gestfic0_custom_champ=!!field!! where (fiche_custom_date='' or gestfic0_custom_date='0000-00-00' or gestfic0_custom_date is null)]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[select distinct id_fiche from fiche,gestfic0_custom_values where gestfic0_custom_champ=!!field!! and gestfic0_custom_origine=id_fiche and gestfic0_custom_date!='' and gestfic0_custom_date!=0 ]]></main>
+				</query>
+			</field>
+		</fieldType>
+	</dynamicFields>
+	
+	<operators>
+		<operator name="BOOLEAN">msg:expr_bool_query</operator>
+		<operator name="CONTAINS">msg:284</operator>
+		<operator name="CONTAINS_ALL">msg:contient_tous_mots_query</operator>
+		<operator name="CONTAINS_AT_LEAST">msg:contient_plus_un_mot_query</operator>
+		<operator name="STARTWITH">msg:commence_par_query</operator>
+		<operator name="ENDWITH">msg:finit_par_query</operator>
+		<operator name="EXACT">msg:exactement_comme_query</operator>
+		<operator name="EQ">=</operator>
+		<operator name="GT">&gt;</operator>
+		<operator name="LT">&lt;</operator>
+		<operator name="GTEQ">&gt;=</operator>
+		<operator name="LTEQ">&lt;=</operator>
+		<operator name="ISEMPTY" emptyAllowed="yes">msg:est_vide_query</operator>
+		<operator name="ISNOTEMPTY" emptyAllowed="yes">msg:pas_vide_query</operator>
+	</operators>
+	<keyname>id_fiche</keyname>
+</pmbfields>

@@ -1,0 +1,1144 @@
+/***********************
+ * PMB Stylesheet
+
+ *	$Id
+ ***********************/
+
+
+    body
+	{
+/*		position: relative;*/
+      margin:0;
+      padding:0;
+      color:#000;
+      background:#FFFFFF;
+	  direction:rtl;
+      } html>body {font-size:small;}
+
+ /*----	<NavBar>	----*/
+#navbar {
+	position:absolute;
+	top:0;
+	right:0;
+ 	margin: 2px;
+	margin-right: 30px;
+	padding: 0.1em;
+	width: 98%;
+	height: 2em;
+	}
+#navbar h3
+{
+	display: none;
+	width:1px;
+}
+
+#navbar ul {
+	list-style-type: none;
+	display: inline;
+	height: 1.5em;
+  margin: 0;
+	}
+
+#navbar li {
+	float:right;
+	padding: 0.4em 1em 0.2em 1em;
+	display: block;
+	margin: 0 0.1em;
+	}
+
+#navbar li#current-tab {
+	}
+
+/*----	</NavBar>	----*/
+
+#navbar li a,
+#navbar li a:link,
+#navbar li a:visited {
+	color: #fff;
+	font-weight:bold;
+	background-color: #3580BD;
+	}
+
+#navbar li a:active {
+	}
+
+#navbar li a:hover {
+	}
+
+#navbar ul {
+	border-bottom-color: #3580BC;
+	border-top-color: #3580BC;
+	border-right-color: #3580BC;
+	border-left-color: #3580BC;
+	}
+
+#navbar li {
+	border-color: #3580BC;
+	background-color: #3580BD;
+	}
+
+#navbar li#current-tab {
+	border-top-color: #3580BC;
+	border-bottom-color: #3580BC;
+	background-color: #15609C;
+	border-right-color: #3580BC;
+	border-left-color: #3580BC;
+	}
+
+#navbar li#current-tab a
+#navbar li#current-tab a:link,
+#navbar li#current-tab a:visited {
+	color: #fff;
+	background-color: #3580BC;
+	}
+	
+/*	Menu	*/
+#menu
+{
+	position: absolute;
+	top: 5%;
+	right: 0;
+	width: 13em;
+	text-align: right;
+	padding: 0em;
+}
+
+#menu ul
+{
+	/*background: #fff no-repeat bottom left url(books_ul.gif);*/
+	background: transparent;
+	padding: 0px 0px 0px 0px;
+	margin-right: .5em;
+	margin-top: 4px;
+	list-style-type: none;
+}
+
+#menu a
+{
+	display: block;
+	text-decoration: none;
+	color: #000;
+	background: transparent;
+	width: 12em;
+	padding: 0 .1em;
+}
+
+#menu a:hover
+{
+	color: #000;
+	text-decoration: underline;
+}
+
+#menu a:visited
+{
+	color: #000;
+}
+
+#menu li
+{
+	text-transform: lowercase;
+	display: block;
+	padding-bottom: .2em;
+	color: #000;
+	padding-right: 7px;
+}
+
+#menu ul li a
+{
+	text-decoration: underline;
+}
+
+
+#menu h3
+{
+	padding: 0px 0px 0px 0px;
+	margin : 2px 0px 0px 0px;
+/*	color: #86c71e;*/
+	color :#000;
+}
+/*	/Menu	*/
+
+/*    MENU : #menu_horizontal    */
+#hmenu{
+   }
+
+      #hmenu a {
+         }
+
+      #hmenu a:hover {
+      }
+
+      #hmenu a:visited {
+      }
+
+
+/*	Contenu	*/
+#contenu
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 10.5em;
+	width: 80%;
+}
+
+#contenu a
+{
+	color: #000;
+	text-decoration: none;
+}
+
+		#contenu .hidelink a:link		{ text-decoration: none; }
+		#contenu .hidelink a:visited	{ text-decoration: none; }
+		/* utilisé pour les paniers : c'est un tag img avec un javascript onmousedown (pas un tag a) */
+		#contenu .hidelink img			{ cursor: pointer; }
+     
+
+#contenu a:hover
+{
+	text-decoration: underline;
+}
+
+/*	Contenu	frame*/
+#contenu-frame {
+	position: absolute;
+	top: 5%;
+	left: 0;
+	right: 0em;
+	background:#FFFFFF;
+	}
+
+#contenu-frame a {
+	color: #000;
+	text-decoration: none;
+	padding: 0 0px 0 10px;
+	}
+#contenu-frame a:visited
+{
+	text-decoration: underline;
+}
+
+#contenu-frame a:hover
+{
+	text-decoration: underline;
+}
+
+#contenu-frame h1
+{
+	color : #452;
+	padding-top: .5em;
+}
+
+#contenu-frame h2
+{
+	color : #000;
+}
+
+#contenu-frame TABLE {
+	border:none;
+}
+
+#contenu-frame TD {
+	border:none;
+}
+
+/*	/Contenu-frame	*/
+
+#login-box,
+#contenu label {
+	}
+
+/*	/Contenu	*/
+
+/*	Déconnexion	*/
+#deconnexion a
+{
+	color: #f00;
+}
+
+#extra
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #000;
+	text-transform: lowercase;
+	padding: 10px 0px 0 10px;
+	z-index: 100;
+}
+
+#extra a
+{
+	color: #000;
+}
+
+#extra a:hover
+{
+	text-decoration: none;
+}
+
+#extra img 
+{
+	padding:2px;
+}
+
+/*	/Déconnexion	*/
+
+
+
+/*------------------------------------
+/	Forms
+/------------------------------------*/
+table
+{
+	margin: 0px auto;
+	width: 98%;
+}
+
+form
+{
+	margin: 0px auto;
+	width: 98%;
+}
+
+.form-contenu,
+table
+{
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000;
+	padding: 5px;
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	padding-top: 1em;
+	background-color: #fff;
+
+}
+
+form a
+{
+	color: #000;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+form a:hover
+{
+	text-decoration: none;
+}
+
+/* formulaire de retour de document */
+.form-retour-expl {
+background: #BB0000;
+color: #DDF0A7;
+}
+.form-retour-expl h3 {
+color: #DDF0A7;
+}
+
+/*	/row	*/
+
+select option,
+select
+{
+	text-transform: lowercase;
+	font-weight: bold;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+{
+	background: #fff;
+	border-collapse: collapse;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	width: 100%;
+}
+
+tr
+{
+
+}
+
+th
+{
+	background: #f0f0f0;
+	border-bottom: 2px solid #000;
+	border-top: 2px solid #000;
+	font-size: 9pt;
+}
+	th.brd {
+		background: #f0f0f0;
+		border-bottom: 2px solid #000;
+		border-top: 2px solid #000;
+		border-right: 1px solid #000;
+		border-left: 1px solid #000;
+		font-size: 9pt;
+		text-align: right;
+	}
+	th.nobrd {
+		background: #f0f0f0;
+		border-bottom: 0px solid #000;
+		border-top: 0px solid #000;
+		border-right: 0px solid #000;
+		border-left: 0px solid #000;
+		font-size: 9pt;
+		text-align: right;
+	}
+
+td
+{
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000;
+}
+	td.brd {
+		border-bottom: 1px solid #000;
+		border-top: 1px solid #000;
+		border-right: 1px solid #000;
+		border-left: 1px solid #000;
+		text-align: right;
+		}
+	td.brd2 {
+		border-bottom: 1px solid #D5A085;
+		border-top: 1px solid #D5A085;
+		text-align: right;
+		}
+
+
+tr.even
+{
+	background: #efc;
+	color: #000;
+}
+
+
+tr.odd
+{
+
+}
+
+tr.surbrillance 
+{
+	background: #CCFFCC;
+}
+
+/*------------------------------------
+/	/Forms
+/------------------------------------*/
+
+hr
+{
+	width:96%;
+	height: 0;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	/*border-bottom: 1px solid #000;*/
+}
+
+/*	rounded corner box	*/
+
+ .roundedCornerSpacer {
+    margin: 0px; padding: 0px; border: 0px;
+    clear: both;
+    font-size: 1px; line-height: 1px;
+}
+/* In the CSS below, the numbers used are the following:
+    1px: the width of the border
+    3px: a fudge factor needed for IE5/win (see below)
+    4px: the width of the border (1px) plus the 3px IE5/win fudge factor
+    14px: the width or height of the border image
+*/
+.borderTL, .borderTR, .borderBL, .borderBR {
+    width: 14px; height: 14px;
+    padding: 0px; border: 0px;
+}
+.borderTL, .borderBL { float: right; clear: both; }
+.borderTR, .borderBR { float: left; clear: left; }
+.borderTL { margin: -1px -1px 0px 0px; }
+.borderTR { margin: -1px 0px 0px -1px; }
+.borderBL { margin: -14px 0px 0px 0px; }
+.borderBR { margin: -14px 0px 0px 0px; }
+
+/* IE5-5.5/win needs the border scooted to the left or right by an
+   additional 3px! Why? */
+
+.borderTL {
+    margin-right: -4px;
+    ma\rgin-right: -1px;
+}
+html>body .borderTL {
+    margin-right: -1px;
+}
+.borderTR {
+    margin-left: -4px;
+    ma\rgin-left: -1px;
+}
+html>body .borderTR {
+    margin-left: -1px;
+}
+.borderBL {
+    margin-right: -3px;
+    ma\rgin-right: 0px;
+}
+html>body .borderBL {
+    margin-right: 0px;
+}
+.borderBR {
+    margin-left: -3px;
+    margin-left: 0px;
+}
+html>body .borderBR {
+    margin-left: 0px;
+}
+/* To get around a known bug in IE5/win, apply the
+   border (no margin, padding or positioning) to the
+   content class and apply whatever positioning you
+   want to the contentWrapper class. */
+
+.content {
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid #00000;
+}
+.contentWrapper {
+    /* position this div however you want, but
+       keep its padding and border at zero */
+    padding: 0px;
+    border: 0px;
+}
+
+/*	/rounded corner box	*/
+
+#login-box h1,
+#contenu h1
+{
+	color :#000;
+	padding-top: .5em;
+	/*border-bottom: 1px dotted #000;*/
+}
+
+#contenu h2
+{
+	color : #000;
+	font-size: 12pt;
+
+	/*border-bottom: 1px dotted #000;*/
+}
+
+#image_recherche
+{
+	position: absolute;
+	top: 23px;
+	right:14em;
+	/*background: url("loupe.gif") repeat left bottom;*/
+	padding: 5px;
+	margin: 0px auto;
+	width: 60px;
+	height:70px;
+	z-index:25;
+}
+
+
+#footer
+{
+	display: none;
+	float: right;
+	padding: 0;
+	margin: 0;
+	z-index: 0;
+}
+
+#footer span,
+#footer span a
+{
+	padding : 10px 5px 0 0px;
+	margin: 0 10px 0 0px;
+
+}
+#footer a
+{
+	text-decoration: none;
+}
+
+#logo
+{
+	position: absolute;
+	bottom: 0;
+	right: -60px;
+	/*background: transparent no-repeat bottom right url("books_small.gif");*/
+	padding: 5px;
+	margin: 0px auto;
+	width: 200px;
+	height:150px;
+	z-index: 0;
+}
+
+#logo span
+{
+display:none;
+}
+
+@media screen {
+#conteneur
+{
+	position: absolute;
+	top: 3em;
+	right:0;
+	width: 100%;
+	z-index:10;
+}
+}
+#conteneur a
+{
+	color: #000;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+#conteneur a:hover
+{
+	text-decoration: underline;
+}
+
+img
+{
+	border: 0;
+}
+
+/***********************
+ *	Classes génériques
+ ***********************/
+.col
+{
+	float: right;
+	width: 100%;
+	padding: 1em;
+	margin: 1em;
+}
+
+.erreur
+{
+	color: #f00;
+	font-weight: bold;
+}
+
+.hide
+{
+	display: none;
+}
+
+.aide
+{
+	cursor: help;
+}
+
+.astuce,
+{
+	font-size: 10pt;
+	margin-top: 1em;
+}
+
+.bool
+{
+	font-family: fixed;
+	font-weight: bold;
+}
+
+.row
+{
+  clear: both;
+}
+
+.row .etiquette
+{
+  /* float: right; */
+  /*text-align: left;*/
+}
+
+.row img
+{
+	display: inline;
+}
+
+.saisie-inline
+{
+	width: 80%;
+}
+
+.saisie-5em
+{
+	width: 5em;
+}
+
+.saisie-10em
+{
+	width: 7.5em;
+}
+
+.saisie-15em
+{
+	width: 10em;
+}
+
+.saisie-20em
+{
+	width: 15em;
+	
+}
+
+.saisie-30em
+{
+	width: 20em;
+}
+
+.saisie-50em
+{
+	width: 30em;
+}
+.saisie-60em {  width: 37.5em;}
+.saisie-80em
+{
+	width: 40em;
+}
+/* pour les champs en readonly, avec bouton parcourir */
+.saisie-5emr,
+.saisie-10emr,
+.saisie-15emr,
+.saisie-20emr,
+.saisie-30emr,
+.saisie-50emr,
+.saisie-80emr
+{
+	background-color: #ccc;
+	border: 1px solid #aaa;
+}
+
+.saisie-5emr
+{
+	width: 5em;
+}
+
+.saisie-10emr
+{
+	width: 7.5em;
+}
+
+.saisie-15emr
+{
+	width: 10em;
+}
+
+.saisie-20emr
+{
+	width: 15em;
+	
+}
+
+.saisie-30emr
+{
+	width: 20em;
+}
+
+.saisie-50emr
+{
+	width: 30em;
+}
+
+.saisie-80emr {
+	width: 40em;
+	}
+
+.saisie-85
+{
+	width: 94%;
+}
+
+.right,
+.right-50,
+.right-15,
+.right-85
+{
+	float: left;
+}
+
+.right-50
+{
+	width: 50%;
+}
+
+.right-15
+{
+	width: 15%
+}
+
+.right-85
+{
+	width: 85%;
+}
+
+
+.right-clear-right,
+.right-50-clear-right
+{
+	float: left;
+	clear: left;
+}
+
+.left-clear-left,
+.left-50-clear-left
+{
+	float: right;
+	clear: right;
+}
+
+.left,
+.left-50,
+.left-15
+{
+	float: right;
+}
+
+.left-50
+{
+	width: 50%;
+}
+
+.left-15
+{
+	width: 15%;
+}
+
+.left-85
+{
+	width: 85%;
+}
+
+.spacer
+{
+	clear: both;
+	visibility: hidden;
+	display: none;
+	margin-bottom: -10px;
+	margin-top: -10px;
+}
+
+.saisie-contenu
+{
+	padding-right: 12px;
+	padding-top: .3em;
+	margin-top: .2em;
+}
+
+.bouton
+{
+	color: #fff;
+	font-weight: bold;
+	border: 1px outset #aaa;
+	background-color: #ccc;
+}
+
+.bouton:hover
+{
+	border-style: inset;
+	background-color: #ccc;
+ 	border: 1px solid #ccc;	
+}
+
+#login-box
+{
+	width: 50%;
+	margin-right: 25%;
+	margin-left: 25%;
+}
+
+#login-box
+{
+	margin-top: 10%;
+}
+
+.erreur
+{
+	color: #f00;
+}
+
+h3
+{
+	clear: both;
+	display: block;
+	margin-bottom: 1px;
+	margin-top: 1px;
+	padding-bottom: 1px;
+	padding-top: 1px;
+}
+
+.notice-perio
+{
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+.bulletins-perio
+{
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+.depouillements-perio
+{
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+.msg-perio {
+	font-size: 150%;
+	font-weight: bold;
+	color: #f00;	
+}
+/* barre fléchée en pério */
+.perio-barre {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+/* classes pour l'affichage de liste dépliantes en résultat de recherche*/
+.notice-heada {
+	text-decoration: none;
+    font-size: 10pt;
+    font-weight: bold;
+}
+.notice-parent {
+    color: #000000;
+    margin-right: 0px;
+    font-size: 8pt;
+    text-decoration: none
+}
+.notice-child {
+	font-size: 0.9em;
+    margin-right: 30px;
+    width: 98%;
+    padding-right: 4px;
+    padding-left: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #c0c0c0;
+    border-left-style: none;
+    border-top-style: none;
+}
+.notice-bu {
+	margin-top: 0px;
+	background-color: transparent;
+	border-style: none;
+}
+
+/* classes pour l'affichage de liste dépliantes en formulaire de saisie de notice */
+.heada {
+		font-size: 10pt;
+		font-weight: bold;
+		}
+.parent {
+	color: #000000;
+	margin-right: 0px;
+	font-size: 8pt;
+	text-decoration: none
+	}
+.child {
+	margin-right: 30px;
+	}
+.bu {
+	margin-top: 15px;
+	}
+
+#el0Parent h3, 
+#el1Parent h3,
+#el2Parent h3,
+#el3Parent h3,
+#el230Parent h3,
+#el4Parent h3,
+#el5Parent h3,
+#el6Parent h3,
+#el7Parent h3,
+#el8Parent h3,
+#el9Parent h3,
+#el10Parent h3,
+#el30Parent h3,
+#el41Parent h3,
+#elbulParent h3  {
+	margin-bottom: 0px;
+	margin-top: -1px;
+	}
+
+.titre-panier
+{
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+.table-no-border {
+	border: none;
+	}
+
+table.docnum
+{
+	background: none;
+	border-collapse: collapse;
+	border-left: 0px ;
+	border-right: 0px ;
+	border-top: 0px ;
+	border-bottom: 0px ;
+	width: 98%;
+}
+
+td.docnum
+{
+	border-bottom: 0px solid #5450FF;
+	border-top: 0px solid #5450FF;
+	text-align: center;
+}
+
+.fond-mere {
+	background-color: #4f72ff;
+	}
+
+.fond-article {
+	background-color: #68df00;
+	}
+	
+  iframe#alerte { 
+	visibility:visible;position:absolute;
+	left:0;top:600px;width:150px;border-style:none;
+	border-width:0px;border-color:#000000;
+	background:#efe; 
+	}
+	
+
+/* pour l'impression, des styles sont masqués*/
+@media print {
+  #conteneur 	{
+		position: relative;
+		clear:both;
+		}
+
+  #navbar
+	{ display: none; }
+  #menu
+	{ display: none;}
+ 
+
+  /*	Menu	*/
+  #deconnexion 
+	{ display: none; }
+  #extra
+	{ display: none; }
+  .bouton
+	{ display:none; }
+
+  iframe#alerte
+	{ visibility:hidden;	}
+}
+
+iframe#history {
+	width:30%;
+	height:97%;
+	position:absolute; 
+	top:1%; 
+	right:1%;
+	z-index:1000;
+	}
+	
+* HTML iframe#history {
+	height:580px;
+	}
+
+/* pour affichage de pavés de couleur pour disinction des statuts de notices */
+.statutnot1 {
+	}
+.statutnot2 {
+	background-color: #BB0000;
+	}
+.statutnot3 {
+	background-color: #00BB00;
+	}
+.statutnot4 {
+	background-color: #0000BB;
+	}
+.statutnot5 {
+	background-color: #D0686F;
+	}
+.statutnot6 {
+	background-color: #A6DCDC;
+	}
+.statutnot7 {
+	background-color: #816492;
+	}
+.statutnot8 {
+	background-color: #BCB964;
+	}
+.statutnot9 {
+	background-color: #6C75AC;
+	}
+.statutnot10 {
+	background-color: #FFC587;
+	}
+.statutnot11 {
+	background-color: #70C173;
+	}
+.statutnot12 {
+	background-color: #660000;
+	}
+.statutnot13 {
+	background-color: #006600;
+	}
+.statutnot14 {
+	background-color: #000066;
+	}
+.statutnot15 {
+	background-color: #80181F;
+	}
+.statutnot16 {
+	background-color: #668C8C;
+	}
+.statutnot17 {
+	background-color: #311442;
+	}
+.statutnot18 {
+	background-color: #7C7914;
+	}
+.statutnot19 {
+	background-color: #2C356C;
+	}
+.statutnot20 {
+	background-color: #BF8547;
+	}
+
+.message_important {
+	color: #f00;
+	font-weight: bold;
+	font-size: 1.5em;
+	padding:5px;
+	margin:5px;
+	}
+	

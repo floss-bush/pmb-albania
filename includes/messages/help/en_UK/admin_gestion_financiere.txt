@@ -1,0 +1,10 @@
+<h1>Financial management</h1>
+<p>This module allows you to manage financial transactions related to members' subscriptions:</p>
+<ul>
+<li>membership
+<li>fines on overdue items
+<li>loans against payment for one or more categories of documents
+</ul>
+<p>If you have chosen the simple subscription type, the rates are displayed in <a href='admin.php?categ=empr&sub=categ'>Administration &gt; Borrowers &gt; Categories of borrowers</a>.</p>
+<p>If you have chosen simple loan, the rates are displayed in <a href='admin.php?categ=docs&sub=typdoc'>Administration &gt; Items &gt; Types of documents</a>.</p>
+

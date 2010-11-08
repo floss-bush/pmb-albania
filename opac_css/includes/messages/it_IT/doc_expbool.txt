@@ -1,0 +1,50 @@
+<h2>Espressioni booleane</h2>
+<p class='pn-normal'>Per default, il motore di ricerca individua gli elementi che contengono almeno una delle parole immesse. I risultati vengono riportati seguendo il numero decrescente di parole trovate, quindi in ordine alfabetico.
+<br />Es. <em>prosciutto parma</em> significa gli elementi che contengono le parole prosciutto <b>o</b> Parma (prosciutto di Parma, prosciutto San Daniele, la storia di Parma, ...).
+<br />Tutti i caratteri non alfanumerici sono rimpiazzati con degli spazi, le maiuscole/minuscole e gli accenti non vengono considerati<br />Es. <em>Liceo Saint-Jean</em> sarà analizzato come tre parole:<em>liceo saint jean</em> 
+<br />Certe parole vengono ignorate perchè troppo ricorrenti in italiano (es: di, da, del, il, la, un,....).
+</p>
+<br />
+<b>Caratteri jolly</b>
+<p class='pn-normal'>Le parole possono essere troncate a sinistra, destra o centralmente con il carattere jolly '*'.
+<br />Es. <em>cav*</em> cercherà le parole che iniziano con <em>cav</em> (cavallo, cavillo, cavità, ...), <em>*logia</em> cercherà le parole che finiscono con 'logia' (psicologia, teologia, trilogia, ...), <em>p*logia</em> cercherà le parole che cominciano con 'p' e finiscono con 'logia' (psicologia, paleontologia, patologia, ...).
+<br />All'interno di una stessa parola può essere utilizzato più di un carattere jolly.</p>
+<b>Ricerca per termini esatti</b>
+<p class='pn-normal'>Un termine esatto è definito con un testo racchiuso tra le virgolette. Se il motore di ricerca incontra un termine esatto, cercherà gli elementi contenenti esattamente questo testo. I caratteri jolli possono essere usati nei termini esatti.
+<br />Ex. <em>"dent"</em> significa tutti gli elementi contenenti il testo dent (dentizione, accidente, indentazione, ...).
+<br />La ricerca per termini esatti è utile per cercare espressioni contenenti spazi o segni di punteggiatura. (ad esempio una sigla).
+<br />Ex. <em>"A.N.P.E."</em> cerca gli elementi che contengono il testo A.N.P.E., <em>A.N.P.E.</em> cerca gli elementi che contengono le parole A o N o P o E.
+<br />Gli accenti e le maiuscole/minuscole non sono considerati in un termine esatto. Infine, i termini esatti possono essere utilizzati in tutte le espressioni complesse spiegate qui sotto.
+</p>
+<b>Negazione</b>
+<p class='pn-normal'>Il simbolo ~ davanti ad un termine rappresenta la negazione di questo termine. Questo significa la ricerca di tutti gli elementi non contenenti questo termine
+<br />Es. <em>~lavoro</em> significa tutti gli elementi salvo quelli che contengono la parola lavoro.
+</p>
+<b>Operatori logici tra due parole</b>
+<p class='pn-normal'>Tra le parole possono essere utilizzati degli operatori logici:</p>
+<ul><li><b>+</b> : operatore E<br />Es. <em>disco + rigido</em> significa gli elementi che contengono le parole disco <b>e</b> rigido.</li>
+<li><b>-</b> : operatore SALVO (E NON)<br />Es. <em>disco - rigido</em> significa gli elementi che contengono la parola disco, <b>salvo quelli che contengono anche</b> la parola rigido.</li>
+</ul>
+<p class='pn-normal'>All'interno di una stessa espressione possono essere usati più operatori. Questi vengono applicati nell'ordine partendo da sinistra.
+<br />Es. <em>poesia + italian* - romantic*</em> significa gli elementi contententi <em>poesia e italiana(e)(o)(i)</em> <b>senza</b> <em>romantica(i)(he)</em>.
+<br /><br />Attenzione, un operatore non può succedere ad un altro operatore, una negazione non può essere combinata con un operatore (<b>+~</b> è equivalente all'operatore <b>-</b>).
+</p>
+<b>Raggruppamenti</b>
+<p class='pn-normal'>Un'espressione può essere raggruppata per formare un termine. Questi raggruppamenti si formano con le <b>parentesi</b>. Questo permette di cambiare l'ordine di applicazione degli operatori o di combinare i risultati di espressioni complesse.
+<br />Es.</p>
+<ul>
+<li><em>poesia + (italiana romantica)</em> significa tra tutti gli elementi che contengono italiana o romantica, solo quelli che contengono <em>poesia</em>.</li>
+<li><em>(poesia + italiana) romantica</em> significa tutti gli elementi che contengono <em>poesia e italiana</em> <b>o</b> tutti gli elementi che contengono <em>romantica</em></li>
+<li><em>~(poesia + italiana) + (letteratura fran*)</em> significa <em>tutti gli elementi che non contengono poesia e italiana</em> <b>e</b> <em>contemporaneamente contengono letteratura o fran*</em></li>
+</ul>
+<p class='pn-normal'>Le parentesi possono essere racchiuse senza limiti.<br />Es. <em>(poesia + (italiana romantica)) (letteratura + XIX)</em> significa <em>tra tutti gli elementi che contengono italiana o romantica, solamente quelli che contengono poesia</em> <b>o</b> <em>gli elementi che contengono letteratura e XIX</em> 
+</p>
+<b>Pertinenza</b>
+<p class='pn-normal'>I risultati sono riportati per ordine di pertinenza poi per ordine alfabetico. La pertinenza è calcolata semplicemente con il numero di parole o termini esatti trovati.
+<br />Es.</p>
+<ul>
+<li><em>prosciutto parma</em> troverà tutti gli elementi contenenti prosciutto o parma, quelli contenenti le due parole saranno all'inizio della lista dei risultati</li>
+<li><em>~(poesia + italiana) (letteratura fra*)</em> troverà tutti gli elementi che non contengono <em>poesia e italiana</em>, tra questi elementi, quelli che contengono <em>letteratura o fra*</em> appariranno tra i primi nella lista dei risultati (prima letteratura e fra*, poi fra*, quindi letteratura)</li>
+</ul>
+<hr />
+<p>Le espressioni booleane sono utilizzabili in <a href="help.php?whatis=simple_search">ricerca semplice</a> e in <a href="help.php?whatis=search_multi">ricerca estesa</a>.</p>

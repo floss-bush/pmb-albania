@@ -1,0 +1,73 @@
+
+/*****************************************************************************************
+	Note explicative
+
+	Les contenus decrits ici ont pour but de renseigner les parametres
+	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+	suivant les directives #obligatoire #recommande...
+
+	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+	implementer le parametre en question.
+	
+	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+	
+*****************************************************************************************/
+
+
+
+/*************************
+biblio_important_p1
+#obligatoire
+*************************/
+<map name="map_lien_retour" id="map_lien_retour">
+<area shape="rect" style="background:red;" coords="0,0,500,1260" href="index.php?lvl=index" alt="Retour à l'accueil"/>
+<area shape="rect" coords="630,141,662,190" href="http://www.appanpc.fr/" alt="appa"/>
+<area shape="rect" coords="662,141,705,190" href="http://www.cirm-crips.org/" alt="cirm"/>
+<area shape="rect" coords="705,141,749,190" href="http://www.cres-npdc.org/_front/Pages/page.php?page=1" alt="cres"/>
+<area shape="rect" coords="749,141,789,190" href="http://www.eclat5962.org/" alt="eclat"/>
+<area shape="rect" coords="789,141,831,190" href="http://www.alcoosite.fr/" alt="graa"/>
+<area shape="rect" coords="831,141,873,190" href="http://www.istnf.fr/" alt="istnf"/>
+<area shape="rect" coords="873,141,911,190" href="http://www.orsnpdc.org/" alt="orsnpdc"/>
+<area shape="rect" coords="911,141,954,190" href="http://www.sida-info-service.org/" alt="sida-info-service"/>
+
+</map>
+<img src="./images/bar_spacer.gif" usemap="#map_lien_retour" class="lien_accueil" alt="" />
+<div id="serpent"></div>
+
+/******************************
+biblio_important_p2
+#obligatoire a_personnaliser
+******************************/
+<ul>
+	<li><a href="http://www.santenpdc.org/"><img src="styles/grps/images/nav_accueil.gif" /></a></li>
+	<li><a href="http://www.santenpdc.org/?page_id=1350"><img src="styles/grps/images/nav_xp.gif" /></a></li>
+	<li><a href="http://www.santenpdc.org/?page_id=1087"><img src="styles/grps/images/nav_info.gif" /></a></li>
+	<li><a href="http://www.santenpdc.org/?page_id=1080"><img src="styles/grps/images/nav_doc.gif" /></a></li>
+	<li><a href="http://www.santenpdc.org/?page_id=1385"><img src="styles/grps/images/nav_outi.gif" /></a></li>
+	<li><a href="http://www.santenpdc.org/?page_id=1367"><img src="styles/grps/images/nav_revu.gif" /></a></li>
+</ul>
+
+<div id="rajout_cadre">
+<p>a remplir</p>
+</div>
+
+/******************************
+biblio_preamble_p1
+#recommande a_personnaliser
+******************************/
+<p>Le PRSP a été élaboré en partenariat avec l'ensemble des acteurs régionaux de santé et des institutions concernées : Etat, Assurance maladie, Agence régionale d'hospitalisation, collectivités territoriales, Union régionale des médecins libéraux.
+Il a pour objectif de contribuer à l'amélioration [...]</p>
+<p>Second paragraphe d'information qui peut s'étendre encore quelques lignes...
+</p>
+
+
+
+/*************************
+lien_moteur_recherche
+#facultatif
+*************************/
+Centre de documentation Santé Nord-Pas-deCalais - Tous droits réservés 2009
+<a href="url_lien1">Lien1 facultatif</a>
+<a href="url_lien2">Lien2 facultatif</a>

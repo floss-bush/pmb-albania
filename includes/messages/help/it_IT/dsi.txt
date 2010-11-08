@@ -1,0 +1,9 @@
+<h1>Modulo per la Diffusione Selettiva dell'Informazione</h1>
+<p>Documentazione incompleta! per&ograve; per cominciare...:</p>
+<blockquote>
+<b>Diffondi:</b> fa partire le mail per gli abbonati<br />
+<b>Raccoglitori:</b> definiscono le liste delle novit&agrave; , &egrave; il contenuto dei raccoglitori che sar&agrave; inviato agli abbonati ordinando la diffusione.<br />
+<b>Criteri:</b> sono i filtri che permettono di riempire i raccoglitori<br />
+<b>Classificazioni:</b> quello che permette di organizzare un poco tutto questo!<br />
+</blockquote>
+ 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: automap_fields.xml,v 1.3 2008-08-26 19:30:23 touraine37 Exp $ -->
+
+<auto_map_indexes>
+	<map set="dc" name="title">
+		200$a
+	</map>
+	<map set="dc" name="creator">7XX</map>
+	<map set="dc" name="identifier">010$a</map>
+	<map set="dc" name="publisher">210$c</map>
+	<map set="dc" name="editor">210$c</map>
+	
+	<map set="bath" name="isbn">010$a</map>
+	<map set="bath" name="ISBN">010$a</map>
+	<map set="bath" name="issn">010$a</map>
+	<map set="bath" name="ISSN">010$a</map>	
+	
+	<map set="cql" name="isbn">010$a</map>	
+	<map set="cql" name="ISBN">010$a</map>
+	<map set="cql" name="creator">7XX</map>
+	<map set="cql" name="any">XXX</map>
+	<map set="cql" name="serverChoice">XXX</map>
+	<map set="cql" name="author">7XX</map>
+	<map set="cql" name="title">200$a</map>
+	
+	<map set="kb" name="title">200$a</map>
+	<map set="kb" name="author">7XX</map>
+</auto_map_indexes>

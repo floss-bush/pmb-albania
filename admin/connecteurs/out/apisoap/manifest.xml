@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2009-07-15 07:49:43 erwanmartin Exp $ -->
+
+<manifest>
+	<name>SOAP</name>
+	<comment>Connecteur qui implémente en SOAP les fonctions de l'API</comment>
+	<author>Erwan MARTIN</author>
+	<org>PMB Services</org>
+	<date>2009-06-29</date>
+	<url>http://www.sigb.net</url>
+	<api_requirements>
+
+	</api_requirements>
+</manifest>

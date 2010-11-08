@@ -1,0 +1,19 @@
+<h1>Module d'administration</h1>
+<p>Vous venez d'acc&eacute;der au module d'administration de l'application PMB. Les actions entreprises ici peuvent affecter de mani&egrave;re cons&eacute;quente le bon fonctionnement de l'application. Les concepteurs de ce logiciel vous invitent donc &agrave; utiliser les fonctionnalit&eacute;s propos&eacute;es ici avec le plus grand discernement. Avant de lancer des traitements &agrave; l'aide de ce module, r&eacute;fl&eacute;chissez &agrave; l'impact qu'ils peuvent avoir sur vos donn&eacute;es. En cas de doute, n'h&eacute;sitez pas &agrave; poster un mail sur la liste de diffusion du projet. Des personnes seront &agrave; m&ecirc;me de vous aider et de d&eacute;finir avec vous les actions &agrave; entreprendre en fonction des probl&egrave;mes que vous rencontrez ou des buts particuliers que vous poursuivez.</p>
+
+<h2>exemplaires, notices</h2>
+<p>Les sections exemplaires et notices permettent de d&eacute;finir les param&egrave;tres de l'application pour le pr&ecirc;t et les statistiques sur les documents.
+</p>
+
+<h2>lecteurs</h2>
+<p>La section lecteurs permet de configurer les param&egrave;tres li&eacute;s &agrave; la cr&eacute;ation de lecteur : cat&eacute;gories et codes statistiques. Elle permet &eacute;galement d'importer des donn&eacute;es externes correspondant &agrave; des lecteurs.
+</p>
+
+<h2>utilisateurs</h2>
+<p>Cette section du module permet de g&eacute;rer les identifiants et les droits attach&eacute;s aux diff&eacute;rents utilisateurs du syst&egrave;me de gestion de biblioth&egrave;que. D&eacute;terminez notamment quels sont les utilisateurs pouvant effectuer des op&eacute;rations de pr&ecirc;t, ceux qui peuvent acc&eacute;der au module de catalogage et pour ces derniers lesquels sont autoris&eacute;s &agrave; g&eacute;rer les autorit&eacute;s. Utilisez cette fonctionnalit&eacute; &eacute;galement pour la gestion des mots de passe et des identifiants de connection.</p>
+
+<h2>outils</h2>
+<p>La rubrique outils fournit un ensemble de proc&eacute;dures mises en place pour faciliter les t&acirc;ches d'administration de la base. 
+Nous ne saurions trop insister sur la n&eacute;cessit&eacute; de proc&eacute;der &agrave; des sauvegardes r&eacute;guli&egrave;res.
+</p>
+

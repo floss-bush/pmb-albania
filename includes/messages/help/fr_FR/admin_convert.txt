@@ -1,0 +1,5 @@
+<h1>Conversions/Exports</h1>
+<p>Cette page permet de g&eacute;rer les conversions de divers formats de fichiers de notices/exemplaires en d'autres formats ainsi que l'export de la base de donn&eacute;es PMB sous forme de notices.</p>
+<p>La proc&eacute;dure de conversion permet &agrave partir d'un format entrant UNIMARC, USMARC, BCDI ou XML PMB de convertir en un autre format UNIMARC ou XML PMB. Si le format de conversion final est de l'UNIMARC, vous pourrez par la suite importer le r&eacute;sultat dans PMB. A d&eacute;faut, vous pourrez t&eacute;l&eacute;charger le r&eacute;sultat. Attention, le passage d'un format &agrave un autre peut occasionner des pertes d'informations.</p>
+<p>L'export de la base PMB se fait sous forme de notices incluant les exemplaires en respectant la recommandation 995 de l'ADBDP. Vous pouvez convertir le r&eacute;sultat en notices UNIMARC ou en XML PMB.</p>
+

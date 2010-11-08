@@ -1,0 +1,29 @@
+<h1>Administra&ccedil;&atilde;o de importa&ccedil;&otilde;es</h1>
+<p>Esta p&aacute;gina permite importar os dados ligados &agrave;s obras e/ou aos exemplares.</p>
+<p>O procedimento faz-se em diferentes tempos: 
+<ul>
+	<li>defini&ccedil;&atilde;o dos par&acirc;metros de importa&ccedil;&atilde;o:<br />
+		Para os registos
+		<ul>
+		<li>ISBN obrigat&oacute;rio</li>
+		<li>Desduplica&ccedil;&atilde;o sobre ISBN (se sim, os registos existentes n&atilde;o ser&atilde;o	criados) </li>
+		<li>Actualiza&ccedil;&atilde;o dos registos (sobre ISBN id&ecirc;nticos)</li>
+		<li>Ignorar os ISSN (para as publica&ccedil;&otilde;es peri&oacute;dicas) </li>
+		<li>Estado dos registos (de modo a identificar exaustivamente os registos importados)</li>
+		</ul>
+		Para os exemplares:
+		<ul>
+		<li>Emprestador (ex: biblioteca departamental de empr&eacute;stimo) </li>
+		<li>Estado do exemplar (ex: &quot;em periodo de importa&ccedil;&atilde;o&quot;)</li>
+		<li>Localiza&ccedil;&atilde;o dos exemplares</li>
+		<li>Cota obrigat&oacute;ria</li>
+		<li>Correspond&ecirc;ncia entre a codifica&ccedil;&atilde;o 995 e os seus conte&uacute;dos para os tipos de suporte, c&oacute;digos de audi&ecirc;ncia e sec&ccedil;&otilde;es</li>
+		</ul>
+	</li>
+	<li>Download do seu ficheiro,</li>
+	<li>Importa&ccedil;&atilde;o dos registos ou dos exemplares, </li>
+	<li>Para os exemplares, marca&ccedil;&atilde;o das importa&ccedil;&otilde;es 	para verificar a correspond&ecirc;ncia entre a listagem de empr&eacute;stimos e as obras realmente cedidas.</li>
+	</ul>
+	</p>
+<p>Esta &uacute;ltima verifica&ccedil;&atilde;o &eacute; r&aacute;pida e pode ser integralmente realizada com um leitor &oacute;ptico.</p>
+

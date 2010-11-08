@@ -1,0 +1,232 @@
+<!--
++---------------------------------------------------------------------------------------+
+© 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
++---------------------------------------------------------------------------------------+
+$Id: coding-style.html,v 1.2 2005-05-12 08:06:47 gautier Exp $
+
+AIDE POUR LES DEVELOPPEURS
+
+-->
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <title>
+      Php coding style
+    </title>
+    <link rel="stylesheet" type="text/css" href="default.css">
+  </head>
+  <body>
+    <h1>
+      Php coding style
+    </h1>
+    <p>
+      Ces quelques r&egrave;gles de base concernant le style de codage dans l&#39;application sont directement issues du PEAR coding-style.
+    </p>
+    <h2>
+      Indentation
+    </h2>
+    <p>
+      Utilisez une indentation de 4 espaces, mais pas de tabulations. Si vous utilisez Emacs pour &eacute;diter du code PEAR, pensez &agrave; mettre indent-tabs-mode &agrave; nil. Voici un exemple de hook qui va configurer Emacs suivant ces conseils (vous devez vous assurer qu&#39;il sera appel&eacute; avant l&#39;&eacute;dition des fichiers PHP)&nbsp;:
+    </p>
+    <pre>
+(defun php-mode-hook ()
+  (setq tab-width 4
+  c-basic-offset 4
+  c-hanging-comment-ender-p nil
+  indent-tabs-mode nil))
+</pre>
+    <p>
+      Voici quelques r&egrave;gles pour vim&nbsp;:
+    </p>
+    <pre>
+    set expandtab
+    set shiftwidth=4
+    set tabstop=4
+</pre>
+    <h2>
+      Structures de contr&ocirc;le
+    </h2>
+    <p>
+      Cela couvre if, for, while, switch, etc... Voici un exemple de condition if, (c&#39;est une des plus compliqu&eacute;es)&nbsp;:
+    </p>
+    <pre>
+if ((condition1) || (condition2)) {
+    action1;
+} elseif ((condition3) &amp;&amp; (condition4)) {
+    action2;
+} else {
+    defaultaction;
+}
+</pre>
+    <p>
+      Les structures de contr&ocirc;le doivent &ecirc;tre suivi d&#39;un espace et d&#39;une parenth&egrave;se ouvrante, pour les distinguer des appels de fonctions.
+    </p>
+    <p>
+      Il est vivement recommand&eacute; d&#39;utiliser les accolades en toutes occasions, m&ecirc;me lorsqu&#39;elles sont techniquement optionnelles. Cela am&eacute;liore nettement la lisibilit&eacute;, et r&eacute;duit la probabilit&eacute; d&#39;erreurs lorsque de nouvelles lignes sont ajout&eacute;es.
+    </p>
+    <p>
+      Boucle For, switch&nbsp;:
+    </p>
+    <pre>
+switch (condition) {
+    case 1:
+        action1;
+        break;
+         
+    case 2:
+        action2;
+        break;
+
+    default:
+        defaultaction;
+        break;
+}
+</pre>
+    <h2>
+      Appels de fonctions
+    </h2>
+    <p>
+      Les fonctions doivent &ecirc;tre appel&eacute;es sans espaces entre le nom de la fonction, la parenth&egrave;se ouvrante et le premier argument; il faut place un espace entre chaque argument et la virgule de s&eacute;paration, mais pas d&#39;espace entre le dernier argument, la parenth&egrave;se fermante et le point-virgule. Voici un exemple&nbsp;:
+    </p>
+    <pre>
+$var = foo($bar, $baz, $quux);
+</pre>
+    <p>
+      Comme illustr&eacute; ci-dessus, il faut un espace autour des signes &eacute;gal lorsqu&#39;il est utilis&eacute; dans une assignation de variable. Dans le cas d&#39;assignation en bloc, plusieurs espaces peuvent &ecirc;tre introduit pour am&eacute;liorer la lisibilit&eacute;.
+    </p>
+    <pre>
+&lt;?php
+    $short         = foo($bar);
+    $long_variable = foo($baz);
+?&gt;
+</pre>
+    <h2>
+      D&eacute;finitions de fonctions
+    </h2>
+    <p>
+      Les d&eacute;clarations de fonction suivent la convention &quot;one TRUE brace&quot; (une seule accolade v&eacute;ritable)&nbsp;:
+    </p>
+    <pre>
+&lt;?php
+    function fooFunction($arg1, $arg2 = &#39;&#39;)
+    {
+        if (condition) {
+            statement;
+        }
+        return $val;
+    }
+?&gt;
+</pre>
+    <p>
+      Les arguments ayant une valeur par d&eacute;faut doivent aller &agrave; la fin de la liste des arguments. Essayez de retourner une valeur utile de vos fonctions, d&egrave;s que c&#39;est le cas. Voici un exemple&nbsp;:
+    </p>
+    <pre>
+&lt;?php
+    function connect(&amp;$dsn, $persistent = FALSE)
+    {
+        if (is_array($dsn)) {
+            $dsninfo = &amp;$dsn;
+        } else {
+            $dsninfo = DB::parseDSN($dsn);
+        }
+        if (!$dsninfo || !$dsninfo[&#39;phptype&#39;]) {
+            return $this-&gt;raiseError();
+        }
+        return TRUE;
+    }
+?&gt;
+</pre>
+    <h2>
+      Commentaires
+    </h2>
+    <p>
+      La documentation du code doit suivre les conventions de PHPDoc, similaire &agrave; Javadoc. Plus d&#39;informations sur PHPDoc sont disponibles ici&nbsp;: <a href="http://www.phpdoc.de/">http://www.phpdoc.de/</a>.
+    </p>
+    <p>
+      Les commentaires hors documentation sont vivement conseill&eacute;s. En r&egrave;gle g&eacute;n&eacute;aral, si vous voyez une portion de code et que vous pensez &quot;Houla!, je n&#39;ai pas envie de tester &ccedil;a&quot;, vous devez la commentez avant d&#39;oublier ce qu&#39;elle fait.
+    </p>
+    <p>
+      Les commentaires de style C (/* */) et standard C++ (// ) sont bien tous les deux. Les autres styles (notamment Perl et shell (# )) sont d&eacute;conseill&eacute;s.
+    </p>
+    <h2>
+      Inclusion de code
+    </h2>
+    <p>
+      A chaque fois que vous incluez inconditionnellement une classe, utilisez la fonction require_once(). A chaque fois que vous incluez conditionnellement une classe, utilisez la fonction include_once(). Ces deux fonctions s&#39;assureront que les classes ne sont d&eacute;clar&eacute;es qu&#39;une seule fois. Elles partagent la m&ecirc;me liste de fichier, ce qui permet leur utilisation sans g&ecirc;ne. Un fichier inclus par require_once() ne sera pas inclus encore une fois avec include_once().
+    </p>
+    <p>
+      <u>Note</u>&nbsp;: include_once() et require_once() sont des commandes, et pas des fonctions. Vous n&#39;&ecirc;tes pas oblig&eacute;s d&#39;utiliser des parenth&egrave;ses autour des noms de fichiers.
+    </p>
+    <p class="important">
+      Important. Il ne faut pas inclure de fichiers externes dans les fichiers de d&eacute;finition de classes. Cela rend plus complexe la r&eacute;utilisation du code et nous avons donc banni ce proc&eacute;d&eacute;
+    </p>
+    <h2>
+      Balises de code PHP
+    </h2>
+    <p>
+      Utilisez toujours la syntaxe <?php ?> pour d&eacute;limiter du code PHP, et jamais <? ?>
+       . Ceci est n&eacute;cessaire pour la compatibilit&eacute; du code PEAR et c&#39;est la version la plus portable du code PHP sur les diff&eacute;rents syst&egrave;mes d&#39;exploitation.
+    </p>
+    <h2>
+      Ent&ecirc;te de fichier
+    </h2>
+    <p>
+      Tous les codes sources des distributions PEAR doivent contenir les commentaires suivants comme ent&ecirc;te&nbsp;:
+    </p>
+    <pre>
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// +----------------------------------------------------------------------+
+// | PHP version 4.0                                                      |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997, 1998, 1999, 2000, 2001 The PHP Group             |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.0 of the PHP license,       |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available at through the world-wide-web at                           |
+// | http://www.php.net/license/2_02.txt.                                 |
+// | If you did not receive a copy of the PHP license and are unable to   |
+// | obtain it through the world-wide-web, please send a note to          |
+// | license@php.net so we can mail you a copy immediately.               |
+// +----------------------------------------------------------------------+
+// | Authors: Original Author &lt;author@example.com&gt;                  |
+// |          Your Name &lt;you@example.com&gt;                           |
+// +----------------------------------------------------------------------+
+//
+// $Id: coding-style.html,v 1.2 2005-05-12 08:06:47 gautier Exp $
+</pre>
+    <p>
+      Il n&#39;y a pas de r&egrave;gle fixe pour d&eacute;terminer &agrave; quel moment un contributeur doit &ecirc;tre ajout&eacute; dans la liste des auteurs d&#39;un fichier source. En g&eacute;n&eacute;ral, les modifications doivent &ecirc;tre substancielle (environs 10 &agrave; 20% du code initial). Des d&eacute;rogations peuvent &ecirc;tre donn&eacute;es pour les r&eacute;&eacute;critures compl&egrave;tes de fonctions, ou les contributions &agrave; de nouvelles logiques d&#39;utilisation.
+    </p>
+    <p>
+      La simple r&eacute;organisation de code ou les corrections de bug ne justifie pas l&#39;ajout d&#39;un contributeur dans la liste des auteurs.
+    </p>
+    <p>
+      Les fichiers qui ne font pas partie de la biblioth&egrave;que de base PEAR doivent avoir un bloc comparable &agrave; celui cit&eacute; ci-dessus, indiquant le copyright, la licence et les auteurs. Tous les fichiers devraient inclure une description du mod&egrave;le suivi, pour am&eacute;liorer la coh&eacute;rence de l&#39;ensemble.
+    </p>
+    <h2>
+      Balises CVS
+    </h2>
+    <p>
+      Ajoutez le signe $Id: coding-style.html,v 1.2 2005-05-12 08:06:47 gautier Exp $ (CVS vendor tag) dans chaque fichier. Dans chaque fichier que vous &eacute;ditez, pensez &agrave; l&#39;ajouter s&#39;il n&#39;est pas pr&eacute;sent (ou remplacez les anciennes valeurs telles que &quot;Last Modified:&quot;, etc.).
+    </p>
+    <p>
+      <u>Note</u>&nbsp;: Nous avons une marque $Horde dans le CVS Horde pour suivre nos versions s&eacute;par&eacute;ment. Nous pouvons faire la m&ecirc;me chose avec une marque $PEAR, qui resterait m&ecirc;me si les fichiers PEAR migrent sur un autre syst&egrave;me de suivi de version.
+    </p>
+    <h2>
+      URL d&#39;exemple
+    </h2>
+    <p>
+      Utilisez &quot;example.com&quot; pour tous les exemples, comme sp&eacute;cifi&eacute; dans la RFC 2606
+    </p>
+    <h2>
+      Noms des constantes
+    </h2>
+    <p>
+      Les constantes doivent toujours &ecirc;tre en majuscule, les mots &eacute;tant s&eacute;par&eacute;s par des soulign&eacute;s (_). Pr&eacute;fixez les constantes avec le nom de la classe ou du package dont elles font parties. Par exemple, les constantes utilis&eacute;es dans le package DB:: commencent toutes par &quot;DB_&quot;.
+    </p>
+  </body>
+</html>

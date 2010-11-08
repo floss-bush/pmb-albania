@@ -1,0 +1,17 @@
+<h2>Recèrca multi-critèris</h2>
+<p><strong>La recerca multi-critèris permet de combinar diferents critèris per realizar una recèrca precisa. </strong></p>
+<p>
+Podètz seleccionar un o mai d'un camp de recèrca&nbsp;: títol, autor, camps personalizats...</p>
+<p>Per amodar una recèrca multicritèris :</p>
+<ul><li><b>causissètz un</b> primièr <b>camp</b> que la recèrca i dèu portar dessús. Per exemple : Autor</li>
+<li>clicatz <b>Apondre</b> per definir un primièr champ de la recèrca</li>
+<li><b>causissètz</b> puèi <b>una mena de recèrca</b> pel camp retengut. Per un camp títol 
+podètz causir entre "expression booleana", "comença per", 
+"acaba per" o "exactament coma". Aquela mena de recerca càmbia segon lo camp concernit. Per exemple, per Autor "comença per"</li>
+<li><b>se lo camp demanda una valor</b>, <b>sasissètz-la</b> dins la casa de sasida ; se lo camp prepausa una causida (per exemple la mena de supòrt), causissètz una o mai d'una proposicions en clicar e manténer quichada la clau "Ctrl" de vòstre clavièr. Per exemple per nòstre autor, comença per "Bod"</li>
+<li><b>apondètz tant de critèris coma volètz</b>. En seguir nòstre exemple, podètz apondre títol  exactament coma "Contes".
+<li>fin finala validatz en cliquar <b>Rechercher</b></li></ul>
+<hr />
+<p>Vòstra recèrca pòt èsser una <a href=help.php?whatis=expbool>expression booleana</a>.</p>
+<hr />
+<p>Una recèrca multicritèris pòt portar sus l'ensems de las donadas del catalòg de la bibliotèca.</p>

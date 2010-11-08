@@ -1,0 +1,1512 @@
+/* +--------------------------------------------------------------------------+
+// � 2002-2008 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: layout.css,v 1.34 2010-07-02 08:15:16 arenou Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/*                           	  ATTRIBUTS GENERAUX                          */
+/*                                                                            */
+/*  						attributs generaux de la page	  	   			  */
+/*		     			html / body / frames / liens a / img           		  */
+/* ---------------------------------------------------------------------------*/
+html{height:100%;}
+body{
+	height:100%;
+	color:#000;
+	font-size:12px;
+	font-family:Arial,Helvetica,Sans-serif;
+	background:#ede9e3;
+	margin:0;
+	padding:0;
+}
+iframe{
+	border:1px solid #bbb;
+}
+iframe#alerte { 
+	visibility:visible;
+	position:absolute;
+	left:0;
+	top:600px;
+	width:150px;
+	border-style:none;
+	border-width:0px;
+	border-color:#000000;
+	background:transparent;
+}
+a img {border: 0;}
+a{
+	color: #00F;
+	text-decoration:underline;
+}
+a:hover{color: #009;}
+.lien_gestion{
+	color:#000;
+	text-decoration:none;	
+}
+.lien_gestion:hover{
+	color:#0000ff;
+	text-decoration:underline;	
+}
+h3{
+	clear: both;
+	display: block;
+	margin-bottom: 2px;
+	margin-top: 4px;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	font-size: 13px;
+}
+img{margin:5px;}
+select,input{
+	background:white;
+	-moz-border-radius : 3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+#att{position:absolute;}
+/* ---------------------------------------------------------------------------*/
+/*                         BARRE DE NAGIVATION                                */
+/*                                                                            */
+/* 			      #navbar / #extra  		              					  */
+/* ---------------------------------------------------------------------------*/
+
+#navbar{
+	background:#2e3436;
+	padding-top:20px;
+	padding-bottom:26px;
+	padding-left:80px;
+	border-bottom:1px solid #938879;
+}
+	#navbar h3{
+		position:absolute;
+		top:46px;left:0;
+		z-index:1000;
+		background:transparent url('images/menu_degrade.png') no-repeat;
+		width:32px;
+		height:435px;
+		margin:0;
+		padding:0;
+	}
+		#navbar h3 span{
+			font-size:14px;
+			position:relative;
+			top:-50px;
+			padding-left:5px;
+			color:#ddd;
+			display:none;
+		}
+	#navbar ul{
+		position:absolute;
+		list-style-type:none;
+		margin:0;
+	}
+	#navbar a{
+		font-size:13px;
+	}
+	/*
+	 * Habillage des li
+	 * On veillera a utiliser un sprite css uniquement pour les navigateurs n'ayant pas besoin 
+	 * du hack de transparence "behavior" (incompatibilite avec les background position)
+	 * Le sprite trouve son utilite pour la mise en cache d'une seule image 
+	 * <=> pas de chargement sur le :hover
+	*/
+	#navbar-opac,
+	#navbar-index,
+	#navbar-circ,
+	#navbar-catalog,
+	#navbar-autorites,
+	#navbar-edit,
+	#navbar-dsi,
+	#navbar-acquisition,
+	#navbar-admin,
+	#navbar-extensions,
+	#navbar-demandes,
+	#navbar-fichier{
+		float:left;
+		display:block;
+		width:auto!important;
+		width:10px;
+		background-repeat:no-repeat;
+		background:url('images/navbar.png');
+		background-position:top right;
+		height:27px;
+	}
+		ul>#navbar-opac,
+		ul>#navbar-index,
+		ul>#navbar-circ,
+		ul>#navbar-catalog,
+		ul>#navbar-autorites,
+		ul>#navbar-edit,
+		ul>#navbar-dsi,
+		ul>#navbar-acquisition,
+		ul>#navbar-admin,
+		ul>#navbar-extensions,
+		ul>#navbar-demandes,
+		ul>#navbar-fichier{
+			background-image:url('images/navbar_sprite.png');
+			background-position:100% 0;
+		}
+	
+	/*
+	 * Habillage des li:hover
+	*/
+	#navbar-opac:hover,
+	#navbar-index:hover,
+	#navbar-circ:hover,
+	#navbar-catalog:hover,
+	#navbar-autorites:hover,
+	#navbar-edit:hover,
+	#navbar-dsi:hover,
+	#navbar-acquisition:hover,
+	#navbar-admin:hover,
+	#navbar-extensions:hover,
+	#navbar-demandes:hover,
+	#navbar-fichier:hover{
+		background-image:url('images/navbar_hover.png');
+		background-repeat:no-repeat;
+		background-position:top right;
+		/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+		behavior:url('styles/nova/iepngfix.htc');
+	}
+	ul>#navbar-opac:hover,
+	ul>#navbar-index:hover,
+	ul>#navbar-circ:hover,
+	ul>#navbar-catalog:hover,
+	ul>#navbar-autorites:hover,
+	ul>#navbar-edit:hover,
+	ul>#navbar-dsi:hover,
+	ul>#navbar-acquisition:hover,
+	ul>#navbar-admin:hover,
+	ul>#navbar-extensions:hover,
+	ul>#navbar-demandes:hover,
+	ul>#navbar-fichier:hover{
+		background-image:url('images/navbar_sprite.png');
+		background-position:100% -54px;
+	}
+	/*
+	* Habillage des li.current
+	*/	
+	#navbar-opac.current,	
+	#navbar-index.current,	
+	#navbar-circ.current,
+	#navbar-catalog.current,	
+	#navbar-autorites.current,	
+	#navbar-edit.current,	
+	#navbar-dsi.current,	
+	#navbar-acquisition.current,	
+	#navbar-admin.current,
+	#navbar-extensions.current,
+	#navbar-demandes.current,
+	#navbar-fichier.current{
+		background-image:url('images/navbar_current.png');
+		background-repeat:no-repeat;
+		background-position:top right;
+		/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+		behavior:url('styles/nova/iepngfix.htc');
+	}
+	ul>#navbar-opac.current,	
+	ul>#navbar-index.current,	
+	ul>#navbar-circ.current,
+	ul>#navbar-catalog.current,	
+	ul>#navbar-autorites.current,	
+	ul>#navbar-edit.current,	
+	ul>#navbar-dsi.current,	
+	ul>#navbar-acquisition.current,	
+	ul>#navbar-admin.current,
+	ul>#navbar-extensions.current,
+	ul>#navbar-demandes.current,
+	ul>#navbar-fichier.current{
+		background-image:url('images/navbar_sprite.png');
+		background-position:100% -108px;
+	}
+		/* 
+		* Habillage des liens a 
+		*/
+		#navbar-opac a,
+		#navbar-index a,
+		#navbar-circ a,
+		#navbar-catalog a,
+		#navbar-autorites a,
+		#navbar-edit a,
+		#navbar-dsi a,
+		#navbar-acquisition a,
+		#navbar-admin a,
+		#navbar-extensions a,
+		#navbar-demandes a,
+		#navbar-fichier	a{
+			height:19px;
+			display:block;
+			padding:6px 10px 2px 10px;
+			text-decoration:none;
+			color:#000;
+			background-image:url('images/navbar_bord.png');
+			background-repeat:no-repeat;	
+		}
+		#navbar-opac>a,
+		#navbar-index>a,
+		#navbar-circ>a,
+		#navbar-catalog>a,
+		#navbar-autorites>a,
+		#navbar-edit>a,
+		#navbar-dsi>a,
+		#navbar-acquisition>a,
+		#navbar-admin>a,
+		#navbar-extensions>a,
+		#navbar-demandes>a,
+		#navbar-fichier>a{
+			background-image:url('images/navbar_sprite.png');
+			background-position:0px -27px;
+		}
+		/* 
+		* Habillage des liens a.current
+		*/
+		#navbar-index>a:hover,
+		#navbar-opac>a:hover,
+		#navbar-circ>a:hover,
+		#navbar-catalog>a:hover,
+		#navbar-autorites>a:hover,
+		#navbar-edit>a:hover,
+		#navbar-dsi>a:hover,
+		#navbar-acquisition>a:hover,
+		#navbar-admin>a:hover,
+		#navbar-extensions>a:hover,
+		#navbar-demandes>a:hover,
+		#navbar-fichier>a:hover{
+			background-image:url('images/navbar_sprite.png');
+			background-position:0 -81px;
+			background-repeat:no-repeat;
+			/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+			behavior:url('styles/nova/iepngfix.htc');
+		}
+		
+		#navbar-index a.current,
+		#navbar-opac a.current,
+		#navbar-circ a.current,
+		#navbar-catalog a.current,
+		#navbar-autorites a.current,
+		#navbar-edit a.current,
+		#navbar-dsi a.current,
+		#navbar-acquisition a.current,
+		#navbar-admin a.current,
+		#navbar-extensions a.current,
+		#navbar-demandes a.current,
+		#navbar-fichier a.current{
+			background-image:url('images/navbar_current_bord.png');
+			background-repeat:no-repeat;
+			/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+			behavior:url('styles/nova/iepngfix.htc');
+		}
+		#navbar-index>a.current,
+		#navbar-opac>a.current,
+		#navbar-circ>a.current,
+		#navbar-catalog>a.current,
+		#navbar-autorites>a.current,
+		#navbar-edit a.current,
+		#navbar-dsi>a.current,
+		#navbar-acquisition>a.current,
+		#navbar-admin>a.current,
+		#navbar-extensions>a.current,
+		#navbar-demandes>a.current,
+		#navbar-fichier>a.current{
+			background-image:url('images/navbar_sprite.png');
+			background-position:0px -135px;
+		}
+
+#extra{
+	position:absolute;
+	top:5px;
+	right:15px;
+	height:30px;
+	font-weight:bold;
+	color:#728085;
+	padding:0;
+	margin:0;
+	display:block;
+}
+	#extra img{display:none;}
+	
+	/* Ppts generales des icones #extra */
+	#extra .icon_history,
+	#extra .icon_help,
+	#extra .icon_param,
+	#extra .icon_opac,
+	#extra .icon_sauv,
+	#extra .icon_quit{
+		width:26px;
+		height:25px;
+		display:block;
+		float:left;
+		margin:0px 3px;
+		background-repeat:no-repeat;
+		cursor:pointer;
+		/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+		behavior:url('styles/nova/iepngfix.htc');
+	}
+	
+	#extra .icon_history{background-image:url('images/icon_history.png');}
+	#extra .icon_help{background-image:url('images/icon_help.png');}
+	#extra .icon_param{background-image:url('images/icon_param.png');}
+	#extra .icon_opac{background-image:url('images/icon_opac.png');}
+	#extra .icon_sauv{background-image:url('images/icon_sauv.png');}
+	#extra .icon_quit{background-image:url('images/icon_quit.png');}
+	
+	/*
+		* Redefinition des ppts generales pour navigateurs recents
+		* permet ainsi l'usage de sprites pour alleger les requetes serveur
+		* enleve l'interpretation inutile de 'behaviour' par iE7
+	*/
+	#extra>.icon_history,
+	#extra>.icon_help,
+	#extra>.icon_param,
+	#extra>.icon_opac,
+	#extra>.icon_sauv,
+	#extra>.icon_quit{
+		background-image:url('images/icon_sprite.png');
+		behavior:none;
+	}
+	#extra>.icon_history{background-position:0 0;}
+	#extra>.icon_help{background-position:0 -25px;}
+	#extra>.icon_param{background-position:0 -50px;}
+	#extra>.icon_opac{background-position:0 -75px;}
+	#extra>.icon_sauv{background-position:0 -100px;}
+	#extra>.icon_quit{background-position:0 -125px;}
+
+	#keystatus{
+		font-weight:bold;
+		position:absolute;
+		top:0px;
+		overflow:hidden;
+	}
+
+	/* General bouton plus/moins */
+	.img_plus{
+		background:#ddd;
+		margin:0 0 -1px 0;
+		cursor:pointer;
+		/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+		behavior:url('styles/nova/iepngfix.htc');
+	}
+	
+	
+/* ---------------------------------------------------------------------------*/
+/*                                CONTENEUR		                      		  */
+/*                                                                            */
+/* 			      			#conteneur / #menu	 		              		  */
+/* ---------------------------------------------------------------------------*/
+
+#conteneur{
+	background:#ede9e3 url("images/menu_bordure.png") repeat-y;
+	display:block;
+	min-height:100%;
+	height:auto !important;
+	height:100%;
+	width:100%;
+	padding-bottom:20px;
+}
+.index #noconteneur{
+	background:#ede9e3 url("images/menu_bordure.png") repeat-y;
+	position:absolute;
+	min-height:100%;
+	height:auto !important;
+	height:100%;
+	width:100%;
+}
+
+/* -------- Menu ---------- */
+#menu{
+	position:absolute;
+	left:0px;
+	margin-top:18px;
+	padding-left:35px;
+	padding-right:20px;
+	width:150px;
+	background:transparent url("images/menu_fond.png") no-repeat 35px 0;
+	padding-top:3px;
+}
+
+	#menu h3{
+		width:130px;
+		height:19px;
+		display:block;
+		margin:0px;
+		padding:5px 0px 0px 20px;
+		border-right:1px solid #938777;
+		color:#222;
+		font-size:12px;
+		cursor:pointer;
+		background-image:url("images/menu_h3.png");
+		background-repeat:no-repeat;
+	}
+	/* classe ajoutee lors du repliement de l'element */
+	#menu h3.selected{background-image:url("images/menu_h3_unfold.png")}
+	/* classe ajoutee lors de l'enregistrement des preferences de disposition */
+	#menu h3.setpref{background-image:url("images/menu_h3_setpref.png")}
+
+	#menu ul{
+		list-style-type:none;
+		background:white;
+		border:1px solid #938777;
+		border-top:none;
+		padding:0 1px;
+		margin:0px;
+		margin-right:-1px;
+		display:block;
+	}
+	#menu li{
+		padding:1px 0;
+		margin:0px;
+		font-size:12px;
+	}
+			#menu li a{
+				display:block;
+				color:#000;
+				padding:3px 5px 3px 10px;
+				text-decoration:none;
+				-moz-border-radius : 2px;
+				-webkit-border-radius:2px;
+				border-radius:2px;			
+			}
+			#menu li a:hover{
+				color:white;
+				background:#756d6c url("images/menu_liens_hover.png") repeat-x;
+			}
+	#menu hr{display:none;}
+	#div_alert ul{
+		padding: 5px;
+		border:1px solid #938777;
+		border-top:none;
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/*                                CONTENU		                      		  */
+/*                                                                            */
+/* 			      			#contenu / .hmenu  / .vmenu      				  */
+/* ---------------------------------------------------------------------------*/
+#contenu{
+	padding-top:10px;
+	margin-left:215px;
+	padding-right:40px;
+}
+	#contenu-frame{
+		background:#e6e1da;
+		padding:10px;
+	}
+	#contenu .hmenu{
+		margin-bottom:10px;
+		margin-left:20px;
+		display:table;
+		width:100%;
+		position:relative;
+		left:-16px;
+		border-top:1px solid #bbb;
+		height:22px;
+	}
+		.hmenu span{
+			display:block;
+			float:left;
+			background:transparent url('images/hmenu_item.png') no-repeat;
+		}
+		.hmenu span:hover{
+			background:transparent url('images/hmenu_item_selected.png') no-repeat;
+		}
+		.hmenu span.selected{
+			background:transparent url('images/hmenu_item_selected.png') no-repeat;
+		}
+			.hmenu span a{
+				height:14px;
+				display:block;
+				color:#666;
+				text-decoration:none;
+				float:left;
+				padding:5px 8px;
+				background:transparent url('images/hmenu_item_bord.png') no-repeat 100% 0;
+			}
+			.hmenu span a:hover{
+				color:#111;
+				background:transparent url('images/hmenu_item_selected_bord.png') no-repeat 100% 0;
+			}
+			.hmenu span.selected a{
+				color:#111;
+				background:transparent url('images/hmenu_item_selected_bord.png') no-repeat 100% 0;
+			}
+
+			.vmenu span{
+				display:block;
+				background:transparent url('images/hmenu_item.png') no-repeat;
+			}
+			.vmenu span:hover{
+				background:transparent url('images/hmenu_item_selected.png') no-repeat;
+			}
+			.vmenu span.selected{
+				background:transparent url('images/hmenu_item_selected.png') no-repeat;
+			}
+				.vmenu span a{
+					height:14px;
+					display:block;
+					color:#666;
+					text-decoration:none;
+					padding:5px 8px;
+					background:transparent url('images/hmenu_item_bord.png') no-repeat 100% 0;
+				}
+				.vmenu span a:hover{
+					color:#111;
+					background:transparent url('images/hmenu_item_selected_bord.png') no-repeat 100% 0;
+				}
+				.vmenu span.selected a{
+					color:#111;
+					background:transparent url('images/hmenu_item_selected_bord.png') no-repeat 100% 0;
+				}
+	h1{
+		font-size:14px;
+		text-transform:uppercase;
+		color:#111;
+		padding:8px 0 0 14px;
+		margin:10px 0 5px 0;
+		min-height:12px;
+		height:auto!important;
+		height:12px;
+	}
+	#contenu h2, #contenu h3{
+		font-size:13px;
+		color:#111;
+		padding:8px 0 0 14px;
+		margin:5px 0;
+		min-height:12px;
+		height:auto !important;
+		height:12px;
+	}
+	#contenu h3{
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px;
+		padding-bottom:6px;
+	}
+	#contenu h3 img{
+		margin-right:3px;
+		position:relative;
+		top:2px;
+	}
+	
+	/* General */
+	#conteneur #contenu h1{background:transparent url("images/contenu_puce.png") no-repeat;}
+	#conteneur #contenu h3{background:#e6e1da url("images/contenu_pucesmall.png") no-repeat;}
+	
+	/* Circulation */
+	#conteneur.circ #contenu h1{background:transparent url("images/contenu_puce_circ.png") no-repeat;}
+	#conteneur.circ #contenu h3{background:#e6e1da url("images/contenu_pucesmall_circ.png") no-repeat;}
+	
+	/* Catalogue */
+	#conteneur.catalog #contenu h1{background:transparent url("images/contenu_puce_catalog.png") no-repeat;}
+	#conteneur.catalog #contenu h3{background:#e6e1da url("images/contenu_pucesmall_catalog.png") no-repeat;}
+	
+	/* Autorites */
+	#conteneur.autorites #contenu h1{background:transparent url("images/contenu_puce_autorites.png") no-repeat;}
+	#conteneur.autorites #contenu h3{background:#e6e1da url("images/contenu_pucesmall_autorites.png") no-repeat;}
+	
+	/* Editions */
+	#conteneur.edit #contenu h1{background:transparent url("images/contenu_puce_edit.png") no-repeat;}
+	#conteneur.edit #contenu h3{background:#e6e1da url("images/contenu_pucesmall_edit.png") no-repeat;}
+	
+	/* D.S.I. */
+	#conteneur.dsi #contenu h1{background:transparent url("images/contenu_puce_dsi.png") no-repeat;}
+	#conteneur.dsi #contenu h3{background:#e6e1da url("images/contenu_pucesmall_dsi.png") no-repeat;}
+	
+	/* Acquisitions */
+	#conteneur.acquisition #contenu h1{background:transparent url("images/contenu_puce_acquisition.png") no-repeat;}
+	#conteneur.acquisition #contenu h3{background:#e6e1da url("images/contenu_pucesmall_acquisition.png") no-repeat;}
+	
+	/* Administration */
+	#conteneur.admin #contenu h1{background:transparent url("images/contenu_puce_admin.png") no-repeat;}
+	#conteneur.admin #contenu h3{background:#e6e1da url("images/contenu_pucesmall_admin.png") no-repeat;}
+
+
+/* ------------------ formulaires --------------- */	
+
+	form {
+		width: 100%;
+		padding: 5px;
+		margin:20px auto;
+		background:#e6e1da;
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius:10px;
+	}
+	.row{
+		margin:4px 0;
+		clear:both;
+	}
+	.separateur{
+		border-bottom:1px solid #444;
+	}
+	.form-contenu {
+		border-bottom: 2px solid #CCCCCC;
+		border-top: 2px solid #CCCCCC;
+		padding: 5px;
+		margin:10px 40px;
+		padding-bottom: 1em;
+		padding-top: 1em;
+	}
+		.form-contenu label{
+			color:#2e3436;
+			font-weight:bold;
+		}
+		.form-contenu td{
+			margin:0;
+			padding:0;
+			border:none;
+		}
+	.form-clean{margin:0}
+	.saisie-contenu, #contenu .astuce{
+		font-size:11px;
+		display:block;
+		margin:10px 0;
+		padding:10px 10px;
+		background:#f1ece6;
+		border:1px solid #d0ccc6;
+		clear:both;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+	}
+	.saisie-80em{
+		min-width:200px;
+		width:70%;
+	}
+	#contenu ul{
+		margin:10px 0 10px 30px;
+	}
+	#contenu li{
+		padding:5px 2px;
+	}
+
+	table{
+		margin:10px 0;
+		border-collapse: collapse;
+		width:100%;
+	}
+	td.docnum{text-align: center;}
+	tr.odd{background:#eee;}
+	tr.even{background:#e5e5e5;}
+	tr.surbrillance{background:#d3d3d3;}
+	td{
+		border:1px solid #ccc;
+		padding:3px 10px;
+	}
+	td a{
+		text-decoration:none;
+		color:#000;
+	}
+	#contenu-frame td{border:none;}
+	th{
+		border:1px solid #aaa;
+		padding:3px 10px;
+		background:#ccc;
+	}
+
+/*
+	select{padding:1px 2px;}
+	option{padding:0 5px;}
+
+	.usercheckbox{padding:0 6px;}
+		.usercheckbox label{margin:-4px 0 0 3px;}
+*/
+	hr{
+		width:100%;
+		display:block;
+		clear:both;
+		margin:15px 0;
+		border-top:1px solid #cac1b3;
+		border-bottom:1px solid #fff;
+		color: #ffffff;
+		height: 2px;
+	}
+	ul{margin-left:10px;}
+	ol{margin-left:20px;}
+	
+	
+/* ------------ Login-box ---------------*/
+
+#login-box{
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 10%;
+	background:#f4f0ea;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:0;
+	padding-bottom:15px;
+}
+#login-box .erreur{
+	padding-left:20px;	
+}
+#noconteneur form{
+	margin:0;
+	background:none;	
+}
+#noconteneur .bouton{
+	margin-top:10px;
+	margin-left:10px;
+}
+#login-box h1{
+	color:#3a4244;
+	border-left:2px solid #ffa619;
+	border-bottom:1px solid #bbb;
+	border-top:1px solid #ddd;
+	border-right:1px solid #ddd;
+	padding:3px 0 3px 10px;
+	background:#f8f5f0;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	margin:0;
+}
+#noconteneur .form-contenu{margin-top:0px;}
+#login-box label{
+	font-size: 9pt;
+	font-weight: bold;
+}
+#noconteneur #footer{
+	padding:9% 0 10px 35px;
+	margin:0;
+	clear:both;
+	background:#ede9e3 url("images/menu_bordure.png") repeat-y;
+}
+
+
+/* ------------- logo --------------- */
+
+#logo{
+	position: absolute;
+    bottom: 0;
+    left: -60px;
+    /*background: transparent no-repeat bottom right url("books_small.gif");*/
+    padding: 5px;
+    margin: 0px auto;
+    width: 200px;
+    height:150px;
+    z-index: 0;
+}
+      
+#logo span{display:none;}
+
+/* --------------------------- */
+
+.col{
+	float: left;
+	width: 100%;
+	padding: 1em;
+	margin: 1em;
+}
+.erreur{
+	color: #f00;
+	font-weight: bold;
+}
+.erreur-child{
+	display:none;
+	margin-left: 12%;
+	padding:0;
+	color:#000;
+	font-weight:normal;
+}	
+.hide {display: none;}
+.aide{cursor: help;}
+.astuce{ 	
+	font-size: 10pt;
+	margin-top: 1em;
+}
+.bool{
+	font-family: fixed;
+	font-weight: bold;
+}
+.saisie-inline{width: 80%;}
+.saisie-2em {width: 2em;}
+.saisie-5em {width: 5em;}
+.saisie-10em {width: 7.5em;}
+.saisie-15em {width: 10em;}
+.saisie-20em {width: 15em;}
+.saisie-30em {width: 20em;}
+.saisie-50em {width: 30em;}
+.saisie-60em {width: 37.5em;}
+.saisie-80em {width: 40em;}
+
+.bouton, .bouton_small {
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	color:#555;
+	font-size:13px;
+	border:1px outset #aaa;
+}
+.bouton:hover, .bouton_small:hover{
+	border:1px inset #aaa;
+	cursor:pointer;
+}
+
+
+
+.saisie-5emr{width: 5em;}
+.saisie-10emr{width: 7.5em;}
+.saisie-15emr{width: 10em;}
+.saisie-20emr{width: 15em;}
+.saisie-30emr{width: 20em;}
+.saisie-50emr{width: 30em;}
+.saisie-80emr{width: 40em;}
+.saisie-85{width: 94%;}
+
+/* pour les champs non modifiables */
+.saisie-5emd,
+.saisie-10emd,
+.saisie-15emd,
+.saisie-20emd,
+.saisie-30emd,
+.saisie-50emd,
+.saisie-80emd{
+	background-color:transparent;
+	border-color:transparent;
+	border-width:0;
+}
+
+.saisie-5emd{width: 5em;}
+.saisie-10emd{width: 7.5em;}
+.saisie-15emd{width: 10em;}
+.saisie-20emd{width: 15em;}
+.saisie-30emd{width: 20em;}
+.saisie-50emd{width: 30em;}
+.saisie-80emd{width: 40em;}
+
+
+.right,
+.right-50,
+.right-15,
+.right-85{
+	float:right;
+}
+
+.right-50{width:50%;}
+.right-15{width:15%;}
+.right-85{width:85%;}
+
+.right-clear-right,
+.right-50-clear-right{
+	float: right;
+	clear: right;
+}
+
+.left-clear-left,
+.left-50-clear-left{
+	float: left;
+	clear: left;
+}
+
+.left,
+.left-50,
+.left-15{float: left;}
+
+.left-50{width:50%;}
+
+.left-15{width:15%;}
+
+.left-85{width: 85%;}
+
+.spacer{clear: both;
+	visibility: hidden;
+	display: none;
+	margin-bottom: -10px;
+	margin-top: -10px;
+}
+
+
+
+/* -----------------------------------------------------------------------------*/
+/* 																				*/
+/*                            CLASSES LIEES A L'APPLICATION                     */
+/*                                                                              */
+/*  feuilles de styles appliquees a des balises sans classes ni id specifies    */
+/* 																				*/
+/* -----------------------------------------------------------------------------*/
+
+
+.notice-perio{
+	border: 1px solid #aaa;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+#content_onglet_perio{
+	margin-left:20px;
+	margin-bottom:37px;
+}
+	#content_onglet_perio span{
+		display:block;
+		width:auto!important;
+		width:10px;
+		height:25px;
+		float:left;
+		margin-bottom:25px;
+		margin-right:2px;
+		cursor:pointer;
+	}
+	#content_onglet_perio a{
+		height:17px;
+		display:block;
+		padding:6px 10px 2px 10px;
+		text-decoration:none;
+		color:#000;
+		text-align:center;
+	}
+.onglets-perio{
+	background-repeat:no-repeat;
+	background-image:url('images/onglet_perio.png');
+	background-position:top right;	
+}
+	.onglets-perio a{	
+		background-image:url('images/onglet_perio_bord.png');
+		background-repeat:no-repeat;
+	}
+#content_onglet_perio>.onglets-perio{
+	background-image:url('images/onglet_perio_sprite.png');
+	background-position:100% 0px;	
+}
+	.onglets-perio>a{	
+		background-image:url('images/onglet_perio_sprite.png');
+		background-position:0px -25px;
+	}
+.onglet-perio-selected {
+	background-color:#3594bb;
+	background-repeat:no-repeat;
+	background-image:url('images/onglet_perio_current.png');
+	background-position:top right;
+	cursor:default;
+	/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+	behavior:url('styles/nova/iepngfix.htc');
+}
+	.onglet-perio-selected a{	
+		background-image:url('images/onglet_perio_current_bord.png');
+		background-repeat:no-repeat;
+		/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+		behavior:url('styles/nova/iepngfix.htc');
+	}
+	
+#content_onglet_perio>.onglet-perio-selected{
+	background-image:url('images/onglet_perio_sprite.png');
+	background-position:100% -50px;
+}
+	.onglet-perio-selected>a{	
+		background-image:url('images/onglet_perio_sprite.png');
+		background-position:0px -77px;
+	}
+
+.bulletins-perio{
+	border: 1px solid #aaa;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+
+.bulletins-perio h2 blockquote {
+	font-size:0.8em;
+	font-weight: normal;
+}	
+.depouillements-perio{
+	border: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+.msg-perio {
+	font-size: 150%;
+	font-weight: bold;
+	color: #f00;
+}
+	
+/* barre flechee en perio */
+.perio-barre {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+/* classes pour l'affichage de liste depliantes en resultat de recherche */
+.notice-heada {
+	text-decoration: none;
+	font-size: 10pt;
+	font-weight: bold;
+}
+.notice-parent{
+	color: #000000;
+	margin-left: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	text-decoration: none;
+}
+.notice-parent a{
+	font-weight:normal;
+	color:#000;
+}
+.notice-child {
+	font-size: 0.9em;
+	margin-left: 30px;
+	margin-top:5px;
+	width: 98%;
+	padding: 0 6px;
+	text-align: justify;
+	background:#f6f2ec;
+	border: 1px solid #bbb;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+.notice-child .expl-list{border:1px solid #999;}
+.notice-child td,.notice-child th{border:none;}
+.notice-bu {
+	margin-top: 0px;
+	background-color: transparent;
+	border-style: none;
+}
+
+/* classes pour l'affichage de liste depliantes en formulaire de saisie de notice */
+.heada {
+	font-size: 10pt;
+	font-weight: bold;
+	padding-left:3px;
+}
+.parent {
+	color: #000000;
+	margin-left:0px;
+	font-size: 8pt;
+	text-decoration: none;
+	clear:both;
+}
+.child {
+	margin-left: 30px;
+}
+.bu {
+	margin-top: 15px;
+}
+
+.titre-panier{
+	border: 1px solid #684;
+	padding: 1em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+#history_table {
+	border:0px;
+	padding:0px;
+	margin:0px;
+	background:transparent;
+}
+
+#history_table td {
+	padding:0px;
+	margin:0px;
+	border:0px;
+}
+#contenu .parent h3 img{
+	float:left;
+	margin-top:-1px;
+}
+#addaut1,#addaut2{
+	margin:5px 0 0 2px;
+}
+/* -----------------------------------------------------------------------------*/
+/* 																				*/
+/*                       MODIFICATIONS POUR L'IMRPESSION                        */
+/*                                                                              */
+/* pour l'impression, masquage de #navbar, #menu, #deconnexion, #extra,         */
+/* iframe#alerte et des boutons de classe .bouton; #contenu colles à gauche   */
+/* 																				*/
+/* -----------------------------------------------------------------------------*/
+
+
+@media print {
+	#conteneur{
+			position: relative;
+			clear:both;
+	}
+
+	#navbar{ display: none; }
+	#menu{ display: none;}
+
+	/*	Menu	*/
+	#deconnexion{ display: none; }
+	#extra{ display: none; }
+	.bouton{ display:none; }
+  	.bouton_small{ display:none; }
+
+	iframe#alerte{ visibility:hidden;}
+}
+
+iframe#history {
+	width:40%;
+	height:97%;
+	position:absolute; 
+	top:1%; 
+	left:1%;
+	z-index:1000;
+}
+* HTML iframe#history {
+	height:580px;
+}
+/* pour affichage de paves de couleur pour disinction des statuts de notices */
+.statutnot1 {}
+.statutnot2 {background-color: #BB0000;}
+.statutnot3 {background-color: #00BB00;}
+.statutnot4 {background-color: #0000BB;}
+.statutnot5 {background-color: #D0686F;}
+.statutnot6 {background-color: #A6DCDC;}
+.statutnot7 {background-color: #816492;}
+.statutnot8 {background-color: #BCB964;}
+.statutnot9 {background-color: #6C75AC;}
+.statutnot10 {background-color: #FFC587;}
+.statutnot11 {background-color: #70C173;}
+.statutnot12 {background-color: #660000;}
+.statutnot13 {background-color: #006600;}
+.statutnot14 {background-color: #000066;}
+.statutnot15 {background-color: #80181F;}
+.statutnot16 {background-color: #668C8C;}
+.statutnot17 {background-color: #311442;}
+.statutnot18 {background-color: #7C7914;}
+.statutnot19 {background-color: #2C356C;}
+.statutnot20 {background-color: #BF8547;}
+
+.gris {color:#ccc;}
+.message_important {
+	color: #f00;
+	font-weight: bold;
+	font-size: 1.5em;
+	padding:5px;
+	margin:5px;
+}
+body.select{background:#2e3436;}
+body.select .row{
+	background:#e6e1da;
+	margin:0;
+	padding:5px 15px;
+}
+ul.sel_navbar {
+	margin:5px;
+	padding:0;
+	list-style:none;
+	clear:right;
+	height:21px;
+	float:left;
+	margin-bottom:4px;
+}
+ul.sel_navbar li {
+	float:left;
+	display:block;
+	width:auto!important;
+	width:10px;
+	background-repeat:no-repeat;
+	background:url('images/navbar.png');
+	background-position:top right;
+}
+ul.sel_navbar li a {
+	text-decoration:none;
+	font-weight:normal;
+	color:#000000;
+	height:17px;
+	display:block;
+	padding:6px 10px 2px 10px;
+	text-decoration:none;
+	color:#000;
+	background-image:url('images/navbar_bord.png');
+	background-repeat:no-repeat;	
+}
+ul.sel_navbar li.sel_navbar_current {
+	background-image:url('images/navbar_current.png');
+	background-repeat:no-repeat;
+	background-position:top right;
+	height:24px;
+	
+	/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+	behavior:url('styles/nova/iepngfix.htc');
+}
+ul.sel_navbar li.sel_navbar_current a {
+	background-image:url('images/navbar_current_bord.png');
+	background-repeat:no-repeat;
+	/* Gestion des png transparents (multi-niveaux) sous IE5.5 et 6 */
+	behavior:url('styles/nova/iepngfix.htc');
+	height:17px;
+}
+
+.dsi table.dsi tr td:hover {background:#dc3400;}
+
+#frame_notice_preview {
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background: #F4EC92;
+	width:680px;
+	height:500px;
+}
+#frame_periodique {
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background: #ede9e3;
+	width:190px;
+	height:250px;
+}
+	body.pointage_exemplarise .left {
+		margin-top:10px;
+	}
+#frame_abts {
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background: #ede9e3;
+	width:190px;
+	height:250px;
+}
+	body.abonnement_parution_edition .left {
+		margin-top:10px;
+	}
+#frame_trans_expls{
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px; 
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background:#ede9e3;
+	width:500px;
+	height:250px;
+}
+
+#a_recevoirChild .colonne_suite input {margin-right:20px;}
+
+.form-acquisition>.form-contenu #tot_ht, #tot_tva, #tot_ttc, #adr_fou, #adr_liv, #adr_fac, #tot_expl, #devise[class=saisie-5emd]{	
+	border: 1px solid #aaa;
+}
+.req_cell {
+	table-layout:fixed;
+	text-align: left;
+	padding-left:0px;
+}
+
+.req_cell th,
+.req_cell td {
+	border:1px solid #000000;
+	border-collapse:collapse;
+	padding-right:4px;	
+	vertical-align: top;
+}
+.req_cell .col_ali{width:10%;}
+
+.req_cell .col_get,
+.req_cell .col_vis,
+.req_cell .col_grp,
+.req_cell .col_tri {
+	width:20px;
+	padding-right:0px;
+}
+.req_cell .col_act,
+.req_cell .col_obl {
+	width:50px;
+	padding-right:0px;
+}
+.req_cell .up_bt {
+	vertical-align:top;
+	cursor:pointer;	
+}
+.req_cell .down_bt {
+	vertical-align:bottom;
+	margin-left:-16px;
+	cursor:pointer;	
+}
+.req_cell .stop_bt,
+.req_cell .cross_bt {
+	vertical-align:middle;
+	width:16px;
+	cursor:pointer;	
+}
+.in_cell,
+.in_cell_nb,
+.in_cell_ro,
+.in_cell_nb_ro {
+	width:99%;
+	border:1px solid;
+}
+
+.in_cell_nb,
+.in_cell_nb_ro {
+	text-align:right;
+}
+.in_cell_ro,
+.in_cell_nb_ro {	
+	background-color: #9BC14B;
+	border: 1px inset #684;
+}
+.in_cell_text {
+	width:95%;
+	border:1px solid;
+}
+.req_ajax_div {
+	display:none;
+	border:1px #000 solid;
+	left:0px;
+	top:0px;
+	position:absolute;
+	background-color:#FFFFFF;
+	z-Index:1000;
+	height:200px;
+	overflow:auto;
+}
+
+.req_row_handler {
+	margin-left:5px;
+	top:0px;
+	cursor:pointer;	
+}
+
+#req_frame {
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px; 
+	padding:5px;
+	z-Index:1000;
+	position:absolute;
+	background: #FFF0A7;
+ }
+
+ .req_cell .bt_cross_elt {
+ 	vertical-align:bottom;
+ 	width:8px;
+	cursor:pointer;
+ }
+.act_cell {
+	table-layout:fixed;
+}
+.act_cell th,
+.act_cell td {
+	border:1px solid #000000;
+	border-collapse:collapse;
+	padding-left:2px;
+	padding-right:2px;
+	vertical-align:top;	
+	overflow:hidden;
+}
+.act_cell_chkbox {
+	width:25px;
+} 
+
+/**
+ *  Couleur de fond et de liens du calendrier
+ *
+ **/
+#calendrier_tab td.lien_date a{
+	color:white;
+}
+#calendrier_tab td.lien_date {
+	background:green;
+}
+#calendrier_tab td.lien_date_hs {
+	background:red;
+}
+#calendrier_tab td.lien_date_hs_p {
+	background:orange;
+}
+#up_frame{
+	display:none;
+	border:2px solid #777799;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+	z-Index:1000;
+	position:absolute;
+	background: #eee;
+}
+.recorded {
+	color: #cc0000;
+	font-weight: bold;
+}
+.pbar {
+	width:710px;
+	text-align:center;
+}
+.pbar_frame {
+	border:#000000 1px solid;
+	padding:4px';
+}
+.pbar_gauge {
+	text-align:left;
+}
+#pbar_img {
+	height: 16px;
+	width:0px;
+}
+.dom_div {
+	overflow:auto;
+}
+.dom_tab {
+	table-layout:fixed;	
+}
+.dom_col {
+	overflow:hidden;
+	width:200px;
+}
+.dom_cell_tab {
+	border:#000000 1px solid;
+	overflow:hidden;
+}
+
+/*Suggestions multiples */
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;	
+	vertical-align:center;
+	text-align: center;
+	overflow:scroll;
+	width:100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+   background:#F3F3F3;
+}
+.tab_sug select{
+	width:95%;
+}
+
+
+.erreur_saisie {
+	background-color: #ff0000;
+}

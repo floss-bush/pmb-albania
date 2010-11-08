@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.4 2010-07-29 12:50:54 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesItems</name>
+	<description>msg:pmbesItems_description</description>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="item" imported="true" imported_from="pmbesTypes" description="msg:item_description"/>
+	</types>
+	<methods>
+		<method name="fetch_notice_items" rights="" version="1.0" language_independant="false" comment="msg:fetch_notice_items_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="expl.class.php"/>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:fetch_notice_items_input_description</description>
+				<param name="noticeid" type="scalar" dataType="integer" description="msg:fetch_notice_items_noticeid"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetch_notice_items_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_notice_items_output_description</description>
+				<result type="array" name="items" description="msg:fetch_notice_items_items">
+					<result name="items" type="scalar" dataType="item"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_notices_items" rights="" version="1.0" language_independant="false" comment="msg:fetch_notices_items_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="expl.class.php"/>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:fetch_notices_items_input_description</description>
+				<param name="noticesid" type="array" description="msg:fetch_notices_items_noticesid">
+					<param name="anoticeid" type="scalar" dataType="integer" description="msg:fetch_notices_items_noticesid_anoticeid"/>
+				</param>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetch_notices_items_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_notices_items_output_description</description>
+				<result type="array" name="result" description="msg:fetch_notices_items_result&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#9;">	
+					<result name="noticeid" type="scalar" dataType="integer" description="msg:fetch_notices_items_result_noticeid"/>		
+					<result type="array" name="items" description="msg:fetch_notices_items_result_items">
+						<result name="items" type="scalar" dataType="item"/>
+					</result>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_bulletins_items" rights="" version="1.0" language_independant="false" comment="msg:fetch_bulletins_items_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="expl.class.php"/>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:fetch_bulletins_items_input_description</description>
+				<param name="bulletinids" type="scalar" description="msg:fetch_bulletins_items_bulletinids">
+					<param name="abulletinid" type="scalar" dataType="integer" description="msg:fetch_bulletins_items_bulletinids_abulletinid"/>
+				</param>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetch_bulletins_items_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_bulletins_items_output_description</description>
+				<result type="array" name="result" description="msg:fetch_bulletins_items_result&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#9;">	
+					<result name="bulletinid" type="scalar" dataType="integer" description="msg:fetch_bulletins_items_result_bulletinid"/>		
+					<result type="array" name="items" description="msg:fetch_bulletins_items_result_items">
+						<result name="items" type="scalar" dataType="item"/>
+					</result>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_item" rights="" version="1.0" language_independant="false" comment="msg:fetch_item_description">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="expl.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:fetch_item_input_description</description>
+				<param name="item_cb" type="scalar" dataType="string" description="msg:fetch_item_item_cb"/>
+				<param name="item_id" type="scalar" dataType="integer" description="msg:fetch_item_item_id"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetch_item_OPACUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_item_output_description</description>
+				<result name="item" type="scalar" dataType="item" description="msg:fetch_item_item"/>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

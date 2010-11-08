@@ -1,0 +1,7 @@
+<br />
+<b>ATTENZIONE, questo aggiornamento potrebbe essere lungo e rischioso...
+<br />&Egrave; assolutamente consigliato creare una copia di sicurezza prima di avviarlo.</b>
+<br /><br />I messaggi d'errore che potrebbero comparire sono da ignorare, sono senz'altro dovuti alla versione dell'archivio che non &egrave; aggiornata.
+<br />Se alla fine dell'aggiornamento questi messaggi persistono, &egrave; necessario ricercarne la causa.
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Cliccare qui per iniziare l'aggiornamento.</a>
+			

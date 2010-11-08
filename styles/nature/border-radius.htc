@@ -1,0 +1,10 @@
+<public:attach event="oncontentready" onevent="border()" />  
+<script type="text/javascript">  
+function border(offset) 
+{
+	innerHTML = '<v:roundrect\ arcsize="' + Math.min(parseInt(currentStyle['moz-border-radius']) / Math.min(offsetWidth, offsetHeight), 1) + '"\ strokecolor="' + currentStyle.borderColor + '"\ strokeweight="' + (offset = currentStyle.borderWidth) + '"\ style="\ behavior:url(#default#VML);width:99%;height:99%;antialias:true;\ padding-left:' + (parseInt(currentStyle.paddingLeft) + parseInt(offset)) + 'px;\ padding-right:' + (parseInt(currentStyle.paddingRight) + parseInt(offset)) + 'px;\ padding-top:' + (parseInt(currentStyle.paddingTop) + parseInt(offset)) + 'px;\ padding-bottom:' + (parseInt(currentStyle.paddingBottom) + parseInt(offset)) + 'px;\"><v:fill\ color="' + currentStyle.backgroundColor + '"\      src="' + currentStyle.backgroundImage.replace(/^url\("(.+)"\)$/, '$1')+ '"  type="tile" style="behavior:url(#default#VML)" />' + innerHTML + '</v:roundrect>';
+	style.background = 'transparent'; 
+	style.border = 'none'; 
+	style.padding = '0';  
+}  
+</script>

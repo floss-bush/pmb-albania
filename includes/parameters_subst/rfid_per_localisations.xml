@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Fichier de substitution des paramètres en fonction de la localisation
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: rfid_per_localisations.xml,v 1.1 2009-09-30 10:30:00 ngantier Exp $ -->
+
+<!--
+Permet de paramétrer la RFID en fonction des localisations.
+Ainsi un site peut utiliser la RFID alors qu'un autre pas,
+ou bien permet à deux sites d'utiliser du matériel différent (Nedap, Ident ...).
+ -->
+
+<parameters_list>
+<!-- Exemple pour 3 localisations:
+	<parameters comment="Bibliothèque principale" id="1">
+		<parameter name="pmb_rfid_activate">1</parameter>
+		<parameter name="pmb_rfid_driver">nedap</parameter>
+		<parameter name="pmb_rfid_ip_port">127.0.0.1,0.0.0.0</parameter> 
+		<parameter name="pmb_rfid_library_code">0626676201</parameter> 
+		<parameter name="pmb_rfid_serveur_url">http://192.168.0.26/nedaprfidwebservice/nedaprfidwebservice.asmx</parameter> 
+	</parameters>	
+	<parameters comment="Réserve" id="2">
+		<parameter name="pmb_rfid_activate">0</parameter>
+	</parameters>			
+	<parameters comment="Bibliobus" id="7">
+		<parameter name="pmb_rfid_activate">1</parameter>
+		<parameter name="pmb_rfid_driver">ident</parameter>
+		<parameter name="pmb_rfid_ip_port">127.0.0.1,SerialPort=6;</parameter> 
+		<parameter name="pmb_rfid_library_code"></parameter> 
+		<parameter name="pmb_rfid_serveur_url">http://192.168.0.26/Rfid%20Web%20Services/RfidWebServices.asmx</parameter> 
+	</parameters>
+-->	
+</parameters_list>

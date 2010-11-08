@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<fields>
+	<!-- style header  -->
+	<style name="header" police="Arial" size="30" />
+
+	<!-- style Titre 1 -->
+	<style name="t1" police="Arial" size="26" />
+	
+	<!-- style Titre 1 souligné -->
+	<style name="t1_s" police="Arial" size="26" underline="1"/>
+		
+	<!-- style texte 1 -->
+	<style name="p1" police="Arial" size="20" />
+
+	<!-- style texte spécial -->
+	<style name="ps1" police="Arial" font_weight="ULTRABOLD" size="18" italic="1"/>
+
+	!!document-contents!!
+
+</fields>

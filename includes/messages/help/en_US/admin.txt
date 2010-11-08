@@ -1,0 +1,29 @@
+<h1>Administration module</h1>
+<p>You have accessed PMB's administration module. Your actions here will affect the overall application functionality.  Please <b>be very careful</b> when using this module. Before doing anything here, think about the impact it will cause on your data. When in doubt, we invite you to <b>send us an email</b> to <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a>. We will be very pleased to help you!</p>
+
+<h2>catalog</h2>
+<p>This section allows you to define application settings for <b>loans and statistics</b>.
+<ul>
+<li><b>item types</b> let you set up the various <b>loan options</b>, including <b>loan duration</b> in days.</li>
+<li><b>statistical codes</b> are used for keeping track of loans and library funds statistics.</li>
+<li><b>section codes</b> are meant to label sections of your public where items are loanable (adults, teenagers, etc.). These codes are taken into account for the statistics.</li>
+<li><b>status</b> is used to specify the availability of items.</li>
+<li><b>locations</b> may be used to assign items to specific places (for example: reserve).</li>
+</ul></p>
+
+<h2>borrowers</h2>
+<p>The various <b>codes</b> which let you keep <b>statistics</b> about your library's <b>borrowers</b>.</p>
+
+<p>By combining these codes, you should be able to adapt the application to the particular needs of your library.</p>
+
+<h2>users</h2>
+<p>This section allows you to manage PMB's <b>users</b> and their <b>privileges</b>. Particularly, you can choose which users may manage loans, cataloging, and authorities. <b>Usernames and passwords</b> may be changed here.</p>
+
+<h2>database cleanup</h2>
+<p>This feature allows you to keep the application's database up-to-date.  Great care has been taken to eliminate any possibilities of data loss. Among the tools made available by this feature are the ability to "clean up" and regenerate the indices used for the searches, and to eliminate data which are unnecessary for the functioning of the application. You should use these tools, perhaps, in case of problems with the data.</p>
+
+<h2>tools</h2>
+<p>Here you will find tools for <b>managing the database</b>.  We strongly suggest that you make periodical <b>database backups</b>.</p>
+
+<p align="right">The Development Team</p>
+ 

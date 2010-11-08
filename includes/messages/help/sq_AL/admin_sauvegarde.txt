@@ -1,0 +1,13 @@
+<h1>Backup</h1>
+</p><p>
+<b>Backup location</b> Backup location on the hard disk or network
+</p><p>
+<b>Tables groups</b> to back up
+</p><p>
+<b>Backup sets</b> sets of location/tables
+</p><p>
+<b>Start Backup</b> 
+</p><p>
+<b>Backup dones</b> Print the list of backups done
+
+

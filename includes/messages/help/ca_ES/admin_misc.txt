@@ -1,0 +1,24 @@
+<h1>Eines</h1>
+<p>Trobaràs aquí diferents opcions. </p>
+<p>
+<b>Neteja de la base</b> permet realitzar el mantenimet de les dades  : suprimir els registres sense exemplar, etc.
+</p><p>
+<b>Accions personalitzables</b> fa referència a les estadístiques personalitzables 
+visibles dins la pestanya Préstecs o bé als procediments que s'han d'executar 
+periòdicament i que poden ser emmagatzamemats aquí.
+</p><p>
+<b>Fichier journal</b> genera un fitxer (log) de diferents procediment de PMB. 
+Actualment no és utilitzat però es conserva per temes de compatibilitat.
+</p><p>
+<b>Act. de la base</b> opció molt important. Aquesta opció permet actualitzar 
+l'estructura de la base cada cop que actualitzes el fitxers de PMB al carregar una 
+nova versió. No es perd cap dada durant el procés.
+</p><p>
+<b>Descripció de les taules</b>, tal i com el seu nom indica.
+</p><p>
+<b>Manteniment MySQL</b>, funcions de manteniment de la base. Permet verificar 
+la seva integritat.
+</p><p>
+<b>Paràmetres</b> genera els aspectes de personalització de l'aplicació, ç
+per exemple la identificació de la biblioteca, o l'activació de la meteorologia a l'opac.</p>
+

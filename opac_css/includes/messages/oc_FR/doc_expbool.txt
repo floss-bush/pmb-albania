@@ -1,0 +1,50 @@
+<h2>Expression booleana</h2>
+<p class='pn-normal'>Per defaut, lo motor cèrca los elements que contenon al mens un dels mots sasits. La tria se fa segon lo nombre decreissent de mots trobats, puèi per òrdre alphabetic.
+<br />Ex. <em>gambajon baiona</em> significa los elements que contenon los mots gambajon <b>o</b> baiona (gambajon de baiona, gambajon de parma, l'Istòria de Baiona, ...).
+<br />Cada caractèr non alfabetic e non numeric es remplaçat per un espaci, los accents ne son pas preses en compte ni mai las majusculas/minusculas<br />Ex. <em>Miègjorn-Pirenèus</em> s'analisarà coma dos mots : <em>miegjorn pireneus</em> 
+<br />D'unes mots son pas preses en compte pr'amor que tròp corrents o sens significacion pertinenta en occitan (ex : de, lo, la, l, d, s, son, sa, ...).
+</p>
+<br />
+<b>Troncadura</b>
+<p class='pn-normal'>Los mots se pòdon troncar a esquerra, drecha o parcialament pel caractèr *
+<br />Ex. <em>prof*</em> cercarà los mots que començan per <em>prof</em> (professor, profession, profiech, profan, ...), <em>*logia</em> cercarà los mots qu'acaban per 'logia' (psicologia, teologia, trilogia, ...), <em>p*logia</em> cercarà los mots que començan per p e acaban per logia (psicologia, paleontologia, patologia, ...).
+<br />Mai d'una troncadura se pòt emplegar dins un meteis mot.</p>
+<b>Recerca amb de tèrmes exactes</b>
+<p class='pn-normal'>Un tèrme exacte se definís amb un tèxt enrodat de verguetas. Se le motur de recèrca rescontra un tèrme exacte, cèrca los elements que contenon exactament aquel tèxt. La troncadura se pòt emplegar dins los tèrmes exactes.
+<br />Exemple <em>\"dent\"</em> significa totes los elements que contenon lo tèxt dent (denticion, accident, indentacion, evident...).
+<br />La recèrca exacta es practica per la recèrca d'expressions que contenon d'espacis o de signes de ponctuacion. (un sigle per exemple).
+<br />Exemple: <em>\"A.N.P.E.\"</em> cèrca los elements que contenon lo tèxt A.N.P.E., <em>A.N.P.E.</em> cèrca los elements que contenon los mots A o N o P o E .
+<br />La recèrca subre un tèrme exacte ten pas compte dels accents ni de las majusculas/minusculas. Enfin, los tèrmes exactes se pòdon emplegar dins totas las expressions complexas descrichas çai sota.
+</p>
+<b>Negacion</b>
+<p class='pn-normal'>Lo simbèl ~ dabans un tèrme representa una negacion d'aquel tèrme. Aquò  amòda la recèrca de totes los elements que contenon pas aquel tèrme.
+<br />Exemple <em>~trabalh</em> significa totes los elements levat los que contenon lo mot trabalh.
+</p>
+<b>Operadors logics entre dos mots</b>
+<p class='pn-normal'>Podètz emplegar d'operadors logics entre dos mots :</p>
+<ul><li><b>+</b> : operador E<br />Exemple: <em>disc + dur</em> significa los elements que contenon los mots disc <b>e</b> dur.</li>
+<li><b>-</b> : operador LEVAT (E PAS)<br />Exemple: <em>disc - dur</em> significa los elements que contenon lo mot disc, <b>levat los que tanben contenon</b> lo mot dur.</li>
+</ul>
+<p class='pn-normal'>Mai d'un operador se pòt encadenar dins una meteissa expression. S'aplicaràn dins l'òrdre, d'esquerra cap a drecha.
+<br />Ex. <em>institut + occitan* - \"d'estudis\"</em> significa los elements contenent <em>institut e occitan(a)(s) </em> <b>sens</b> <em>d'estudis</em>.
+<br /><br />Atencion, dos operadors se pòdon pas seguir, una negacion se pòt pas combinar amb un operador (<b>+~</b> es l'equivalent de l'operador <b>-</b>).
+</p>
+<b>Agropaments</b>
+<p class='pn-normal'>Una expression se pòt agropar per venir un tèrme. Aquel agropament se fa amb de <b>parentèsis</b>. Aquò permet de cambiar l'òrdre d'aplicacion dels operadors o de combinar los resultats d'expressions complexas.
+<br />Exemple:</p>
+<ul>
+<li><em>occitan + (institut estudis)</em> significa, entre totes los elements que contenon institut o estudis, sonque los que contenon <em>occitan</em>.</li>
+<li><em>(institut + estudis) occitan</em> significa totes los elements que contenon <em>institut e estudis</em> <b>o</b> totes los elements que contenon <em>occitan</em></li>
+<li><em>~(institut + estudis) + (apren* occitan*)</em> significa <em>totes los elements que contenon pas institut e estudis</em> <b>e</b> <em> que contenon apren* o occitan*</em></li>
+</ul>
+<p class='pn-normal'>Las parentèsis se pòdon imbricar sens limit.<br />Exemple <em>((poesia pouesio) + (trobador* troubadou*)) ((literatura literaturo) + (XII XIII)</em> significa <em>entre totes los elements que contenton poesia o pouesio tornar sonque los que contenon tanben trobador o troubadou</em> <b>o</b> <em>entre los elements que contenon literatura o literaturo, tornar sonque los que contenon XII o XIII</em> 
+</p>
+<b>Pertinéncia</b>
+<p class='pn-normal'>Los resultats son destriats per òrdre de pertinéncia puèi per òrdre alfabetic. La pertinéncia se calcula simplament pel nombre total de mots o de tèrmes exactes trobats.
+<br />Ex.</p>
+<ul>
+<li><em>gambajon baiona</em> trobarà totes los elements contenent gambajon o baiona, los que contenon los dos mots s'aficharàn en cap tièra</li>
+<li><em>~((troubadou trobador)+ \"XII\") (literatur* *ccitan*)</em> trobarà totes los elements que contenon pas a l'encòp troubadou (o trobador) e XII (tèrme exacte). D'aqueles elements, los que contenon <em>literatur o *ccitan*</em> s'aficharàn primièr (amb en cap los que tenon los dos mots, puèi los que tenon sonque literatur* puèi los que tenon sonque occitan*, puèi los que tenon ouccitan*, puèi los que tenon panoccitan*...</li>
+</ul>
+<hr />
+<p>Las expressions booleanas se pòdon emplegar en <a href="help.php?whatis=simple_search">recèrca simpla</a> e en <a href="help.php?whatis=search_multi">recèrca multicritèris</a>.</p>

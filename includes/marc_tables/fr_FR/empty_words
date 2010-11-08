@@ -1,0 +1,21 @@
+<?PHP
+// $Id: empty_words,v 1.5 2007-06-06 22:16:38 touraine37 Exp $
+
+// tableau contenant les mots vides
+$empty_word[] = 'le';
+$empty_word[] = 'la';
+$empty_word[] = 'les';
+$empty_word[] = 'l';
+$empty_word[] = 'du';
+$empty_word[] = 'de';
+$empty_word[] = 'des';
+$empty_word[] = 'd';
+$empty_word[] = 'a';
+$empty_word[] = 'un';
+$empty_word[] = 'une';
+$empty_word[] = 'et';
+$empty_word[] = 't';
+$empty_word[] = 'au';
+$empty_word[] = 'aux';
+$empty_word[] = 'en';
+?>

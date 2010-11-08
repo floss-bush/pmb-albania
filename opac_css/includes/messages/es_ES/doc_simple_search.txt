@@ -1,0 +1,13 @@
+<h2>B&uacute;squeda simple</h2>
+<p><strong>Introduzca el t&iacute;tulo o el autor que busca, luego haga clic en <i>Buscar</i></strong></p>
+<hr />
+
+<p>Puede introducir nombres comunes o nombres propios.</p>
+<p>Durante la b&uacute;squeda, las <b>letras con tilde</b> y la <b>puntuaci&oacute;n</b> son <b>ignoradas</b> 
+(é, è, à, ç, !, ', etc.).</p>
+<p>También puede buscar igualmente por editorial, colecciones, sub-colecciones, categor&iacute;as (tesauros), 
+indexaci&oacute;n (por ejemplo Dewey), palabras claves, res&uacute;menes y notas.</p>
+<p>Para esto, marque <img src="images/coche.gif" align="absmiddle">
+ primero el o los casilleros correspondientes, luego ingrese su o sus criterios de b&uacute;squeda y haga clic en Buscar.</p>
+<hr />
+<p>Su b&uacute;squeda puede incorporar tambi&eacute;n <a href="help.php?whatis=expbool">operadores booleanos</a>.<br />

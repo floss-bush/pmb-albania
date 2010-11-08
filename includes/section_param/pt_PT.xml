@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbsections>
+	<section name="a_general">Opções gerais de funcionamento do OPAC</section>
+	<section name="b_aff_general">Informações da biblioteca</section>
+	<section name="c_recherche">Opções para procuras no OPAC</section>
+	<section name="d_aff_recherche">Opções para visualização de resultados das procuras</section>
+	<section name="e_aff_notice">Visualização de registos</section>
+	<section name="f_modules">Módulos de visualização no OPAC</section>
+	<section name="h_cart">Opções dos cestos</section>
+	<section name="i_categories">Opções para a visualização e navegação nas classificações</section>
+	<section name="j_etagere">Opções referentes a estantes</section>
+	<section name="k_section">Opções referentes à navegação entre secções</section>
+	<section name="l_dsi">Opções referentes à D.S.I.</section>
+	<section name="m_photo">Options relating to pictures</section>
+	<section name="z_unused">Não usado</section>
+	<section name="pdfcde">Opções de formato da carta de ordem de pedido</section>
+	<section name="pdfdev">Opções de formato da carta de pedido de orçamento</section>
+	<section name="pdfliv">Opções de formato das entregas</section>
+	<section name="pdffac">Opções de formato das faturas</section>
+	<section name="pdfsug">Opções de formato das listas de sugestões</section>	
+	<section name="mel">Opções de formato dos emails de sugestões</section>	
+	<section name="categories">Options pour les categories</section>	
+	<section name="thesaurus">Options pour les thésaurus</section>	
+	<section name="classement">Options pour les plans de classement</section>	
+	<section name="transferts">Options générales des transferts</section>
+</pmbsections>

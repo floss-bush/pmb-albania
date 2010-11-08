@@ -1,0 +1,15 @@
+<h1>Convers&otilde;es/Exporta&ccedil;&otilde;es</h1>
+<p>Esta p&aacute;gina permite gerar as convers&otilde;es dos diversos formatos de ficheiros de 
+registos/exemplares em outros formatos e subsequentemente a exporta&ccedil;&atilde;o da base de dados PMB 
+sob a forma de 
+registos.</p>
+<p>O procedimento de convers&atilde;o permite converter a partir de um
+formato de entrada UNIMARC, USMARC, BCDI ou XML PMB num outro formato
+UNIMARC ou XML PMB. Se o formato de convers&atilde;o final &eacute; o
+UNIMARC, poder&aacute; deste modo  importar o resultado no PMB. Por
+omiss&atilde;o, poder&aacute; carregar o resultado. Aten&ccedil;&atilde;o,
+a passagem de um formato para outro poder&aacute; ocasionar perdas de
+informa&ccedil;&otilde;es.</p>
+<p>A exporta&ccedil;&atilde;o da base PMB faz-se sob a forma de registos incluindo os 
+exemplares respeitando a recomenda&ccedil;&atilde;o 995 da ADBDP. Pode converter o resultado 
+em registos UNIMARC ou em XML PMB.</p>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<manifest>
+	<name>amazon</name>
+	<repository>no</repository>
+	<comment>AWS ECommerce Service</comment>
+	<author>Florent TETART</author>
+	<org>PMB Services</org>
+	<date>2007-10-08</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

@@ -1,0 +1,13 @@
+<h1>Module Fichier</h1>
+<p>Ce module permet de se constituer une base de donn&eacute;es g&eacute;n&eacute;riques (carnet d&rsquo;adresse, ...) &agrave; partir de champs personnalisables que l'on d&eacute;finit.
+Les informations sont stock&eacute;es sous forme de fiche.
+</p>
+
+<h2>Consulter</h2>
+Permet de faire des recherches simples ou multicrit&egrave;res sur les champs personnalis&eacute;s d&eacute;finis et d'afficher les fiches correspondant &agrave; cette recherche.<br />
+<h2>Saisie</h2>
+Cr&eacute;ation d&rsquo;une nouvelle fiche par l&rsquo;interm&eacute;diaire des champs personnalisables.<br />
+<h2>Paniers</h2>
+Permet de g&eacute;rer ses fiches &agrave l&rsquo;aide de paniers.<br />
+<h2>Gestion</h2>
+Gestion des champs personnalisables, affichage des champs, r&eacute;indexation des fiches<br />

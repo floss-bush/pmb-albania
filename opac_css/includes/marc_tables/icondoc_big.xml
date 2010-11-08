@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des icônes de types de documents en fonction de 
+	-premier caractère et niveau bibliographique : m a s 
+	-deuxième caractère : recordtype
+	CE FICHIER EST UTILISE EN OPAC, PAS EN GESTION, IL N'EST RECOPIE EN GESTION QUE POUR UNE QUESTION DE COHERENCE
+$Id: icondoc_big.xml,v 1.2 2010-05-18 16:30:51 arenou Exp $ -->
+
+<XMLlist>
+	<entry code="ma">icon_a.gif</entry>
+	<entry code="mb">icon_b.gif</entry>
+	<entry code="mc">icon_c.gif</entry>
+	<entry code="md">icon_d.gif</entry>
+	<entry code="me">icon_e.gif</entry>
+	<entry code="mf">icon_f.gif</entry>
+	<entry code="mg">icon_g.gif</entry>
+	<entry code="mi">icon_i.gif</entry>
+	<entry code="mj">icon_j.gif</entry>
+	<entry code="mk">icon_k.gif</entry>
+	<entry code="ml">icon_l.gif</entry>
+	<entry code="mm">icon_m.gif</entry>
+	<entry code="mr">icon_r.gif</entry>
+
+	<entry code="sa">icon_per.gif</entry>
+	<entry code="sb">icon_per.gif</entry>
+	<entry code="sc">icon_per.gif</entry>
+	<entry code="sd">icon_per.gif</entry>
+	<entry code="se">icon_per.gif</entry>
+	<entry code="sf">icon_per.gif</entry>
+	<entry code="sg">icon_per.gif</entry>
+	<entry code="si">icon_per.gif</entry>
+	<entry code="sj">icon_per.gif</entry>
+	<entry code="sk">icon_per.gif</entry>
+	<entry code="sl">icon_per.gif</entry>
+	<entry code="sm">icon_per.gif</entry>
+	<entry code="sr">icon_per.gif</entry>
+
+	<entry code="aa">icon_art.gif</entry>
+	<entry code="ab">icon_art.gif</entry>
+	<entry code="ac">icon_art.gif</entry>
+	<entry code="ad">icon_art.gif</entry>
+	<entry code="ae">icon_art.gif</entry>
+	<entry code="af">icon_art.gif</entry>
+	<entry code="ag">icon_art.gif</entry>
+	<entry code="ai">icon_art.gif</entry>
+	<entry code="aj">icon_art.gif</entry>
+	<entry code="ak">icon_art.gif</entry>
+	<entry code="al">icon_art.gif</entry>
+	<entry code="am">icon_art.gif</entry>
+	<entry code="ar">icon_art.gif</entry>
+
+	<entry code="ba">icon_bul.gif</entry>
+	<entry code="bb">icon_bul.gif</entry>
+	<entry code="bc">icon_bul.gif</entry>
+	<entry code="bd">icon_bul.gif</entry>
+	<entry code="be">icon_bul.gif</entry>
+	<entry code="bf">icon_bul.gif</entry>
+	<entry code="bg">icon_bul.gif</entry>
+	<entry code="bi">icon_bul.gif</entry>
+	<entry code="bj">icon_bul.gif</entry>
+	<entry code="bk">icon_bul.gif</entry>
+	<entry code="bl">icon_bul.gif</entry>
+	<entry code="bm">icon_bul.gif</entry>
+	<entry code="br">icon_bul.gif</entry>
+</XMLlist>

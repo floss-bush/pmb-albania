@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../../../../includes/XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2009-07-31 15:13:55 erwanmartin Exp $ -->
+
+<XMLlist>
+	<entry code="apisoap_exported_functions">Fonctions de l'API exportées</entry>
+	<entry code="apisoap_authentication">Autentification</entry>
+	<entry code="apisoap_authenfication_none">Aucune: utiliser l'utilisateur anonyme des fonctions</entry>
+	<entry code="apisoap_authenfication_group">Restreindre à des groupes d'utilisateurs externes:</entry>
+	<entry code="apisoap_cache_wsdl">Mettre en cache le wsdl</entry>
+    <entry code="apisoap_service_endpoint">Adresse du web service</entry>
+    <entry code="apisoap_service_endpoint_unrecorded">Enregistrer la source pour l'avoir</entry>
+</XMLlist>

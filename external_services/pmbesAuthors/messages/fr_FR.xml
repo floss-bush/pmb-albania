@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- messages localisés en français pour la classe de fonctions search_functions
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.1 2009-10-15 16:31:32 erwanmartin Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+
+<!--
+pmbesAuthor
+-->
+	<entry code="pmbesAuthors_description">Fonctions relatives aux auteurs</entry>
+<!--
+get_author_information
+-->
+<entry code="get_author_information_description">Renvoi les informations d'un auteur à partir de son id</entry>
+<entry code="get_author_information_input_description"></entry>
+<entry code="get_author_information_output_description"></entry>
+<entry code="get_author_information_author_id">L'id de l'auteur</entry>
+<entry code="get_author_information_result">Les informations</entry>
+<!--
+list_author_notices
+-->
+<entry code="list_author_notices_description">Liste les notices d'un auteur</entry>
+<entry code="list_author_notices_input_description"></entry>
+<entry code="list_author_notices_output_description"></entry>
+<entry code="list_author_notices_author_id">L'id de l'auteur</entry>
+<entry code="list_author_notices_OPACUserId">l'id d'un emprunteur, pour filtrer les résultats selon les droits d'accès
+	-1: Ne pas tenir compte
+	0: emprunteur anonyme
+	x: id de l'emprunteur</entry>
+<entry code="list_author_notices_notice_ids">Les ids des notices associées à l'auteur</entry>
+
+<!--
+get_author_information_and_notices
+-->
+<entry code="get_author_information_and_notices_description">Combine les fonctions get_author_information et list_author_notices</entry>
+<entry code="get_author_information_and_notices_input_description">Voir les entrées des fonctions combinées</entry>
+<entry code="get_author_information_and_notices_output_description">Voir les sorties des fonctions combinées</entry>
+<entry code="get_author_information_and_notices_author_id"></entry>
+<entry code="get_author_information_and_notices_OPACUserId"></entry>
+<entry code="get_author_information_and_notices_information"></entry>
+<entry code="get_author_information_and_notices_notice_ids"></entry>
+
+</XMLlist>

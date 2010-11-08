@@ -1,0 +1,11 @@
+<h1>Gestione finanziaria dei lettori</h1>
+<p>La gestione finanziaria dei lettori permette di amministrare i movimenti finanziari legati ai lettori:
+</p>
+<ul>
+<li>abbonamenti
+<li>multe causate da ritardi nella restituzione dei prestiti
+<li>prestiti a pagamento per diverse categorie di documenti
+</ul>
+<p>Se hai scelto la gestione semplice delle tariffe di abbonamento, queste sono visibili in <a href='admin.php?categ=empr&sub=categ'>Amministrazione &gt; Lettori &gt; Categorie di lettori</a>.</p>
+<p>Se hai scelto la gestione semplice delle tariffe dei prestiti, queste sono visibili in <a href='admin.php?categ=docs&sub=typdoc'>Administrazione &gt; Esemplari &gt; Tipi di documento</a>.</p>
+

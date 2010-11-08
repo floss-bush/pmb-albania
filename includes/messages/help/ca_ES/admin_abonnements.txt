@@ -1,0 +1,8 @@
+<h1>Administració de les subscripcions</h1>
+
+<p>La secció <b>administració de les subscripcions</b> permet definir els par&agrave;metres de l'aplicaci&oacute; per les subscripcions.
+<ul>
+<li><b>Periodicitat</b> la Periodicitat de les subscripcions permet descriure tots els tipus de periodicitat utilitzades a les subscripcions.</li>
+
+</ul></p>
+ 

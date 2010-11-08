@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<fields>
+	<!-- Table d'origine (référence)-->
+	<reference dynamicfields="yes" prefixname="empr" fixed="n">empr</reference>
+	<!-- Clé primaire de la table de référence -->
+	<referencekey>id_empr</referencekey>
+	
+	<fixedfields>
+	<!-- Nom et prénom -->
+	<field name="msg:nom_prenom_empr" type="text" value="n" id="1" filterable="no" sortable="yes" displayable="yes">
+		<tablefield>empr_nom,empr_prenom</tablefield>
+	</field>
+
+	<!-- code-barre -->
+	<field name="msg:code_barre_empr" type="text" value="b" id="2" filterable="no" sortable="no" displayable="yes">
+		<tablefield>empr_cb</tablefield>
+	</field>
+	
+	<!-- adresse -->
+	<field name="msg:adresse_empr" type="text" value="a" id="3" filterable="no" sortable="no" displayable="yes">
+		<tablefield>empr_adr1</tablefield>
+	</field>
+	
+	<!-- ville -->
+	<field name="msg:ville_empr" type="text" value="v" id="4" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_cities_empr">
+		<tablefield>empr_ville</tablefield>
+	</field>
+	
+	<!-- localisation -->
+	<field name="msg:localisation_sort" type="text" value="l" id="5" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_locations_empr">
+		<table>docs_location</table>
+		<tablefield>location_libelle</tablefield>
+		<tablekey>idlocation</tablekey>
+		<link type="1n">
+			<referencefield>empr_location</referencefield>
+		</link>
+	</field>	
+	
+	<!-- catégorie -->
+	<field name="msg:categ_empr" type="text" value="c" id="6" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_categories_empr">
+		<table>empr_categ</table>
+		<tablefield>libelle</tablefield>
+		<tablekey>id_categ_empr</tablekey>
+		<link type="1n">
+			<referencefield>empr_categ</referencefield>
+		</link>	
+	</field>
+	
+	<!-- statut -->
+	<field name="msg:statut_empr" type="text" value="s" id="7" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_statuts_empr">
+		<table>empr_statut</table>
+		<tablefield>statut_libelle</tablefield>
+		<tablekey>idstatut</tablekey>
+		<link type="1n">
+			<referencefield>empr_statut</referencefield>
+		</link>
+	</field>
+	
+	<!-- groupes -->
+	<field name="msg:groupe_empr" type="text" value ="g" id="8" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_groups_empr">
+		<table>groupe</table>
+		<tablefield name="group_name">libelle_groupe</tablefield>
+		<tablekey>id_groupe</tablekey>	
+		<link type="nn">
+			<table>empr_groupe</table>
+			<referencefield>empr_id</referencefield>
+			<externalfield>groupe_id</externalfield>
+		</link>
+	</field>
+	
+	<!-- année de naissance -->
+	<field name="msg:year_empr" type="text" value="y" id="9" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_years_empr">
+		<tablefield>empr_year</tablefield>
+	</field>
+	
+	<!-- code postal -->
+	<field name="msg:acquisition_cp" type="text" value="cp" id="10" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_cp_empr">
+		<tablefield>empr_cp</tablefield>
+	</field>
+	
+	<!-- code stat -->
+	<field name="msg:codestat_empr" type="text" value="cs" id="11" filterable="yes" sortable="yes" displayable="yes" defaultvalue="msg:all_codestat_empr">
+		<table>empr_codestat</table>
+		<tablefield>libelle</tablefield>
+		<tablekey>idcode</tablekey>
+		<link type="1n">
+			<referencefield>empr_codestat</referencefield>
+		</link>
+	</field>
+	
+	
+	</fixedfields>
+	<specialfields>
+		<field name="msg:add_empr_cart" id="1" function="iconepanier">
+		</field>
+		<field name="msg:relance_dernier_niveau" id="2" function="filter_niveau" defaultvalue="msg:all_level_relances">
+			<param>level_min</param>
+		</field>
+		<field name="msg:relance_niveau_suppose" id="3" function="filter_niveau" defaultvalue="msg:all_level_relances">
+			<param>level_normal</param>
+		</field>
+		<field name="msg:empr_nb_pret" id="4" function="get_nbpret" defaultvalue="msg:empr_nb_pret">
+		</field>
+	</specialfields>
+</fields>

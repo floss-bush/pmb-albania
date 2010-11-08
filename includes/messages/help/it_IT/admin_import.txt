@@ -1,0 +1,5 @@
+<h1>Amministrazione delle importazioni</h1>
+<p>Questa pagina permette la gestione dell'importazione di dati legati a schede bibliografiche e/o a degli esemplari.</p>
+<p>La procedura &egrave; suddivisa in varie fasi : definizione del fornitore (es : biblioteca dipartimentale di prestito), importazione delle schede bibliografiche o importazione degli esemplari (e delle schede bibliografiche correlate), infine spunta delle importazioni per verificare la corrispondenza tra la lista del fornitore e i documenti effettivamente ricevuti.</p>
+<p>Quest'ultima verifica &egrave; rapida e pu&ograve; essere realizzata con un lettore di codici a barre.</p>
+

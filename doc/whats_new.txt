@@ -1,0 +1,523 @@
+// +---------------------------------------------------------------------------------------+
+// © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +---------------------------------------------------------------------------------------+
+// $Id: whats_new.txt,v 1.4 2009-05-16 11:08:24 dbellamy Exp $
+
+________________________________________________________
+
+Changements, corrections, nouvelles fonctionalités
+________________________________________________________
+
+Version 3.1 (novembre 2007)
+
+    * Catalogage
+      Tris des résultats de recherches
+      Combinaisons de recherches
+      Confidentialité des exemplaires entre bibliothécaires multi-sites
+      Dictionnaire des mots vides
+      Gestion des abonnements et bulletinage
+      Multi-indexation décimale en fonction du type de la notice
+      Outil de dédoublonnage en saisie de notice
+      Aperçu de la notice en OPAC
+
+    * Circulation
+      Affichage des infos du lecteur en réduit dépliable afin de remonter la liste des prêts
+      Dédoublonnement de lecteurs en saisie
+      Limitation du nombre de prolongation des prêts, quotas de renouvellement
+      Localisation des relances multiples
+      Paniers de lecteurs pour traitement en lot
+      Photo sur fiche lecteur
+      Statut d'emprunteur pour emprunteur inactif, interdit, permettant de gérer les services offerts au lecteur
+
+    * Administration
+      Afficher la taille de la base de données en Infos MySQL
+      Import/export des catégories et champs personnalisables
+      Nettoyage de base: alerte sur nettoyage critique, des catégories/notices sans exemplaire
+
+    * Autorités
+      Droits spécifiques de gestion des thésaurus
+
+    * Editions
+      Edition de codes-barres, enregistrement des paramètres du formulaire
+      Impression des groupes sur les lettres individuelles de retard
+      Lecteurs : abonnement bientôt expiré. Bouton pour relance adhésion de tous les lecteurs proches.
+      Lecteurs : abonnement expiré. Bouton pour relance adhésion de tous les lecteurs expirés.
+      Lettre de relance par groupe
+
+    * Recherches
+      Libellé des multi-critères dans fichiers de langues, ce qui en permet une traduction plus souple
+      Multi-critères spécifiques: possibilité d'enrichir le fichier XML de base
+      Multi-critères: popup/ajax de sélection des descripteurs
+      Pondération les mots du titre dans le calcul par pertinence
+      Reconnaissance des sigles
+      Surlignage en couleur les termes recherchés
+      Troncature sur numéro d'exemplaire
+
+    * OPAC
+      Surlignage des mots recherchés dans les résultats
+      Demande de prolongation des prêts
+      Filtre des résultats, combinaison de recherches, tri des résultats
+      Historique des emprunts du lecteur, les emprunteurs ont aussi emprunté...
+      Connecteurs extérieurs de recherches : OAI, Amazon
+      Blocage possible du droit de changement de mot de passe de l'emprunteur, geston fine des services offerts.
+
+Version 3.0 (septembre 2006)
+
+    * Catalogage
+      Grilles adaptatives en fonction du type de document et de la localisation de l'utilisateur
+      Interface de saisie des autorités en AJAX, possibilité de touche F2 de sélection des autorités
+      Dépouillement généralisé, monographies, boites de doc, chapitres, sommaires...
+      Possibilité de saisir les langues d'un document multilingue
+
+    * DSI Diffusion Sélective de l'Information
+      Bannettes cumulatives, limitée en taille ou en durée de présence de la notice dans la bannette
+
+    * OPAC
+      Possibilité de laisser son avis sur des notices
+      Possibilité de laisser des "tags", des mots clés sur les notices
+      Gestion de ces avis et tags en module catalogue
+
+    * Administration
+      Affichage plus ergonomique de la gestion des mises à jour du noyau
+
+Version 2.2 (mars 2006)
+
+    * Unicode
+      Support de l'Unicode, choix lors de l'installation
+      Ecriture multi-directionnelle
+
+    * DSI Diffusion Sélective de l'Information
+      Diffusion dans un panier
+      Génération de flux RSS
+
+    * Catalogage
+      Multi-thésaurus multi-lingue
+      Séparateur des mots-clé en indexation libre
+      Import/Export de procédures d'action et/ou de sélection
+      Paniers : vidage/suppression de la base des éléments inconnus
+      Z3950: Suppression du formulaire d'exemplarisation, inutile à cet endroit.
+      RSS : possibilité de paramétrer l'apparition sur la page d'accueil ou pas.
+      Périodiques :
+      -barre de navigation par page
+      -affichage filtré des numéros.
+      Affichage généralisé des statuts de notice
+
+    * Circulation
+      Correction bug répétition auteurs en mail de relance
+      Paramétrage 3ème relance possible par mail
+
+    * Exemplarisation
+      Localisation des sections
+
+    * Administration
+      Import/Export d'actions personalisables
+      Migration BCDI consultez notre page spéciale
+      PhpInfo et MysqlInfo accessibles en un clic
+
+    * Interface OPAC et Gestion
+      Homogénéisation des libellés
+
+    * Recherche OPAC et Gestion
+      Traitement du trait d'union en tant que tel
+      Gestion d'un index global de recherche
+      Opérateur par défaut : AND ou OR paramétrable
+
+    * Suggestions d'acquisitions
+      Gestion d'une liste de suggestions, accessible depuis l'opac et en gestion
+      Gestion des fusions, confirmations, rejets, archivage des suggestions
+      Catalogage possible depuis une suggestion
+      Information du suivi des suggestions par mail ou en consultation OPAC
+      Génération d'une commande directement depuis une liste de suggestions
+
+    * Module acquisitions
+      Gestion d'établissements acheteurs
+      Gestion de fournisseurs et conditions de vente
+      Gestion d'exercices et budgets répartis ou cumulés en sous-rubriques
+      Gestion minimale de données comptables (exercices, tva, comptes d'achats, modes de paiements)
+      Gestion de devis, commandes, factures, livraisons
+
+    * OPAC
+      Intégration des flux RSS générés
+
+    * Autorités
+      Ajout de champ commentaires sur les auteurs et les éditeurs
+
+Version 2.1 (juin 2005)
+
+    * Gestion financière
+      Gestion des abonnements
+      Gestion des amendes
+      Gestion des relances multiples
+      Gestion des tarifs de prêts
+      Gestion du blocage du prêt
+
+    * DSI Diffusion Sélective de l'Information
+      Gestion des abonnements aux nouveautés
+      Gestion des critères de nouveautés
+      Diffusion par mail et dans l'OPAC
+
+    * Interface générale
+      Pagination des résultats
+      Possibilité de substituer les messages ou libellés standards de PMB par ses propres textes en fichier XML.
+
+    * OPAC
+      Limitation paramétrable de l'affichage des catégories au dernier terme descripteur
+      Masquage des exemplaires des sections ou localisations invisibles
+      Masquage des champs persos quand vides
+      Paramétrage URL image vignette de l'ouvrage
+      Choix de la langue dans l'OPAC par le visiteur
+      Possibilité de substituer les messages ou libellés standards de PMB par ses propres textes en fichier XML.
+      Recherche sur les bulletins par date de parution
+      Catégories, tri en affichage
+
+    * Catalogage
+      Limitation paramétrable de l'affichage des catégories au dernier terme descripteur
+      Ajout d'un statut de notice pour gérer des visibilités en OPAC, préparation du module acquisitions, extension de recherche "tout le catalogue" "notice en commande"...
+      Alerte sur ISBN/ISSN dupliqué
+      Ajout de mention d'édition : "n ième édition"
+      Mise à jour de notices par Z3950
+      Ajout des colonnes de dates de création/modification sur notices et exemplaires
+      Recherche sur les bulletins par date de parution
+      Catégories, tri en affichage
+      Affichage possible des vignettes des monographies
+
+    * Administration
+      Colonnes d'audit des notices et exemplaires (qui a créé ou modifié ? ...)
+      Internationalisation de l'installation
+      Paramètre de limitation de l'indexation Dewey en import UNIMARC ou Z3950
+
+    * Circulation/Réservations
+      Calendrier des jours d'ouverture et calculs du retour
+      Prêts express : pouvoir prêter un livre non catalogué
+      Mail d'information de réservation posée dans l'OPAC
+      Mail d'information à l'usager de réservation validée, prioritaire par rapport à la lettre PDF
+      Nouvelle colonne de gestion de confirmation de validation de réservation résa adressée ou pas au lecteur
+      Prolongation des prêts par lot (case à cocher et bouton)
+	  Informations sur l'emprunteur fournies lors des prêts et retour, livres empruntés non encore rendus, retards éventuels, réservations
+      Ajout des colonnes de date de dernier emprunt sur exemplaires et emprunteurs
+      Connexion possible des lecteurs à un annuaire LDAP
+
+    * Editions
+      Affichage des retards par date possible
+      Pagination des états personnalisables
+
+Version 2.0 (décembre 2004)
+
+    * Périodiques
+      Création d'un champ titre de bulletin et de son index
+      Création d'un champ code-barre sur le bulletin pour le code-barre complet de la revue
+    * Partout dans l'interface de gestion
+      Aide contextuelle
+    * CDI
+      Script d'intégration de MotBis 3.1 (sur demande)
+    * Lecteurs
+      Login et mot de passe changés en création, donc par défaut
+      - login = première lettre du prénom + nom
+      - mot de passe = année de naissance aaaa si fournie, sinon 0
+      Proposition des villes connues dans la base à partir du code postal correspondant.
+    * Paniers
+      Tri des affichages en gestion par titre
+      Marquage à l'écran des éléments pointés
+      Procédure de sélection des documents jamais prêtés
+    * Autorités
+      Liens d'accès direct à partir du catalogage
+      Correction bug catégorie parente d'elle-même interdite
+    * Recherches en gestion
+      Supression des regexp, remplacement par des recherches booléennes :
+      - Recherche par mot sans troncature implicite, possibilité de termes exacts,
+      - troncature explicite par *, opérateurs entre les mots et, ou, sauf,
+      - regroupements d'expressions avec parenthèses
+    * Catalogage
+      Historique des recherches par utilisateur
+      Ajout du résultat complet d'une recherche dans un panier
+      Impression/envoi par email d'un résultat de recherche ou du contenu d'un panier
+      Sauvegarde de l'historique des recherches dans la session utilisateur (permet de retrouver l'historique d'une session à l'autre)
+      Export/Import des recherches dans un fichier externe
+      URL associé : ajout d'un bouton de test de l'URL
+    * OPAC
+      Supression des regexp, remplacement par des recherches booléennes (voir recherches en gestion)
+      Ajout des paniers pour l'utilisateur
+      Possibilité d'impression ou d'envoi par mail du panier
+      Navigation par localisation, section et par la cote d'exemplaires : permet une navigation thématique sans thésaurus
+      Signalétique associée aux sections et aux localisations pour cette navigation
+      Révision de la structure des css : simplification et uniformisation
+      Aide utilisateur sur les recherches
+
+
+Version 1.3 (sept 2004)
+
+Affichage/Impressions
+	Création des éléments nécessaires dans les feuilles de style afin que le contenu des pages puisse être imprimé comme il faut
+
+Emprunteur
+	date de naissance optionnelle par paramètre empr_birthdate_optional
+	en création : correction bug sur num auto de carte
+	lien sur exemplaire en prêt > permet de saisir un message rapidement
+	en création ou modification : possibilité d'inscrire dans un ou des groupes d'emprunteurs
+	
+Autorités
+	Ajout d'un bouton en formulaire de modification pour voir l'utilisation en catalogage
+	Auteurs : dates en un seul champ
+	Catégories : gestion des voir aussi en nombre illimité
+
+Catalogage
+	Etagères virtuelles
+		Création et gestion d'étagères virtuelles à destination de l'OPAC
+	Recherches
+		Refonte du moteur de recherche (amélioration de la recherche regexp)
+		Recherches multi-critères
+		Recherche par termes du thésaurus
+	Panier
+		Correction bug accès exemplaire à partir d'un panier
+	Auteurs
+		Possibilité d'un nombre de mentions de responsabilité illimité
+	Catégories de classement
+		Possibilité d'un nombre de catégories illimité
+	Exemplaires numériques
+		Ajout de documents numériques attachés à un bulletin, ou à une notice
+	Affichage des réservations sur les documents
+	Champs personnalisables sur notices et exemplaires, interrogeables ou pas en OPAC
+
+Circulation
+	Gestion des réservations : 
+		Mise à l'écart des documents réservés
+		Dates de validité
+		Suppression
+	Gestion de quotas de nombre et de durée de prêt 
+		Gestion des pièges incontournables
+		Quotas par type de doucument, type de lecteur , lecteur individuel, type de document et lecteur individuel
+	Gestion des quotas de nombre et durée de reservations
+		Quotas par type de doucument, type de lecteur , lecteur individuel, type de document et lecteur individuel
+	Visu exemplaire
+		Affichage des infos de la notice plus complètes (y compris doc numériques associés)
+	Editions des réservations du lecteur sur le PDF des prêts en cours
+	Passerelles vers le catalogage
+
+Editions
+	Statistiques devient "Etats personnalisables"
+	Ajout des éditions des réservations en cours et de la liste de picking des réservations
+	Pagination et export tableur ajoutés
+	Paramétrage des étiquettes code-barre
+
+Imports de notices et exemplaires UNIMARC (y compris en Z3950)
+	Récupération du champ 801 et possibilité de paramétrage de la rediffusion possible
+	Récupération du prix en table notices
+	Nettoyage de code afin de permettre des adaptations futures
+	Récupération des dates des auteurs
+	Modification afin de permettre l'adaptation à différentes sources
+	Récupération possible RAMEAU en catégories (à adapter en fonction de l'UNIMARC)
+	
+OPAC
+	Renvoi direct vers les résultats des recherches (supression des popup !)
+	Critères de recherche retenus lors d'un retour en page d'accueil
+	Historique des recherches
+	Paramètre d'affichage des exemplaires
+	Paramètre d'affichage des exemplaires numériques
+	Affichage d'étagères virtuelles
+	Recherches multi-critères
+	Affichage des rang et validité de réservations
+	Intégration des quotas dans les reservations en ligne
+
+Interface de gestion
+	Gestion d'une zone de messages d'alerte ("Réservations à traiter" par exemple)
+	
+Version 1.2 (Mai 2004)
+________________________________________________________
+
+Changements, corrections, nouvelles fonctionalités
+________________________________________________________
+
+Installation 
+	Internationalisation tables/install.php 
+
+Interface de gestion 
+	Nouveau thème par défaut
+
+Catalogage 
+	Nouveau champ sur notices : Indexation décimale (Dewey, CDU)
+	Possibilité de remplir la base avec une cote type Dewey ou avec la cote utilisée à la BM de Chambéry
+
+Catalogage / Z39.50
+	Affichage de l'ISBN formaté si OK, sinon affichage tel quel
+
+Catalogage / Exemplaires
+	Changement de code barre exemplaire : correction bug sur test numérique/alphanumérique
+	Pré-remplissage de la cote avec la CDU de la notice
+	Correction bug sur espace dans code-barres : autorisé mais non recommandé
+	Affichage prêt en cours et/ou dernier emprunteur en détail exemplaire
+	Affichage de l'emprunteur à la suite de "Retour le" en liste exemplaires
+
+Catalogage / Saisie de notices
+	Ajout des raccourcis pour "étendre" tous les onglets de saisie
+	Ajout d'une recherche en sélection de catégories
+
+Catalogage / Périodiques : bulletins
+	Gestion du champ date de parution au format date
+	Améliorations des affichages
+	Mise en tableau des numéros/bulletins et en regard : nbre d'exemplaires et d'articles de dépouillement.
+
+Catalogage / Paniers de notices
+	Gestion en base des caddies utilisés lors de la recherche ou toute autre opération.
+	Récolement et désherbage
+	Retour BDP
+	Exports
+	Editions
+	Inclusions de procédure de sélection, de remplissage dans feed_essential.sql
+	
+Z39.50 
+	Correction d'un bug en recherche (client)
+	Serveur disponible et opérationnel
+	
+Généralités
+	Support amélioré de l'UNICODE
+	Gestion des dates reprises, problème de date au format Unix, limité et encore plus limité sur Windows.
+	Améliorations des performances sur les tableaux $msg['toto'] au lieu de $msg[toto]
+	
+Circulation / Gestion des dates d'adhésion dépassée
+	Affichage d'un message ## jours (paramétrable) avant expiration
+	Blocage des prêts possibles
+	Relance des abonnements par mail ou courrier
+	
+Circulation 
+	Affichage du nom du précedent emprunteur en retour de doc ou en visu exemplaire
+	Gestion de renseignements personalisables sur les fiches emprunteur
+	Affichage du nombre de prêts et de réservations en haut de la fiche emprunteur
+	Fiche emprunteur :
+		Allongement de certains champs trops courts (ville, téléphones, ...)
+		Ajout du champ pays
+
+Administration
+	Export de la base en HTML avec intitulés des champs MARC
+	Conversion MARC > HTML avec intitulés des champs MARC
+	Conversion fichier texte -> UNIMARC ISO2709 ou format XML PMB
+	Pointage des importés BDP : possibilités de changer la localisation en plus de la section et le statut
+	Procédure stockées : paramétrage amélioré
+
+Imports de notices/exemplaires UNIMARC : 
+	récupération 327$a répétable
+	récupération 345$b à la place de l'ISBN en 010$a si absent
+	
+Utilisateurs
+	Modification de tous les paramètres par la gestion des préférences (était restreinte)
+	Ajout de paramètres par défaut (accélération des saisies en catalogage) :
+		Code statistique exemplaire
+		Statut de document
+		Localisation du document : servira aussi de localisation de travail lors de la vraie gestion multi-site
+		Section du document
+		Langue originale d'une notice en création (fre = Français par exemple)
+		Fonction d'une autorité en création de notice (070 = auteur par exemple)
+	
+OPAC
+	Nouvelle possibilité d'interface en page d'accueil :
+		Marguerite des couleurs (style BCDI)
+		100 cases du savoir
+	Recherches par mot clés, recherches dans les notes de résumé et de contenu corrigées
+	Etendue de la recherche modifiable
+	Nouveau style
+	Nouveaux scripts index_opac_inclus.php et opac_included.inc.php afin de permettre l'intégration de l'OPAC dans une page existante.
+	Corrections mineures d'affichage
+		
+
+
+Version 1.1 (janvier 2004)
+________________________________________________________
+
+Changements, corrections, nouvelles fonctionalités
+________________________________________________________
+
+Import des lecteurs
+    -Scripts du Quebec intégrés à PMB
+
+Administration
+    -Nouveau menu
+    -Pages d'aide (à rédiger, mais déjà prévues)
+    -Mise en forme des listes et formulaires des tableaux de paramêtres
+    -Internationalisations diverses restantes
+    -Procédures stockées : reprise de la gestion/exécution
+    -Statistiques :  ajout d'informations archivées
+    -Procédures stockées : allongement du champ 'name'
+    -Imports d'expl UNIMARC :
+        import multiple conformément à la rec 995 de l'ADBDP
+        récupération du prix en 010$d
+        création des codes/libellés des zones 995 concernées
+        récupération du champ 610$a en indexation libre
+    -Statistiques : création de précudures stockées ad hoc pour Bueil et utilisables ailleurs avec adaptation
+    -Suppression du menu Fichier journal inutile
+    -Stockage en base des paramètres de l'OPAC
+    -Gestion des codages de la recommandation 995 dans la partie Administration/Catalogue
+    -Conversions multi-formats de fichiers XML/UNIMARC/BCDI
+    -Fourniture de procédures stockées de base pour listings ou statistiques
+
+Autorités
+    -Possibilité de guillemets et autres dans les auteurs/éditeurs/etc
+    -Mise en forme des listes et formulaires des tableaux de paramêtres
+    -Internationalisations diverses restantes
+    -Recherche de catégories
+    -Affichage des auteurs renvoyés vers un auteur en modif de cet auteur
+    -Création champ site web pour l'auteur
+
+Périodiques
+    -Mise en forme
+    -Internationalisation
+    -Correction bug pagination
+    -Dépouillement : url héritée de la notice chapeau débrayable
+    -Code-barre sur la notice mère
+
+Recherches en catalogage
+    -Recherches avancée
+    -Recherche par numéro de pério en recherche titre/auteur/expl
+    -Catégories/Sujets : arbre des catégories (FT)
+    -Editeurs/Collections : limitation aux 30 premiers si pas de critère et
+correction bug de lien de pages suivante/précédente
+    -Arbre des catégories
+    -Corrections sur recherche en expression régulière
+
+Circulation
+    -Mise en forme de la gestion des groupes
+    -Légère modification dans l'affichage de la fiche lecteur
+    -Modification du mot de passe lecteur pour l'opac en édition de la fiche du lecteur
+    -Recherches en résa identiques aux recherches en catal
+    -Correction bug date d'adhésion en création de lecteur
+    -Code Postal sur 10 caractères quelconques
+    -CodeBarre lecteur alphanumérique possible
+    -CodeBarre lecteur : incrémentation auto débrayable
+    -Langue de l'emprunteur pour affichage OPAC
+    -Correction affichage du statut du document
+
+Catalogage
+    -Possibilité de guillemets et autres dans les titres
+    -Possibilité de remplacer une notice par une autre
+    -Correction d'un bug sur code-barre exemplaire dans une requete SQL
+    -Correction affichage du lien ressource électronique
+    -Correction lien de barre de navig de périodiques </a> manquant si pas de mention de date.
+    -Correction affichage du statut du document
+    -Gestion des sauts de lignes dans les zones de notes, inutile de mettre des <br />
+
+Page de login
+    -Correction affichage message d'erreur sur bad login
+
+Selecteur (popup)
+    -Taille agrandie
+    -mise au propre du graphisme
+
+Affichage général :
+    -Tous les champs associés à un bouton parcourir et donc en readonly sont
+affichés différemment.
+    -Reprise des classes d'affichage des input
+
+Installation :
+    -Reprise des scripts d'installation afin de proposer les choix de remplissage.
+    -Intégration des thésaurus environnement et UNESCO Fr
+
+Editions :
+    -Prise en compte des procédures stockées avec paramètres
+    -Reprise formulaire de pied de tableau (actualisation et export)
+
+OPAC : 
+    -Nouvelle navigation
+    -Réservations de documents par les lecteurs (paramétrables)
+    -Visualisation de leur compte
+    -Icônes pour chaque type de document
+    -Correction affichage du statut du document
+    -Correction de navigation entre collections/sous-collections/éditeurs
+

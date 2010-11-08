@@ -1,0 +1,13 @@
+<h1>Module de Diffusion Selective de l&rsquo;Information</h1>
+<p>La diffusion s&eacute;lective de l&rsquo;information est un service qui consiste &agrave; diffuser aux usag&egrave;res et aux usagers, de fa&ccedil;on r&eacute;guli&egrave;re, les r&eacute;sultats d&rsquo;un profil de recherche personnalis&eacute;.</p>
+
+<h2>Diffuser</h2>
+Permet de lancer les envois de mails aux abonn&eacute;s<br />
+<h2>Bannettes</h2>
+Les bannettes sont des r&eacute;servoirs de nouveaut&eacute;s, c&rsquo;est le contenu de ces bannettes qui va &ecirc;tre envoy&eacute; aux abonn&eacute;s lors de la diffusion.<br />
+<h2>Equations </h2>
+Les &eacute;quations sont ce qui permet de remplir les bannettes.<br />
+<h2>Classements </h2>
+Les classements vont vous permettre d&rsquo;organiser vos bannettes et vos &eacute;quations.<br />
+
+ 

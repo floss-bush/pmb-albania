@@ -1,0 +1,12 @@
+<h2>Egyszerű keresés</h2>
+<p><strong>saisissez le titre ou l'auteur à rechercher puis cliquez sur <i>Rechercher</i></strong></p>
+<hr />
+
+<p>Vous pouvez saisir des noms communs ou des noms propres.</p>
+<p>Les <b>caract�res accentu�s</b> et la <b>ponctuation</b> sont <b>ignor�s</b> lors de la recherche (�, �, �, �, !, ', etc.).</p>
+<p>Vous pouvez �galement chercher parmi les �diteurs, les collections, sous-collections, cat�gories (th�saurus), indexations (par exemple Dewey), mots cl�s, r�sum� et notes.</p>
+<p>Pour cela, cochez <img src="images/coche.gif" align="absmiddle">
+ d'abord la ou les cases correspondantes puis saisissez votre ou vos crit�res de recherche puis cliquez sur Rechercher.</p>
+<hr />
+<p>A keresése egy 
+<a href="help.php?whatis=expbool">boolean kifejezés</a> is lehet.<br />

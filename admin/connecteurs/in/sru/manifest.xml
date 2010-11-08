@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.2 2008-08-26 07:13:20 touraine37 Exp $ -->
+
+<manifest>
+	<name>sru</name>
+	<repository>no</repository>
+	<comment>Interrogation d'un serveur SRU</comment>
+	<author>Erwan MARTIN</author>
+	<org>PMB Services</org>
+	<date>2008-07-24</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

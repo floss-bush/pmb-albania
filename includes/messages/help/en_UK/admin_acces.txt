@@ -1,0 +1,5 @@
+<h1>Managing access rights</h1>
+
+<p>Managing access rights allows to define specifically the rights to use software resources.</p>
+<br />
+ 

@@ -1,0 +1,13 @@
+<h1>Conversions/Exportacions</h1>
+<p>Aquest apartat permet generar les conversions de diversos formats
+d'arxius de registres/exemplars en altres formats per tal d'exportar la base 
+de dades PMB en forma de registres.</p>
+<p>El procediment de conversió permet a d'un format entrant UNIMARC, USMARC, 
+BCDI o XML PMB convertir en un altre format UNIMARC ou XML PMB. 
+Si el format de conversió final és l'UNIMARC, podràs importar el resultat a PMB. 
+Per defecte, podràs carregar el resultat. Atenció, el fet de passar d'un format
+a un altre pot ocasionar algunes pèrdues d'informació.</p>
+<p>L'exportació de la base PMB es fa en forma de registres incloent 
+els exemplars respectant la recomanació 995 de l'ADBDP. Pots convertir el 
+resultat en registres UNIMARC o en XML PMB.</p>
+

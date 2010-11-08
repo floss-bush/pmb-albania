@@ -1,0 +1,20 @@
+<h2>B&uacute;squeda avanzada</h2>
+<p><strong>La b&uacute;squeda avanzada permite combinar diferentes criterios para realizar una b&uacute;squeda precisa.</strong></p>
+<p>
+Usted puede seleccionar uno o varios campos de b&uacute;squeda : t&iacute;tulo, autor, campos personalizados...</p>
+<p>Para proceder a una b&uacute;squeda avanzada :</p>
+<ul><li><b>elija un</b> primer <b>campo</b> que ser&aacute; objeto de la b&uacute;squeda. Por ejemplo : Autor</li>
+<li>haga clic en <b>A&ntilde;adir</b> para definir un primer campo de b&uacute;squeda</li>
+<li><b>elija</b> luego <b>un tipo de b&uacute;squeda</b> para el campo escogido. Para un campo t&iacute;tulo usted puede escoger 
+entre "operador booleano" "empieza por", "termina por" o "exactamente como". Este tipo de b&uacute;squeda vari&aacute; seg&uacute;n 
+el campo seleccionado. Por ejemplo, para Autor "empieza por"</li>
+<li><b>si el campo necesita un valor</b>, <b>introd&uacute;zcalo</b> en la casilla correspondiente ; si el campo requiere de una 
+selecci&oacute;n (por ejemplo el tipo de soporte), elija una o varias propuestas haciendo clic y manteniendo presionado el bot&oacute;n 
+CTRL de su teclado. Por ejemplo para nuestro Autor, "empieza por Zol"</li>
+<li><b>a&ntilde;ada tantos campos como necesite</b>. Siguiendo el mismo ejemplo, usted podr&iacute;a a&ntilde;adir Titulo "exactamente 
+como "Germinal".
+<li>finalmente valide haciendo clic en <b>Buscar</b></li></ul>
+<hr />
+<p>Su b&uacute;squeda también puede incorporar <a href=help.php?whatis=expbool>operadores booleanos</a>.</p>
+<hr />
+<p>Una b&uacute;squeda avanzada puede referirse al conjunto de datos contenidos en el cat&aacute;logo de la biblioteca.</p>

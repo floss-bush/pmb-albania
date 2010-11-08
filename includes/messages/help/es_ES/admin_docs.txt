@@ -1,0 +1,15 @@
+<h1>Administraci&oacute;n de los ejemplares</h1>
+
+<p>El m&oacute;dulo <b>administraci&oacute;n de los ejemplares</b> permite definir los par&aacute;metros de la aplicaci&oacute;n para el pr&eacute;stamo y las
+estad&iacute;sticas de los documentos.
+<ul>
+<li><b>tipos de documentos</b> permite parametrizar los diferentes suportes en pr&eacute;stamo y la duraci&oacute;n en d&iacute;as para cada uno de los
+soportes.</li>
+<li><b>c&oacute;digos estad&iacute;sticos</b> estos c&oacute;digos se utilizan para crear las estad&iacute;sticas de pr&eacute;stamo de la colecci&oacute;n de la mediateca</li>
+<li><b>secciones</b> la secci&oacute;n es el sector de la mediateca d&oacute;nde est&aacute; localizado el documento (secci&oacute;n adultos, infantil, 
+discoteca ...). Este c&oacute;digo se tiene tambi&eacute;n en cuenta a la hora de realizar las estad&iacute;sticas</li>
+<li><b>estados</b> la noci&oacute;n de estado se utiliza para especificar si el documento puede prestarse o no</li>
+<li><b>localizaciones</b> la localizaci&oacute;n puede utilizarse para añadir al documento un emplazamiento particular (p. ej.: en reserva)</li>
+<li><b>propietarios</b> propitario de los ejemplares, BDP por ejemplo</li>
+<li><b>personalizables</b> campos personalizables de los ejemplares</li>
+</ul></p>

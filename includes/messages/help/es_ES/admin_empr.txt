@@ -1,0 +1,7 @@
+<h1>Administraci&oacute;n de los usuarios</h1>
+<p>Los diferentes c&oacute;digos permiten obtener estad&iacute;sticas obre el p&uacute;blico de la mediateca o centro de documentaci&oacute;n.
+</p>
+
+<p>Estos c&oacute;digos deben adaptarse a las necesidades y al funcionamiento particular que su centro necesite.</p>
+
+

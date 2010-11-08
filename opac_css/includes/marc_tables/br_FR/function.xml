@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes fonction en UNIMARC (français)
+$Id: function.xml,v 1.4 2008-04-01 06:26:18 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="005">C'hoarier</entry>
+	<entry code="010">Aozer</entry>
+	<entry code="020">Notenner</entry>
+	<entry code="030">Kempenner</entry>
+	<entry code="040">Arzour</entry>
+	<entry code="050">Dilezer ar gwirioù</entry>
+	<entry code="060">Anv kevredet</entry>
+	<entry code="065">Prizacher</entry>
+	<entry code="070">Oberour</entry>
+	<entry code="072">Oberour eus un arroudenn pe eus un tennad</entry>
+	<entry code="075">Oberour eus ur postskrid, ur c'holofon, ...</entry>
+	<entry code="080">Saver rakskrid, ...</entry>
+	<entry code="090">Oberour an diviz. Oberour eus diviz ar film</entry>
+	<entry code="100">Oberour oberennoù aozet, implijet, kendalc'het ...</entry>
+	<entry code="110">Keiner</entry>
+	<entry code="120">Treser ar c'heinadur</entry>
+	<entry code="130">Maketenner</entry>
+	<entry code="140">Treser ar jaketenn</entry>
+	<entry code="150">Treser an ex-libris</entry>
+	<entry code="160">Levrier</entry>
+	<entry code="170">Dornlizherenner</entry>
+	<entry code="180">Saver kartennoù</entry>
+	<entry code="190">Kontroller</entry>
+	<entry code="200">Saver korollerezhioù</entry>
+	<entry code="205">Kenlabourer</entry>
+	<entry code="210">Addispleger</entry>
+	<entry code="212">Addispleger un destenn skrivet</entry>
+	<entry code="220">Daspuner</entry>
+	<entry code="230">Kompozer</entry>
+	<entry code="240">Kompozer lizherenner</entry>
+	<entry code="245">Meizer</entry>
+	<entry code="250">Rener laz-seniñ</entry>
+	<entry code="260">Dalc'her ar gwir-eilañ</entry>
+	<entry code="270">Difazier</entry>
+	<entry code="273">Komiser an diskouezadeg</entry>
+	<entry code="274">Koroller</entry>
+	<entry code="280">Dedi savet en enor da</entry>
+	<entry code="290">Oberour an dedi</entry>
+	<entry code="300">Rener arzel</entry>
+	<entry code="305">Doktorelezher</entry>
+	<entry code="310">Darbarer</entry>
+	<entry code="320">Donezoner</entry>
+	<entry code="330">Oberour arvarus</entry>
+	<entry code="340">Embanner skiantel</entry>
+	<entry code="350">Engraver</entry>
+	<entry code="360">Engraver gant dour kreñv</entry>
+	<entry code="365">Prizer</entry>
+	<entry code="370">Sevener ar film</entry>
+	<entry code="480">Saver levrig an opera</entry>
+	<entry code="490">Perc'henn ar gwirioù</entry>
+	<entry code="500">Konseder</entry>
+	<entry code="510">Treser</entry>
+	<entry code="520">Saver komzoù</entry>
+	<entry code="530">Engraver war vetal</entry>
+	<entry code="540">Kontroler</entry>
+	<entry code="545">Soner</entry>
+	<entry code="550">Daneveller</entry>
+	<entry code="560">Krouer</entry>
+	<entry code="570">Kargoù all</entry>
+	<entry code="580">Farder paper</entry>
+	<entry code="590">C'hoarier</entry>
+	<entry code="600">Luc'hskeudenner</entry>
+	<entry code="610">Mouler</entry>
+	<entry code="620">Mouler engravadurioù</entry>
+	<entry code="630">Produer</entry>
+	<entry code="632">Directeur artistique</entry>
+	<entry code="635">Programmer</entry>
+	<entry code="640">Difazier amprou</entry>
+	<entry code="650">Embanner-koñvers</entry>
+	<entry code="651">Rener an embann</entry>
+	<entry code="660">Degemerer</entry>
+	<entry code="660">Resever ar c'has lizhiri</entry>
+	<entry code="670">Ijinour war ar son</entry>
+	<entry code="675">Buruteller</entry>
+	<entry code="680">Rubrikenner</entry>
+	<entry code="690">Skriver senario</entry>
+	<entry code="695">Kuzulier skiantel</entry>
+	<entry code="700">Skrib/adskriver</entry>
+	<entry code="705">Kizeller</entry>
+	<entry code="710">Kargad ar c'hazetennoù</entry>
+	<entry code="720">Siner</entry>
+	<entry code="721">Kaner</entry>
+	<entry code="723">Arc'hanter</entry>
+	<entry code="727">Rener an dezenn</entry>
+	<entry code="730">Troer</entry>
+	<entry code="740">Treser letrennioù-moulerezh</entry>
+	<entry code="750">Lizherenner</entry>
+	<entry code="760">Engraver war goad</entry>
+	<entry code="770">Saver an dafar da heul</entry>
+</XMLlist>
+
+

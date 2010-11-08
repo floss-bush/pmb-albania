@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- Catalogue des classes de fonctions
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.7 2010-08-11 10:02:37 erwanmartin Exp $ -->
+
+<catalog>
+	<item name="pmbesSearch" id="1"/>
+	<item name="pmbesItems" id="2"/>
+	<item name="pmbesNotices" id="3"/>
+	<item name="pmbesOPACEmpr" id="4"/>
+	<item name="pmbesTypes" id="5"/>
+	<item name="pmbesOPACAnonymous" id="6"/>
+    <item name="pmbesOPACGeneric" id="7"/>
+    <item name="pmbesAuthors" id="8"/>
+    <item name="pmbesPublishers" id="9"/>
+    <item name="pmbesCollections" id="10"/>
+    <item name="pmbesSpecialTypes" id="11"/>
+    <item name="pmbesSelfServices" id="12"/>
+    <item name="pmbesRepositories" id="13"/>
+    <item name="pmbesThesauri" id="14"/>
+</catalog>

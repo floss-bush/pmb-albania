@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
+
+<!-- 
+PMB
+table des langues supportées
+PMB est sous licence GPL, la réutilisation du code est cadrée
+creator: François LEMARCHAND
+modified: ...
+$Id: languages_csv.xml,v 1.2 2004-06-10 06:52:27 touraine37 Exp $
+-->
+
+<XMLlist>
+	<entry code="it_IT">iso-8859-1</entry>
+	<entry code="sq_AL">iso-8859-1</entry>
+</XMLlist>

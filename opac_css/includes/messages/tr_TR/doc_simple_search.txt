@@ -1,0 +1,12 @@
+<h2>Recherche simple</h2>
+<p><strong>saisissez le titre ou l'auteur à rechercher puis cliquez sur <i>Rechercher</i></strong></p>
+<hr />
+
+<p>Vous pouvez saisir des noms communs ou des noms propres.</p>
+<p>Les <b>caractères accentués</b> et la <b>ponctuation</b> sont <b>ignorés</b> lors de la recherche (é, è, à, ç, !, ', etc.).</p>
+<p>Vous pouvez également chercher parmi les éditeurs, les collections, sous-collections, catégories (thésaurus), indexations (par exemple Dewey), mots clés, résumé et notes.</p>
+<p>Pour cela, cochez <img src="images/coche.gif" align="absmiddle">
+ d'abord la ou les cases correspondantes puis saisissez votre ou vos critères de recherche puis cliquez sur Rechercher.</p>
+<hr />
+<p>Votre recherche peut être également une 
+<a href="help.php?whatis=expbool">expression booléenne</a>.<br />

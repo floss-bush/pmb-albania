@@ -1,0 +1,13 @@
+<h1>Administration des exemplaires</h1>
+
+<p>La section <b>administration des exemplaires</b> permet de d&eacute;finir les param&egrave;tres de l'application pour le pr&ecirc;t et les statistiques sur les documents.
+<ul>
+<li><b>types de documents</b> permet de param&eacute;trer les diff&eacute;rents supports en pr&ecirc;t et pour chacun d'eux la dur&eacute;e du pr&ecirc;t en jours.</li>
+<li><b>codes statistiques</b> ce code est utilis&eacute; pour la constitution des statistiques de pr&ecirc;t et sur les fonds de la m&eacute;diath&egrave;que</li>
+<li><b>sections</b> la section est le secteur de la m&eacute;diath&egrave;que o&ugrave; le document est empruntable (secteur adulte, jeunesse, discoth&egrave;que...). Ce code est &eacute;galement pris en compte dans la constitution des statistiques</li>
+<li><b>statuts</b> la notion de statut est utilis&eacute;e pour sp&eacute;cifier si le document peut &ecirc;tre emprunt&eacute; ou non</li>
+<li><b>localisations</b> la localisation peut &ecirc;tre utilis&eacute;e pour attacher le document &agrave; un emplacement particulier (exemple&nbsp;: en r&eacute;serve)</li>
+<li><b>propri&eacute;taires</b> propri&eacute;taire des exemplaires, BDP par exemple</li>
+<li><b>personnalisable</b> champs personnalisables sur les exemplaires</li>
+</ul></p>
+ 

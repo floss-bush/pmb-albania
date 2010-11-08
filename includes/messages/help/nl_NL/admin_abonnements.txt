@@ -1,0 +1,8 @@
+<h1>Abonnementenadministratie</h1>
+
+<p>In de <b>Abonnementenadministratie</b> kun je de instellingen voor het gebruik van abonnementen ingeven.
+<ul>
+<li>Onder <b>Periodiciteit</b> kun je de verschillende soorten periodiciteit definiëren die gebruikt wordt voor abonnementen.</li>
+
+</ul></p>
+ 

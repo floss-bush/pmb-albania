@@ -1,0 +1,17 @@
+<br />
+<b>ATTENTION, cet import cr&eacute;e les notices et les autorit&eacute;s si besoin. 
+<br />Cette fonction ne met pas &agrave; jour une notice existante.</b>
+<br /><br />
+
+Le fichier doit &ecirc;tre au format UNIMARC<br />
+<ul>
+<li>L'import se d&eacute;roule en trois phases :
+<OL>
+<LI>T&eacute;l&eacute;chargement de votre fichier</LI>
+<LI>Pr&eacute;-chargement du fichier</LI>
+<LI>Transfert dans la base des notices</LI>
+</OL></li>
+<br /><li>Au lieu de t&eacute;l&eacute;charger votre fichier, vous pouvez le mettre &agrave; disposition sur le serveur par la m&eacute;thode qui vous convient (FTP par exemple). Il doit alors &ecirc;tre nomm&eacute; imp&eacute;rativement "<?php echo $nom_fichier_transfert_ftp; ?>" et situ&eacute dans admin/import. Dans ce cas utiliser directement le <a href="iimport_expl.php?categ=import&sub=import&action=preload">pr&eacute;chargement</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import&action=beforeupload">Commencer : t&eacute;l&eacute;charger votre fichier</a>
+			

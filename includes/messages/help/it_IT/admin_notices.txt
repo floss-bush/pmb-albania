@@ -1,0 +1,8 @@
+<h1>Amministrazione delle schede bibliografiche</h1>
+
+<p>La sezione <b>amministrazione delle schede</b> permette di definire i parametri del programma per le schede bibliografiche.
+<ul>
+<li><b>Fonti</b> permette di definire le fonti delle schede bibliografiche, in modo da poter conoscere eventuali limitazioni alla ridiffusione delle stesse schede.</li>
+<li><b>Personalizzazioni</b> campi personalizzabili relativi alle schede.</li>
+</ul></p>
+ 

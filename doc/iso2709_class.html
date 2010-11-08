@@ -1,0 +1,833 @@
+<!--
++---------------------------------------------------------------------------------------+
+� 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
++---------------------------------------------------------------------------------------+
+$Id: iso2709_class.html,v 1.3 2009-05-16 11:08:24 dbellamy Exp $
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org">
+    <title>
+      Classe ISO2709 pour le PHP
+    </title>
+  </head>
+  <body leftmargin='120' rightmargin='30'>
+    <h1>
+      Une classe PHP pour manipuler des enregistrements au format ISO2709
+    </h1>
+	<small>classe iso2709_record (public release 0.0.6)</small><br />
+    <i>par Fran&ccedil;ois Lemarchand. 2003</i>&nbsp;<a href="mailto:balno@users.sourceforge.net">balno@users.sourceforge.net</a> 
+    <hr />
+    <p>
+      En pr&eacute;ambule, je voudrais d&eacute;dier ce travail &agrave; Herv&eacute; Le Crosnier. Au d&eacute;but des ann&eacute;es 90, j&#39;ai eu la chance de suivre un stage d&#39;initiation &agrave; HTML assur&eacute; par lui. Il est plus que probable qu&#39;il ne s&#39;en souvienne pas, mais depuis ce stage, quand je mesure le chemin parcouru, je ne peux que dire merci Herv&eacute;, un grand MERCI.
+    </p>
+    <p>
+      La classe PHP dont il est question ici se pose deux objectifs&nbsp;: Dans un premier temps, il s&#39;agit de lire des enregistrements ISO2709 afin de r&eacute;cup&eacute;rer des informations. Dans un second temps, et pour &ecirc;tre compl&eacute;tement efficiente, la classe devrait id&eacute;alement nous permettre de constituer de nouveaux enregistrements respectant ce format.
+    </p>
+    <h2>
+      Rappel sur le format ISO2709
+    </h2>
+    <p>
+      Le format d&#39;&eacute;change ISO 2709 fournit une norme pour l&#39;&eacute;change de donn&eacute;es bibliographiques. Il offre une interface unifi&eacute;e permettant la description d&#39;enregistrements organis&eacute;s en champs et sous-champs.
+    </p>
+    Ce format d&eacute;finit pour un enregistrement 3 zones&nbsp;: 
+    <ul>
+      <li>
+        le <strong>guide</strong>
+      </li>
+      <li>
+        le <strong>r&eacute;pertoire</strong>
+      </li>
+      <li>
+        la <strong>zone des donn&eacute;es</strong>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        Le <strong>guide</strong> contient des informations sur la nature de l&#39;enregistrement&nbsp;: le type de notice, le genre de document d&eacute;crit, le statut de la notice, etc. Il contient aussi diverses informations sur la structure ISO 2709 de l&#39;enregistrement&nbsp;: la longueur de l&#39;enregistrement, la position dans l&#39;enregistrement o&ugrave; se trouvent les donn&eacute;es, etc. Ce guide est constitu&eacute; d&#39;une s&eacute;rie de 24 caract&egrave;res qui se d&eacute;composent ainsi&nbsp; 
+        <ol>
+          <li>
+            caract&egrave;res 0 &agrave; 4&nbsp;: la longueur de l&#39;enregistrement
+          </li>
+          <li>
+            caract&egrave;re 5&nbsp;: le statut de la notice bibliographique
+          </li>
+          <li>
+            caract&egrave;re 6&nbsp;: le type de document
+          </li>
+          <li>
+            caract&egrave;re 7&nbsp;: le type de la notice
+          </li>
+          <li>
+            caract&egrave;re 8&nbsp;: le niveau hi&eacute;rarchique de la notice
+          </li>
+          <li>
+            caract&egrave;re 9&nbsp;: non-d&eacute;fini
+          </li>
+          <li>
+            caract&egrave;re 10&nbsp;: la longueur des indicateurs (2 en UNIMARC)
+          </li>
+          <li>
+            caract&egrave;re 11&nbsp;: la longueur du code de sous-zone (2 en UNIMARC)
+          </li>
+          <li>
+            caract&egrave;res 12 &agrave; 16&nbsp;: position dans l&#39;enregistrement du d&eacute;but de la zone de donn&eacute;es
+          </li>
+          <li>
+            caract&egrave;re 17&nbsp;: le niveau de catalogage
+          </li>
+          <li>
+            caract&egrave;re 18&nbsp;: la forme du catalogage descriptif
+          </li>
+          <li>
+            caract&egrave;re 19&nbsp;: non-d&eacute;fini
+          </li>
+          <li>
+            caract&egrave;re 20&nbsp;: le nombre de caract&egrave;res du r&eacute;pertoire indiquant la longueur d&#39;un champ (4 en UNIMARC)
+          </li>
+          <li>
+            caract&egrave;re 21&nbsp;: le nombre de caract&egrave;res du r&eacute;pertoire indiquant la position d&#39;un champ (5 en UNIMARC)
+          </li>
+          <li>
+            caract&egrave;re 22&nbsp;: le &quot;nombre de caract&egrave;res de la partie relative &agrave; l&#39;application de chaque article du r&eacute;pertoire&quot; (Je ne sais pas trop &agrave; quoi cela sert, c&#39;est toujours 0 en UNIMARC)
+          </li>
+          <li>
+            caract&egrave;re 23&nbsp;: non-d&eacute;fini
+          </li>
+        </ol>
+      </li>
+      <li>
+        Le <strong>r&eacute;pertoire</strong> est une sorte de table des mati&egrave;res de l&#39;enregistrement. Il contient pour chacun des champs de celui-ci le label du champ (sur 3 caract&egrave;res), le nombre de caract&egrave;res du champ (sur le nombre de caract&egrave;res d&eacute;fini par la position 20 du guide) et la position du d&eacute;but du champ dans la zone de donn&eacute;es (sur le nombre de caract&egrave;res d&eacute;fini par la position 21 du guide). Prenons un exemple qui sera peut-&ecirc;tre plus parlant. Pour le champ 001 d&#39;un enregistrement qui compte 12 caract&egrave;res on aura la mention suivante dans le r&eacute;pertoire&nbsp;: 001001200000. On peut d&eacute;composer cette mention ainsi : le label est sur trois caract&egrave;res, c&#39;est 001. La longueur du champ est sur 4 caract&egrave;res : 0012. Enfin l&#39;adresse du champ est sur 5 caract&egrave;res : 00000. Celle-ci est fix&eacute;e &agrave; 0 car c&#39;est l&#39;&quot;offset&quot;, la position en nombre de caract&egrave;res par rapport au d&eacute;but de la zone des donn&eacute;es (le d&eacute;but de cette zone est d&eacute;fini dans les positions 12 &agrave; 16 du label). Pour acc&eacute;der au contenu de ce champ, nous avons donc toutes les informations requises&nbsp;: sa longueur (second &eacute;l&eacute;ment de son entr&eacute;e dans la &quot;table des mati&egrave;res&quot;), son label, et l&#39;endroit o&ugrave; il d&eacute;bute dans l&#39;enregistrement (obtenu par l&#39;addition de la position du d&eacute;but des donn&eacute;es indiqu&eacute;e dans le guide et du troisi&egrave;me &eacute;l&eacute;ment trouv&eacute; dans le r&eacute;pertoire).
+      </li>
+      <li>
+        La <strong>zone des donn&eacute;es</strong> contient donc l&#39;ensemble des champs de l&#39;enregistrement mis bout &agrave; bout suivant l&#39;ordre d&eacute;fini dans le <strong>r&eacute;pertoire</strong>. Dans ces champs, des caract&egrave;res sp&eacute;ciaux sont utilis&eacute;s pour marquer le d&eacute;but des sous-champs et la fin du champ (ces caract&egrave;res sont inclus dans la longueur indiqu&eacute;e par le r&eacute;pertoire). Certains champs commencent par des indicateurs d&eacute;finis dans la norme UNIMARC ou autre. La fin de l&#39;enregistrement lui-m&ecirc;me est marqu&eacute;e par un caract&egrave;re sp&eacute;cial.
+      </li>
+    </ul>
+    <p>
+      Comme on peut le voir, la structure d&#39;un enregistrement au format ISO 2709 est assez simple une fois que l&#39;on en a compris le principe. La manipulation de tels enregistrements se r&eacute;sume &agrave; des op&eacute;rations &eacute;l&eacute;mentaires (d&eacute;composition de l&#39;enregistrement, consultation de la &quot;table des mati&egrave;res&quot; pour acc&eacute;der &agrave; un champ, etc.) La difficult&eacute; principale reste de maintenir la synchronisation entre les trois zones de l&#39;enregistrement lors de l&#39;insertion ou de la suppression de champs. La classe pr&eacute;sent&eacute;e ici &agrave; pour but d&#39;accomplir ces acc&egrave;s et cette synchronisation de mani&egrave;re relativement transparente pour le programmeur.
+    </p>
+    <h2>
+      Propri&eacute;t&eacute;s
+    </h2>
+    <p>
+      Comme toute classe PHP, la classe iso2709_record comprend des propri&eacute;t&eacute;s qui peuvent &ecirc;tre acc&eacute;d&eacute;es par votre code. Certaines de ces propri&eacute;t&eacute;s sont utilis&eacute;es pour la gestion interne de l&#39;objet d&eacute;fini dans la classe.
+    </p>
+    <table border='1' cellpadding='3'>
+      <tr>
+        <th>
+          &nbsp;
+        </th>
+        <th>
+          propri&eacute;t&eacute;
+        </th>
+        <th>
+          type
+        </th>
+        <th>
+          description
+        </th>
+      </tr>
+      <tr>
+        <td rowspan='4' valign='middle'>
+          enregistrement ISO2709
+        </td>
+        <td>
+          full_record
+        </td>
+        <td>
+          string
+        </td>
+        <td>
+          enregistrement complet
+        </td>
+      </tr>
+      <tr>
+        <td>
+          guide
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          portion &#39;guide&#39;
+        </td>
+      </tr>
+      <tr>
+        <td>
+          directory
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          portion &#39;r&eacute;pertoire&#39;
+        </td>
+      </tr>
+      <tr>
+        <td>
+          data
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          portion &#39;zone de donn&eacute;es&#39;
+        </td>
+      </tr>
+      <tr>
+        <td rowspan='3' valign='middle'>
+          tableaux internes
+        </td>
+        <td>
+          inner_guide
+        </td>
+        <td>
+          tableau associatif
+        </td>
+        <td nowrap>
+          guide sous forme de tableau associatif
+          <br />
+           structure:
+          <br />
+           <code>$this-&gt;inner_guide = array(
+          <br />
+           rl =&gt; &#39;longueur de l&#39;enregistrement (int)&#39;,
+          <br />
+           rs =&gt; &#39;&eacute;tat de la notice (1 car.)&#39;,
+          <br />
+           dt =&gt; &#39;type de document (1 car.)&#39;,
+          <br />
+           bl =&gt; &#39;type de la notice (1 car.)&#39;,
+          <br />
+           hl =&gt; &#39;niveau hi&eacute;rarchique (1 car.)&#39;,
+          <br />
+           pos9 =&gt; &#39;ind&eacute;fini. contient un espace&#39;,
+          <br />
+           il =&gt; &#39;longueur indicateurs (int)&#39;,
+          <br />
+           sl =&gt; &#39;longueur code sous-champ (int)&#39;,
+          <br />
+           ba =&gt; &#39;adresse de base des donn&eacute;es (int)&#39;,
+          <br />
+           el =&gt; &#39;niveau de catalogage (1 car.)&#39;,
+          <br />
+           ru =&gt; &#39;forme du catal. descriptif (1 car.)&#39;,
+          <br />
+           pos19 =&gt; &#39;ind&eacute;fini. contient un espace&#39;,
+          <br />
+           dm1 =&gt; &#39;infos pour le r&eacute;pertoires (toujours 4)&#39;,
+          <br />
+           dm2 =&gt; &#39;infos pour le r&eacute;pertoires (toujours 5)&#39;,
+          <br />
+           dm3 =&gt; &#39;infos pour le r&eacute;pertoires (toujours 0)&#39;,
+          <br />
+           pos23 =&gt; &#39;ind&eacute;fini. contient un espace&#39;
+          <br />
+           );</code> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          inner_directory
+        </td>
+        <td>
+          tableau multi-dimensionnel
+        </td>
+        <td>
+          tableau correspondant au r&eacute;pertoire de l&#39;enregistrement
+          <br />
+           structure:
+          <br />
+           <code>$this-&gt;inner_guide[x] = array(
+          <br />
+           label =&gt; &#39;label du champ de rang x (string)&#39;,
+          <br />
+           length =&gt; &#39;longueur du champ de rang x&#39;,
+          <br />
+           adress =&gt; &#39;offset du champ dans l&#39;enregistrement&#39;
+          <br />
+           );</code> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          inner_data
+        </td>
+        <td>
+          tableau multi-dimensionnel
+        </td>
+        <td>
+          tableau correspondant au r&eacute;pertoire de l&#39;enregistrement
+          <br />
+           structure:
+          <br />
+           <code>$this-&gt;inner_data[x] = array(
+          <br />
+           label =&gt; &#39;label du champ de rang x (string)&#39;,
+          <br />
+           content =&gt; &#39;contenu du champ&#39;
+          <br />
+           );</code> 
+        </td>
+      </tr>
+      <tr>
+        <td rowspan='6' valign='middle'>
+          caract&egrave;res sp&eacute;ciaux
+        </td>
+        <td>
+          record_end
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          caract&egrave;re de fin de notice (IS3 de l&#39;ISO 6630)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          field_end
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          caract&egrave;re de fin de champ (IS2 de l&#39;ISO 6630)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          subfield_begin
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          caract&egrave;re de d&eacute;but de sous-champ (IS1 de l&#39;ISO 6630)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          NSB_begin
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          caract&egrave;re d&eacute;butant un NSB (Non Sorting Block)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          NSB_end
+        </td>
+        <td>
+          cha&icirc;ne
+        </td>
+        <td>
+          caract&egrave;re de fin NSB (Non Sorting Block)
+        </td>
+      </tr>
+      <tr>
+        <td colspan='3'>
+          <u>note</u> Les propri&eacute;t&eacute;s d&eacute;crivant des caract&egrave;res sp&eacute;ciaux ont toutes dans cette classe un &eacute;quivalent pr&eacute;fix&eacute; par <strong>rgx_</strong> contenant les m&ecirc;mes caract&egrave;res sous une forme utilisable dans des <i>expressions r&eacute;guli&egrave;res compatibles PERL</i>.
+        </td>
+      </tr>
+      <tr>
+        <td rowspan='2' valign='middle'>
+          divers
+        </td>
+        <td>
+          update_mode
+        </td>
+        <td>
+          entier
+        </td>
+        <td>
+          mode de mise &agrave; jour de l&#39;enregistrement
+        </td>
+      </tr>
+      <tr>
+        <td>
+          errors
+        </td>
+        <td>
+          tableau
+        </td>
+        <td>
+          tableau contenant les messages d&#39;erreurs li&eacute;s au format de l&#39;enregistrement (m&eacute;thode <i>valid()</i>) ou aux modifications effectu&eacute;es sur celui-ci.
+        </td>
+      </tr>
+    </table>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      Dans l&#39;&eacute;tat actuel des choses, la gestion des objets de PHP ne comprend aucune notion de propri&eacute;tes ou m&eacute;thodes publiques ou priv&eacute;es. Les propri&eacute;t&eacute;s de la classe sont donc toutes accessibles depuis n&#39;importe quel endroit de votre code. Cependant, je ne recommande pas de modifier les propri&eacute;t&eacute;s pr&eacute;fix&eacute;es par <strong>inner_</strong> sans bien r&eacute;fl&eacute;chir avant. Ces variables sont en effet utilis&eacute;es de mani&egrave;re interne dans la classe pour la gestion de l&#39;enregistrement. On peut donc les modifier, mais sans garantie quant &agrave; la synchronisation de l&#39;ensemble.
+    </p>
+    <h2>
+      M&eacute;thodes
+    </h2>
+    <h3>
+      Le constructeur&nbsp;: iso2709_record
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>iso2709_record([<i>string</i> record], [<i>flag</i> update_mode])</code>
+    </p>
+    <p>
+      Le constructeur est appel&eacute; lors de la cr&eacute;ation de la classe. Il admet deux param&egrave;tres&nbsp;:
+    </p>
+    <ul>
+      <li>
+        Un enregistrement ISO2709 sous la forme d&#39;une cha&icirc;ne. La cha&icirc;ne pass&eacute;e en param&egrave;tre peut &ecirc;tre vide, auquel cas un nouvel enregistrement sera cr&eacute;&eacute;.
+      </li>
+      <li>
+        Un drapeau indiquant le mode de mise &agrave; jour de l&#39;enregistrement. Ce drapeau peut prendre les valeurs <strong>AUTO_UPDATE</strong> ou <strong>USER_UPDATE</strong>, la valeur par d&eacute;faut &eacute;tant <strong>AUTO_UPDATE</strong>. Ce drapeau permet de r&eacute;gler le comportement de la classe lors de l&#39;insertion ou de l&#39;effacement de champs dans l&#39;enregsitrement. Avec la valeur <strong>AUTO_UPDATE</strong>, les tableaux internes et le contenu des variables de l&#39;enregistrement sont remis &agrave; jour &agrave; <u>chaque</u> insertion ou suppression, ce qui ralentit celles-ci. A contrario, avec la valeur fix&eacute;e &agrave; <strong>USER_UPDATE</strong>, le script appelant doit g&eacute;rer ces mises &agrave; jour par l&#39;interm&eacute;diaire de la m&eacute;thode <i>update()</i>. Pour clarifier ceci, on peut consid&eacute;rer que s&#39;il s&#39;agit de lire ou d&#39;ajouter juste quelques champs, on peut laisser la valeur de ce param&egrave;tre &agrave; <strong>AUTO_UPDATE</strong>. Par contre, pour la cr&eacute;ation d&#39;un enregistrement ou de nombreuses modifications, il est grandement pr&eacute;f&eacute;rable de retenir <strong>USER_UPDATE</strong>. Si cela est le cas, il ne faudra pas omettre l&#39;appel de la m&eacute;thode <i>update()</i> apr&egrave;s les modifications, la gestion des mises &agrave; jour internes &agrave; la classe &eacute;tant de la responsabilit&eacute; du programmeur et non plus de celle-&ccedil;i.
+      </li>
+    </ul>
+    <h3>
+      Obtenir le contenu d&#39;un sous-champ ou d&#39;un champ&nbsp;: get_field
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>get_subfield(<i>string</i> label [, <i>mixed</i> refs])</code>
+    </p>
+    <p>
+      La fonction <i>get_subfield</i> retourne le contenu du champ sp&eacute;cifi&eacute; par le param&egrave;tres qui lui sont pass&eacute;s. L&#39;appel de la m&eacute;thode peut &ecirc;tre effectu&eacute; de diff&eacute;rentes mani&egrave;res. Le param&egrave;tre <i>label</i> est l&#39;&eacute;tiquette du champ. Ce peut &ecirc;tre une expression r&eacute;guli&egrave;re (le point est alors un caract&egrave;re &quot;joker&quot;. <u>ex</u>&nbsp;: 7.0 indique les champs 700 <u>et</u> 710).
+    </p>
+    <p>
+      La valeur retourn&eacute;e par la fonction est un tableau dont la structure est d&eacute;finie par les param&egrave;tres pass&eacute;s (<i>ref</i>).
+    </p>
+    <ol>
+      <li>
+        Si le seul param&egrave;tre fourni est <i>label</i>, la m&eacute;thode retourne un tableau dont les &eacute;l&eacute;ments sont constitu&eacute;s par les contenus entiers des champs correspondant &agrave; <i>label</i>.
+      </li>
+      <li>
+        Si seule une &eacute;tiquette de sous-champ est fournie en plus du <i>label</i>, le tableau retourn&eacute; sera comme pr&eacute;c&eacute;demment un tableau dont les &eacute;l&eacute;ments sont constitu&eacute;s par les contenus entiers des champs correspondant &agrave; <i>label</i> et &agrave; l&#39;&eacute;tiquette fournie.
+      </li>
+      <li>
+        Si plusieurs &eacute;tiquettes de sous-champs sont fournies, le tableau retourn&eacute; sera un tableau multi-dimensionnel dont les &eacute;l&eacute;ments sont des tableaux associatifs contenant les valeurs des sous-champs sp&eacute;cifi&eacute;s.
+      </li>
+    </ol>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      <u>exemples d&#39;appels valides de <strong>get_subfield</strong></u>&nbsp;:
+    </p>
+    <dl>
+      <dt>
+        <code>$isbn = $myRecord-&gt;get_subfield(&#39;010&#39;)</code>
+      </dt>
+      <dd>
+        retourne un tableau constitu&eacute; par les contenus des champs 010 de l&#39;enregistrement. Les indices de ce tableau sont num&eacute;riques.
+        <br />
+         <u>ex.</u> 
+<pre>
+  $isbn[0] = &#39;contenu du premier champ 010&#39;
+  $isbn[1] = &#39;contenu du second champ 010&#39;
+  ...
+     
+</pre>
+      </dd>
+      <dt>
+        <code>$nom_auteur = $myRecord-&gt;get_subfield(&#39;7..&#39;, a)</code>
+      </dt>
+      <dd>
+        retourne un tableau constitu&eacute; par les contenus des sous-champs <b>$a</b> des champs commencant par 7 de l&#39;enregistrement. Les indices de ce tableau sont num&eacute;riques.
+        <br />
+         <u>ex.</u> 
+<pre>
+  $nom_auteur[0] = &#39;contenu du sous-champ 700$a&#39;
+  $nom_auteur[1] = &#39;contenu du sous-champ 701$a&#39;
+  ...
+  $nom_auteur[x] = &#39;contenu du dernier sous-champ 712$a&#39;
+     
+</pre>
+      </dd>
+      <dt>
+        <code>$nom_auteur = $myRecord-&gt;get_subfield(&#39;7..&#39;, a, b)</code>
+      </dt>
+      <dd>
+        retourne un tableau index&eacute; dont les &eacute;lements sont le contenu des sous-champs <b>$a</b> et <b>$b</b> des champs commencant par 7 de l&#39;enregistrement. Les indices de ce tableau sont num&eacute;riques et chacun de ses &eacute;l&eacute;ments est un tableau associatif.
+        <br />
+         <u>ex.</u> 
+<pre>
+  $nom_auteur[0][a] = &#39;contenu du sous-champ 700$a&#39;
+  $nom_auteur[0][b] = &#39;contenu du sous-champ 700$b&#39;
+  $nom_auteur[1][a] = &#39;contenu du sous-champ 701$a&#39;
+  ...
+  $nom_auteur[x][a] = &#39;contenu du dernier sous-champ 712$a&#39;
+  $nom_auteur[x][b] = &#39;contenu du dernier sous-champ 712$b&#39;
+     
+</pre>
+      </dd>
+    </dl>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      Avec ceci, on doit en principe pouvoir acc&eacute;der n&#39;importe quel sous-champ de l&#39;enregistrement. Si vous avez des besoins plus complexes, rien ne vous emp&ecirc;che de &#39;parser&#39; directement les propri&eacute;tes de la classe (cf. section <i>propri&eacute;t&eacute;s</i>).
+    </p>
+    <h3>
+      Ajout d&#39;un champ&nbsp;: add_field
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>add_field(<i>string</i> label, <i>string</i> indicators, <i>mixed</i> field_content)</code>
+    </p>
+    <p>
+      Cette m&eacute;thode permet l&#39;ajout d&#39;un champ &agrave; un enregistrement ISO2709. On peut l&#39;appeler de diff&eacute;rentes mani&egrave;res&nbsp;: le nombre de param&egrave;tres est variable. On doit fournir en premier lieu l&#39;&eacute;tiquette du champ et les &eacute;ventuels indicateurs, ceux-&ccedil;i pouvant &ecirc;tre de longueur nulle si le champ n&#39;a pas d&#39;indicateurs.
+    </p>
+    <p>
+      Le passage du contenu du champ se fait par le param&egrave;tre <i>field_content</i> sous la forme d&#39;un nombre variable de cha&icirc;nes comprenant alternativement l&#39;&eacute;tiquette du sous-champ et le contenu du sous-champ. Si une seule cha&icirc;ne est fournie, le champ est r&eacute;put&eacute; n&#39;avoir pas d&#39;&eacute;tiquette de sous-champ et contenir uniquement la cha&icirc;ne fournie.
+    </p>
+    <p>
+      La seconde possibilit&eacute; est de passer le contenu du champ sous la forme d&#39;un tableau multi-dimensionnel dont chaque ligne est un array constitu&eacute; par l&#39;&eacute;tiquette du sous-champ et le contenu du sous-champ.
+    </p>
+    <p>
+      <u>exemples d&#39;appels valides de <strong>add_field</strong></u>&nbsp;:
+    </p>
+    <dl>
+      <dt>
+        <code>$myRecord-&gt;add_field(&#39;001&#39;, &#39;&#39;, &#39;01-0002977&#39;)</code>
+      </dt>
+      <dd>
+        ajoute un champ 001 ayant pour contenu 01-0002977 et ne comprenant pas d&#39;indicateurs.
+      </dd>
+      <dt>
+        <code>$myRecord-&gt;add_field(200, &#39;1 &#39;, a, &#39;Minable le pingouin&#39;, f, &#39;Texte d&#39;Helen Lester&#39;)</code>
+      </dt>
+      <dd>
+        ajoute un champ 200 ayant un champ $a, un champ $f et dont le premier indicateur est 1.
+      </dd>
+      <dt>
+        <code>$monChamp[0] = array( a =&gt; &#39;Lester&#39;);
+        <br />
+         $monChamp[1] = array( b =&gt; &#39;Helen&#39;);
+        <br />
+         $myRecord-&gt;add_field(700, &#39; 1&#39;, $monChamp);</code>
+      </dt>
+      <dd>
+        Passage des arguments par un tableau. On ins&eacute;re un champ 700 avec $a et $b avec un indicateur d&eacute;crivant une entr&eacute;e au nom de famille.
+      </dd>
+    </dl>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      La m&eacute;thode add_field() retourne <strong>TRUE</strong> en cas de succ&egrave;s et <strong>FALSE</strong> en cas d&#39;&eacute;chec (mauvais format pour les param&egrave;tres). Dans ce dernier cas, un message est ajout&eacute; au tableau des erreurs (cf. m&eacute;thode <i>show_errors</i>).
+    </p>
+    <h3>
+      Suppression d&#39;un champ&nbsp;: delete_field
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>delete_field(<i>string</i> label)</code>
+    </p>
+    <p>
+      La m&eacute;thode <i>delete_field()</i> est &agrave; utiliser pour supprimer un champ de l&#39;enregistrement ISO2709. Son fonctionnement est relativement simple&nbsp;: on passe comme param&egrave;tre l&#39;&eacute;tiquette du champ &agrave; supprimer. Il est possible de supprimer plusieurs champs en un seul appel dans la mesure o&ugrave; le param&egrave;tre <i>label</i> peut &ecirc;tre une <u>expression r&eacute;guli&egrave;re</u>. En pratique, on peut consid&eacute;rer que le point est un caract&egrave;re &quot;joker&quot;.
+    </p>
+    <p>
+      <u>exemples d&#39;appels valides de <strong>delete_field</strong></u>&nbsp;:
+    </p>
+    <dl>
+      <dt>
+        <code>$myRecord-&gt;delete_field(&#39;001&#39;)</code>
+      </dt>
+      <dd>
+        supprime le ou les champs 001.
+      </dd>
+      <dt>
+        <code>$myRecord-&gt;delete_field(&#39;71.&#39;)</code>
+      </dt>
+      <dd>
+        supprime les champs de l&#39;enregistrement dont les labels commencent par 71 (710, 711, 712...).
+      </dd>
+      <dt>
+        <code>$myRecord-&gt;delete_field(&#39;..2&#39;)</code>
+      </dt>
+      <dd>
+        supprime les champs de l&#39;enregistrement dont les labels finissent par 2 (012, 022, etc.). (c&#39;est idiot, mais sait-on jamais...)
+      </dd>
+    </dl>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      La m&eacute;thode delete_field() retourne <strong>TRUE</strong> en cas de succ&egrave;s et <strong>FALSE</strong> en cas d&#39;&eacute;chec (mauvais format pour le label). Dans ce dernier cas, un message est ajout&eacute; au tableau des erreurs (cf. m&eacute;thode <i>show_errors</i>).
+    </p>
+    <h3>
+      Gestion du guide &nbsp;: set_rs, set_dt, set_bl, set_hl, set_el, set_ru
+    </h3>
+    <p>
+      <u>prototypes</u>&nbsp;:
+      <br />
+       <code>set_rs(<i>string/char</i> value)</code>
+      <br />
+       <code>set_dt(<i>string/char</i> value)</code>
+      <br />
+       <code>set_bl(<i>string/char</i> value)</code>
+      <br />
+       <code>set_hl(<i>string/char</i> value)</code>
+      <br />
+       <code>set_el(<i>string/char</i> value)</code>
+      <br />
+       <code>set_ru(<i>string/char</i> value)</code>
+    </p>
+    <p>
+      Cet ensemble de m&eacute;thodes permet de positionner les valeurs non calcul&eacute;es du guide de l&#39;enregistrement. Pour conna&icirc;tre le codage des valeurs concern&eacute;es, je vous invite &agrave; vous reporter aux sp&eacute;cifications du format UNIMARC (ou autre).
+    </p>
+    <p>
+      Nomenclature des fonctions&nbsp;:
+      <br />
+    </p>
+    <table border='1'>
+      <tr>
+        <th>
+          fonction
+        </th>
+        <th>
+          position concern&eacute;e
+        </th>
+        <th>
+          &eacute;l&eacute;ment
+        </th>
+        <th>
+          description
+        </th>
+      </tr>
+      <tr>
+        <td>
+          set_rs()
+        </td>
+        <td>
+          5
+        </td>
+        <td>
+          record status
+        </td>
+        <td>
+          Etat de la notice
+        </td>
+      </tr>
+      <tr>
+        <td>
+          set_dt()
+        </td>
+        <td>
+          6
+        </td>
+        <td>
+          document type
+        </td>
+        <td>
+          Type de document
+        </td>
+      </tr>
+      <tr>
+        <td>
+          set_bl()
+        </td>
+        <td>
+          7
+        </td>
+        <td>
+          bibliographic level
+        </td>
+        <td>
+          Type de la notice
+        </td>
+      </tr>
+      <tr>
+        <td>
+          set_hl()
+        </td>
+        <td>
+          8
+        </td>
+        <td>
+          hierarchical level
+        </td>
+        <td>
+          Niveau hi&eacute;rarchique
+        </td>
+      </tr>
+      <tr>
+        <td>
+          set_el()
+        </td>
+        <td>
+          17
+        </td>
+        <td>
+          encoding level
+        </td>
+        <td>
+          Niveau de catalogage
+        </td>
+      </tr>
+      <tr>
+        <td>
+          set_ru()
+        </td>
+        <td>
+          18
+        </td>
+        <td>
+          record update
+        </td>
+        <td>
+          Forme du catalogage descriptif
+        </td>
+      </tr>
+    </table>
+
+    <br />
+     
+    <br />
+     
+    <p>
+      L&#39;appel de ces m&eacute;thodes est on ne peut plus simple&nbsp;: on passe le code souhait&eacute; comme param&egrave;tre unique. Le guide (<i>inner_guide</i>) est modifi&eacute;. Cependant, la mise &agrave; jour de l&#39;enregistrement est toujours g&eacute;r&eacute;e suivant les modes <b>USER_UPDATE</b> et <b>AUTO_UPDATE</b>. Si la classe a &eacute;t&eacute; d&eacute;clar&eacute;e avec le mode <b>USER_UPDATE</b>, la modification ne sera effective qu&#39;apr&egrave;s l&#39;appel de la m&eacute;thode <i>update()</i>.
+    </p>
+    <h3>
+      Mise &agrave; jour de l&#39;enregistrement&nbsp;: update
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>update(<i>void</i>)</code>
+    </p>
+    <p>
+      Cette m&eacute;thode n&#39;est &agrave; invoquer que si la classe a &eacute;t&eacute; cr&eacute;&eacute;e avec le drapeau <strong>update_mode</strong> fix&eacute; &agrave; <strong>USER_UPDATE</strong>. Si ce n&#39;est pas le cas, l&#39;appel &agrave; cette m&eacute;thode sera effectu&eacute; &agrave; chaque op&eacute;ration d&#39;insertion ou d&#39;effacement effectu&eacute;e sur l&#39;enregistrement, ce qui rend superflue une mise &agrave; jour par le script appelant (cf. le constructeur&nbsp;: iso2709_record).
+    </p>
+    <p>
+      Le r&ocirc;le de cette m&eacute;thode est de synchroniser l&#39;enregistrement courant avec sa repr&eacute;sentation interne dans la classe. Les propri&eacute;t&eacute;s <i>full_record</i>, <i>guide</i> et <i>directory</i> sont mises &agrave; jour &agrave; partir du contenu des tableaux <i>inner_data</i>, <i>inner_guide</i>, <i>inner_directory</i>.
+    </p>
+    <p>
+      Cette m&eacute;thode ne retourne rien.
+    </p>
+    <h3>
+      V&eacute;rification du format de l&#39;enregistrement&nbsp;: valid
+    </h3>
+    <p>
+      <u>prototype</u>&nbsp;: <code>valid(<i>void</i>)</code>
+    </p>
+    <p>
+      Cette m&eacute;thode v&eacute;rifie le format ISO2709 de l&#39;enregistrement. Elle retournera <strong>TRUE</strong> si l&#39;enregistrement courant est valide et <strong>FALSE</strong> dans le cas contraire. <u>Attention</u> Cette m&eacute;thode valide le format ISO2709 <u>uniquement</u>. Aucune erreur de sera g&eacute;n&eacute;r&eacute;e si votre enregistrement contient, par exemple, 2 champs 700, ce qui est interdit par le standard UNIMARC.
+    </p>
+    <h3>
+      Gestion des caract&egrave;res accentu&eacute;s et autres&nbsp;: ISO_encode et ISO_decode
+    </h3>
+    <p>
+      <u>prototypes</u>&nbsp;:
+      <br />
+       <code>ISO_encode(<i>string</i> chaine)</code>
+      <br />
+       <code>ISO_decode(<i>string</i> chaine)</code>
+    </p>
+    <p>
+      Ces deux m&eacute;thodes assurent la conversion des caract&egrave;res cod&eacute;s suivant le format ISO 5426 vers le format ISO 8859-1.
+    </p>
+    <p>
+      La fonction ISO_encode convertit le format ISO 8859-1 vers le format ISO 5426 et ISO_decode fait l&#39;inverse.
+    </p>
+    <p>
+      Ces deux fonctions retournent la cha&icirc;ne pass&eacute;e en param&egrave;tre mais convertie suivant le cas.
+    </p>
+    <p>
+      De mon point de vue, ces deux m&eacute;thodes sont impl&eacute;ment&eacute;es de mani&egrave;re &#39;partielle mais suffisante&#39;, ce qui veut dire que cette impl&eacute;mentation n&#39;est pas compl&egrave;te dans la mesure o&ugrave; j&#39;ai &eacute;norm&eacute;ment de mal &agrave; trouver des informations suffisantes sur le format ISO 5426 et l&#39;ISO 646. Pour l&#39;anecdote, la fonction ISO_decode est adapt&eacute;e d&#39;un bout de code C post&eacute; sur le forum de l&#39;application bien connue <strong>recode</strong> et la fonction ISO_encode en d&eacute;coule directement. Si des personnes avaient plus de documentation sur le sujet, je leur serais reconnaissant de m&#39;en faire part. L&#39;impl&eacute;mentation actuelle est a peu pr&egrave;s satisfaisante pour les langues latines et romanes, mais incompl&egrave;te pour l&#39;allemand et les alphabets &#39;exotiques&#39;.
+    </p>
+    <h2>
+      Un cas pratique
+    </h2>
+    <p>
+      Voici un exemple d&#39;utilisation tr&egrave;s simple destin&eacute; &agrave; clarifier un peu tout &ccedil;a. Il illustre la cr&eacute;ation d&#39;un enregistrement ISO 2709 minimal. Les commentaires sont dans le script.
+    </p>
+    <table border='0' align='center' bgcolor='mintcream' cellpadding='12'>
+      <tr>
+        <td>
+          <code>&lt;?
+          <br />
+           // inclusion du fichier de la classe
+          <br />
+          <br />
+           require(&#39;./iso2709.inc&#39;);
+          <br />
+          <br />
+           // on cr&eacute;e un nouvel objet vide
+          <br />
+          <br />
+           $record = new iso2709_record(&#39;&#39;, AUTO_UPDATE);
+          <br />
+          <br />
+           // on cr&eacute;e le champ 100 qui est obligatoire en UNIMARC
+          <br />
+          <br />
+           $champ = date(&#39;Ymd&#39;).&#39;d||||||||||||uy0frea03||||ba&#39;;
+          <br />
+          <br />
+           // ce champ est ins&eacute;r&eacute; dans l&#39;enregistrement
+          <br />
+          <br />
+           $record-&gt;add_field(&#39;100&#39;, &#39;&#39;, a, champ);
+          <br />
+          <br />
+           // on ajoute un champ 200
+          <br />
+          <br />
+           $resp[0] = array(a, &quot;Travailler, moi ? jamais !&quot;);
+          <br />
+           $resp[1] = array(e, &quot;l&#39;abolition du travail&quot;);
+          <br />
+           $resp[2] = array(f, &quot;Bob Black&quot;);
+          <br />
+           $resp[3] = array(g, &quot;traduit de l&#39;anglais par Julius Van Daal&quot;);
+          <br />
+          <br />
+          <br />
+           $record-&gt;add_field(&#39;200&#39;, &#39;1 &#39;, $resp);
+          <br />
+          <br />
+           // on ajoute un champ 700
+          <br />
+          <br />
+           $record-&gt;add_field(700, &#39; 1&#39;, a, &#39;Black&#39;, b, &#39;Bob&#39;);
+          <br />
+          <br />
+           // champ 010 : l&#39;ISBN
+          <br />
+          <br />
+           $record-&gt;add_field(&#39;010&#39;, &#39;&#39;, a, &#39;2-84405-000-X&#39;);
+          <br />
+          <br />
+           // champ 210 : adresse bibliographique
+          <br />
+          <br />
+           $record-&gt;add_field(210, &#39;&#39;, a, &#39;[s.l]&#39;, c, &#39;L&#39;esprit frappeur&#39;, d, &#39;1997&#39;);
+          <br />
+          <br />
+           // c&#39;est fini, vous avez votre enregistrement.
+          <br />
+           // affichage de l&#39;enregistrement ISO 2709 :
+          <br />
+          <br />
+           print $record-&gt;full_record;
+          <br />
+          <br />
+           ?&gt;</code> 
+        </td>
+      </tr>
+    </table>
+    <hr />
+</div>
+  </body>
+</html>
+

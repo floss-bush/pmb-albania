@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>UNIMARC -&gt; Codes barres</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+	<!--<input type="xml" rootelement="unimarc" noticeelement="notice"/>-->
+	<!-- Type de la sortie -->
+	<output importable="no" type="txt" suffix="txt"/>
+	
+	<step type="isotoxml"> -->
+	<!-- Conversion iso2709 unimarc en xml-->
+		<trootelement>unimarc</trootelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Conversion en xml -->
+		<xslfile>uni2cbex.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+</params>

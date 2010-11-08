@@ -1,0 +1,14 @@
+<h2>Ricerca per termini del tesaurus</h2>
+<p><strong>La ricerca per termini del tesaurus permette di navigare tra i soggetti delle opere della biblioteca.</strong></p>
+<p>Le categorie sono una classificazione delle opere (è un tesaurus) stabilito dalla biblioteca attraverso delle parole o delle espressioni: ad esempio <i>Letteratura medievale</i> o 
+<i>Mammiferi marini</i></p>
+<p>In questo tipo di ricerca, si inizia <b>immettendo uno o più termini da cercare</b>, 
+ad esempio<i>storia</i>. I risuoltati della ricerca sono mostrati divisi in due parti. </p>
+<p>La parte superiore rinvia alle categorie corrispondenti</b> alla ricerca. Un clic su una delle categorie della parte superiore (ad esempio <i>storia politica</i>) 
+mostra nella <b>parte inferiore più informazioni</b> sulla categoria scelta ed eventuali <b>correlazioni</b>.</p>
+<hr />
+<p>Cliccando su uno dei link della parte inferiore, ci si può spostare tra le categorie.</p>
+<hr />
+<p>Per selezionare una categoria e mostrare le opere corrispondenti, cliccare sull'icona <img src='images/search.gif' align='absmiddle'>situata all'inizio della riga.</p>
+<hr />
+<p>Se l'icona non è presente, significa che nessun'opera è inserita in quella categoria.</p>

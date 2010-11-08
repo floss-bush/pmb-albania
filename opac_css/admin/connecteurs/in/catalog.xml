@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Catalogue de connecteurs
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.5 2009-11-16 22:29:41 gueluneau Exp $ -->
+
+<catalog>
+	<item name="Z 39.50" path="z3950" id="1"/>
+	<item name="sru" path="sru" id="2"/>
+	<item name="OAI" id="3" path="oai"/>  
+	<item name="aligastore" path="aligastore" id="5"/>
+	<item name="cfile" path="cfile" id="6"/>
+	<item name="entrez" path="entrez" id="7"/>
+	<item name="Amazon ECommerce Service" path="amazon" id="4"/>
+	<item name="Lehmanns.de" path="lehmanns" id="5"/>
+</catalog>

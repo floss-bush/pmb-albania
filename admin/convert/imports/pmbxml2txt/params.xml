@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>PMB XML MARC -&gt; TEXTE MARC</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+
+	<!-- Type de la sortie -->
+	<output importable="no" type="txt" suffix="txt" charset='utf-8' mimetype="text/text"/>
+	
+	<step type="xmltransform">
+		<!-- Conversion en html -->
+		<xslfile>txt_tab.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement></trootelement>
+		<tnoticeelement></tnoticeelement>
+	</step>
+</params>

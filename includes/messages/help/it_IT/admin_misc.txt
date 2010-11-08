@@ -1,0 +1,17 @@
+<h1>Utilit&agrave;</h1>
+<p>In questa pagina si trovano varie opzioni. </p>
+<p>
+<b>Pulizia dell'archivio</b> permette la gestione del database: eliminare le schede bibliografiche senza esemplari, etc.
+</p><p>
+<b>Procedure SQL</b> riguarda le statistiche personalizzate visibili nel modulo Monitoraggio.
+</p><p>
+<b>File di log</b> gestisce un file di log delle differenti procedure di PMB. Non &egrave; pi&ugrave; utilizzato e questa opzione &egrave; conservata solo per la compatibilit&agrave; con versioni precedenti.
+</p><p>
+<b>Aggiornamento database</b> opzione molto importante. Assicura l'aggiornamento della struttura del database da attivare ogni volta che viene aggiornato PMB  ad una nuova versione. Nessun dato viene perso in questo processo.
+</p><p>
+<b>Descrizione tabelle</b>, descrizione di tutte le tabelle presenti in PMB.
+</p><p>
+<b>Manuntenzione MySQL</b>, funzione di manutenzione del database. In particolare permette di verificare la sua integrit&agrave;.
+</p><p>
+<b>Parametri</b> gestisce gli aspetti di personalizzazione del programma, ad esempio il luogo della biblioteca o l'attivazione del meteo sull'OPAC.
+

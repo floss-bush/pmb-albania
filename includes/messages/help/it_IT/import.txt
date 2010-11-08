@@ -1,0 +1,13 @@
+<br /><br />
+<b>ATTENZIONE, questa funzione aggiunge schede e responsabilit&agrave; <b>solo se necessario</b>.
+<br />Non aggiorna le schede esistenti.</b>
+<br /><br />Il documento deve essere nel formato UNIMARC<br />
+<ul><li>L'<i>importazione</i> si effettua in <b>tre fasi</b>:
+<OL>
+<LI><b>Caricamento</b> del tuo documento,</LI>
+<LI><b>Pre-Caricamento</b> del tuo documento,</LI>
+<LI>Suo <b>trasferimento</b> nell'archivio</LI>
+</OL></li>
+Il documento <b>deve chiamarsi</b> <i><?php echo $nom_fichier_transfert_ftp; ?></i>, e, in questo caso, dovresti passare direttamente alla fase <a href="iimport_expl.php?categ=import&sub=import&action=preload">Pre-Caricamento</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import&action=beforeupload">Fase 1: Caricamento</a>

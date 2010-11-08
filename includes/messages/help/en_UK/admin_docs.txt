@@ -1,0 +1,12 @@
+<h1>Item management</h1>
+<p>This section allows you to define the application settings for <b>loans and statistics</b>.
+<ul>
+<li><b>media types</b> lets you set up the various loan options, including loan period in days.</li>
+<li><b>statistical codes</b> are used for compiling statistics on loans and the library collections.</li>
+<li><b>sections</b> are sub-divisions of your library (adults, teenagers, etc. or otherwise organized) where items are available on loan or for consultation. This code is also used for statistics purposes.</li>
+<li><b>status</b> is used to specify the availability of items, that is, whether they can be borrowed or not from the library.</li>
+<li><b>locations</b> may be used to assign items to specific areas of the library (for example: reserve).</li>
+<li><b>lenders</b> the owners of the library materials like a Public Library.</li>
+<li><b>custom fields</b> for copies.</li> 
+</ul></p>
+

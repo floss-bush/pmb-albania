@@ -1,0 +1,22 @@
+<h1>Ferramentas</h1>
+<p>Encontrar&aacute; aqui diferentes op&ccedil;&otilde;es. </p>
+<p>
+<b>Limpeza da base de dados</b> permite fazer as rela&ccedil;&otilde;es nas bases de dados: suprimir os 
+registos sem exemplares, etc.
+</p><p>
+<b>Procedimentos armazenados</b> ligado &agrave;s estat&iacute;sticas personalizadas vis&iacute;veis 
+no separador edi&ccedil;&otilde;es.
+</p><p>
+<b>Fichier journal</b> gere um di&aacute;rio (log) de diferentes procedimentos do PMB. 
+J&aacute; n&atilde;o &eacute; utilizado actualmente.
+Op&ccedil;&atilde;o conservada pela compatibilidade.
+</p><p>
+<b>Actualiza&ccedil;&atilde;o da base de dados</b> op&ccedil;&atilde;o muito importante. Ela assegura a actualiza&ccedil;&atilde;o da 
+estrutura da base de dados quando se actualiza os ficheiros do PMB por download para uma nova vers&atilde;o. 
+Nenhum dado &eacute; perdido durante o processo.</p><p>
+<b>Descri&ccedil;&atilde;o das tabelas</b>, como o seu nome indica, mostra a estrutura das tabelas e as suas propriedades.
+</p><p>
+<b>Manuten&ccedil;&atilde;o MySQL</b>, fun&ccedil;&otilde;es de manuten&ccedil;&atilde;o da base de dados. Permite nomeadamente verificar a sua integridade.
+</p><p>
+<b>Par&acirc;metros</b> gere os aspectos de personaliza&ccedil;&atilde;o da plica&ccedil;&atilde;o, por exemplo o local da biblioteca, ou a activa&ccedil;&atilde;o da meteorologia no OPAC...<p>
+

@@ -1,0 +1,23 @@
+<h1>Administration module</h1>
+<p>Welcome to PMB's administration module. Your actions here will affect the application's overall functioning.  Please <b>be very careful</b> when using this module. Before you do anything here, think about the impact it will have on your data. If in doubt, we invite you to <b>send us an email</b> at <a href="mailto:pmb.user@sigb.net"><b>pmb.user@sigb.net</b></a>. Our team will be very pleased to help you decide on a strategy to solve the issues or to implement actions to do.</p>
+
+<h2>Copies/Records</h2>
+<p>These two sections allow you to define the application settings for the document <b>loans & statistics</b>.</p>
+
+<h2>Borrowers</h2>
+<p>This section is for managing your library's readership, like organizing your borrowers in categories, or setting various codes to help you keep statistics about your library's borrowers. Besides it allows you to import external data linked to the readers.</p>
+
+<h2>Users</h2>
+<p>This section allows you to manage PMB's users and their privileges. Particularly, you can choose which users may manage loans, cataloging, and authorities. Usernames and passwords may be changed here.</p>
+
+<h2>Tools</h2>
+<p>Here you will find tools for managing the database.  We strongly suggest that you make regular database backups.</p>
+
+
+
+
+
+
+
+
+ 

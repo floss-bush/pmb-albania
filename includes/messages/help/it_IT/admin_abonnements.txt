@@ -1,0 +1,7 @@
+<h1>Amministrazione degli abbonamenti</h1>
+
+<p>La sezione <b>amministrazione degli abbonamenti</b> permette di definire i parametri per gli abbonamenti.
+<ul>
+<li><b>Periodicit&agrave;</b> La Periodicit&agrave; degli abbonamenti permette di descrivere tutti i tipi di periodicit&agrave; degli abbonamenti.
+</ul></p>
+ 

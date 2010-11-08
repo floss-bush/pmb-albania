@@ -1,0 +1,1043 @@
+/* +--------------------------------------------------------------------------+
+// � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: sidibs.css,v 1.11 2010-01-26 13:56:39 kantin Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                         ATTRIBUTS GENERAUX                                 */
+/*                                                                            */
+/*  attrbitus g�n�raux de la page                                             */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+* {
+	margin:0;
+	padding:0;
+	border:none;
+}
+#notice *{color:#ddd;}
+html { 
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color:#ddd;
+}
+body{background:none;}
+#pmbopac{
+	background:url('images/centreur_gauche.jpg') no-repeat;
+	background-attachment: fixed;
+	margin-left:254px;
+	text-align:center;
+}
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            ID FIXES                                        */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des id fixes                              */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+#iframe_resume_panier{
+	position:absolute;
+	top:132px;
+	right:30px;
+	background-color: transparent;
+	z-index:0;
+}
+#cart_info_iframe_content{ 
+	font-size:12px;
+	font-weight:bold;
+	display:block;
+	color:#666;
+	text-align:right;
+	background-color: transparent;
+}
+term_search{
+	background-color: transparent;
+}
+#cart_info_iframe_content a{ color:#444;}
+
+#main #intro_message { /*utilis� ici comme un bandeau*/
+		background: white url('images/ban.png');
+		background-repeat: no-repeat;
+		height:172px;
+		width:1003px;
+		position:absolute;
+		top:0px;
+		left:254px;float:left;
+	}      
+#main #intro_message span{
+		color:#024b72;
+		font-weight:bold;
+		font-size:13px;
+		padding-left:10px;
+		position:relative;
+		top:-10px;
+}
+#main #intro_message .p2{display:none;}
+
+#intro_bibli {
+	position:absolute;
+	top:155px;
+	left:140px;
+	margin-top:17px;
+	color:white;
+}
+	
+	#intro_bibli h3{display:none;}
+	
+	#introbibli_haut{float:left;}
+	#intro_bibli .p1{
+		text-indent:25px;
+		text-align:right;
+		font-size:14px!important;
+		font-size:13px;
+		font-family:"Lucida Bright",Verdana, sans-serif;
+		width:235px;
+		line-height:20px;
+		display:block;
+	}
+	#intro_bibli .p1 strong{
+		font-weight:normal;
+		display:block;
+		position:absolute;
+		top:20px;
+		left:25px;
+		width:200px;
+	}
+	#intro_bibli .p2{
+		font-size:12px;
+		text-align:left;
+		width:235px;
+		background:#2f2124;
+		margin:60px 0 0 0!important;
+		margin:0 0 0 5px;
+		padding-top:0px!important;
+		padding-top:10px;
+	}
+	#intro_bibli .p2 strong{
+		display:block;
+		font-weight:normal;
+		padding:5px 10px;
+	}
+	#intro_bibli .p3{
+		background-image:url('images/introbibli_bas.png');
+		background-repeat:no-repeat;
+		height:62px;
+		width:235px;
+	}
+	#introbibli_bas{
+		display:block!important;
+		display:none; /*Ie ne supporte pas les png 24 bits*/
+		margin-top:-31px;
+		position:relative;
+		top:31px;
+	}
+
+#all_footer { 
+	position:absolute;
+	top:600px;
+	margin-left:20px;
+	display:none;
+}
+
+	#main {
+		background:#2f2124 url('images/bordure_g.png') repeat-y;
+		text-align:left;
+	}
+	#main_hors_footer{
+		background-image:url('images/bordure_d.png');
+		background-repeat:repeat-y;
+		background-position:right;
+		min-height:900px;
+		height:auto !important;
+		height:600px;
+		display: block;
+		padding:200px 30px 0 150px!important;
+		padding:250px 0px 0 150px;
+	}
+    #main  #search_crl {
+    	clear:both;
+    }      
+	#main h3 { 
+		font-size:13px;color:#0b5791;
+	}
+	#categories h3, #location h3,#rss h3, #last_entries h3 {
+		padding-top:2px;
+		height:18px;
+		font-weight:bold;
+		background-image:url('images/main-h3.png');
+		background-repeat:no-repeat;
+		background-position:0 -1px;
+		color:#2492b3;
+		font-size:14px;
+		width:96%;
+		padding:16px 30px;
+	}
+	#categories h3 span, #location h3 span,#rss h3 span{
+		color:#2492b3;
+	}
+	input{border:1px solid #ccc} 
+.div_clr {
+    	clear:both;
+    	}  
+
+	#location {
+		clear:both;
+		padding:20px 0;
+	}
+	#location-container{
+		margin-top:20px;
+	}
+	#search, #onglets_list{
+		border:3px solid #382b2e;
+    	margin:30px 0;
+    	padding:5px;
+    	margin-bottom:10px;
+		color:#aaa;
+	} 
+	.search_dico{
+		position:relative;
+		top:-3px;
+		left:3px;
+	}	
+	#search ul.search_tabs, #onglets_list ul.list_tabs{
+        list-style:none;
+		font-size:11px;
+        clear:right;
+        height:24px;
+		position:relative;
+		top:-35px;		
+	}
+
+	#search ul.search_tabs li, #onglets_list ul.list_tabs li{
+		float:left;
+		color:white;
+		font-weight:bold;
+		border:3px solid #382b2e;
+		border-bottom:none;
+		padding:4px 6px 3px 6px;
+		margin-right:4px;
+		margin-bottom:5px;
+        height:17px;
+		background-image:url('images/search_fond.png');
+		background-repeat:repeat-x;
+	}
+
+	#search ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+		color:#0b5791;
+		text-decoration:none;
+	}
+	#search ul.search_tabs li a:hover, #onglets_list ul.list_tabs li a:hover{
+		text-decoration:underline;          
+	}
+	#search ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+		
+	}    
+	#search p.p1 { 
+		position:relative;
+		top:-20px;
+	}
+	#search form{
+		position:relative;
+		top:-5px;
+	}
+	select{
+		border:1px solid #ccc;
+	}
+	#search input{
+		background:#2f2124;
+		border:1px solid #777;
+		color:#aaa;
+	}
+	.navbar .numero_page{
+		background:#251a1c;
+		border:none;
+	}
+	#search input:hover{
+		border:1px solid #bbb;
+	}
+	#search form .row input, textarea{
+		border:1px solid #ccc;
+		background:white;
+	}
+	#aut_see {
+		border:3px solid #382b2e;
+    	padding:5px;
+    	margin-bottom:10px;
+	}
+
+	#navigator {
+		display:none;
+	}
+	#navigator strong {
+		position:relative;
+		top:-3px;
+		font-weight:normal;
+	}
+
+	#navigator table {
+		border-collapse:collapse;
+		display:inline;
+	}
+
+	#navigator td {
+		border-right:1px #FFFFFF solid;
+		text-align:center;
+		font-size:10px;
+		font-weight:italic;
+	}
+	#navigator td a {
+		text-decoration:none;
+		padding-right:10px;
+	}
+	#navigator td >a:hover {
+		text-decoration:underline;	
+	}
+	.ban_menu{/*menu de substition */
+		position:absolute;
+		top:0px;
+		left:900px;
+
+	}
+/* informations � ajouter pour afficher les cat�gories */
+div.row_categ {
+	display: block;
+	clear: left;
+}
+
+#categories {
+	margin-top:30px;
+}
+#categories *{color:#fff;}
+
+#categories h1 { }
+
+
+#categories A {
+	color:#fff;
+	text-decoration:none;
+}
+
+#categories A:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+
+/* informations � ajouter pour afficher les cat�gories */
+#categories-container{
+	background-image:url('images/catg.png');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+	padding: 15px 15px 5px 20px;
+	display:block;
+	border:3px solid #382b2e;
+}
+
+div.category {	
+	float:left;
+	width:31%;
+	color:#333;
+	padding:2px;
+}
+		
+#categories-container h2 {
+	font-size:13px;
+	padding-bottom :0px;
+	padding-left:25px;
+	color:#333;
+	background-image:url('images/folder.png');
+	background-repeat:no-repeat;
+}
+
+#categories-container h2 img {
+	display:none;
+}
+	
+#categories-container h2 img {padding-top:3px;}
+#categories-container a {color:#aaa;}
+#categories-container a:hover {color:#ddd;}
+#categories-container h2 a {color:#0b5791;}
+#categories-container h2 a:hover {color:#0a4878;}
+#categories-container ul {margin:2px;}
+
+#categories-container li  {
+	display: inline;
+}
+
+#categories-container li a {
+	text-decoration:none;
+}
+	
+#categories-container li a:hover {
+	text-decoration:underline;
+}
+
+#categories-container li:after  {
+	content: " - "; 
+}
+	
+#categories ul.search_tabs {
+	display:block;
+	width:100%;
+	margin:10px 0 30px 0;
+	list-style-type:none;
+	font-size:12px;
+}
+#categories ul.search_tabs li{	
+	float:left;
+}
+#categories ul.search_tabs li a{
+	float:left;
+	margin-top:2px;
+	padding:1px 15px;
+	height:10px;
+	background:#eee;
+	color:#555;
+	border:1px solid #aaa;
+	display:table;
+	margin-right:-1px; /* Pour ne pas doubler les bordures */
+}
+#categories ul.search_tabs li a:hover{
+	background:#c3ceda;
+}
+#categories ul.search_tabs #current{
+	border:1px solid #aaa;
+	background:#c3ceda;
+	float:left;
+	padding:2px 15px;
+	height:10px;
+	display:table;
+	margin-right:-1px; /* Pour ne pas doubler les bordures */
+	font-weight:bold;
+	color:#222;
+}          	
+
+
+/* Mise en page des colonnes d'affichage des recherches 
+   par auteurs, �diteurs, collections , sous-collections et cat�gories */
+.categ_colonne {
+	width:33%;
+	float:left;
+}
+/* reset des largeurs de #categories */
+/* apr�s un float:left; l'�l�ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
+
+#last_entries { 
+	clear:both;
+	/*margin-left:18%;*/
+}
+
+.etageres { 
+	clear:both;	
+}
+
+#pageHeader 
+	{ }
+
+#bandeau {
+	display:none;
+	float:left;
+	width:200px;
+	position:absolute;
+	top:180px;
+	background:white url('images/bandeau_bas.png') no-repeat left bottom;
+	padding-bottom:15px;
+}
+
+	#bandeau a {}
+	#bandeau #accueil{
+	}
+	#bandeau div {
+		height:100%;
+		padding:0px;
+		padding-left:15px;
+		padding-right:5px;
+		border-right:1px solid #ccc;
+		margin-right:15px;
+	}
+	#bandeau #lang_select {border:none;}
+	#bandeau #lang_select > span > form > select{border:1px solid #ccc;}
+	#bandeau #adresse{
+		border-bottom:1px solid #ccc;
+		padding-bottom:10px;
+	}
+	#bandeau FORM input {border:1px solid #ccc;}
+
+	#bandeau H3 {
+		font-weight:bold;
+		font-size:11px;
+	}
+
+	#bandeau P.centered {
+		text-align:center;
+	}
+
+	#bandeau span {
+		font-size:9px;
+	}
+		
+	#bandeau h3 span {
+		font-size:11px;
+	}
+	#bandeau li 
+	{}
+	#bandeau #adresse > h3 {
+		padding-top:30px;
+	}
+	#bandeau #adresse{
+		border-bottom:none;
+	}
+
+#footer {
+	border:3px solid #382b2e;
+	border-bottom:none;
+	clear:both;
+	padding: 5px;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	text-align:center;
+	width:60%;
+	margin:30px 20% 0 20%;
+	padding-bottom:10px;
+}
+	
+#footer a {
+	color:#ddd;
+	text-decoration:none;
+	padding-right:2%;
+}
+#footer img{
+	position:relative;
+	top:3px;
+}
+#footer a:hover {
+	text-decoration:underline;
+}
+
+#notice 
+	{  }
+
+	#notice h3
+	{ }
+		
+	#notice span 
+	{ }
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            BALISES HTML                                    */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+a 	{
+	color:#ccc;
+	}
+
+a:hover {
+	color:#eee;
+	}
+
+.categmouseout {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+.categmouseover {
+	border: solid 2px #555555;
+	background-color: #FFFFFF;
+	color: #000000;
+	position: absolute;
+	visibility:visible;
+	z-index: 2000;
+	margin-top: 2px;
+}
+
+.listedescription {
+	border: solid 2px #555555;
+	background-color: #fff;
+	color: #000000;
+	position: absolute;
+	visibility:hidden;
+	z-index: 2000;
+}
+
+/*------------------------------------
+/*	tableaux
+/------------------------------------*/
+table
+	{ }
+
+tr
+	{ }
+
+th
+	{ text-align: left ;}
+
+td.jauge
+	{	}
+
+td.visible
+	{ }
+
+td.visible-centered
+	{ }
+
+tr.surbrillance {
+	background: #EECCCC;
+	}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES GENERIQUES                              */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � classes de balises                        */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+/* divers pour les affichages simples de texte   */
+/*-----------------------------------------------*/
+
+.row
+	{ clear: both; }
+
+.right,
+.right-50,
+.right-15,
+.right-85 
+	{	float: right; }
+
+.right-50 {	width: 50%; }
+
+.right-15 {	width: 15%; }
+
+.right-85 {	width: 85%; }
+
+
+.right-clear-right,
+.right-50-clear-right
+	{	float: right;
+		clear: right; }
+
+.left-clear-left,
+.left-50-clear-left
+	{	float: left;
+		clear: left; }
+
+.left,
+.left-50,
+.left-15
+	{	float: left;}
+
+.left-50
+	{	width: 50%;}
+
+.left-15
+	{	width: 15%;}
+
+.left-85
+	{	width: 85%;}
+
+.spacer
+	{	clear: both;
+		visibility: hidden;
+		display: none;
+		margin-bottom: -10px;
+		margin-top: -10px; }
+
+.p1 {	}
+	
+.text_query 
+	{  }
+
+.fond-mere {
+	}
+
+.fond-article {
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                            CLASSES LIEES A L'APPLICATION                   */
+/*                                                                            */
+/*  feuilles de styles appliqu�es � des balises sans classes ni id sp�cifi�s  */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+input.bouton, input.boutonrechercher 
+	{ }
+
+input.numero_page 
+	{ }
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+ul#onglets_isbd_public {
+    list-style-type: none;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #382b2e;
+    padding-left:2px;
+}
+
+ul#onglets_isbd_public li {
+    float: left;
+    height: 20px;
+    margin: 2px 2px 0 2px;
+    border: 2px solid #382b2e;
+	border-bottom:none;
+	font-weight:bold;
+}
+
+ul#onglets_isbd_public li.isbd_public_active {
+}
+
+ul#onglets_isbd_public a {
+    float: left;
+    display: block;
+    color: #0b5791;
+    text-decoration: none;
+    padding: 4px;
+    cursor: default;
+}
+
+ul#onglets_isbd_public li.isbd_public_inactive a:hover {
+    cursor: pointer;
+	color:#2492b3;
+}
+
+ul#onglets_isbd_public li.onglet_basket,
+ul#onglets_isbd_public li.onglet_basket a {
+    border: none;
+	background:none;
+    cursor: pointer;
+	width:25px;
+}
+
+ul#onglets_isbd_public li.onglet_tags,
+ul#onglets_isbd_public li.onglet_tags a {
+    border: none;
+	background:none;
+    cursor: pointer ;
+	text-decoration:underline;
+}
+
+/* Colonnes */
+.colonne2 {
+  float: left;
+  width: 50%;
+}
+
+.colonne_suite {
+  float: left;
+}
+
+.bg-grey {
+  background-color: #443034;
+}
+
+/* Etageres */
+#etageres { 
+
+	background-image: url('images/barreau.png');
+	background-repeat:repeat-y;
+	margin-bottom:0px!important;
+	margin-bottom:-20px;
+}
+#etagere { 
+	background-image: url('images/barreau_bas.png');
+	background-repeat:repeat-x;
+	background-position:bottom;
+	padding-bottom:20px;
+}
+#etageres h3{ 
+	background:white url('images/barreau_haut.png') repeat-x;
+	border:none;
+	padding:2px 10px 0 5px;
+	display:block;
+    height:17px;
+	color:#444;
+	font-size:12px;
+	font-weight:normal;	
+}
+#etageres h3 span{ 
+	padding-left:15px;
+	color:white;
+	font-weight:bold;
+}
+#etagere-titre h1 {
+	padding-left:30px;
+	font-size:12px;
+	font-weight:bold;
+	float:left;
+}
+#etagere-titre h1 a {
+	color:#c6939e;
+	text-decoration:none;
+	border-left:2px solid #46373a;
+	border-right:2px solid #46373a;
+	border-bottom:1px solid #46373a;
+	display:block;
+	padding:0 5px;
+	background-image:url('images/search_fond.png');
+	background-repeat:repeat-x;
+}
+#etagere-titre h1 a:hover {
+	text-decoration:underline;
+}
+#etagere-titre a {
+}
+
+#etagere-container{
+	background-image: url('images/barreau.png');
+	background-repeat:repeat-y;
+	background-position:right;
+	padding-right:16px;
+}
+#etagere-comment h2 {
+	font-style:italic;
+	font-size:12px;
+	color:#eee;
+	padding:5px;
+	text-align:right;
+	height:14px;
+}
+
+#etagere-notice-list {
+	clear:both;
+	padding-left:25px;
+}
+
+#etagere-notice-list a {
+	display:block;
+	text-decoration:none;
+	background-image:url('images/etagere-puce.png');
+	background-repeat:no-repeat;
+	background-position:0 4px;
+	padding:10px 0 4px 30px;
+	color:#888;
+}
+#etagere-notice-list a:hover {
+	text-decoration:underline;
+	color:#aaa;
+}
+#rss{
+	margin-top:20px;
+}
+/* barre de navigation */
+#navigator table {
+}
+
+#navigator td {
+}
+
+.liste_bulletins {
+    padding-left: 3px;
+    padding-right: 3px;
+    	}  
+.notice-heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+}
+.notice-parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    font-size: 8pt;
+    text-decoration: none
+}
+.img_plus {
+	background-color: #ccc;
+}
+.notice-child {
+    font-family: arial, helvetica, geneva, sans-serif;
+    margin-left: 25px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom:2px solid #382b2e;
+    border-left:2px solid #382b2e;
+    border-right-style: none;
+    border-top-style: none;
+}
+.notice-child td.bg-grey{
+	width:20%;
+	min-width:150px;
+}
+
+.heada {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+	text-decoration: none;
+    font-weight: bold;
+}
+.parent {
+    font-family: verdana, helvetica, arial, geneva, sans-serif;
+    color: #000000;
+    margin-left: 0px;
+    text-decoration: none
+}
+.child {
+    font-family: arial, helvetica, geneva, sans-serif;
+   margin-left: 25px;
+    width: 98%;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c0c0c0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #c0c0c0;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+iframe#iframe_resume_panier {
+	width:100%;
+	height:35px;
+	border:none;
+}
+
+/* Bannettes */
+#bannette {
+	background:#EEEEFF; 
+	border:#cccccc 1px solid;
+}
+
+#bannette-titre h1 {
+	background: url("images/liens.png") top left;
+	margin:0px;
+	padding:5px;
+	font-size:13px;
+	font-weight:bold;
+}
+#bannette-titre h1 a {
+	color:#000000;
+}
+
+#bannette-titre a {
+}
+
+#bannette-comment h2 {
+	width:97%;
+	text-align:right;
+	font-style:italic;
+	font-size:16px;
+	color:#ffffff;
+	margin:0px;
+	padding:0px;
+	margin-top:-3px;
+	padding-bottom:5px;
+}
+
+#bannette-notice-list {
+	padding-left:5px;
+
+}
+
+#bannette-notice-list A {
+}
+#bannette-notice-list A:hover {
+}
+
+.alerte {
+	color: red;
+	font-size:14px;
+	}
+
+.echelle_avis {
+	background-color: #eeeeee;
+	padding: 7px;
+	margin: 3px;
+	border:1px solid #BBBBCC;
+}
+
+#titre-popup {
+		margin-top:5px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		background:#CCCCEE;
+		border:1px solid #BBBBCC;
+		color: #fee064;
+	}
+
+.etiq_champ {
+	font-weight:bold;
+	}
+
+/* surlignage des mots recherch�s */
+.text_search0 {
+	background-color: yellow;
+	text-decoration: underline;
+}
+
+.text_search1 {
+	background-color: red;
+	text-decoration: underline;
+}
+
+.text_search2 {
+	background-color: green;
+	text-decoration: underline;
+}
+
+.text_search3 {
+	background-color: blue;
+	text-decoration: underline;
+}
+
+.text_search4 {
+	background-color: maroon;
+	text-decoration: underline;
+}
+
+.text_search5 {
+	background-color: blank;
+	text-decoration: underline;
+}
+
+/*Suggestion Multiple*/
+
+.tab_sug{
+	table-layout: fixed;
+}
+
+table{
+	border-collapse:collapse;
+	margin: 10px 0;
+	width:100%;
+}
+.tab_sug th, .tab_sug td{
+	border:1px solid #CCCCCC;
+	border-collapse:collapse;
+	overflow:hidden;	
+	vertical-align:center;
+	text-align: center;
+	width : 100%;
+}
+
+.tab_sug  input, .tab_sug textarea{
+   width:95%;
+   height:100%;
+}
+.tab_sug select{
+	width:95%;
+}
+
+.erreur_saisie {
+	background-color: #ff0000;
+}

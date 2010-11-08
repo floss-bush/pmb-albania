@@ -1,0 +1,120 @@
+/************************************************************************
+	
+	D.S.I. BANNETTE : Informations a renseigner 
+	
+	En tete
+	"""
+	<div id="dsi_entete">
+		<h1>BULLETIN DE VEILLE</h1>
+		<h2>Envoi du !!date!! <br /><em>diffusion : !!public!!</em></h2>
+	</div>
+	"""
+
+	Pied de page
+	"""	
+	Retrouvez egalement toutes ces informations sur l'Espace documentaire de l'ANRT (apres identification) en cliquant sur le bouton Â« mon compte Â» puis Â« accÃ©der Ã  votre information personnalisÃ©e Â» : Bulletin de veille ANRT : revue de presse documentaire : 20 notice(s) - 
+	Contact : <a href="mailto:edc@anrt.asso.fr">edc@anrt.asso.fr</a>
+	"""
+	
+	Template de notice a utiliser
+	"""
+	<h2>
+		#header_link(#title();,2);
+	</h2>
+	<br />
+	<p class="resume">
+		#resume();
+	</p>
+	<p class="source">
+		#b_empty(#author();#b_empty(#author_1();, - );,<br />);
+		#if(#is_article();,
+		#nom_revue();#a_empty(#numero_bulletin();, - ); - #date_bulletin();,
+		#b_empty(#publisher();, - ); #year_publication(););
+	</p>
+	"""
+	
+****************************************************************************/
+
+body{
+	/*url('http://anrt.bibli.fr/opac/styles/anrt/images/bandeau_edc.jpg') no-repeat;*/
+	background:white;
+	width:800px;
+	padding-top:0px;
+	padding-left:10px;
+	text-align:left;
+	font-family:Arial,Calibri,Verdana,Sans-Serif,Helvetica;
+	font-size:11px;
+	font-style:normal;
+	color:#333333;
+}
+
+a {
+font-size:15px;	
+}
+
+hr{
+	height:1px;
+	border-top:1px solid #cfcfcf;
+	border-right:none;
+	border-bottom:1px solid #efefef;
+	border-left:none;
+	margin:10px 5px;
+	margin-left:-5px;
+	width:800px;
+}
+h1{
+	color:#8abf52;
+	text-transform:uppercase;	
+	font-size:17px;
+}
+#dsi_entete h1{
+	background:white;
+	-moz-border-radius:10px;
+	padding:10px 25px;
+	display:table;
+	font-size:15px;
+	margin:0px;
+	margin-left:625px;
+	text-align:right;
+	padding-bottom:20px;
+	border-left:#efefef 1px solid;
+	color:#333;
+	width:180px;
+}
+#dsi_entete h2{
+	color:#c00000;
+	text-align:right;
+	font-size:14px;
+	padding-left:15px;
+	background:white;
+	margin:0;
+	margin-left:15px;
+	position:relative;
+	top:-20px;
+	-moz-border-radius:5px;
+	display:table;
+	width:720px;
+	line-height:1.4em;
+	padding:10px 30px 15px 10px;
+	border:none;
+	/*border-bottom:#ccc 1px solid;
+	border-right:#eee 1px solid;
+	border-left:#efefef 1px solid;*/
+}
+	#dsi_entete h2 em{
+		font-size:12px;
+		color:#444;
+	}
+
+p{
+	text-indent:15px;
+	padding:5px 0px;
+	margin:0;
+}
+	.resume{
+		font-size:15px;
+		text-indent:0px;
+	}
+	.source{
+		text-indent:0px;
+	}

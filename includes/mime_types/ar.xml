@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mimeTypeList SYSTEM "./mimes_types.dtd">
+<mimeTypeList>
+	
+<mimeType name="audio/mpeg" label="Fichier son mp3" icon="mp3-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>mp3</extension>
+	<extension label="Fichier son mpeg III ogg">ogg</extension>
+	</mimeType>
+
+<mimeType name="x-music/x-midi" label="MIDI music data" icon="mid-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>mmid</extension>
+	</mimeType>
+
+<mimeType name="audio/midi" label="MIDI music data" icon="mid-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>mid</extension>
+	</mimeType>
+
+<mimeType name="video/x-sgi-movie" label="SGI Movie format" icon="avi-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>movie</extension>
+	</mimeType>
+
+<mimeType name="video/x-msvideo" label="Microsoft video" icon="-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>avi</extension>
+	</mimeType>
+
+<mimeType name="video/vnd.vivo" label="Vivo streaming video (Vivo software)" icon="video.gif" embeded="yes" plugin="LiveAudio">
+	<extension>viv</extension>
+	</mimeType>
+
+<mimeType name="video/vdo" label="VDOlive streaming video (VDOnet)" icon="video.gif" embeded="yes" plugin="LiveAudio">
+	<extension>vdo</extension>
+	</mimeType>
+
+<mimeType name="video/quicktime" label="Macintosh Quicktime" icon="qt-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>qt</extension>
+	<extension>mov</extension>
+	</mimeType>
+
+<mimeType name="video/mpeg-2" label="MPEG-2 video" icon="mpg-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>mpv2</extension>
+	<extension>mp2v</extension>
+	</mimeType>
+
+<mimeType name="video/mpeg" label="MPEG video" icon="mpg-dist.png" embeded="yes" plugin="LiveAudio">
+	<extension>mpeg</extension>
+	<extension>mpg</extension>
+	<extension>mpe</extension>
+	</mimeType>
+
+
+<mimeType name="text/x-speech" label="Speech synthesis data (MVP Solutions)" icon="sound.gif" embeded="yes" plugin="LiveAudio">
+	<extension>talk</extension>
+	</mimeType>
+
+
+<mimeType name="text/vbscript" label="VBScript program" icon="script.gif" embeded="no" plugin="">
+	<extension>vbs</extension>
+	</mimeType>
+
+<mimeType name="text/plain" label="Plain text: documents; program listings" icon="txt-dist.png" embeded="no" plugin="">
+	<extension>txt</extension>
+	<extension>c</extension>
+	<extension>h</extension>
+	<extension>cpp</extension>
+	<extension>pl</extension>
+	<extension>cc</extension>
+	</mimeType>
+
+<mimeType name="text/javascript" label="Javascript program" icon="script.gif" embeded="no" plugin="">
+	<extension>js</extension>
+	<extension>ls</extension>
+	<extension>mocha</extension>
+	</mimeType>
+
+<mimeType name="text/html" label="HTML text data (RFC 1866)" icon="html-dist.png" embeded="no" plugin="">
+	<extension>html</extension>
+	<extension>htm</extension>
+	</mimeType>
+
+<mimeType name="text/css" label="Cascading Stylesheets" icon="html.gif" embeded="no" plugin="">
+	<extension>css</extension>
+	</mimeType>
+
+<mimeType name="image/x-xpixmap" label="X-Windows pixelmap (8-bit color)" icon="image.gif" embeded="no" plugin="">
+	<extension>xpm</extension>
+	</mimeType>
+
+<mimeType name="image/x-xbitmap" label="X-Windows bitmap (b/w)" icon="image.gif" embeded="no" plugin="">
+	<extension>xbm</extension>
+	</mimeType>
+
+<mimeType name="image/x-portable-pixmap" label="PPM (UNIX PPM package)" icon="image.gif" embeded="no" plugin="">
+	<extension>ppm</extension>
+	</mimeType>
+
+<mimeType name="image/x-portable-graymap" label="PGM (UNIX PPM package)" icon="image.gif" embeded="no" plugin="">
+	<extension>pgm</extension>
+	</mimeType>
+
+<mimeType name="image/x-portable-bitmap" label="PBM (UNIX PPM package)" icon="image.gif" embeded="no" plugin="">
+	<extension>pbm</extension>
+	</mimeType>
+
+<mimeType name="image/x-portable-anymap" label="PNM (UNIX PPM package)" icon="image.gif" embeded="no" plugin="">
+	<extension>pnm</extension>
+	</mimeType>
+
+<mimeType name="image/x-png" label="Portable Network Graphics" icon="png-dist.png" embeded="no" plugin="">
+	<extension>png</extension>
+	</mimeType>
+
+<mimeType name="image/x-pict" label="Macintosh PICT format" icon="image.gif" embeded="no" plugin="">
+	<extension>pict</extension>
+	</mimeType>
+
+<mimeType name="image/x-photo-cd" label="Kodak Photo-CD" icon="image.gif" embeded="no" plugin="">
+	<extension>pcd</extension>
+	</mimeType>
+
+<mimeType name="image/x-ms-bmp" label="Microsoft Windows bitmap" icon="image.gif" embeded="no" plugin="">
+	<extension>bmp</extension>
+	</mimeType>
+
+<mimeType name="image/x-mgx-dsf" label="QuickSilver active image (Micrografx)" icon="image.gif" embeded="no" plugin="">
+	<extension>dsf</extension>
+	</mimeType>
+
+<mimeType name="image/x-cmx" label="CMX vector image (Corel)" icon="image.gif" embeded="no" plugin="">
+	<extension>cmx</extension>
+	</mimeType>
+
+<mimeType name="image/x-cmu-raster" label="CMU raster" icon="image.gif" embeded="no" plugin="">
+	<extension>ras</extension>
+	</mimeType>
+
+<mimeType name="image/x-cals" label="CALS Type 1 or 2" icon="image.gif" embeded="no" plugin="">
+	<extension>cal</extension>
+	<extension>mil</extension>
+	</mimeType>
+
+<mimeType name="image/wavelet" label="Wavelet-compressed (Summus)" icon="image.gif" embeded="no" plugin="">
+	<extension>wi</extension>
+	</mimeType>
+
+<mimeType name="image/vnd.svf" label="Simple Vector Format (SoftSource)" icon="image.gif" embeded="no" plugin="">
+	<extension>svf</extension>
+	</mimeType>
+
+<mimeType name="image/vnd.dxf" label="AutoCad DXF file (SoftSource)" icon="image.gif" embeded="yes" plugin="">
+	<extension>dxf</extension>
+	</mimeType>
+
+<mimeType name="image/vnd.dwg" label="AutoCad Drawing (SoftSource)" icon="image.gif" embeded="yes" plugin="">
+	<extension>dwg</extension>
+	</mimeType>
+
+<mimeType name="image/tiff" label="Tag Image Format TIFF" icon="tif-dist.png" embeded="no" plugin="">
+	<extension>tiff</extension>
+	<extension>tif</extension>
+	</mimeType>
+
+<mimeType name="image/rgb" label="RGB" icon="image.gif" embeded="no" plugin="">
+	<extension>rgb</extension>
+	</mimeType>
+
+<mimeType name="image/jpeg" label="Image Jpeg" icon="jpg-dist.png" embeded="no" plugin="">
+	<extension>jpeg</extension>
+	<extension>jpg</extension>
+	<extension>jpe</extension>
+	</mimeType>
+
+<mimeType name="image/ief" label="Image Exchange Format (RFC 1314)" icon="image.gif" embeded="no" plugin="">
+	<extension>ief</extension>
+	</mimeType>
+
+<mimeType name="image/gif" label="Image GIF" icon="gif-dist.png" embeded="no" plugin="">
+	<extension>gif</extension>
+	</mimeType>
+
+<mimeType name="image/g3fax" label="Group III Fax (RFC 1494)" icon="image.gif" embeded="no" plugin="">
+	<extension>g3f</extension>
+	</mimeType>
+
+<mimeType name="image/fif" label="Fractal Image Format (Iterated Systems)" icon="image.gif" embeded="no" plugin="">
+	<extension>fif</extension>
+	</mimeType>
+
+<mimeType name="image/cgm" label="Computer Graphics Metafile" icon="image.gif" embeded="no" plugin="">
+	<extension>cgm</extension>
+	</mimeType>
+
+<mimeType name="drawing/x-dwf" label="Autocad WHIP vector drawings" icon="image.gif" embeded="yes" plugin="">
+	<extension>dwf</extension>
+	</mimeType>
+
+<mimeType name="audio/x-wav" label="Microsoft audio" icon="wav-dist.png" embeded="yes" plugin="">
+	<extension>wav</extension>
+	</mimeType>
+
+<mimeType name="audio/x-mpeg-2" label="MPEG-2 audio" icon="sound.gif" embeded="yes" plugin="">
+	<extension>mp2a</extension>
+	<extension>mpa2</extension>
+	</mimeType>
+
+<mimeType name="audio/x-mpeg" label="MPEG audio" icon="mpg-dist.png" embeded="yes" plugin="">
+	<extension>mpa</extension>
+	<extension>abs</extension>
+	<extension>mpega</extension>
+	</mimeType>
+
+<mimeType name="audio/x-aiff" label="Macintosh audio format (Apple)" icon="sound.gif" embeded="yes" plugin="">
+	<extension>aif</extension>
+	<extension>aiff</extension>
+	<extension>aifc</extension>
+	</mimeType>
+
+<mimeType name="audio/voxware" label="Toolvox speech audio (Voxware)" icon="sound.gif" embeded="yes" plugin="">
+	<extension>vox</extension>
+	</mimeType>
+
+<mimeType name="audio/basic" label="basicaudio - 8-bit u-law PCM" icon="sound.gif" embeded="yes" plugin="">
+	<extension>au</extension>
+	<extension>snd</extension>
+	</mimeType>
+
+<mimeType name="application/zip" label="DOS/PC - Pkzipped archive" icon="zip-dist.png" embeded="no" plugin="">
+	<extension>zip</extension>
+	</mimeType>
+
+<mimeType name="application/x-texinfo" label="GNU TexInfo document" icon="tex-dist.png" embeded="yes" plugin="">
+	<extension>texinfo</extension>
+	<extension>texi</extension>
+	</mimeType>
+
+<mimeType name="application/x-tex" label="Tex/LateX document" icon="tex-dist.png" embeded="no" plugin="">
+	<extension>tex</extension>
+	</mimeType>
+
+<mimeType name="application/x-tcl" label="Tcl (Tool Control Language) program" icon="script.gif" embeded="no" plugin="">
+	<extension>tcl</extension>
+	</mimeType>
+
+<mimeType name="application/x-tar" label="4.3BSD tar format" icon="tgz-dist.png" embeded="no" plugin="">
+	<extension>tar</extension>
+	</mimeType>
+
+<mimeType name="application/x-stuffit" label="Macintosh Stuffit Archive" icon="zip.gif" embeded="no" plugin="">
+	<extension>sit</extension>
+	<extension>sea</extension>
+	</mimeType>
+
+<mimeType name="application/x-sh" label="UNIX bourne shell program" icon="script.gif" embeded="no" plugin="">
+	<extension>sh</extension>
+	</mimeType>
+
+<mimeType name="application/x-pn-realaudio" label="Realaudio (Progressive Networks)" icon="sound.gif" embeded="yes" plugin="">
+	<extension>ra</extension>
+	<extension>ram</extension>
+	</mimeType>
+
+<mimeType name="application/x-perl" label="Perl program" icon="script.gif" embeded="no" plugin="">
+	<extension>pl</extension>
+	</mimeType>
+
+<mimeType name="application/x-pdf" label="Adobe Acrobat PDF" icon="pdf-dist.png" embeded="no" plugin="">
+	<extension>pdf</extension>
+	</mimeType>
+
+<mimeType name="application/x-olescript" label="OLE script e.g. Visual Basic (Ncompass)" icon="script.gif" embeded="no" plugin="">
+	<extension>axs</extension>
+	</mimeType>
+
+<mimeType name="application/x-oleobject" label="OLE Object (Microsoft/NCompass)" icon="oleobject.gif" embeded="no" plugin="">
+	<extension>ods</extension>
+	</mimeType>
+
+<mimeType name="application/x-msexcel" label="Excel spreadsheet (Microsoft)" icon="xls-dist.png" embeded="no" plugin="">
+	<extension>xls</extension>
+	<extension>csv</extension>
+	</mimeType>
+
+<mimeType name="application/x-latex" label="LaTeX document" icon="tex-dist.png" embeded="no" plugin="">
+	<extension>latex</extension>
+	</mimeType>
+
+<mimeType name="application/x-javascript" label="Javascript" icon="script.gif" embeded="no" plugin="">
+	<extension>js</extension>
+	</mimeType>
+
+<mimeType name="application/x-gtar" label="Gnu tar format" icon="zip-dist.png" embeded="no" plugin="">
+	<extension>gtar</extension>
+	</mimeType>
+
+<mimeType name="application/x-dvi" label="TeX dvi format" icon="tex-dist.png" embeded="no" plugin="">
+	<extension>dvi</extension>
+	</mimeType>
+
+<mimeType name="application/x-csh" label="UNIX c-shell program" icon="script.gif" embeded="no" plugin="">
+	<extension>csh</extension>
+	</mimeType>
+
+<mimeType name="application/vnd.ms-powerpoint" label="PowerPoint (Microsoft)" icon="ppt-dist.png" embeded="no" plugin="">
+	<extension>ppt</extension>
+	</mimeType>
+
+<mimeType name="application/vnd.ms-excel" label="Excel spreadsheet (Microsoft)" icon="xls-dist.png" embeded="no" plugin="">
+	<extension>xls</extension>
+	<extension>csv</extension>
+	</mimeType>
+
+<mimeType name="application/rtf" label="Microsoft Rich Text Format" icon="rtf-dist.png" embeded="no" plugin="">
+	<extension>rtf</extension>
+	</mimeType>
+
+<mimeType name="application/postscript" label="PostScript" icon="ps-dist.png" embeded="no" plugin="">
+	<extension>ai</extension>
+	<extension>eps</extension>
+	<extension>ps</extension>
+	</mimeType>
+
+<mimeType name="application/pdf" label="Adobe Acrobat PDF" icon="pdf-dist.png" embeded="no" plugin="">
+	<extension>pdf</extension>
+	</mimeType>
+
+<mimeType name="application/octet-stream" label="PC executable" icon="application.gif" embeded="no" plugin="">
+	<extension>exe</extension>
+	</mimeType>
+
+<mimeType name="application/octet-stream" label="Binary, UUencoded" icon="bin.gif" embeded="no" plugin="">
+	<extension>bin</extension>
+	<extension>uu</extension>
+	</mimeType>
+
+<mimeType name="application/msword" label="MS word document" icon="doc-dist.png" embeded="no" plugin="">
+	<extension>doc</extension>
+	<extension>dot</extension>
+	</mimeType>
+
+<mimeType name="application/ms-powerpoint" label="PowerPoint presentation (Microsoft)" icon="ppt-dist.png" embeded="no" plugin="">
+	<extension>pps</extension>
+	<extension>ppt</extension>
+	</mimeType>
+
+<mimeType name="application/mspowerpoint" label="PowerPoint presentation (Microsoft)" icon="ppt-dist.png" embeded="no" plugin="">
+	<extension>pps</extension>
+	<extension>ppt</extension>
+	</mimeType>
+
+<mimeType name="application/ms-excel" label="Excel spreadsheet (Microsoft)" icon="xls-dist.png" embeded="no" plugin="">
+	<extension>xls</extension>
+	<extension>csv</extension>
+	</mimeType>
+
+<mimeType name="application/mac-binhex40" label="Macintosh Binhexed archive" icon="zip.gif" embeded="no" plugin="">
+	<extension>hqx</extension>
+	</mimeType>
+
+<mimeType name="application/astound" label="Astound Web Player multimedia data (GoldDisk)" icon="video.gif" embeded="yes" plugin="">
+	<extension>asn</extension>
+	</mimeType>
+	
+<mimeType name="URL" label="URL" icon="url.gif" embeded="no" plugin="">
+	<extension></extension>
+	</mimeType>
+	
+<mimeType name="application/openoffice" label="OpenOffice Writer" icon="odt-dist.png" embeded="no" plugin="">
+	<extension>odt</extension>
+	<extension>ott</extension>
+	</mimeType>
+
+<mimeType name="application/openoffice" label="OpenOffice Calc" icon="ods-dist.png" embeded="no" plugin="">
+	<extension>ods</extension>
+	<extension>ots</extension>
+	</mimeType>
+
+<mimeType name="application/openoffice" label="OpenOffice Impress" icon="odp-dist.png" embeded="no" plugin="">
+	<extension>odp</extension>
+	<extension>otp</extension>
+	</mimeType>
+	
+</mimeTypeList>

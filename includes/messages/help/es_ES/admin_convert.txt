@@ -1,0 +1,9 @@
+<h1>Conversiones/Exportaciones</h1>
+<p>Este m&oacute;dulo permite generar conversiones de diversos formatos de archivos de registros/ejemplares a otros formatos 
+para exportar la base de datos PMB bajo forma de registros.</p>
+<p>El procedimiento de conversi&oacute;n permite a partir de un formato entrante UNIMARC, USMARC, BCDI o XML PMB convertir 
+a otro formato UNIMARC o XML PMB. Si el formato de conversi&oacute;n final es UNIMARC, tambi&eacute;n puedes importar el resultado a PMB. 
+Atenci&oacute;n, el paso de un formato a otro puede ocasionar pequeñas p&eacute;rdidas de informaci&oacute;n.</p>
+<p>La exportaci&oacute;n de la base de datos PMB se hace bajo forma de registro incluyendo los ejemplares en la 995 de l'ADBDP. 
+Usted puede convertir el resultado de los registros en formato UNIMARC o en XML PMB.</p>
+

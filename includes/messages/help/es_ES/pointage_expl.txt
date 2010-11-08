@@ -1,0 +1,12 @@
+<br />
+<b>Módulo de selección de los documentos recibidos... 
+</b>
+<br /><br />
+Vas a "seleccionar" todos los documentos recibidos para cambiarles el estado a dispobibles.
+<br /><br />
+<OL>
+<LI>Seleccionar el estados y la sección correctas</LI>
+<LI>Lee los códigos de barras con el lector de códigos de barras</LI>
+</OL>
+<br /><br />
+			

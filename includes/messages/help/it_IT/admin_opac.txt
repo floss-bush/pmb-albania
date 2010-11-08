@@ -1,0 +1,19 @@
+<h1>Amministrazione dell'OPAC (interfaccia del catalogo pubblico)</h1>
+
+<p>
+La sezione <b>Amministrazione dell'OPAC</b> permette di configurare i differenti moduli dell'OPAC .
+<ul>
+	<li>
+		<b>Liste delle ricerche:</b> 
+		permette di gestire le ricerche predefinite consultabili dall'OPAC.
+	</li>
+	<li>
+		<b>Statistiche dell'OPAC :</b> 
+		permette di salvare e creare statistiche sulle azioni degli utenti nell'OPAC.
+	</li>
+	<li>
+		<b>Navigation par localisation et par section : </b>
+		 Paramètrage de la navigation virtuelle par les plans de classement
+	</li>
+</ul>
+</p>

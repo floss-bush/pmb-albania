@@ -1,0 +1,8 @@
+<h1>Volumes' management</h1>
+
+<p>Here you'll find the different parameters concerning the volumes.</p>
+<ul>
+<li><b>Origins</b> define origins of the volumes to manage copyrights</li>
+<li><b>Personalisable</b> Personal fields on volumes</li>
+</ul></p>
+ 

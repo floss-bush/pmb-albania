@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur aligastore
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.4 2008-08-28 09:16:34 erwanmartin Exp $ -->
+
+<XMLlist>
+	<entry code="aliga_base_url">URL de base du serveur aligastore</entry>
+	<entry code="aliga_username">Nom d'utilisateur</entry>
+	<entry code="aliga_password">Mot de passe</entry>
+	<entry code="aliga_syncbase">Synchroniser la base entière</entry>
+	<entry code="aliga_sync_noticecaddie">Synchroniser les notices d'un panier de notice</entry>
+	<entry code="aliga_sync_explcaddie">Synchroniser les notices d'un panier d'exemplaire</entry>
+	<entry code="aliga_caddie_element">éléments</entry>
+	<entry code="aliga_fetch_images">Récupérer les images associées aux notices</entry>
+	<entry code="aliga_image_folder">Dossier dans lequel seront stockées les images des notices</entry>
+	<entry code="aliga_image_folder_public">URL publique du dossier des images des notices</entry>
+	<entry code="aliga_image_thumburl">URL de la vignette</entry>
+	<entry code="aliga_image_front">URL du Recto</entry>
+	<entry code="aliga_image_back">URL du Verso</entry>
+	<entry code="aliga_cover_front">Recto</entry>>
+	<entry code="aliga_cover_back">Verso</entry>>
+</XMLlist>

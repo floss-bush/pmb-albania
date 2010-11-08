@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLlist>
+	<!--
+pmbesSpecialTypes
+-->
+	<entry code="pmbesSpecialTypes_description">Décrit des types spéciaux, qui ne représentent rien de physique</entry>
+	<!--
+unimarc_notice
+-->
+	<entry code="unimarc_notice_description">Désigne une notice unimarc</entry>
+	<entry code="unimarc_notice_id">L'id de la notice</entry>
+	<entry code="unimarc_notice_header">L'entête unimarc</entry>
+	<entry code="unimarc_notice_f">Les champs f</entry>
+	<!--
+unimarc_header_field
+-->
+	<entry code="unimarc_header_field_description">Un champ de l'entête</entry>
+	<entry code="unimarc_header_field_name">Le nom du champ</entry>
+	<entry code="unimarc_header_field_value">La valeur du champ</entry>
+	<!--
+unimarc_f_field
+-->
+	<entry code="unimarc_f_field_description">Décrit un champ f</entry>
+	<entry code="unimarc_f_field_c"></entry>
+	<entry code="unimarc_f_field_ind"></entry>
+	<entry code="unimarc_f_field_id"></entry>
+	<entry code="unimarc_f_field_s"></entry>
+	<!--
+unimarc_s_field
+-->
+	<entry code="unimarc_s_field_description">Décrit un champ s</entry>
+	<entry code="unimarc_s_field_c"></entry>
+	<entry code="unimarc_s_field_value"></entry>
+</XMLlist>

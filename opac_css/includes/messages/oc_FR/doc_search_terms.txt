@@ -1,0 +1,16 @@
+<h2>Recèrca per tèrmes del tesaurus</h2>
+<p><strong>La recèrca per tèrmes del tesaurus permet de navigar entre los subjèctes dels obratges de la bibliotèca.</strong></p>
+<p>Las categorias son un classament dels obratges (es un tesaurus) que la bibliotèca a establit
+amb l'ajuda de mots o d'expressions : per exemple <i>Literatura medievala</i> o 
+<i>Mamifèrs marins</i></p>
+<p>Per aquela recèrca, comencatz per <b>sasir un o mai d'un tèrme de cèrcar</b>, 
+per exemple <i>istoria</i>. Los resultats de la recèrca s'aficharàn en doas partidas.  </p>
+<p>La partida superiora vos aficha las categorias correspondentas</b> a vòstra 
+recèrca. Un clic subre una de las categorias de la partida superiora (per exemple <i>istòria politica</i>) 
+vos aficha de per la <b>partida inferiora mai d'informacions</b> subre la categoria causida e eventualament de <b>remandadisses</b>.</p>
+<hr />
+<p>En cliquar los ligams de la partida inferiora, vos desplaçatz d'una categoria a una autra.</p>
+<hr />
+<p>Per seleccionar una categoria e n'afichar los obratges, clicatz la lópia <img src='images/search.gif' align='absmiddle'>plaçada en debuta de linha.</p>
+<hr />
+<p>Se la lópia s'aficha pas, cap d'obratge correspond pas a la categoria.</p>

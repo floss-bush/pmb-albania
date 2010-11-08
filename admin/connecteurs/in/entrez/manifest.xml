@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2009-05-15 16:06:51 erwanmartin Exp $ -->
+
+<manifest>
+	<name>entrez</name>
+	<repository>no</repository>
+	<comment>Connecteur des bases NCBI Entrez</comment>
+	<author>Erwan MARTIN</author>
+	<org>PMB Services</org>
+	<date>2009-04-25</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

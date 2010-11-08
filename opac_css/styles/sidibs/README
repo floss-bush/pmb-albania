@@ -1,0 +1,54 @@
+#
+#	Note explicative
+#
+#	Les contenus decrits ici ont pour but de renseigner les parametres
+#	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+#	suivant les directives #obligatoire #recommande...
+#
+#	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+#	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+#	implementer le parametre en question.
+#	
+#	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+#	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+#
+#	/!\ Opac pour résolutions 1280x1024 et supérieures
+#	résolution 1024x768 supportée mais lacunaire
+
+
+/*************************
+biblio_important_p1
+#obligatoire
+*************************/
+<map name="map_lien_retour" id="map_lien_retour"><area shape="rect" coords="0,0,350,250" href="index.php?lvl=index" title="Retour à l'accueil" />
+</map>
+<img src="./images/bar_spacer.gif" usemap="#map_lien_retour" alt="" />Message important
+
+
+# /!\ le champ important p2 a été désactivé pour éviter la surcharge du bandeau (display:none)
+
+/*************************
+biblio_preamble_p1
+#obligatoire
+*************************/
+<map name="map_menu" id="id_map_menu">
+	<area shape="rect" coords="30,0,63,20" href="index.php" title="Retour à l'index avec les catégories" />
+	<area shape="rect" coords="70,0,102,20" href="index.php?lvl=search_history" title="Historique des recherches" />
+	<area shape="rect" coords="108,0,140,20" href="index.php?lvl=more_results&get_last_query=1" title="Retour à la dernière recherche" />
+</map>
+<img class="ban_menu" src="styles/sidibs/images/ban_menu.png" usemap="#map_menu" alt="" />
+<img id="introbibli_haut" src="styles/sidibs/images/introbibli_haut.png" alt="" />
+<strong>Le catalogue en ligne du petit paradis blanc et bleu</strong>
+
+
+
+/*************************
+biblio_preamble_p2
+#obligatoire
+*************************/
+<img src="styles/sidibs/images/introbibli_barre.png" alt="" /><strong>
+Sidi Bou Saïd est un village pittoresque de Tunisie situé à quelques 20 kilomètres au nord-est de Tunis. Il compte près de 5409 habitants (recensement de 2004).
+<br /><br />
+Perché sur une falaise dominant Carthage et le golfe de Tunis, ce village porte le nom d'un saint : Abou Saïd. Les maisons de Sidi Bou Saïd sont tout à fait particulières : elles combinent à la fois l'architecture arabe et andalouse, et sont caractérisés par des murs de chaux d'une blancheur éclatante ainsi que des ouvertures aux montants bleus azur.</strong>
+<img src="styles/sidibs/images/introbibli_barre.png" alt="" />
+<img id="introbibli_bas" src="styles/sidibs/images/introbibli_bas.png" alt="" />

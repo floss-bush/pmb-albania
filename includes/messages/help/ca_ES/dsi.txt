@@ -1,0 +1,15 @@
+<h1>Mòdul de Difusió Selectiva de la Informació</h1>
+<p>La difusió selectiva de la informació és un servei que consisteix en 
+difondre entre els usuaris, de forma regular, els resultats d'un perfil de cerca.</p>
+
+<h2>Difondre</h2>
+Permet iniciar els enviaments de e-mails als abonats<br />
+<h2>Cistells</h2>
+Els cistells són reservats a les novetats, és el contingut d'aquests cistells el que 
+serà enviat als usuaris per la seva difusió.<br />
+<h2>Equacions </h2>
+Les equacions són el que permeten omplir els cistells.<br />
+<h2>Classements </h2>
+Les classes permeten organitzar els cistells i les equacions.<br />
+
+ 

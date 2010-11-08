@@ -1,0 +1,14 @@
+<h2>Ricerca estesa</h2>
+<p><strong>La ricerca estesa permette di combinare differenti criteri per realizzare una ricerca molto selettiva. </strong></p>
+<p>
+Si possono selezionare uno o più campi di ricerca &nbsp;: titolo, autore, campi personalizzati...</p>
+<p>Per avviare una ricerca estesa :</p>
+<ul><li><b>scegliere un</b> primo <b>campo</b> sul quale si deve indirizzare la ricerca. Ad esempio: Autore</li>
+<li>cliccare su <b>Aggiungi</b> per definire un primo campo di ricerca</li>
+<li><b>scegliere</b> successivamente <b>un tipo di ricerca</b> per il campo prescelto. Per un campo titolo si può scegliere tra "espressione booleana", "inizia con", 
+"finisce con" o "esattamente". Questo tipo di ricerca varia a seconda del campo. Ad esempio, per Autore "inizia con"</li>
+<li><b>se il campo necessita di un valore</b>, <b>sceglietelo</b> tra il menu di scelta; se il campo necessita una scelta (ad esempio il tipo di supporto), spuntate una o più proposte cliccando e tenendo premuto il tasto Ctrl.</li></ul>
+<hr />
+<p>La vostra ricerca può anche essere fatta mediante un'<a href=help.php?whatis=expbool>espressione booleana</a>.</p>
+<hr />
+<p>Una ricerca estesa può essere fatta su tutto l'insieme dei dati del catalogo della biblioteca.</p>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2 2010-06-08 19:33:38 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="rec_addr">Enregistrez une adresse pour pouvoir accéder aux propriétés de l'entrepôt</entry>
+	<entry code="error_contact_server">Erreur d'accès au serveur OAI : %s</entry>
+	<entry code="oai_url">URL</entry>
+	<entry code="oai_desc">Description</entry>
+	<entry code="oai_older_metatdatas">Date la plus ancienne des métadatas</entry>
+	<entry code="oai_email_admin">Email administrateur</entry>
+	<entry code="oai_granularity">Granularité</entry>
+	<entry code="oai_one_day">1 jour</entry>
+	<entry code="oai_minute">A la minute</entry>
+	<entry code="oai_sets_to_sync">Sets à synchroniser</entry>
+	<entry code="oai_preference_format">Format de préférence des données</entry>
+	<entry code="oai_xslt_file">Fichier xslt pour la conversion en unimarc</entry>
+	<entry code="oai_xslt_file_linked">Un fichier xslt a été associé : %s</entry>
+	<entry code="oai_del_xslt_file">Le supprimer</entry>
+	<entry code="oai_del_marked_elts">Supression des éléments marqués par le serveur ? (le serveur les conserve de manière %s)</entry>
+	<entry code="oai_del_marked_persistent">persistente</entry>
+	<entry code="oai_del_marked_temp">temporaire</entry>
+	<entry code="oai_yes">Oui</entry>
+	<entry code="oai_no">Non</entry>
+		<entry code="oai_get_notices">Rapatrier les notices publiées</entry>
+	<entry code="oai_between_part1">Entre le</entry>
+	<entry code="oai_between_part2">Et le</entry>
+	<entry code="oai_syncinfo_date_baserecent">Date de la notice la plus récente dans la base: %s</entry>
+	<entry code="oai_syncinfo_date_serverearlyiest">Date de la notice la plus vieille sur le serveur: %s</entry>
+	<entry code="oai_syncinfo_nonotice">Aucune notice dans la base.</entry>
+	<entry code="oai_clean_url">Récupérer la forme canonique de l'url renvoyée</entry>
+</XMLlist>

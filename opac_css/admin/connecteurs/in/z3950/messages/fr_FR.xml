@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur z3950
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.1 2008-01-03 17:23:19 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="z3950_url">Adresse du serveur z39.50</entry>
+	<entry code="z3950_base">Nom de la base</entry>
+	<entry code="z3950_login">Utilisateur</entry>
+	<entry code="z3950_password">Mot de passe</entry>
+	<entry code="z3950_max_notices">Nombre maximum de notices renvoyées</entry>
+	<entry code="z3950_format">Format demandé</entry>
+	<entry code="z3950_port">Port</entry>
+	<entry code="z3950_convert">Type de conversion à appliquer</entry>
+	<entry code="z3950_no_convert">Import direct (le serveur renvoie de l'UNIMARC ISO 2709)</entry>
+	<entry code="z3950_bib1">Attributs Bib-1</entry>
+	<entry code="z3950_very_simple">Minimum</entry>
+	<entry code="z3950_simple">Simplifié</entry>
+	<entry code="z3950_complete">Complet</entry>
+	<entry code="z3950_profils">Profil Bib-1</entry>
+</XMLlist>

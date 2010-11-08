@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.5 2010-06-08 08:28:40 arenou Exp $ -->
+
+<manifest>
+	<name>pmbesSelfServices</name>
+	<description>msg:selfservices_functions_description</description>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<methods>
+	<!--
+ 
+	Méthodes relative au prêt (self_checkout), retour (self_checkin) , et prolongation de prêt (self_renew) d'un document
+ 
+	-->
+
+		<method name="self_checkout" comment="msg:self_checkout_description" rights="" version="1.0" language_independant="false">
+			<inputs>
+				<description>msg:self_checkout_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:self_checkout_session_id"/>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_checkout_expl_cb"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:self_checkout_pmbUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_checkout_outputs_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_checkout_status"/>
+				<result name="message" type="scalar" dataType="string" description="msg:self_checkout_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_checkout_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_checkout_transaction_date"/>
+				<result name="due_date" type="scalar" dataType="string" description="msg:self_checkout_due_date"/>
+				<result name="message_quota" type="scalar" dataType="string" description="msg:self_checkout_message_quota"/>		
+			</outputs>
+		</method>
+		<method name="self_checkin" comment="msg:self_checkin_description" rights="" version="1.0" language_independant="false">	
+			<inputs>
+				<description>msg:self_checkin_input_description</description>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_checkin_expl_cb"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:self_checkin_pmbUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_checkin_output_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_checkin_status"/>
+				<result name="message"  type="scalar" dataType="string" description="msg:self_checkin_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_checkin_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_checkin_transaction_date"/>
+				<result name="message_loc" type="scalar" dataType="string" description="msg:self_checkin_message_loc"/>
+				<result name="message_resa" type="scalar" dataType="string" description="msg:self_checkin_message_resa"/>
+				<result name="message_retard" type="scalar" dataType="string" description="msg:self_checkin_message_retard"/>
+				<result name="message_amende" type="scalar" dataType="string" description="msg:self_checkin_message_amende"/>						
+			</outputs>
+		</method>
+		<method name="self_renew" comment="msg:self_renew_description" rights="" version="1.0" language_independant="false">	
+			<inputs>
+				<description>msg:self_renew_input_description</description>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_renew_expl_cb"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:self_renew_pmbUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_renew_output_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_renew_status"/>
+				<result name="message"  type="scalar" dataType="string" description="msg:self_renew_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_renew_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_renew_transaction_date"/>
+				<result name="due_date" type="scalar" dataType="string" description="msg:self_renew_due_date"/>				
+			</outputs>
+		</method>		
+	</methods>
+</manifest>

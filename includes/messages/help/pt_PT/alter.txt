@@ -1,0 +1,12 @@
+<br />
+<b>ATEN&Ccedil;&Atilde;O, esta actualiza&ccedil;&atilde;o talvez seja longa e arriscada...
+
+<br />&Eacute; indispens&aacute;vel fazer um backup antes de iniciar.</b>
+
+<br /><br />Ignorar as mensagens de erro que possam surgir, elas s&atilde;o, sem d&uacute;vida nenhuma, devido a actual vers&atilde;o da base de dados n&atilde;o estar actualizada.
+
+<br />Se as mensagens persistirem no fim da actualiza&ccedil;&atilde;o, ser&aacute; necess&aacute;rio verificar rigorosamente a sua causa.
+
+
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Clicar aqui para come&ccedil;ar a actualiza&ccedil;&atilde;o.</a>
+			

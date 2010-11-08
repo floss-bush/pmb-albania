@@ -1,0 +1,15 @@
+<h1>Trasferimenti</h1>
+<p>Opzioni per la parametrizzazione dei trasferimenti. </p>
+<p>
+<b>Generale</b> Parametri generali
+</p><p>
+<b>Circolazione</b> Parametri Circolazione
+</p><p>
+<b>OPAC</b> Parametri OPAC
+</p><p>
+<b>Ordine di ricerca</b> permette di gestire l'ordine di ricerca nei siti in cui si trova l'esemplare da trasferire. 
+</p><p>
+<b>Statti predefiniti</b> Stati predefiniti nel corso della ricezione di un esemplare su un sito 
+</p><p>
+<b>Pulizia storico</b> Cancellazione storico trasferimenti 
+</p>

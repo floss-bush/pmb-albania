@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>PMB XML UNIMARC -&gt; XML LIBELLE</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="unimarc" noticeelement="notice"/>
+	<!-- Type de la sortie -->
+	<output importable="no" type="xml" suffix="xml">
+		<rootelement>notices</rootelement>
+	</output>
+	
+	<step type="xmltransform">
+		<!-- Conversion en xml unimarc -->
+		<xslfile>uni2libelle.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notices</noticeelement>
+		<trootelement>notices</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+</params>

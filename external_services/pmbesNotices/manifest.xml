@@ -1,0 +1,390 @@
+<?xml version="1.0"?>                                                                                   
+<!-- Fichier manifest de description des méthodes disponibles                                           
+****************************************************************************************                
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)               
+****************************************************************************************                
+$Id: manifest.xml,v 1.16 2010-09-24 10:41:38 arenou Exp $ -->                                       
+<manifest>                                                                                              
+        <name>pmbesNotices</name>                                                                       
+        <description>msg:pmbesNotices_description</description>                                         
+        <requirements>                                                                                  
+                <requirement group="pmbesTypes"/>                                                       
+                <requirement group="pmbesItems"/>                                                       
+        </requirements>                                                                                 
+        <types>                                                                                         
+                <type name="explNum" imported="true" imported_from="pmbesTypes" description="msg:explNum_description"/>
+                <type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes" description="msg:unimarc_notice_description"/>                                                                                                              
+                <type name="item" imported="true" imported_from="pmbesTypes" description="msg:item_description"/>            
+                <type name="bulletin" imported="true" imported_from="pmbesTypes" description="msg:bulletin_description"/>    
+                <type name="serial" imported="true" imported_from="pmbesTypes"/>    
+          		<type name="collstate" imported="true" imported_from="pmbesTypes" description=""/>  
+        </types>                                                                                                             
+        <methods>                                                                                                            
+                <method name="fetchNoticeList" comment="msg:fetchNoticeList_description" rights="" version="1.0" language_independant="false">                                                                                                            
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:fetchNoticeList_input_description</description>                             
+                                <param name="noticelist" type="array" description="msg:fetchNoticeList_noticelist">          
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                     
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeList_recordFormat"/>                                                                                                               
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeList_recordCharset"/>                                                                                                             
+                                <param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchNoticeList_includeLinks"/>                                                                                                              
+                                <param name="includeItems" type="scalar" dataType="boolean" description="msg:fetchNoticeList_includeItems"/>                                                                                                              
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetchNoticeList_output_description</description>                            
+                                <result type="array" name="results" description="msg:fetchNoticeList_results">               
+                                        <result name="noticeId" type="scalar" dataType="integer" description="msg:fetchNoticeList_results_noticeId"/>                                                                                                     
+                                        <result name="noticeContent" type="scalar" dataType="string" description="msg:fetchNoticeList_results_noticeContent"/>                                                                                            
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetchExternalNoticeList" rights="" version="1.0" language_independant="false">                                                                                                            
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                            
+                                <param name="noticelist" type="array">          
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                     
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeList_recordFormat"/>                                                                                                               
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeList_recordCharset"/>                                                                                                             
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <result type="array" name="results">
+                                        <result name="noticeId" type="scalar" dataType="integer"/>                                                                                                     
+                                        <result name="noticeContent" type="scalar" dataType="string"/>                                                                                            
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetchNoticeListArray" rights="" version="1.0" comment="msg:fetchNoticeListArray_description" language_independant="false">                                                                                                  
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:fetchNoticeListArray_input_description</description>                        
+                                <param name="noticelist" type="array" description="msg:fetchNoticeListArray_noticelist">     
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                     
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeListArray_recordCharset"/>                                                                                                        
+                                <param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchNoticeListArray_includeLinks"/>                                                                                                         
+                                <param name="includeItems" type="scalar" dataType="boolean" description="msg:fetchNoticeListArray_includeItems"/>                                                                                                         
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetchNoticeListArray_output_description</description>                       
+                                <result type="array" name="results" description="msg:fetchNoticeListArray_results">          
+                                        <result name="uneNotice" type="scalar" dataType="unimarc_notice"/>                   
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="listNoticeExplNums" comment="msg:listNoticeExplNums_description" rights="" version="1.0" language_independant="true">                                                                                                       
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="acces.class.php"/>                                 
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:listNoticeExplNums_input_description</description>                          
+                                <param name="noticeId" type="scalar" dataType="integer" description="msg:listNoticeExplNums_noticeId"/>                                                                                                                   
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:listNoticeExplNums_OPACUserId"/>                                                                                                               
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:listNoticeExplNums_output_description</description>                         
+                                <result type="array" name="results" description="msg:listNoticeExplNums_results">            
+                                        <result name="aexplnum" type="scalar" dataType="explNum"/>                           
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="listNoticesExplNums" rights="" version="1.0" language_independant="true" comment="msg:listNoticesExplNums_description">                                                                                                     
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="acces.class.php"/>                                 
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:listNoticesExplNums_input_description</description>                         
+                                <param name="noticesid" type="scalar" description="msg:listNoticesExplNums_noticesid">       
+                                        <param name="anoticeid" type="scalar" dataType="inteteger" description="msg:listNoticesExplNums_noticesid_anoticeid"/>                                                                                            
+                                </param>                                                                                     
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:listNoticesExplNums_OPACUserId"/>                                                                                                              
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:listNoticesExplNums_output_description</description>                        
+                                <result type="array" name="result" description="msg:listNoticesExplNums_result">
+                                        <result name="noticeid" type="scalar" dataType="integer" description="msg:listNoticesExplNums_result_noticeid"/>                                                                                                  
+                                        <result type="array" name="explnums" description="msg:listNoticesExplNums_result_explnums">                                                                                                                       
+                                                <result name="aexplnums" type="scalar" dataType="explNum"/>                  
+                                        </result>                                                                            
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="listBulletinExplNums" comment="msg:listBulletinExplNums_description" rights="" version="1.0" language_independant="true">                                                                                                   
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="acces.class.php"/>                                 
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:listBulletinExplNums_input_description</description>                        
+                                <param name="bulletinId" type="scalar" dataType="integer" description="msg:listBulletinExplNums_bulletinId"/>                                                                                                             
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:listBulletinExplNums_OPACUserId"/>                                                                                                             
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:listBulletinExplNums_output_description</description>                       
+                                <result type="array" name="results" description="msg:listBulletinExplNums_results">          
+                                        <result name="aexplnum" type="scalar" dataType="explNum"/>                           
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="listBulletinsExplNums" rights="" version="1.0" language_independant="true" comment="msg:listBulletinsExplNums_description">                                                                                                 
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="acces.class.php"/>                                 
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:listBulletinsExplNums_input_description</description>                       
+                                <param name="bulletin_ids" type="scalar" description="msg:listBulletinsExplNums_bulletin_ids">                                                                                                                            
+                                        <param name="abulletin_id" type="scalar" dataType="integer" description="msg:listBulletinsExplNums_bulletin_ids_abulletin_id"/>                                                                                   
+                                </param>                                                                                     
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:listBulletinsExplNums_OPACUserId"/>                                                                                                            
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:listBulletinsExplNums_output_description</description>                      
+                                <result type="array" name="results" description="msg:listBulletinsExplNums_results">
+                                        <result name="bulletin_id" type="scalar" dataType="integer" description="msg:listBulletinsExplNums_results_bulletin_id"/>                                                                                         
+                                        <result type="array" name="bulletin_explnums" description="msg:listBulletinsExplNums_results_bulletin_explnums">                                                                                                  
+                                                <result name="aexplnum" type="scalar" dataType="explNum"/>                   
+                                        </result>                                                                            
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetchNoticeByExplCb" comment="msg:fetchNoticeByExplCb_description" rights="" version="1.0" language_independant="false">                                                                                                    
+						<requirements>
+							<requirement group="pmbesNotices" name="fetchNoticeListFull" version="1.0"/>
+						</requirements>                                                                             
+                        <inputs>                                                                                             
+                                <description/>
+                                <param name="emprId" type="scalar" dataType="string" description="msg:fetchNoticeByExplCb_emprId"/>
+                                <param name="explCb" type="scalar" dataType="string" description="msg:fetchNoticeByExplCb_explCb"/>                                                                                                                       
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeByExplCb_recordFormat"/>                                                                                                           
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeByExplCb_recordCharset"/>                                                                                                         
+                                <param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchNoticeByExplCb_includeLinks"/>                                                                                                          
+                                <param name="includeItems" type="scalar" dataType="boolean" description="msg:fetchNoticeByExplCb_includeItems"/>                                                                                                          
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+	                       <description>msg:fetchNoticeListFull_output_description</description>                        
+	                                <result type="array" name="results" description="msg:fetchNoticeListFull_results">                                                                                       
+	                                        <result name="noticeId" type="scalar" dataType="integer" description="msg:fetchNoticeListFull_results_noticeId"/>                                                                                                 
+	                                        <result name="noticeContent" type="scalar" dataType="string" description="msg:fetchNoticeListFull_results_noticeContent"/>                                                                                        
+	                                        <result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
+	                                                <result name="aItem" type="scalar" dataType="item"/>                         
+	                                        </result>                                                                            
+	                                        <result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+	                                                <result name="aDocNum" type="scalar" dataType="explNum"/>                    
+	                                        </result>                                                                            
+	                                        <result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+	                                                <result name="aBulletin" type="scalar" dataType="bulletin"/>                 
+	                                        </result> 
+	 		                                <result type="array" name="collstates" description="msg:fetchNoticeCollstates_result">
+			                                        <result name="collstate" type="scalar" dataType="collstate"/>
+			                                </result>                                                                                                                     
+	                                </result>                                                                                
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetch_notices_bulletins" rights="" version="1.0" language_independant="false" comment="msg:fetch_notices_bulletins_description">                                                                                            
+                        <inputs>                                                                                             
+                                <description>msg:fetch_notices_bulletins_input_description</description>                     
+                                <param name="noticesid" type="scalar" description="msg:fetch_notices_bulletins_noticesid">   
+                                        <param name="anoticeid" type="scalar" dataType="inteteger" description="msg:fetch_notices_bulletins_noticesid_anoticeid"/>                                                                                        
+                                </param>                                                                                     
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetch_notices_bulletins_OPACUserId"/>                                                                                                          
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetch_notices_bulletins_output_description</description>                    
+                                <result type="array" name="result" description="msg:fetch_notices_bulletins_result">
+                                        <result name="noticeid" type="scalar" dataType="integer" description="msg:fetch_notices_bulletins_result_noticeid"/>                                                                                              
+                                        <result type="array" name="bulletins" description="msg:fetch_notices_bulletins_result_bulletins">                                                                                                                 
+                                                <result name="bulletin" type="scalar" dataType="bulletin"/>                  
+                                        </result>                                                                            
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetchNoticeListFull" rights="" version="1.0" language_independant="false" comment="msg:fetchNoticeListFull_description">                                                                                                    
+                        <requirements>                                                                                       
+                                <requirement group="pmbesNotices" name="fetchNoticeList" version="1.0"/>                     
+                                <requirement group="pmbesNotices" name="listNoticesExplNums" version="1.0"/>                 
+                                <requirement group="pmbesNotices" name="fetch_notices_bulletins" version="1.0"/>             
+                                <requirement group="pmbesNotices" name="fetchNoticesCollstates" version="1.0"/>             
+                                <requirement group="pmbesItems" name="fetch_notices_items" version="1.0"/>                   
+                        </requirements>                                                                                      
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:fetchNoticeListFull_input_description</description>                         
+                                <param name="noticelist" type="array" description="msg:fetchNoticeListFull_noticelist">      
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                     
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeListFull_recordFormat"/>                                                                                                           
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeListFull_recordCharset"/>                                                                                                         
+                                <param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchNoticeListFull_includeLinks"/>                                                                                                          
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetchNoticeListFull_output_description</description>                        
+                                <result type="array" name="results" description="msg:fetchNoticeListFull_results">                                                                                       
+                                        <result name="noticeId" type="scalar" dataType="integer" description="msg:fetchNoticeListFull_results_noticeId"/>                                                                                                 
+                                        <result name="noticeContent" type="scalar" dataType="string" description="msg:fetchNoticeListFull_results_noticeContent"/>                                                                                        
+                                        <result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
+                                                <result name="aItem" type="scalar" dataType="item"/>                         
+                                        </result>                                                                            
+                                        <result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+                                                <result name="aDocNum" type="scalar" dataType="explNum"/>                    
+                                        </result>                                                                            
+                                        <result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+                                                <result name="aBulletin" type="scalar" dataType="bulletin"/>                 
+                                        </result> 
+ 		                                <result type="array" name="collstates" description="msg:fetchNoticeCollstates_result">
+		                                        <result name="collstate" type="scalar" dataType="collstate"/>
+		                                </result>                                                                                                                     
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                                                                                                    
+                <method name="fetch_bulletin_list" rights="" version="1.0" language_independant="false" comment="msg:fetch_bulletin_list_description">
+                        <inputs>
+                                <description>msg:fetch_bulletin_list_input_description</description>
+                                <param name="bulletin_ids" type="scalar" description="msg:fetch_bulletin_list_bulletin_ids">
+                                        <param name="abulletin_id" type="scalar" dataType="integer" description="msg:fetch_bulletin_list_bulletin_ids_abulletin_id"/>
+                                </param>
+                        </inputs>
+                        <outputs>
+                                <description>msg:fetch_bulletin_list_output_description</description>
+                                <result type="array" name="result" description="msg:fetch_bulletin_list_result">
+                                        <result name="bulletin" type="scalar" dataType="bulletin"/>
+                                </result>
+                        </outputs>
+                </method>
+                <method name="findNoticeBulletinId" rights="" version="1.0" language_independant="false">
+                        <inputs>
+                                <param name="noticeId" type="scalar"/> 
+                        </inputs>
+                        <outputs>
+	                        <result name="bulletinId" type="scalar" dataType="integer"/>
+                        </outputs>
+                </method>
+                <method name="fetchBulletinListFull" rights="" version="1.0" language_independant="false" comment="msg:fetchBulletinListFull_description">                                                                                                
+                        <requirements>                                                                                       
+                                <requirement group="pmbesNotices" name="fetch_bulletin_list" version="1.0"/>                 
+                                <requirement group="pmbesNotices" name="listBulletinsExplNums" version="1.0"/>               
+                                <requirement group="pmbesNotices" name="fetchNoticeList" version="1.0"/>                     
+                                <requirement group="pmbesItems" name="fetch_bulletins_items" version="1.0"/>                 
+                        </requirements>                                                                                      
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>
+                                <description>msg:fetchBulletinListFull_input_description</description>                       
+                                <param name="bulletinlist" type="array" description="msg:fetchBulletinListFull_bulletinlist">
+                                        <param name="bulletin_id" type="scalar" dataType="integer"/>                         
+                                </param>                                                                                     
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchBulletinListFull_recordFormat"/>                                                                                                         
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchBulletinListFull_recordCharset"/>                                                                                                       
+                        </inputs>
+                        <outputs>
+                                <description>msg:fetchBulletinListFull_output_description</description>                      
+                                <result type="array" name="results" description="msg:fetchBulletinListFull_results">                  
+                                        <result name="bulletin_id" type="scalar" dataType="integer" description="msg:fetchBulletinListFull_results_bulletin_id"/>                                                                                         
+                                        <result name="bulletin_bulletin" type="scalar" dataType="bulletin" description="msg:fetchBulletinListFull_results_bulletin_bulletin"/>                                                                            
+                                        <result name="bulletin_notice" type="scalar" dataType="string" description="msg:fetchBulletinListFull_results_bulletin_notice"/>                                                                                  
+                                        <result name="bulletin_items" type="array" description="msg:fetchBulletinListFull_results_bulletin_items">                                                                                                        
+                                                <result name="aItem" type="scalar" dataType="item"/>                         
+                                        </result>                                                                            
+                                        <result name="bulletin_doc_nums" type="array" description="msg:fetchBulletinListFull_results_bulletin_doc_nums">
+                                                <result name="aDocNum" type="scalar" dataType="explNum"/>
+                                        </result>
+                                        <result name="bulletin_analysis_notice_ids" type="array">
+                                                <result name="anotice_id" type="scalar" dataType="integer"/>
+                                        </result>
+                                </result>
+                        </outputs>
+                </method>
+                <method name="fetchNoticesCollstates" comment="msg:fetchNoticeCollstates_description" rights="" version="1.0" language_independant="false">
+                        <pmb_requirements>
+                                <pmb_requirement start_path="class" file="collstate.class.php"/>
+                        </pmb_requirements>
+                        <inputs>
+                                <description/>
+                                <param type="array" name="serial_ids" description="">
+                                	<param name="serial_id" type="scalar" dataType="integer" description="msg:fetchNoticeCollstates_serial_id"/>
+                                </param>
+                                <param name="OPACUserId" type="scalar" dataType="integer" description="msg:fetchNoticeCollstates_OPACUserId"/>
+                        </inputs>
+                        <outputs>
+                                <description/>
+                                <result type="array" name="collstates" description="msg:fetchNoticeCollstates_result">
+                                        <result name="collstate" type="scalar" dataType="collstate"/>
+                                </result>
+                        </outputs>
+                </method>
+                <method name="fetchSerialList" rights="" version="1.0" language_independant="true">
+                        <inputs>
+							<param name="OPACUserId" type="scalar" dataType="integer"/>
+                        </inputs>
+                        <outputs>
+                                <result type="array" name="result">
+                                        <result name="serial" type="scalar" dataType="serial"/>
+                                </result>
+                        </outputs>
+                </method>
+               <method name="fetchNoticeListFullWithBullId" rights="" version="1.0" language_independant="false" comment="msg:fetchNoticeListFull_description">                                                                                                    
+                        <requirements>                                                                                       
+                                <requirement group="pmbesNotices" name="fetchNoticeList" version="1.0"/>                     
+                                <requirement group="pmbesNotices" name="listNoticesExplNums" version="1.0"/>                 
+                                <requirement group="pmbesNotices" name="fetchNoticesBulletinsList" version="1.0"/>             
+                                <requirement group="pmbesNotices" name="fetchNoticesCollstates" version="1.0"/>
+                                <requirement group="pmbesItems" name="fetch_notices_items" version="1.0"/>                   
+                        </requirements>                                                                                      
+                        <pmb_requirements>                                                                                   
+                                <pmb_requirement start_path="class" file="external_services_converters.class.php"/>          
+                        </pmb_requirements>                                                                                  
+                        <inputs>                                                                                             
+                                <description>msg:fetchNoticeListFull_input_description</description>                         
+                                <param name="noticelist" type="array" description="msg:fetchNoticeListFull_noticelist">      
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                     
+                                <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeListFull_recordFormat"/>                                                                                                           
+                                <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeListFull_recordCharset"/>                                                                                                         
+                                <param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchNoticeListFull_includeLinks"/>                                                                                                          
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetchNoticeListFull_output_description</description>                        
+                                <result type="array" name="results" description="msg:fetchNoticeListFull_results">                                                                                       
+                                        <result name="noticeId" type="scalar" dataType="integer" description="msg:fetchNoticeListFull_results_noticeId"/>                                                                                                 
+                                        <result name="noticeContent" type="scalar" dataType="string" description="msg:fetchNoticeListFull_results_noticeContent"/>                                                                                        
+                                        <result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
+                                                <result name="aItem" type="scalar" dataType="item"/>                         
+                                        </result>                                                                            
+                                        <result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+                                                <result name="aDocNum" type="scalar" dataType="explNum"/>                    
+                                        </result>                                                                            
+                                        <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+                                                <result name="bulletinId" type="scalar" dataType="integer"/>                 
+                                        </result>  
+		                                <result type="array" name="collstates" description="msg:fetchNoticeCollstates_result">
+		                                        <result name="collstate" type="scalar" dataType="collstate"/>
+		                                </result>                                                                                                              
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>   
+                <method name="fetchNoticesBulletinsList" rights="" version="1.0" language_independant="false" comment="msg:fetch_bulletin_list_description">                                                                                                    
+                        <inputs>                                                                                             
+                                <description></description>                         
+                                <param name="noticelist" type="array" description="msg:fetchNoticeListFull_noticelist">      
+                                        <param name="notice_id" type="scalar" dataType="integer"/>                           
+                                </param>                                                                                   
+                        </inputs>                                                                                            
+                        <outputs>                                                                                            
+                                <description>msg:fetch_bulletin_list_output_description</description>                        
+                                <result type="array" name="bulletinIds" description="msg:fetch_bulletin_list_result">             
+                                        <result name="bulletinId" type="scalar" dataType="integer"/>                          
+                                </result>                                                                                    
+                        </outputs>                                                                                           
+                </method>                      
+        </methods>
+</manifest>

@@ -1,0 +1,12 @@
+<h1>Copia de seguridad</h1>
+</p><p>
+<b>Directorios de las copias de seguridad</b> localizaci&oacute;n en el disco o ruta donde guardar las copias de seguridad
+</p><p>
+<b>Grupos de tablas</b> a guardar
+</p><p>
+<b>Copias de seguridad</b> correspondencia ruta/grupos de tablas
+</p><p>
+<b>Inicio</b> 
+</p><p>
+<b>Copias de seguridad realizadas</b> muestra la lista de copias de seguridad realizadas
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour la gestion des droits d'accès Emprunteurs Notices
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: it_IT.xml,v 1.1 2009-12-07 05:54:23 maxman Exp $ -->
+
+<XMLlist>
+	<entry code="long_name">Privilegi Iscritti al prestito - Schede</entry>
+	<entry code="menu_name">Iscritti - Schede</entry>
+	<entry code="user_prf_lib">Ruoli Iscritti</entry>
+	<entry code="user_prf_bt_add">Aggiungi ruolo</entry>
+	<entry code="user_prf_bt_calc">Calcolo automatico ruoli</entry>
+	<entry code="user_prf_calc_list_lib">Ruoli Iscritti calcolati</entry>
+	<entry code="user_prf_used_list_lib">Ruoli Iscritti definiti</entry>
+	<entry code="user_prf_unused_list_lib">Ruoli precedenti da riassegnare</entry>
+	<entry code="user_prf_calc_lib">Ruolo Iscritto</entry>
+	<entry code="user_prf_def_lib">Ruolo Iscritto predefinito (non precisato)</entry>
+	
+	<entry code="res_prf_lib">Profili schede</entry>
+	<entry code="res_prf_bt_add">Aggiungi profilo</entry>
+	<entry code="res_prf_bt_calc">Calcolo automatico profili</entry>
+	<entry code="res_prf_calc_list_lib">Profili schede calcolati</entry>
+	<entry code="res_prf_used_list_lib">Profili schede definiti</entry>
+	<entry code="res_prf_unused_list_lib">Profili schede precedenti da riassegnare</entry>
+	<entry code="res_prf_calc_lib">Profilo scheda</entry>
+	<entry code="res_prf_def_lib">Profilo scheda predefinito  (non precisato)</entry>
+	
+	<entry code="dom_mod_pro">Modifica profilo scheda</entry>
+	<entry code="view_noti_opac">Vedi scheda</entry>
+	<entry code="view_expl_opac">Vedi esemplare</entry>
+	<entry code="view_doc_opac">Vedi doc.digitale</entry>
+</XMLlist>

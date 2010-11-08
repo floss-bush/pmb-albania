@@ -1,0 +1,29 @@
+<h2>Procura por termos do thesaurus</h2>
+<p><strong>A procura por termos do thesaurus permite-lhe navegar
+pelos assuntos dos itens da biblioteca.</strong></p>
+<p>As categorias s&atilde;o um sistema de classifica&ccedil;&atilde;o
+(conhecido como um thesaurus) adoptado pela biblioteca para ajudar a
+procurar itens por frase ou express&atilde;o: por exemplo <i>Literatura
+Medieval</i> ou <i>Mam&iacute;feros marinhos</i>.</p>
+<p>Nesta procura, comece por <b>inserir um ou mais termos para
+procurar por</b>, por exemplo <i>hist&oacute;ria</i>. Os resultados
+da procura s&atilde;o apresentados por baixo do formul&aacute;rio de
+duas sec&ccedil;&otilde;es. 
+</p>
+<p>A sec&ccedil;&atilde;o principal mostra as categorias
+correspondentes &agrave; sua procura. Clicando em uma das categorias
+na sec&ccedil;&atilde;o principal (por exemplo <i>historia pol&iacute;tica</i>)
+resultar&aacute; em mais informa&ccedil;&atilde;o <b>que se apresenta
+na sec&ccedil;&atilde;o secund&aacute;ria</b> sobre a categoria
+seleccionada.</p>
+<hr />
+<p>Clicando numa das entradas da sec&ccedil;&atilde;o secund&aacute;ria,
+coloc&aacute;-lo-&aacute; numa sub-categoria.</p>
+<hr />
+<p>Para seleccionar uma categoria e apresentar os itens
+correspondentes, clique na lupa 
+<img src='images/search.gif' align='absmiddle'>
+localizada no in&iacute;cio da linha.</p>
+<hr />
+<p>Se a lupa n&atilde;o aparecer, n&atilde;o h&aacute; itens que
+correspondam &agrave; categoria.</p>

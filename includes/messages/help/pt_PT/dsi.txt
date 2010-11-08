@@ -1,0 +1,16 @@
+<h1>M&oacute;dulo de Difus&atilde;o Selectiva de Informa&ccedil;&atilde;o</h1>
+<p>A difus&atilde;o selectiva de informa&ccedil;&atilde;o &eacute; um
+servi&ccedil;o que consiste em difundir aos leitores, de modo
+regular, os resultados de um perfil de procura personalizada.</p>
+<h2>Difus&atilde;o</h2>
+<p>Permite lan&ccedil;ar os envios de mails aos inscritos</p>
+<h2>Cestos</h2>
+<p>Os cestos s&atilde;o reservat&oacute;rios de novidades, &eacute; o
+conte&uacute;do destes que enviar&aacute; aos inscritos aquando da
+divulga&ccedil;&atilde;o.</p>
+<h2>Equa&ccedil;&otilde;es</h2>
+<p>As equa&ccedil;&otilde;es s&atilde;o o que permite preencher os
+cestos.</p>
+<h2>Classes</h2>
+<p>As classes permitem organizar os cestos e as equa&ccedil;&otilde;es.</p>
+ 

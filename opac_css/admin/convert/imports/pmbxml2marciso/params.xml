@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id: params.xml,v 1.2 2006-04-28 05:35:04 touraine37 Exp $ -->
+<params>
+	<!-- Nom de l'import -->
+	<importname>pmb-XML MARC -&gt; MARC ISO2709</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+	<!-- Type de sortie -->
+	<output importable="yes" type="iso_2709" suffix="marc"/>
+	
+	<step type="toiso">
+		<rootelement>*</rootelement>
+		<il>2</il>
+		<sl>2</sl>
+		<dm1>4</dm1>
+		<dm2>5</dm2>
+		<dm3>0</dm3>
+	</step>
+</params>

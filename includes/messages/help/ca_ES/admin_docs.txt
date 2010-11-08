@@ -1,0 +1,20 @@
+<h1>Administració dels exemplars</h1>
+
+<p>La secció <b>administració dels exemplars</b> permet definir els paràmetres 
+de l'aplicació pel préstec i per les estadístiques dels documents.
+<ul>
+<li><b>Tipus de documents</b> permet establir paràmetres per realitzar els 
+préstecs i per cada tipus de document establir una durada en dies.</li>
+<li><b>Codis estadístics</b> aquest codi és utilitzat per la creació d'estadístiques
+de préstec sobre els fons de la biblioteca. </li>
+<li><b>Seccions</b> la secció és la zona de la biblioteca on el document 
+està disponible (sector adults, joves, discotèca...). Aquest codi és igualment 
+tingut en compte alhora d'elaborar estadístiques</li>
+<li><b>Estats</b> la noció d'estat és utilitzada per especificar si el document
+pot ésser agafat en préstec o no</li>
+<li><b>Localitzacions</b> la localització pot ser utilitzada per connectar 
+el document a un lloc concret (exemple&nbsp;: en reserva)</li>
+<li><b>Proprietaris</b> el proprietari dels exemplars, BDP per exemple</li>
+<li><b>Personalitzables</b> camps personalitzables dels exemplars</li>
+</ul></p>
+ 

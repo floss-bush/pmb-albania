@@ -1,0 +1,28 @@
+/* +--------------------------------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: display_none.css,v 1.2 2005-09-15 20:23:39 touraine37 Exp $
+*/
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* Feuille de style pour masquer certaines choses                             */
+/* commenter ou décommenter ce qu'il faut pour obtenir le masquage voulu      */
+
+
+/* ---------------------------------------------------------------------------*/
+/* Bloc d'adrese en affichage fiche emprunteur                                */
+#bloc_adresse_empr  {
+	/* 
+	display: none;
+	*/
+	}
+
+/* ---------------------------------------------------------------------------*/
+/* prix de la fiche exemplaire                                */
+#expl_prix  {
+	/* 
+	display: none;
+	*/
+	}
+

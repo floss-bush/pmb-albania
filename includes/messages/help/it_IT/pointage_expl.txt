@@ -1,0 +1,12 @@
+<br />
+<b>Modulo di spunta dei documenti ricevuti... 
+</b>
+<br /><br />
+Da qui &egrave; possibile "spuntare" tutti i documenti ricevuti in modo da cambiare il loro status e renderli disponibili al prestito.
+<br /><br />
+<OL>
+<LI>Selezionare lo status e la sezione da applicare</LI>
+<LI>Immettere uno per uno i codici a barre dei documenti (per rendere la cosa pi&ugrave; rapida &egrave; possibile utilizzare un lettore ottico)</LI>
+</OL>
+<br /><br />
+			

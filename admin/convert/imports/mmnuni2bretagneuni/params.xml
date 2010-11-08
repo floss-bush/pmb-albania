@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>UNIMARC MEMO NOTICES -&gt; UNIMARC Bretagne</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+	<!--<input type="xml" rootelement="unimarc" noticeelement="notice"/>-->
+	<!-- Type de la sortie -->
+	<output importable="yes" type="iso_2709" suffix="marc"/>
+	
+	<step type="isotoxml"> -->
+	<!-- Conversion iso2709 unimarc en xml-->
+		<trootelement>unimarc</trootelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Conversion en xml -->
+		<xslfile>mmnuni2bretagneuni.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+	
+	<!-- conversion en iso 2709 du résultat -->
+	<step type="toiso">
+		<rootelement>*</rootelement>
+		<il>2</il>
+		<sl>2</sl>
+		<dm1>4</dm1>
+		<dm2>5</dm2>
+		<dm3>0</dm3>
+	</step>
+</params>

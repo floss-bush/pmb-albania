@@ -1,0 +1,11 @@
+<h1>Amministrazione dei servizi esterni</h1>
+
+<p>I servizi esterni sono delle funzionalit&agrave utilizzate da altri programmi per interagire con PMB</p>
+
+<p>Da questa pagina &egrave possibile:</p>
+<ul>
+<li><b>Autorizzazioni generali</b> permette di definire globalmente i diritti di accesso alle funzioni</li>
+<li><b>Autorizzazioni utente</b> permette definire i diritti di accesso per i singoli utenti</li>
+<li><b>Utenti esterni</b> permette di definire utenti esterni, che possono essere utilizzati per autenticare gli utenti del servizio</li>
+<li><b>Gruppi di utenti esterni</b> permette di suddividere gli utenti esterni in gruppi</li>
+</ul>

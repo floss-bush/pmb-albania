@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes fonction en UNIMARC (franÁais)
+$Id: function.xml,v 1.1 2006-07-19 08:32:37 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="005">Actor</entry>
+	<entry code="010">Adaptador</entry>
+	<entry code="020">Anotador</entry>
+	<entry code="030">Autor do arranjo musical</entry>
+	<entry code="040">Artista </entry>
+	<entry code="050">Responsável Editorial</entry>
+	<entry code="060">Nome Associado</entry>
+	<entry code="065">Leiloeiro</entry>
+	<entry code="070">Autor</entry>
+	<entry code="072">Autor da citação</entry>
+	<entry code="075">Posfaciador</entry>
+	<entry code="080">Autor da introdução, etc.. </entry>
+	<entry code="090">Autor de guião cinematográfico, etc</entry>
+	<entry code="100">Antecedente bibliográfico</entry>
+	<entry code="110">Encadernador</entry>
+	<entry code="120">Autor da encadernação</entry>
+	<entry code="130">Maquetista</entry>
+	<entry code="140">Autor da capa do livro</entry>
+	<entry code="150">Autor dos extratextos</entry>
+	<entry code="160">Livreiro</entry>
+	<entry code="170">Calígrafo</entry>
+	<entry code="180">Cartógrafo</entry>
+	<entry code="190">Censor</entry>
+	<entry code="200">Coreógrafo</entry>
+	<entry code="205">Colaborador</entry>
+	<entry code="210">Comentador</entry>
+	<entry code="212">Comentador para o texto escrito</entry>
+	<entry code="220">Compilador </entry>
+	<entry code="230">Compositor</entry>
+	<entry code="240">Compositor tipógrafo</entry>
+	<entry code="245">Projectista</entry>
+	<entry code="250">Condutor</entry>
+	<entry code="260">Detentor dos direitos do autor</entry>
+	<entry code="270">Corrector</entry>
+	<entry code="273">Organizador de exposição</entry>
+	<entry code="274">Bailarino</entry>
+	<entry code="280">Personalidade a quem é dedicada a obra</entry>
+	<entry code="290">Autor da dedicatória</entry>
+	<entry code="300">Director (usado para director literário, D.teatral, D. publicação em série), etc</entry>
+	<entry code="305">Dissertador</entry>
+	<entry code="310">Distribuidor</entry>
+	<entry code="320">Doador</entry>
+	<entry code="330">Autor incerto</entry>
+	<entry code="340">Editor literário</entry>
+	<entry code="350">Gravador</entry>
+	<entry code="360">Gravador (aguafortista)</entry>
+	<entry code="365">Perito</entry>
+	<entry code="370">Realizador do filme</entry> 
+	<entry code="380">Falsificador</entry> 
+	<entry code="390">Proprietário anterior</entry>
+	<entry code="400">Benfeitor</entry>
+	<entry code="410">Técnico gráfico</entry>
+	<entry code="420">Personalidade em memória ou em honra da qual é feita a doação do documento</entry>
+	<entry code="430">Iluminista</entry>
+	<entry code="440">Illustrador</entry>
+	<entry code="450">Autor da apresentação</entry>
+	<entry code="460">Entrevistado</entry>
+	<entry code="470">Entrevistador</entry>
+	<entry code="480">Libretista</entry>
+	<entry code="490">Personalidade que detém a licença para imprimir ou publicar</entry>
+	<entry code="500">Personalidade que concede a licença para imprimir ou publicar</entry>
+	<entry code="510">Litógrafo</entry>
+	<entry code="520">Poeta lírico</entry>
+	<entry code="530">Gravador (metal)</entry>
+	<entry code="540">Controlador</entry>
+	<entry code="545">Músico</entry>
+	<entry code="550">Narrador</entry>
+	<entry code="560">Inventor</entry>
+	<entry code="570">Outro</entry>
+	<entry code="580">Fabricante de papel</entry>
+	<entry code="590">Intérprete</entry>
+	<entry code="600">Fotógrafo</entry>
+	<entry code="610">Impressor </entry>
+	<entry code="620">Impressor de gravuras</entry>
+	<entry code="630">Produtor </entry>
+	<entry code="635">Programador</entry>
+	<entry code="640">Revisor</entry>
+	<entry code="650">Editor</entry>
+	<entry code="651">Director de publicação</entry>
+	<entry code="660">Destinatário de carta(s)</entry>
+	<entry code="660">Receptor da correspondência</entry>
+	<entry code="670">Engenheiro de som</entry>
+	<entry code="675">Revisor</entry>
+	<entry code="680">Rubricator</entry>
+	<entry code="690">Cenógrafo</entry>
+	<entry code="695">Orientador científico</entry>
+	<entry code="700">Escriba</entry>
+	<entry code="705">Escultor</entry>
+	<entry code="710">Secretária</entry>
+	<entry code="720">Signatário</entry>
+	<entry code="721">Cantor</entry>
+	<entry code="723">Patrocinador </entry>
+	<entry code="727">Orientador da tese</entry>
+	<entry code="730">Tradutor</entry>
+	<entry code="740">Desenhador de caracteres de impress“o</entry>
+	<entry code="750">Tipógrafo</entry>
+	<entry code="760">Gravador (madeira)</entry>
+	<entry code="770">Autor do material de acompanhamento</entry>
+</XMLlist>
+
+

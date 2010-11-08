@@ -1,0 +1,73 @@
+#
+#	Note explicative
+#
+#	Les contenus decrits ici ont pour but de renseigner les parametres
+#	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+#	suivant les directives #obligatoire #recommande...
+#
+#	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+#	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+#	implementer le parametre en question.
+#	
+#	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+#	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+#
+
+/*************************
+biblio_important_p1
+#obligatoire a personnaliser
+*************************/
+<a href="index.php?lvl=index"><img src="./images/bar_spacer.gif" id="map_lien_retour" alt="" /></a> 
+<a href="http://www.sigb.net" id="puce">Sigb.Net</a>
+<a href="http://www.sigb.net/wiki/" id="puce">WiKi PMB</a>
+<a href="http://fr.wikipedia.org" id="puce">WiKipedia</a> 
+
+
+/*************************
+biblio_important_p2
+#Conseille
+*************************/
+Des services pour <strong>PMB</strong>
+
+
+/*************************
+biblio_name
+#Recommande
+*************************/
+Bib'Doc
+
+
+/*************************
+biblio_preamble_p1
+#Conseille
+*************************/
+<ul>
+<li><a href=./index.php?lvl=infopages&pagesid=2>Version 3.4 !</a></li>
+<li><a href=./index.php?lvl=infopages&pagesid=1>Actualités BnF</a></li>
+<li><a href=./index.php?lvl=infopages&pagesid=3>Aide en ligne</a></li>
+<li><a href=./index.php?lvl=infopages&pagesid=4>Calendrier</a></li>
+</ul>
+
+
+
+/*************************
+biblio_preamble_p2
+#Conseille
+*************************/
+Le fonds de test de BibDoc'PMB vous propose quelques ouvrages pour découvrir la richesse de PMB. Commencez donc par chercher la Loire...<br />
+Cet écran vous présente de nombreuses possibilités de recherche et de navigation, celles-ci sont grandement paramétrables.<br/>
+
+
+/*************************
+lien_bas_supplementaire
+#obligatoire
+*************************/
+<img id="footer_coin_gauche" src="styles/pmb34/images/footer_gauche.png" alt="" />
+<img id="footer_coin_droit" src="styles/pmb34/images/footer_droit.png" alt="" />
+<a href='http://www.sigb.net/' target=_blank>SIGB.NET</a>
+
+/*************************
+lien_moteur_recherche
+#obligatoire
+*************************/
+<a href=http://www.google.fr target=_blank>Faire une recherche avec Google</a>

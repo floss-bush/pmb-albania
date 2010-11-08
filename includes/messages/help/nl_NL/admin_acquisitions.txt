@@ -1,0 +1,18 @@
+<h1>Aanwinsten</h1>
+</p><p>
+<b>Coördinaten</b> identiteitskaart van de bibliotheek.
+</p><p>
+<b>Boekjaar</b> instellen van boekjaren.
+</p><p>
+<b>BTW op aankopen</b> beheer van de verschillende BTW-tarieven en BTW-rekeningen voor aankopen (als het beheer van BTW geactiveerd is).
+</p><p>
+<b>Producttypes</b> met categorieën voor aangekochte producten kunnen kortingen berekend worden en kunnen producten toegewezen worden aan aankooprekeningen.
+</p><p>
+<b>Aanverwante kosten</b> die eventueel gekoppeld zijn aan aanwinsten en gerelateerde rekeningen.
+</p><p>
+<b>Betalingswijzen</b> en betaaltermijn.
+</p><p>
+<b>Budgets</b> verdeling van de aankopen.
+
+
+

@@ -1,0 +1,69 @@
+/* +--------------------------------------------------------------------------+
+//  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: gallerie_photos.css,v 1.1 2008/01/28 08:24:17 jokester Exp $
+*/
+
+.notice-global-photo {
+    float:left;
+    min-height:230px;
+    width:250px;
+    background-color:#EAEAEA;
+    -moz-border-radius:10px;
+    margin:4px;
+    padding:4px;
+    valign:bottom;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.notice-global-nophoto {
+    float:left;
+    min-height:230px;
+    width:280px;
+    background-color:#f7f7f7;
+    -moz-border-radius:8px;
+    margin:4px;
+    padding:4px;
+}
+
+.notice-global-nophoto .child,
+.notice-global-photo .child {
+    font-family: arial, helvetica, geneva, sans-serif;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    margin:0;
+    padding:0;
+    border:none;
+}
+
+.notice-global-photo A IMG {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.notice-global-photo .notice-child {
+    font-family: arial, helvetica, geneva, sans-serif;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: justify;
+    margin:0;
+    padding:0;
+    border:none;
+}
+
+.notice-global-nophoto .child .tableau_expl_liste TH {
+    background-color:lightgreen;
+}
+
+#resultatrech {
+}
+
+#form_values_block {
+  clear:both;
+  display:block;  
+}
+
+#resultatrech_liste blockquote {
+margin:0px;
+}

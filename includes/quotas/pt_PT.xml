@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<pmbquotas>
+	<elements>
+	  	<element name="READER_CATEG" id="2" comment="Categorias de leitores">
+			<linkedto>READER</linkedto>
+			<tablelinked>empr</tablelinked>
+			<linkedfield>empr_categ</linkedfield>
+			<linkedid>id_empr</linkedid>
+			<table>empr_categ</table>
+			<field>id_categ_empr</field>
+			<label>libelle</label>
+		</element>
+	
+		<element name="DOCTYPE" id="1" comment="Tipos de exemplares">
+			<linkedto>EXPL</linkedto>
+			<tablelinked>exemplaires</tablelinked>
+			<linkedfield>expl_typdoc</linkedfield>
+			<linkedid>expl_id</linkedid>	
+			<table>docs_type</table>
+			<field>idtyp_doc</field>
+			<label>tdoc_libelle</label>
+		</element>
+	
+		<element name="NOTICETYPE" id="4" comment="Tipos de registos">
+			<linkedto>NOTI</linkedto>
+			<tablelinked by="notices">exemplaires</tablelinked>
+			<linkedfield>expl_typdoc</linkedfield>
+			<linkedid by="expl_notice">expl_id</linkedid>	
+			<table>docs_type</table>
+			<field>idtyp_doc</field>
+			<label>tdoc_libelle</label>
+		</element>
+	
+		<element name="BULLETINTYPE" id="8" comment="Tipos de boletins">
+			<linkedto>BULL</linkedto>
+			<tablelinked by="bulletins">exemplaires</tablelinked>
+			<linkedfield>expl_typdoc</linkedfield>
+			<linkedid by="expl_bulletin">expl_id</linkedid>	
+			<table>docs_type</table>
+			<field>idtyp_doc</field>
+			<label>tdoc_libelle</label>
+		</element>
+	
+		<element name="READER_ALONE" id="16" comment="Leitores individuais">
+			<linkedto>READER</linkedto>
+			<tablelinked>empr</tablelinked>
+			<linkedfield>id_empr</linkedfield>
+			<linkedid>id_empr</linkedid>
+			<table>empr</table>
+			<field>id_empr</field>
+			<label>concat(empr_prenom,' ',empr_nom)</label>
+		</element>
+	</elements>
+	
+	<types>
+		<type name="LEND_NMBR_QUOTA" id="1" max="yes" min="no" forcelend="yes" commentForcelend="do empréstimo" comment="Número de quotas de empréstimos" short_comment="Número de itens">
+			<entity name="READER_CATEG" maxquota="yes">
+				<counttable>pret</counttable>
+				<countfield>pret_idempr</countfield>
+				<max_error_message>O número total de empréstimos %s foi atingido (%s)</max_error_message>
+				<partial_error_message>O número de empréstimos por %s foi atingido (%s)</partial_error_message>
+				<default_error_message>O número de empréstimos por omissão foi atingido (%s)</default_error_message>
+			</entity>
+			
+			<quotas>
+				<on countfields="pret_idempr">READER_CATEG</on>
+				<on countfields="pret_idexpl">DOCTYPE</on>
+				<on countfields="pret_idempr,pret_idexpl">READER_CATEG,DOCTYPE</on>
+				<on countfields="pret_idempr">READER_ALONE</on>
+				<on countfields="pret_idempr,pret_idexpl">READER_ALONE,DOCTYPE</on>
+			</quotas>
+		</type>
+	
+		<type name="LEND_TIME_QUOTA" id="2" max="no" min="no" forcelend="no" comment="Extensão das Quotas do empréstimo" short_comment="duração do empréstimo">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>READER_ALONE</on>
+				<on>READER_ALONE,DOCTYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="PROLONG_NMBR_QUOTA" id="64" max="no" min="no" forcelend="yes" commentForcelend="de la prolongation" comment="Quotas de nombre de prolongation" short_comment="nombre de prolongation">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>READER_ALONE</on>
+				<on>READER_ALONE,DOCTYPE</on>
+			</quotas>
+		</type>
+		<type name="PROLONG_TIME_QUOTA" id="128" max="no" min="no" forcelend="no" comment="Quotas de durée de prolongation" short_comment="durée de prolongation">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>DOCTYPE</on>
+				<on>READER_CATEG,DOCTYPE</on>
+				<on>READER_ALONE</on>
+				<on>READER_ALONE,DOCTYPE</on>
+			</quotas>
+		</type>							
+		
+		<type name="BOOK_NMBR_QUOTA" id="4" max="yes" min="no" forcelend="yes" commentForcelend="da reserva" comment="Quotas de número de reservas" short_comment="número de reservas">
+			<entity name="READER_CATEG" maxquota="yes">
+				<counttable>resa</counttable>
+				<countfield>resa_idempr</countfield>
+				<max_error_message>O número total de reservas %s foi atingido (%s)</max_error_message>
+				<partial_error_message>O número de reservas por %s foi atingido (%s)</partial_error_message>
+				<default_error_message>O número de reservas por omissão foi atingido (%s)</default_error_message>
+			</entity>
+				
+			<quotas>
+				<on countfields="resa_idempr">READER_CATEG</on>
+				<on countfields="resa_idnotice">NOTICETYPE</on>
+				<on countfields="resa_idempr,resa_idnotice">READER_CATEG,NOTICETYPE</on>
+				<on countfields="resa_idempr">READER_ALONE</on>
+				<on countfields="resa_idempr,resa_idnotice">READER_ALONE,NOTICETYPE</on>
+			</quotas>
+		</type>
+	
+		<type name="BOOK_TIME_QUOTA" id="8" max="no" min="no" forcelend="no" comment="Quotas de duração da reserva" short_comment="duração da reserva">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>NOTICETYPE</on>
+				<on>READER_CATEG,NOTICETYPE</on>
+				<on>READER_ALONE</on>
+				<on>READER_ALONE,NOTICETYPE</on>
+			</quotas>
+		</type>
+		
+		<type name="BOOK_NMBR_SERIAL_QUOTA" id="16" max="yes" min="no" forcelend="yes" commentForcelend="da reserva" comment="Quotas de número de reservas das publicações periódicas" short_comment="número de reservas das publicações periódicas">
+			<entity name="READER_CATEG" maxquota="yes">
+				<counttable>resa</counttable>
+				<countfield>resa_idempr</countfield>
+				<max_error_message>O número total de reservas das publicações periódicas %s foi atingido (%s)</max_error_message>
+				<partial_error_message>O número de reservas das publicações periódicas por %s foi atingido (%s)</partial_error_message>
+				<default_error_message>O número de reservas das publicações periódicas por omissão foi atingido (%s)</default_error_message>
+			</entity>
+				
+			<quotas>
+				<on countfields="resa_idempr">READER_CATEG</on>
+				<on countfields="resa_idbulletin">BULLETINTYPE</on>
+				<on countfields="resa_idempr,resa_idbulletin">READER_CATEG,BULLETINTYPE</on>
+				<on countfields="resa_idempr">READER_ALONE</on>
+				<on countfields="resa_idempr,resa_idbulletin">READER_ALONE,BULLETINTYPE</on>
+			</quotas>
+		</type>
+	
+		<type name="BOOK_TIME_SERIAL_QUOTA" id="32" max="no" min="no" forcelend="no" comment="Quotas de duração de reservas das publicações periódicas" short_comment="duração de reservas das publicações periódicas">
+			<quotas>
+				<on>READER_CATEG</on>
+				<on>BULLETINTYPE</on>
+				<on>READER_CATEG,BULLETINTYPE</on>
+				<on>READER_ALONE</on>
+				<on>READER_ALONE,BULLETINTYPE</on>
+			</quotas>
+		</type>
+		
+	</types>
+</pmbquotas>

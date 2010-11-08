@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<params>
+	<!-- Nom de l'import -->
+	<importname>USMARC @BOOKS -&gt; UNIMARC ISO2709</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+	<!-- Type de l'entrée -->
+	<input type="iso_2709" endchar="0x1d"/>
+	<!-- Type de sortie -->
+	<output importable="yes" type="iso_2709" suffix="uni"/>
+	<!-- Début de conversion -->	
+
+	<step type="isotoxml">
+		<!-- Conversion en xml usmarc -->
+		<trootelement>pmbmarc</trootelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Conversion en xml unimarc -->
+		<xslfile>usmarc.xsl</xslfile>
+		<rootelement>pmbmarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+	<step type="xmltransform">
+		<!-- Nettoyage ponctuation -->
+		<xslfile>clean.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement>unimarc</trootelement>
+		<tnoticeelement>notice</tnoticeelement>
+	</step>
+	<step type="toiso">
+		<!-- Conversion xml unimarc en iso2709 unimarc -->
+		<rootelement>unimarc</rootelement>
+		<il>2</il>
+		<sl>2</sl>
+		<dm1>4</dm1>
+		<dm2>5</dm2>
+		<dm3>0</dm3>
+	</step>
+</params>

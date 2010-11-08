@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
+
+<manifest>
+	<name>pmbesOPACEmpr</name>
+	<description>msg:empr_functions_description</description>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+  		<requirement group="pmbesSearch"/>
+  		<requirement group="pmbesItems"/>
+  		<requirement group="pmbesOPACGeneric"/>
+  		<requirement group="pmbesSelfServices"/>
+  		<requirement group="pmbesAuthors"/>
+	</requirements>
+	<types>
+		<type name="reader" imported="true" imported_from="pmbesTypes"/>
+		<type name="loan" imported="true" imported_from="pmbesTypes"/>
+		<type name="resa" imported="true" imported_from="pmbesTypes"/>
+		<type name="suggestion" imported="true" imported_from="pmbesTypes"/>
+		<type name="location" imported="true" imported_from="pmbesTypes"/>
+		<type name="abonnement" imported="true" imported_from="pmbesTypes"/>
+		<type name="search_field" imported="true" imported_from="pmbesTypes"/>
+		<type name="item" imported="true" imported_from="pmbesTypes"/>
+		<type name="explNum" imported="true" imported_from="pmbesTypes"/>
+		<type name="shelf" imported="true" imported_from="pmbesTypes"/>
+		<type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes"/>
+		<type name="thesaurus" imported="true" imported_from="pmbesTypes"/>
+        <type name="collstate" imported="true" imported_from="pmbesTypes" description=""/>  
+	</types>
+	<methods>
+	<!--
+ 
+	Méthodes relative au compte du lecteur
+ 
+	-->
+		<method name="login" comment="msg:login_description" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<description>msg:login_input_description</description>
+				<param name="empr_login" type="scalar" dataType="string" description="msg:login_empr_login"/>
+				<param name="empr_password" type="scalar" dataType="string" description="msg:login_empr_password"/>
+			</inputs>
+			<outputs>
+				<description>msg:login_output_description</description>
+				<result name="session_id"  type="scalar" dataType="string" description="msg:login_session_id"/>
+			</outputs>
+		</method>
+		<method name="login_md5" rights="" version="1.0" comment="msg:login_md5_description" language_independant="true">
+			<inputs>
+				<description>msg:login_md5_input_description</description>
+				<param name="empr_login" type="scalar" dataType="string" description="msg:login_md5_empr_login"/>
+				<param name="empr_password" type="scalar" dataType="string" description="msg:login_md5_empr_password"/>
+			</inputs>
+			<outputs>
+				<description>msg:login_md5_output_description</description>
+				<result name="session_id" type="scalar" dataType="string" description="msg:login_md5_session_id"/>
+			</outputs>
+		</method>
+		<method name="logout" comment="msg:logout_description" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<description>msg:login_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:logout_session_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:logout_output_description</description>
+			</outputs>
+		</method>
+		<method name="list_locations" comment="msg:list_locations_description" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACGeneric" name="list_locations" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:list_locations_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_locationssession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_locations_output_description</description>
+				<result name="locations" type="array" description="msg:list_locations_locations">
+					<result name="alocation" type="scalar" dataType="location"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_account_info" comment="msg:get_account_info_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:get_account_info_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:get_account_infosession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_account_info_output_description</description>
+				<result name="result" type="scalar" dataType="reader" description="msg:get_account_info_result"/>
+			</outputs>
+		</method>
+		<method name="change_password" comment="msg:change_password_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:change_password_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:change_passwordsession_id"/>
+				<param name="old_password" type="scalar" dataType="string" description="msg:change_passwordold_password"/>
+				<param name="new_password" type="scalar" dataType="string" description="msg:change_passwordnew_password"/>
+			</inputs>
+			<outputs>
+				<description>msg:change_password_output_description</description>
+				<result name="changed" type="scalar" dataType="boolean" description="msg:change_password_changed"/>
+			</outputs>
+		</method>
+		<method name="list_loans" comment="msg:list_loans_description" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+				<pmb_requirement start_path="class" file="expl.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_loans_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_loanssession_id"/>
+				<param name="loan_type" type="scalar" dataType="integer" description="msg:list_loansloan_type"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_loans_output_description</description>
+				<result name="loans" type="array" description="msg:list_loans_loans">
+					<result name="aloan" type="scalar" dataType="loan"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_resas" comment="msg:list_resas_description" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="resa.class.php"/>
+				<pmb_requirement start_path="include" file="resa_func.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_resas_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_resassession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_resas_output_description</description>
+				<result name="resas" type="array" description="msg:list_resas_resas">
+					<result name="aresa" type="scalar" dataType="resa"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="delete_resa" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="resa.class.php"/>
+				<pmb_requirement start_path="include" file="resa_func.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="resa_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="success" type="scalar" dataType="boolean"/>
+			</outputs>
+		</method>		
+		<method name="add_review" comment="msg:add_review_description" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<description>msg:add_review_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:add_reviewsession_id"/>
+				<param name="notice_id" type="scalar" dataType="integer" description="msg:add_reviewnotice_id"/>
+				<param name="note" type="scalar" dataType="integer" description="msg:add_reviewnote"/>
+				<param name="comment" type="scalar" dataType="string" description="msg:add_reviewcomment"/>
+				<param name="subject" type="scalar" dataType="string" description="msg:add_reviewsubject"/>
+			</inputs>
+			<outputs>
+				<description>msg:add_review_output_description</description>
+				<result name="success" type="scalar" dataType="boolean" description="msg:add_review_success"/>
+			</outputs>
+		</method>
+		<method name="add_tag" comment="msg:add_tag_description" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<description>msg:add_tag_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:add_tagsession_id"/>
+				<param name="notice_id" type="scalar" dataType="integer" description="msg:add_tagnotice_id"/>
+				<param name="tag" type="scalar" dataType="string" description="msg:add_tagtag"/>
+			</inputs>
+			<outputs>
+				<description>msg:add_tag_output_description</description>
+				<result name="success" type="scalar" dataType="boolean" description="msg:add_tag_success"/>
+			</outputs>
+		</method>
+		<method name="list_suggestion_categories" comment="msg:list_suggestion_categories_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_suggestion_categories_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_suggestion_categoriessession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_suggestion_categories_output_description</description>
+				<result name="categories" type="array" description="msg:list_suggestion_categories_categories">
+					<result name="category_id" type="scalar" dataType="integer" description="msg:list_suggestion_categories_categoriescategory_id"/>
+					<result name="category_caption" type="scalar" dataType="string" description="msg:list_suggestion_categories_categoriescategory_caption"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_suggestion_sources" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<result name="sources" type="array">
+					<result name="source_id" type="scalar" dataType="integer"/>
+					<result name="source_caption" type="scalar" dataType="string"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_suggestion_sources_and_categories" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACEmpr" name="list_suggestion_sources" version="1.0"/>
+		  		<requirement group="pmbesOPACEmpr" name="list_suggestion_categories" version="1.0"/>
+			</requirements>		
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<result name="sources" type="array">
+					<result name="source_id" type="scalar" dataType="integer"/>
+					<result name="source_caption" type="scalar" dataType="string"/>
+				</result>
+				<result name="categories" type="array">
+					<result name="category_id" type="scalar" dataType="integer"/>
+					<result name="category_caption" type="scalar" dataType="string"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="add_suggestion" comment="msg:add_suggestion_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:add_suggestion_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:add_suggestionsession_id"/>
+				<param name="title" type="scalar" dataType="string" description="msg:add_suggestiontitle"/>
+				<param name="author" type="scalar" dataType="string" description="msg:add_suggestionauthor"/>
+				<param name="editor" type="scalar" dataType="string" description="msg:add_suggestioneditor"/>
+				<param name="isbn_or_ean" type="scalar" dataType="string" description="msg:add_suggestionisbn_or_ean"/>
+				<param name="price" type="scalar" dataType="string" description="msg:add_suggestionprice"/>
+				<param name="url" type="scalar" dataType="string" description="msg:add_suggestionurl"/>
+				<param name="comment" type="scalar" dataType="string" description="msg:add_suggestioncomment"/>
+				<param name="sugg_categ" type="scalar" dataType="integer" description="msg:add_suggestionsugg_categ"/>
+				<param name="sugg_location" type="scalar" dataType="integer" description="msg:add_suggestionsugg_location"/>
+			</inputs>
+			<outputs>
+				<description>msg:add_suggestion_output_description</description>
+				<result name="success" type="scalar" dataType="boolean" description="msg:add_suggestion_success"/>
+			</outputs>
+		</method>
+		<method name="add_suggestion2" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="suggestion" type="scalar" dataType="suggestion"/>
+			</inputs>
+			<outputs>
+				<result name="success" type="scalar" dataType="boolean"/>
+			</outputs>
+		</method>
+		<method name="edit_suggestion" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="suggestion" type="scalar" dataType="suggestion"/>
+			</inputs>
+			<outputs>
+				<result name="success" type="scalar" dataType="boolean"/>
+			</outputs>
+		</method>		
+		<method name="delete_suggestion" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="suggestion_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="success" type="scalar" dataType="boolean"/>
+			</outputs>
+		</method>
+		<method name="list_suggestions" comment="msg:list_suggestions_description" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_map.class.php"/>
+				<pmb_requirement start_path="class" file="suggestions_categ.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_suggestions_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_suggestionssession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_suggestions_output_description</description>
+				<result name="suggs" type="array" description="msg:list_suggestions_suggs">
+					<result name="asugg" type="scalar" dataType="suggestion"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_resa_locations" comment="msg:list_resa_locations_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="resa.class.php"/>
+				<pmb_requirement start_path="include" file="resa_func.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_resa_locations_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_resa_locationssession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_resa_locations_output_description</description>
+				<result name="locations" type="array" description="msg:list_resa_locations_locations">
+					<result name="alocation" type="scalar" dataType="location"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="can_reserve_notice" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="resa.class.php"/>
+				<pmb_requirement start_path="include" file="resa_func.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="notice_id" type="scalar" dataType="integer"/>
+				<param name="bulletin_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="can_reserve" type="scalar" dataType="boolean"/>
+			</outputs>
+		</method>
+		<method name="add_resa" comment="msg:add_resa_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="resa.class.php"/>
+				<pmb_requirement start_path="include" file="resa_func.inc.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:add_resa_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:add_resasession_id"/>
+				<param name="notice_id" type="scalar" dataType="integer" description="msg:add_resanotice_id"/>
+				<param name="bulletin_id" type="scalar" dataType="integer" description="msg:add_resabulletin_id"/>
+				<param name="location" type="scalar" dataType="integer" description="msg:add_resalocation"/>
+			</inputs>
+			<outputs>
+				<description>msg:add_resa_output_description</description>
+					<result name="success" type="scalar" dataType="boolean" description="msg:add_resa_success"/>
+					<result name="error"  type="scalar" dataType="string" description="msg:add_resa_error"/>
+					<result name="message" type="scalar" dataType="string" description="msg:add_resa_message"/>	
+			</outputs>
+		</method>
+		<method name="list_abonnements" comment="msg:list_abonnements_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:list_abonnements_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_abonnementssession_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_abonnements_output_description</description>
+				<result name="abonnements" type="array" description="msg:list_abonnements_abonnements">
+					<result name="aabonnement" type="scalar" dataType="abonnement"/>
+				</result>
+			</outputs>
+		</method>
+		
+		
+		<method name="list_cart_content" rights="" version="1.0" comment="msg:list_cart_content_description" language_independant="true">
+			<inputs>
+				<description>msg:list_cart_content_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_cart_content_session_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_cart_content_output_description</description>
+				<result name="cart_content" type="array" description="msg:list_cart_content_cart_content">
+					<result name="notice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="add_notices_to_cart" rights="" version="1.0" comment="msg:add_notices_to_cart_description" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:add_notices_to_cart_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:add_notices_to_cart_session_id"/>
+				<param name="notice_ids" type="array" description="msg:add_notices_to_cart_notice_ids">
+					<param name="anotice_id" type="scalar" dataType="integer"/>
+				</param>
+			</inputs>
+			<outputs>
+				<description>msg:add_notices_to_cart_output_description</description>
+				<result name="success" type="scalar" dataType="boolean" description="msg:add_notices_to_cart_success"/>
+			</outputs>
+		</method>
+		<method name="delete_notices_from_cart" rights="" version="1.0" comment="msg:delete_notices_from_cart_description" language_independant="true">
+			<inputs>
+				<description>msg:delete_notices_from_cart_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:delete_notices_from_cart_session_id"/>
+				<param name="notice_ids" type="array" description="msg:delete_notices_from_cart_notice_ids">
+					<param name="anotice_id" type="scalar" dataType="integer"/>
+				</param>
+			</inputs>
+			<outputs>
+				<description>msg:delete_notices_from_cart_output_description</description>
+				<result name="success" type="scalar" dataType="boolean" description="msg:delete_notices_from_cart_success"/>
+			</outputs>
+		</method>
+		<method name="empty_cart" rights="" version="1.0" comment="msg:empty_cart_description" language_independant="true">
+			<inputs>
+				<description>msg:empty_cart_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:empty_cart_session_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:empty_cart_output_description</description>
+			</outputs>
+		</method>
+		
+		<method name="list_shelves" rights="" version="1.0" comment="msg:list_shelves_description" language_independant="true">
+			<inputs>
+				<description>msg:list_shelves_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:list_shelves_session_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:list_shelves_output_description</description>
+				<result name="shelves" type="array" description="msg:list_shelves_shelves">
+					<result name="a_shelf" type="scalar" dataType="shelf"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="retrieve_shelf_content" rights="" version="1.0" comment="msg:retrieve_shelf_content_description" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACGeneric" name="retrieve_shelf_content" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:retrieve_shelf_content_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:retrieve_shelf_content_session_id"/>
+				<param name="shelf_id" type="scalar" dataType="integer" description="msg:retrieve_shelf_content_self_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:retrieve_shelf_content_output_description</description>
+				<result name="shelf_content" type="array" description="msg:retrieve_shelf_content_shelf_content">
+					<result name="notice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		
+	<!--
+
+		Méthodes relative aux recherches de notices
+
+			Ces fonctions servent de proxy à celle du groupe pmbesSearch
+	-->
+		<method name="simpleSearch" comment="msg:simple_search_description" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="simpleSearch" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:simple_search_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:simpleSearchsession_id"/>
+				<param name="searchType" type="scalar" dataType="integer" description="msg:simpleSearchsearchType"/>
+				<param name="searchTerm" type="scalar" dataType="string" description="msg:simpleSearchsearchTerm"/>
+			</inputs>
+			<outputs>
+				<description>msg:simple_search_outputs_description</description>
+				<result name="searchId"  type="scalar" dataType="string" description="msg:simpleSearch_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:simpleSearch_nbResults"/>
+				<result name="typdocs" type="array" description="msg:simpleSearch_typdocs">
+					<result name="typdoc" type="scalar" dataType="string" description=""/>
+				</result>
+			</outputs>
+		</method>
+		<method name="getAdvancedSearchFields" comment="msg:getAdvancedSearchFields_description" rights="CATALOGAGE_AUTH" version="1.0">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<requirements>
+		  		<requirement group="pmbesSearch" name="getAdvancedSearchFields" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:getAdvancedSearchFields_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:getAdvancedSearchFieldssession_id"/>
+				<param name="fetch_values" type="scalar" dataType="boolean" description="msg:getAdvancedSearchFieldsfetch_values"/>
+			</inputs>
+			<outputs>
+				<description>msg:getAdvancedSearchFields_outputs_description</description>
+				<result name="results" type="array" description="msg:getAdvancedSearchFields_results">
+					<result name="search_field" type="scalar" dataType="search_field"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="getAdvancedExternalSearchFields" rights="CATALOGAGE_AUTH" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="getAdvancedSearchFields" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="fetch_values" type="scalar" dataType="boolean"/>
+			</inputs>
+			<outputs>
+				<result name="results" type="array">
+					<result name="id" type="scalar" dataType="search_field"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="advancedSearch" comment="msg:advancedSearch_description" rights="" version="1.0">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="advancedSearch" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:advancedSearch_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:advancedSearchsession_id"/>
+				<param name="search" type="array" description="msg:advancedSearchsearch">
+					<param name="inter" type="scalar" dataType="string" description="msg:advancedSearchsearchinter"/>
+					<param name="field" type="scalar" dataType="integer" description="msg:advancedSearchsearchfield"/>
+					<param name="operator" type="scalar" dataType="string" description="msg:advancedSearchsearchoperator"/>
+					<param name="value" type="scalar" dataType="string" description="msg:advancedSearchsearchvalue"/>
+				</param>
+			</inputs>
+			<outputs>
+				<description>msg:advancedSearch_outputs_description</description>
+				<result name="searchId"  type="scalar" dataType="string" description="msg:advancedSearch_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:advancedSearch_nbResults"/>
+				<result name="typdocs" type="array" description="msg:simpleSearch_typdocs">
+					<result name="typdoc" type="scalar" dataType="string" description=""/>
+				</result>
+			</outputs>
+		</method>
+		<method name="advancedSearchExternal" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="advancedSearch" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string" description="msg:advancedSearchsession_id"/>
+				<param name="search" type="array">
+					<param name="inter" type="scalar" dataType="string"/>
+					<param name="field" type="scalar" dataType="integer"/>
+					<param name="operator" type="scalar" dataType="string"/>
+					<param name="value" type="scalar" dataType="string"/>
+				</param>
+				<param name="sourceIds" type="array">
+					<param name="aSourceId" type="scalar" dataType="integer"/>
+				</param>
+			</inputs>
+			<outputs>
+				<result name="searchId" type="scalar" dataType="string"/>
+				<result name="nbResults" type="scalar" dataType="integer"/>
+			</outputs>
+		</method>
+		<method name="get_sort_types" rights="" version="1.0" language_independant="false" comment="msg:get_sort_types_description">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="get_sort_types" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_sort_types_input_description</description>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_sort_types_output_description</description>
+				<result type="array" name="results" description="msg:get_sort_types_results">
+					<result name="sort_name" type="scalar" dataType="string" description="msg:get_sort_types_results_sort_name"/>
+					<result name="sort_caption" type="scalar" dataType="string" description="msg:get_sort_types_results_sort_caption"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecords" comment="msg:fetchSearchRecords_description" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecords" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecords_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordssearchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsfirstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsrecordCount"/>
+				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetchSearchRecordsrecordFormat"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsrecordCharset"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchSearchRecords_outputs_description</description>
+				<result type="array" name="results" description="msg:fetchSearchRecords_results">
+					<result name="noticeId"  type="scalar" dataType="integer" description="msg:fetchSearchRecords_resultsnoticeId"/>
+					<result name="noticeContent" type="scalar" dataType="string" description="msg:fetchSearchRecords_resultsnoticeContent"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecordsSorted" rights="" version="1.0" language_independant="true" comment="msg:fetchSearchRecordsSorted_description">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecordsSorted" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecordsSorted_input_description</description>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_recordCount"/>
+				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_recordFormat"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_recordCharset"/>
+				<param name="sortType" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_sortType"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchSearchRecordsSorted_output_description</description>
+				<result type="array" name="results" description="msg:fetchSearchRecordsSorted_results">
+					<result name="noticeId" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_results_noticeId"/>
+					<result name="noticeContent" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_results_noticeContent"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecordsArray" rights="" version="1.0" language_independant="true" comment="msg:fetchSearchRecordsArray_description">
+			<requirements>
+				<requirement group="pmbesSearch" name="fetchSearchRecordsArray" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecordsArray_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordsArray_session_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordsArray_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsArray_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsArray_recordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsArray_recordCharset"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchSearchRecordsArray_output_description</description>
+				<result type="array" name="results" description="msg:fetchSearchRecordsArray_results">
+					<result name="uneNotice" type="scalar" dataType="unimarc_notice"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecordsArraySorted" rights="" version="1.0" language_independant="true" comment="msg:fetchSearchRecordsArraySorted_description">
+			<requirements>
+				<requirement group="pmbesSearch" name="fetchSearchRecordsArraySorted" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecordsArraySorted_input_description</description>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordsArraySorted_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsArraySorted_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsArraySorted_recordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsArraySorted_recordCharset"/>
+				<param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchSearchRecordsArraySorted_includeLinks"/>
+				<param name="includeItems" type="scalar" dataType="boolean" description="msg:fetchSearchRecordsArraySorted_includeItems"/>
+				<param name="sortType" type="scalar" dataType="string" description="msg:fetchSearchRecordsArraySorted_sortType"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchSearchRecordsArraySorted_output_description</description>
+				<result type="array" name="results" description="msg:fetchSearchRecordsArraySorted_results">
+					<result name="uneNotice" type="scalar" dataType="unimarc_notice"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_notice_items" comment="msg:fetch_notice_items_description" rights="" version="1.0">
+			<requirements>
+		  		<requirement group="pmbesItems" name="fetch_notice_items" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetch_notice_items_input</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetch_notice_itemssession_id"/>
+				<param name="noticeid" type="scalar" dataType="integer" description="msg:fetch_notice_itemsnoticeid"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_notice_items_output</description>
+				<result type="array" name="items" description="msg:fetch_notice_items_items">
+					<result name="items"  type="scalar" dataType="item"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_item" rights="" version="1.0" comment="msg:fetch_item_description">
+			<requirements>
+		  		<requirement group="pmbesItems" name="fetch_item" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetch_item_input_description</description>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="item_cb" type="scalar" dataType="string" description="msg:fetch_item_item_cb"/>
+				<param name="item_id" type="scalar" dataType="integer" description="msg:fetch_item_item_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetch_item_output_description</description>
+				<result name="item" type="scalar" dataType="item" description="msg:fetch_item_item"/>
+			</outputs>
+		</method>
+		<method name="listNoticeExplNums" comment="msg:listNoticeExplNums_description" rights="" version="1.0">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="listNoticeExplNums" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:listNoticeExplNums_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:listNoticeExplNumssession_id"/>
+				<param name="noticeId" type="scalar" dataType="integer" description="msg:listNoticeExplNumsnoticeId"/>
+			</inputs>
+			<outputs>
+				<description>msg:listNoticeExplNums_outputs_description</description>
+				<result type="array" name="results" description="msg:listNoticeExplNums_results">
+					<result name="aexplnum"  type="scalar" dataType="explNum"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="listBulletinExplNums" comment="msg:listBulletinExplNums_description" rights="" version="1.0">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="listBulletinExplNums" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:listBulletinExplNumsinput_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:listBulletinExplNumssession_id"/>
+				<param name="bulletinId" type="scalar" dataType="integer" description="msg:listBulletinExplNumsbulletinId"/>
+			</inputs>
+			<outputs>
+				<description>msg:listBulletinExplNums_outputs_description</description>
+				<result type="array" name="results" description="msg:">
+					<result name="aexplnum"  type="scalar" dataType="explNum" description="msg:listBulletinExplNums_results"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchNoticeList" comment="msg:fetchNoticeList_description" rights="" version="1.0">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<requirements>
+		  		<requirement group="pmbesNotices" name="fetchNoticeList" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchNoticeList_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchNoticeListsession_id"/>
+				<param name="noticelist" type="array" description="msg:fetchNoticeListnoticelist">
+					<param name="notice_id" type="scalar" dataType="integer"/>
+				</param>
+				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeListrecordFormat"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeListrecordCharset"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchNoticeList_outputs_description</description>
+				<result type="array" name="results" description="msg:fetchNoticeList_results">
+					<result name="noticeId"  type="scalar" dataType="integer" description="msg:fetchNoticeList_resultsnoticeId"/>
+					<result name="noticeContent" type="scalar" dataType="string" description="msg:fetchNoticeList_resultsnoticeContent"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchNoticeListFull" rights="" version="1.0" language_independant="false">
+			<requirements>
+				<requirement group="pmbesNotices" name="fetchNoticeListFull" version="1.0"/>
+			</requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="external_services_converters.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="noticelist" type="array" >
+					<param name="notice_id" type="scalar" dataType="integer"/>
+				</param>
+				<param name="recordFormat" type="scalar" dataType="string"/>
+				<param name="recordCharset" type="scalar" dataType="string"/>
+				<param name="includeLinks" type="scalar" dataType="boolean"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+					<result name="noticeBulletins" type="array" >
+						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
+					</result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>   			
+				</result>
+			</outputs>
+		</method>
+        <method name="fetchExternalNoticeList" rights="" version="1.0" language_independant="false">                                                                                                            
+				<requirements>
+		  			<requirement group="pmbesNotices" name="fetchExternalNoticeList" version="1.0"/>
+				</requirements>
+                <inputs>                                                                                             
+                    	<param name="session_id" type="scalar" dataType="string"/>
+                        <param name="noticelist" type="array">          
+                                <param name="notice_id" type="scalar" dataType="integer"/>                           
+                        </param>                                                                                     
+                        <param name="recordFormat" type="scalar" dataType="string" description="msg:fetchNoticeList_recordFormat"/>                                                                                                               
+                        <param name="recordCharset" type="scalar" dataType="string" description="msg:fetchNoticeList_recordCharset"/>                                                                                                             
+                </inputs>                                                                                            
+                <outputs>                                                                                            
+                        <result type="array" name="results">
+                                <result name="noticeId" type="scalar" dataType="integer"/>                                                                                                     
+                                <result name="noticeContent" type="scalar" dataType="string"/>                                                                                            
+                        </result>                                                                                    
+                </outputs>                                                                                           
+        </method>
+        <method name="findNoticeBulletinId" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="findNoticeBulletinId" version="1.0"/>
+			</requirements>        
+            <inputs>
+            	<param name="session_id" type="scalar" dataType="string"/>
+                <param name="noticeId" type="scalar" dataType="integer"/> 
+            </inputs>
+            <outputs>
+             	<result name="bulletinId" type="scalar" dataType="integer"/>
+            </outputs>
+        </method>
+		<method name="simpleSearchLocalise" comment="msg:simple_search_localise_description" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="external_services_searchcache.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:simple_search_localise_inputs_description</description>
+				<param name="searchType" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_searchType"/>
+				<param name="searchTerm" type="scalar" dataType="string" description="msg:simple_search_localise_inputs_description_searchTerm"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_pmbUserId"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_OPACUserId"/>
+				<param name="localisation" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_localisation"/>
+				<param name="section" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_section"/>				
+			</inputs>
+			<outputs>
+				<description>msg:simple_search_localise_outputs_description</description>
+				<result name="searchId"  type="scalar" dataType="string" description="msg:simple_search_localise_outputs_description_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:simple_search_localise_outputs_description_nbResults"/>
+				<result name="typdocs" type="array" description="msg:advancedSearch_typdocs">
+					<result name="typdoc" type="scalar" dataType="string" description=""/>
+				</result>			
+			</outputs>
+		</method>
+		<method name="fetchNoticeByExplCb" comment="" rights="" version="1.0">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="fetchNoticeByExplCb" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description></description>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="explCb" type="scalar" dataType="string" description=""/>
+				<param name="recordFormat" type="scalar" dataType="string" description=""/>
+				<param name="recordCharset" type="scalar" dataType="string" description=""/>
+			</inputs>
+			<outputs>
+				<description></description>
+				<result type="array" name="results" description="">
+					<result name="noticeId"  type="scalar" dataType="integer" description=""/>
+					<result name="noticeContent" type="scalar" dataType="string" description=""/>
+				</result>
+			</outputs>
+		</method>
+		
+		
+			<!--
+
+		Méthodes relative aux prêt/retour de document
+
+			Ces fonctions servent de proxy à celle du groupe pmbesSelfServices
+	-->
+		<method name="self_checkout" comment="msg:self_checkout_description" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesSelfServices" name="self_checkout" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:self_checkout_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:self_checkout_session_id"/>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_checkout_expl_cb"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_checkout_outputs_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_checkout_status"/>
+				<result name="message" type="scalar" dataType="string" description="msg:self_checkout_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_checkout_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_checkout_transaction_date"/>
+				<result name="due_date" type="scalar" dataType="string" description="msg:self_checkout_due_date"/>
+				<result name="message_quota" type="scalar" dataType="string" description="msg:self_checkout_message_quota"/>		
+			</outputs>
+		</method>
+		<method name="self_checkin" comment="msg:self_checkin_description" rights="" version="1.0" language_independant="false">		
+			<inputs>
+				<description>msg:self_checkin_input_description</description>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_checkin_expl_cb"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:self_checkin_pmbUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_checkin_output_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_checkin_status"/>
+				<result name="message"  type="scalar" dataType="string" description="msg:self_checkin_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_checkin_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_checkin_transaction_date"/>
+				<result name="message_loc" type="scalar" dataType="string" description="msg:self_checkin_message_loc"/>
+				<result name="message_resa" type="scalar" dataType="string" description="msg:self_checkin_message_resa"/>
+				<result name="message_retard" type="scalar" dataType="string" description="msg:self_checkin_message_retard"/>
+				<result name="message_amende" type="scalar" dataType="string" description="msg:self_checkin_message_amende"/>						
+			</outputs>
+		</method>
+		<method name="self_renew" comment="msg:self_renew_description" rights="" version="1.0" language_independant="false">	
+			<inputs>
+				<description>msg:self_renew_input_description</description>
+				<param name="expl_cb" type="scalar" dataType="string" description="msg:self_renew_expl_cb"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:self_renew_pmbUserId"/>
+			</inputs>
+			<outputs>
+				<description>msg:self_renew_output_description</description>
+				<result name="status"  type="scalar" dataType="boolean" description="msg:self_renew_status"/>
+				<result name="message"  type="scalar" dataType="string" description="msg:self_renew_message"/>
+				<result name="title" type="scalar" dataType="string" description="msg:self_renew_title"/>
+				<result name="transaction_date" type="scalar" dataType="string" description="msg:self_renew_transaction_date"/>
+				<result name="due_date" type="scalar" dataType="string" description="msg:self_renew_due_date"/>				
+			</outputs>
+		</method>		
+		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_author_information_and_notices_description">
+			<requirements>
+		  		<requirement group="pmbesAuthors" name="get_author_information_and_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:get_author_information_and_notices_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="author_id" type="scalar" dataType="integer" description="msg:get_author_information_and_notices_author_id"/>
+			</inputs>
+			<outputs>
+				<description>msg:get_author_information_and_notices_output_description</description>
+				<result name="information" type="scalar" dataType="author" description="msg:get_author_information_and_notices_information"/>
+				<result type="array" name="notice_ids" description="msg:get_author_information_and_notices_notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesCollections" name="get_collection_information_and_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="collection_id" type="scalar" dataType="integer" />
+			</inputs>
+			<outputs>
+				<result name="information" type="scalar" dataType="collection"/>
+				<result type="array" name="notice_ids" >
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesCollections" name="get_subcollection_information_and_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="subcollection_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="information" type="scalar" dataType="sous_collection"/>
+				<result type="array" name="notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesPublishers" name="get_publisher_information_and_notices" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="publisher_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="information" type="scalar" dataType="publisher"/>
+				<result type="array" name="notice_ids">
+					<result name="item" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="list_thesauri" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesThesauri" name="list_thesauri" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+			</inputs>
+			<outputs>
+				<result type="array" name="thesauri">
+					<result name="thesaurus" type="scalar" dataType="thesaurus"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_thesaurus_node_full" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesThesauri" name="fetch_node_full" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="node_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="node" type="scalar" dataType="node"/>
+				<result name="notice_ids" type="array">
+					<result name="anotice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchNoticesCollstates" comment="msg:fetchNoticeCollstates_description" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="fetchNoticesCollstates" version="1.0"/>
+			</requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="collstate.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description/>
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param type="array" name="serial_ids" description="">
+                	<param name="serial_id" type="scalar" dataType="integer" description="msg:fetchNoticeCollstates_serial_id"/>
+                </param>
+   			</inputs>
+			<outputs>
+				<description/>
+				<result type="array" name="collstates" description="msg:fetchNoticeCollstates_result">
+					<result name="collstate" type="scalar" dataType="collstate"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_notices_bulletins" rights="" version="1.0" language_independant="false" comment="msg:fetch_notices_bulletins_description">                                                                                            
+			<requirements>
+		  		<requirement group="pmbesNotices" name="fetch_notices_bulletins" version="1.0"/>
+			</requirements>
+			<inputs>                                                                                             
+				<description>msg:fetch_notices_bulletins_input_description</description>                     
+				<param name="session_id" type="scalar" dataType="string" description=""/>
+				<param name="noticesid" type="scalar" description="msg:fetch_notices_bulletins_noticesid">   
+					<param name="anoticeid" type="scalar" dataType="inteteger" description="msg:fetch_notices_bulletins_noticesid_anoticeid"/>                                                                                        
+				</param>                                                                                     
+				                                                                                                          
+			</inputs>                                                                                            
+			<outputs>                                                                                            
+				<description>msg:fetch_notices_bulletins_output_description</description>                    
+				<result type="array" name="result" description="msg:fetch_notices_bulletins_result">                                                                                
+					<result name="noticeid" type="scalar" dataType="integer" description="msg:fetch_notices_bulletins_result_noticeid"/>                                                                                              
+					<result type="array" name="bulletins" description="msg:fetch_notices_bulletins_result_bulletins">                                                                                                                 
+						<result name="bulletin" type="scalar" dataType="bulletin"/>               
+					</result>                                                                            
+				</result>                                                                                    
+			</outputs>                                                                                           
+		</method>
+         <method name="fetchSerialList" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesNotices" name="fetchSerialList" version="1.0"/>
+			</requirements>         
+            <inputs>
+            	<param name="session_id" type="scalar" dataType="string"/>
+            </inputs>
+            <outputs>
+            	<result type="array" name="result">
+                	<result name="serial" type="scalar" dataType="serial"/>
+                </result>
+            </outputs>
+         </method>
+		<method name="listExternalSources" rights="" version="1.0" language_independant="false">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="listExternalSources" version="1.0"/>
+			</requirements>		
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="category_caption" type="scalar" dataType="string"/>
+					<result type="array" name="sources">
+						<result name="source_id" type="scalar" dataType="string"/>
+						<result name="source_caption" type="scalar" dataType="string"/>
+						<result name="source_comment" type="scalar" dataType="string"/>
+					</result>					
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchNoticeListFullWithBullId" rights="" version="1.0" language_independant="false">
+			<requirements>
+				<requirement group="pmbesNotices" name="fetchNoticeListFullWithBullId" version="1.0"/>
+			</requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="external_services_converters.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="noticelist" type="array" >
+					<param name="notice_id" type="scalar" dataType="integer"/>
+				</param>
+				<param name="recordFormat" type="scalar" dataType="string"/>
+				<param name="recordCharset" type="scalar" dataType="string"/>
+				<param name="includeLinks" type="scalar" dataType="boolean"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+                    <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+                    	<result name="bulletinId" type="scalar" dataType="integer"/>                 
+                    </result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>               
+				</result>
+			</outputs>
+		</method>	
+		<method name="fetchNoticesBulletinsList" rights="" version="1.0" language_independant="false" comment="msg:fetch_bulletin_list_description">                                                                                                    
+			<requirements>
+				<requirement group="pmbesNotices" name="fetchNoticesBulletinsList" version="1.0"/>
+			</requirements>
+			<inputs>                                                                                             
+				<description></description>                         
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="noticelist" type="array" description="msg:fetchNoticeListFull_noticelist">      
+					<param name="notice_id" type="scalar" dataType="integer"/>                           
+				</param>                                                                                   
+			</inputs>                                                                                            
+			<outputs>                                                                                            
+				<description>msg:fetch_bulletin_list_output_description</description>                        
+				<result type="array" name="bulletinIds" description="msg:fetch_bulletin_list_result">             
+					<result name="bulletinId" type="scalar" dataType="integer"/>                          
+				</result>                                                                                    
+			</outputs>                                                                                           
+		</method> 
+		
+		<method name="fetchSearchRecordsFull" comment="msg:fetchSearchRecords_description" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecordsFull" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecords_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordssearchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsfirstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsrecordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsrecordCharset"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+					<result name="noticeBulletins" type="array" >
+						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
+					</result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>   				
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecordsFullSorted" rights="" version="1.0" language_independant="true" comment="msg:fetchSearchRecordsSorted_description">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecordsFullSorted" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecordsSorted_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_recordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_recordCharset"/>
+				<param name="sortType" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_sortType"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+					<result name="noticeBulletins" type="array" >
+						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
+					</result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>   				
+				</result>
+			</outputs>	
+		</method>
+		<method name="fetchSearchRecordsFullWithBullId" comment="msg:fetchSearchRecords_description" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecordsFullWithBullId" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecords_inputs_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordssearchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsfirstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsrecordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsrecordCharset"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+                    <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+                    	<result name="bulletinId" type="scalar" dataType="integer"/>                 
+                    </result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>                     
+				</result>
+			</outputs>
+		</method>
+		<method name="fetchSearchRecordsFullWithBullIdSorted" rights="" version="1.0" language_independant="true" comment="msg:fetchSearchRecordsSorted_description">
+			<requirements>
+		  		<requirement group="pmbesSearch" name="fetchSearchRecordsFullWithBullIdSorted" version="1.0"/>
+			</requirements>
+			<inputs>
+				<description>msg:fetchSearchRecordsSorted_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecordsSorted_recordCount"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_recordCharset"/>
+				<param name="sortType" type="scalar" dataType="string" description="msg:fetchSearchRecordsSorted_sortType"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="noticeId" type="scalar" dataType="integer"/>
+					<result name="noticeContent" type="scalar" dataType="string"/>
+					<result name="noticeItems" type="array">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="noticeDocNums" type="array">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+                    <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
+                    	<result name="bulletinId" type="scalar" dataType="integer"/>                 
+                    </result>
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+						<result name="aCollstate" type="scalar" dataType="collstate"/>	
+					</result>                      
+				</result>
+			</outputs>	
+		</method>
+		<method name="fetchBulletinListFull" rights="" version="1.0" language_independant="false" comment="msg:fetchBulletinListFull_description">
+			<requirements>
+				<requirement group="pmbesNotices" name="fetchBulletinListFull" version="1.0"/>
+			</requirements>
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="external_services_converters.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<description>msg:fetchBulletinListFull_input_description</description>
+				<param name="session_id" type="scalar" dataType="string" description="msg:fetchSearchRecordssession_id"/>
+				<param name="bulletinlist" type="array" description="msg:fetchBulletinListFull_bulletinlist">
+					<param name="bulletin_id" type="scalar" dataType="integer"/>
+				</param>
+				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetchBulletinListFull_recordFormat"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchBulletinListFull_recordCharset"/>
+			</inputs>
+			<outputs>
+				<description>msg:fetchBulletinListFull_output_description</description>
+				<result type="array" name="results" description="msg:fetchBulletinListFull_results">
+					<result name="bulletin_id" type="scalar" dataType="integer" description="msg:fetchBulletinListFull_results_bulletin_id"/>
+					<result name="bulletin_bulletin" type="scalar" dataType="bulletin" description="msg:fetchBulletinListFull_results_bulletin_bulletin"/>
+					<result name="bulletin_notice" type="scalar" dataType="string" description="msg:fetchBulletinListFull_results_bulletin_notice"/>
+					<result name="bulletin_items" type="array" description="msg:fetchBulletinListFull_results_bulletin_items">
+						<result name="aItem" type="scalar" dataType="item"/>	
+					</result>
+					<result name="bulletin_doc_nums" type="array" description="msg:fetchBulletinListFull_results_bulletin_doc_nums">
+						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					</result>
+	                <result name="bulletin_analysis_notice_ids" type="array">
+	                    <result name="anotice_id" type="scalar" dataType="integer"/>
+	                </result>
+				</result>
+			</outputs>
+		</method>	
+	</methods>
+</manifest>

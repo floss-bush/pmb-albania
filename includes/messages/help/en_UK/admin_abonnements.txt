@@ -1,0 +1,8 @@
+<h1>Managing Subscriptions</h1>
+
+<p>Section <b>Managing Subscriptions</b> allows to define application settings for subscriptions.
+<ul>
+<li><b>Periodicity</b> Subscription periodicity allows to describe all types of periodicity used for subscriptions.</li>
+
+</ul></p>
+ 

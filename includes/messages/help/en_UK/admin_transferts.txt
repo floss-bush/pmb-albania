@@ -1,0 +1,16 @@
+<h1>Interlibrary loans (ILL)</h1>
+<p>Below you will find the option to set up ILLs. </p>
+<p>
+<b>General</b> General settings
+</p><p>
+<b>Delivery</b> Delivery settings
+</p><p>
+<b>OPAC</b> OPAC Settings
+</p><p>
+<b>Research order</b> allows you to classify by order of priority the sites in which you search for the copy to transfer  
+</p><p>
+<b>Default status</b> when receiving a copy on a site
+</p><p>
+<b>Empty History</b> Deletes all loan history
+</p>
+

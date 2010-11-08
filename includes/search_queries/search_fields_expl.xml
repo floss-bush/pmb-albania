@@ -1,0 +1,1945 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbfields>
+
+	<!-- Zone fixedFields :
+		Liste des champs de recherche possibles de la base de données
+		Chaque champ est modélisé par le tag <field> :
+		<field @att=id,title> 
+			-id : numéro unique arbitraire
+			-title : Texte qui sera affiché dans l'écran de recherche
+			<field> contient les sous tags :
+				<input @type> : type de saisie
+					-type (text|list) : 
+						@type=list (dans le cas d'une saisie par liste), input contient les sous champs :
+						 	<queryList> : requete pour récupérer les values de la liste. La requete doit avoir 2 colonnes
+										  -la première donne le code à retourner
+										  -la deuxième donne le libellé dans la liste
+										  
+				<query> : requete associée au champ et à l'opérateur
+				<query @att=for,multipleWords,regDiacrit>
+					-for : nom de l'opérateur auquel correspond la requete 
+					 (les opérateurs non listés ne seront pas pris en compte), 
+					-multipleWords (yes|no) : la requete tient compte de plusieurs termes saisis avec des espaces
+					-regDiacrit (yes|no) : les termes sont passés par la fonction de nettoyage des mots vides et des accents
+			 		<query> contient les sous tags :
+					
+						<main> : Corps principal de la requete, 
+							-!!p!! sera remplacé dans la requete par le texte saisi pour la recherche, 
+							-!!multiple_term!! (uniquement si multipleWords="yes") sera remplacé par la série 
+							 de tests de la clause where pour chaque mot saisi
+						
+						<multipleTerm> : terme de condition utilisé pour remplacer !!multiple_term!!
+						<multipleOperator> : opérateur utilisé entre les termes de conditions 
+	-->
+
+	<fixedFields>
+		<field title="msg:233" id="1" separator="msg:champs_principaux_query">
+			<input type="text"/>
+			<variable name="search_exemplaire_option" type="global"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[SELECT * FROM ( 
+				select distinct expl_id, !!pert_term!! as pert from exemplaires, notices where !!where_term!! and notice_id=expl_notice 
+				union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices, bulletins where !!where_term!! and bulletin_id=expl_bulletin and bulletin_notice=notice_id
+				union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices, bulletins where !!where_term!! and bulletin_id=expl_bulletin and bulletins.num_notice=notice_id 
+				union select distinct expl_id, !!pert_term!! as pert  from exemplaires, notices,analysis,bulletins where !!where_term!! and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin
+				) AS result ORDER BY pert DESC]]></main>
+				<table>notices</table>
+				<index_l>index_wew</index_l>
+				<index_i>index_sew</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes"> 
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices where (index_sew like ' !!p!!%') and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like ' !!p!!%') and bulletin_id=expl_bulletin and bulletin_notice=notice_id
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like ' !!p!!%') and bulletin_id=expl_bulletin and bulletins.num_notice=notice_id 
+				union select distinct expl_id from exemplaires, notices,analysis,bulletins where (index_sew like ' !!p!!%') and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin
+				]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[			
+				select distinct expl_id from exemplaires, notices where (index_sew like '%!!p!! ') and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like '%!!p!! ') and bulletin_id=expl_bulletin and bulletin_notice=notice_id
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like '%!!p!! ') and bulletin_id=expl_bulletin and bulletins.num_notice=notice_id 
+				union select distinct expl_id from exemplaires, notices,analysis,bulletins where (index_sew like '%!!p!! ') and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin
+				]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[	
+				select distinct expl_id from exemplaires, notices where (index_sew like ' !!p!! ') and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like ' !!p!! ') and bulletin_id=expl_bulletin and bulletin_notice=notice_id
+				union select distinct expl_id from exemplaires, notices, bulletins where (index_sew like ' !!p!! ') and bulletin_id=expl_bulletin and bulletins.num_notice=notice_id 
+				union select distinct expl_id from exemplaires, notices,analysis,bulletins where (index_sew like ' !!p!! ') and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin
+				]]></main>
+			</query>
+		</field>
+		<field title="msg:global_search" id="42">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[SELECT * FROM ( 
+				select distinct expl_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from exemplaires, notices_global_index, notices where ((!!where_term_1!!) or (!!where_term_2!!)) and notice_id=expl_notice and notice_id=notices_global_index.num_notice
+				union select distinct expl_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from exemplaires, notices_global_index, notices, bulletins where ((!!where_term_1!!) or (!!where_term_2!!)) and bulletin_id=expl_bulletin and bulletin_notice=notice_id and notice_id=notices_global_index.num_notice
+				union select distinct expl_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from exemplaires, notices_global_index, notices, bulletins where ((!!where_term_1!!) or (!!where_term_2!!)) and bulletin_id=expl_bulletin and bulletins.num_notice=notice_id and notice_id=notices_global_index.num_notice
+				union select distinct expl_id, ((!!pert_term_1!!)+(!!pert_term_3!!)*0.5) as pert from exemplaires, notices_global_index,notices,analysis,bulletins where ((!!where_term_1!!) or (!!where_term_2!!)) and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and notice_id=notices_global_index.num_notice
+				) AS result ORDER BY pert DESC]]></main>
+				<boolean>
+					<table>notices_global_index</table>
+					<index_l>infos_global</index_l>
+					<index_i>index_infos_global</index_i>
+					<id_field>num_notice</id_field>
+					<keep_empty_words>yes</keep_empty_words>
+				</boolean>
+				<boolean>
+					<table>notices_global_index</table>
+					<index_l>infos_global</index_l>
+					<index_i>index_infos_global</index_i>
+					<id_field>num_notice</id_field>
+				</boolean>
+				<boolean>
+					<table>notices</table>
+					<index_l>index_wew</index_l>
+					<index_i>index_sew</index_i>
+					<id_field>notice_id</id_field>
+				</boolean>
+			</query>
+		</field>
+		<field title="msg:234" id="2">
+			<input type="authoritie" ajax="authors" selector="auteur" p1="param1" p2="param2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[SELECT * FROM ( select distinct expl_id , !!pert_term!! as pert from exemplaires, responsability, authors, notices 
+				 	where !!where_term!! and responsability_notice=expl_notice and responsability_author=author_id and notice_id=expl_notice 
+				 union select distinct expl_id , !!pert_term!! as pert from exemplaires, responsability, authors, bulletins 
+				 	where  !!where_term!! AND responsability_notice = bulletin_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin 
+				 union select distinct expl_id , !!pert_term!! as pert from exemplaires, responsability, authors, bulletins 
+				 	where  !!where_term!! AND responsability_notice = num_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, responsability, authors, analysis,bulletins 
+				 	where !!where_term!! and responsability_notice=analysis_notice and responsability_author=author_id and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin) AS result ORDER BY pert DESC]]></main>
+				<table>authors</table>
+				<index_l>concat(author_name,', ',author_rejete)</index_l>
+				<index_i>index_author</index_i>
+				<id_field>author_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, responsability, authors, notices 
+				 	where index_author like ' !!p!!%' and responsability_notice=expl_notice and responsability_author=author_id and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, responsability, authors, bulletins 
+				 	where index_author like ' !!p!!%' AND responsability_notice = bulletin_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id from exemplaires, responsability, authors, analysis,bulletins 
+				 	where index_author like ' !!p!!%' AND responsability_notice = num_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id from exemplaires, responsability, authors, analysis,bulletins 
+				 	where index_author like ' !!p!!%' and responsability_notice=analysis_notice and responsability_author=author_id and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, responsability, authors, notices 
+				 	where index_author like '%!!p!! ' and responsability_notice=expl_notice and responsability_author=author_id and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, responsability, authors, bulletins 
+				 	where index_author like '%!!p!! ' AND responsability_notice = bulletin_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id  from exemplaires, responsability, authors, bulletins 
+				 	where index_author like '%!!p!! ' AND responsability_notice = num_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id from exemplaires, responsability, authors, analysis,bulletins 
+				 	where index_author like '%!!p!! ' and responsability_notice=analysis_notice and responsability_author=author_id and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, responsability, authors, notices 
+				 	where index_author like ' !!p!! ' and responsability_notice=expl_notice and responsability_author=author_id and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, responsability, authors, bulletins 
+				 	where index_author like ' !!p!! ' AND responsability_notice = bulletin_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id  from exemplaires, responsability, authors, bulletins 
+				 	where index_author like ' !!p!! ' AND responsability_notice = num_notice AND responsability_author = author_id AND bulletin_id = expl_bulletin
+				 union select distinct expl_id from exemplaires, responsability, authors, analysis,bulletins 
+				 	where index_author like ' !!p!! ' and responsability_notice=analysis_notice and responsability_author=author_id and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>
+			</query>
+		</field>
+		<field title="msg:recherche_fonction_auteur" id="49">
+			<input type="marc_list">
+				<name>function</name>
+				<restrictquery>SELECT group_concat(distinct responsability_fonction SEPARATOR ',') as all_responsability_fonction from responsability</restrictquery>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires, responsability where 
+				responsability_notice=expl_notice and responsability_fonction='!!p!!' 
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=bulletin_notice and responsability_fonction='!!p!!' and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=num_notice and responsability_fonction='!!p!!' and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability,analysis,bulletins, notices where 
+				responsability_notice=analysis_notice and responsability_fonction='!!p!!' and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>		
+			</query>
+		</field>	
+		<field title="msg:searcher_publisher" id="3">
+			<input type="authoritie" ajax="publishers" selector="editeur" p1="p1" p2="p2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[SELECT * FROM ( select distinct expl_id , !!pert_term!! as pert from exemplaires, publishers, notices 
+				 	where !!where_term!! and (ed_id=ed1_id or ed_id=ed2_id) and notice_id=expl_notice 
+				 union select distinct expl_id , !!pert_term!! as pert from exemplaires, publishers, bulletins, notices 
+				 	where !!where_term!! AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id , !!pert_term!! as pert from exemplaires, publishers, bulletins, notices 
+				 	where !!where_term!! AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, publishers, notices,analysis,bulletins 
+				 	where !!where_term!! and (ed_id=ed1_id or ed_id=ed2_id) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id) AS result ORDER BY pert DESC]]></main>
+				<table>publishers</table>
+				<index_l>ed_name</index_l>
+				<index_i>index_publisher</index_i>
+				<id_field>ed_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, publishers, notices 
+				 	where (index_publisher like ' !!p!!%') and (ed_id=ed1_id or ed_id=ed2_id) and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like ' !!p!!%') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like ' !!p!!%') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, notices,analysis,bulletins 
+				 	where (index_publisher like ' !!p!!%') and (ed_id=ed1_id or ed_id=ed2_id) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, publishers, notices 
+				 	where (index_publisher like '%!!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like '%!!p!! ') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like '%!!p!! ') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, notices,analysis,bulletins 
+				 	where (index_publisher like '%!!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, publishers, notices 
+				 	where (index_publisher like ' !!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like ' !!p!! ') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, bulletins, notices 
+				 	where (index_publisher like ' !!p!! ') AND (ed_id=ed1_id or ed_id=ed2_id) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, publishers, notices,analysis,bulletins 
+				 	where (index_publisher like ' !!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+		</field>
+		<field title="msg:annee_edition" id="23">
+			<input type="text"/>
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regdiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (!!multiple_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (!!multiple_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+				<multipleTerm>year like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (!!multiple_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (!!multiple_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+				<multipleTerm>year like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year like '!!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year like '!!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year like '!!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year like '!!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year like '%!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year like '%!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year like '%!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year like '%!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year='!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year='!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year='!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="EQ" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year*1='!!p!!'*1 and year*1>0) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year*1='!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="LT">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year*1<'!!p!!'*1 and year*1>0) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1<'!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1<'!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year*1<'!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="GT">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year*1>'!!p!!'*1 and year*1>0) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1>'!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1>'!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year*1>'!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="LTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year*1<='!!p!!'*1 and year*1>0) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1<='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1<='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year*1<='!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="GTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year*1>='!!p!!'*1 and year*1>0) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1>='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year*1>='!!p!!'*1 and year*1>0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year*1>='!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+		</field>
+		<field title="msg:searcher_coll" id="4">
+			<input type="authoritie" ajax="collections" selector="collection" p1="p1" p2="p2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct expl_id,!!pert_term!! as pert  from exemplaires, notices, collections where (!!where_term!!) and notice_id=expl_notice and coll_id=collection_id  order by pert desc,index_coll]]></main>
+				<table>collections</table>
+				<index_l>collection_name</index_l>
+				<index_i>index_coll</index_i>
+				<id_field>collection_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, collections where (collection_name like '!!p!!%') and notice_id=expl_notice and coll_id=collection_id]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, collections where (collection_name like '%!!p!!') and notice_id=expl_notice and coll_id=collection_id]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, collections where (collection_name like '!!p!!') and notice_id=expl_notice and coll_id=collection_id]]></main>
+			</query>
+		</field>
+		<field title="msg:searcher_subcoll" id="5">
+			<input type="authoritie" ajax="subcollections" selector="subcollection" p1="p1" p2="p2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct expl_id,!!pert_term!! as pert  from exemplaires, notices, sub_collections where (!!where_term!!) and notice_id=expl_notice and (subcoll_id=sub_coll_id) order by pert desc]]></main>
+				<table>sub_collections</table>
+				<index_l>sub_coll_name</index_l>
+				<index_i>index_sub_coll</index_i>
+				<id_field>sub_coll_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, sub_collections where (sub_coll_name like '!!p!!%') and notice_id=expl_notice and subcoll_id=sub_coll_id]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, sub_collections where (sub_coll_name like '%!!p!!') and notice_id=expl_notice and subcoll_id=sub_coll_id]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, sub_collections where (sub_coll_name='!!p!!') and notice_id=expl_notice and subcoll_id=sub_coll_id]]></main>
+			</query>
+		</field>
+		<field title="msg:serie_query" id="6">
+			<input type="authoritie" ajax="serie" selector="serie" p1="param1" p2="param2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct expl_id,!!pert_term!! as pert  from exemplaires, notices, series where (!!where_term!!) and notice_id=expl_notice and (tparent_id=serie_id) order by pert desc]]></main>
+				<table>series</table>
+				<index_l>serie_name</index_l>
+				<index_i>serie_index</index_i>
+				<id_field>serie_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, series where (serie_index like ' !!p!!%') and notice_id=expl_notice and tparent_id=serie_id]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, series where (serie_index like '%!!p!! ') and notice_id=expl_notice and tparent_id=serie_id]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices, series where (serie_index like ' !!p!! ') and notice_id=expl_notice and tparent_id=serie_id]]></main>
+			</query>
+		</field>
+		<field title="msg:isbn_query" id="22">
+			<input type="text"/>
+			<query for="STARTWITH" isbnSearch="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (!!multiple_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (!!multiple_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+				<multipleTerm>code like '!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where ( code ='' or code is null) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where ( code ='' or code is null) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where ( code ='' or code is null) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where ( code ='' or code is null) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where ( code!='' and code is not null ) and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where ( code!='' and code is not null ) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where ( code!='' and code is not null ) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where ( code!='' and code is not null ) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+		</field>
+		<field title="msg:titre_uniforme_search" id="51">
+			<input type="authoritie" ajax="titres_uniformes" selector="titre_uniforme" p1="param1" p2="param2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[
+				 select distinct expl_id , !!pert_term!! as pert from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
+				 	where !!where_term!! and ntu_num_notice=expl_notice and ntu_num_tu=tu_id and notice_id=expl_notice ORDER BY pert DESC]]></main>
+				<table>titres_uniformes</table>
+				<index_l>tu_name</index_l>
+				<index_i>index_tu</index_i>
+				<id_field>tu_id</id_field>
+				<keep_empty_words>yes</keep_empty_words>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
+				 	where tu_name like '!!p!!%' and ntu_num_notice=expl_notice and ntu_num_tu=tu_id and notice_id=expl_notice ]]></main>
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
+				 	where tu_name like '%!!p!!' and ntu_num_notice=expl_notice and ntu_num_tu=tu_id and notice_id=expl_notice ]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id  from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
+				 	where tu_name like '!!p!!' and ntu_num_notice=expl_notice and ntu_num_tu=tu_id and notice_id=expl_notice]]></main>
+			</query>
+		</field>
+		<field title="msg:docnum_indexation_contenu" id="72">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select distinct uni.expl_id, pert from (
+				select distinct expl_id, notice_id, !!pert_term!! as pert from exemplaires, notices, explnum 
+				where (!!where_term!!) and explnum_notice=notice_id and notice_id=expl_notice 
+				UNION
+				select distinct expl_id, notice_id, !!pert_term!! as pert from exemplaires, notices, explnum, bulletins
+				where (!!where_term!!) and (explnum_bulletin=bulletin_id and bulletin_notice=notice_id and bulletin_id = expl_bulletin)
+				) as uni join notices n on uni.notice_id=n.notice_id order by pert desc, index_serie, tnvol, index_sew 
+				]]></main>
+				<table>explnum</table>
+				<index_l>explnum_index_wew</index_l>
+				<index_i>explnum_index_sew</index_i>
+				<id_field>explnum_notice</id_field>
+			</query>
+		</field>
+		<field title="msg:265" id="7" separator="msg:264">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices 
+				 	where (!!where_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins 
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ) as result order by pert desc]]></main>	
+				<table>notices</table>
+				<index_l>n_gen</index_l>
+				<index_i>index_n_gen</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_gen like ' !!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like ' !!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like ' !!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_gen like ' !!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_gen like '%!!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like '%!!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like '%!!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_gen like '%!!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_gen like ' !!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like ' !!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_gen like ' !!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_gen like ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+		</field>
+		<field title="msg:266" id="8">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices 
+				 	where (!!where_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins 
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ) as result order by pert desc]]></main>	
+				<table>notices</table>
+				<index_l>n_contenu</index_l>
+				<index_i>index_n_contenu</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_contenu like ' !!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_contenu like ' !!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_contenu like ' !!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_contenu like '%!!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_contenu like '%!!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_contenu like '%!!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_contenu like '%!!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_contenu like ' !!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_contenu like ' !!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_contenu like ' !!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_contenu like ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+		</field>
+		<field title="msg:note_resume_query" id="9">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices 
+				 	where (!!where_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins 
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ) as result order by pert desc]]></main>	
+				<table>notices</table>
+				<index_l>n_resume</index_l>
+				<index_i>index_n_resume</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_resume like ' !!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume like ' !!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume like ' !!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_resume like ' !!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_resume like '%!!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume like '%!!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume like '%!!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_resume like '%!!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (index_n_resume = ' !!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume = ' !!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (index_n_resume = ' !!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (index_n_resume = ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+		</field>
+		<field title="msg:toutes_notes_query" id="10">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices 
+				 	where (!!where_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices 
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins 
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ) as result order by pert desc]]></main>	
+				<table>notices</table>
+				<index_l>concat(n_gen,' ',n_contenu,' ',n_resume)</index_l>
+				<index_i>concat(index_n_gen,index_n_contenu,index_n_resume)</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like ' !!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like ' !!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like ' !!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like ' !!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like '%!!p!! ') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like '%!!p!! ') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like '%!!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (concat(index_n_gen,index_n_contenu,index_n_resume) like '%!!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+				<main><![CDATA[select distinct expl_id from notices, exemplaires where (concat(index_n_gen,index_n_contenu,index_n_resume) like '%!!p!! ')  and ((bulletin_id=expl_bulletin and bulletin_notice=notice_id) or ( notice_id=expl_notice )) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where ( CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume)) like '!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where ( CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume)) like '!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where ( CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume)) like '!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where ( CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume)) like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+		</field>
+		<field title="msg:134" id="11" separator="msg:indexations_query">
+			<input type="authoritie" ajax="categories" selector="categorie" p1="p1" p2="p2"/>
+			<variable name="lang" type="global"/>
+			<variable name="thesaurus_defaut" type="global"/>
+			<variable name="id_thesaurus" type="input" comment="Thésaurus">
+				<var name="thesaurus_mode_pmb" visibility="yes">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">thesaurus_defaut</default>
+				<input type="query_list">
+					<query>select id_thesaurus, libelle_thesaurus from thesaurus</query>
+				</input>
+			</variable>
+			<variable name="langue_defaut" type="calculated">
+				<calc type="value_from_query">
+					<query>select langue_defaut from thesaurus where id_thesaurus=!!id_thesaurus!!</query>
+				</calc>
+			</variable>
+			<query for="BOOLEAN" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,libelle_categorie,index_categorie from  categories where categories.langue='!!langue_defaut!!' and num_thesaurus = '!!id_thesaurus!!'</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,libelle_categorie, index_categorie from categories where categories.langue='!!lang!!' and num_thesaurus = '!!id_thesaurus!!'</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+						
+				<part booleanSearch="yes">					
+					<main>create temporary table t_mono_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=expl_notice
+					</main>				
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.libelle_categorie</index_l>
+						<index_i>catlg.index_categorie</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.libelle_categorie</index_l>
+						<index_i>catdef.index_categorie</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>
+				<part booleanSearch="yes">				
+					<main>create temporary table t_bull_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,bulletins, notices, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=num_notice AND bulletin_id = expl_bulletin and num_notice=notice_id
+					</main>				
+
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.libelle_categorie</index_l>
+						<index_i>catlg.index_categorie</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.libelle_categorie</index_l>
+						<index_i>catdef.index_categorie</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>
+				<part booleanSearch="yes">				
+					<main>create temporary table t_depouille_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,bulletins, notices,analysis, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=analysis_notice  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+					</main>				
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.libelle_categorie</index_l>
+						<index_i>catlg.index_categorie</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.libelle_categorie</index_l>
+						<index_i>catdef.index_categorie</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>				
+				<part>
+					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+				</part>
+			</query>
+			<query for="STARTWITH" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,libelle_categorie,index_categorie from noeuds, categories where categories.langue='!!langue_defaut!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,libelle_categorie, index_categorie from noeuds, categories where categories.langue='!!lang!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires,catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!%') or (catlg.num_noeud is null and catdef.libelle_categorie like '!!p!!%')) and notcateg_notice=expl_notice
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires,bulletins, notices, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!%') or (catlg.num_noeud is null and catdef.libelle_categorie like '!!p!!%')) and notcateg_notice=num_notice AND bulletin_id = expl_bulletin and num_notice=notice_id
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires,bulletins, notices,analysis, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!%') or (catlg.num_noeud is null and catdef.libelle_categorie like '!!p!!%')) and notcateg_notice=analysis_notice  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+					</main>				
+				</part>				
+				<part>
+					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+				</part>
+			</query>
+			<query for="ENDWITH" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,libelle_categorie,index_categorie from noeuds, categories where categories.langue='!!langue_defaut!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,libelle_categorie, index_categorie from noeuds, categories where categories.langue='!!lang!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires,catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '%!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=expl_notice
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires,bulletins, notices, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '%!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=num_notice AND bulletin_id = expl_bulletin and num_notice=notice_id
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires,bulletins, notices,analysis, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '%!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=analysis_notice  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+					</main>				
+				</part>				
+				<part>
+					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+				</part>
+			</query>
+			<query for="EXACT" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,libelle_categorie,index_categorie from noeuds, categories where categories.langue='!!langue_defaut!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,libelle_categorie, index_categorie from noeuds, categories where categories.langue='!!lang!!' and noeuds.num_thesaurus = '!!id_thesaurus!!' and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires,catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=expl_notice
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires,bulletins, notices, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=num_notice AND bulletin_id = expl_bulletin and num_notice=notice_id
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires,bulletins, notices,analysis, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) and notcateg_notice=analysis_notice  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+					</main>				
+				</part>				
+				<part>
+					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+				</part>
+			</query>
+		</field>
+		<field title="msg:indexint_menu_title" id="12">
+			<input type="authoritie" ajax="indexint" selector="indexint" p1="param1" p2="param2"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices ,indexint
+				 	where (!!where_term!!) and notice_id=expl_notice  and (indexint=indexint_id)
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices  ,indexint
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices  ,indexint
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins ,indexint 
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  and (indexint=indexint_id)
+				 ) as result order by pert desc]]></main>	
+				<table>indexint</table>
+				<index_l>concat(indexint_name,' ',indexint_comment)</index_l>
+				<index_i>index_indexint</index_i>
+				<id_field>indexint_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="no">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices ,indexint
+				 	where (indexint_name like '!!p!!%') and notice_id=expl_notice  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '!!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '!!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins ,indexint 
+				 	where (indexint_name like '!!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  and (indexint=indexint_id)
+				 ]]></main>	
+			</query>
+			<query for="ENDWITH" regDiacrit="no">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices ,indexint
+				 	where (indexint_name like '%!!p!!') and notice_id=expl_notice  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '%!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '%!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins ,indexint 
+				 	where (indexint_name like '%!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  and (indexint=indexint_id)
+				 ]]></main>	
+				</query>
+			<query for="EXACT" regDiacrit="no">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices ,indexint
+				 	where (indexint_name like '!!p!!') and notice_id=expl_notice  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, bulletins, notices  ,indexint
+				 	where (indexint_name like '!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id  and (indexint=indexint_id)
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins ,indexint 
+				 	where (indexint_name like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  and (indexint=indexint_id)
+				 ]]></main>					
+			</query>
+		</field>
+		<field title="msg:324" id="13">
+			<input type="text"/>
+			<query for="BOOLEAN" booleanSearch="yes">
+				<main><![CDATA[select * from (
+				 select distinct expl_id, !!pert_term!! as pert from exemplaires, notices
+				 	where (!!where_term!!) and notice_id=expl_notice
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id, !!pert_term!! as pert  from exemplaires, bulletins, notices
+				 	where (!!where_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id, !!pert_term!! as pert from exemplaires, notices,analysis,bulletins
+				 	where (!!where_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  
+				 ) as result order by pert desc]]></main>	
+				<table>notices</table>
+				<index_l>index_l</index_l>
+				<index_i>index_matieres</index_i>
+				<id_field>notice_id</id_field>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (index_l like '!!p!!%') and notice_id=expl_notice
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '!!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '!!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (index_l like '!!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (index_l like '%!!p!!') and notice_id=expl_notice
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '%!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '%!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (index_l like '%!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (index_l like '!!p!!') and notice_id=expl_notice
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (index_l like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+		</field>
+		<field title="msg:langue_publication_query" id="20" separator='msg:537'>
+			<input type="marc_list">
+				<name>lang</name>
+				<restrictquery>SELECT group_concat(distinct code_langue SEPARATOR ',') as all_languages from notices_langues where type_langue=0</restrictquery>
+			</input>
+			<query for="EQ">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id AND bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id AND bulletin_id = expl_bulletin and bulletins.num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+		</field>
+		<field title="msg:langue_originale_query" id="21">
+			<input type="marc_list">
+				<name>lang</name>
+				<restrictquery>SELECT group_concat(distinct code_langue SEPARATOR ',') as all_languages from notices_langues where type_langue=1</restrictquery>
+			</input>
+			<query for="EQ">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=1 and notices_langues.num_notice=notice_id and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=1 and notices_langues.num_notice=notice_id AND bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=1 and notices_langues.num_notice=notice_id AND bulletin_id = expl_bulletin and bulletins.num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, notices_langues
+				 	where (code_langue='!!p!!') and type_langue=1 and notices_langues.num_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+		</field>
+		<field title="msg:doc_perio_art_query" id="14" separator="msg:130">
+			<input type="list">
+				<options>
+					<option value="m">msg:4057</option>
+					<option value="s">msg:4010</option>					
+				</options>	
+			</input>
+			<query for="EQ">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (niveau_biblio='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (niveau_biblio='!!p!!') AND bulletin_id = expl_bulletin and  bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (niveau_biblio='!!p!!') AND bulletin_id = expl_bulletin and  num_notice=notice_id 
+				 ]]></main>						
+			</query>
+		</field>
+		<field title="msg:type_doc_sort" id="15">
+			<input type="marc_list">
+				<name>doctype</name>
+				<restrictquery>SELECT group_concat(distinct typdoc SEPARATOR ',') as all_typdoc from notices</restrictquery>
+			</input>
+			<query for="EQ">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (typdoc='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (typdoc='!!p!!') AND bulletin_id = expl_bulletin and  bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (typdoc='!!p!!') AND bulletin_id = expl_bulletin and  num_notice=notice_id 
+				 ]]></main>					
+			</query>
+		</field>
+		<field title="msg:origine_notice_query" id="36">
+			<input type="query_list">
+				<query>select orinot_id, orinot_nom from origine_notice</query>
+			</input>
+			<query for="EQ">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (origine_catalogage='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (origine_catalogage='!!p!!') AND bulletin_id = expl_bulletin and  bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (origine_catalogage='!!p!!') AND bulletin_id = expl_bulletin and  num_notice=notice_id 
+				 ]]></main>				
+			</query>
+		</field>
+		<field title="msg:statut_notice_sort" id="31">
+			<input type="query_list">
+				<query>select id_notice_statut, gestion_libelle from notice_statut</query>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (statut='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (statut='!!p!!') AND bulletin_id = expl_bulletin and  bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (statut='!!p!!') AND bulletin_id = expl_bulletin and  num_notice=notice_id 
+				 ]]></main>			
+			</query>
+		</field>
+		<field title="msg:comment_gestion_query" id="33">
+			<input type='text'/>
+			<query for="CONTAINS">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where ( commentaire_gestion like '%!!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where ( commentaire_gestion like '%!!p!!%') AND bulletin_id = expl_bulletin and  bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where ( commentaire_gestion like '%!!p!!%') AND bulletin_id = expl_bulletin and  num_notice=notice_id 
+				 ]]></main>			
+			</query>
+		</field>
+		<field title="msg:date_creation_query" id="41">
+			<input type='date'/>
+			<query for="EQ">
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices 
+					where notices.create_date>='!!p!!' and notices.create_date<='!!p!! 23:59:59' and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>='!!p!!' and notices.create_date<='!!p!! 23:59:59' and bulletin_id = expl_bulletin and bulletin_notice = notice_id 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>='!!p!!' and notices.create_date<='!!p!! 23:59:59' and bulletin_id = expl_bulletin and num_notice = notice_id 
+				]]></main>			
+			</query>
+			<query for="LT">
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices 
+					where notices.create_date<'!!p!!' and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date<'!!p!!' and bulletin_id = expl_bulletin and bulletin_notice = notice_id 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date<'!!p!!' and bulletin_id = expl_bulletin and num_notice = notice_id 
+				]]></main>			
+			</query>
+			<query for="GT">
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices 
+					where notices.create_date>'!!p!! 23:59:59' and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>'!!p!! 23:59:59' and bulletin_id = expl_bulletin and bulletin_notice = notice_id 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>'!!p!! 23:59:59' and bulletin_id = expl_bulletin and num_notice = notice_id 
+				]]></main>			
+			</query>
+			<query for="LTEQ">
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices 
+					where notices.create_date<='!!p!! 23:59:59' and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date<='!!p!! 23:59:59' and bulletin_id = expl_bulletin and bulletin_notice = notice_id 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date<='!!p!! 23:59:59' and bulletin_id = expl_bulletin and num_notice = notice_id 
+				]]></main>			
+			</query>
+			<query for="GTEQ">
+				<main><![CDATA[
+				select distinct expl_id from exemplaires, notices 
+					where notices.create_date>='!!p!!' and notice_id=expl_notice 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>='!!p!!' and bulletin_id = expl_bulletin and bulletin_notice = notice_id 
+				union select distinct expl_id from exemplaires, bulletins, notices 
+					where notices.create_date>='!!p!!' and bulletin_id = expl_bulletin and num_notice = notice_id 
+				]]></main>		
+			</query>
+		</field>
+		<field title="msg:print_numeric_ex_title" id="44">
+			<input type="query_list">
+				<query>select distinct if(if(explnum_url,'URL',explnum_mimetype)!='',if(explnum_url,'URL',explnum_mimetype),''),if(if(explnum_url,'URL',explnum_mimetype)!='',if(explnum_url,'URL',explnum_mimetype),'Undefined') from explnum order by 1</query>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, explnum 
+				 	where  explnum_notice=notice_id and if('!!p!!'='URL',explnum_url!='',explnum_mimetype='!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices , explnum
+				 	where  explnum_notice=notice_id and if('!!p!!'='URL',explnum_url!='',explnum_mimetype='!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices , explnum
+				 	where  explnum_notice=notice_id and if('!!p!!'='URL',explnum_url!='',explnum_mimetype='!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, explnum
+				 	where  explnum_notice=notice_id and if('!!p!!'='URL',explnum_url!='',explnum_mimetype='!!p!!')  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>	
+			</query>
+		</field>
+		<field title="msg:274" id="45">
+			<input type="text"/>
+			<query for="CONTAINS">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where  lien like concat('%',replace('!!p!!','*','%'),'%') and lien!='' and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where  lien like concat('%',replace('!!p!!','*','%'),'%') and lien!='' AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where  lien like concat('%',replace('!!p!!','*','%'),'%') and lien!='' AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where  lien like concat('%',replace('!!p!!','*','%'),'%') and lien!=''  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>	
+			</query>
+		</field>
+		<field title="msg:recherche_format_electronique" id="46">
+			<input type="text"/>
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regdiacrit="yes">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where (!!multiple_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (!!multiple_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>				
+				<multipleTerm>eformat like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where (!!multiple_term!!) and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (!!multiple_term!!) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (!!multiple_term!!) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>	
+				<multipleTerm>eformat like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+			<query for="STARTWITH" regDiacrit="yes">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where (eformat like '!!p!!%') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat like '!!p!!%') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat like '!!p!!%') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (eformat like '!!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>				 
+			</query>
+			<query for="ENDWITH" regDiacrit="yes">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where (eformat like '%!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat like '%!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat like '%!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (eformat like '%!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>	
+			</query>
+			<query for="EXACT" regDiacrit="yes">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices 
+				 	where (eformat = '!!p!!') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat = '!!p!!') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (eformat = '!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (eformat = '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>	
+			</query>
+		</field>
+		<field title="msg:recherche_relationtypeup" id="47" separator="msg:recherche_relation">
+			<input type="marc_list">
+				<name>relationtypedown</name>
+				<restrictquery>SELECT group_concat(distinct relation_type SEPARATOR ',') as all_relation_type from notices,notices_relations where linked_notice=notice_id </restrictquery>				
+			</input>
+			<query for="EQ">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_relations 
+				 	where linked_notice=notice_id and relation_type='!!p!!'  and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_relations 
+				 	where linked_notice=notice_id and relation_type='!!p!!'  AND bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_relations 
+				 	where linked_notice=notice_id and relation_type='!!p!!'  AND bulletin_id = expl_bulletin and bulletins.num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, notices_relations 
+				 	where linked_notice=notice_id and relation_type='!!p!!'  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>				
+			</query>
+		</field>
+		<field title="msg:recherche_relationtypedown" id="48">
+			<input type="marc_list">
+				<name>relationtypeup</name>
+				<restrictquery>SELECT group_concat(distinct relation_type SEPARATOR ',') as all_relation_type from notices,notices_relations where linked_notice=notice_id </restrictquery>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_relations 
+				 	where notices_relations.num_notice=notice_id and relation_type='!!p!!' and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_relations 
+				 	where notices_relations.num_notice=notice_id and relation_type='!!p!!' AND bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_relations 
+				 	where notices_relations.num_notice=notice_id and relation_type='!!p!!' AND bulletin_id = expl_bulletin and bulletins.num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, notices_relations 
+				 	where notices_relations.num_notice=notice_id and relation_type='!!p!!' and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>		
+			</query>
+		</field>		
+		<field title="msg:localisation_sort" id="16" separator="msg:exemplaires_query">
+			<input type="query_list">
+				<query>select idlocation,location_libelle from docs_location order by location_libelle</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_location='!!p!!']]></main>
+				</query>
+		</field>
+		<field title="msg:4018" id="17">
+			<input type="query_list">
+				<query>select idsection,section_libelle from docs_section order by section_libelle</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_section='!!p!!']]></main>
+			</query>
+		</field>
+		<field title="msg:651" id="18">
+			<input type="query_list">
+				<query>select idlender,lender_libelle from lenders</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_owner='!!p!!']]></main>
+			</query>
+		</field>
+		<field title="msg:294" id="19">
+			<input type="query_list">
+				<query>select idtyp_doc,tdoc_libelle from docs_type</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_typdoc='!!p!!']]></main>
+			</query>
+		</field>
+		<field title="msg:296" id="24">
+			<input type="text"/>
+			<query for="STARTWITH">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cote like '!!p!!%']]></main>
+			</query>
+			<query for="CONTAINS">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cote like '%!!p!!%']]></main>
+			</query>
+			<query for="EXACT">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cote like '!!p!!']]></main>			
+			</query>
+			<query for="ENDWITH">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cote like '%!!p!!']]></main>			
+			</query>
+		</field>
+		<field title="msg:codes_barres_query" id="29">
+			<input type="text"/>
+			<query for="STARTWITH">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cb like '!!p!!%']]></main>			
+			</query>
+			<query for="CONTAINS">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cb like '%!!p!!%']]></main>			
+			</query>
+			<query for="ENDWITH">	
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_cb like '%!!p!!']]></main>									
+			</query>
+		</field>
+		<field title="msg:297" id="30">
+			<input type="query_list">
+				<query>select idstatut,statut_libelle from docs_statut</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_statut='!!p!!']]></main>	
+			</query>
+		</field>
+		<field title="msg:299" id="32">
+			<input type="query_list">
+				<query>select idcode,codestat_libelle from docs_codestat</query>	
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_codestat='!!p!!']]></main>	
+			</query>
+		</field>
+		<field title="msg:expl_message" id="43">
+			<input type='text'/>
+			<query for="STARTWITH" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_note like '!!p!!%']]></main>	
+			</query>
+			<query for="ENDWITH" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_note like '%!!p!!']]></main>	
+			</query>
+			<query for="EXACT" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_note like '!!p!!']]></main>	
+			</query>
+			<query for="CONTAINS" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_note like '%!!p!!%']]></main>
+			</query>
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires where !!multiple_term!!]]></main>
+				<multipleTerm>expl_note like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where !!multiple_term!!]]></main>			
+				<multipleTerm>expl_note like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+		</field>
+		<field title="msg:expl_zone_comment" id="53">
+			<input type='text'/>
+			<query for="STARTWITH" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_comment like '!!p!!%']]></main>	
+			</query>
+			<query for="ENDWITH" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_comment like '%!!p!!']]></main>	
+			</query>
+			<query for="EXACT" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_comment like '!!p!!']]></main>	
+			</query>
+			<query for="CONTAINS" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where expl_comment like '%!!p!!%']]></main>
+			</query>
+			<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires where !!multiple_term!!]]></main>
+				<multipleTerm>expl_comment like '%!!p!!%'</multipleTerm>
+				<multipleOperator>or</multipleOperator>
+			</query>
+			<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="no">
+				<main><![CDATA[select distinct expl_id from exemplaires where !!multiple_term!!]]></main>			
+				<multipleTerm>expl_comment like '%!!p!!%'</multipleTerm>
+				<multipleOperator>and</multipleOperator>
+			</query>
+		</field>
+		<field title="msg:date_creation_query" id="50">
+			<input type='date'/>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires	where create_date>='!!p!!' and create_date<='!!p!! 23:59:59']]></main>			
+			</query>
+			<query for="LT">
+				<main><![CDATA[select distinct expl_id from exemplaires	where create_date<'!!p!!']]></main>			
+			</query>
+			<query for="GT">
+				<main><![CDATA[select distinct expl_id from exemplaires	where create_date>'!!p!! 23:59:59']]></main>			
+			</query>
+			<query for="LTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires	where create_date<='!!p!! 23:59:59']]></main>			
+			</query>
+			<query for="GTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires	where create_date>='!!p!!']]></main>		
+			</query>
+		</field>	
+		<field title="msg:date_parution_bulletin_query" id="28" separator="msg:4010">
+			<input type="date"/>
+			<query for="GT">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and date_date>'!!p!!']]></main>	
+			</query>
+			<query for="GTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and date_date>='!!p!!']]></main>
+			</query>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and date_date='!!p!!']]></main>
+			</query>
+			<query for="LTEQ">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and date_date<='!!p!!']]></main>
+			</query>
+			<query for="LT">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and date_date<'!!p!!']]></main>
+			</query>
+		</field>
+		<field title="msg:titre_perio_query" id="34">
+			<input type="query_list">
+				<query>select notice_id, tit1 from notices where niveau_biblio='s' order by index_sew</query>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and bulletin_notice in (!!p!!) ]]></main>	
+			</query>
+		</field>
+		<field title="msg:num_bull_query" id="35">
+			<input type="text"/>
+			<query for="CONTAINS">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and  bulletin_numero like '%!!p!!%' ]]></main>	
+			</query>
+		</field>
+		<field title="msg:search_titre_article" id="37">
+			<input type="text"/>
+			<query for="CONTAINS" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices,analysis,bulletins
+				 	where (index_sew like '%!!p!!%') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>	
+			</query>
+		</field>		
+		<field title="msg:caddie_de_NOTI" id="25" separator="msg:caddie_menu">
+			<input type="query_list">
+				<query>select idcaddie,name from caddie where type='NOTI'</query>
+			</input>
+			<query for="EQ">
+			<main><![CDATA[
+				select expl_id from exemplaires where expl_notice in (select distinct object_id as notice_id from caddie_content where caddie_id='!!p!!')
+				union select expl_id from exemplaires ,bulletins where expl_bulletin=bulletin_id and bulletin_notice in (select distinct object_id as notice_id from caddie_content where caddie_id='!!p!!')
+				union select expl_id from exemplaires ,bulletins where expl_bulletin=bulletin_id and num_notice in (select distinct object_id as notice_id from caddie_content where caddie_id='!!p!!')
+			]]></main>	
+			</query>
+		</field>
+		<field title="msg:caddie_de_EXPL" id="26">
+			<input type="query_list">
+				<query>select idcaddie,name from caddie where type='EXPL'</query>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select expl_id from exemplaires where expl_id in (select distinct object_id as notice_id from caddie_content where caddie_id='!!p!!')]]></main>
+			</query>
+		</field>
+		<field title="msg:caddie_de_BULL" id="27">
+			<input type="query_list">
+				<query>select idcaddie,name from caddie where type='BULL'</query>
+			</input>
+			<query for="EQ">
+				<main><![CDATA[select expl_id from exemplaires where expl_bulletin in (select distinct object_id as notice_id from caddie_content where caddie_id='!!p!!')]]></main>
+			</query>
+		</field>
+		
+	</fixedFields>
+	
+	<!-- Zone dynamicFields :
+		Liste des champs personalisés par type de données
+			<field @att=id,dataType> 
+			-id : numéro unique arbitraire
+			-dataType : type de données du champ personalisé
+			<field> contient les sous tags :
+			
+				<query> : requete associée au champ et à l'opérateur
+				<query @att=for,multipleWords,regDiacrit>
+					-for : nom de l'opérateur auquel correspond la requete 
+					 (les opérateurs non listés ne seront pas pris en compte), 
+					-multipleWords (yes|no) : la requete tient compte de plusieurs termes saisis avec des espaces
+					-regDiacrit (yes|no) : les termes sont passés par la fonction de nettoyage des mots vides et des accents
+			 		<query> contient les sous tags :
+					
+						<main> : Corps principal de la requete, 
+							-!!p!! sera remplacé dans la requete par le texte saisi pour la recherche, 
+							-!!multiple_term!! (uniquement si multipleWords="yes") sera remplacé par la série  
+							 de tests de la clause where pour chaque mot saisi
+							-!!field!! sera remplacé par le numéro de champ personalisé
+						
+						<multipleTerm> : terme de condition utilisé pour remplacer !!multiple_term!!
+						<multipleOperator> : opérateur utilisé entre les termes de conditions 
+	-->
+	
+	<dynamicFields>
+		<fieldType type="notices" prefix="d">
+			<field dataType="small_text" id="1">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					]]></main>
+					<multipleTerm>notices_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					]]></main>
+					<multipleTerm>notices_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
+					]]></main>			
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+			</field>
+			<field dataType="text" id="2">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					]]></main>
+					<multipleTerm>notices_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					]]></main>
+					<multipleTerm>notices_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
+					]]></main>			
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND num_notice=notices_custom_origine
+					]]></main>
+				</query>
+			</field>
+			<field dataType="integer" id="3">
+				<query for="EQ">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>			
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					]]></main>					
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+			</field>
+			<field dataType="float" id="4">
+				<query for="EQ">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>			
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					]]></main>					
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+			</field>
+			<field dataType="date" id="5">
+				<query for="EQ">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>			
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					]]></main>					
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[
+					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND expl_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND bulletin_notice=notices_custom_origine
+					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND num_notice=notices_custom_origine
+					]]></main>					
+				</query>
+			</field>
+		</fieldType>
+		<fieldType type="expl" prefix="e">
+			<field dataType="small_text" id="1">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND (!!multiple_term!!)]]></main>
+					<multipleTerm>expl_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND (!!multiple_term!!)]]></main>
+					<multipleTerm>expl_custom_small_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_small_text like '!!p!!%']]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_small_text like '%!!p!!']]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_small_text = '!!p!!']]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_small_text = '!!p!!']]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN expl_custom_values ON expl_id=expl_custom_origine AND expl_custom_champ=!!field!! WHERE expl_custom_small_text='' OR expl_custom_small_text IS NULL]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ = !!field!! AND expl_custom_small_text != '']]></main>
+				</query>
+			</field>
+			<field dataType="text" id="2">
+				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND (!!multiple_term!!)]]></main>
+					<multipleTerm>expl_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>or</multipleOperator>
+				</query>
+				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND (!!multiple_term!!)]]></main>
+					<multipleTerm>expl_custom_text like '%!!p!!%'</multipleTerm>
+					<multipleOperator>and</multipleOperator>
+				</query>
+				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_text like '!!p!!%']]></main>
+				</query>
+				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_text like '%!!p!!']]></main>
+				</query>
+				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_text = '!!p!!']]></main>
+				</query>
+				<query for="EQ">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_text = '!!p!!']]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN expl_custom_values ON expl_id=expl_custom_origine AND expl_custom_champ=!!field!! WHERE expl_custom_text='' OR expl_custom_text IS NULL]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ = !!field!! AND expl_custom_text != '']]></main>
+				</query>
+			</field>
+			<field dataType="integer" id="3">
+				<query for="EQ">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_integer = '!!p!!']]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_integer < '!!p!!']]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_integer > '!!p!!']]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_integer <= '!!p!!']]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_integer >= '!!p!!']]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN expl_custom_values ON expl_id=expl_custom_origine AND expl_custom_champ=!!field!! WHERE expl_custom_integer='' OR expl_custom_integer IS NULL]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ = !!field!! AND expl_custom_integer != '']]></main>
+				</query>
+			</field>
+			<field dataType="float" id="4">
+				<query for="EQ">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_float = '!!p!!']]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_float < '!!p!!']]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_float > '!!p!!']]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_float <= '!!p!!']]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_float >= '!!p!!']]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN expl_custom_values ON expl_id=expl_custom_origine AND expl_custom_champ=!!field!! WHERE expl_custom_float='' OR expl_custom_float IS NULL]]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ = !!field!! AND expl_custom_float != '']]></main>
+				</query>
+			</field>
+			<field dataType="date" id="5">
+				<query for="EQ">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_date = '!!p!!']]></main>
+				</query>
+				<query for="LT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_date < '!!p!!']]></main>
+				</query>
+				<query for="GT" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_date > '!!p!!']]></main>
+				</query>
+				<query for="LTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_date <= '!!p!!']]></main>
+				</query>
+				<query for="GTEQ" notAllowedFor="list,query_list">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ=!!field!! AND expl_custom_date >= '!!p!!']]></main>
+				</query>
+				<query for="ISEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN expl_custom_values ON expl_id=expl_custom_origine AND expl_custom_champ=!!field!! WHERE expl_custom_date='' OR expl_custom_date IS NULL OR expl_custom_date='0000-00-00']]></main>
+				</query>
+				<query for="ISNOTEMPTY">
+					<main><![CDATA[SELECT DISTINCT expl_custom_origine AS expl_id FROM expl_custom_values WHERE expl_custom_champ = !!field!! AND expl_custom_date != '' AND expl_custom_date!='0000-00-00']]></main>
+				</query>
+			</field>
+		</fieldType>
+	</dynamicFields>
+	
+	<specialFields>
+		<field type="combine_expl" title="msg:histo_title" id="1" separator="msg:recherches_query"/>	
+	</specialFields>
+	<keyName>expl_id</keyName>
+	<operators>
+		<operator name="BOOLEAN">msg:expr_bool_query</operator>
+		<operator name="CONTAINS">msg:284</operator>
+		<operator name="CONTAINS_ALL">msg:contient_tous_mots_query</operator>
+		<operator name="CONTAINS_AT_LEAST">msg:contient_plus_un_mot_query</operator>
+		<operator name="STARTWITH">msg:commence_par_query</operator>
+		<operator name="ENDWITH">msg:finit_par_query</operator>
+		<operator name="EXACT">msg:exactement_comme_query</operator>
+		<operator name="EQ">=</operator>
+		<operator name="GT">&gt;</operator>
+		<operator name="LT">&lt;</operator>
+		<operator name="GTEQ">&gt;=</operator>
+		<operator name="LTEQ">&lt;=</operator>
+		<operator name="ISEMPTY" emptyAllowed="yes">msg:est_vide_query</operator>
+		<operator name="ISNOTEMPTY" emptyAllowed="yes">msg:pas_vide_query</operator>
+	</operators>
+</pmbfields>

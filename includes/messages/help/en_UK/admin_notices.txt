@@ -1,0 +1,9 @@
+<h1>Managing records</h1>
+
+<p>The section <b>Managing records</b> allows you to define your records parameters.
+<ul>
+<li><b>sources</b> allows you to indicate the sources of your records in order to distinguish distribution rights</li>
+<li><b>status</b> allows you to indicate any special status attached to records as well as in the OPAC display</li>
+<li><b>custom fields</b> enables  you to customize fields for the records</li>
+</ul></p>
+ 

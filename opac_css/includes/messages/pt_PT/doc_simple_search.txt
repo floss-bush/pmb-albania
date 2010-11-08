@@ -1,0 +1,18 @@
+<h2>Procura r&aacute;pida</h2>
+<p><strong>insira o t&iacute;tulo ou autor a pesquisar e clique em
+<i>Pesquisar</i></strong></p>
+<hr />
+<p>Pode inserir o nome ou apelido</p>
+<p><b>Caracteres acentuados</b> e <b>sinais de pontua&ccedil;&atilde;o</b>
+s&atilde;o<b>ignorados</b> durante a procura (&eacute;, &egrave;, &agrave;,
+&ccedil;, !, ', etc.).</p>
+<p>Tamb&eacute;m pode procurar editores, colec&ccedil;&otilde;es,
+sub-colec&ccedil;&otilde;es, categorias (thesaurus), classes (por
+exemplo Dewey), palavras-chave, resumos e notas.</p>
+<p>Para isto, clique 
+<img src="./images/coche.gif" align="absmiddle">
+nas caixas correspondentes, insira o seu crit&eacute;rio de procura e
+clique em Pesquisar.</p>
+<hr />
+<p>A sua procura tamb&eacute;m pode ser uma <a href="help.php?whatis=expbool">express&atilde;o
+booleana</a>.</p>

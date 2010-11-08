@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2010-08-11 10:02:47 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesThesauri</name>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<types>
+		<type name="thesaurus" imported="true" imported_from="pmbesTypes"/>
+	</types>
+	<methods>
+		<method name="list_thesauri" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="thesaurus.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="OPACUserId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="thesauri">
+					<result name="thesaurus" type="scalar" dataType="thesaurus"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_node" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="categories.class.php"/>
+				<pmb_requirement start_path="class" file="category.class.php"/>
+				<pmb_requirement start_path="class" file="noeuds.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="node_id" type="scalar" dataType="integer"/>
+				<param name="OPACUserId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="node" type="scalar" dataType="node"/>
+			</outputs>
+		</method>
+		<method name="fetch_node_notice_ids" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="categories.class.php"/>
+				<pmb_requirement start_path="class" file="category.class.php"/>
+				<pmb_requirement start_path="class" file="noeuds.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="node_id" type="scalar" dataType="integer"/>
+				<param name="OPACUserId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="notice_ids" type="array">
+					<result name="anotice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="fetch_node_full" rights="" version="1.0" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesThesauri" name="fetch_node" version="1.0"/>
+		  		<requirement group="pmbesThesauri" name="fetch_node_notice_ids" version="1.0"/>
+			</requirements>
+			<inputs>
+				<param name="node_id" type="scalar" dataType="integer"/>
+				<param name="OPACUserId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result name="node" type="scalar" dataType="node"/>
+				<result name="notice_ids" type="array">
+					<result name="anotice_id" type="scalar" dataType="integer"/>
+				</result>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

@@ -1,0 +1,17 @@
+<h2>Recherche multi-critères</h2>
+<p><strong>La recherche multi-critères permet de combiner différents critères pour réaliser une recherche précise. </strong></p>
+<p>
+Vous pouvez sélectionner un ou plusieurs champs de recherches&nbsp;: titre, auteur, champs personnalisés...</p>
+<p>Pour lancer une recherche multicritère :</p>
+<ul><li><b>choisissez un</b> premier <b>champ</b> sur lequel doit porter la recherche. Par exemple : Auteur</li>
+<li>cliquez sur <b>Ajouter</b> pour définir un premier champ de la recherche</li>
+<li><b>choisissez</b> ensuite <b>un type de recherche</b> pour le champ retenu. Pour un champ titre vous 
+pouvez choisir entre "expression booléenne", "commence par", 
+"fini par" ou "exactement comme". Ce type de recherche varie selon le champ concerné. Par exemple, pour Auteur "commence par"</li>
+<li><b>si le champ nécessite une valeur</b>, <b>saisissez celle-ci</b> dans la case de saisie ; si le champ nécessite un choix (par exemple le type de support), choisissez une ou plusieurs propositions en cliquant et en maintenant la touche Ctrl de votre clavier appuyée. Par exemple pour notre Auteur, commence par "Zol"</li>
+<li><b>ajoutez autant de critères que vous le souhaitez</b>. En suivant le même exemple, vous pourriez ajouter Titre exactement comme "Germinal".
+<li>enfin validez en cliquant sur <b>Rechercher</b></li></ul>
+<hr />
+<p>Votre recherche peut être une <a href=help.php?whatis=expbool>expression booléenne</a>.</p>
+<hr />
+<p>Une recherche multicritère peut porter sur l'ensemble des données du catalogue de la bibliothèque.</p>

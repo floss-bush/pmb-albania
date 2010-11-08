@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id: params.xml,v 1.2 2010-06-14 15:00:58 mbertin Exp $ -->
+<params>
+	<!-- Nom de l'import -->
+	<importname>PMB XML MARC -&gt; EndNote</importname>
+	<!-- Nombre de notices traitées par passe -->
+	<nperpass>200</nperpass>
+
+	<!-- Type de l'entrée -->
+	<input type="xml" rootelement="*" noticeelement="notice"/>
+
+	<!-- Type de la sortie -->
+	<output importable="no" type="txt" suffix="txt" mimetype="text/text"/>
+	
+	<step type="xmltransform">
+		<!-- Conversion en html -->
+		<xslfile>pmbxml2endnote.xsl</xslfile>
+		<rootelement>unimarc</rootelement>
+		<noticeelement>notice</noticeelement>
+		<trootelement></trootelement>
+		<tnoticeelement></tnoticeelement>
+	</step>
+</params>

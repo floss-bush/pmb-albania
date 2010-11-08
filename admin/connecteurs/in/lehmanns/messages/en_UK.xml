@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.2 2009-11-17 16:09:56 gueluneau Exp $ -->
+
+<XMLlist>
+	<entry code="lehmanns_theme">Theme</entry>
+	<entry code="lehmanns_max_return">Maximum number of results</entry>
+</XMLlist>

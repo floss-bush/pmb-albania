@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!-- 
+PMB
+table des codages d'import
+PMB est sous licence GPL, la réutilisation du code est cadrée 
+creator: Eric ROBERT
+modified: ...
+$Id: import_unimarc.xml,v 1.2 2004-06-10 06:52:25 touraine37 Exp $
+-->
+
+<XMLlist>
+	<entry code="isbn" repeatable="NO">
+		<key>010</key>
+		<subfield type="isbn">a</subfield>
+		</entry>
+	<entry code="barcode" repeatable="NO">
+		<key>071</key>
+		<subfield type="cb">a</subfield>
+		</entry>
+	<entry code="language" repeatable="NO">
+		<key>101</key>
+		<subfield type="lang_code">a</subfield>
+		<subfield type="org_lang_code">c</subfield>
+		</entry>
+	<entry code="titles" repeatable="NO">
+		<key>200</key>
+		<subfield type="tit1">a</subfield>
+		<subfield type="tit2">c</subfield>
+		<subfield type="tit3">d</subfield>
+		<subfield type="tit4">e</subfield>
+		<subfield>v</subfield>
+		</entry>
+	<entry code="publisher" repeatable="NO">
+		<key>215</key>
+		<subfield type="ville">a</subfield>
+		<subfield type="name">c</subfield>
+		<subfield type="year">d</subfield>
+		</entry>
+	<entry code="description" repeatable="NO">
+		<key>215</key>
+		<subfield type="npages">a</subfield>
+		<subfield type="ill">c</subfield>
+		<subfield type="size">d</subfield>
+		<subfield type="accomp">e</subfield>
+		</entry>
+	<entry code="collections" repeatable="YES">
+		<key>225</key>
+		<subfield type="coll_name">a</subfield>
+		<subfield type="coll_issn">x</subfield>
+		<subfield type="subcoll_name">i</subfield>
+		<subfield type="nocoll_ins">v</subfield>
+		</entry>
+	<entry code="inside" repeatable="NO">
+		<key>327</key>
+		<subfield type="n_contenu">a</subfield>
+		</entry>
+	<entry code="abstract" repeatable="NO">
+		<key>330</key>
+		<subfield type="n_resume">a</subfield>
+		</entry>
+	<entry code="collection" repeatable="YES">
+		<key>410</key>
+		<subfield type="collection_410">t</subfield>
+		</entry>
+	<entry code="sub collection" repeatable="YES">
+		<key>411</key>
+		<subfield type="collection_411">t</subfield>
+		</entry>
+	<entry code="series" repeatable="NO">
+		<key>461</key>
+		<subfield type="serie_name">t</subfield>
+		<subfield type="tnvol_ins">v</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>700</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>701</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>702</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>710</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>711</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="authors" repeatable="NO">
+		<key>712</key>
+		<subfield type="nom">a</subfield>
+		<subfield type="rejete">b</subfield>
+		<subfield type="fonction">4</subfield>
+		</entry>
+	<entry code="BDP" repeatable="NO">
+		<key>995</key>
+		<subfield type="cb">f</subfield>
+		<subfield type="cote">k</subfield>
+		<subfield type="statut">o</subfield>
+		<subfield type="codestat">q</subfield>
+		<subfield type="typdoc">r</subfield>
+		<subfield type="note">u</subfield>
+		</entry>
+		
+</XMLlist>

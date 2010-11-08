@@ -1,0 +1,27 @@
+<?php
+
+// $Id: search_empr.txt,v 1.5 2009-05-16 11:05:14 dbellamy Exp $
+
+// howto search a borrower
+
+$content = "
+<div class='row'>
+<h3><center>PMB: Uso di caratteri speciali nella ricerca di utenti</center></h3>
+</div>
+<br /><hr /><br /><b>Ricerca estesa</b><br />
+<p class='pn-normal'>Per avere la lista di tutti gli utenti confermare a vuoto</b>.</p>
+
+<b>Ricerca selettiva</b><br />
+<p class='pn-normal'>Per una ricerca pi&ugrave; selettiva &egrave; possibile utilizzare dei caratteri speciali. Ad esempio, per trovare tutti i cognomi che <b> iniziano</b> con <b>ALE</b>, digitare: <b>^ALE</b>, che <b>contengono ALE</b>, digitare: <b>ALE</b>, che <b>finiscono</b> con <b>ALE</b>, digitare: <b>ALE$</b>.</p>
+<hr /><br />
+<div class='row'><center>
+<a href='#' onclick='window.close()'
+<!--<img src='./images/close.gif' border='0' alt='[$msg[197]]' title='$msg[197]'>-->
+[$msg[197]]
+</center></a>
+</div>
+";
+
+print $content;
+
+?>

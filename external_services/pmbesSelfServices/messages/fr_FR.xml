@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.3 2010-04-28 12:56:14 ngantier Exp $ -->
+
+<!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
+<XMLlist>
+<entry code="selfservices_functions_description">Permet de faire le prêt, le retour, et la prolongation de prêt d'un document</entry>
+
+<entry code="self_checkout_description">Permet de faire le prêt d'un document</entry>
+<entry code="self_checkin_description">Permet de faire le retour d'un document</entry>
+<entry code="self_renew_description">Permet de faire la prolongation de prêt d'un document</entry>
+
+<entry code="self_checkout_input_description"></entry>
+<entry code="self_checkout_output_description"></entry>
+<entry code="self_checkout_expl_cb">Le code-barre du document</entry>
+<entry code="self_checkout_OPACUserId">l'id de l'emprunteur</entry>
+
+<entry code="self_checkout_status">1: Le prêt du document est accepté. 0: Le prêt du document est refusé</entry>
+<entry code="self_checkout_message">Message du prêt</entry>
+<entry code="self_checkout_title">Titre du document</entry>
+<entry code="self_checkout_transaction_date">Date du prêt</entry>
+<entry code="self_checkout_due_date">Date de retour</entry>				
+<entry code="self_checkout_message_quota">Message de quotas</entry>				
+
+
+<entry code="self_checkin_input_description"></entry>
+<entry code="self_checkin_output_description"></entry>
+<entry code="self_checkin_expl_cb">Le code-barre du document</entry>
+
+<entry code="self_checkin_status">1: Le retour du document est accepté. 0: Le retour du document est refusé</entry>
+<entry code="self_checkin_message">Message du retour de prêt</entry>
+<entry code="self_checkin_title">Titre du document</entry>
+<entry code="self_checkin_transaction_date">Date du retour</entry>
+		
+<entry code="self_checkin_message_loc">Message concernant la localisation du document</entry>				
+<entry code="self_checkin_message_resa">Message concernant la réservation du document</entry>				
+<entry code="self_checkin_message_retard">Message si retard sur le retour du document</entry>				
+<entry code="self_checkin_message_amende">Message si l'emprunteur à une amende</entry>	
+
+
+<entry code="self_renew_input_description"></entry>
+<entry code="self_renew_output_description"></entry>
+<entry code="self_renew_expl_cb">Le code-barre du document</entry>
+
+<entry code="self_renew_status">1: La prolongation du prêt est acceptée. 0: La prolongation du prêt est refusée</entry>
+<entry code="self_renew_message">Message de la prolongation du prêt</entry>
+<entry code="self_renew_title">Titre du document</entry>
+<entry code="self_renew_transaction_date">Date de la prolongation</entry>
+<entry code="self_renew_due_date">Date de retour</entry>		
+<entry code="format_date">%d/%m/%Y</entry>	
+</XMLlist>

@@ -1,0 +1,20 @@
+<?php
+
+// $Id: import_empr.txt,v 0.1 2003/11/21 9:44:264 Jonathan charest
+
+// Documentation sur l'utilisation de l'import
+
+$content = "
+  <p><b>PMB : import-mini-howto</b> </p>
+  <p><strong>Nella colonna di sinistra</strong>, ci sono i nomi dei campi del database.<br />
+    &egrave; in questi campi che vengono immesse le informazioni sugli utenti.</p>
+  <p><strong>Nella colonna centrale</strong> compare la posizione del campo nel file es:<br />
+    2003,\"3\",\"Rossi\",... <br />2003 � la prima posizione, � l'anno in cui lo studente � entrato nella scuola,
+     \"3\" � in seconda posizione, � l'anno di corso dello studente, \"Rossi\" � la terza posizione, � il Cognome dello studente.</p>
+  <p><strong>Nella colonna di destra</strong>, c'&egrave; come esempio la prima riga del file, pu&ograve; essere utile per comprendere come rimappare il file per l'importazione nell'archivio di PMB. E' necessario cliccare su Aggiorna la pagina per fare in modo che i cambiamenti siano salvati.</p>
+  <p><strong>I campi in rosso</strong>, sono dei campi non modificabili dall'operatore, si riempiono automaticamente.</p>
+";
+
+print $content;
+
+?>

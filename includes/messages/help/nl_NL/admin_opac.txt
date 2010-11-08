@@ -1,0 +1,19 @@
+<h1>Administration de l'OPAC</h1>
+
+<p>
+La section <b>Administration de l'OPAC</b> permet de configurer les différents modules de l'OPAC .
+<ul>
+	<li>
+		<b>Liste des recherches :</b> 
+		Gestion des recherches prédéfinies que l'on pourra consulter en OPAC.
+	</li>
+	<li>
+		<b>Statistiques de l'OPAC :</b> 
+		Enregistrer et créer des statistiques sur les actions des utilisateurs de l'OPAC.
+	</li>
+	<li>
+		<b>Navigation par localisation et par section : </b>
+		 Paramètrage de la navigation virtuelle par les plans de classement
+	</li>
+</ul>
+</p>

@@ -1,0 +1,25 @@
+<h1>Amministrazione degli utenti</h1>
+<p>I vari codici assegnati a ciascuno degli utenti della mediateca permettono la generazione di statistiche sugli utenti della mediateca.
+</p>
+
+<p>Combinando i codici descritti precedentemente, si dovrebbe essere in grado d'adattare il funzionamento del programma alle esigenze della realt&agrave; in cui si opera.</p>
+
+<h2>Utenti LDAP</h2>
+<strong>Importazione utenti LDAP</strong><br />
+Se la connessione a un server ldap &egrave; stata configurata, &egrave; possibile importare gli utenti direttamente dalla directory ldap
+in modo che sia il server ldap a gestire l'autenticazione dell'utente.
+<br /><br />
+<strong>Cancellazione di utenti exLDAP</strong><br />
+Gli utenti importati da LDAP in PMB non sono automaticamente rimossi quando sono cancellati dal db LDAP<br />
+La funzione di cancellazione degli utenti exldap individua tutti gli utenti PMB di tipo LDAP che non sono pi&ugrave
+presenti nel db del server ldap da cui sono stati inizialmente importanti e che non hanno prestiti in corso.<br />
+Gli utenti cos&igrave; individuati possono essere: 
+ <UL>
+	<LI>cancellati
+	<LI>selezionati e lasciati invariati
+	<LI>selezionati e trasformati in utenti normali non LDAP senza password (da ridefinire
+	individualmente per consentire l'accesso OPAC autenticato)
+</UL>
+ 
+
+

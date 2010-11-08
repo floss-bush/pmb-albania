@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Catalogue de connecteurs sortants
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: catalog.xml,v 1.3 2010-08-11 10:25:38 arenou Exp $ -->
+
+<catalog>
+	<item name="oai" path="oai" id="3"/>
+	<item name="apisoap" path="apisoap" id="4"/>
+	<item name="apijsonrpc" path="apijsonrpc" id="5"/>
+	<item name="mobile" path="mobile" id="6"/>
+</catalog>

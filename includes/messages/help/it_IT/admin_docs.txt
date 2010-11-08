@@ -1,0 +1,13 @@
+<h1>Amministrazione degli esemplari</h1>
+
+<p>La sezione <b>amministrazione degli esemplari</b> permette di definire i parametri del programma per il prestito e le statistiche sui documenti.
+<ul>
+<li><b>tipi di documento</b> permette di parametrizzare i differenti supporti per i documenti e per ciascuno di essi la durata del prestito e della prenotazione espressa in giorni.</li>
+<li><b>codici statistici</b> questo codice &egrave; utilizzato per la generazione delle statistiche sui prestiti e sui fondi della mediateca.</li>
+<li><b>sezioni</b> la sezione &egrave; il settore della mediateca per il quale un documento &egrave; prestabile (settore adulti, giovani, discoteca...). Questo codice &egrave; anche preso in considerazione nella generazione delle statistiche.</li>
+<li><b>status</b> la nozione di status &egrave; usata per specificare se l'esemplare pu&ograve; essere prestato o meno.</li>
+<li><b>ubicazioni</b> nel caso la biblioteca sia suddivisa in pi&ugrave; sedi &egrave; possibile specificare qui le possibili ubicazioni. L'ubicazione pu&ograve; essere anche usata per porre l'esemplare in una posizione particolare (esempio&nbsp;: riservato).</li>
+<li><b>proprietari</b> proprietari degli esemplari, ad esempio la BDP.</li>
+<li><b>personalizzazioni</b> campi personalizzabili riferiti agli esemplari.</li>
+</ul></p>
+ 

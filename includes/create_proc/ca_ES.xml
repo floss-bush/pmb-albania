@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pmbfields>
+	<listFields>
+		<item titre="Titre" id="1" separateur="Champs principaux" type="text" table="notices" champ="tit1" index="index_sew">
+		</item>
+		<item titre="Auteur" id="2" type="text" table="authors" champ="author_name" index="index_author">
+			<jointure>
+				<table name="authors">
+					<id>author_id</id>
+				</table>
+				<table name="responsability">
+					<id>responsability_author</id>
+				</table>
+			</jointure>
+			<jointure>
+				<table name="responsability">
+					<id>responsability_notice</id>
+				</table>
+				<table name="notices">
+					<id>notice_id</id>
+				</table>
+			</jointure>
+		</item>
+		<item titre="Editeur" id="3" type="text" table="publishers" champ="ed_name" index="index_publisher">
+			<jointure>
+				<table name="publishers">
+					<id>ed_id</id>
+				</table>
+				<table name="notices">
+					<id>ed1_id</id>
+					<id>ed2_id</id>
+				</table>
+			</jointure>
+		</item>
+		<item titre="Date d'édition" id="4" type="date" table="notices" champ="year" index="year">
+		</item>
+	</listFields>
+		<typeFields>
+		<field dataType="small_text" id="1">
+			<query for="CONTAINS_AT_LEAST"/>
+			<query for="CONTAINS_ALL"/>
+			<query for="STARTWITH"/>
+			<query for="ENDWITH"/>
+			<query for="EXACT"/>
+		</field>
+		<field dataType="text" id="2">
+			<query for="CONTAINS_AT_LEAST"/>
+			<query for="CONTAINS_ALL"/>
+			<query for="STARTWITH"/>
+			<query for="ENDWITH"/>
+			<query for="EXACT"/>
+		</field>
+		<field dataType="integer" id="3">
+			<query for="EQ"/>
+			<query for="LT"/>
+			<query for="GT"/>
+			<query for="LTEQ"/>
+			<query for="GTEQ"/>
+		</field>
+		<field dataType="float" id="4">
+			<query for="EQ"/>
+			<query for="LT"/>
+			<query for="GT"/>
+			<query for="LTEQ"/>
+			<query for="GTEQ"/>
+		</field>
+		<field dataType="date" id="5">
+			<query for="EQ"/>
+			<query for="LT"/>
+			<query for="GT"/>
+			<query for="LTEQ"/>
+			<query for="GTEQ"/>
+		</field>
+	</typeFields>
+	
+<operators>
+		<operator name="CONTAINS_ALL" deb=" LIKE '%" end="%'">Conté tots els mots</operator>
+		<operator name="CONTAINS_AT_LEAST" deb=" LIKE '%" end="%'">Conté com a mínim un dels mots</operator>
+		<operator name="STARTWITH" deb=" LIKE '" end="%'">Comença per</operator>
+		<operator name="ENDWITH" deb=" LIKE '%" end="'">Acaba per</operator>
+		<operator name="EXACT" deb=" LIKE '" end="'">Exactament com</operator>
+		<operator name="EQ" deb="=" end="">=</operator>
+		<operator name="GT" deb="&gt;" end="">&gt;</operator>
+		<operator name="LT" deb="&lt;" end="">&lt;</operator>
+		<operator name="GTEQ" deb="&gt;=" end="">&gt;=</operator>
+		<operator name="LTEQ" deb="&lt;=" end="">&lt;=</operator>
+	</operators>
+</pmbfields>

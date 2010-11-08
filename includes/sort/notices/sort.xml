@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sort reference="notices" referencekey="notice_id">
+	
+	<field name="712" type="text" typefield="select" except="6" id="1">
+		<table>
+			<tablefield>index_sew</tablefield>
+		</table>
+	</field>
+	
+	<field name="indexint_menu_title" type="num" typefield="select" id="2">
+		<table name="indexint">
+			<tablefield>indexint_name</tablefield>
+			<tablekey>indexint_id</tablekey>
+			<link type="1n">
+				<referencefield>indexint</referencefield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="234" type="text" typefield="select" id="3">
+		<table name="authors">
+			<tablefield nullvalue=' '>index_author</tablefield>
+			<tablekey>author_id</tablekey>
+			<orderby nullvalue='9'>responsability_type</orderby>
+			<groupby>notice_id</groupby>
+			<link type="nn">
+				<table>responsability</table>
+				<referencefield>responsability_notice</referencefield>
+				<externalfield>responsability_author</externalfield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="searcher_publisher" type="text"  typefield="select" id="4">
+		<table name="publishers">
+			<tablefield>ed_name</tablefield>
+			<tablekey>ed_id</tablekey>
+			<link type="1n">
+				<referencefield>ed1_id</referencefield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="4016" type="text" typefield="select" id="5">
+		<table name="exemplaires">
+			<filter>not(notices.niveau_biblio='s' and notices.niveau_hierar=1)</filter>
+			<tablefield>expl_cote</tablefield>
+			<tablekey>expl_id</tablekey>
+			<groupby>notice_id</groupby>
+			<link type="n1">
+				<externalfield>expl_notice</externalfield>
+			</link>
+		</table>
+		<table name="exemplaires">
+			<filter>(notices.niveau_biblio='s' and notices.niveau_hierar=1)</filter>
+			<tablefield>expl_cote</tablefield>
+			<tablekey>expl_bulletin</tablekey>
+			<groupby>notice_id</groupby>
+			<link type="nn">
+				<table>bulletins</table>
+				<referencefield>bulletin_notice</referencefield>
+				<externalfield>bulletin_id</externalfield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="pertinence" type="num" typefield="internal" id="6">
+		<tablefield>pert</tablefield>
+	</field>
+	
+	<field name="annee_edition" type="num" typefield="select" id="7">
+		<table>
+			<tablefield nullvalue="0">year</tablefield>
+		</table>
+	</field>
+	
+	<field name="titre_serie_sort" type="text" typefield="select" id="8">
+		<table name="series">
+			<tablefield nullvalue=' '>serie_name</tablefield>
+			<tablekey>serie_index</tablekey>
+			<link type="1n">
+				<referencefield>index_serie</referencefield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="numero_serie_sort" type="text" typefield="select" id="9">
+		<table>
+			<tablefield nullvalue="0">tnvol</tablefield>
+		</table>
+	</field>
+	
+	<field name="localisation_sort" type="text" typefield="select" id="10">
+		<table name="exemplaires">
+			<filter>not(notices.niveau_biblio='s' and notices.niveau_hierar=1)</filter>
+			<tablefield nullvalue=' '>location_libelle</tablefield>
+			<orderby nullvalue=' '>location_libelle</orderby>
+			<groupby>notice_id</groupby>
+			<link type="n1">
+				<externalfield>expl_notice</externalfield>
+			</link>
+			<link type="n1">
+				<table>docs_location</table>
+				<tablekey>idlocation</tablekey>
+				<externalfield>expl_location</externalfield>
+			</link>
+		</table>
+		<table name="exemplaires">
+			<filter>(notices.niveau_biblio='s' and notices.niveau_hierar=1)</filter>
+			<tablefield nullvalue=' '>location_libelle</tablefield>
+			<orderby nullvalue=' '>location_libelle</orderby>
+			<groupby>notice_id</groupby>
+			<link type="nn">
+				<table>bulletins</table>
+				<referencefield>bulletin_notice</referencefield>
+				<tablekey>bulletin_id</tablekey>
+				<externalfield>expl_bulletin</externalfield>
+			</link>
+			<link type="n1">
+				<table>docs_location</table>
+				<tablekey>idlocation</tablekey>
+				<externalfield>expl_location</externalfield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="langue_sort" type="text" typefield="select" id="11">
+		<table name="notices_langues">
+			<tablefield>code_langue</tablefield>
+			<tablekey>num_notice</tablekey>
+			<orderby>type_langue</orderby>
+			<link type="1n">
+				<referencefield>notice_id</referencefield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="statut_notice_sort" type="text"  typefield="select" id="12">
+		<table name="notice_statut">
+			<tablefield>gestion_libelle</tablefield>
+			<tablekey>id_notice_statut</tablekey>
+			<link type="1n">
+				<referencefield>statut</referencefield>
+			</link>
+		</table>
+	</field>
+	
+	<field name="type_doc_sort" type="text" typefield="select" id="13">
+		<table>
+			<tablefield>typdoc</tablefield>
+		</table>
+	</field>
+	
+	<field name="date_creation_sort" type="text" typefield="select" id="14">
+		<table>
+			<tablefield>create_date</tablefield>
+		</table>
+	</field>
+	
+</sort>

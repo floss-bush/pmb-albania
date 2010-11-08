@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- 
+$Id: diacritique.xml,v 1.3 2006-03-07 23:12:25 touraine37 Exp $ -->
+<XMLlist>	
+	<entry code="a">àáâãäåÀÁÂÃÄÅA</entry>	
+	<entry code="e">éèêëÈÉÊËE</entry>	
+	<entry code="i">ìíîïIÌÍÎÏ</entry>	
+	<entry code="o">òóôõöOÒÓÔÕÖ</entry>	
+	<entry code="u">ùúûüUÙÚÛÜ</entry>	
+	<entry code="c">çÇC</entry> 
+	<entry code="n">ñÑ</entry>
+</XMLlist>

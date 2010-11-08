@@ -1,0 +1,9 @@
+<h1>Conversions/Exports</h1>
+<p>Here you can manage conversions of various format of files of Volumes/Items to other format as well as the export of the volumes of your PMB database.</p>
+<p>The conversion procedure allows to convert from a UNIMARC, USMARC, BCDI or XML PMB to another UNIMARC or XML PMB format.
+If the final conversion format is UNIMARC, you can then import the result into PMB. 
+Otherwise, you can download the result. <br />
+<strong>Warning : 	transfer from a format to another can causes losses of information.</strong></p>
+<p>The Export from PMB database is done in the form of bibliographic data including items using 995 standard 
+from the ADBDP. You can convert the result in UNIMARC records or XML PMB.</p>
+

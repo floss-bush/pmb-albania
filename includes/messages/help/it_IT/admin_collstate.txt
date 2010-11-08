@@ -1,0 +1,10 @@
+<h1>Amministrazione dello stato delle collezioni</h1>
+
+<p>La sezione <b>amministrazione dello stato delle collezioni</b> permette di definire i parametri da applicare alle collezioni di periodici.
+<ul>
+<li><b>sedi</b> permette di definire la sede delle collezioni di periodici.</li>
+<li><b>supporti</b> ermette di parametrizzare i differenti supporti per le collezioni di periodici.</li>
+<li><b>statuts</b> permette di definire come le collezioni devono essere trattate, anche nell'OPAC.</li>
+<li><b>personalizzati</b> campi personalizzati riferiti alle collezioni.</li>
+</ul></p>
+ 

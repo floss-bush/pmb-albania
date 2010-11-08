@@ -1,0 +1,8 @@
+<h1>Administration des abonnements</h1>
+
+<p>La section <b>administration des abonnements</b> permet de d&eacute;finir les param&egrave;tres de l'application pour les abonnements.
+<ul>
+<li><b>P&eacute;riodicit&eacute;</b> la P&eacute;riodicit&eacute; des abonnements permet de d&eacute;crire tous les types de P&eacute;riodicit&eacute; utilis&eacute;s dans les abonnements.</li>
+
+</ul></p>
+ 

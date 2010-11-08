@@ -1,0 +1,11 @@
+/* +--------------------------------------------------------------------------+
+//  2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: visionneuse.css,v 1.2 2010-07-06 09:33:55 arenou Exp $
+*/
+
+#visionneuse #visionneuseIframe {
+	-moz-border-radius:20px;
+	border : 2px solid black;
+	border-style : inset;
+}

@@ -1,0 +1,20 @@
+<h1>Adquisiciones</h1>
+</p><p>
+<b>Datos</b> ficha de identificaci&oacute;n de la biblioteca.
+</p><p>
+<b>Ejercicios contables</b> definicici&oacute;n de los ejercicios contables.
+</p><p>
+<b>IVA sobre compras</b> gesti&oacute;n de los diferentes impuestos o tasas d IVA y de las cuentas de IVA sobre las compras (si la gesti&oacute;n 
+del IVA  est&aacute; activada).
+</p><p>
+<b>Tipos de productos</b> categor&iacute;as de productos a comprar, permite hacer el c&aacute;lculo de las entregas y c&oacute;mo afecta 
+a las cuentas de compras.
+</p><p>
+<b>Gastos anexos</b> eventuales asociados a las adquisiciones y a sus cuentas.
+</p><p>
+<b>Modos de pago</b> y retrasos.
+</p><p>
+<b>Presupuestos</b> repartici&oacute;n de los presupuestos.
+
+
+

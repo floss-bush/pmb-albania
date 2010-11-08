@@ -1,0 +1,12 @@
+<br />
+<b>Module de pointage des documents reçus... 
+</b>
+<br /><br />
+Vous allez pouvoir "pointer" tous les documents reçus afin de les faire changer de statut pour les rendre prêtables.
+<br /><br />
+<OL>
+<LI>Sélectionner le statut et la section applicables</LI>
+<LI>Passer les documents un par un à la douchette</LI>
+</OL>
+<br /><br />
+			

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+$Id: params.xml,v 1.2 2006-02-01 17:21:14 dbellamy Exp $ -->
+
+<params>
+    <!-- Nom de l'import -->
+    <importname>EPIRES -&gt; UNIMARC</importname>
+    <!-- Nombre de notices traitées par passe -->
+    <nperpass>200</nperpass>
+    <!-- Type de l'entrée -->
+    <input type="custom" script="input_epires.inc.php"/>
+    <!-- type de la sortie -->
+    <output importable="no" type="xml" suffix="xml">
+        <rootelement>unimarc</rootelement>
+    </output>
+
+    <step type="custom">
+        <!-- Conversion texte EPIRES en unimarc -->
+        <script>epires2xmluni.inc.php</script>
+		<callback>convert_epires</callback>
+		<fields>
+			<field id="0">REF</field>
+			<field id="1">OP</field>
+			<field id="2">DS</field>
+			<field id="3">TY</field>
+			<field id="4">GEN</field>
+			<field id="5">AU</field>
+			<field id="6">DIST</field>
+			<field id="7">AUCO</field>
+			<field id="8">AS</field>
+			<field id="9">TI</field>
+			<field id="10">TN</field>
+			<field id="11">COL</field>
+			<field id="12">TP</field>
+			<field id="13">SO</field>
+			<field id="14">ED</field>
+			<field id="15">DP</field>
+			<field id="16">ND</field>
+			<field id="17">NO</field>
+			<field id="18">GO</field>
+			<field id="19">HI</field>
+			<field id="20">DENP</field>
+			<field id="21">DE</field>
+			<field id="22">CD</field>
+			<field id="23">RESU</field>
+		</fields>
+    </step>
+</params>

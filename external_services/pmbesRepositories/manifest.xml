@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Fichier manifest de description des méthodes disponibles
+	****************************************************************************************
+	© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+	****************************************************************************************
+	$Id: manifest.xml,v 1.1 2010-06-23 00:40:57 erwanmartin Exp $ --><manifest>
+	<name>pmbesRepositories</name>
+	<description>msg:pmbesRepositories_description</description>
+	<requirements>
+		<requirement group="pmbesSpecialTypes"/>
+	</requirements>
+	<types>
+		<type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes" description="msg:unimarc_notice_description"/>
+	</types>
+	<methods>
+		<method name="list_agnostic_repositories" rights="" version="1.0" comment="msg:list_agnostic_repositories_description">
+			<inputs>
+				<description>msg:list_agnostic_repositories_input_description</description>
+			</inputs>
+			<outputs>
+				<description>msg:list_agnostic_repositories_output_description</description>
+				<result type="array" name="repositories" description="msg:list_agnostic_repositories_repositories">
+					<result name="id" type="scalar" dataType="integer" description="msg:list_agnostic_repositories_repositories_id"/>
+					<result name="name" type="scalar" dataType="string" description="msg:list_agnostic_repositories_repositories_name"/>
+					<result name="comment" type="scalar" dataType="string" description="msg:list_agnostic_repositories_repositories_comment"/>
+				</result>
+			</outputs>
+		</method>
+		<method name="add_unimarc_notice_to_repository" rights="" version="1.0" comment="msg:add_unimarc_notice_to_repository_description">
+			<inputs>
+				<description>msg:add_unimarc_notice_to_repository_input_description</description>
+				<param name="source_id" type="scalar" dataType="integer" description="msg:add_unimarc_notice_to_repository_source_id"/>
+				<param name="notice" type="scalar" dataType="unimarc_notice" description="msg:add_unimarc_notice_to_repository_notice"/>
+			</inputs>
+			<outputs/>
+		</method>
+	</methods>
+</manifest>

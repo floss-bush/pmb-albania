@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!ELEMENT extension (#PCDATA)>
+<!ATTLIST extension label CDATA #IMPLIED>
+
+<!ELEMENT mimeType (extension+)>
+<!ATTLIST mimeType
+	embeded NMTOKEN #IMPLIED
+	icon NMTOKEN #REQUIRED
+	label CDATA #IMPLIED
+	name CDATA #REQUIRED
+	plugin NMTOKEN #IMPLIED
+>
+
+<!ELEMENT mimeTypeList (mimeType+)>
+

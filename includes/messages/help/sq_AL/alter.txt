@@ -1,0 +1,7 @@
+<br />
+<b>WARNING, This update can be long and dangerous...
+<br />Please make a backup before running this process</b>
+<br /><br />Don't take care of error messages that could appear, they are certainly caused by your database version that's not up to date.
+<br />If some messages are still present at the end of the update, then you should study them.
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Click to start the update.</a>
+			

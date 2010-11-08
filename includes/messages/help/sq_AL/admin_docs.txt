@@ -1,0 +1,14 @@
+<h1>Items' administration</h1>
+
+<p>You'll define the parameters of the application for the loan and the documents' statistics through the section <b>Items</b> 
+<ul>
+<li><b>documents' materials : </b></li>
+ manage loan of the differents supports and for each one of them the maximum number of days of the loan
+<li><b>Statistic codes</b> is the code is used for statistic on the loans and on the documents of the library.</li>
+<li><b>sections</b> is the sector of the library where the document can be borrowed (adult sector, youth, ...) This code is also used for statistic purpose.</li>
+<li><b>types</b> This code is used to specify if the document can be borrowed</li>
+<li><b>locations</b> location can be used to link document to a particular place (example : in reserve)</li>
+<li><b>Lenders</b> Lenders of items, BDP by example</li>
+<li><b>personnalisable</b> fields you can create on the items</li>
+</ul></p>
+ 

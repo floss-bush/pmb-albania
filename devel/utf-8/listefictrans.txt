@@ -1,0 +1,41 @@
+../../../pmbcvs/opac_css/includes/messages/en_UK/doc_expbool.txt	../../opac_css/includes/messages/en_UK/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/en_UK/doc_search_multi.txt	../../opac_css/includes/messages/en_UK/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/en_UK/doc_search_terms.txt	../../opac_css/includes/messages/en_UK/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/en_UK/doc_simple_search.txt	../../opac_css/includes/messages/en_UK/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/en_UK/icons.html	../../opac_css/includes/messages/en_UK/icons.html
+
+../../../pmbcvs/opac_css/includes/messages/en_US/doc_expbool.txt	../../opac_css/includes/messages/en_US/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/en_US/doc_search_multi.txt	../../opac_css/includes/messages/en_US/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/en_US/doc_search_terms.txt	../../opac_css/includes/messages/en_US/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/en_US/doc_simple_search.txt	../../opac_css/includes/messages/en_US/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/en_US/icons.html	../../opac_css/includes/messages/en_US/icons.html
+
+../../../pmbcvs/opac_css/includes/messages/fr_FR/doc_expbool.txt	../../opac_css/includes/messages/fr_FR/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/fr_FR/doc_search_multi.txt	../../opac_css/includes/messages/fr_FR/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/fr_FR/doc_search_terms.txt	../../opac_css/includes/messages/fr_FR/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/fr_FR/doc_simple_search.txt	../../opac_css/includes/messages/fr_FR/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/fr_FR/icons.html	../../opac_css/includes/messages/fr_FR/icons.html
+
+../../../pmbcvs/opac_css/includes/messages/it_IT/doc_expbool.txt	../../opac_css/includes/messages/it_IT/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/it_IT/doc_search_multi.txt	../../opac_css/includes/messages/it_IT/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/it_IT/doc_search_terms.txt	../../opac_css/includes/messages/it_IT/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/it_IT/doc_simple_search.txt	../../opac_css/includes/messages/it_IT/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/it_IT/icons.html	../../opac_css/includes/messages/it_IT/icons.html
+
+../../../pmbcvs/opac_css/includes/messages/nl_NL/doc_expbool.txt	../../opac_css/includes/messages/nl_NL/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/nl_NL/doc_search_multi.txt	../../opac_css/includes/messages/nl_NL/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/nl_NL/doc_search_terms.txt	../../opac_css/includes/messages/nl_NL/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/nl_NL/doc_simple_search.txt	../../opac_css/includes/messages/nl_NL/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/nl_NL/icons.html	../../opac_css/includes/messages/nl_NL/icons.html
+
+../../../pmbcvs/opac_css/includes/messages/oc_FR/doc_expbool.txt	../../opac_css/includes/messages/oc_FR/doc_expbool.txt
+../../../pmbcvs/opac_css/includes/messages/oc_FR/doc_search_multi.txt	../../opac_css/includes/messages/oc_FR/doc_search_multi.txt
+../../../pmbcvs/opac_css/includes/messages/oc_FR/doc_search_terms.txt	../../opac_css/includes/messages/oc_FR/doc_search_terms.txt
+../../../pmbcvs/opac_css/includes/messages/oc_FR/doc_simple_search.txt	../../opac_css/includes/messages/oc_FR/doc_simple_search.txt
+../../../pmbcvs/opac_css/includes/messages/oc_FR/icons.html	../../opac_css/includes/messages/oc_FR/icons.html
+
+../../../pmbcvs/admin/misc/alter_v1.inc.php	../../admin/misc/alter_v1.inc.php
+../../../pmbcvs/admin/misc/alter_v2.inc.php	../../admin/misc/alter_v2.inc.php
+../../../pmbcvs/admin/misc/alter_v3.inc.php	../../admin/misc/alter_v3.inc.php
+
+../../../pmbcvs/classes/iso2709.class.php	../../classes/iso2709.class.php

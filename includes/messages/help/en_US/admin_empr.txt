@@ -1,0 +1,7 @@
+<h1>Borrowers management</h1>
+<p>Use the various codes assigned to each user of the library to create statistics. 
+</p>
+
+<p>By combining those codes, you should be able to adapt the application to the particular needs of your library.</p>
+
+

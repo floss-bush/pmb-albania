@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes fonction en UNIMARC (français)
+$Id: function.xml,v 1.1 2006-03-07 23:12:25 touraine37 Exp $ -->
+
+<XMLlist>
+<entry code="005">Actor</entry>
+	
+<entry code="010">Adaptador</entry>
+	
+<entry code="020">Anotador</entry>
+	
+<entry code="040">Artista</entry>
+	
+<entry code="070">Autor</entry>
+	
+<entry code="080">Prologuista, etc</entry>
+	
+<entry code="140">Dissenyador</entry>
+	
+<entry code="205">Col·laborador</entry>
+	
+<entry code="210">Comentarista</entry>
+	
+<entry code="220">Compilador</entry>
+	
+<entry code="230">Compositor</entry>
+	
+<entry code="240">Compositor tipogràfic</entry>
+	
+<entry code="270">Corrector</entry>
+	
+<entry code="273">Comissari d'una exposició</entry>
+	
+<entry code="274">Coordinador</entry>
+
+<entry code="300">Director</entry>
+	
+<entry code="340">Editor</entry>
+	
+<entry code="440">Il·lustrador</entry>
+	
+<entry code="460">Entrevistat</entry>
+	
+<entry code="470">Entrevistador</entry>
+	
+<entry code="600">Fotògraf</entry>
+	
+<entry code="630">Productor</entry>
+	
+<entry code="727">Director de la tesi</entry>
+	
+<entry code="730">Traductor</entry>
+
+</XMLlist>
+

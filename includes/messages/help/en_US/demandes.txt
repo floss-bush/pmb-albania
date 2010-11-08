@@ -1,0 +1,8 @@
+<h1>Module des Demandes de Recherche et d'Information</h1>
+<p>Les demandes de recherche et d&rsquo;information sont un service qui permet &agrave; un lecteur de pouvoir prendre contact avec un documentaliste pour &eacute;changer, pr&eacute;ciser et demander 
+des informations afin d&rsquo;aboutir &agrave; une notice r&eacute;sultat compl&egrave;te correspondant le plus au besoin du lecteur.</p>
+
+<h2>Listes</h2>
+Permet de voir les demandes de recherche selon différents types de filtres.<br />
+<h2>Actions</h2>
+Permet de voir toutes les actions actives de l'utilisateur en cours (Fil de discussion, Rendez-vous,...).<br />

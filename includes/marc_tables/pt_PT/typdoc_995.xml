@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des types de documentos 995 de AFBDP
+$Id: typdoc_995.xml,v 1.1 2006-07-19 08:32:00 touraine37 Exp $ -->
+
+<XMLlist>
+	<entry code="aa">impresso / cartaz</entry>
+	<entry code="ac">impresso / diapositivo</entry>
+	<entry code="ab">impresso / fotografia não projectada</entry>
+	<entry code="ad">impresso / cassete</entry>
+	<entry code="ae">impresso / cd outro que DVD</entry>
+	<entry code="af">impresso / DVD</entry>
+	<entry code="az">impresso / outro</entry>
+	<entry code="au">impresso / indeterminado</entry>
+	
+	<entry code="ga">imagem animada / cartaz</entry>
+	<entry code="gc">imagem animada / diapositivo</entry>
+	<entry code="gb">imagem animada / fotografia não projectada</entry>
+	<entry code="gd">imagem animada / cassete</entry>
+	<entry code="ge">imagem animada / cd outro que DVD</entry>
+	<entry code="gf">imagem animada / DVD</entry>
+	<entry code="gz">imagem animada / outro</entry>
+	<entry code="gu">imagem animada / indeterminado</entry>
+	
+	<entry code="ia">documento sonoro não musical / cartaz</entry>
+	<entry code="ic">documento sonoro não musical / diapositivo</entry>
+	<entry code="ib">documento sonoro não musical / fotografia não projectada</entry>
+	<entry code="id">documento sonoro não musical / cassete</entry>
+	<entry code="ie">documento sonoro não musical / cd outro que DVD</entry>
+	<entry code="if">documento sonoro não musical / DVD</entry>
+	<entry code="iz">documento sonoro não musical / outro</entry>
+	<entry code="iu">documento sonoro não musical / indeterminado</entry>
+	
+	<entry code="ja">documento sonoro musical / cartaz</entry>
+	<entry code="jc">documento sonoro musical / diapositivo</entry>
+	<entry code="jb">documento sonoro musical / fotografia não projectada</entry>
+	<entry code="jd">documento sonoro musical / cassete</entry>
+	<entry code="je">documento sonoro musical / cd outro que DVD</entry>
+	<entry code="jf">documento sonoro musical / DVD</entry>
+	<entry code="jz">documento sonoro musical / outro</entry>
+	<entry code="ju">documento sonoro musical / indeterminado</entry>
+	
+	<entry code="ka">imagem fixa / cartaz</entry>
+	<entry code="kc">imagem fixa / diapositivo</entry>
+	<entry code="kb">imagem fixa / fotografia não projectada</entry>
+	<entry code="kd">imagem fixa / cassete</entry>
+	<entry code="ke">imagem fixa / cd outro que DVD</entry>
+	<entry code="kf">imagem fixa / DVD</entry>
+	<entry code="kz">imagem fixa / outro</entry>
+	<entry code="ku">imagem fixa / indeterminado</entry>
+	
+	<entry code="la">suporte informático / cartaz</entry>
+	<entry code="lc">suporte informático / diapositivo</entry>
+	<entry code="lb">suporte informático / fotografia não projectada</entry>
+	<entry code="ld">suporte informático / cassete</entry>
+	<entry code="le">suporte informático / cd outro que DVD</entry>
+	<entry code="lf">suporte informático / DVD</entry>
+	<entry code="lz">suporte informático / outro</entry>
+	<entry code="lu">suporte informático / indeterminado</entry>
+	
+	<entry code="ma">doc. multimedia / cartaz</entry>
+	<entry code="mc">doc. multimedia / diapositivo</entry>
+	<entry code="mb">doc. multimedia / fotografia não projectada</entry>
+	<entry code="md">doc. multimedia / cassete</entry>
+	<entry code="me">doc. multimedia / cd outro que DVD</entry>
+	<entry code="mf">doc. multimedia / DVD</entry>
+	<entry code="mz">doc. multimedia / outro</entry>
+	<entry code="mu">doc. multimedia / indeterminado</entry>
+	
+	<entry code="za">outro / cartaz</entry>
+	<entry code="zc">outro / diapositivo</entry>
+	<entry code="zb">outro / fotografia não projectada</entry>
+	<entry code="zd">outro / cassete</entry>
+	<entry code="ze">outro / cd outro que DVD</entry>
+	<entry code="zf">outro / DVD</entry>
+	<entry code="zz">outro / outro</entry>
+	<entry code="zu">outro / indeterminado</entry>
+	
+	<entry code="ua">indeterminado / cartaz</entry>
+	<entry code="uc">indeterminado / diapositivo</entry>
+	<entry code="ub">indeterminado / fotografia não projectada</entry>
+	<entry code="ud">indeterminado / cassete</entry>
+	<entry code="ue">indeterminado / cd outro que DVD</entry>
+	<entry code="uf">indeterminado / DVD</entry>
+	<entry code="uz">indeterminado / outro</entry>
+	<entry code="uu">indeterminado / indeterminado</entry>
+	
+</XMLlist>

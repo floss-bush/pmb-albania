@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Profils de gestion droits d'acces Emprunteurs - Notices
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: domain.xml,v 1.4 2009-07-28 17:01:07 dbellamy Exp $ -->
+
+<domain>
+
+	<!--  empr -->
+	<user lib="msg:379" properties="1,4" >
+		<ref type="table" name="empr" key="id_empr" />
+		<property_link with="1">
+			<r_query type="field" value="empr_categ" />					<!--  variable emprunteur categorie de lecteur  -->
+		</property_link>
+		<property_link with="4">
+			<r_query type="field" value="empr_location" />					<!--  variable emprunteur categorie de lecteur  -->
+		</property_link>
+	</user>
+
+	<!--  notices -->
+	<resource lib="msg:130" properties="2,3">
+		<ref type="table" name="notices" key="notice_id" />
+		<property_link with="2" >
+			<c_query type="var" value="typdoc" />						<!--  variable notice type de document postée lors de la création de la notice -->
+			<i_query type="field" value="typdoc" />						<!--  variable notice type de document stockée dans la table notice -->
+		</property_link>
+		<property_link with="3" >
+			<c_query type="var" value="form_notice_statut" />			<!--  variable notice statut postée lors de la création de la notice -->
+			<i_query type="field" value="statut" />						<!--  variable notice statut stockée dans la table notice -->
+		</property_link>
+	</resource>
+
+	<properties>
+		<property id="1" lib="msg:lecteurs_categories">
+			<ref type="table" name="empr_categ" key="id_categ_empr" value="libelle" />
+		</property>
+		<property id="2" lib="msg:type_doc_sort">
+			<ref type="marc_table" name="doctype.xml" />
+		</property>
+		<property id="3" lib="msg:noti_statut_noti">
+			<ref type="table" name="notice_statut" key="id_notice_statut" value="gestion_libelle" />
+		</property>
+		<property id="4" lib="msg:21">
+			<ref type="table" name="docs_location" key="idlocation" value="location_libelle" />
+		</property>
+	</properties>
+
+	<controls>
+		<control id='1' global="yes" lib='msg:dom_mod_rights' />
+		<control id='2' global="yes" lib='dom_mod_pro' />
+	
+		<control id='3' lib='view_noti_opac' />
+		<control id='4' lib='view_expl_opac' />
+		<control id='5' lib='view_doc_opac' />		
+	</controls>
+
+</domain>

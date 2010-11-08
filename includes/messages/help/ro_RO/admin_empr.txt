@@ -1,0 +1,7 @@
+<h1>Administration des lecteurs</h1>
+<p>Les diff&eacute;rents codes affect&eacute;s &agrave; chacun des utilisateurs de la m&eacute;diath&egrave;que permettent d'obtenir des statistiques sur le public de la m&eacute;diath&egrave;que.
+</p>
+
+<p>En combinant les codes d&eacute;crits pr&eacute;cedemment, vous devriez &ecirc;tre en mesure d'adapter l'application au fonctionnement particulier de l'&eacute;tablissement dans lequel vous &ecirc;tes.</p>
+
+

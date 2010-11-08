@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+/*************************************************************************
+ *																		 * 
+ * Fichier qui regroupe les différents états d'une demande de recherche  *
+ *																		 *		
+ *************************************************************************/
+-->
+<XMLlist>
+	<entry code="1">A valider</entry>
+	<entry code="2">Validée</entry>
+	<entry code="3">Refusée</entry>
+	<entry code="4">Finie</entry>
+	<entry code="5">Abandonnée</entry>
+	<entry code="6">Archivée</entry>
+</XMLlist>

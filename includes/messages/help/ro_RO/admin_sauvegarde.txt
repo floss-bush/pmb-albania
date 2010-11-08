@@ -1,0 +1,13 @@
+<h1>Sauvegardes</h1>
+</p><p>
+<b>Lieux</b> localisation sur le disque ou le r&eacute;seau des sauvegardes
+</p><p>
+<b>Groupes de tables</b> &agrave; sauvegarder
+</p><p>
+<b>Jeux de sauvegardes</b> correspondance lieux/groupes de tables
+</p><p>
+<b>Lancement</b> 
+</p><p>
+<b>Sauvegardes faites</b> affiche la liste des sauvegardes r&eacute;alis&eacute;es
+
+
