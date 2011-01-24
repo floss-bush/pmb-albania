@@ -1,0 +1,9 @@
+<h1>Gerenciamento do estado da coleção</h1>
+
+<p>A seção <b>Gerenciamento do estado da coleção</b> permite definir configurações para coleções de periódicos.
+<ul>
+<li><b>Local</b> permite definir os locais onde os periódicos são armazenados.</li>
+<li><b>Tipos de mídia</b> permite definir os tipos de mídia da coleção.</li>
+<li><b>Status</b> permite processar coleções de diversas maneiras.</li>
+<li><b>Campos personalizados</b> permite criar campos personalizados nos estados da coleção.</li>
+</ul></p>

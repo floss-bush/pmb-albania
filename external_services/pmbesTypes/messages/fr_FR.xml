@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.6 2010-09-21 13:31:01 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.8 2011-01-07 13:45:46 arenou Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -16,21 +16,21 @@ item
 -->
 	<entry code="item_description">Décrit un exemplaire</entry>
 	<entry code="item_id">L'id de l'exemplaire</entry>
-	<entry code="item_cb">Le code barre de l'exemplaire</entry>
+	<entry code="item_cb">Le code-barres de l'exemplaire</entry>
 	<entry code="item_cote">La cote de l'exemplaire</entry>
 	<entry code="item_location_id">L'id de la localisation de l'exemplaire</entry>
-	<entry code="item_location_caption">Le libelle de la localisation de l'exemplaire</entry>
+	<entry code="item_location_caption">Le libellé de la localisation de l'exemplaire</entry>
 	<entry code="item_section_id">L'id de la section de l'exemplaire</entry>
-	<entry code="item_section_caption">Le libelle de la section de l'exemplaire</entry>
-	<entry code="item_statut">Le status de l'exemplaire</entry>
+	<entry code="item_section_caption">Le libellé de la section de l'exemplaire</entry>
+	<entry code="item_statut">Le statut de l'exemplaire</entry>
 	<entry code="item_support">Le type de document de l'exemplaire</entry>
 	<entry code="item_situation">La situation de l'exemplaire</entry>
 	<!--
 reader
 -->
-	<entry code="reader_description">Représente un empreunteur</entry>
+	<entry code="reader_description">Représente un emprunteur</entry>
 	<entry code="reader_id">id de l'emprunteur</entry>
-	<entry code="reader_cb">code barre</entry>
+	<entry code="reader_cb">code-barres</entry>
 	<entry code="reader_personal_information">Les informations administratives de l'emprunteur</entry>
 	<entry code="reader_personal_information_firstname">le prénom</entry>
 	<entry code="reader_personal_information_lastname">le nom de famille</entry>
@@ -43,7 +43,7 @@ reader
 	<entry code="reader_personal_information_email">l'email</entry>
 	<entry code="reader_personal_information_birthyear">l'année de naissance</entry>
 	<entry code="reader_location_id">l'id de la localisation</entry>
-	<entry code="reader_location_caption">le libelle de la location</entry>
+	<entry code="reader_location_caption">le libellé de la location</entry>
 	<entry code="reader_adhesion_date">la date de création de l'abonnement</entry>
 	<entry code="reader_expiration_date">la date d'expiration de l'abonnement</entry>
 
@@ -55,13 +55,13 @@ loan
 	<entry code="loan_notice_id">l'id de la notice du document</entry>
 	<entry code="loan_bulletin_id">l'id du bulletin si c'est un bulletin de périodique</entry>
 	<entry code="loan_expl_id">l'id de l'exemplaire</entry>
-	<entry code="loan_expl_cb">le code barre de l'exemplaire</entry>
+	<entry code="loan_expl_cb">le code-barres de l'exemplaire</entry>
 	<entry code="loan_expl_support">le type de document</entry>
 	<entry code="loan_expl_location_id">l'id de la localisation de l'exemplaire</entry>
-	<entry code="loan_expl_location_caption">le libelle de la localisation</entry>
+	<entry code="loan_expl_location_caption">le libellé de la localisation</entry>
 	<entry code="loan_expl_section_id">l'id de la section de l'exemplaire</entry>
-	<entry code="loan_expl_section_caption">le libelle de la section</entry>
-	<entry code="loan_expl_libelle">le libelle de l'exemplaire</entry>
+	<entry code="loan_expl_section_caption">le libellé de la section</entry>
+	<entry code="loan_expl_libelle">le libellé de l'exemplaire</entry>
 	<entry code="loan_loan_startdate">la date de départ du prêt</entry>
 	<entry code="loan_loan_returndate">la date de retour du prêt</entry>
 	
@@ -76,7 +76,7 @@ resa
 	<entry code="resa_resa_rank">le rang de la réservation</entry>
 	<entry code="resa_resa_dateend">la date de fin de validité de la réservation</entry>
 	<entry code="resa_resa_retrait_location_id">l'id de la localisation de retrait de la réservation</entry>
-	<entry code="resa_resa_retrait_location">le libelle de la localisation de retrait de la réservation</entry>
+	<entry code="resa_resa_retrait_location">le libellé de la localisation de retrait de la réservation</entry>
 	<!--
 suggestion
 -->
@@ -85,19 +85,19 @@ suggestion
 	<entry code="suggestion_sugg_title">Titre de l'oeuvre de la suggestion</entry>
 	<entry code="suggestion_sugg_editor">Editeur de l'oeuvre de la suggestion</entry>
 	<entry code="suggestion_sugg_author">Auteur de l'oeuvre de la suggestion</entry>
-	<entry code="suggestion_sugg_state">Status de la suggestion</entry>
+	<entry code="suggestion_sugg_state">Statut de la suggestion</entry>
 	<!--
 location
 -->
 	<entry code="location_description">Décrit une localisation</entry>
 	<entry code="location_location_id">L'id de la localisation</entry>
-	<entry code="location_location_caption">Le libelle de la localisation</entry>
+	<entry code="location_location_caption">Le libellé de la localisation</entry>
    <!--
 section
 --><entry code="section_description">Décrit une section</entry>
    <entry code="section_section_id">L'id de la section</entry>
    <entry code="section_section_location">La localisation de la section</entry>
-   <entry code="section_section_caption">Le libelle de la section</entry>
+   <entry code="section_section_caption">Le libellé de la section</entry>
    <entry code="section_section_image">L'image de la section</entry>
 	<!--
 abonnement
@@ -108,7 +108,7 @@ abonnement
 	<entry code="abonnement_abonnement_title">Le titre de l'abonnement</entry>
 	<entry code="abonnement_abonnement_lastsentdate">La date de dernier envoi</entry>
 	<entry code="abonnement_abonnement_equation_human">L'équation de recherche</entry>
-	<entry code="abonnement_abonnement_notice_count">Le nombre de notice</entry>
+	<entry code="abonnement_abonnement_notice_count">Le nombre de notices</entry>
 	<entry code="abonnement_empr_subscriber">Si l'emprunteur est souscripteur de l'abonnement</entry>
 	<!--
 search_field
@@ -117,12 +117,20 @@ search_field
 	<entry code="search_field_id">l'id du champ de recherche</entry>
 	<entry code="search_field_label">la description du champ</entry>
 	<entry code="search_field_type">le type du champ</entry>
-	<entry code="search_field_operators">les operateurs du champs</entry>
+	<entry code="search_field_operators">les operateurs du champ</entry>
 	<entry code="search_field_operators_id">l'id de l'opération</entry>
 	<entry code="search_field_operators_label">l'affichage de l'opérateur</entry>
-	<entry code="search_field_values">si fetch_values était à true et si le type du champ propose des valeurs préféfinies:</entry>
+	<entry code="search_field_values">si fetch_values était à true et si le type du champ propose des valeurs prédéfinies:</entry>
 	<entry code="search_field_values_value_id">l'id de la valeur</entry>
 	<entry code="search_field_values_value_caption">l'affichage de la valeur</entry>
+	<entry code="search_field_fieldvar">si le champ contient des paramètres modifiables par l'utilisateur</entry>
+	<entry code="search_field_fieldvar_label">la description du paramètre</entry>
+	<entry code="search_field_fieldvar_name">le nom du paramètre</entry>
+	<entry code="search_field_fieldvar_type">le type du paramètre</entry>
+	<entry code="search_field_fieldvar_values">Si valeurs prédéfinies</entry>
+	<entry code="search_field_fieldvar_values_value_id">la valeur</entry>
+	<entry code="search_field_fieldvar_values_value_caption">le libelle</entry>
+
 	<!--
 explNum
 -->
@@ -200,7 +208,7 @@ bulletin
 	<entry code="bulletin_bulletin_date_caption">Le libellé de la date du bulletin</entry>
 	<entry code="bulletin_bulletin_date">La date de parution du bulletin</entry>
 	<entry code="bulletin_bulletin_title">Le titre du bulletin</entry>
-	<entry code="bulletin_bulletin_barcode">Le code barre du bulletin</entry>	
+	<entry code="bulletin_bulletin_barcode">Le code-barres du bulletin</entry>	
 	
 <!--
 collstate

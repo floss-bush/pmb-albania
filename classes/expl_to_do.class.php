@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl_to_do.class.php,v 1.24 2010-09-09 09:21:19 ngantier Exp $
+// $Id: expl_to_do.class.php,v 1.36 2011-01-17 09:44:01 ngantier Exp $
 
 if (stristr ( $_SERVER ['REQUEST_URI'], ".class.php" ))
 	die ( "no access" );
@@ -31,7 +31,7 @@ function expl_to_do($cb='', $expl_id=0,$url="./circ.php?categ=retour") {
 }
 function gen_liste() {
 	global $dbh,$msg,$deflt_docs_location,$begin_result_liste,$end_result_liste;
-	if(!$deflt_docs_location)	return"";	
+	if(!$deflt_docs_location)	return"";
 	$sql = "SELECT expl_id, expl_cb FROM exemplaires where expl_retloc='".$deflt_docs_location."' ";
 	$req = mysql_query($sql) or die ($msg["err_sql"]."<br />".$sql."<br />".mysql_error());
 	
@@ -106,7 +106,10 @@ function fetch_data() {
 
 	$result = mysql_query($query, $dbh);
 	$this->info_doc=mysql_fetch_object($result);
-
+	
+	// En profiter pour faire le menage doc à ranger
+	$rqt = "delete from resa_ranger where resa_cb='".$this->expl_cb."' ";
+	$res = mysql_query ($rqt, $dbh) ;
 	
 	// flag confirm retour 
 	if ($pmb_confirm_retour)  {
@@ -123,7 +126,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 	global $script_antivol_rfid,$pmb_rfid_activate,$pmb_rfid_serveur_url,$transferts_retour_action_defaut;
 	global $expl_section,$retour_ok_tpl,$retour_intouvable_tpl,$categ;
 	global $pmb_resa_retour_action_defaut,$pmb_hide_retdoc_loc_error;
-	global $alert_sound_list;
+	global $alert_sound_list,$pmb_play_pret_sound,$pmb_lecteurs_localises;
 	
 	$form_retour_tpl_temp=$form_retour_tpl;
 	if(!$this->expl_id) {
@@ -132,42 +135,54 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 		$alert_sound_list[]="critique";
 		return false;
 	}	
-	if ($this->expl->expl_location != $deflt_docs_location && !$piege_resa) {
-		// l'exemplaire n'appartient pas à cette localisation
-		if ($pmb_transferts_actif=="1" && !$action_piege) {
-			// transfert actif et pas de forcage effectué
-			if (transfert::is_retour_exemplaire_loc_origine($this->expl_id)) {
-				$action_piege=4;
-			//est ce qu'on peut force le retour en local
-			}elseif ($transferts_retour_origine=="1" && $transferts_retour_origine_force=="0") {
-				//pas de forcage possible, on interdit le retour
-				$question_form="<div class='message_important'>".str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."</div>";
-				$alert_sound_list[]="critique";	
-				$this->piege=2;	
-			}else { 
-				//formulaire de Quoi faire? 
-				$selected[$transferts_retour_action_defaut]=" checked ";		
-				$question_form="
-				<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode(stripslashes($this->expl_cb))."' 
-				<div class='message_important'>".
-					str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."<br />
-				</div>
-				<div class='erreur'>
-					<input type=\"radio\" name=\"action_piege\" value=\"1\" $selected[2]>&nbsp;".$msg["transferts_circ_retour_accepter_retour"]."<br />
-					<input type=\"radio\" name=\"action_piege\" value=\"2\" $selected[1]>&nbsp;".$msg["transferts_circ_retour_changer_loc"]."&nbsp;".$this->get_liste_section()."<br />
-					<input type=\"radio\" name=\"action_piege\" value=\"3\" $selected[0]>&nbsp;".$msg["transferts_circ_retour_traiter_plus_tard"]."<br />
-					<input type=\"submit\" class=\"bouton\" value=\"".$msg["transferts_circ_retour_exec_action"]."\" >
-				</div>
-				</form>";
-				$alert_sound_list[]="question";	
-				$this->piege=1;	
-			}						
-			
-		}elseif (!$pmb_transferts_actif && !$pmb_hide_retdoc_loc_error) {
-			// transfert inactif, on prévient seulement que ce n'est pas la bonne localisation
-			$question_form="<div class='erreur'>".str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."</div>";
-			$alert_sound_list[]="information";
+	if($pmb_lecteurs_localises) {
+		if ($this->expl->expl_location != $deflt_docs_location && !$piege_resa && $deflt_docs_location) {
+			// l'exemplaire n'appartient pas à cette localisation
+			if ($pmb_transferts_actif=="1" && !$action_piege) {
+				// transfert actif et pas de forcage effectué
+				if (transfert::is_retour_exemplaire_loc_origine($this->expl_id)) {
+					$action_piege=4;
+				//est ce qu'on peut force le retour en local
+				}elseif ($transferts_retour_origine=="1" && $transferts_retour_origine_force=="0") {
+					//pas de forcage possible, on interdit le retour
+					$question_form="<div class='message_important'>".str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."</div>";
+					$alert_sound_list[]="critique";	
+					$this->piege=2;	
+				}else { 
+					//formulaire de Quoi faire? 
+					$selected[$transferts_retour_action_defaut]=" checked ";		
+					$question_form="
+					<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode(stripslashes($this->expl_cb))."' 
+					<div class='message_important'>".
+						str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."<br />
+					</div>
+					<div class='erreur'>
+						<input type=\"radio\" name=\"action_piege\" value=\"1\" $selected[2]>&nbsp;".$msg["transferts_circ_retour_accepter_retour"]."<br />
+						<input type=\"radio\" name=\"action_piege\" value=\"2\" $selected[1]>&nbsp;".$msg["transferts_circ_retour_changer_loc"]."&nbsp;".$this->get_liste_section()."<br />
+						<input type=\"radio\" name=\"action_piege\" value=\"3\" $selected[0]>&nbsp;".$msg["transferts_circ_retour_traiter_plus_tard"]."<br />
+						<input type=\"submit\" class=\"bouton\" value=\"".$msg["transferts_circ_retour_exec_action"]."\" >
+					</div>
+					</form>";
+					$alert_sound_list[]="question";	
+					$this->piege=1;	
+				}						
+				
+			}elseif (!$pmb_transferts_actif) {
+				if(!$pmb_hide_retdoc_loc_error) {
+					// pas de message et le retour se fait
+				} elseif($pmb_hide_retdoc_loc_error==1){
+					// Message et pas de retour
+					$this->expl_form="<div class='erreur'>".str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."</div>";
+					$alert_sound_list[]="critique";
+					return false;
+				}elseif($pmb_hide_retdoc_loc_error==2) {
+					// Message et pas de retour
+					$question_form="<div class='erreur'>".str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."</div>";
+					$alert_sound_list[]="information";
+				}	
+			}
 		}
+	//fin si lecteur localisé
 	}
 	//affichage de l'erreur de site et eventuellement du formulaire de forcage  	
 	$form_retour_tpl_temp=str_replace('!!html_erreur_site_tpl!!',$question_form, $form_retour_tpl_temp);	
@@ -328,7 +343,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 		}
 	}
 	
-	if($this->piege || ($this->piege_resa && !$piege_resa)) {
+	if($this->piege || ($this->piege_resa && $piege_resa !=1)) {
 		// il y a des pieges, on marque comme exemplaire à problème dans la localisation qui fait le retour
 		$sql = "UPDATE exemplaires set expl_retloc='".$deflt_docs_location."' where expl_cb='".addslashes($this->expl_cb)."' limit 1";
 	} else {
@@ -352,7 +367,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 			$script_magnetique= str_replace('<!--call_script_magnetique-->', "magnetise('SSS');", $script_magnetique);
 		$form_retour_tpl_temp= str_replace('<!--antivol_script-->',$script_magnetique, $form_retour_tpl_temp);	
 	}
-	if ($this->flag_rendu)
+	if ($this->flag_rendu && $pmb_play_pret_sound)
 			 $alert_sound_list[]="information";
 			
 
@@ -431,7 +446,8 @@ function get_liste_section(){
 
 function calcul_resa() {
 	global $dbh,$msg, $pmb_utiliser_calendrier;
-	global $deflt2docs_location,$pmb_transferts_actif,$transferts_choix_lieu_opac,$transferts_site_fixe;
+	global $deflt2docs_location,$pmb_transferts_actif,$transferts_choix_lieu_opac,$transferts_site_fixe;	
+	global $deflt_docs_location,$pmb_location_reservation;
 	
 	// chercher si ce document a déjà validé une réservation
 	$rqt = 	"SELECT id_resa	FROM resa WHERE resa_cb='".addslashes($this->expl_cb)."' "; 
@@ -452,15 +468,20 @@ function calcul_resa() {
 	
 	if($pmb_transferts_actif) {
 		$clause_trans= " and id_resa not in (select resa_trans from transferts_demande where etat_demande<3) ";
-	}
+	}	
+	if($pmb_location_reservation) {			
+		$sql_loc_resa.="  and resa_idempr=id_empr and empr_location=resa_emprloc and resa_loc='".$deflt_docs_location."' ";
+		$sql_loc_resa_from=", resa_loc, empr";
+	}	
 	// chercher le premier (par ordre de rang, donc de date de début de résa, non validé
 	$rqt = 	"SELECT id_resa, resa_idempr,resa_loc_retrait 
-			FROM resa 
+			FROM resa $sql_loc_resa_from
 			WHERE resa_idnotice='".$obj->expl_notice."' 
 				AND resa_idbulletin='".$obj->expl_bulletin."' 
 				AND resa_cb='' 
 				AND resa_date_fin='0000-00-00' 
 				$clause_trans
+				$sql_loc_resa
 			ORDER BY resa_date ";	
 	
 	$res = mysql_query ($rqt, $dbh) ;
@@ -589,8 +610,6 @@ function del_pret() {
 	
 	//Vérification des amendes
 	if (($pmb_gestion_financiere) && ($pmb_gestion_amende)) {
-		$req="delete from cache_amendes where id_empr=".$this->expl->pret_idempr;
-		mysql_query($req);
 		$amende=new amende($this->expl->pret_idempr);
 		$amende_t=$amende->get_amende($this->expl->pret_idexpl);
 		//Si il y a une amende, je la débite
@@ -606,7 +625,9 @@ function del_pret() {
 					$message.= " ".$msg["finance_retour_amende_recorded"];
 				}
 			}
-		$message.="</div>";
+			$message.="</div>";
+			$req="delete from cache_amendes where id_empr=".$this->expl->pret_idempr;
+			mysql_query($req);
 		}
 	}
 	$query = "delete from pret where pret_idexpl=".$this->expl_id;
@@ -729,7 +750,7 @@ function build_cb_tmpl($title, $message, $title_form, $form_action, $check = 0) 
 }
 
 function do_retour_selfservice(){
-	global $deflt_docs_location,$pmb_transferts_actif;
+	global $deflt_docs_location,$pmb_transferts_actif, $pmb_lecteurs_localises;
 	global $transferts_retour_origine,$transferts_retour_origine_force;	
 	global $selfservice_loc_autre_todo,$selfservice_resa_ici_todo,$selfservice_resa_loc_todo;
 	global $selfservice_loc_autre_todo_msg,$selfservice_resa_ici_todo_msg,$selfservice_resa_loc_todo_msg;
@@ -844,8 +865,8 @@ function do_retour_selfservice(){
 		}				
 	//Fin transfert actif		
 	}else {
-		// transfert inactif
-		if ($this->expl->expl_location != $deflt_docs_location ) {
+		// transfert inactif $pmb_lecteurs_localises
+		if ($pmb_lecteurs_localises && ($this->expl->expl_location != $deflt_docs_location) ) {
 			//ce n'est pas la bonne localisation
 			switch($selfservice_loc_autre_todo) {			
 				case '4':// Refuser le retour
@@ -890,7 +911,7 @@ function do_retour_selfservice(){
 				}	
 			}
 		}else {
-			// c'est une bonne localisation	
+			// c'est une bonne localisation	ou lecteur non localisé:
 			if($this->expl->pret_idempr) $this->message_del_pret=$this->del_pret();				
 			$this->calcul_resa();
 			if ($this->flag_resa_is_affecte){

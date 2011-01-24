@@ -3,24 +3,25 @@
 <!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
 
 <!-- liste des codes et libellés type de relation enfants > parent
-$Id: relationtypeup.xml,v 1.6 2008-04-24 11:00:14 rgarcia Exp $ -->
+$Id: relationtypeup.xml,v 1.7 2010-12-18 14:52:58 rgarcia Exp $ -->
 
 <XMLlist>
 	<!-- Analytic part of a serial (the component part is dependent upon the physical identification and location of the containing item)-->
 	<entry code="a">a</entry>
 
 	<!-- Issue of a  serial-->
-	<entry code="b">és un número de</entry>
+	<entry code="b">és un butlletí de</entry>
 
 	<!-- multivolume monograph: like an encylopedia -->
-	<entry code="c">és una part de</entry>
+	<entry code="c">forma part de</entry>
 
 	<!-- is in a box (bibliographic item that is a made-up collection)-->
-	<entry code="d">és a</entry>	
+	<entry code="d">contingut a dins</entry>
+
 	<entry code="e">Suplement de</entry>
 	<entry code="f">Títol anterior</entry>
 	<entry code="g">Títol següent</entry>
 	<entry code="h">Traduït sota el títol</entry>
 	<entry code="i">Traducció de</entry>
-	<entry code="j">És acompanyat de</entry>
+	<entry code="j">Acompanya</entry>
 </XMLlist>

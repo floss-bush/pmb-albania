@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bueil.css,v 1.48 2010-01-26 13:56:38 kantin Exp $
+// $Id: bueil.css,v 1.57 2011-01-20 09:57:43 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -74,7 +74,6 @@ body {
 #main {
 		margin:5px 10px 5px 195px;
 		position:absolute;
-		width:80%;
 	}
 
 	#main h3 { 
@@ -106,16 +105,10 @@ body {
 	}
 	
 	#main ul.search_tabs, #onglets_list ul.list_tabs{
-	      margin-top:-24px!important;
-	      margin-top:0;
 	      position:relative\9;
 	      top:-24px\9;
-	      
-	      margin-left:0px;
 	      padding:0;
           list-style:none;
-          clear:right;
-          height:24px;
           font-size:13px;
 	}
 
@@ -442,17 +435,22 @@ A:hover {
 /*------------------------------------
 /*	tableaux
 /------------------------------------*/
-table
-	{ }
+.exemplaires { 
+	border-collapse: separate;
+}
 
-tr
-	{ }
+tr { 
+}
 
-th
-	{ text-align: left ;}
+th {
+	text-align: left ;
+	background-color: #EEEEEE;
+	padding-right: 19px;
+}
 
 td {
-	font-size : 11px;	
+	font-size : 11px;
+	vertical-align: top;
 	}
 
 td.jauge
@@ -633,6 +631,9 @@ ul#onglets_isbd_public li.onglet_tags a {
   -webkit-border-radius:2px;
   border-radius:2px;
   vertical-align: top;
+  height: auto;
+  padding-right: 0.2em;
+  width: 26em;
 }
 
 /* Etageres */
@@ -681,12 +682,10 @@ ul#onglets_isbd_public li.onglet_tags a {
 
 #etagere-notice-list tbody tr td table {
 	padding-top:5px;
-	float:left!important;
 }
 #resultatrech_liste tbody tr td table,
 #resultatrech_liste tbody{
 	padding-top:5px;
-	float:left!important;
 }
 
 /**********************************************************************************************/
@@ -893,4 +892,127 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+ 	    margin-left: -27px;
+}
+
+#empr_onglet ul.empr_tabs {
+	list-style:none;
+	font-size:11px;
+	position:absolute;
+}
+
+#empr_onglet ul.empr_tabs li {
+	background: none repeat scroll 0 0 #BBBBBB;
+    border-top: 1px solid #BBBBBB;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB;
+    border-bottom: 1px solid #BBBBBB;
+    color: #000000;
+    float: left;
+    height: 19px;
+    margin-bottom: 5px;
+    margin-right: 6px;
+    padding: 4px 6px 0;
+}
+
+#empr_onglet ul.empr_tabs li a {
+	color: #000000;
+	text-decoration: none;
+}
+
+#empr_onglet ul.empr_tabs li:hover {
+   	background-color: #EEEEEE;
+   	border-top: 1px solid #BBBBBB;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+#empr_onglet ul.empr_tabs li#current {
+	background: url("pointsable.gif") no-repeat scroll 4px 7px #EEEEEE;
+    border-top: 1px solid #BBBBBB;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB;
+    border-bottom: 1px solid #EEEEEE;
+    float: left;
+    font-size: 14px;
+    height: 19px;
+    margin-bottom: 4px;
+    padding: 3px 8px 0 15px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+    float: left;
+}
+
+ul.empr_subtabs{
+	list-style:none;
+    clear:right;
+    padding-top: 50px;
+}
+
+ul.empr_subtabs li{
+	background-color: #EEEEEE;
+	display:inline-block;
+	margin-bottom: 4px;
+	margin-right: 4px;
+	padding: 0.4em;
+}
+
+ ul.empr_subtabs li a{
+	text-decoration:none;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+	margin-top: 25px;
+	padding-left: 12px;
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list h3 {
+	margin-top: -10px;
+}
+
+#empr-list #onglets_list {
+	margin-top: 25px;
+}
+
+#empr-sugg h3 {
+	color: #008CC6;
+}
+
+.authorities{
+	background : #A8A8A8;
 }

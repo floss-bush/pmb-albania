@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serie_see.inc.php,v 1.16 2010-07-05 12:40:29 arenou Exp $
+// $Id: serie_see.inc.php,v 1.17 2010-11-17 17:15:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -64,7 +64,7 @@ if($id) {
 			//Recherche des types doc
 			//$requete="select distinct notices.typdoc FROM notices, notice_statut ";
 			//$requete .= " where tparent_id='$id' and (statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"")."))";
-			$requete="select distinct typdoc,count(explnum_id) FROM notices left join explnum on explnum_notice=notice_id $acces_j $statut_j where tparent_id=$id $statut_r group by typdoc";
+			$requete="select distinct typdoc,count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_notice=notice_id $acces_j $statut_j where tparent_id=$id $statut_r group by typdoc";
 			$res = mysql_query($requete, $dbh);
 			
 			$t_typdoc=array();

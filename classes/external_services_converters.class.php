@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: external_services_converters.class.php,v 1.12 2010-08-13 08:33:00 erwanmartin Exp $
+// $Id: external_services_converters.class.php,v 1.13 2010-09-28 13:33:27 gueluneau Exp $
 
 //
 //Convertisseurs et cacheur de formats des résultats des services externes
@@ -440,7 +440,7 @@ class external_services_converter_notices extends external_services_converter {
 	}
 
 	function convert_batch_to_header($notices_to_convert, $target_charset) {
-		global $charset;
+		global $charset,$include_path,$base_path,$msg;
 		if (!$notices_to_convert) //Rien à faire? On fait rien
 			return;
 
@@ -459,7 +459,7 @@ class external_services_converter_notices extends external_services_converter {
 	}
 	
 	function convert_batch_to_isbd($notices_to_convert, $target_charset) {
-		global $charset;
+		global $charset,$include_path,$base_path,$msg;
 		if (!$notices_to_convert) //Rien à faire? On fait rien
 			return;
 
@@ -475,7 +475,7 @@ class external_services_converter_notices extends external_services_converter {
 	}
 	
 	function convert_batch_to_isbd_suite($notices_to_convert, $target_charset) {
-		global $charset;
+		global $charset,$include_path,$base_path,$msg;
 		if (!$notices_to_convert) //Rien à faire? On fait rien
 			return;
 

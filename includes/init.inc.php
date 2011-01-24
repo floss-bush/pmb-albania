@@ -1,29 +1,29 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: init.inc.php,v 1.26 2009-09-30 10:30:00 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-// Cet include permet de réduire considérablement les trucs à mettre au départ d'un script
-// Six paramêtres à fournir en fixant les valeurs avant l'include de ce fichier
-//	$base_path="../.."; par ex : = chemin pour accéder à la racine de l'applic PMB
-//	$base_auth = "SAUV_AUTH|ADMINISTRATION_AUTH"; les droits du user à tester
-//	$base_title = "Titre de la fenêtre"; le titre de la page : facultatif
+// Cet include permet de rï¿½duire considï¿½rablement les trucs ï¿½ mettre au dï¿½part d'un script
+// Six paramï¿½tres ï¿½ fournir en fixant les valeurs avant l'include de ce fichier
+//	$base_path="../.."; par ex : = chemin pour accï¿½der ï¿½ la racine de l'applic PMB
+//	$base_auth = "SAUV_AUTH|ADMINISTRATION_AUTH"; les droits du user ï¿½ tester
+//	$base_title = "Titre de la fenï¿½tre"; le titre de la page : facultatif
 //		si besoin d'une variable : $base_title = "\$msg[28]";
-//	$base_noheader = 0; par défaut, pas obligatoire, si non vide : pas d'envoi du début de page (header & co)
-//	$base_nocheck = 0; par défaut, pas obligatoire : si non vide : pas de checkuser ( session, droits )
-//	$base_nobody = 0; par défaut, pas obligatoire : si non vide : pas de <body> après le header envoyé
-//  $base_nosession =0; par défaut, pas obligatoire, si non vide pas d'envoi du cookie de session dans global_vars.inc.php
+//	$base_noheader = 0; par dï¿½faut, pas obligatoire, si non vide : pas d'envoi du dï¿½but de page (header & co)
+//	$base_nocheck = 0; par dï¿½faut, pas obligatoire : si non vide : pas de checkuser ( session, droits )
+//	$base_nobody = 0; par dï¿½faut, pas obligatoire : si non vide : pas de <body> aprï¿½s le header envoyï¿½
+//  $base_nosession =0; par dï¿½faut, pas obligatoire, si non vide pas d'envoi du cookie de session dans global_vars.inc.php
 //
-//	l'exemple ci-dessus correspond à l'inclusion dans le fichier : admin/sauvegarde/launch.php :
+//	l'exemple ci-dessus correspond ï¿½ l'inclusion dans le fichier : admin/sauvegarde/launch.php :
 //		$base_path="../.."; 
 //		$base_auth = "SAUV_AUTH|ADMINISTRATION_AUTH";
 //		$base_title = "Lancement d'une sauvegarde"; 
 //		require_once ("$base_path/includes/init.inc.php");
-//	l'exemple ci-dessus correspond à l'inclusion dans le fichier : catalog/z3950/z_progession_main.php :
-//		J'ai besoin du header mais pas du <body> à cause des frames
+//	l'exemple ci-dessus correspond ï¿½ l'inclusion dans le fichier : catalog/z3950/z_progession_main.php :
+//		J'ai besoin du header mais pas du <body> ï¿½ cause des frames
 //		$base_path="../..";
 //		$base_auth = "CIRCULATION_AUTH";  
 //		$base_title = "";    
@@ -50,7 +50,7 @@ $styles_path       = $base_path."/".$styles_path;
 
 require_once("$class_path/XMLlist.class.php");
 
-// fichier de déf. pour gestion des erreurs
+// fichier de dï¿½f. pour gestion des erreurs
 require_once("$include_path/error_handler.inc.php");
 
 require_once("$include_path/db_param.inc.php");
@@ -80,7 +80,7 @@ if ($base_auth) eval("\$auth=".$base_auth.";");
 	else $auth="";
 if (!$base_nocheck) {
 	if(!checkUser('PhpMyBibli', $auth)) {
-		// localisation (fichier XML) (valeur par défaut)
+		// localisation (fichier XML) (valeur par dï¿½faut)
 		$messages = new XMLlist("$include_path/messages/$lang.xml", 0);
  		$messages->analyser();
 		$msg = $messages->table;
@@ -142,14 +142,14 @@ if (!$base_noheader) {
 		}
 	}
 
-// Paramétrage de la RFID, en fonction éventuellement de la localisation
+// Paramï¿½trage de la RFID, en fonction ï¿½ventuellement de la localisation
 require_once($class_path."/parameters_subst.class.php");
 $parameter_subst = new parameters_subst($include_path."/parameters_subst/rfid_per_localisations.xml", $deflt2docs_location);
 $parameter_subst->extract();
 
 // Activation RFID selon les prefs user
 if($pmb_rfid_activate)	$pmb_rfid_activate=$param_rfid_activate;
-// Préparation des js sripts pour la RFID
+// Prï¿½paration des js sripts pour la RFID
 if($pmb_rfid_activate) {	
 	require_once($include_path."/rfid_config.inc.php");
 	get_rfid_js_header();

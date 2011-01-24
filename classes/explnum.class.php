@@ -2,12 +2,12 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum.class.php,v 1.32 2010-07-09 09:16:49 mbertin Exp $
+// $Id: explnum.class.php,v 1.36 2010-12-20 14:18:41 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 
-require_once($class_path."/unzip.class.php");
+require_once($class_path."/zip.class.php");
 require_once($class_path."/upload_folder.class.php");
 require_once($class_path."/docs_location.class.php");
 // classe de gestion des exemplaires numériques
@@ -320,7 +320,6 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 					$this->update();
 				}
 				else $this->analyse_multifile();
-				
 				if(file_exists("./temp/".$this->infos_docnum["userfile_moved"])) 
 					unlink("./temp/".$this->infos_docnum["userfile_moved"]);
 				
@@ -347,7 +346,10 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 					unlink($chemin);				
 			}
 			$requete = "DELETE FROM explnum WHERE explnum_id=".$this->explnum_id;
-			mysql_query($requete, $dbh);		
+			mysql_query($requete, $dbh);
+			//on oublie pas la localisation associé
+			$requete = "delete from explnum_location where num_explnum = ".$this->explnum_id;
+			mysql_query($requete, $dbh);
 		}
 		
 		/*
@@ -416,12 +418,13 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 					mysql_query($req,$dbh);
 				}
 				if((count($loc_selector) == 1) && ($loc_selector[0] == -1)){
-					$req = "select idlocation from docs_location";
-					$res = mysql_query($req,$dbh);
-					while($loc=mysql_fetch_object($res)){
-						$req = "replace into explnum_location set num_explnum='".$this->explnum_id."', num_location='".$loc->idlocation."'";
-						mysql_query($req,$dbh); 
-					}
+					//Ne rien faire
+					//$req = "select idlocation from docs_location";
+					//$res = mysql_query($req,$dbh);
+					//while($loc=mysql_fetch_object($res)){
+					//	$req = "replace into explnum_location set num_explnum='".$this->explnum_id."', num_location='".$loc->idlocation."'";
+					//	mysql_query($req,$dbh); 
+					//}
 				} else {
 					for($i=0;$i<count($loc_selector);$i++){
 						$req = "replace into explnum_location set num_explnum='".$this->explnum_id."', num_location='".$loc_selector[$i]."'";
@@ -457,6 +460,7 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 			}
 				
 			print "</div>";
+
 		}
 		
 		/*
@@ -766,7 +770,7 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 		function remove_from_upload(){			
 					
 			$up=new upload_folder($this->explnum_repertoire);
-			$path = $up->repertoire_path.$this->explnum_path.$this->explnum_nom;
+			$path = $up->repertoire_path.$this->explnum_path.$this->explnum_nomfichier;
 			$path = str_replace('//','/',$path);
 			
 			$path = $up->encoder_chaine($path);
@@ -814,46 +818,40 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 		function unzip($filename){
 			global $up_place, $path, $id_rep, $charset;		
 			
-			$zip = new SimpleUnzip();
-			$entries = $zip->ReadFile($filename);
+			$zip = new zip($filename);
+			$zip->readZip();
 			$cpt = 0;
 			if($up_place && $path != '') 
 				$up = new upload_folder($id_rep);
-			foreach($entries as $entry){
-			  	if((strlen($entry->Data)!==0) && $entry->Data !== false){	
-			  		$base = false;
-			  		$chemin = "";
-			  		$chemin_sav = "";		
-					$nom_fich = $entry->Name;
-			  		if(mb_detect_encoding($entry->Name) =='UTF-8' && $charset == "iso-8859-1")
-			  				$nom_fich = utf8_decode($nom_fich);
-			  		
-					if($up_place && $path != ''){
-						$chemin = $path;
-						if($up->isHashing()){
-							$hashname = $up->hachage($nom_fich);
-							@mkdir($hashname);
-							$filepath = $up->encoder_chaine($hashname.$nom_fich);
-						} else $filepath = $up->encoder_chaine($up->formate_nom_to_path($chemin).$nom_fich);
-						$fh =fopen($filepath, 'w+');
-						fwrite($fh,$entry->Data);
-						fclose($fh);
-					} else {
-						$chemin = './temp/'.$nom_fich;
-						$fh =fopen($chemin, 'w');
-						fwrite($fh,$entry->Data);
-						fclose($fh);
-						$base = true;				
-					}
-					
-					$this->unzipped_files[$cpt]["chemin"] = $chemin;
-					$this->unzipped_files[$cpt]["nom"] = $nom_fich;
-					$this->unzipped_files[$cpt]["contenu"] = $entry->Data;
-					$this->unzipped_files[$cpt]["base"] = $base;
-					
-					$cpt++;
-			  	}	
-			} 
+			
+			foreach($zip->entries as $file){
+				if(mb_detect_encoding($entry->Name) =='UTF-8' && $charset == "iso-8859-1")
+	  				$file['fileName'] = utf8_decode($file['fileName']);	
+	  			if($up_place && $path != ''){
+					$chemin = $path;
+					if($up->isHashing()){
+						$hashname = $up->hachage($file['fileName']);
+						@mkdir($hashname);
+						$filepath = $up->encoder_chaine($hashname.$file['fileName']);
+					} else $filepath = $up->encoder_chaine($up->formate_nom_to_path($chemin).$file['fileName']);
+					$fh =fopen($filepath, 'w+');
+					fwrite($fh,$zip->getFileContent($file['fileName']));
+					fclose($fh);
+				} else {
+					$chemin = './temp/'.$file['fileName'];
+					$fh =fopen($chemin, 'w');
+					fwrite($fh,$zip->getFileContent($file['fileName']));
+					$base = true;				
+				}				
+				
+				$this->unzipped_files[$cpt]['chemin'] = $chemin;
+				$this->unzipped_files[$cpt]['nom'] = $file['fileName'];
+				$this->unzipped_files[$cpt]['base'] = $base;
+				$cpt++;
+			}
+			echo '<pre>';
+			print_r($this->unzipped_files);
+			echo '</pre>';
 		}
 		
 		/*
@@ -866,56 +864,53 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 			$repup = new upload_folder($id_rep);
 			if($this->unzipped_files){	
 				for($i=0;$i<sizeof($this->unzipped_files);$i++){	
-					$this->infos_docnum["userfile_name"] = $this->unzipped_files[$i]["nom"];
+					$this->infos_docnum['userfile_name'] = $this->unzipped_files[$i]['nom'];
 					if($repup->isHashing()){
-						$hashname = $repup->hachage($this->infos_docnum["userfile_name"]);
+						$hashname = $repup->hachage($this->infos_docnum['userfile_name']);
 						$chemin =  $repup->formate_path_to_save($repup->formate_path_to_nom($hashname));
 					} else $chemin = $repup->formate_path_to_save($this->unzipped_files[$i]["chemin"]);
 	
-					if($this->unzipped_files[$i]["base"]){
-						$this->infos_docnum["contenu"] = $this->unzipped_files[$i]["contenu"];
-						$this->infos_docnum["path"] = '';
+					if($this->unzipped_files[$i]['base']){
+						$this->infos_docnum['contenu'] = file_get_contents($this->unzipped_files[$i]['chemin']);
+						$this->infos_docnum['path'] = '';
 					} else {
-						$this->infos_docnum["contenu"] = '';
-						$this->infos_docnum["path"] = $chemin;
+						$this->infos_docnum['contenu'] = '';
+						$this->infos_docnum['path'] = $chemin;
 					}
 					$ext = '';
-					if ($this->infos_docnum["userfile_name"]) {
-						$ext = extension_fichier($this->infos_docnum["userfile_name"]);
-						$this->infos_docnum["userfile_ext"] = $ext;						
+					if ($this->infos_docnum['userfile_name']) {
+						$ext = extension_fichier($this->infos_docnum['userfile_name']);
+						$this->infos_docnum['userfile_ext'] = $ext;						
 					}
 					
-					if($this->unzipped_files[$i]["base"]){
-						$this->infos_docnum["contenu_vignette"] = construire_vignette("",$this->infos_docnum["userfile_name"]);
+					if($this->unzipped_files[$i]['base']){
+						$this->infos_docnum['contenu_vignette'] = construire_vignette("",$this->infos_docnum['userfile_name']);
 					} else {		
 						if($repup->isHashing())			
-							$this->infos_docnum["contenu_vignette"] = construire_vignette("",$repup->encoder_chaine($hashname.$this->infos_docnum["userfile_name"]));
+							$this->infos_docnum['contenu_vignette'] = construire_vignette("",$repup->encoder_chaine($hashname.$this->infos_docnum['userfile_name']));
 						else 
-							$this->infos_docnum["contenu_vignette"] = construire_vignette("",$repup->encoder_chaine($repup->formate_nom_to_path($this->unzipped_files[$i]["chemin"]).$this->infos_docnum["userfile_name"]));
+							$this->infos_docnum['contenu_vignette'] = construire_vignette("",$repup->encoder_chaine($repup->formate_nom_to_path($this->unzipped_files[$i]['chemin']).$this->infos_docnum['userfile_name']));
 					}	
-					$mimetype = trouve_mimetype($this->unzipped_files[$i]["chemin"].$this->infos_docnum["userfile_name"],$this->infos_docnum["userfile_ext"]);
+					$mimetype = trouve_mimetype($this->unzipped_files[$i]['chemin'],$this->infos_docnum['userfile_ext']);
 					if (!$mimetype) $mimetype="application/data";
-					$this->infos_docnum["mime"] = $mimetype;
+					$this->infos_docnum['mime'] = $mimetype;
 					
-					if($mimetype == 'URL'){
-						$this->infos_docnum["url"] = $this->unzipped_files[$i]["nom"];
-						$this->infos_docnum["nom"] = '';
-					} else {
-						$this->infos_docnum["nom"] = $this->unzipped_files[$i]["nom"];
-						$this->infos_docnum["url"] = '';
+					if ($this->unzipped_files[$i]['base']) {
+						unlink($this->unzipped_files[$i]['chemin']);
 					}
-
-					if($this->unzipped_files[$i]["base"])
-						unlink($this->unzipped_files[$i]["chemin"]);
-											
+					if($mimetype == 'URL'){
+						$this->infos_docnum['url'] = $this->unzipped_files[$i]['nom'];
+						$this->infos_docnum['nom'] = '';
+					} else {
+						$this->infos_docnum['nom'] = $this->unzipped_files[$i]['nom'];
+						$this->infos_docnum['url'] = '';
+					}
 					$this->update();
+					$this->explnum_id=0;
 				}
 			}
-			
 		}
 		
-		
-		                                                  
 	} # fin de la classe explnum
 		                                                  
 		                                                  

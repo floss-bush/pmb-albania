@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.class.php,v 1.15 2009-12-09 14:30:30 mbertin Exp $
+// $Id: export.class.php,v 1.16 2010-10-06 07:20:14 mbertin Exp $
 
 //Export d'une notice PMB en XML PMB MARC
 
@@ -263,9 +263,9 @@ class export {
 			//Recherche des auteurs;
 			$requete = "select author_id, author_type, author_name, author_rejete, author_date, responsability_fonction, responsability_type 
 			,author_subdivision, author_lieu,author_ville, author_pays,author_numero,author_web
-			from authors, responsability where responsability_notice=".$res->notice_id." and responsability_author=author_id";
+			from authors, responsability where responsability_notice=".$res->notice_id." and responsability_author=author_id order by responsability_ordre asc";
 			$resultat = mysql_query($requete) or die(mysql_error()."<br />".$requete);
-	
+
 			while (($auth=mysql_fetch_object($resultat))) {				
 				//Si c'est un 70 (individuel) alors on l'exporte
 				$subfields = array();

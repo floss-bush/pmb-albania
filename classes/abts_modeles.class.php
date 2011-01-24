@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_modeles.class.php,v 1.30 2009-05-16 11:22:56 dbellamy Exp $
+// $Id: abts_modeles.class.php,v 1.31 2010-11-10 10:03:38 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -698,7 +698,7 @@ ENDOFTEXT;
 		$this->modele_name = clean_string($this->modele_name); 
 	
 		// construction de la requête
-		$requete = "SET modele_name='$this->modele_name', ";
+		$requete = "SET modele_name='".addslashes($this->modele_name)."', ";
 		$requete .= "num_notice='$this->num_notice', ";
 		$requete .= "num_periodicite='$this->num_periodicite', ";
 		$requete .= "duree_abonnement='$this->duree_abonnement', ";
@@ -732,12 +732,12 @@ ENDOFTEXT;
 		$requete .= "tom_cycle='$this->tom_cycle', ";
 		$requete .= "tom_combien='$this->tom_combien', ";
 		$requete .= "tom_depart='$this->tom_depart', ";
-		$requete .= "format_aff='$this->format_aff', ";
-		$requete .= "format_periode='$this->format_periode' ";
+		$requete .= "format_aff='".addslashes($this->format_aff)."', ";
+		$requete .= "format_periode='".addslashes($this->format_periode)."' ";
 		
 		if($this->modele_id) {
 			// update: s'assurer que le nom de modèle n'existe pas déjà
-			$dummy = "SELECT * FROM abts_modeles WHERE modele_name='$this->modele_name' and num_notice='$this->num_notice' and modele_id!='$this->modele_id' ";
+			$dummy = "SELECT * FROM abts_modeles WHERE modele_name='".addslashes($this->modele_name)."' and num_notice='$this->num_notice' and modele_id!='$this->modele_id' ";
 			$check = mysql_query($dummy, $dbh);
 			if(mysql_num_rows($check)) {
 				require_once("$include_path/user_error.inc.php");
@@ -758,7 +758,7 @@ ENDOFTEXT;
 		} else {
 				
 			// s'assurer que le modèle n'existe pas déjà
-			$dummy = "SELECT * FROM abts_modeles WHERE modele_name='$this->modele_name' and num_notice='$this->num_notice'";
+			$dummy = "SELECT * FROM abts_modeles WHERE modele_name='".addslashes($this->modele_name)."' and num_notice='$this->num_notice'";
 			$check = mysql_query($dummy, $dbh);
 			if(mysql_num_rows($check)) {
 				require_once("$include_path/user_error.inc.php");
@@ -805,7 +805,7 @@ ENDOFTEXT;
 		switch ($act) {
 			case 'update':								
 				// mise à jour modèle
-				$this->modele_name= $modele_name;
+				$this->modele_name= stripslashes($modele_name);
 				$this->num_notice= $num_notice;
 				$this->num_periodicite= $num_periodicite;
 				$this->duree_abonnement= $duree_abonnement;
@@ -838,14 +838,14 @@ ENDOFTEXT;
 				$this->tom_cycle = 1-calc_selection($tom_cycle,1);
 				$this->tom_combien = $tom_combien;
 				$this->tom_depart = $tom_depart;
-				$this->format_aff = $format_aff;
-				$this->format_periode = $format_periode;
+				$this->format_aff = stripslashes($format_aff);
+				$this->format_periode = stripslashes($format_periode);
 				$this->update();										
 				print $this->show_form();		
 			break;
 			case 'gen':								
 				// mise à jour modèle
-				$this->modele_name= $modele_name;
+				$this->modele_name= stripslashes($modele_name);
 				$this->num_notice= $num_notice;
 				$this->num_periodicite= $num_periodicite;
 				$this->duree_abonnement= $duree_abonnement;
@@ -875,8 +875,8 @@ ENDOFTEXT;
 				$this->tom_cycle = 1-calc_selection($tom_cycle,1);
 				$this->tom_combien = $tom_combien;
 				$this->tom_depart = $tom_depart;
-				$this->format_aff = $format_aff;
-				$this->format_periode = $format_periode;
+				$this->format_aff = stripslashes($format_aff);
+				$this->format_periode = stripslashes($format_periode);
 				$this->update();										
 				print $this->show_form();		
 			break;			

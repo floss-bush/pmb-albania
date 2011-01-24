@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: devis.inc.php,v 1.36 2010-05-31 12:55:40 gueluneau Exp $
+// $Id: devis.inc.php,v 1.37 2010-10-15 14:19:38 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -97,6 +97,7 @@ function show_list_dev($id_bibli) {
 	$search_form = str_replace('!!form_title!!', $titre, $search_form);
 	$search_form = str_replace('!!action!!', $action, $search_form);
 	$search_form = str_replace('<!-- bouton_add -->', $bouton_add, $search_form);
+	$search_form = str_replace('!!user_input!!', $user_input, $search_form);
 	
 	print $search_form;
 	if (!$statut) {
@@ -104,8 +105,8 @@ function show_list_dev($id_bibli) {
 	} else {
 		setSessionDevState($statut);	
 	}
-	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();</script>";
-	
+	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();
+	document.forms['search'].elements['user_input'].select();</script>";
 	//Prise en compte du formulaire de recherche
 	// nombre de références par pages
 	if ($nb_per_page_acq != "") 

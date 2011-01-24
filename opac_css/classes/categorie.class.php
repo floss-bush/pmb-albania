@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categorie.class.php,v 1.21 2010-01-26 13:56:38 kantin Exp $
+// $Id: categorie.class.php,v 1.22 2010-11-05 09:42:53 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -151,7 +151,7 @@ class categorie {
 				$libelle = $child->libelle_categorie;
 				$note = $child->comment_public;
 				$id = $child->num_noeud;
-				$c2_categ = new category($id);
+				//$c2_categ = new category($id);
 				
 					if($child->num_renvoi_voir) {
 						$libelle = "<i>$libelle</i>@";
@@ -163,7 +163,7 @@ class categorie {
 					
 					$l .= "<a href='./index.php?lvl=categ_see&id=$id&main=$main' class='small'>";
 					
-					if($c2_categ->has_notices())
+					if(category::has_notices($id))
 						$l .= " <img src='$base_path/images/folder_search.gif' border=0 align='absmiddle' />";
 					else
 						$l .= "<img src='$image' border='0' align='top' />";
@@ -178,7 +178,7 @@ class categorie {
 					$libelle = $child->libelle_categorie;
 					$note = $child->comment_public;
 					$id = $child->num_noeud;
-					$c_categ =  new category($id);
+					//$c_categ =  new category($id);
 					
 					if($child->num_renvoi_voir) {
 						$libelle = "<i>$libelle</i>@";
@@ -189,7 +189,7 @@ class categorie {
 					if ($current_col == 0) $l .= "\n<tr>";  
 					$l .= "<td align='top'><a href='./index.php?lvl=categ_see&id=$id&main=$main' class='small'>";
 					
-					if($c_categ->has_notices())
+					if(category::has_notices($id))
 						$l .= " <img src='$base_path/images/folder_search.gif' border=0 align='absmiddle' />";		
 					else		
 						$l .= "<img src='$image' border='0' align='top' />";

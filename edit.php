@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: edit.php,v 1.41 2010-08-11 10:08:23 ngantier Exp $
+// $Id: edit.php,v 1.42 2010-12-02 14:39:16 arenou Exp $
 
 // définition du minimum nécéssaire 
 $base_path=".";                            
@@ -50,7 +50,7 @@ switch($dest) {
 		break;
 	case "TABLEAUHTML":
 		header("Content-Type: application/download\n");
-		header("Content-Disposition: atachement; filename=\"tableau.html\"");
+		header("Content-Disposition: atttachement; filename=\"tableau.html\"");
 		print "<html><head>" .
 		'<meta http-equiv=Content-Type content="text/html; charset='.$charset.'" />'.
 		"</head><body>";

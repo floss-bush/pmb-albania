@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: mono_display.class.php,v 1.189 2010-08-17 13:21:26 mbertin Exp $
+// $Id: mono_display.class.php,v 1.193 2010-12-02 11:09:07 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -33,6 +33,15 @@ if (!count($langue_doc)) {
 	$langue_doc = new marc_list('lang');
 	$langue_doc = $langue_doc->table;
 	}
+if (!count($icon_doc)) {
+	$icon_doc = new marc_list('icondoc');
+	$icon_doc = $icon_doc->table;
+}
+if(!count($biblio_doc)) {
+	$biblio_doc = new marc_list('nivbiblio');
+	$biblio_doc = $biblio_doc->table;
+}
+
 // propriétés pour le selecteur de panier 
 $selector_prop = "toolbar=no, dependent=yes, resizable=yes, scrollbars=yes";
 $cart_click = "onClick=\"openPopUp('./cart.php?object_type=NOTI&item=!!id!!&unq=!!unique!!', 'cart', 600, 700, -2, -2, '$selector_prop')\"";
@@ -852,9 +861,20 @@ function do_header() {
 	global $pmb_notice_reduit_format;
 	global $base_path;
 	global $msg;
+	global $icon_doc;
+	global $tdoc,$biblio_doc;
+	global $use_opac_url_base, $opac_url_base, $use_dsi_diff_mode;
 
 	$aut1_libelle = array() ;
 
+	//Icone type de Document
+	$icon = $icon_doc[$this->notice->niveau_biblio.$this->notice->typdoc];
+	if ($icon) {    			
+		$info_bulle_icon=$biblio_doc[$this->notice->niveau_biblio]." : ".$tdoc->table[$this->notice->typdoc];
+		if ($use_opac_url_base)	$this->icondoc="<img src=\"".$opac_url_base."images/$icon\" alt=\"$info_bulle_icon\" title=\"$info_bulle_icon\"align='top' />";
+		else $this->icondoc="<img src=\"".$base_path."/images/$icon\" alt=\"$info_bulle_icon\" title=\"$info_bulle_icon\"align='top' />";
+    }	
+    
 	if ($this->notice->statut) {
 		$rqt_st = "SELECT class_html , gestion_libelle FROM notice_statut WHERE id_notice_statut='".$this->notice->statut."' ";
 		$res_st = mysql_query($rqt_st, $dbh) or die ($rqt_st. " ".mysql_error()) ;
@@ -872,8 +892,11 @@ function do_header() {
 	if ($txt) {
 		$statut = "<small><span $class_html style='margin-right: 3px;'><a href=# onmouseover=\"z=document.getElementById('zoom_statut".$this->notice_id."'); z.style.display=''; \" onmouseout=\"z=document.getElementById('zoom_statut".$this->notice_id."'); z.style.display='none'; \"><img src='./images/spacer.gif' width='10' height='10' /></a></span></small>";
 		$statut .= "<div id='zoom_statut".$this->notice_id."' style='border: solid 2px #555555; background-color: #FFFFFF; position: absolute; display:none; z-index: 2000;'><b>".nl2br(htmlentities($txt,ENT_QUOTES, $charset))."</b></div>" ;
-	} else $statut = "<small><span $class_html style='margin-right: 3px;'><img src='./images/spacer.gif' width='10' height='10' /></span></small>";
-	$this->aff_statut = $statut ; 
+	} else {
+		$statut = "<small><span $class_html style='margin-right: 3px;'><img src='./images/spacer.gif' width='10' height='10' /></span></small>";	
+	}
+	$this->aff_statut = $statut; 
+	
 	
 	// récupération du titre de série
 	if($this->notice->tparent_id) {
@@ -895,6 +918,11 @@ function do_header() {
 	$this->memo_titre=$this->header_texte;	
 	$this->memo_complement_titre=$this->notice->tit4;
 	$this->memo_titre_parallele=$this->notice->tit3;
+	
+	if ((floor($pmb_notice_reduit_format/10) == 1)&&($this->memo_complement_titre)) {
+		$this->header.="&nbsp;:&nbsp;".htmlentities($this->memo_complement_titre,ENT_QUOTES,$charset);
+		$this->header_texte.=" : ".$this->memo_complement_titre;
+	}
 	
 	//$this->responsabilites
 	$as = array_search ("0", $this->responsabilites["responsabilites"]) ;
@@ -957,9 +985,9 @@ function do_header() {
 	}
 	if ($this->drag) $this->header.=$drag;
 
-	global $use_opac_url_base, $opac_url_base, $use_dsi_diff_mode;
+	
 	if($this->notice->lien) {
-		// ajout du lien pour les ressourcenotice_parent_useds électroniques				
+		// ajout du lien pour les ressource notice_parent_useds électroniques				
 		if (!$this->print_mode || $use_dsi_diff_mode) {
 			$this->header .= "<a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
 			if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
@@ -997,12 +1025,12 @@ function do_header() {
 			$this->header .='</a>';
 		}
 		else if ($explnumscount > 1) {
-			if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
-			else $this->header .= "<img src=\"".$opac_url_base."images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
+			if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe_rouge.png\" border=\"0\" align=\"middle\" alt=\"".$msg['info_docs_num_notice']."\" title=\"".$msg['info_docs_num_notice']."\" hspace=\"3\">";
+			else $this->header .= "<img src=\"".$opac_url_base."images/globe_rouge.png\" border=\"0\" align=\"middle\" alt=\"".$msg['info_docs_num_notice']."\" title=\"".$msg['info_docs_num_notice']."\" hspace=\"3\">";
 		}
 	}	
+	if ($this->icondoc) $this->header = $this->icondoc.$this->header;
 	if ($this->show_statut) $this->header = $this->aff_statut.$this->header ;
-	
 }
   
 // récupération des valeurs en table---------------------------------------
@@ -1110,10 +1138,16 @@ function show_expl_per_notice($no_notice, $link_expl='') {
 					$situation .= "<br />$img_ajout_empr_caddie<a href='./circ.php?categ=pret&form_cb=".rawurlencode($res_empr_obj->empr_cb)."'>$res_empr_obj->empr_prenom $res_empr_obj->empr_nom</a>";
 				} else {
 					// tester si réservé 						
-					$result_resa = mysql_query("select 1 from resa where resa_cb='".addslashes($expl->expl_cb)."' union select 1 from resa_ranger where resa_cb='".addslashes($expl->expl_cb)."' ", $dbh) or die ("<br />".mysql_error()."<br />".$requete);
+					$result_resa = mysql_query("select 1 from resa where resa_cb='".addslashes($expl->expl_cb)."' ", $dbh) or die ("<br />".mysql_error()."<br />".$requete);
 					$reserve = mysql_num_rows($result_resa);
-
+					
+					// tester à ranger 						
+					$result_aranger = mysql_query(" select 1 from resa_ranger where resa_cb='".addslashes($expl->expl_cb)."' ", $dbh) or die ("<br />".mysql_error()."<br />".$requete);
+					$aranger = mysql_num_rows($result_aranger);
+					
 					if ($reserve) $situation = "<strong>".$msg['expl_reserve']."</strong>"; // exemplaire réservé
+					elseif($expl->expl_retloc) $situation = $msg['resa_menu_a_traiter'];  // exemplaire à traiter
+					elseif ($aranger) $situation = "<strong>".$msg['resa_menu_a_ranger']."</strong>"; // exemplaire à ranger
 					elseif ($expl->pret_flag) $situation = "<strong>${msg[359]}</strong>"; // exemplaire disponible
 					else $situation = "";
 				}

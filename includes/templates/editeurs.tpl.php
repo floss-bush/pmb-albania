@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: editeurs.tpl.php,v 1.22 2010-06-16 12:13:47 ngantier Exp $
+// $Id: editeurs.tpl.php,v 1.24 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -42,21 +42,21 @@ function confirm_delete() {
 <div class='form-contenu'>
 	<!-- nom -->
 	<div class='row'>
-		<label class='etiquette' for='form_nom'>$msg[editeur_nom]</label>
+		<label class='etiquette' for='form_nom'>".$msg["editeur_nom"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-80em' name='ed_nom' value=\"!!ed_nom!!\" />
 		</div>
 	<!-- adr1 -->
 	<div class='row'>
-		<label class='etiquette' for='form_adr1'>$msg[69]</label>
+		<label class='etiquette' for='form_adr1'>".$msg["editeur_adr1"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-80em' name='ed_adr1' value=\"!!ed_adr1!!\" />
 		</div>
 	<!-- adr2 -->
 	<div class='row'>
-		<label class='etiquette' for='form_adr2'>$msg[70]</label>
+		<label class='etiquette' for='form_adr2'>".$msg["editeur_adr2"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-80em' name='ed_adr2' value=\"!!ed_adr2!!\" />
@@ -65,7 +65,7 @@ function confirm_delete() {
 	<!-- cp -->
 	<div class='colonne4'>
 	<div class='row'>
-		<label class='etiquette' for='form_cp'>$msg[71]</label>
+		<label class='etiquette' for='form_cp'>".$msg["editeur_cp"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-10em' name='ed_cp' value=\"!!ed_cp!!\" maxlength='10' />
@@ -75,7 +75,7 @@ function confirm_delete() {
 	<!-- ville -->
 	<div class='colonne_suite'>
 	<div class='row'>
-		<label class='etiquette' for='form_ville'>$msg[72]</label>
+		<label class='etiquette' for='form_ville'>".$msg["editeur_ville"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-20em' name='ed_ville' value=\"!!ed_ville!!\" />
@@ -92,16 +92,16 @@ function confirm_delete() {
 	
 	<!-- web -->
 	<div class='row'>
-		<label class='etiquette' for='form_web'>$msg[147]</label>
+		<label class='etiquette' for='form_web'>".$msg["editeur_web"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' class='saisie-80em' name='ed_web' id='ed_web' value=\"!!ed_web!!\" />
-		<input class='bouton' type='button' onClick=\"check_link('ed_web')\" title='$msg[CheckLink]' value='$msg[CheckButton]' />
+		<input class='bouton' type='button' onClick=\"check_link('ed_web')\" title='".$msg["CheckLink"]."' value='".$msg["CheckButton"]."' />
 		</div>
 
 	<!-- Commentaire -->
 	<div class='row'>
-		<label class='etiquette'>$msg[ed_comment]</label>
+		<label class='etiquette'>".$msg["ed_comment"]."</label>
 		</div>
 	<div class='row'>
 		<textarea class='saisie-80em' name='ed_comment' cols='62' rows='4' wrap='virtual'>!!ed_comment!!</textarea>
@@ -145,6 +145,9 @@ $publisher_replace = "
 	<input type='button' class='bouton' value='$msg[raz]' onclick=\"this.form.ed_libelle.value=''; this.form.ed_id.value='0'; \" />
 	<input type='hidden' name='ed_id' id='ed_id'>
 	</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 </div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=editeurs&sub=editeur_form&id=!!id!!';\">

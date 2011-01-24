@@ -2,12 +2,12 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: editeur.inc.php,v 1.23 2010-07-28 07:44:39 mbertin Exp $
+// $Id: editeur.inc.php,v 1.25 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=editeur&caller=$caller&p1=$p1&p2=$p2&p3=$p3&p4=$p4&p5=$p5&p6=$p6&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn";
+$base_url = "./select.php?what=editeur&caller=$caller&p1=$p1&p2=$p2&p3=$p3&p4=$p4&p5=$p5&p6=$p6&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&callback=$callack&infield=$infield";
 
 // contenu popup sélection éditeur
 require_once('./selectors/templates/sel_editeur.tpl.php');
@@ -30,7 +30,6 @@ if($bt_ajouter == "no"){
 }else{
 	$bouton_ajouter= "<input type='button' class='bouton_small' onclick=\"document.location='$base_url&action=add&deb_rech=this.form.f_user_input.value'\" value='$msg[143]'>";
 }
-echo "valeur : ".$f_user_input."<br>";
 // affichage des membres de la page
 switch($action){
 	case 'add':
@@ -68,6 +67,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $nb_per_page;
 	global $base_url;
 	global $caller;
+	global $callback;
 	global $msg;
  	global $charset;
  	global $no_display ;
@@ -107,7 +107,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 				if ($ed->ed_pays) $affcall.=" ($ed->ed_ville - $ed->ed_pays)";
 				else $affcall.=" ($ed->ed_ville)";
 			print pmb_bidi("
- 				<a href='#' onclick=\"set_parent('$caller', '$ed->ed_id', '".htmlentities(addslashes($affcall),ENT_QUOTES, $charset)."')\">".
+ 				<a href='#' onclick=\"set_parent('$caller', '$ed->ed_id', '".htmlentities(addslashes($affcall),ENT_QUOTES, $charset)."','$callback')\">".
 				htmlentities($affcall,ENT_QUOTES, $charset)."</a><br />");
 			}
 		mysql_free_result($res);

@@ -1,13 +1,13 @@
-<h1>Gestió financera dels usuaris</h1>
-<p>La gestió financera dels usuaris permet generar els moviment financers associats
+<h1>Gesti&oacute; financera dels usuaris</h1>
+<p>La gesti&oacute; financera dels usuaris permet generar els moviment financers associats
 als usuaris :
 </p>
 <ul>
 <li>abonaments
-<li>multes resultat del retard en el retorn de préstecs
-<li>préstecs remunerats per algunes categories de documents
+<li>multes resultat del retard en el retorn de pr&eacute;stecs
+<li>pr&eacute;stecs remunerats per algunes categories de documents
 </ul>
-<p>Si has escollit la gestió simple de les tarifes dels abonaments, 
-aquestes són visibles dins <a href='admin.php?categ=empr&sub=categ'>Administració &gt; Usuaris &gt; Categories d'usuaris</a>.</p>
-<p>Si has escollit la gestió simple de les tarifes de préstec, aquestes són visibles dins <a href='admin.php?categ=docs&sub=typdoc'>Administració &gt; Exemplars &gt; Tipus de documents</a>.</p>
+<p>Si has escollit la gesti&oacute; simple de les tarifes dels abonaments, 
+aquestes s&oacute;n visibles dins <a href='admin.php?categ=empr&sub=categ'>Administraci&oacute; &gt; Usuaris &gt; Mat&egrave;ria</a>.</p>
+<p>Si has escollit la gesti&oacute; simple de les tarifes de pr&eacute;stec, aquestes s&oacute;n visibles dins <a href='admin.php?categ=docs&sub=typdoc'>Administraci&oacute; &gt; Exemplars &gt; Suports</a>.</p>
 

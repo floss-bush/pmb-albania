@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl_retour.tpl.php,v 1.8 2010-07-09 14:37:28 ngantier Exp $
+// $Id: expl_retour.tpl.php,v 1.9 2010-11-09 08:59:25 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -75,40 +75,38 @@ $form_retour_tpl="
 	!!message_del_pret!!	
 	!!message_resa!!
 	!!message_transfert!!
-	<form>
-		<div class='row'>
-			<div class='left'>
-				<strong>!!libelle!!</strong>
-			</div>
-			!!message_retour!!
-		</div>	
-		<div class='row'>		
-			<table border='0' cellspacing='1'>
-				<tr>
-					<th>".$msg[293]."</th>
-					<th>".$msg[296]."</th>
-					<th>".$msg[294]."</th>
-					<th>".$msg[298]."</th>
-					<th>".$msg[295]."</th>
-					<th>".$msg[651]."</th>
-					<th></th>
-				</tr>
-				<tr>
-					<td><a href='circ.php?categ=visu_ex&form_cb_expl=!!expl_cb!!'>!!expl_cb!!</a></td>
-					<td>!!expl_cote!!</td>
-					<td>!!type_doc!!</td>
-					<td>!!location!!</td>
-					<td>!!section!!</td>
-					<td>!!expl_owner!!</td>
-					<td><img src='./images/basket_small_20x20.gif' alt='basket' title='".$msg[400]."' onclick=\"openPopUp('./cart.php?object_type=EXPL&item=!!expl_id!!', 'cart', 600, 700, -2, -2, 'toolbar=no, dependent=yes, resizable=yes, scrollbars=yes')\" align='middle'></td>				
-				</tr>
-			</table>
-			!!perso_aff!!	
+	<div class='row'>
+		<div class='left'>
+			<strong>!!libelle!!</strong>
 		</div>
-		!!expl_note!!		
-		!!expl_lastempr!!		
-		!!expl_empr!!
-	</form>
+		!!message_retour!!
+	</div>	
+	<div class='row'>		
+		<table border='0' cellspacing='1'>
+			<tr>
+				<th>".$msg[293]."</th>
+				<th>".$msg[296]."</th>
+				<th>".$msg[294]."</th>
+				<th>".$msg[298]."</th>
+				<th>".$msg[295]."</th>
+				<th>".$msg[651]."</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><a href='circ.php?categ=visu_ex&form_cb_expl=!!expl_cb!!'>!!expl_cb!!</a></td>
+				<td>!!expl_cote!!</td>
+				<td>!!type_doc!!</td>
+				<td>!!location!!</td>
+				<td>!!section!!</td>
+				<td>!!expl_owner!!</td>
+				<td><img src='./images/basket_small_20x20.gif' alt='basket' title='".$msg[400]."' onclick=\"openPopUp('./cart.php?object_type=EXPL&item=!!expl_id!!', 'cart', 600, 700, -2, -2, 'toolbar=no, dependent=yes, resizable=yes, scrollbars=yes')\" align='middle'></td>				
+			</tr>
+		</table>
+		!!perso_aff!!	
+	</div>
+	!!expl_note!!		
+	!!expl_lastempr!!		
+	!!expl_empr!!	
 ";
 $rfid_retour_script = "
 !!script!!

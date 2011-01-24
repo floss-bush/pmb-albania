@@ -2,16 +2,16 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fields_empr.inc.php,v 1.17 2010-08-27 07:48:10 mbertin Exp $
+// $Id: fields_empr.inc.php,v 1.18 2011-01-20 14:36:26 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr");
-$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search");
-$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr");
-$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr");
-$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"]);
-$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php");
+$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr","url"=>"aff_url_empr");
+$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search","url"=>"aff_url_empr_search");
+$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr","url"=>"chk_url_empr");
+$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr","url"=>"val_url_empr");
+$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"],"url"=>$msg["parperso_url"]);
+$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php","url"=>"options_url.php");
 
 function chk_datatype($field,$values,&$check_datatype_message) {
 	global $chk_type_list;
@@ -487,4 +487,130 @@ function val_external_empr($field,$value) {
 		}
 	}
 	return $value[0];
+}
+
+function aff_url_empr($field,&$check_scripts){
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$afield_name = $field["ID"];
+	$ret = "";
+	$count = 0;
+	if (!$values) {
+		$values = array("");
+	}
+	foreach ($values as $avalues) {
+		$avalues = explode("|",$avalues);
+		$ret.="lien : <input id=\"".$field[NAME]."_link\" type=\"text\" size=\"".$options[SIZE][0][value]."\" name=\"".$field[NAME]."[link][]\" value=\"".htmlentities($avalues[0],ENT_QUOTES,$charset)."\">";
+		$ret.=" <input class=\"bouton\" type=\"button\" value=\"vérifier\" onclick='cp_chklnk($count);'>";
+		$ret.=" libelle : <input id=\"".$field[NAME]."_linkname\" type=\"text\" size=\"".$options[SIZE][0][value]."\" name=\"".$field[NAME]."[linkname][]\" value=\"".htmlentities($avalues[1],ENT_QUOTES,$charset)."\">";
+		if ($options[REPEATABLE][0][value] && !$count)
+			$ret.='<input class="bouton" type="button" value="+" onclick="add_custom_url_(\''.$afield_name.'\', \''.addslashes($field[NAME]).'\', \''.addslashes($options[SIZE][0][value]).'\')">';
+		$ret.="<br />";
+		$count++;
+	}
+	$ret.= "
+	<script type='text/javascript'>
+		function cp_chklnk(indice){
+			var links = document.forms.notice['url[link][]'];
+			var link = links[indice].value;
+ 			var check = new http_request();
+			if(check.request('./ajax.php?module=ajax&categ=chklnk',true,'&link='+link)){
+				alert(check.get_text());
+			}else{
+				var result = check.get_text();
+				if(result == '200') {
+					//impec, on print un petit message de confirmation
+					alert('".$msg['persofield_url_valid']."');
+				}else{
+					//problème...
+					alert('".$msg['persofield_url_invalid']."'+result);
+				}
+			}
+		}
+	</script>";
+	if ($options[REPEATABLE][0][value]) {
+		$ret.='<input id="customfield_text_'.$afield_name.'" type="hidden" name="customfield_text_'.$afield_name.'" value="'.(count($values)).'">';
+		//$ret.='<input class="bouton" type="button" value="+" onclick="add_custom_text_(\''.$afield_name.'\', \''.addslashes($field[NAME]).'\', \''.addslashes($options[SIZE][0][value]).'\', \''.addslashes($options[MAXSIZE][0][value]).'\')">';
+		$ret .= '<div id="spaceformorecustomfieldtext_'.$afield_name.'"></div>';
+		$ret.="<script>
+			function add_custom_url_(field_id, field_name, field_size) {
+				document.getElementById('customfield_text_'+field_id).value = document.getElementById('customfield_text_'+field_id).value * 1 + 1;
+		        count = document.getElementById('customfield_text_'+field_id).value;
+				var link_label = document.createTextNode('lien : ');
+				var chklnk = document.createElement('input');
+				chklnk.setAttribute('type','button');
+				chklnk.setAttribute('value','vérifier');
+				chklnk.setAttribute('class','bouton');
+				chklnk.setAttribute('onclick','cp_chklnk(count);');
+				var link = document.createElement('input');
+		        link.setAttribute('name',field_name+'[link][]');
+		        link.setAttribute('type','text');
+		        link.setAttribute('size',field_size);
+		        link.setAttribute('value','');
+				var lib_label = document.createTextNode(' libelle : ');
+				var lib = document.createElement('input');
+		        lib.setAttribute('name',field_name+'[linkname][]');
+		        lib.setAttribute('type','text');
+		        lib.setAttribute('size',field_size);
+		        lib.setAttribute('value','');
+		        space=document.createElement('br');
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(link_label);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(link);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(chklnk);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(lib_label);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(lib);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(space);
+			}
+		</script>";
+	}
+	if ($field[MANDATORY]==1) $check_scripts.="if (document.forms[0].elements[\"".$field[NAME]."[]\"].value==\"\") return cancel_submit(\"".sprintf($msg["parperso_field_is_needed"],$field[ALIAS])."\");\n";
+	return $ret;
+}
+
+function aff_url_empr_search($field,&$check_scripts,$varname) {
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$ret="<input id=\"".$varname."\" type=\"text\" size=\"".$options[SIZE][0][value]."\" name=\"".$varname."[]\" value=\"".htmlentities($values[0],ENT_QUOTES,$charset)."\">";
+	return $ret;
+}
+
+function chk_url_empr($field,&$check_message) {
+	$name=$field[NAME];
+	global $$name;
+	$val=$$name;
+	$value = array();
+	for($i=0;$i<sizeof($val['link']);$i++){
+		if($val['link'][$i] != "")
+			$value[] = $val['link'][$i]."|".$val['linkname'][$i];
+	}
+	$val = $value;
+	$check_datatype_message="";
+	$val_1=chk_datatype($field,$val,$check_datatype_message);
+	if ($check_datatype_message) {
+		$check_message=$check_datatype_message;
+		return 0;
+	}
+	$$name=$val_1;
+	return 1;
+}
+
+function val_url_empr($field,$value) {
+	global $charset;
+	$cut = $field[OPTIONS][0][MAXSIZE][0][value];
+	$values=format_output($field,$value);
+	$ret = "";
+	foreach ($values as $value){
+		$val = explode("|",$value);
+		if ($val[1])$lib = ($cut && strlen($val[1]) > $cut ? substr($val[1],0,$cut)."[...]" : $val[1] );
+		else $lib = $val[0];
+		if( $ret != "") $ret.= " / ";
+		$ret .= "<a href='".$val[0]."' />".htmlentities($lib,ENT_QUOTES,$charset)."</a>";
+	}
+	return array("ishtml" => true, "value"=>$ret);
 }

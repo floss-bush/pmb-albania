@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: publishers.inc.php,v 1.7 2009-05-26 20:33:35 touraine37 Exp $
+// $Id: publishers.inc.php,v 1.8 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -35,7 +35,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$editeur = new editeur($id);
-			$rep_result = $editeur->replace($ed_id);
+			$rep_result = $editeur->replace($ed_id,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/publishers/publishers_list.inc.php');
 			else 

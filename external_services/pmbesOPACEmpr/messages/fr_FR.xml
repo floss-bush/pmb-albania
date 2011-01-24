@@ -4,13 +4,13 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.8 2010-07-30 21:08:30 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.9 2010-12-08 07:30:21 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
    <entry code="empr_functions_description">Interagit avec l'OPAC du point de vue d'un emprunteur</entry>
    
-<entry code="login_description">Vérifie l'autentification d'un lecteur et renvoi un numéro de session utilisable pour les autres fonctions</entry>
+<entry code="login_description">Vérifie l'authentification d'un lecteur et renvoie un numéro de session utilisable pour les autres fonctions</entry>
 <entry code="login_input_description"></entry>
 <entry code="login_output_description"></entry>
 <entry code="login_empr_login">le login du lecteur</entry>
@@ -20,7 +20,7 @@ $Id: fr_FR.xml,v 1.8 2010-07-30 21:08:30 erwanmartin Exp $ -->
 <!--
 login_md5
 -->
-<entry code="login_md5_description">Vérifie l'autentification d'un lecteur et renvoi un numéro de session utilisable pour les autres fonctions</entry>
+<entry code="login_md5_description">Vérifie l'authentification d'un lecteur et renvoie un numéro de session utilisable pour les autres fonctions</entry>
 <entry code="login_md5_input_description"></entry>
 <entry code="login_md5_output_description"></entry>
 <entry code="login_md5_empr_login">Le login du lecteur</entry>
@@ -50,7 +50,7 @@ login_md5
 <entry code="change_passwordsession_id">le numéro de session</entry>
 <entry code="change_passwordold_password">l'ancien mot de passe</entry>
 <entry code="change_passwordnew_password">le nouveau mot de passe</entry>
-<entry code="change_password_changed">un boolean indiquant le succès éventuel de l'opération</entry>
+<entry code="change_password_changed">un booléen indiquant le succès éventuel de l'opération</entry>
 
 <entry code="list_loans_description">Retrouve les différents prêts d'un emprunteur associé à un numéro de session</entry>
 <entry code="list_loans_input_description"></entry>
@@ -76,7 +76,7 @@ login_md5
 <entry code="add_reviewnote">la note</entry>
 <entry code="add_reviewcomment">le commentaire </entry>
 <entry code="add_reviewsubject">le sujet</entry>
-<entry code="add_review_success">Un boolean indiquant le succès éventuel de l'opération</entry>
+<entry code="add_review_success">Un booléen indiquant le succès éventuel de l'opération</entry>
 
 <entry code="add_tag_description">Ajoute un tag sur une notice</entry>
 <entry code="add_tag_input_description"></entry>
@@ -84,15 +84,15 @@ login_md5
 <entry code="add_tagsession_id">Le numéro de session</entry>
 <entry code="add_tagnotice_id">L'id de la notice</entry>
 <entry code="add_tagtag">Le tag</entry>
-<entry code="add_tag_success">Un boolean indiquant le succès éventuel de l'opération</entry>
+<entry code="add_tag_success">Un booléen indiquant le succès éventuel de l'opération</entry>
 
-<entry code="list_suggestion_categories_description">Renvoi les différentes catégories disponibles pour les suggestions</entry>
+<entry code="list_suggestion_categories_description">Renvoie les différentes catégories disponibles pour les suggestions</entry>
 <entry code="list_suggestion_categories_input_description"></entry>
 <entry code="list_suggestion_categories_output_description"></entry>
 <entry code="list_suggestion_categoriessession_id">Le numéro de session</entry>
 <entry code="list_suggestion_categories_categories">Les différentes catégories</entry>
 <entry code="list_suggestion_categories_categoriescategory_id">L'id de la catégorie</entry>
-<entry code="list_suggestion_categories_categoriescategory_caption">Le libelle de la catégorie</entry>
+<entry code="list_suggestion_categories_categoriescategory_caption">Le libellé de la catégorie</entry>
 
 <entry code="add_suggestion_description">Soumet une suggestion</entry>
 <entry code="add_suggestion_input_description"></entry>
@@ -101,13 +101,13 @@ login_md5
 <entry code="add_suggestiontitle">le titre</entry>
 <entry code="add_suggestionauthor">l'auteur</entry>
 <entry code="add_suggestioneditor">l'éditeur</entry>
-<entry code="add_suggestionisbn_or_ean">l'isbn ou code barre</entry>
+<entry code="add_suggestionisbn_or_ean">l'isbn ou code-barres</entry>
 <entry code="add_suggestionprice">le prix indicatif</entry>
 <entry code="add_suggestionurl">le site internet associé</entry>
 <entry code="add_suggestioncomment">le commentaire</entry>
 <entry code="add_suggestionsugg_categ">la catégorie de la suggestion</entry>
 <entry code="add_suggestionsugg_location">la localisation de la suggestion</entry>
-<entry code="add_suggestion_success">Un boolean indiquant le succès éventuel de l'opération</entry>
+<entry code="add_suggestion_success">Un booléen indiquant le succès éventuel de l'opération</entry>
 
 <entry code="list_suggestions_description">Liste les suggestions associées à un emprunteur à partir d'un numéro de session</entry>
 <entry code="list_suggestions_input_description"></entry>
@@ -115,7 +115,7 @@ login_md5
 <entry code="list_suggestionssession_id">Le numéro de session</entry>
 <entry code="list_suggestions_suggs">Les différentes suggestions, si elles existent</entry>
 
-<entry code="list_resa_locations_description">Renvoi les différentes localisations disponibles pour une réservation</entry>
+<entry code="list_resa_locations_description">Renvoie les différentes localisations disponibles pour une réservation</entry>
 <entry code="list_resa_locations_input_description"></entry>
 <entry code="list_resa_locations_output_description"></entry>
 <entry code="list_resa_locationssession_id">Le numéro de session</entry>
@@ -127,8 +127,8 @@ login_md5
 <entry code="add_resasession_id">Le numéro de session</entry>
 <entry code="add_resanotice_id">l'id de la notice</entry>
 <entry code="add_resabulletin_id">l'id du bulletin</entry>
-<entry code="add_resalocation">la localisation de retrait ni applicable</entry>
-<entry code="add_resa_success">Un boolean indiquant le succès éventuel de l'opération</entry>
+<entry code="add_resalocation">la localisation de retrait si applicable</entry>
+<entry code="add_resa_success">Un booléen indiquant le succès éventuel de l'opération</entry>
 <entry code="add_resa_error">Code d'erreur si la réservation n'est pas effectuée: 
 	no_session_id (pas de session)
 	no_empr_id (pas d'id emprunteur)
@@ -161,11 +161,11 @@ login_md5
   <!--
     add_notices_to_cart
   --><entry code="add_notices_to_cart_description">Ajoute des notices au panier d'un emprunteur</entry>
-  <entry code="add_notices_to_cart_input_description">Les notices dont l'emprunteur n'as pas les droits nécessaires ne seront pas ajoutées</entry>
+  <entry code="add_notices_to_cart_input_description">Les notices pour lesquelles l'emprunteur n'a pas les droits nécessaires ne seront pas ajoutées</entry>
   <entry code="add_notices_to_cart_output_description"></entry>
   <entry code="add_notices_to_cart_session_id">Le numéro de session</entry>
   <entry code="add_notices_to_cart_notice_ids">Les ids des notices à ajouter</entry>
-  <entry code="add_notices_to_cart_success">Un booléan retournant le succès éventuel de l'opération</entry>
+  <entry code="add_notices_to_cart_success">Un booléen retournant le succès éventuel de l'opération</entry>
   <!--
     delete_notices_from_cart
   -->
@@ -174,11 +174,11 @@ login_md5
   <entry code="delete_notices_from_cart_output_description"></entry>
   <entry code="delete_notices_from_cart_session_id">Le numéro de session</entry>
   <entry code="delete_notices_from_cart_notice_ids">Les ids des notices à enlever</entry>
-  <entry code="delete_notices_from_cart_success">Un booléan retournant le succès éventuel de l'opération</entry>
+  <entry code="delete_notices_from_cart_success">Un booléen retournant le succès éventuel de l'opération</entry>
   <!--
     empty_cart
   -->
-  <entry code="empty_cart_description">Vide la panier d'un emprunteur</entry>
+  <entry code="empty_cart_description">Vide le panier d'un emprunteur</entry>
   <entry code="empty_cart_input_description"></entry>
   <entry code="empty_cart_output_description">rien</entry>
   <entry code="empty_cart_session_id">Le numéro de session</entry>
@@ -202,7 +202,7 @@ login_md5
 <entry code="getAdvancedSearchFields_input_description"></entry>
 <entry code="getAdvancedSearchFields_output_description"></entry>
 <entry code="getAdvancedSearchFieldssession_id">Le numéro de session</entry>
-<entry code="getAdvancedSearchFieldsfetch_values">Précise d'il faut également chercher les valeurs des champs, pour un champ select par exemple</entry>
+<entry code="getAdvancedSearchFieldsfetch_values">Précise s'il faut également chercher les valeurs des champs, pour un champ select par exemple</entry>
 <entry code="getAdvancedSearchFields_results">Les différents champs</entry>
 
 <entry code="advancedSearch_description">Effectuer une recherche avancée</entry>
@@ -223,7 +223,7 @@ login_md5
 <entry code="fetchSearchRecordssession_id">Le numéro de session</entry>
 <entry code="fetchSearchRecordssearchId">L'id renvoyé par la fonction de recherche</entry>
 <entry code="fetchSearchRecordsfirstRecord">Numéro de la première notice à récupérer</entry>
-<entry code="fetchSearchRecordsrecordCount">Nombre de notice à récupérer</entry>
+<entry code="fetchSearchRecordsrecordCount">Nombre de notices à récupérer</entry>
 <entry code="fetchSearchRecordsrecordFormat">Format des résultats</entry>
 <entry code="fetchSearchRecordsrecordCharset">Charset dans lequel on souhaite les résultats</entry>
 <entry code="fetchSearchRecords_results">Les résultats</entry>
@@ -247,9 +247,9 @@ login_md5
   <entry code="fetchSearchRecordsSorted_output_description"></entry>
   <entry code="fetchSearchRecordsSorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsSorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsSorted_recordFormat">format des résultats</entry>
-  <entry code="fetchSearchRecordsSorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
+  <entry code="fetchSearchRecordsSorted_recordCharset">le charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsSorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsSorted_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetchSearchRecordsSorted_sortType">le tri à appliquer aux résultats</entry>
@@ -266,7 +266,7 @@ login_md5
   <entry code="fetchSearchRecordsArray_session_id">Le numéro de session</entry>
   <entry code="fetchSearchRecordsArray_searchId">L'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArray_firstRecord">Numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArray_recordCount">Nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsArray_recordCount">Nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsArray_recordCharset">Charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArray_results">Les résultats</entry>
 
@@ -287,14 +287,14 @@ login_md5
   <entry code="fetchSearchRecordsArraySorted_output_description"></entry>
   <entry code="fetchSearchRecordsArraySorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArraySorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArraySorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
+  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notices à récupérer</entry>
+  <entry code="fetchSearchRecordsArraySorted_recordCharset">le charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArraySorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsArraySorted_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetchSearchRecordsArraySorted_sortType">le tri à appliquer aux résultats</entry>
-  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultat</entry>
+  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultats</entry>
 
-<entry code="fetch_notice_items_description">Renvoi les différents exemplaires associés à une notice s'ils existent</entry>
+<entry code="fetch_notice_items_description">Renvoie les différents exemplaires associés à une notice s'ils existent</entry>
 <entry code="fetch_notice_items_input_description"></entry>
 <entry code="fetch_notice_items_output_description"></entry>
 <entry code="fetch_notice_itemssession_id">Le numéro de session</entry>
@@ -304,10 +304,10 @@ login_md5
 <!--
 fetch_item
 -->
-	<entry code="fetch_item_description">Renvoi un exemplaire par un de ses identifiants</entry>
+	<entry code="fetch_item_description">Renvoie un exemplaire par un de ses identifiants</entry>
 	<entry code="fetch_item_input_description">Au choix: item_cb ou item_id</entry>
 	<entry code="fetch_item_output_description"></entry>
-	<entry code="fetch_item_item_cb">Le code barre de l'exemplaire</entry>
+	<entry code="fetch_item_item_cb">Le code-barres de l'exemplaire</entry>
 	<entry code="fetch_item_item_id">L'id de l'exemplaire</entry>
 	<entry code="fetch_item_item">L'exemplaire s'il existe</entry>
 
@@ -357,7 +357,7 @@ fetch_item
   <!--
     get_sort_types
   -->
-  <entry code="get_sort_types_description">Renvoi la liste des différents tri possibles</entry>
+  <entry code="get_sort_types_description">Renvoie la liste des différents tris possibles</entry>
   <entry code="get_sort_types_input_description"></entry>
   <entry code="get_sort_types_output_description">
     Exemple de retour:
@@ -412,7 +412,7 @@ fetch_item
 <entry code="self_checkout_input_description"></entry>
 <entry code="self_checkout_output_description"></entry>
 <entry code="self_checkout_pmbUserId">l'id d'un utilisateur pmb, pour effectuer le prêt selon les quotas de localisation.</entry>
-<entry code="self_checkout_expl_cb">Le code-barre du document</entry>
+<entry code="self_checkout_expl_cb">Le code-barres du document</entry>
 <entry code="self_checkout_OPACUserId">l'id de l'emprunteur</entry>
 
 <entry code="self_checkout_status">1: Le prêt du document est accepté. 0: Le prêt du document est refusé</entry>
@@ -425,7 +425,7 @@ fetch_item
 <entry code="self_checkin_input_description"></entry>
 <entry code="self_checkin_output_description"></entry>
 <entry code="self_checkin_pmbUserId">l'id d'un utilisateur pmb, pour effectuer les actions de réservation ou de transfert en fonction de la localisation.</entry>
-<entry code="self_checkin_expl_cb">Le code-barre du document</entry>
+<entry code="self_checkin_expl_cb">Le code-barres du document</entry>
 
 <entry code="self_checkin_status">1: Le retour du document est accepté. 0: Le retour du document est refusé</entry>
 <entry code="self_checkin_message">Message du retour de prêt</entry>
@@ -439,8 +439,8 @@ fetch_item
 
 <entry code="self_renew_input_description"></entry>
 <entry code="self_renew_output_description"></entry>
-<entry code="self_renew_pmbUserId">l'id d'un utilisateur pmb, pour effectuer le la prolongation de prêt en fonction de la localisation.</entry>
-<entry code="self_renew_expl_cb">Le code-barre du document</entry>
+<entry code="self_renew_pmbUserId">l'id d'un utilisateur pmb, pour effectuer la prolongation de prêt en fonction de la localisation.</entry>
+<entry code="self_renew_expl_cb">Le code-barres du document</entry>
 
 <entry code="self_renew_status">1: La prolongation du prêt est acceptée. 0: La prolongation du prêt est refusée</entry>
 <entry code="self_renew_message">Message de la prolongation du prêt</entry>

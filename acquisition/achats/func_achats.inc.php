@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: func_achats.inc.php,v 1.17 2009-02-05 13:21:40 dbellamy Exp $
+// $Id: func_achats.inc.php,v 1.18 2010-10-28 10:00:45 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -126,10 +126,16 @@ function calc($tab, $precision=0) {
 			case '1' :	//saisie des prix ht
 				$mnt_ht=$mnt_ht+($v['q']*$v['p']*((100-$v['r'])/100));
 				$mnt_tva=$mnt_tva+($v['q']*$v['p']*((100-$v['r'])/100)*($v['t']/100));
+				if($v['debit_tva']==2){ // on ajoute le montant de la TVA
+					$mnt_ht+=($v['q']*$v['p']*((100-$v['r'])/100)*($v['t']/100));
+				}	
 				break;
 			case '2' :	//saisie des prix ttc
 				$mnt_ttc=$mnt_ttc+($v['q']*$v['p']*((100-$v['r'])/100));
 				$mnt_ht=$mnt_ht+(($v['q']*$v['p']*((100-$v['r'])/100))/(1+($v['t']/100))) ;
+				if($v['debit_tva']==1){ // on enlève le montant de la TVA
+					$mnt_ttc-=($v['q']*$v['p']*((100-$v['r'])/100)) - (($v['q']*$v['p']*((100-$v['r'])/100))/(1+($v['t']/100)));
+				}	
 				break;
 			default:	//pas de gestion de tva
 				$mnt_ttc=$mnt_ttc+($v['q']*$v['p']*((100-$v['r'])/100));

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_delete.inc.php,v 1.31 2009-11-10 14:13:14 ngantier Exp $
+// $Id: notice_delete.inc.php,v 1.33 2010-12-08 08:16:26 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -76,11 +76,25 @@ if ($acces_m==0) {
 						}
 					} 
 					if (!$abort_delete){		// suppression de la notice
+						$ret_param="";
+						$query="select linked_notice from notices_relations where num_notice=$id";		
+						$result = mysql_query($query, $dbh);
+						$not_mere = 0;
+						if (mysql_numrows($result)) $not_mere = mysql_result($result, 0, 0);
+						if ($not_mere > 0){
+							// perio ou mono?
+							$n=mysql_fetch_object(@mysql_query("select * from notices where notice_id=".$not_mere));
+							if ($n->niveau_biblio == 'm'|| $n->niveau_biblio == 'b') {
+								$ret_param="?categ=isbd&id=$not_mere";
+							} elseif ($n->niveau_biblio == 's' || $n->niveau_biblio == 'a') {
+								$ret_param= "?categ=serials&sub=view&serial_id=$not_mere";
+							}							
+						}						
 						notice::del_notice($id);							
 						// affichage du message suppression en cours puis redirect vers page de catalogage
 						print "<div class=\"row\"><div class='msg-perio'>".$msg['suppression_en_cours']."</div></div>
 							<script type=\"text/javascript\">
-								document.location='./catalog.php';
+								document.location='./catalog.php".$ret_param."';
 							</script>";
 						
 					}				

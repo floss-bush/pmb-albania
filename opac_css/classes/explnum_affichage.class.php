@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum_affichage.class.php,v 1.5 2010-06-30 14:10:00 ngantier Exp $
+// $Id: explnum_affichage.class.php,v 1.6 2010-10-13 12:29:41 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -41,6 +41,7 @@ class explnum_affichage{
 	function construire_tableau(){
 		
 		global $_mimetypes_bymimetype_, $_mimetypes_byext_, $dbh, $charset, $opac_url_base;
+		global $opac_visionneuse_allow;
 		
 		if(!$this->tableau_id)
 			$this->display = "";
@@ -103,7 +104,19 @@ class explnum_affichage{
 				}
 				$expl_liste_obj = "<div class='explnum-titre' style=\"margin-top:20px;margin-bottom:10px;text-align:center;font-weight:bold;\" ><a href='$lien'>$titre</a></div>";
 				$expl_liste_obj .= "<div style=\"text-align:center\">";
-				$expl_liste_obj .= "<a href='".$opac_url_base.$url_docnum.$expl->explnum_id.$words_to_find."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+				if ($opac_visionneuse_allow){
+					$link="
+						<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
+						<script type='text/javascript'>
+							if(typeof(sendToVisionneuse) == 'undefined'){
+								function sendToVisionneuse(explnum_id){
+									document.getElementById('visionneuseIframe').src = 'visionneuse.php?'+(typeof(explnum_id) != 'undefined' ? 'explnum_id='+explnum_id+\"\" : '\'');
+								}
+							}
+						</script>
+						<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />";
+					$expl_liste_obj .=$link;
+				}else $expl_liste_obj .= "<a href='".$opac_url_base.$url_docnum.$expl->explnum_id.$words_to_find."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
 				elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;

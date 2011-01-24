@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: index_includes.inc.php,v 1.20 2010-09-14 07:42:58 ngantier Exp $
+// $Id: index_includes.inc.php,v 1.25 2010-12-08 15:46:42 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -222,18 +222,33 @@ $link_to_visionneuse = "
 //cas général
 $sendToVisionneuseByPost ="
 <script type='text/javascript'>
-	function sendToVisionneuse(){
-		document.cart_values.action='visionneuse.php';
-		document.cart_values.target='visionneuse';
-		document.cart_values.submit();	
+	function sendToVisionneuse(explnum_id){
+		if (typeof(explnum_id)!= 'undefined') {
+			var explnum =document.createElement('input');
+			explnum.setAttribute('type','hidden');
+			explnum.setAttribute('name','explnum_id');
+			explnum.setAttribute('value',explnum_id);
+			document.form_values.appendChild(explnum);
+		}
+		document.form_values.action='visionneuse.php';
+		document.form_values.target='visionneuse';
+		document.form_values.submit();	
 	}
 </script>";
 
 //cas des autorités
 $sendToVisionneuseByGet ="
 <script type='text/javascript'>
-	function sendToVisionneuse(){
-		document.getElementById('visionneuseIframe').src = 'visionneuse.php?mode=!!mode!!&idautorite=!!idautorite!!';
+	function sendToVisionneuse(explnum_id){
+		document.getElementById('visionneuseIframe').src = \"visionneuse.php?mode=!!mode!!&idautorite=!!idautorite!!\"+(typeof(explnum_id) != 'undefined' ? '&explnum_id='+explnum_id : \"\");
+	}
+</script>";
+
+//cas de notice display
+$sendToVisionneuseNoticeDisplay ="
+<script type='text/javascript'>
+	function sendToVisionneuse(explnum_id){
+		document.getElementById('visionneuseIframe').src = 'visionneuse.php?'+(typeof(explnum_id) != 'undefined' ? 'explnum_id='+explnum_id+\"\" : '\'');
 	}
 </script>";
 
@@ -388,7 +403,18 @@ if($pmb_logs_activate){
 	//Enregistrement multicritere
 	global $search;
 	if($search)	{
-		$search_stat = new search();
+		if ($search_type=="external_search") {
+			switch($_SESSION["ext_type"]) {
+				case "multi":
+					$search_file="search_fields_unimarc";
+					break;
+				default:
+					$search_file="search_simple_fields_unimarc";
+					break;
+			}
+			$search_stat = new search($search_file);
+		} else 
+			$search_stat = new search();
 		$log->add_log('multi_search', $search_stat->serialize_search());
 		$log->add_log('multi_human_query', $search_stat->make_human_query());
 	}

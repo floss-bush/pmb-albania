@@ -2,12 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_info.class.php,v 1.1 2010-08-11 10:08:23 ngantier Exp $
+// $Id: notice_info.class.php,v 1.6 2010-12-29 11:21:36 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 // Récupératiuon des info de notices
-
 require_once($class_path."/parametres_perso.class.php");
 require_once($include_path."/notice_authors.inc.php");
 require_once("$class_path/author.class.php");
@@ -52,6 +51,9 @@ class notice_info {
 	
 	//Generation XML de la prochaine notice (renvoi true si prochaine notice, false si plus de notices disponibles)
 	function fetch_data() {
+		global $opac_show_book_pics ;
+		global $opac_book_pics_url ;
+		global $opac_url_base ;
 		global $fonction_auteur,$msg;
 		//Recuperation des infos de la notice
 		$requete = "select * from notices where notice_id=".$this->notice_id;
@@ -62,13 +64,12 @@ class notice_info {
 /*		$this->langues	= get_notice_langues($this->notice_id, 0) ;	// langues de la publication
 		$this->languesorg	= get_notice_langues($this->notice_id, 1) ; // langues originales
 	*/
-		$this->isbn = $this->notice->code ; 
+		$this->memo_isbn = $this->notice->code ; 
 		$this->niveau_biblio=$this->notice->niveau_biblio;
 		$this->niveau_hierar=$this->notice->niveau_hierar;
 		
 		//Recherche des infos du périodique
-		$this->fetch_analysis_info();		
-		
+		$this->fetch_analysis_info();
 		if($res->niveau_biblio != 's' && $res->niveau_biblio != 'a') {
 //			$display = new mono_display($this->notice_id, $this->environement["short"], $this->environement["link"], 1, $this->environement["link_expl"], '', $this->environement["link_explnum"],1);
 		} else {
@@ -128,12 +129,9 @@ class notice_info {
 		}
 
 		//Langage
-		$this->memo_langue=array();
-		$rqttmp_lang = "select type_langue,code_langue from notices_langues where num_notice='$res->notice_id' order by 1 ";
-		$restmp_lang = mysql_query($rqttmp_lang);
-		while (($tmp_lang = mysql_fetch_object($restmp_lang))) {
-			$this->memo_langue[]=$tmp_lang;
-		}		
+		$this->memo_lang	= get_notice_langues($this->notice_id, 0) ;	// langues de la publication
+		$this->memo_lang_or	= get_notice_langues($this->notice_id, 1) ; // langues originales
+			
 				
 		//Auteurs
 		//Recherche des auteurs;
@@ -151,7 +149,7 @@ class notice_info {
 			$mention_resp[] = $mention_resp_lib;
 			$this->memo_auteur_principal=$auteur->isbd_entry;
 			if ($auteur->isbd_entry){
-				$this->memo_titre.= ' / '. $auteur->isbd_entry;
+//				$this->memo_titre.= ' / '. $auteur->isbd_entry;
 			}	
 		}		
 		$as = array_keys ($this->responsabilites["responsabilites"], "1" ) ;
@@ -207,14 +205,14 @@ class notice_info {
 			$editeurs=$info["isbd_entry"];		
 		}		
 		if($this->notice->ed2_id) {
-			$info=$this->$this->get_info_editeur($this->notice->ed2_id);	
+			$info=$this->get_info_editeur($this->notice->ed2_id);	
 			$this->memo_ed2=$info["isbd_entry"];
 			$editeurs ? $editeurs .= '&nbsp;; '.$info["isbd_entry"] : $editeurs = $info["isbd_entry"];
 		}
 	
 		if($this->notice->year) {
 			$editeurs ? $editeurs .= ', '.$this->notice->year : $editeurs = $this->notice->year;
-			$this->memo_titre.=' ('.$this->notice->year.')';
+//			$this->memo_titre.=' ('.$this->notice->year.')';
 		} elseif ($this->notice->niveau_biblio!='b') $editeurs ? $editeurs .= ', [s.d.]' : $editeurs = "[s.d.]";
 		$this->memo_year=$this->notice->year;
 	
@@ -243,14 +241,28 @@ class notice_info {
 
 		//Traitement des exemplaires
 		$this->memo_exemplaires=array();
-		$requete = "select expl_cb,expl_cote,expl_statut,statut_libelle, statusdoc_codage_import, expl_typdoc, tdoc_libelle, tdoc_codage_import, expl_note, expl_comment, expl_section, section_libelle, sdoc_codage_import, expl_owner, lender_libelle, codestat_libelle, statisdoc_codage_import, expl_date_retour, expl_date_depot, expl_note, pret_flag, location_libelle, locdoc_codage_import 
+		$requete = "select expl_id, expl_cb,expl_cote,expl_statut,statut_libelle, statusdoc_codage_import, expl_typdoc, tdoc_libelle, tdoc_codage_import, expl_note, expl_comment, expl_section, section_libelle, sdoc_codage_import, expl_owner, lender_libelle, codestat_libelle, statisdoc_codage_import, expl_date_retour, expl_date_depot, expl_note, pret_flag, location_libelle, locdoc_codage_import 
 		from exemplaires, docs_statut, docs_type, docs_section, docs_codestat, lenders, docs_location 
 		where expl_notice=".$res -> notice_id." and expl_statut=idstatut and expl_typdoc=idtyp_doc and expl_section=idsection and expl_owner=idlender and expl_codestat=idcode and expl_location=idlocation";
 		$resultat = mysql_query($requete);		
 		while (($ex = mysql_fetch_object($resultat))) {
+			//Champs perso d'exemplaires			
+			$parametres_perso=array();
+			$mes_pp=new parametres_perso("expl");
+			if (!$mes_pp->no_special_fields) {			
+				$mes_pp->get_values($ex->expl_id);
+				$values = $mes_pp->values;
+				foreach ( $values as $field_id => $vals ) {
+					foreach ( $vals as $value ) {				
+						$parametres_perso[$mes_pp->t_fields[$field_id]["NAME"]]["TITRE"]=$mes_pp->t_fields[$field_id]["TITRE"];
+						$parametres_perso[$mes_pp->t_fields[$field_id]["NAME"]]["VALUE"]=$mes_pp->get_formatted_output(array($value),$field_id);	
+					}
+				}							
+			}
+			$ex->parametres_perso=$parametres_perso;
 			$this->memo_exemplaires[]=$ex;
 		}
-
+		
 		//Descripteurs
 		$requete="SELECT libelle_categorie FROM categories, notices_categories WHERE notcateg_notice=".$res->notice_id." and categories.num_noeud = notices_categories.num_noeud ORDER BY ordre_categorie";
 		$resultat=mysql_query($requete);
@@ -266,8 +278,8 @@ class notice_info {
 		$this->parametres_perso=array();
 		foreach ( $values as $field_id => $vals ) {
 			foreach ( $vals as $value ) {
-			 	$this->parametres_perso[$mes_pp->t_fields[$field_id]["TITRE"]]["NAME"]=$mes_pp->t_fields[$field_id]["NAME"];
-				$this->parametres_perso[$mes_pp->t_fields[$field_id]["TITRE"]]["VALUE"]=$mes_pp->get_formatted_output(array($value),$field_id);
+			 	$this->parametres_perso[$mes_pp->t_fields[$field_id]["NAME"]]["TITRE"]=$mes_pp->t_fields[$field_id]["TITRE"];
+				$this->parametres_perso[$mes_pp->t_fields[$field_id]["NAME"]]["VALUE"]=$mes_pp->get_formatted_output(array($value),$field_id);				
 			}
 		}		
 
@@ -309,6 +321,23 @@ class notice_info {
 					
 		$paramaff["mine_type"]=1;
 		$this->memo_explnum_assoc=show_explnum_per_notice($res->notice_id, 0,"",$paramaff);
+		
+		if ($this->notice->code || $this->notice->thumbnail_url) {
+			if ($opac_show_book_pics=='1' && ($opac_book_pics_url || $this->notice->thumbnail_url)) {
+				$code_chiffre = pmb_preg_replace('/-|\.| /', '', $this->notice->code);
+				$url_image = $opac_book_pics_url ;
+				$url_image = $opac_url_base."getimage.php?url_image=".urlencode($url_image)."&noticecode=!!noticecode!!&vigurl=".urlencode($this->notice->thumbnail_url) ;
+				
+				if ($this->notice->thumbnail_url) $url_image_ok=$this->notice->thumbnail_url;
+				else $url_image_ok = str_replace("!!noticecode!!", $code_chiffre, $url_image) ;
+				$this->memo_image = "<img src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
+				$this->memo_url_image=$url_image;
+				
+			} else{
+				$this->memo_image="" ;
+				$this->memo_url_image="";
+			}
+		}	
 		
 		return true;
 		

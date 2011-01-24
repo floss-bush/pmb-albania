@@ -147,5 +147,50 @@
 			<tablefield>create_date</tablefield>
 		</table>
 	</field>
-		
+	<field name="codebarre_sort" type="text" typefield="select" id="15">
+		<table name="exemplaires">
+			<filter>(notices.niveau_biblio='m')</filter>
+			<tablefield>expl_cb</tablefield>
+			<tablekey>expl_id</tablekey>
+			<groupby>notice_id</groupby>
+			<link type="n1">
+				<externalfield>expl_notice</externalfield>
+			</link>
+		</table>
+		<table name="exemplaires">
+			<filter>(notices.niveau_biblio='b' and notices.niveau_hierar=2)</filter>
+			<tablefield>expl_cb</tablefield>
+			<tablekey>expl_bulletin</tablekey>
+			<groupby>notice_id</groupby>
+			<link type="nn">
+				<table>bulletins</table>
+				<referencefield>num_notice and num_notice!=0</referencefield>
+				<externalfield>bulletin_id</externalfield>
+				<linkrestrict>and expl_bulletin!=0</linkrestrict>
+			</link>
+		</table>
+	</field>
+	<field name="coll_sort" type="text" typefield="select" id="16">
+		<table name="collections">
+			<tablefield>collection_name</tablefield>
+			<tablekey>collection_id</tablekey>
+			<link type="1n">
+				<referencefield>coll_id</referencefield>
+			</link>
+		</table>
+	</field>
+	<field name="subcoll_sort" type="text" typefield="select" id="17">
+		<table name="sub_collections">
+			<tablefield>sub_coll_name</tablefield>
+			<tablekey>sub_coll_id</tablekey>
+			<link type="1n">
+				<referencefield>subcoll_id</referencefield>
+			</link>
+		</table>
+	</field>
+	<field name="num_in_coll_sort" type="num" typefield="select" id="18">
+		<table>
+			<tablefield>nocoll</tablefield>
+		</table>
+	</field>		
 </sort>

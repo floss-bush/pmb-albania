@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: commandes.tpl.php,v 1.51 2009-06-03 06:06:35 dbellamy Exp $
+// $Id: commandes.tpl.php,v 1.52 2010-10-28 10:03:33 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -124,8 +124,7 @@ $cdelist_script = "
 		}
 		return false;
 	}
-	
-	
+
 </script>
 ";
 
@@ -333,12 +332,12 @@ $modif_cde_form = "
 switch ($acquisition_gestion_tva) {
 	case '1' :
 		$modif_cde_form.= "
-						<th width='5%'>".htmlentities($msg['acquisition_act_tab_priht'], ENT_QUOTES, $charset)."</th>
+						<th width='5%'>".htmlentities($msg['acquisition_act_tab_priht'], ENT_QUOTES, $charset)."<br />".htmlentities($msg['acquisition_act_tab_prittc'], ENT_QUOTES, $charset)."</th>
 						<th width='25%'>".htmlentities($msg['acquisition_act_tab_typ'], ENT_QUOTES, $charset)."<br />".htmlentities($msg['acquisition_tva'], ENT_QUOTES, $charset)." / ".htmlentities($msg['acquisition_remise'], ENT_QUOTES, $charset)."</th>";
 		break;
 	case '2' :
 		$modif_cde_form.= "
-						<th width='5%'>".htmlentities($msg['acquisition_act_tab_prittc'], ENT_QUOTES, $charset)."</th>
+						<th width='5%'>".htmlentities($msg['acquisition_act_tab_prittc'], ENT_QUOTES, $charset)."<br />".htmlentities($msg['acquisition_act_tab_priht'], ENT_QUOTES, $charset)."</th>
 						<th width='25%'>".htmlentities($msg['acquisition_act_tab_typ'], ENT_QUOTES, $charset)."<br />".htmlentities($msg['acquisition_tva'], ENT_QUOTES, $charset)." / ".htmlentities($msg['acquisition_remise'], ENT_QUOTES, $charset)."</th>";
 		break;	
 	default :
@@ -451,19 +450,21 @@ $modif_cde_row_form = "
 		<input type='text' id='qte[!!no!!]' name='qte[!!no!!]' tabindex='1' class='in_cell_nb' value='!!qte!!' />
 	</td>
 	<td>
-		<input type='text' id='prix[!!no!!]' name='prix[!!no!!]' tabindex='1' class='in_cell_nb' value='!!prix!!' />
+		<input type='text' id='prix[!!no!!]' name='prix[!!no!!]' tabindex='1' class='in_cell_nb' value='!!prix!!' !!convert_prix!!/>
+		!!convert_ht_ttc!! 
 	</td>
 	<td>
 		<input type='hidden' id='typ[!!no!!]' name='typ[!!no!!]' value='!!typ!!' />
 		<input type='text' id='lib_typ[!!no!!]' name='lib_typ[!!no!!]' tabindex='1' class='in_cell_ro' value='!!lib_typ!!' /><input type='button' tabindex='1' class='bouton_small' style='width:20px' value='".$msg['parcourir']."' onclick=\"act_getType(this);\" /><input type='button' tabindex='1' class='bouton_small' style='width:20px;' value='".$msg['raz']."' onclick=\"act_delType(this);\" />";
 if ($acquisition_gestion_tva) {
-	$modif_cde_row_form.= "&nbsp;<input type='text' id='tva[!!no!!]' name='tva[!!no!!]' tabindex='1' class='in_cell_nb' style='width:20%;' value='!!tva!!' />&nbsp;%";
+	$modif_cde_row_form.= "&nbsp;<input type='text' id='tva[!!no!!]' name='tva[!!no!!]' tabindex='1' class='in_cell_nb' style='width:20%;' value='!!tva!!' !!onchange_tva!! />&nbsp;%";
 } 	
 $modif_cde_row_form.= "&nbsp;<input type='text' id='rem[!!no!!]' name='rem[!!no!!]' tabindex='1' class='in_cell_nb' style='width:20%;' value='!!rem!!' />&nbsp;%		
 	</td>
 	<td>
 		<input type='hidden' id='rub[!!no!!]' name='rub[!!no!!]' value='!!rub!!' />
 		<input type='text' id='lib_rub[!!no!!]' name='lib_rub[!!no!!]' tabindex='1' class='in_cell_ro' value='!!lib_rub!!' /><input type='button' tabindex='1' class='bouton_small' style='width:20px;' value='".$msg['parcourir']."' onclick=\"act_getRubrique(this);\" /><input type='button' tabindex='1' class='bouton_small' style='width:20px;' value='".$msg['raz']."' onclick=\"act_delRubrique(this);\" />
+		!!force_ht_ttc!!
 	</td>	
 	<td>
 		<input type='checkbox' id='chk[!!no!!]' name='chk[!!no!!]' tabindex='1' value='1' />

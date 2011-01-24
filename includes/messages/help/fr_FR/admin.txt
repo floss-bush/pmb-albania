@@ -10,7 +10,7 @@
 </p>
 
 <h2>utilisateurs</h2>
-<p>Cette section du module permet de g&eacute;rer les identifiants et les droits attach&eacute;s aux diff&eacute;rents utilisateurs du syst&egrave;me de gestion de biblioth&egrave;que. D&eacute;terminez notamment quels sont les utilisateurs pouvant effectuer des op&eacute;rations de pr&ecirc;t, ceux qui peuvent acc&eacute;der au module de catalogage et pour ces derniers lesquels sont autoris&eacute;s &agrave; g&eacute;rer les autorit&eacute;s. Utilisez cette fonctionnalit&eacute; &eacute;galement pour la gestion des mots de passe et des identifiants de connection.</p>
+<p>Cette section du module permet de g&eacute;rer les identifiants et les droits attach&eacute;s aux diff&eacute;rents utilisateurs du syst&egrave;me de gestion de biblioth&egrave;que. D&eacute;terminez notamment quels sont les utilisateurs pouvant effectuer des op&eacute;rations de pr&ecirc;t, ceux qui peuvent acc&eacute;der au module de catalogage et pour ces derniers lesquels sont autoris&eacute;s &agrave; g&eacute;rer les autorit&eacute;s. Utilisez cette fonctionnalit&eacute; &eacute;galement pour la gestion des mots de passe et des identifiants de connexion.</p>
 
 <h2>outils</h2>
 <p>La rubrique outils fournit un ensemble de proc&eacute;dures mises en place pour faciliter les t&acirc;ches d'administration de la base. 

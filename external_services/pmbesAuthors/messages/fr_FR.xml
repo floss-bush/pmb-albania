@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.1 2009-10-15 16:31:32 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.2 2010-12-08 07:30:21 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -16,7 +16,7 @@ pmbesAuthor
 <!--
 get_author_information
 -->
-<entry code="get_author_information_description">Renvoi les informations d'un auteur à partir de son id</entry>
+<entry code="get_author_information_description">Renvoie les informations d'un auteur à partir de son id</entry>
 <entry code="get_author_information_input_description"></entry>
 <entry code="get_author_information_output_description"></entry>
 <entry code="get_author_information_author_id">L'id de l'auteur</entry>

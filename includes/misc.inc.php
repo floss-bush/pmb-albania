@@ -1,12 +1,12 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: misc.inc.php,v 1.89 2010-08-27 09:18:17 ngantier Exp $
+// $Id: misc.inc.php,v 1.91 2010-12-20 11:33:47 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-//Fonction de récupération d'une URL vignette
+//Fonction de rï¿½cupï¿½ration d'une URL vignette
 function get_vignette($notice_id) {
 	global $opac_book_pics_url;
 	global $opac_url_base;
@@ -37,7 +37,7 @@ function get_vignette($notice_id) {
 // ----------------------------------------------------------------------------
 // reg_diacrit : fonction pour traiter les caracteres accentues en recherche avec regex
 
-// choix de la classe à utiliser pour envoi en pdf
+// choix de la classe ï¿½ utiliser pour envoi en pdf
 if (!$fpdf) {
 	if ($charset != 'utf-8') $fpdf = 'FPDF'; else $fpdf = 'UFPDF';
 }
@@ -99,13 +99,13 @@ function strip_empty_chars($string) {
 	$string = convert_diacrit($string);
 
 	// Mis en commentaire : qu'en est-il des caracteres non latins ???
-	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ça fait tout merder...
+	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ï¿½a fait tout merder...
 	// RECH_14 : Attention : ici suppression des eventuels "
 	//          les " ne sont plus supprimes 
 	$string = stripslashes($string) ;
 	$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));
 	
-	// remplacement espace  insécable 0xA0:	&nbsp;  	Non-breaking space
+	// remplacement espace  insï¿½cable 0xA0:	&nbsp;  	Non-breaking space
 	$string = clean_nbsp($string);
 	
 	// espaces en debut et fin
@@ -141,13 +141,13 @@ function strip_empty_words($string, $lg = 0) {
 	$string = convert_diacrit($string);
 
 	// Mis en commentaire : qu'en est-il des caracteres non latins ???
-	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ça fait tout merder...
+	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ï¿½a fait tout merder...
 	// RECH_14 : Attention : ici suppression des eventuels "
 	//          les " ne sont plus supprimes 
 	$string = stripslashes($string) ;
 	$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));
 	
-	// remplacement espace  insécable 0xA0:	&nbsp;  	Non-breaking space
+	// remplacement espace  insï¿½cable 0xA0:	&nbsp;  	Non-breaking space
 	$string = clean_nbsp($string);
 		
 	// espaces en debut et fin
@@ -162,7 +162,7 @@ function strip_empty_words($string, $lg = 0) {
 		foreach($empty_word as $dummykey=>$word) {
 			$word = convert_diacrit($word);
 			$string = pmb_preg_replace("/^${word}$|^${word}\s|\s${word}\s|\s${word}\$/i", ' ', $string);
-			// RECH_14 : suppression des mots vides colles à des guillemets
+			// RECH_14 : suppression des mots vides colles ï¿½ des guillemets
 			if (pmb_preg_match("/\"${word}\s/i",$string)) $string = pmb_preg_replace("/\"${word}\s/i", '"', $string);
 			if (pmb_preg_match("/\s${word}\"/i",$string)) $string = pmb_preg_replace("/\s${word}\"/i", '"', $string);
 		}
@@ -187,19 +187,19 @@ function strip_empty_words($string, $lg = 0) {
 	return $string;
 }
 
-// clean_string() : fonction de nettoyage d'une chaÓne
+// clean_string() : fonction de nettoyage d'une chaï¿½ne
 function clean_string($string) {
 
-	// on supprime les caractËres non-imprimables
+	// on supprime les caractï¿½res non-imprimables
 	$string = pmb_preg_replace("/\\x0|[\x01-\x1f]/U","",$string);
 
-	// suppression des caractËres de ponctuation indesirables
+	// suppression des caractï¿½res de ponctuation indesirables
 	// $string = pmb_preg_replace('/[\{\}\"]/', '', $string);
 
 	// supression du point et des espaces de fin
 	$string = pmb_preg_replace('/\s+\.$|\s+$/', '', $string);
 
-	// nettoyage des espaces autour des parenthËses
+	// nettoyage des espaces autour des parenthï¿½ses
 	$string = pmb_preg_replace('/\(\s+/', '(', $string);
 	$string = pmb_preg_replace('/\s+\)/', ')', $string);
 
@@ -236,6 +236,7 @@ function formatdate($date_a_convertir, $with_hour=0) {
 	if ($with_hour) $resultatdate=mysql_query("select date_format('".$date_a_convertir."', '".$msg["format_date_heure"]."') as date_conv ");
 		else $resultatdate=mysql_query("select date_format('".$date_a_convertir."', '".$msg["format_date"]."') as date_conv ");
 	$date_conv=mysql_result($resultatdate,0,0);
+
 	return $date_conv ;
 }
 
@@ -259,7 +260,7 @@ function extraitdate($date_a_convertir) {
 	return $date_a_convertir ;
 }
 
-// construitdateheuremysql($date) : retourne une date formatee MySQL à partir de "YYYYmmddHHMMSS"
+// construitdateheuremysql($date) : retourne une date formatee MySQL ï¿½ partir de "YYYYmmddHHMMSS"
 function construitdateheuremysql($date_a_convertir) {
 	global $msg;
 	$date_a_convertir = str_replace('-', '', $date_a_convertir);
@@ -779,7 +780,7 @@ function pmb_sql_value($rqt) {
 }
 
 // ------------------------------------------------------------------
-//  mail_bloc_adresse() : renvoie un code HTML contenant le bloc d'adresse à mettre en bas 
+//  mail_bloc_adresse() : renvoie un code HTML contenant le bloc d'adresse ï¿½ mettre en bas 
 //  des mails envoyes par PMB (resa, prets) 
 // ------------------------------------------------------------------
 function mail_bloc_adresse() {
@@ -802,11 +803,12 @@ function mail_bloc_adresse() {
 //Affiche un bloc avec +
 //---------------------------------------------------------------------
 function gen_plus($id,$titre,$contenu,$maximise=0) {
+	global $msg;
 	if($maximise) $max=" startOpen=\"Yes\""; else $max='';
 	return "	
 	<div class='row'></div>
 	<div id='$id' class='notice-parent'>
-		<img src='./images/plus.gif' class='img_plus' name='imEx' id='$id"."Img' title='détail' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
+		<img src='./images/plus.gif' class='img_plus' name='imEx' id='$id"."Img' title='".$msg['plus_detail']."' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
 		<span class='notice-heada'>
 			$titre
 		</span>
@@ -909,14 +911,14 @@ function configurer_proxy_curl(&$curl){
 
 }
 
-//remplacement espace insécable 0xA0: &nbsp; Non-breaking space => problème lié à certaine version de navigateur
+//remplacement espace insï¿½cable 0xA0: &nbsp; Non-breaking space => problï¿½me liï¿½ ï¿½ certaine version de navigateur
 function clean_nbsp($input) {	
 	global $charset;
     if($charset=="iso-8859-1")$input = str_replace(chr(0xa0), ' ', $input);
     return $input;
 }
 
-// permet d'éviter une déconnection mysql
+// permet d'ï¿½viter une dï¿½connection mysql
 function mysql_set_wait_timeout($val_second=120) {
 	$sql = "set wait_timeout = $val_second";
 	mysql_query($sql);	
@@ -960,7 +962,7 @@ function alert_sound_script(){
 	if (!$param_sounds) return;
 	if (!count($alert_sound_list)) return;
 	
-	// Parfois ceci bloque le focus sur Firefox 3.5. pb de temps réel dans la gestion des evenements.
+	// Parfois ceci bloque le focus sur Firefox 3.5. pb de temps rï¿½el dans la gestion des evenements.
 	//$script="<embed src='!!sound_file!!' height='0' width='0' autostart='true' loop='false' BORDER='0'>";
  
 	
@@ -988,4 +990,8 @@ $script=
 	$script=str_replace("!!sound_file!!", $sound, $script) ;
 
 	return $script;
+}
+
+function console_log($msg_to_log){
+	print "<script type='text/javascript'>console.log('".addslashes($msg_to_log)."');</script>";
 }

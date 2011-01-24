@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: images.class.php,v 1.5 2010-07-08 15:28:34 arenou Exp $
+// $Id: images.class.php,v 1.8 2010-11-26 11:04:35 arenou Exp $
 
 require_once($visionneuse_path."/classes/mimetypes/affichage.class.php");
 
@@ -24,8 +24,7 @@ class images extends affichage{
     }
     
     function fetchDisplay(){
-    	global $base_path;  	
-    	print $this->doc->path;
+    	global $base_path;
     	//le titre
     	$this->toDisplay["titre"] = $this->doc->titre;
     	//l'image
@@ -97,14 +96,12 @@ class images extends affichage{
 				$new_h = $tailley ;
 				$new_w = $taillex ;
 			}
-			//$dst_img=imagecreatetruecolor($photo_mean_size_x,$photo_mean_size_y);
 			$dst_img=imagecreatetruecolor($new_w,$new_h);
 			ImageSaveAlpha($dst_img, true);
 			ImageAlphaBlending($dst_img, false);
 			imagefilledrectangle($dst_img,0,0,$photo_mean_size_x,$photo_mean_size_y,imagecolorallocatealpha($dst_img, 0, 0, 0, 127));
-			//imagecopyresized($dst_img,$src_img,round(($photo_mean_size_x-$new_w)/2),round(($photo_mean_size_y-$new_h)/2),0,0,$new_w,$new_h,ImageSX($src_img),ImageSY($src_img));
 			imagecopyresized($dst_img,$src_img,0,0,0,0,$new_w,$new_h,ImageSX($src_img),ImageSY($src_img));
-			$watermark = $this->driver->getUrlWatermark($this->parameters['watermark']);
+			$watermark = $this->driver->getUrlImage($this->parameters['watermark']);
 			if($watermark!= ""){
 			
 				$size = @getimagesize($watermark);
@@ -133,12 +130,12 @@ class images extends affichage{
 					ImageAlphaBlending($wr_img, false);
 					imagefilledrectangle($wr_img,0,0,$new_w,$new_h,imagecolorallocatealpha($wr_img,0, 0, 0, 127));
 					imagecopyresized($wr_img,$wat_img,0,0,0,0,$new_w,$new_h,ImageSX($wat_img),ImageSY($wat_img));
-					//imagecopymerge($dst_img,$wr_img,round(($photo_mean_size_x-$new_w)/2),round(($photo_mean_size_y-$new_h)/2),0,0,$new_w,$new_h,$watermark['tranparency']);
 					imagecopymerge($dst_img,$wr_img,0,0,0,0,$new_w,$new_h,$this->parameters['transparence']);
 
 				}
 			}
 			imagepng($dst_img);
+
 		}
     }
      

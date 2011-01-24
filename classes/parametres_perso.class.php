@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parametres_perso.class.php,v 1.43 2010-07-22 14:56:27 mbertin Exp $
+// $Id: parametres_perso.class.php,v 1.44 2011-01-20 14:36:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -515,8 +515,9 @@ class parametres_perso {
 				$field["OPTIONS"][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$this->t_fields[$key]["OPTIONS"], "OPTIONS");
 				$field["VALUES"]=$this->values[$key];
 				$field["PREFIX"]=$this->prefix;
-				eval("\$aff=".$val_list_empr[$this->t_fields[$key]["TYPE"]]."(\$field,\$this->values[\$key]);");
-				$t["AFF"]=htmlentities($aff,ENT_QUOTES,$charset);
+				$aff=$val_list_empr[$this->t_fields[$key]["TYPE"]]($field,$this->values[$key]);
+				if (is_array($aff) && $aff[ishtml] == true)$t["AFF"] = $aff["value"];
+				else $t["AFF"]=htmlentities($aff,ENT_QUOTES,$charset);
 				$t["NAME"]=$field["NAME"];
 				$t["ID"]=$field["ID"];
 				$perso["FIELDS"][]=$t;

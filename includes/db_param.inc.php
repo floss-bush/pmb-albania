@@ -9,9 +9,10 @@
 if(preg_match('/db_param\.inc\.php/', $_SERVER['REQUEST_URI'])) {
 	include('./forbidden.inc.php'); forbidden();
 	}
+
 // inclure ici les tableaux des bases de données accessibles
-$_tableau_databases[0]="pmb" ;
-$_libelle_databases[0]="pmb" ;
+$_tableau_databases[0]="bibli" ;
+$_libelle_databases[0]="bibli" ;
 
 // pour multi-bases
 if ($database) {
@@ -30,14 +31,12 @@ switch(LOCATION):
 		define('DATA_BASE', 'dbname');		// nom base de données
 		define('SQL_TYPE',  'mysql');		// Type de serveur de base de données
 		break;
-	case 'pmb':
+	case 'bibli':
 		define('SQL_SERVER', 'localhost');		// nom du serveur
 		define('USER_NAME', 'root');		// nom utilisateur
 		define('USER_PASS', 'root');		// mot de passe
 		define('DATA_BASE', 'pmb');		// nom base de données
 		define('SQL_TYPE',  'mysql');			// Type de serveur de base de données
-		// Encode de caracteres de la base de données 
-		$charset = "utf-8" ;
 		break;
 	default:		// valeurs pour l'accès local
 		define('SQL_SERVER', 'localhost');		// nom du serveur
@@ -49,3 +48,4 @@ switch(LOCATION):
 endswitch;
 
 $dsn_pear = SQL_TYPE."://".USER_NAME.":".USER_PASS."@".SQL_SERVER."/".DATA_BASE ;
+

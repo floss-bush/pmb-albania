@@ -1112,3 +1112,25 @@ table{
 		font-weight: bold;
 		color:#8888AA;
 	}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}

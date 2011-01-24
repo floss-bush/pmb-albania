@@ -1,0 +1,12 @@
+<h2>Busca simples</h2>
+<p><strong>digite o título ou autor para pesquisar e clique em <i>Buscar</i></strong></p>
+<hr />
+
+<p>Você pode inserir nomes próprios ou nomes comuns.</p>
+<p>Os <b>caracteres acentuados</b> e a <b>pontuação</b> são <b>ignorados</b> na busca (à, é, %, $, !, ', etc.).</p>
+<p>Você também pode pesquisar entre as editoras, coleções, sub-coleções, as categorias de dicionários de sinônimos (tesauros), a indexação (por exemplo CDD), palavras-chaves, resumos e notas.</p>
+<p>Para tanto, verifique <img src="images/coche.gif" align="absmiddle">
+ primeiro as caixas correspondentes em seguida, digite seus critérios de pesquisa e clique em Buscar.</p>
+<hr />
+<p>Sua busca também pode ser uma
+<a href="help.php?whatis=expbool">expressão booleana</a>.<br />

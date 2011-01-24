@@ -156,6 +156,9 @@
 			<query for="EXACT" regDiacrit="yes" Keep_EmptyWord="yes">
 				<main><![CDATA[select distinct responsability_notice as notice_id from responsability, authors where index_author=' !!p!! ' and responsability_author=author_id order by index_author]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct responsability_notice as notice_id from responsability,authors where responsability_author=' !!p!! ' and responsability_author=author_id order by index_author]]></main>
+			</query>
 		</field>	
 		<field title="msg:recherche_fonction_auteur" id="49">
 			<input type="marc_list">
@@ -184,6 +187,9 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes" Keep_EmptyWord="yes">
 				<main><![CDATA[select distinct notice_id from notices, publishers where (index_publisher=' !!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) order by index_publisher]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices, publishers where (ed_id=ed1_id or ed_id=ed2_id)  and ed_id = !!p!! order by index_publisher]]></main>
 			</query>
 		</field>
 		<field title="msg:annee_edition" id="23">
@@ -241,6 +247,9 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices, collections where (index_coll=' !!p!! ') and (coll_id=collection_id) order by index_coll]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices, collections where collection_id=!!p!! and coll_id=collection_id order by index_coll]]></main>
+			</query>
 		</field>
 		<field title="msg:searcher_subcoll" id="5">
 			<input type="authoritie" ajax="subcollections" selector="subcollection" p1="p1" p2="p2"/>
@@ -259,6 +268,9 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices, sub_collections where (index_sub_coll=' !!p!! ') and (subcoll_id=sub_coll_id) order by index_sub_coll]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices, sub_collections where subcoll_id=!!p!! and subcoll_id=sub_coll_id order by index_sub_coll]]></main>
 			</query>
 		</field>
 		<field title="msg:serie_query" id="6">
@@ -279,6 +291,9 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices, series where (serie_index=' !!p!! ') and (tparent_id=serie_id) order by serie_index, tnvol, index_sew]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices, series where tparent_id='!!p!!' and tparent_id=serie_id order by serie_index, tnvol, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:isbn_query" id="22">
 			<input type="text"/>
@@ -295,7 +310,7 @@
 			</query>
 		</field>
 		<field title="msg:titre_uniforme_search" id="51">
-			<input type="authoritie" ajax="titres_uniformes" selector="titre_uniforme" p1="param1" p2="param2"/>
+			<input type="authoritie" ajax="titre_uniforme" selector="titre_uniforme" p1="param1" p2="param2"/>
 			<query for="BOOLEAN" booleanSearch="yes">
 				<main><![CDATA[select ntu_num_notice as notice_id, !!pert_term!! as pert from notices_titres_uniformes, titres_uniformes where (!!where_term!!) and ntu_num_tu=tu_id group by notice_id order by pert desc, index_tu]]></main>
 				<table>titres_uniformes</table>
@@ -312,6 +327,9 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct ntu_num_notice as notice_id from  notices_titres_uniformes, titres_uniformes where tu_name='!!p!!' and ntu_num_tu=tu_id order by index_tu]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct ntu_num_notice as notice_id from  notices_titres_uniformes, titres_uniformes where ntu_num_tu='!!p!!' and ntu_num_tu=tu_id order by index_tu]]></main>
 			</query>
 		</field>	
 		<field title="msg:docnum_indexation_contenu" id="52">
@@ -505,7 +523,6 @@
 				<part>
 					<main>select notcateg_notice as notice_id from catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie like '%!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie like '%!!p!!')) group by notice_id</main>
 				</part>
-				<!-- <main><![CDATA[select distinct notcateg_notice as notice_id from notices_categories, categories where (categ_libelle like '%!!p!!') and notcateg_categorie=categ_id]]></main> -->
 			</query>
 			<query for="EXACT" multiple="yes">
 				<part>
@@ -529,7 +546,85 @@
 				<part>
 					<main>select notcateg_notice as notice_id from catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories where notices_categories.num_noeud=catdef.num_noeud and ((catlg.libelle_categorie='!!p!!') or (catlg.num_noeud is null and catdef.libelle_categorie='!!p!!')) group by notice_id</main>
 				</part>
-				<!-- <main><![CDATA[select distinct notcateg_notice as notice_id from notices_categories, categories where (categ_libelle='!!p!!') and notcateg_categorie=categ_id]]></main> -->
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices_categories join notices on notcateg_notice = notice_id join categories on notices_categories.num_noeud = categories.num_noeud and langue='!!lang!!' where notices_categories.num_noeud = !!p!! order by index_categorie, index_sew]]></main>
+			</query>
+		</field>		
+		<field title="msg:search_autopostage_multicritere" id="54">
+			<input type="authoritie" ajax="categories_mul" selector="categorie" p1="p1" p2="p2"/>
+			<variable name="lang" type="global"/>
+			<variable name="thesaurus_defaut" type="global"/>
+			<variable name="id_thesaurus" type="input" comment="Thésaurus">
+				<var name="thesaurus_mode_pmb" visibility="yes">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">thesaurus_defaut</default>
+				<input type="query_list">
+					<query allChoice="yes" titleAllChoice="msg:thes_all">select id_thesaurus, libelle_thesaurus from thesaurus order by libelle_thesaurus</query>
+				</input>
+			</variable>
+			<variable name="langue_defaut" type="calculated">
+				<calc type="value_from_query">
+					<query>select group_concat(langue_defaut SEPARATOR "','") as langue_defaut, 1 from thesaurus where id_thesaurus in (!!id_thesaurus!!) group by 2</query>
+				</calc>
+			</variable>
+			<!-- variables pour la recherche autorité... -->
+			<variable name="limit_montant" type="calculated">
+				<calc type="value_from_query">
+					<query>select case valeur_param when '0' then '{0,0}' when '*' then '*' else concat('{0,',valeur_param,'}') end  as limit_montant from parametres where sstype_param='auto_postage_search_nb_montant' and type_param='thesaurus'</query>
+				</calc>			
+			</variable>
+			<variable name="limit_descendant" type="calculated">
+				<calc type="value_from_query">
+					<query>select case valeur_param when '0' then '{0,0}' when '*' then '*' else concat('{0,',valeur_param,'}') end  as limit_montant from parametres where sstype_param='auto_postage_search_nb_descendant' and type_param='thesaurus'</query>
+				</calc>			
+			</variable>
+			<query for="BOOLEAN" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,path_word_categ,index_path_word_categ from noeuds, categories where categories.langue in ('!!langue_defaut!!') and noeuds.num_thesaurus in (!!id_thesaurus!!) and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,path_word_categ, index_path_word_categ from noeuds, categories where categories.langue in ('!!lang!!') and noeuds.num_thesaurus  in (!!id_thesaurus!!) and noeuds.id_noeud = categories.num_noeud</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+				<part booleanSearch="yes">
+					<main>select notcateg_notice as notice_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) group by notice_id order by pert desc</main>
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.path_word_categ</index_l>
+						<index_i>catlg.index_path_word_categ</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.path_word_categ</index_l>
+						<index_i>catdef.index_path_word_categ</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>
+			</query>
+			<query for="AUTHORITY" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>	
+				<part>
+					<main>create table catdef as select uni.* from (select n.id_noeud,n.path from noeuds as n join noeuds as term on n.path like concat(term.path,'%') where n.path regexp concat(term.path,'(\/[0-9]+)!!limit_descendant!!$') and term.id_noeud = !!p!! union select n.id_noeud,n.path from noeuds as n join noeuds as term on term.path like concat(n.path,'%') where n.path != 0 and term.path regexp concat(n.path,'(\/[0-9]+)!!limit_montant!!$') and term.id_noeud = !!p!!)as uni</main>
+				</part>		
+				<part>
+					<main>select distinct notcateg_notice as notice_id from catdef join notices_categories on catdef.id_noeud = notices_categories.num_noeud</main>
+				</part>	
 			</query>
 		</field>
 		<field title="msg:indexint_menu_title" id="12">
@@ -549,6 +644,9 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices, indexint where (index_indexint=' !!p!! ') and (indexint=indexint_id) order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[select distinct notice_id from notices, indexint where (indexint='!!p!!') and (indexint=indexint_id) order by index_serie, tnvol, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:324" id="13">
@@ -709,7 +807,7 @@
 				<query>select idlocation,location_libelle from docs_location order by location_libelle</query>	
 			</input>
 			<query for="EQ">
-				<main><![CDATA[SELECT ifnull(notices_m.notice_id,notices_s.notice_id) as notice_id FROM (((exemplaires LEFT JOIN notices AS notices_m ON expl_notice = notices_m.notice_id ) LEFT JOIN bulletins ON expl_bulletin = bulletins.bulletin_id) LEFT JOIN notices AS notices_s ON bulletin_notice = notices_s.notice_id) where expl_location='!!p!!' group by notice_id order by expl_location, notices_m.index_serie, notices_m.tnvol, notices_m.index_sew, notices_s.index_serie, notices_s.tnvol, notices_s.index_sew]]></main>
+				<main><![CDATA[SELECT distinct notice_id FROM ((SELECT notice_id FROM notices JOIN exemplaires ON ( notice_id = expl_notice ) WHERE expl_location = '!!p!!' GROUP BY notice_id) UNION  (SELECT notice_id FROM notices JOIN bulletins ON bulletin_notice = notice_id JOIN exemplaires ON expl_bulletin = bulletin_id WHERE expl_location = '!!p!!' GROUP BY notice_id) UNION (SELECT analysis_notice AS notice_id FROM exemplaires JOIN analysis ON (expl_bulletin = analysis_bulletin AND expl_bulletin !=0) WHERE expl_location = '!!p!!' GROUP BY notice_id ORDER BY expl_location,analysis_notice) UNION (SELECT notices.notice_id FROM exemplaires JOIN bulletins ON (expl_bulletin=bulletins.bulletin_id AND expl_bulletin!=0) JOIN notices ON (bulletins.num_notice=notices.notice_id AND bulletins.num_notice!=0) WHERE expl_location = '!!p!!' GROUP BY notice_id ORDER BY expl_location, notices.index_serie, notices.tnvol, notices.index_sew)) AS sub1 ORDER BY notice_id DESC]]></main>
 			</query>
 		</field>
 		<field title="msg:4018" id="17">
@@ -870,7 +968,7 @@
 				<query>select notice_id, tit1 from notices where niveau_biblio='s' order by tit1, index_sew</query>
 			</input>
 			<query for="EQ">
-				<main><![CDATA[select distinct notice_id from bulletins, analysis, notices where analysis_bulletin=bulletin_id and bulletin_notice in (!!p!!) and analysis_notice=notice_id order by index_serie, tnvol, index_sew]]></main>
+				<main><![CDATA[(select distinct notice_id from notices, analysis, bulletins where bulletin_notice in (!!p!!) and analysis_bulletin=bulletin_id and analysis_notice=notice_id order by index_serie, tnvol, index_sew) union (select distinct notice_id from notices, analysis, bulletins where bulletin_notice in (!!p!!) and num_notice = notice_id order by index_serie, tnvol, index_sew)]]></main>
 			</query>
 		</field>
 		<field title="msg:num_bull_query" id="35">
@@ -1214,5 +1312,6 @@
 		<operator name="LTEQ">&lt;=</operator>
 		<operator name="ISEMPTY" emptyAllowed="yes">msg:est_vide_query</operator>
 		<operator name="ISNOTEMPTY" emptyAllowed="yes">msg:pas_vide_query</operator>
+		<operator name="AUTHORITY">msg:authority_query</operator>
 	</operators>
 </pmbfields>

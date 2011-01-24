@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: category.tpl.php,v 1.29 2010-06-16 12:13:47 ngantier Exp $
+// $Id: category.tpl.php,v 1.30 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -265,6 +265,9 @@ $form_categ_replace = "
 		<input type='button' class='bouton_small' onclick=\"openPopUp('./select.php?what=categorie&caller=categ_replace&p1=by&p2=by_libelle&keep_tilde=1&parent=0&deb_rech='+".pmb_escape()."(this.form.by_libelle.value), 'select_categ', 700, 500, -2, -2, '$select_categ_prop')\" value='$msg[parcourir]' />
 		<input type='hidden' name='by' id='by' value='0'>
 	</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 </div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=categories&sub=categ_form&id=!!id!!&parent=!!parent!!';\">

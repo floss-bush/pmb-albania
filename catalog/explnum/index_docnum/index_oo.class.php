@@ -2,11 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: index_oo.class.php,v 1.1 2010-01-07 10:50:03 kantin Exp $
+// $Id: index_oo.class.php,v 1.2 2010-12-01 16:09:12 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
-require_once($class_path."/unzip.class.php");
+require_once($class_path."/zip.class.php");
 
 /**
  * Classe qui permet la gestion de l'indexation des fichiers OpenOffice
@@ -25,15 +25,9 @@ class index_oo{
 	function get_text($filename){
 		global $charset;
 		
-		$zip = new SimpleUnzip();
-		$entries = $zip->ReadFile($filename);
-		
-		foreach($entries as $entry){	
-			if($entry->Name == "content.xml"){
-				$texte = $entry->Data;			
-			}			
-		} 
-		
+		$zip = new zip($filename);
+		$texte = $zip->getFileContent("content.xml");		
+
 		//On enlève toute les balises offices
 		preg_match_all("(<([^<>]*)>)",$texte,$result);	
 		for($i=0;$i<sizeof($result[0]);$i++){

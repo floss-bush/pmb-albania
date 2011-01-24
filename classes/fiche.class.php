@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fiche.class.php,v 1.5 2010-09-20 07:32:00 ngantier Exp $
+// $Id: fiche.class.php,v 1.6 2011-01-18 09:00:31 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -17,8 +17,8 @@ class fiche{
 	
 	function fiche($id=0){
 		global $prefix;
-		
 		$this->id_fiche = $id;
+		
 		$this->p_perso = new parametres_perso($prefix); 
 	}
 	
@@ -187,9 +187,9 @@ class fiche{
 		} else {
 			$req = "update fiche set infos_global='', index_infos_global='' where id_fiche='".$this->id_fiche."'"; 
 			mysql_query($req,$dbh);
-		}
-		
+		}	
 		//On met à jour les champs persos
+		$this->p_perso->check_submited_fields();
 		$this->p_perso->rec_fields_perso($this->id_fiche);
 		
 		//On met à jour l'index de la fiche

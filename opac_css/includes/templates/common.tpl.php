@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: common.tpl.php,v 1.123 2010-08-30 15:21:39 gueluneau Exp $
+// $Id: common.tpl.php,v 1.126 2010-11-26 10:15:49 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -108,7 +108,6 @@ $std_header.="
 	<script type=\"text/javascript\" src=\"includes/javascript/drag_n_drop.js\"></script>
 	<script type=\"text/javascript\" src=\"includes/javascript/handle_drop.js\"></script>
 	<script type=\"text/javascript\" src=\"includes/javascript/popup.js\"></script>
-	
 </head>
 
 <body onload=\"window.defaultStatus='".$msg["page_status"]."';\" $iecssresizepb id=\"pmbopac\">
@@ -189,6 +188,41 @@ $short_header="
     \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" charset='".$charset."'>
 <head>
+<script type='text/javascript'>
+function show_what(quoi, id) {
+	var whichISBD = document.getElementById('div_isbd' + id);
+	var whichPUBLIC = document.getElementById('div_public' + id);
+	var whichongletISBD = document.getElementById('onglet_isbd' + id);
+	var whichongletPUBLIC = document.getElementById('onglet_public' + id);
+	
+	var whichEXPL = document.getElementById('div_expl' + id);	
+	var whichEXPL_LOC = document.getElementById('div_expl_loc' + id);	
+	var whichongletEXPL = document.getElementById('onglet_expl' + id);
+	var whichongletEXPL_LOC = document.getElementById('onglet_expl_loc' + id);
+	if (quoi == 'ISBD') {
+		whichISBD.style.display  = 'block';
+		whichPUBLIC.style.display = 'none';
+		whichongletPUBLIC.className = 'isbd_public_inactive';
+		whichongletISBD.className = 'isbd_public_active';
+	}else if(quoi == 'EXPL_LOC') {
+		whichEXPL_LOC.style.display = 'block';
+		whichEXPL.style.display = 'none';		
+		whichongletEXPL.className = 'isbd_public_inactive';		
+  		whichongletEXPL_LOC.className = 'isbd_public_active';
+	}else if(quoi == 'EXPL') {
+		whichEXPL_LOC.style.display = 'none';
+		whichEXPL.style.display = 'block';
+  		whichongletEXPL.className = 'isbd_public_active';
+		whichongletEXPL_LOC.className = 'isbd_public_inactive';
+	} else {
+		whichISBD.style.display = 'none';
+		whichPUBLIC.style.display = 'block';
+  		whichongletPUBLIC.className = 'isbd_public_active';
+		whichongletISBD.className = 'isbd_public_inactive';
+	}
+	
+}
+</script>
 !!liens_rss!!
 	".$stylescsscodehtml."
 </head>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: main.inc.php,v 1.36 2010-07-28 09:21:38 mbertin Exp $
+// $Id: main.inc.php,v 1.38 2010-11-30 16:27:45 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -139,13 +139,25 @@ switch($action) {
 			$rqt = "delete from resa where id_resa='".$suppr_id_resa[$i]."' ";
 			$res = mysql_query ($rqt, $dbh) ;			
 			// réaffectation du doc éventuellement
-			if (!verif_cb_utilise ($cb_recup)) {
-				if (!($id_resa_validee=affecte_cb ($cb_recup)) && $cb_recup) {
-					// cb non réaffecté, il faut transférer les infos de la résa dans la table des docs à ranger
-					$rqt = "insert into resa_ranger (resa_cb) values ('".$cb_recup."') ";
-					$res = mysql_query ($rqt, $dbh) ;
-				} else alert_empr_resa($id_resa_validee) ;
-			}
+			if($cb_recup){
+				if (!verif_cb_utilise ($cb_recup)) {
+					if (!($id_resa_validee=affecte_cb ($cb_recup))) {
+						// cb non réaffecté, il faut transférer les infos de la résa dans la table des docs à ranger
+						$rqt = "insert into resa_ranger (resa_cb) values ('".$cb_recup."') ";
+						$res = mysql_query ($rqt, $dbh) ;
+					} else {
+						alert_empr_resa($id_resa_validee) ;
+						$requete="SELECT empr_cb, empr_nom, empr_prenom, location_libelle FROM resa JOIN empr ON resa_idempr=id_empr JOIN docs_location ON resa_loc_retrait=idlocation  WHERE id_resa=".$id_resa_validee."";
+						$res=mysql_query($requete);
+						$msg_a_pointer .= "<div class='row'>";
+						$msg_a_pointer .="<div class='erreur'>".$msg["circ_retour_ranger_resa"]."</div>";
+						$msg_a_pointer .= "<span style='margin-left:2em;'><strong>".$msg["circ_retour_resa_par"]." : </strong><a href='./circ.php?categ=pret&form_cb=".rawurlencode(mysql_result($res,0,0))."'>".htmlentities(mysql_result($res,0,1),ENT_QUOTES,$charset).", ".htmlentities(mysql_result($res,0,2),ENT_QUOTES,$charset)."</a></span><br/>";
+						$msg_a_pointer .= "<span style='margin-left:2em;'><strong>".$msg["376"]." : </strong><a href='./circ.php?categ=visu_ex&form_cb_expl=".rawurlencode($form_cb_expl)."'>".htmlentities($form_cb_expl,ENT_QUOTES,$charset)."</a></span><br/>";
+						$msg_a_pointer .= "<span style='margin-left:2em;'><strong>".$msg["circ_retour_loc_retrait"]." : </strong>".htmlentities(mysql_result($res,0,3),ENT_QUOTES,$charset)."</span><br/>";
+						$msg_a_pointer .= "</div>" ;						
+					}
+				}
+			}	
 		}	
 		break;
 

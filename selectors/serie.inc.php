@@ -2,12 +2,12 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serie.inc.php,v 1.22 2010-07-28 07:44:39 mbertin Exp $
+// $Id: serie.inc.php,v 1.23 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=serie&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn";
+$base_url = "./select.php?what=serie&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&callback=$callback&infield=$infield";
 
 // contenu popup sélection auteur
 require('./selectors/templates/sel_serie.tpl.php');
@@ -63,6 +63,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $no_display;
  	global $charset;
 	global $msg;
+	global $callback;
 	
 	// on récupére le nombre de lignes qui vont bien
 
@@ -99,7 +100,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 		while(($serie=mysql_fetch_object($res))) {
 			$entry = $serie->serie_name;
 			print pmb_bidi("
-			<a href='#' onclick=\"set_parent('$caller', '$serie->serie_id', '".htmlentities(addslashes($entry),ENT_QUOTES,$charset)."')\">
+			<a href='#' onclick=\"set_parent('$caller', '$serie->serie_id', '".htmlentities(addslashes($entry),ENT_QUOTES,$charset)."','$callback')\">
 				$entry</a>");
 			print "<br />";
 

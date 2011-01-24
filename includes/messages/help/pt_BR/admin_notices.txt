@@ -1,0 +1,9 @@
+<h1>Gerenciamento de registros</h1>
+
+<p>A seção <b>Gerenciamento de registros</b> permite definir os parametros para os registros da Biblioteca.
+<ul>
+<li><b>Fontes</b> permite indicar as fontes dos registros com o objetivo de distinguir a distribuição dos direitos.</li>
+<li><b>Status</b> permite indicar algum status especial para os registros</li>
+<li><b>Campos personalizados</b> permite criar campos personalizados nos registros</li>
+</ul></p>
+ 

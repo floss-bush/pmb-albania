@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fournisseurs.tpl.php,v 1.22 2009-05-16 11:19:55 dbellamy Exp $
+// $Id: fournisseurs.tpl.php,v 1.23 2010-10-15 14:19:38 ngantier Exp $
 
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
@@ -126,7 +126,7 @@ $search_form = "
 	<div class='form-contenu'>
 		<div class='row'>
 			<div class='colonne2'>
-				<input type='text' class='saisie-60em' id='user_input' name='user_input' />
+				<input type='text' class='saisie-60em' id='user_input' name='user_input' value='!!user_input!!'/>
 			</div>
 		</div>
 		<div class='row'>
@@ -143,7 +143,7 @@ $search_form = "
 	</div>
 	<div class='row'>
 		<div class='left'>
-			<input type='submit' class='bouton' value='$msg[142]' onClick=\"return test_form(this.form)\" />
+			<input type='submit' class='bouton' value='$msg[142]' />
 			<!-- bouton_add -->
 		</div>
 		<div class='right'>

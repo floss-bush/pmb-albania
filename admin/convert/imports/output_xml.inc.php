@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: output_xml.inc.php,v 1.9 2009-07-30 10:17:46 erwanmartin Exp $
+// $Id: output_xml.inc.php,v 1.10 2010-11-30 15:36:51 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -22,4 +22,3 @@ function _get_footer_($output_params) {
 	$r=$output_params['ADDFOOTER'][0][value];
 	return $r."</".$output_params['ROOTELEMENT'][0][value].">";
 }
-

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: entrez.class.php,v 1.3 2009-10-14 11:43:29 touraine37 Exp $
+// $Id: entrez.class.php,v 1.4 2010-11-10 14:22:48 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -12,6 +12,7 @@ if (version_compare(PHP_VERSION,'5','>=') && extension_loaded('xsl')) {
 	require_once($include_path.'/xslt-php4-to-php5.inc.php');
 }
 
+require_once("pubmed_analyse_query.class.php");
 /**There be komodo dragons**/
 
 class entrez extends connector {
@@ -31,7 +32,7 @@ class entrez extends connector {
 	}
     
     function source_get_property_form($source_id) {
-    	global $charset;
+    	global $charset,$pmb_default_operator;
     	
     	$params=$this->get_source_params($source_id);
 		if ($params["PARAMETERS"]) {
@@ -48,6 +49,10 @@ class entrez extends connector {
 		if (!isset($entrez_maxresults))
 			$entrez_maxresults = 100;
 		$entrez_maxresults += 0;
+
+		if (!isset($entrez_operator))
+			$entrez_operator = 2;
+		$entrez_operator += 0;
 		
 		$options = "";
 		foreach ($this->available_entrezdatabases as $code => $caption)
@@ -63,7 +68,18 @@ class entrez extends connector {
 				</select>
 			</div>
 		</div>";
-		
+		$form="<div class='row'>
+			<div class='colonne3'>
+				<label for='operator'>Operator".$this->msg["entrez_operator"]."</label>
+			</div>
+			<div class='colonne_suite'>
+				<select name=\"entrez_operator\">
+					<option value='2' ".($entrez_operator == 2 ? "selected" : "").">".$this->msg["entrez_operator_default"]."</option>
+					<option value='0' ".($entrez_operator == 0 ? "selected" : "").">".$this->msg["entrez_operator_or"]."</option>
+					<option value='1' ".($entrez_operator == 1 ? "selected" : "").">".$this->msg["entrez_operator_and"]."</option> 
+				</select>
+			</div>
+		</div>";		
 		$form.="<div class='row'>
 			<div class='colonne3'>
 				<label for='url'>".$this->msg["entrez_maxresults"]."</label>
@@ -80,9 +96,10 @@ class entrez extends connector {
     }
 	
     function make_serialized_source_properties($source_id) {
-    	global $entrez_database, $entrez_maxresults;
+    	global $entrez_database, $entrez_maxresults, $entrez_operator;
     	$t["entrez_database"]=stripslashes($entrez_database);
     	$t["entrez_maxresults"]=$entrez_maxresults+0;
+    	$t["entrez_operator"]=$entrez_operator+0;
 
 		$this->sources[$source_id]["PARAMETERS"]=serialize($t);
 	}
@@ -122,6 +139,7 @@ class entrez extends connector {
 	//Fonction de recherche
 	function search($source_id,$query,$search_id) {
 		global $base_path;
+		global $pmb_default_operator;
 		
 		$params=$this->get_source_params($source_id);
 		$this->fetch_global_properties();
@@ -136,40 +154,57 @@ class entrez extends connector {
 		if (!isset($entrez_database)) {
 			$this->error_message = $this->msg["entrez_unconfigured"];
 			$this->error = 1;
-			$return;
+			return;
 		}
+		$entrez_operator = $entrez_operator+0;
+		$entrez_maxresults= $entrez_maxresults+0;
 
 		$unimarc_pubmed_mapping = array (
 			'XXX' => '',
 			'200$a' => '[Title]',
 			'7XX' => '[Author]',
-			'210$c' => '[Journal]',
-			'010$a' => '[uid]'
+			'210$c' => '[Publisher]',
+			'210$d' => '[Publication Date]',
+			'461$t' => '[Journal]'
+		);
+		
+		$pubmed_stopword = array(
+			"a","about","again", "all", "almost", "also", "although", "always", "among", "an", "and", "another", "any", "are", "as", "at",
+			"be", "because", "been", "before", "being", "between", "both","but", "by",
+			"can", "could",
+			"did", "do", "does", "done", "due", "during",
+			"each", "either", "enough", "especially", "etc",
+			"for", "found", "from", "further",
+			"had", "has", "have", "having", "here", "how", "however",
+			"i", "if", "in", "into", "is", "it", "its", "itself",
+			"just",
+			"kg", "km",
+			"made", "mainly", "make", "may", "mg", "might", "ml", "mm", "most", "mostly", "must",
+			"nearly", "neither", "no", "nor",
+			"obtained", "of", "often", "on", "our", "overall",
+			"perhaps", "pmid",
+			"quite",
+			"rather", "really", "regarding",
+			"seem", "seen", "several", "should", "show", "showed", "shown", "shows", "significantly", "since", "so", "some", "such",
+			"than", "that", "the", "their", "theirs", "them", "then", "there", "therefore", "these", "they", "this", "those", "through", "thus", "to",
+			"upon", "use", "used", "using",
+			"various", "very",
+			"was", "we", "were", "what", "when", "which", "while", "with", "within", "without", "would"
 		);
 		
 		$search_query = "";
-
-		if (count($query) == 1) {
-			$aquery_words = explode(" ", $query[0]->values[0]);
-			$search_querys=array();
-			foreach($aquery_words as $aquery_word) {
-				$search_querys[] = $aquery_word.(isset($unimarc_pubmed_mapping[$query[0]->ufield]) ? $unimarc_pubmed_mapping[$query[0]->ufield] : '');
+		foreach($query as $aquery){
+			$search_querys = array();
+			if($entrez_operator != 2){
+				$operator = $pmb_default_operator;
+				$pmb_default_operator = $entrez_operator;
 			}
-			$search_query=implode(" AND ", $search_querys);
-		}
-		else {
-			foreach($query as $aquery) {
-				$aquery_words = explode(" ", $aquery->values[0]);
-				$search_querys=array();
-				foreach($aquery_words as $aquery_word) {
-					$search_querys[] = '"'.$aquery_word.'"'. (isset($unimarc_pubmed_mapping[$aquery->ufield]) ? $unimarc_pubmed_mapping[$aquery->ufield] : '');
-				}
-				$sub_search_query = implode(' AND ', $search_querys);
-				if ($search_query)
-					$search_query = $search_query . " " . $aquery->inter . " " . $sub_search_query;
-				else 
-					$search_query = $sub_search_query;
-			}			
+			$field= (isset($unimarc_pubmed_mapping[$aquery->ufield]) ? $unimarc_pubmed_mapping[$aquery->ufield] : '');
+			$a=new pubmed_analyse_query($aquery->values[0],0,0,1,0,$field,$pubmed_stopword);
+			$sub_search_query =$a->show_analyse();
+			if($entrez_operator != 2) $pmb_default_operator=$operator;
+			if ($search_query) $search_query = $search_query . " " . strtoupper($aquery->inter) . " " . $sub_search_query;
+			else $search_query = $sub_search_query;
 		}
 
 		require_once 'entrez_protocol.class.php';

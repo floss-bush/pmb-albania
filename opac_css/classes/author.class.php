@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.class.php,v 1.22 2009-02-23 08:25:56 ngantier Exp $
+// $Id: author.class.php,v 1.23 2010-10-07 07:42:28 arenou Exp $
 
 // définition de la classe de gestion des 'auteurs'
 
@@ -137,9 +137,10 @@ function get_otherdata() {
 	} elseif( $this->type==72) {		
 		// C'est un congrès
 		$libelle=$msg["congres_libelle"].": ";
-		if($this->author_rejete) {
+
+		if($this->rejete) {
 			$this->isbd_entry = $libelle.$this->name." ".$this->rejete;
-			$this->display = $libelle.$this->name.", ".$this->rejete;
+			$this->display = $libelle.$this->name." ".$this->rejete;
 		} else {
 			$this->isbd_entry = $this->name;
 			$this->display = $this->name;

@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 //  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmb34.css,v 1.5 2010-08-03 07:50:34 touraine37 Exp $
+// $Id: pmb34.css,v 1.10 2010-12-22 11:21:37 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -317,6 +317,18 @@ iframe#iframe_resume_panier {
     	-webkit-border-top-right-radius:6px;
 		top:-28px;
 	}
+	
+	#search ul.search_tabs li#current a, #onglets_list ul.list_tabs li#current a {
+		font-weight:bold;
+		border:none;
+		margin-top: -4px;
+		color:#222;
+		background: none;
+	}
+	#search ul.search_tabs li#current a:hover, #onglets_list ul.list_tabs li#current a:hover {
+		margin-top: -1px;
+	}
+	
 	.search_dico {
 		position:relative;
 		top:-5px;
@@ -1203,13 +1215,21 @@ ul.empr_subtabs li:hover {
 	padding-right:0px;
 	margin:1px 7px;
 	height:17px;
-	}
+}
 
-/*ul.empr_subtabs a:hover {
-	border-left:1px solid #ccc;
-	border-right:1px solid #ccc;
-	border-bottom:1px solid #bbb;
-}*/
+#onglets_list .list_tabs li#current a {
+	border: none;
+	background: none;
+	top: 0;
+	margin-top: 0px !important;
+	color: #555555! important;
+	font-weight: normal;
+}
+
+#onglets_list .list_tabs li#current a:hover {
+	margin-top: -2px !important;
+	color: #000000;
+}
 
 #fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
 	padding:5px 12px 15px 12px;
@@ -1251,5 +1271,24 @@ table{
 	background-color: #ff0000;
 }
 
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
 
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
 
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}

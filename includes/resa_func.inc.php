@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa_func.inc.php,v 1.92 2010-07-30 12:40:20 mbertin Exp $
+// $Id: resa_func.inc.php,v 1.98 2010-12-08 14:14:32 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -28,13 +28,11 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 	global $resa_liste_jscript_GESTION_INFO_GESTION, $ajout_resa_jscript_choix_loc_retrait,$deflt_docs_location;
 	global $tdoc,$charset,$transferts_site_fixe, $pmb_location_reservation;
 	if (!$montrerquoi) $montrerquoi='all' ;
-	
 	if (!$order) $order="notices_m.index_sew, resa_idnotice, resa_idbulletin, resa_date" ;
 	if ($pmb_lecteurs_localises && !$idempr){
 		if ($f_loc=="")	$f_loc = $deflt_docs_location;
-		$sql_expl_loc= " and expl_location='".$f_loc."' ";
+		if ($f_loc)	$sql_expl_loc= " and expl_location='".$f_loc."' ";
 	}
-	
 	if ($pmb_transferts_actif=="1" && $f_loc && !$idempr) {
 		switch ($transferts_choix_lieu_opac) {	
 			case "1":
@@ -62,7 +60,10 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 				if ($f_loc && !$idempr )$sql_expl_loc= " and expl_location='".$f_loc."' ";
 			break;
 		}	
-	}		
+	}elseif($pmb_location_reservation && $f_loc && !$idempr) {			
+		$sql_loc_resa.=" and empr_location=resa_emprloc and resa_loc='".$f_loc."' ";
+		$sql_loc_resa_from=", resa_loc ";
+	}	
 	
 	$sql="SELECT resa_idnotice, resa_idbulletin, resa_date, resa_date_debut, resa_date_fin, resa_cb, resa_confirmee, resa_idempr, empr_nom, empr_prenom, empr_cb, location_libelle, resa_loc_retrait, ";
 	$sql.=" trim(concat(ifnull(notices_m.tit1,''),ifnull(notices_s.tit1,''),' ',ifnull(bulletin_numero,''), if (mention_date, concat(' (',mention_date,')') ,''))) as tit, id_resa, ";
@@ -77,9 +78,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 	
 	if ($idempr) 
 		$sql.=" AND id_empr='$idempr'";
-	elseif ($idnotice || $idbulletin) 
-		$sql.=" AND resa_idnotice = '$idnotice' AND resa_idbulletin='$idbulletin' ";
-	
+		
 	if ($montrerquoi=='validees')
 		$sql .= " AND resa_cb<>''";
 		
@@ -95,6 +94,21 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 	
 	$sql.=" $sql_loc_resa GROUP BY resa_idnotice, resa_idbulletin, resa_idempr ";
 	$sql.=" ORDER BY ".$order ;
+	
+	if ($idnotice || $idbulletin) {
+		$sql="SELECT resa_idnotice, resa_idbulletin, resa_date, resa_date_debut, resa_date_fin, resa_cb, resa_confirmee, resa_idempr, empr_nom, empr_prenom, empr_cb, location_libelle, resa_loc_retrait, ";
+		$sql.=" trim(concat(ifnull(notices_m.tit1,''),ifnull(notices_s.tit1,''),' ',ifnull(bulletin_numero,''), if (mention_date, concat(' (',mention_date,')') ,''))) as tit, id_resa, ";
+		$sql.=" ifnull(notices_m.typdoc,notices_s.typdoc) as typdoc, ";
+		$sql.=" IF(resa_date_fin>=sysdate() or resa_date_fin='0000-00-00',0,1) as perimee, date_format(resa_date_debut, '".$msg["format_date"]."') as aff_resa_date_debut, if(resa_date_fin='0000-00-00', '', date_format(resa_date_fin, '".$msg["format_date"]."')) as aff_resa_date_fin, date_format(resa_date, '".$msg["format_date"]."') as aff_resa_date " ;
+		$sql.=" FROM (((resa LEFT JOIN notices AS notices_m ON resa_idnotice = notices_m.notice_id ) ";
+		$sql.=" LEFT JOIN bulletins ON resa_idbulletin = bulletins.bulletin_id) ";
+		$sql.=" LEFT JOIN notices AS notices_s ON bulletin_notice = notices_s.notice_id), ";
+		$sql.=" empr, docs_location  ";
+		$sql.=" WHERE resa_idempr = id_empr AND idlocation = empr_location  AND resa_idnotice = '$idnotice' AND resa_idbulletin='$idbulletin' ";
+		$sql.=" ORDER BY  resa_date" ;
+		$f_loc=0;
+	}	
+	
 	$req = mysql_query($sql) or die("Erreur SQL !<br />".$sql."<br />".mysql_error()); 
 	
 	switch ($info_gestion) {
@@ -120,7 +134,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 			if ($montrerquoi=='valid_noconf') $aff_final .= "checked" ;
 			$aff_final .= "><label for='valid_noconf'>".$msg['resa_show_non_confirmees']."</label></span>";
 			
-			if ($pmb_transferts_actif=="1") {
+			if ($pmb_transferts_actif=="1" || $pmb_location_reservation) {
 				//la liste de sélection de la localisation
 				$aff_final .= "<br />".$msg["transferts_circ_resa_lib_localisation"];
 				$aff_final .= "<select name='f_loc' onchange='document.check_resa.submit();'>";
@@ -172,7 +186,9 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 	}
 		
 	$aff_final .= "
+	<script type='text/javascript' src='./javascript/sorttable.js'></script>
 	<table  class='sortable' width='100%'>";
+	
 	$aff_final .= "<tr>" ;
 	if (!$idnotice && !$idbulletin) $aff_final .= "<th>$msg[233]</th>" ;
 	if (!$idempr) {
@@ -210,7 +226,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 	
 	$aff_final .= "</tr>";
 	$odd_even=0;
-
+	
 	//on parcours la liste des réservations
 	while ($data = mysql_fetch_array($req)) {
 		$resa_idnotice = $data['resa_idnotice'];
@@ -220,6 +236,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 		$precedenteresa_idnotice=0;
 		
 		$no_aff=0;	
+		if(!($idnotice || $idbulletin))
 		if($f_loc &&!$idempr && $data['resa_cb'] && $data['resa_confirmee']){
 			// Dans la liste des résa à traiter, on n'affiche pas la résa qui a été affecté par un autre site
 			$query = "SELECT expl_location FROM exemplaires WHERE expl_cb='".$data['resa_cb']."' ";
@@ -231,7 +248,8 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 				}	
 			}
 		}
-		$rank = recupere_rang($resa_idempr, $resa_idnotice, $resa_idbulletin) ;
+		if($idempr)$f_loc=0;
+		$rank = recupere_rang($resa_idempr, $resa_idnotice, $resa_idbulletin,$f_loc) ;
 		$resa=new reservation($resa_idempr,$resa_idnotice, $resa_idbulletin);
 		$resa->get_resa_cb();
 		
@@ -322,7 +340,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 						$situation = $msg["resa_no_expl"];
 					}
 					if ( ($pmb_transferts_actif=="1") && ($f_loc!=0) && $transferts_choix_lieu_opac!=3) {
-							//on regarde si un des exemplaires n'est pas en transfert pour cette resa !
+						//on regarde si un des exemplaires n'est pas en transfert pour cette resa !
 						$query = "SELECT count(1) FROM transferts WHERE origine_comp=".$data['id_resa'];
 						$no_aff=0;
 						$tresult = mysql_query($query, $dbh);
@@ -368,7 +386,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 			}
 		} else 
 			$situation='';
-		if(!$no_aff) {
+		if(!$no_aff || ($idnotice || $idbulletin)) {
 			// on affiche les résultats 
 			if ($odd_even==0) {
 				$aff_final .= "\n<tr class='odd' onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='odd'\">";
@@ -658,11 +676,7 @@ function affecte_cb ($cb,$id_resa=0) {
 				case "3":
 					//retrait de la resa sur lieu exemplaire
 					$from= " ,exemplaires ";
-					$where= " AND expl_cb='$cb' and expl_location=" . $deflt_docs_location;
-					if($pmb_location_reservation) {	
-						$from_loc_resa= " ,empr, resa_loc ";		
-						$sql_loc_resa.=" and resa_idempr=id_empr and empr_location=resa_emprloc and resa_loc='$deflt_docs_location' "; 	
-					}					
+					$where= " AND expl_cb='$cb' and expl_location=" . $deflt_docs_location;	
 				break;	
 				default:
 					//retrait de la resa sur lieu lecteur
@@ -670,7 +684,11 @@ function affecte_cb ($cb,$id_resa=0) {
 					$where= " AND resa_idempr=id_empr and empr_location=" . $deflt_docs_location;
 				break;						
 			} //switch $transferts_choix_lieu_opac			
-		} 
+		}
+		if($pmb_location_reservation) {			
+			$from_loc_resa= " ,empr, resa_loc ";		
+			$sql_loc_resa=" and resa_idempr=id_empr and empr_location=resa_emprloc and resa_loc='$deflt_docs_location' "; 				
+		}
 
 		// chercher le premier (par ordre de rang, donc de date de début de résa, non validé
 		$rqt = 	"SELECT id_resa, resa_idempr,resa_loc_retrait 
@@ -723,6 +741,8 @@ function affecte_cb ($cb,$id_resa=0) {
 	$rqt .= " where id_resa='".$obj_resa->id_resa."' ";
 	$res = mysql_query ($rqt, $dbh) or die(mysql_error()." <br />$rqt");
 	
+	$rqt = "delete from resa_ranger where resa_cb='".$cb."' ";
+	$res = mysql_query ($rqt, $dbh);
 	return $obj_resa->id_resa ;
 }
 
@@ -846,12 +866,27 @@ function recupere_cb ($id) {
 }
 
 //   calcul du rang d'un emprunteur sur une réservation
-function recupere_rang($id_empr, $id_notice, $id_bulletin) {
+function recupere_rang($id_empr, $id_notice, $id_bulletin,$loc=0) {
 	global $dbh;
+	global $pmb_lecteurs_localises, $pmb_location_reservation,$deflt_docs_location;
 	$rank = 1;
 	if (!$id_notice) $id_notice=0;
 	if (!$id_bulletin) $id_bulletin=0 ;
-	$query = "SELECT resa_idempr FROM resa WHERE resa_idnotice='".$id_notice."' AND resa_idbulletin='".$id_bulletin."' ORDER BY resa_date";
+	if($pmb_lecteurs_localises){	
+		if($pmb_location_reservation && $loc) {			
+			$query = "SELECT resa_idempr 
+				FROM resa, empr, resa_loc  
+				WHERE 
+				resa_idnotice='".$id_notice."' AND resa_idbulletin='".$id_bulletin."'  
+				and id_empr=resa_idempr
+				and empr_location=resa_emprloc and resa_loc=$loc 
+				ORDER BY resa_date";
+		} else {
+			$query = "SELECT resa_idempr FROM resa WHERE resa_idnotice='".$id_notice."' AND resa_idbulletin='".$id_bulletin."' ORDER BY resa_date";			
+		}	
+	} else{
+		$query = "SELECT resa_idempr FROM resa WHERE resa_idnotice='".$id_notice."' AND resa_idbulletin='".$id_bulletin."' ORDER BY resa_date";		
+	}
 	$result = mysql_query($query, $dbh);
 	while($resa=mysql_fetch_object($result)) {
 		if($resa->resa_idempr == $id_empr) break;
@@ -961,16 +996,26 @@ function check_quota_resa($id_empr,$id_notice,$id_bulletin) {
 // retourne un tableau constitué des exemplaires disponibles pour une résa donnée
 function expl_dispo ($no_notice=0, $no_bulletin=0) {
 	global $dbh;
+	global $pmb_lecteurs_localises, $pmb_location_reservation,$deflt_docs_location;
+	
+	if($pmb_location_reservation) {			
+		$sql_loc_resa.=" and exemplaires.expl_location=resa_emprloc and resa_loc='".$deflt_docs_location."' ";
+		$sql_loc_resa_from=", resa_loc ";
+	}
+	if ($pmb_lecteurs_localises) {
+		$sql_localisation=", case  when exemplaires.expl_location = $deflt_docs_location then 1 else 0 END as loc_ici ";
+		$sql_order_localisation=" loc_ici desc, ";
+	}	
 	// on récupère les données des exemplaires
-	$requete = "SELECT expl_id, expl_cb, expl_cote, expl_notice, expl_bulletin, pret_retour, location_libelle, section_libelle, statut_libelle ";
-	$requete .= " FROM docs_location, docs_section, docs_statut, ";
+	$requete = "SELECT expl_id, expl_cb, expl_cote, expl_notice, expl_bulletin, pret_retour, location_libelle, section_libelle, statut_libelle 	$sql_localisation ";
+	$requete .= " FROM docs_location, docs_section, docs_statut $sql_loc_resa_from , ";
 	$requete .= " exemplaires LEFT JOIN pret ON exemplaires.expl_id=pret.pret_idexpl";
 	$requete .= " WHERE expl_notice='$no_notice' and expl_bulletin='$no_bulletin' ";
 	$requete .= " AND docs_statut.pret_flag=1";
 	$requete .= " AND exemplaires.expl_location=docs_location.idlocation";
 	$requete .= " AND exemplaires.expl_section=docs_section.idsection ";
-	$requete .= " AND exemplaires.expl_statut=docs_statut.idstatut ";
-	$requete .= " order by location_libelle, section_libelle, expl_cote ";
+	$requete .= " AND exemplaires.expl_statut=docs_statut.idstatut $sql_loc_resa";
+	$requete .= " order by $sql_order_localisation location_libelle, section_libelle, expl_cote ";
 	
 	$result = mysql_query($requete, $dbh);	
 
@@ -984,7 +1029,8 @@ function expl_dispo ($no_notice=0, $no_bulletin=0) {
 				'expl_cote' => $expl->expl_cote,
 				'location' => $expl->location_libelle,
 				'section' => $expl->section_libelle,
-				'statut' => $expl->statut_libelle ) ;
+				'statut' => $expl->statut_libelle ,
+				'loc_ici' => $expl->loc_ici ) ;			
 	}
 	return $tableau ;
 }

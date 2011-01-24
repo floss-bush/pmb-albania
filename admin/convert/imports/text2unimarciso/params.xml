@@ -14,58 +14,45 @@ $Id: params.xml,v 1.4 2006-02-01 17:21:14 dbellamy Exp $ -->
     <step type="texttoxml">
         <!-- Conversion texte en unimarc -->
         <trootelement>unimarc</trootelement>
-        <separator>,</separator>
-        <delimitedby>"</delimitedby>
-        <escaped>no</escaped>
+        <separator>|</separator>
+        <delimitedby></delimitedby>
+        <escaped>yes</escaped>
         <cols>
-			<!-- keyword ? -->
             <col id="1">
+                <field>010</field>
+                <subfield>a</subfield>
+            </col>
+            <col id="2,3">
                 <field>995</field>
-                <subfield>k</subfield>
+                <subfield>f,k</subfield>
             </col>
-			<!-- keyword ? -->
-            <col id="3">
-                <field>461</field>
-                <subfield>t</subfield>
-            </col>
-			<!-- emri, mbiemri i autorit -->
             <col id="4,5">
                 <field>700</field>
                 <subfield>a,b</subfield>
             </col>
-			<!-- titulli -->
-            <col id="6">
+            <col id="6,7">
                 <field>200</field>
-                <subfield>a</subfield>
+                <subfield>a,d</subfield>
+                <ind>1 </ind>
             </col>
-			<!-- vendi i botimit -->
-            <col id="7">
-                <field>260</field>
-                <subfield>a</subfield>
-            </col>
-			<!-- shtepia botuse-->
-            <col id="8">
-                <field>260</field>
-                <subfield>b</subfield>
-            </col>
-			<!-- viti i botimit-->
-            <col id="9">
+            <col id="8,9,10">
                 <field>210</field>
-                <subfield>d</subfield>
+                <subfield>a,c,d</subfield>
             </col>
-			<!-- cmimi-->
-            <col id="10">
-                <field>541</field>
-                <subfield>h</subfield>
-            </col>
-			<!-- ISBN / ISSN -->
             <col id="11">
                 <field>010</field>
-                <subfield>a</subfield>
+                <subfield>d</subfield>
             </col>
-			<!-- nr faqe -->
-            <col id="12">
+            <col id="12,13">
+                <field>225</field>
+                <subfield>a,h</subfield>
+            </col>
+            <col id="14,15,16">
                 <field>215</field>
+                <subfield>a,c,d</subfield>
+            </col>
+            <col id="17">
+                <field>676</field>
                 <subfield>a</subfield>
             </col>
         </cols>

@@ -3,17 +3,21 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.2 2009-11-28 19:58:16 erwanmartin Exp $ -->
+$Id: manifest.xml,v 1.3 2010-10-15 11:42:32 erwanmartin Exp $ -->
 <manifest>
 	<name>pmbesPublishers</name>
 	<requirements>
 		<requirement group="pmbesTypes"/>
+		<requirement group="pmbesAutLinks"/>
 	</requirements>
 	<types>
 		<type name="publisher" imported="true" imported_from="pmbesTypes"/>
 	</types>
 	<methods>
 		<method name="get_publisher_information" rights="" version="1.0" comment="msg:get_publisher_information_description" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesAutLinks" name="getLinks" version="1.0"/>
+			</requirements>
 			<inputs>
 				<description>msg:get_publisher_information_input_description</description>
 				<param name="publisher_id" type="scalar" dataType="integer" description="msg:get_publisher_information_publisher_id"/>
@@ -43,6 +47,7 @@ $Id: manifest.xml,v 1.2 2009-11-28 19:58:16 erwanmartin Exp $ -->
 			<requirements>
 		  		<requirement group="pmbesPublishers" name="get_publisher_information" version="1.0"/>
 		  		<requirement group="pmbesPublishers" name="list_publisher_notices" version="1.0"/>
+		  		<requirement group="pmbesAutLinks" name="getLinks" version="1.0"/>
 			</requirements>
 			<inputs>
 				<param name="publisher_id" type="scalar" dataType="integer"/>

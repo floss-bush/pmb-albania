@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
+$Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 
 <manifest>
 	<name>pmbesOPACEmpr</name>
@@ -29,6 +29,7 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 		<type name="shelf" imported="true" imported_from="pmbesTypes"/>
 		<type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes"/>
 		<type name="thesaurus" imported="true" imported_from="pmbesTypes"/>
+		<type name="reading_list" imported="true" imported_from="pmbesTypes"/>
         <type name="collstate" imported="true" imported_from="pmbesTypes" description=""/>  
 	</types>
 	<methods>
@@ -544,7 +545,9 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 					<param name="inter" type="scalar" dataType="string" description="msg:advancedSearchsearchinter"/>
 					<param name="field" type="scalar" dataType="integer" description="msg:advancedSearchsearchfield"/>
 					<param name="operator" type="scalar" dataType="string" description="msg:advancedSearchsearchoperator"/>
-					<param name="value" type="scalar" dataType="string" description="msg:advancedSearchsearchvalue"/>
+					<param name="value" type="array">
+						<param name="avalue" type="scalar" dataType="string" description=""/>
+					</param>
 				</param>
 			</inputs>
 			<outputs>
@@ -566,7 +569,9 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 					<param name="inter" type="scalar" dataType="string"/>
 					<param name="field" type="scalar" dataType="integer"/>
 					<param name="operator" type="scalar" dataType="string"/>
-					<param name="value" type="scalar" dataType="string"/>
+					<param name="value" type="array">
+						<param name="avalue" type="scalar" dataType="string" description=""/>
+					</param>
 				</param>
 				<param name="sourceIds" type="array">
 					<param name="aSourceId" type="scalar" dataType="integer"/>
@@ -929,7 +934,7 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 				<result name="due_date" type="scalar" dataType="string" description="msg:self_renew_due_date"/>				
 			</outputs>
 		</method>		
-		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_author_information_and_notices_description">
+		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="false" comment="msg:get_author_information_and_notices_description">
 			<requirements>
 		  		<requirement group="pmbesAuthors" name="get_author_information_and_notices" version="1.0"/>
 			</requirements>
@@ -946,7 +951,7 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesCollections" name="get_collection_information_and_notices" version="1.0"/>
 			</requirements>
@@ -961,7 +966,7 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesCollections" name="get_subcollection_information_and_notices" version="1.0"/>
 			</requirements>
@@ -976,7 +981,7 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesPublishers" name="get_publisher_information_and_notices" version="1.0"/>
 			</requirements>
@@ -1306,5 +1311,68 @@ $Id: manifest.xml,v 1.27 2010-09-24 10:41:38 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>	
+		<method name="getReadingLists" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="areadinglist" type="scalar" dataType="reading_list"/>	
+				</result>                      
+			</outputs>	
+		</method>
+		<method name="getPublicReadingLists" rights="" version="1.0" language_independant="true">
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="results">
+					<result name="areadinglist" type="scalar" dataType="reading_list"/>	
+				</result>                      
+			</outputs>	
+		</method>
+		<method name="addNoticesToReadingList" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+				<pmb_requirement start_path="class" file="acces.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="list_id" type="scalar" dataType="integer"/>
+				<param type="array" name="notice_ids">
+					<param name="areadinglist" type="scalar" dataType="integer"/>	
+				</param>                      				
+			</inputs>
+			<outputs>
+			</outputs>	
+		</method>
+		<method name="removeNoticesFromReadingList" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="list_id" type="scalar" dataType="integer"/>
+				<param type="array" name="notice_ids">
+					<param name="areadinglist" type="scalar" dataType="integer"/>	
+				</param>                      				
+			</inputs>
+			<outputs>
+			</outputs>	
+		</method>
+		<method name="emptyReadingList" rights="" version="1.0" language_independant="true">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="emprunteur.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="session_id" type="scalar" dataType="string"/>
+				<param name="list_id" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+			</outputs>	
+		</method>
 	</methods>
 </manifest>

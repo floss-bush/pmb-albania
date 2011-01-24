@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl_info.inc.php,v 1.46 2009-09-24 13:07:45 kantin Exp $
+// $Id: expl_info.inc.php,v 1.47 2010-11-26 10:50:28 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -72,7 +72,9 @@ function print_info ($expl, $mode_affichage = 0, $affichage_emprunteurs = 1, $af
 	// tester si réservé
 	$sql="SELECT resa_cb from resa_ranger where resa_cb='".addslashes($expl->expl_cb)."'";
 	$execute_query=mysql_query($sql);
-	if (verif_cb_utilise($expl->expl_cb)||mysql_num_rows($execute_query)) $situation = $msg['expl_reserve']; // exemplaire réservé
+	if(mysql_num_rows($execute_query))$situation = $msg['resa_menu_a_ranger'];  // exemplaire à ranger
+	elseif($expl->expl_retloc)$situation = $msg['resa_menu_a_traiter'];  // exemplaire à traiter
+	elseif(verif_cb_utilise($expl->expl_cb)) $situation = $msg['expl_reserve']; // exemplaire réservé
 	elseif ($expl->pret_flag && !$expl->pret_idempr) $situation = "${msg[359]}"; // exemplaire disponible
 	else $situation = "";
 	$__local.= "&nbsp;&nbsp;<b>".$situation."</b><br />";

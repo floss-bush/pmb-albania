@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sidibs.css,v 1.11 2010-01-26 13:56:39 kantin Exp $
+// $Id: sidibs.css,v 1.14 2010-12-23 16:32:24 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -233,7 +233,14 @@ term_search{
 	}
 	#search ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
 		
-	}    
+	}
+	#search ul.search_tabs li#current a, #onglets_list ul.list_tabs li#current a {
+		color: #ffffff;
+	}
+	#search ul.search_tabs li#current a:hover, #onglets_list ul.list_tabs li#current a:hover {
+		text-decoration: none;
+	} 
+	   
 	#search p.p1 { 
 		position:relative;
 		top:-20px;
@@ -1040,4 +1047,166 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+ 	padding:0 10px;
+    height: 24px;
+    margin-top: 35px;
+}
+
+#empr_onglet ul.empr_tabs{
+	font-size: 12px;
+    height: 20px;
+    left: 0 !important;
+    list-style: none outside none;
+    margin-left: -10px;
+    margin-top: -30px;
+    padding: 0;
+    position: static !important;
+    top: 0 !important;
+}
+
+#empr_onglet ul.empr_tabs li {
+    background-image: url("images/search_fond.png");
+    background-repeat: repeat-x;
+    border-top: 3px solid #382B2E;
+    border-left: 3px solid #382B2E;
+    border-right: 3px solid #382B2E;
+    border-bottom: none;
+    color: white;
+    float: left;
+    font-weight: bold;
+    height: 17px;
+    margin-bottom: 5px;
+    margin-right: 4px;
+    padding: 4px 6px 3px;
+}
+
+#empr_onglet ul.empr_tabs li a{
+    color: #0B5791;
+    text-decoration: none;
+}
+
+
+#empr_onglet ul.empr_tabs li a:hover{
+   	text-decoration: underline;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+    background-image: url("images/search_fond.png");
+    background-repeat: repeat-x;
+    border-top: 3px solid #382B2E;
+    border-left: 3px solid #382B2E;
+    border-right: 3px solid #382B2E;
+    border-bottom: none;
+    color: white;
+    float: left;
+    font-weight: bold;
+    height: 17px;
+    margin-bottom: 5px;
+    margin-right: 4px;
+    padding: 4px 6px 3px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	color:#ffffff;
+    background: none;
+    font-weight: bold;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 13px;
+}
+
+ul.empr_subtabs li{
+	display:inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+ul.empr_subtabs li a {
+ 	background: #2F2124;
+    border: 1px solid #777777;
+    color: #AAAAAA;
+    cursor: pointer;
+    text-decoration: none;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+ul.empr_subtabs li a:hover {
+    border: 1px solid #ffffff;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-dema {
+	padding-top: 40px;
+	padding-left: 10px;
+	border: 3px solid #382B2E;
+} 
+
+#empr-list {
+	margin-top: 55px;
+	margin-left: 12px;
+}
+
+#empr-resa small form input, #make_sugg-container form table input.bouton, #change-password-container form table input.bouton {
+    background: #2F2124;
+    border: 1px solid #777777;
+    color: #AAAAAA;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#list_cadre {
+	border: none !important;
+}
+
+#empr-resa small form input:hover , #make_sugg-container form table input.bouton:hover, #change-password-container form table input.bouton:hover {
+	border: 1px solid #ffffff;
+}
+
+#change-password h3 {
+	margin-top: 50px;
+	margin-left: 10px;
+}
+
+#make_sugg-container form table input, #make_sugg-container form table textarea, #make_sugg-container form table select {
+	border: 1px solid #2F2124;
+	margin-bottom: 5px;
 }

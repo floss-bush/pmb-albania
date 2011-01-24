@@ -34,6 +34,7 @@ $subcollection_level2_display = "
   <li>".sprintf($msg["subcollection_details_collection"],"!!collection!!")."</li>
   <li>".sprintf($msg["subcollection_details_issn"],"!!issn!!")."</li>
 </ul>
+<div class=aut_comment>!!comment!!</div>
 </div>
 ";
 

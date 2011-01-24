@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_affichage.class.php,v 1.7 2009-05-16 11:22:56 dbellamy Exp $
+// $Id: empr_affichage.class.php,v 1.8 2010-10-25 13:10:34 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -479,7 +479,7 @@ function do_image(&$entree,$depliable) {
 	if ($empr_pics_url) {
 		$code_chiffre = pmb_preg_replace('/ /', '', $this->empr_cb);
 		$url_image = $empr_pics_url ;
-		$url_image = "./getimage.php?url_image=".urlencode($url_image) ;
+		$url_image = "./getimage.php?url_image=".urlencode($url_image)."&empr_pic=1" ;
 			if ($depliable) 
 				$image = "<img src='./images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."'>";
 			else {

@@ -2,35 +2,35 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: circ.sht,v 1.11 2009-10-09 03:52:51 touraine37 Exp $
+// $Id: circ.sht,v 1.12 2010-12-03 15:27:05 dbellamy Exp $
 
 // raccourcis clavier pour la page main
 
-$raclavier[] = array("C" , "./circ.php");									// Circulation
-$raclavier[] = array("R" , "./circ.php?categ=retour");	 					// Retour de documents
-$raclavier[] = array("V" , "./circ.php?categ=visu_ex"); 					// Visu exemplaire
-$raclavier[] = array("U" , "./circ.php?categ=retour_secouru");	 			// Prêt secouru
+$raclavier[] = array("C" , "./circ.php");										// Circulation > Circulation > Pret de documents
+$raclavier[] = array("R" , "./circ.php?categ=retour");	 						// Circulation > Circulation > Retour de documents
+$raclavier[] = array("J" , "./circ.php?categ=ret_todo");	 					// Circulation > Circulation > Documents a traiter
+$raclavier[] = array("L" , "./circ.php?categ=empr_create");	 					// Circulation > Circulation > Nouveau lecteur
+$raclavier[] = array("T" , "./circ.php?categ=listeresa&sub=encours");			// Circulation > Reservations > En cours
+$raclavier[] = array("V" , "./circ.php?categ=visu_ex"); 						// Circulation > Visualiser > Exemplaire
+$raclavier[] = array("U" , "./circ.php?categ=retour_secouru");	 				// Circulation > Retour secouru
 
-$raclavier[] = array("D" , "./catalog.php");								// catalogage
-$raclavier[] = array("G" , "./catalog.php");								// cataloGage
-$raclavier[] = array("Z" , "./catalog.php?categ=z3950");					// rech Z39.50
-$raclavier[] = array("B" , "./catalog.php?shcut=B");						// rech par code-Barre
-$raclavier[] = array("N" , "./catalog.php?categ=create");	 				// création Notice
+$raclavier[] = array("K" , "./catalog.php");									// Catalogue > Recherche > Toutes notices > Auteur / Titre > Tous les champs
+$raclavier[] = array("B" , "./catalog.php?shcut=B");							// Catalogue > Recherche > Toutes notices > Auteur / Titre > N° d'exemplaire,ISBN,numero commercial
+$raclavier[] = array("M" , "./catalog.php?categ=search&mode=6");				// Catalogue > Recherche > Toutes notices > Multi-criteres
+$raclavier[] = array("I" , "./catalog.php?categ=search_perso");					// Catalogue > Recherche > Prédéfinie
+$raclavier[] = array("N" , "./catalog.php?categ=create");	 					// Catalogue > Documents > Nouvelle Notice
+$raclavier[] = array("F" , "./catalog.php?categ=serials&sub=pointage&id=0");	// Catalogue > Periodiques > Bulletinage
+$raclavier[] = array("G" , "./catalog.php?categ=caddie&sub=action");			// Catalogue > Paniers > Actions
+$raclavier[] = array("Z" , "./catalog.php?categ=z3950");						// Catalogue > Externe > Z39.50
 
-$raclavier[] = array("S" , "./admin.php?categ=sauvegarde&sub=launch");		// page de Sauvegarde
+$raclavier[] = array("A" , "./autorites.php");									// Autorites > Autorites > Auteurs
 
-$raclavier[] = array("I" , "./dsi.php?categ=diffuser&sub=lancer");			// dIffusion dsi
+$raclavier[] = array("E" , "./edit.php?categ=expl&sub=encours");				// Editions > Prets > Prets en cours
 
-$raclavier[] = array("A" , "./autorites.php");								// Autorités
+$raclavier[] = array("X" , "./admin.php?categ=param&action=");					// Administration > Modules > Outils > Parametres 
+$raclavier[] = array("S" , "./admin.php?categ=sauvegarde&sub=launch");			// Administration > Modules > Sauvegardes > Lancement sauvegarde
 
-$raclavier[] = array("E" , "./edit.php");									// Editions
-$raclavier[] = array("T" , "./edit.php?categ=notices&sub=resa_a_traiter");	// éditions des réservations à Traiter
-
-$raclavier[] = array("P" , "./account.php");								// Préférences
-$raclavier[] = array("Q" , "./logout.php");									// Quitter
-
-$raclavier[] = array("M" , "./catalog.php?categ=search&mode=6");			// Recherche multi-critères
-
-$raclavier[] = array("X" , "./admin.php?categ=param&action=");				// Admin > Paramètres
+$raclavier[] = array("P" , "./account.php");									// Préférences de l'utilisateur courant
+$raclavier[] = array("Q" , "./logout.php");										// Deconnexion
 
 include("$include_path/shortcuts/shortcuts.php");

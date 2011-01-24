@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: calendrier.inc.php,v 1.2 2009-02-25 11:17:47 ngantier Exp $
+// $Id: calendrier.inc.php,v 1.3 2010-11-04 15:33:03 ngantier Exp $
 
 
 print $popup_header;
@@ -14,7 +14,7 @@ if ($date_anterieure=="") $date_anterieure="NO";
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
 $base_url = "./select.php?what=calendrier&caller=$caller&date_caller=$date_caller&param1=$param1&param2=$param2&after=$after&auto_submit=$auto_submit&date_anterieure=$date_anterieure";
-
+$date_caller=str_replace('-','',$date_caller);
 if (($date_caller=="")||($date_caller=="00000000")||($date_caller=="00000000 00:00:00")) $date_caller = date ("Ymd", time());
 if ($date=="") $date=$date_caller;
 
@@ -86,21 +86,20 @@ $calend= <<<ENDOFTEXT
 		var DirectDate = document.Cal.DirectDate.value;
 		var url= "./ajax.php?module=ajax&categ=misc&fname=verifdate&p1=" + DirectDate;
 		var test_date = new http_request();
-
 		if(test_date.request(url)) alert ( test_date.get_text() );
 		else { 
-			document.getElementById('date_directe').value = DirectDate;			
+			document.getElementById('date_directe').value = DirectDate;
 			return 1;	
 		}
 	}
 	</script>
 		
-	<form name="Cal" id="Cal" method='post' action='!!post_url!!'>
+	<form name="Cal" id="Cal" method='post' action='!!post_url!!'><center>
 	<input type='text' name='DirectDate' size=10 value='!!date_caller!!'>
 	<input type='hidden' name='act' value='calc_date'>
 	<input type='hidden' id='date_directe' name='date' value='!!date_caller!!'>	
 	<input type='submit' class="bouton_small" value="!!commit_button!!" style="font-weight: bold" onClick="if(CheckDataAjax()) submit();">
-	</form>	
+	</center></form>	
 ENDOFTEXT;
 	
 	$calend = str_replace("!!commit_button!!" ,$msg["calendrier_date_submit"], $calend);	

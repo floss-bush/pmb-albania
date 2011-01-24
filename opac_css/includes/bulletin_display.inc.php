@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bulletin_display.inc.php,v 1.38 2010-08-19 13:14:38 touraine37 Exp $
+// $Id: bulletin_display.inc.php,v 1.41 2010-11-04 15:19:06 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,14 +20,34 @@ $requete = "SELECT bulletin_id, bulletin_numero, bulletin_notice, mention_date, 
 
 $res = @mysql_query($requete, $dbh);
 while(($obj=mysql_fetch_array($res))) {
+	//on cherches des documents numériques
+	$req = "select explnum_id from explnum where explnum_bulletin = ".$obj["bulletin_id"];
+	$resultat = mysql_query($req, $dbh) or die ($req." ".mysql_error());
+	$nb_ex = mysql_num_rows($resultat);
+	//on met le nécessaire pour la visionneuse
+	if($opac_visionneuse_allow && $nb_ex){
+		//print "&nbsp;&nbsp;&nbsp;".$link_to_visionneuse;
+		print "
+		<script type='text/javascript'>
+			function sendToVisionneuse(explnum_id){
+				document.getElementById('visionneuseIframe').src = 'visionneuse.php?mode=perio_bulletin&idperio=".$obj['bulletin_notice']."'+(typeof(explnum_id) != 'undefined' ? '&explnum_id='+explnum_id+\"\" : '\'');
+			}
+		</script>";
+	}
 	$requete3 = "SELECT notice_id FROM notices WHERE notice_id='".$obj["bulletin_notice"]."' ";
-	
 	$res3 = @mysql_query($requete3, $dbh);
 	while(($obj3=mysql_fetch_object($res3))) {
 		$notice3 = new notice($obj3->notice_id);		
 	}
 	$notice3->fetch_visibilite();
-	$res_print = "<h3><img src=./images/icon_per.gif> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b></h3>\n";
+	
+	//carrousel pour la navigation
+	if($opac_show_bulletin_nav)
+		$res_print = do_carroussel($obj);
+	else $res_print="";
+	
+	$res_print .= "<h3><img src=./images/icon_per.gif> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b>".($nb_ex ? "&nbsp;<a href='#docnum'>".($nb_ex > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />")."</a>" : "")."</h3>\n";
+	
 	$num_notice=$obj['num_notice'];
 	if ($obj['bulletin_titre']) {
 		$res_print .=  htmlentities($obj['bulletin_titre'],ENT_QUOTES, $charset)."<br />";
@@ -37,8 +57,9 @@ while(($obj=mysql_fetch_array($res))) {
 	if ($obj['bulletin_cb']) {
 		$res_print .= "<br />".$msg["code_start"]." ".htmlentities($obj['bulletin_cb'],ENT_QUOTES, $charset)."\n";
 		$code_cb_bulletin = $obj['bulletin_cb'];
-	}  	
+	} 
 }
+
 
 do_image(&$res_print, $code_cb_bulletin, 0 ) ;
 if ($num_notice) {
@@ -103,9 +124,78 @@ if ($num_notice) {
 		}
 	}
 	if ($notice3->visu_explnum && (!$notice3->visu_explnum_abon || ($notice3->visu_explnum_abon && $_SESSION["user_code"]))) { 
-		if (($explnum = show_explnum_per_notice(0, $id, ''))) print pmb_bidi("<h3>".$msg["explnum"]."</h3>".$explnum);
+		if (($explnum = show_explnum_per_notice(0, $id, ''))) print pmb_bidi("<a name='docnum'><h3>".$msg["explnum"]."</h3></a>".$explnum);
 	}	
 }
 mysql_free_result($res);
 
-print notice_affichage::autres_lectures (0,$id) ;
+print notice_affichage::autres_lectures (0,$id);
+
+function do_carroussel($bull){
+	global $msg;
+	//on commence par récupérer la liste des 3 bulletins précédents et suivants du courant...
+	$req = "(select bulletin_id, bulletin_numero, bulletin_notice, mention_date, date_date, bulletin_titre, bulletin_cb, date_format(date_date, '".$msg["format_date_sql"]."') as aff_date_date,num_notice from bulletins where bulletin_notice=".$bull['bulletin_notice']." and date_date < '".$bull['date_date']."' order by date_date desc limit 0,3) UNION ";
+	$req .= "(select bulletin_id, bulletin_numero, bulletin_notice, mention_date, date_date, bulletin_titre, bulletin_cb, date_format(date_date, '".$msg["format_date_sql"]."') as aff_date_date,num_notice from bulletins where bulletin_notice=".$bull['bulletin_notice']." and date_date >= '".$bull['date_date']."' order by date_date asc limit 0,4)";
+	$res_caroussel = mysql_query($req);
+	if(mysql_num_rows($res_caroussel)){
+		$prev = true;
+		$current = $previous = $next = array();
+		while (($bullForNav=mysql_fetch_array($res_caroussel))) {
+			if($bullForNav['bulletin_id'] == $bull['bulletin_id']){
+				$prev = false;
+				$current = $bullForNav;
+			}else{
+				if($prev == true){
+					$previous[] = $bullForNav;	
+				}else{
+					$next[] = $bullForNav;
+				}
+			}
+		}
+		$carroussel = "
+			<table class='carroussel_bulletin' style=''>
+				<tr>";
+				
+		$taille = 100;
+		//on a des bulletins précédent
+		if (sizeof($previous)>0){
+			$taille =$taille - 4;
+		}
+		//on a des bulletins suivant
+		if(sizeof($next)>0){
+			$taille =$taille - 4;
+		}
+			
+		
+		//ceux d'avant
+		//on égalise  : 3 de chaque coté
+		if(sizeof($previous)>0)$carroussel .= "<td style='width:4%;'><a href='index.php?lvl=bulletin_display&id=".$previous[0]['bulletin_id']."'><img align='middle' src='images/previous1.png'/></a></td>";
+		for($i=0 ; $i<(3-sizeof($previous)) ; $i++){
+			$carroussel .="<td style='width:".($taille/((3*2)+1))."%;'>&nbsp;</td>";
+		}
+		if(sizeof($previous)>0){
+			for($i=sizeof($previous)-1 ; $i>=0 ; $i--){
+				$carroussel .="<td class='active' style='width:".($taille/((3*2)+1))."%;'><a href='index.php?lvl=bulletin_display&id=".$previous[$i]['bulletin_id']."'>".$previous[$i]['bulletin_numero'].($previous[$i]['bulletin_titre'] ? " - ".$previous[$i]['bulletin_titre'] : "")."<br />".($previous[$i]['mention_date'] ? $previous[$i]['mention_date'] :$previous[$i]['aff_date_date'] )."</a></td>";
+			}
+		}
+		//le bull courant en évidence
+		$carroussel .="<td class='current_bull_carroussel' style='width:".($taille/((3*2)+1))."%;'><a href='index.php?lvl=bulletin_display&id=".$current['bulletin_id']."'>".$current['bulletin_numero'].($current['bulletin_titre'] ? " - ".$current['bulletin_titre'] : "")."<br />".($current['mention_date'] ? $current['mention_date'] :$current['aff_date_date'] )."</a></td>";
+		//la suite
+		if(sizeof($next)>0){
+			for($i=0 ; $i<sizeof($next) ; $i++){
+				$carroussel .="<td class='active' style='width:".($taille/((3*2)+1))."%;'><a href='index.php?lvl=bulletin_display&id=".$next[$i]['bulletin_id']."'>".$next[$i]['bulletin_numero'].($next[$i]['bulletin_titre'] ? " - ".$next[$i]['bulletin_titre'] : "")."<br />".($next[$i]['mention_date'] ? $next[$i]['mention_date'] :$next[$i]['aff_date_date'] )."</a></td>";
+			}
+		}
+		//on égalise  : 3 de chaque coté
+		for($i=0 ; $i<(3-sizeof($next)) ; $i++){
+			$carroussel .="<td style='width:".($taille/((3*2)+1))."%;'>&nbsp;</td>";
+		}
+		if(sizeof($next)>0)$carroussel .= "<td style='width:4%;'><a href='index.php?lvl=bulletin_display&id=".$next[0]['bulletin_id']."'><img align='middle' src='images/next1.png'/></a></td>";
+		//on ferme le tout
+			$carroussel .= "
+				</tr>
+			</table>";
+	}
+	
+	return $carroussel;
+}

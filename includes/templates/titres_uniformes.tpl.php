@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titres_uniformes.tpl.php,v 1.2 2010-06-16 12:13:47 ngantier Exp $
+// $Id: titres_uniformes.tpl.php,v 1.3 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -102,7 +102,7 @@ $titre_uniforme_replace = "
 <div class='form-contenu'>
 	<div class='row'>
 		<label class='etiquette' for='titre_uniforme_libelle'>$msg[160]</label>
-		</div>
+	</div>
 	<div class='row'>
 		<input type='text' class='saisie-50emr' id='titre_uniforme_libelle' name='titre_uniforme_libelle' value=\"\" completion=\"titres_uniformess\" autfield=\"by\" autexclude=\"!!id!!\"
     	onkeypress=\"if (window.event) { e=window.event; } else e=event; if (e.keyCode==9) { openPopUp('./select.php?what=titre_uniforme&caller=titre_uniforme_replace&param1=by&param2=titre_uniforme_libelle&no_display=!!id!!', 'select_ed', $selector_x_size, $selector_x_size, -2, -2, '$selector_prop'); }\" />
@@ -110,7 +110,10 @@ $titre_uniforme_replace = "
 		<input class='bouton' type='button' onclick=\"openPopUp('./select.php?what=titre_uniforme&caller=titre_uniforme_replace&param1=by&param2=titre_uniforme_libelle&no_display=!!id!!', 'select_ed', $selector_x_size, $selector_x_size, -2, -2, '$selector_prop')\" title='$msg[157]' value='$msg[parcourir]' />
 		<input type='button' class='bouton' value='$msg[raz]' onclick=\"this.form.titre_uniforme_libelle.value=''; this.form.by.value='0'; \" />
 		<input type='hidden' name='by' id='by' value=''>
-		</div>
+	</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 	</div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=titres_uniformes&sub=titre_uniforme_form&id=!!id!!';\">

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: suggestions_display.inc.php,v 1.27 2010-02-23 16:43:48 kantin Exp $
+// $Id: suggestions_display.inc.php,v 1.28 2010-10-18 09:42:19 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -113,7 +113,8 @@ function show_list_sug($id_bibli=0) {
 	} else {
 		setSessionSugState($statut);	
 	}
-	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();</script>";
+	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();
+	document.forms['search'].elements['user_input'].select();</script></script>";
 	
 	
 	//Prise en compte du formulaire de recherche

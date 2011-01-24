@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search_persopac.class.php,v 1.9 2010-03-11 08:06:58 touraine37 Exp $
+// $Id: search_persopac.class.php,v 1.10 2010-11-29 13:24:26 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -248,6 +248,7 @@ function curl_load_file($url, $filename) {
 	curl_setopt($curl, CURLOPT_FILE, $fp);
 	if(!curl_exec ($curl)) die("Le paramètre opac_url ( dans paramètres généraux ) doit avoir l'url complet de l'Opac: http:// ... ");
     curl_close ($curl);
+    fclose($fp);
 }
 
 } // fin définition classe

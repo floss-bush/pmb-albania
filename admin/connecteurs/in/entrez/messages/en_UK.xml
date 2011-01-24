@@ -5,10 +5,14 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: en_UK.xml,v 1.1 2009-11-30 10:39:25 kantin Exp $ -->
+$Id: en_UK.xml,v 1.2 2010-11-10 14:22:49 arenou Exp $ -->
 
 <XMLlist>
 	<entry code="entrez_database">Database</entry>
 	<entry code="entrez_unconfigured">This source is not configured.</entry>
 	<entry code="entrez_maxresults">Maximum search results returned</entry>
+	<entry code="entrez_operator_default">use default PMB operator</entry>
+	<entry code="entrez_operator_or">OR</entry>
+	<entry code="entrez_operator_and">AND</entry>
+	<entry code="entrez_operator">Operator</entry>
 </XMLlist>

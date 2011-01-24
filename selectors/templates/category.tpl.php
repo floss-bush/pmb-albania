@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: category.tpl.php,v 1.19 2010-07-28 07:44:39 mbertin Exp $
+// $Id: category.tpl.php,v 1.23 2011-01-07 16:06:55 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -81,8 +81,9 @@ function test_form(form)
 $jscript_ = "
 <script type='text/javascript'>
 <!--
-function set_parent_w(f_caller, id_value, libelle_value,w)
+function set_parent_w(f_caller, id_value, libelle_value,w,callback,id_thesaurus)
 {
+	
 	dyn='$dyn';
 	if(dyn==2) { // Pour les liens entre autorités
 		n_aut_link=w.opener.document.forms[f_caller].elements['max_aut_link'].value;
@@ -135,7 +136,19 @@ function set_parent_w(f_caller, id_value, libelle_value,w)
 	} else {
 		w.opener.document.forms[f_caller].elements['$p1'].value=id_value;
 		w.opener.document.forms[f_caller].elements['$p2'].value=reverse_html_entities(libelle_value);
-		parent.parent.close();
+		var p1 = '$p1';
+		var theselector = w.opener.document.getElementById(p1.replace('field','fieldvar').replace('_id','')+'[id_thesaurus][]');
+		if(theselector){
+			for (var i=1 ; i< theselector.options.length ; i++){
+				if (theselector.options[i].value == id_thesaurus){
+					theselector.options[i].selected = true;
+					break;
+				}
+			}
+		}
+		if(callback)
+			w.opener[callback]('$infield');
+		//parent.parent.close();
 	}
 }
 -->
@@ -145,9 +158,9 @@ function set_parent_w(f_caller, id_value, libelle_value,w)
 $jscript = $jscript_."
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, id_value, libelle_value)
+function set_parent(f_caller, id_value, libelle_value,callback,id_thesaurus)
 {
-	set_parent_w(f_caller, id_value, libelle_value,parent);
+	set_parent_w(f_caller, id_value, libelle_value,parent,callback,id_thesaurus);
 }
 -->
 </script>
@@ -156,9 +169,9 @@ function set_parent(f_caller, id_value, libelle_value)
 $jscript_term = $jscript_."
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, id_value, libelle_value)
+function set_parent(f_caller, id_value, libelle_value,callback,id_thesaurus)
 {
-	set_parent_w(f_caller, id_value, libelle_value,parent.parent);
+	set_parent_w(f_caller, id_value, libelle_value,parent.parent,callback,id_thesaurus);
 }
 -->
 </script>

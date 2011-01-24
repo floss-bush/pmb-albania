@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: selection.inc.php,v 1.14 2009-05-16 11:11:51 dbellamy Exp $
+// $Id: selection.inc.php,v 1.15 2010-10-21 08:59:10 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -111,7 +111,7 @@ function is_for_cart($requete) {
 }
 
 function show_procs($idcaddie) {
-	global $msg;
+	global $msg,$charset;
 	global $PMBuserid;
 	global $dbh;
 	
@@ -120,7 +120,6 @@ function show_procs($idcaddie) {
 	if ($PMBuserid!=1) $where=" and (autorisations='$PMBuserid' or autorisations like '$PMBuserid %' or autorisations like '% $PMBuserid %' or autorisations like '% $PMBuserid') ";
 	$requete = "SELECT idproc, type, name, requete, comment, autorisations, parameters FROM caddie_procs WHERE type='ACTION' $where ORDER BY name ";
 	$res = mysql_query($requete, $dbh);
-
 	$nbr = mysql_num_rows($res);
 
 	$parity=1;
@@ -138,11 +137,11 @@ function show_procs($idcaddie) {
 			$parity += 1;
 	        if (preg_match_all("|!!(.*)!!|U",$row[3],$query_parameters))  $action = "form_proc" ;
 			else $action = "add_item" ;
-	        $tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" onmousedown=\"if (confirm('".addslashes(sprintf($msg["caddie_action_proc_confirm"],$row[2]))."')) { url='./catalog.php?categ=caddie&sub=action&quelle=selection&action=$action&id=$row[0]&idcaddie=$idcaddie'; if (document.maj_proc.elt_flag.checked) url+='&elt_flag='+document.maj_proc.elt_flag.value; if (document.maj_proc.elt_no_flag.checked) url+='&elt_no_flag='+document.maj_proc.elt_no_flag.value; document.location=url; }\" ";
+	        $tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" onmousedown=\"if (confirm('".addslashes(str_replace("\"","",sprintf($msg["caddie_action_proc_confirm"],$row[2])))."')) { url='./catalog.php?categ=caddie&sub=action&quelle=selection&action=$action&id=$row[0]&idcaddie=$idcaddie'; if (document.maj_proc.elt_flag.checked) url+='&elt_flag='+document.maj_proc.elt_flag.value; if (document.maj_proc.elt_no_flag.checked) url+='&elt_no_flag='+document.maj_proc.elt_no_flag.value; document.location=url; }\" ";
         	print pmb_bidi("<tr class='$pair_impair' $tr_javascript style='cursor: pointer'>
 					<td>
-						<strong>$row[2]</strong><br />
-						<small>$row[4]&nbsp;</small>
+						<strong>".htmlentities($row[2],ENT_QUOTES,$charset)."</strong><br />
+						<small>".htmlentities($row[4],ENT_QUOTES,$charset)."&nbsp;</small>
 						</td>
 				</tr>");
 		}

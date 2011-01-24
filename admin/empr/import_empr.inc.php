@@ -729,30 +729,26 @@ switch($action) {
 					$row2 = mysql_fetch_row($result3);
 					//print $row2[0]."test";
 					if ($row2[0] == "") {
-							$querry3 = "delete From resa where resa_idempr = ".$row[0].";";
-							$result2 = mysql_query($querry3, $dbh) or die($msg["del_echoue"]."<p>".$querry3);
-							$querry2 = "delete From empr where empr_date_expiration = '$val' and id_empr = ".$row[0].";";
-							$result = mysql_query($querry2, $dbh) or die($msg["del_echoue"]."<p>".$querry2);
-							emprunteur::del_empr($row[0]);
+						emprunteur::del_empr($row[0]);
 					} else {
-							$cmpt++;
-							//print "compteur = ".$cmpt."<br />";
-							if($cmpt == 1) {
-								$desc_empr = desc_table($dbh, "empr");
-								print $val."<br />";
-								print '<font color="#FF0000" face="Geneva, Arial, Helvetica, sans-serif"><strong>'.$msg["personnes_nodel"]."<p>";
-								print '</strong></font>';
-								print "<table border='2'>";
-								print " <tr>";
-								foreach($desc_empr as $dummykey=>$empr)
-									print " <td>".$empr[0]."</td>";
-								print " </tr>";
-							}
-							$nbr1 = mysql_num_fields($res);
+						$cmpt++;
+						//print "compteur = ".$cmpt."<br />";
+						if($cmpt == 1) {
+							$desc_empr = desc_table($dbh, "empr");
+							print $val."<br />";
+							print '<font color="#FF0000" face="Geneva, Arial, Helvetica, sans-serif"><strong>'.$msg["personnes_nodel"]."<p>";
+							print '</strong></font>';
+							print "<table border='2'>";
 							print " <tr>";
-							for ($i = 0; $i < $nbr1; $i++)
-								print " <td>$row[$i]</td>";
+							foreach($desc_empr as $dummykey=>$empr)
+								print " <td>".$empr[0]."</td>";
 							print " </tr>";
+						}
+						$nbr1 = mysql_num_fields($res);
+						print " <tr>";
+						for ($i = 0; $i < $nbr1; $i++)
+							print " <td>$row[$i]</td>";
+						print " </tr>";
 					}
 
 				}

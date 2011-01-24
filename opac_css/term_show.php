@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: term_show.php,v 1.22 2009-02-11 21:41:55 touraine37 Exp $
+// $Id: term_show.php,v 1.23 2010-11-05 09:42:52 ngantier Exp $
 $base_path=".";                            
 $base_auth = ""; 
 
@@ -60,13 +60,13 @@ function parent_link($categ_id,$categ_see) {
 	global $msg;
 	
 	if ($categ_see) $categ=$categ_see; else $categ=$categ_id;
-	$tcateg =  new category($categ);
+	//$tcateg =  new category($categ);
 	if ($opac_show_empty_categ) 
 		$visible=true;
 	else
 		$visible=false;
 		
-	if ($tcateg->has_notices()) {
+	if (category::has_notices($categ)) {
 		$link="<a href='#' onClick=\"parent.parent.document.term_search_form.action='".$base_path."/index.php?lvl=categ_see&id=$categ&rec_history=1'; parent.parent.document.term_search_form.submit(); return false;\" title='".$msg["categ_see_alt"]."'><img src='./images/search.gif' border=0 align='absmiddle'></a>";
 		$visible=true;	
 	}

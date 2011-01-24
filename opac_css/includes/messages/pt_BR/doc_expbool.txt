@@ -1,0 +1,50 @@
+<h2>Expressão booleana</h2>
+<p class='pn-normal'>Por padrão, o motor buscas os elementos que contém ao menos uma das palavras. O resultado é classificado de acordo com o número decrescente das palavras encontradas, e depois por ordem alfabética.
+<br />Ex. <em>presunto bayonne</em> significa itens que contenham as palavras presunto <b>ou</b> bayonne (presunto de bayonne, presunto de parma, a história do Bayonne, ...).
+<br />Todos os caracteres não alfabéticos ou não númericos são substituídos por espaços, acentos não são considerados, nem maiúsculas/minúsculas.<br />Ex. <em>Colégio Saint-Jean</em> devem ser analisadas em três palavras : <em>lycee saint jean</em> 
+<br />Algumas palavras são ignoradas por não ter significado relevante em português (ex : de, do, da, t, l, d, s, sua seu, ...).
+</p>
+<br />
+<b>Truncamento</b>
+<p class='pn-normal'>Palavras podem ser truncadas para a esquerda, direita ou parcialmente usando o símbolo *.
+<br />Por exemplo, <em>hor*</em> encontraria palavras començando com <em>hor</em> <em>(horticultura, horror, ...)</em>, <em>*logia</em> encontraria palavras terminando com <em>gia</em> <em>(tecnologia, trilogia, ...)</em>, <em>t*logia</em> encontraria palavras começando com <em>t</em> e terminando com <em>logia</em> <em>(tecnologia, trilogia, ...)</em>.
+<br />Vários truncamentos podem ser usados dentro de uma mesma palavra.</p>
+<b>Pesquisando termos exatos</b>
+<p class='pn-normal'>Um termo exato é definido como um texto entre aspas. Se o mecanismo de busca encontrar um termo exato, olha para as ocorrências do texto exato do termo. Pode ser usado truncamento dentro de termos exatos.
+<br />Por exemplo, <em>"dent"</em> significa todos os registros que contenham o texto dent (dentista, acidente, identificação, ...).<br />
+<br />A Busca por termos exatos é muito funcional para pesquisar expressões contendo espaços ou sinais de pontuação (um acrônimo por exemplo).
+<br />Por exemplo, <em>"R.N.L.I."</em> encontrará registros contendo o texto R.N.L.I., <em>R.N.L.I.</em> encontrará registros contendo as letras R ou N ou L ou I.<br />
+<br />Acentos e maiúsculas são ignorados em um termo exato. Afinal, termos exatos podem ser usados em todas as expressões complexas como nos exemplos descritos abaixo.
+</p>
+<b>Negação</b>
+<p class='pn-normal'>O símbolo ~ posicionado antes de uma palavra representa a negação daquele termo. Na realidade significa que a busca retornará todos os registros contendo aquele termo.
+<br />Por exemplo, <em>~festa</em> encontrará todos  os registros exceto os que contém a palavra <em>festa</em>.
+</p>
+<b>Operadores lógicos entre duas palavras</b>
+<p class='pn-normal'>Operadores lógicos podem ser usados entre duas palavras:</p>
+<ul><li><b>+</b> : operador E<br />Por exemplo, <em>disco + rígido</em> significa qeu todos os registros que contêm as palavras <em>disco</em> <b>E</b> <em>rígido</em>.</li><br />
+<li><b>-</b> : operador NÃO<br />Por exemplo, <em>disco - rígido</em> significa que todos os registros contendo a palavra <em>disk</em>, <b>mas não as que contêm também </b> a palavra <em>rígido</em>.</li>
+</ul>
+<p class='pn-normal'>Vários operadores podem ser usados juntos em uma ou mais equações para busca de expressão. A ordem de precedência aplicada é da esquerda para a direita.
+<br />Por exemplo, <em>poesia + frances - romant*</em> siginifica que todos os registros que contêm <em>poesia</em> <b>E</b> <em>frances</em> <b>NÃO</b> <em>romantico</em>.
+<br /><br />Tome cuidado, duas operações não podem ser posicionadas imediatamente uma após a outra, uma negação não pode ser combinada com outro operador (<b>+~</b> expressam a mesma coisa que o operador <b>-</b>).
+</p>
+<b>Agrupamentos</b>
+<p class='pn-normal'>Uma expressão de busca pode ser agrupada para se tornar um único termo. Agrupamentos são feitos usando <b>parênteses</b>. Eles permitem alterar a ordem de precedência na aplicação de operadores ou permitem combinar os resultados de expressões complexas de busca ou equações.
+<br />Por exemplo,</p>
+<ul>
+<li><em>poesia + (frances romantico)</em> significa que em todos os registros que contenham as palavras <em>frances</em> OU <em>romance</em>, somente aqueles que contenham a palavra <em>poesia</em>.</li>
+<li><em>(poesia + frances) romance</em>, todos os registros que contenham <em>poesia</em> <b>E</b> <em>frances</em> <b>OU</b> todos os registros que contenham a palavra <em>romance</em></li>
+<li><em>~(poesia + frances) + (literatura ameri*)</em> significa todos os registros que <b>NÃO contêm as palavras</b> <em>poesia</em> E <em>frances</em> <b>E</b> registros que contêm as palavras <em>literatura</em> <b>OU</b> <em>ameri*</em></li>
+</ul>
+<p class='pn-normal'>Os parênteses podem ser imbricados uns com outros infinitamente.<br />Por exemplo, <em>(poesia + (romance frances)) (literatura + XIX)</em> significa todos os registros que contêm <em>frances</em> <b>OU</b> <em>romance</em>, <b>comente os que contêm</b> <em>poesia</em> <b>OU registros que contêm</b> <em>literatura</em> <b>E</b> <em>XIX</em> 
+</p>
+<b>P<b>Relevância</b>
+<p class='pn-normal'>Os resultados são ordenados por relevância e alfabeticamente. Relevância é computada apenas no número total de palavras ou termos exatos.
+<br />Por exemplo,</p>
+<ul>
+<li><em>poesia frances</em> retornará todos os registros que contêm <em>poesia</em> <b>OU</b> <em>frances</em>, aqueles que contêm ambas as palavras sendo exibidas no topo</li>
+<li><em>~(poesia + frances) (literatura ameri*)</em> retornará todos os registros que <b>não contêm</b> <em>poesia</em> <b>E</b> <em>frances</em>, desses registros, aqueles que contêm <em>literatura</em> <b>OU</b> <em>ameri*</em> aparecendo no topo dos resultados (primeiro <em>literatura</em> <b>E</b> <em>ameri*</em>, então <em>ameri*</em>, e finalmente <em>literatura</em>)</li>
+</ul>
+<hr />
+<p>Les expressions bool�ennes sont utilisables en <a href="help.php?whatis=simple_search">recherche simple</a> et en <a href="help.php?whatis=search_multi">recherche multi-crit�res</a>.</p>

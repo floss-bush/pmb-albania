@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.4 2010-08-11 10:25:38 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.5 2010-12-08 07:30:22 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -29,7 +29,7 @@ fetchNoticeList
 <!--
 fetchNoticeListArray
 -->
-	<entry code="fetchNoticeListArray_description">Se comporte comme la fonction fetchNoticeList, sauf que les notices ne sont pas converties dans un format spécifiques, mais sont envoyé directement sous la forme d'un tableau unimarc</entry>
+	<entry code="fetchNoticeListArray_description">Se comporte comme la fonction fetchNoticeList, sauf que les notices ne sont pas converties dans un format spécifique, mais sont envoyées directement sous la forme d'un tableau unimarc</entry>
 	<entry code="fetchNoticeListArray_input_description">Attention, aux exigences des protocoles en matière de charset si vous utilisez cette fonction. Par exemple, si vous utilisez SOAP, vous devez transporter les notices en utf-8.</entry>
 	<entry code="fetchNoticeListArray_output_description"></entry>
 	<entry code="fetchNoticeListArray_noticelist">un tableau contenant la liste des id des notices que l'on souhaite récupérer</entry>
@@ -95,7 +95,7 @@ listBulletinsExplNums
 <!--
 fetch_notices_bulletins
 -->
-	<entry code="fetch_notices_bulletins_description">Retourne les bulletins associé à des notices de périodique</entry>
+	<entry code="fetch_notices_bulletins_description">Retourne les bulletins associés à des notices de périodique</entry>
 	<entry code="fetch_notices_bulletins_input_description"></entry>
 	<entry code="fetch_notices_bulletins_output_description"></entry>
 	<entry code="fetch_notices_bulletins_noticesid">Un tableau contenant les ids des notices</entry>
@@ -111,7 +111,7 @@ fetch_notices_bulletins
 <!--
 fetchNoticeListFull
 -->
-	<entry code="fetchNoticeListFull_description">Renvoi le plus d'informations possible sur une série de notices</entry>
+	<entry code="fetchNoticeListFull_description">Renvoie le plus d'informations possible sur une série de notices</entry>
 	<entry code="fetchNoticeListFull_input_description"></entry>
 	<entry code="fetchNoticeListFull_output_description"></entry>
 	<entry code="fetchNoticeListFull_noticelist">Un tableau contenant les ids des notices que l'on souhaite retrouver</entry>
@@ -128,7 +128,7 @@ fetchNoticeListFull
 <!--
 fetch_bulletin_list
 -->
-	<entry code="fetch_bulletin_list_description">Renvoi une liste de bulletins</entry>
+	<entry code="fetch_bulletin_list_description">Renvoie une liste de bulletins</entry>
 	<entry code="fetch_bulletin_list_input_description"></entry>
 	<entry code="fetch_bulletin_list_output_description"></entry>
 	<entry code="fetch_bulletin_list_bulletin_ids">Les ids des bulletins</entry>
@@ -137,10 +137,10 @@ fetch_bulletin_list
 <!--
 fetchBulletinListFull
 -->
-	<entry code="fetchBulletinListFull_description">Renvoi le plus d'information sur une série de bulletins</entry>
+	<entry code="fetchBulletinListFull_description">Renvoie le plus d'informations sur une série de bulletins</entry>
 	<entry code="fetchBulletinListFull_input_description"></entry>
 	<entry code="fetchBulletinListFull_output_description"></entry>
-	<entry code="fetchBulletinListFull_bulletinlist">Le ids des bulletins à récupérer</entry>
+	<entry code="fetchBulletinListFull_bulletinlist">Les ids des bulletins à récupérer</entry>
 	<entry code="fetchBulletinListFull_recordFormat">Le format dans lequel on veut la notice du bulletin (si elle existe)</entry>
 	<entry code="fetchBulletinListFull_recordCharset">Le charset du format. Mettre utf-8 si c'est pour utiliser à travers un connecteur</entry>
 	<entry code="fetchBulletinListFull_results">Les résultats</entry>

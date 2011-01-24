@@ -1,0 +1,17 @@
+<h2>Busca por termos de categorias</h2>
+<p><strong>A busca por termos de categorias permite navegar entre os temas dos livros da biblioteca.</strong></p>
+<p>As categorias são uma classificação das obras (é um tesauro) estabelecidas pela biblioteca  
+usando palavras ou expressões : por exemplo <i>Literatura medieval</i> ou 
+<i>Mamíferos marinhos</i></p>
+<p>Nesta busca, começa por <b>introduzir um ou mais termos de pesquisa</b>, 
+por exemplo <i>história</i>. Os resultados da busca são exibidos na forma de 
+duas partes. </p>
+<p>A parte superior encaminha para as categorias correspondentes</b> à sua 
+busca. Um clique em uma das categorias da parte superior (por exemplo <i>história política</i>) 
+exibe as informações da <b>parte inferior mais as informações</b> da categoria escolhida e de eventuais <b>referências</b>.</p>
+<hr />
+<p>Ao clicar em um dos links da parte inferior, você muda de categoria em categoria.</p>
+<hr />
+<p>Para selecionar uma categoria e exibir as obras correspondentes, clique na lupa <img src='images/search.gif' align='absmiddle'>situada no início da linha.</p>
+<hr />
+<p>Se a lupa não estiver visível, nenhuma obra corresponde à categoria.</p>

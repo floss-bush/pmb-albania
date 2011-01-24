@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bulletin_affichage.inc.php,v 1.14 2010-08-19 13:14:38 touraine37 Exp $
+// $Id: bulletin_affichage.inc.php,v 1.16 2010-10-11 08:26:16 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -41,7 +41,7 @@ function bulletin_affichage_reduit($id, $no_link=0) {
 
 }
 
-function bulletin_affichage($id){
+function bulletin_affichage($id,$type=""){
 
 	global $dbh, $msg;
 	
@@ -55,13 +55,18 @@ function bulletin_affichage($id){
 			$notice3 = new notice($obj3->notice_id);		
 		}
 		$notice3->fetch_visibilite();
-		$res_print = "<h3><img src=./images/icon_per.gif> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b></h3>\n";
+		//on vient poser l'ancre des docnums...
+		$req = "select explnum_id from explnum where explnum_bulletin = ".$obj["bulletin_id"];
+		$resultat = mysql_query($req, $dbh) or die ($req." ".mysql_error());
+		$nb_ex = mysql_num_rows($resultat);
+		$res_print = "<h3><img src=./images/icon_per.gif> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b>".($nb_ex ? "&nbsp;<a href='#docnum'>".($nb_ex > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />")."</a>" : "")."</h3>\n";
 		$num_notice=$obj['num_notice'];
 		if ($obj['bulletin_titre']) {
 			$res_print .=  htmlentities($obj['bulletin_titre'],ENT_QUOTES, $charset)."<br />";
 		} 
 		if ($obj['mention_date']) $res_print .= $msg['bull_mention_date']." &nbsp;".$obj['mention_date']."\n"; 
 		if ($obj['date_date']) $res_print .= "<br />".$msg['bull_date_date']." &nbsp;".$obj['aff_date_date']." \n";     
+		if($type != "visionneuse" && $nb_ex) $res_print .= "<br /><a href='#docnum'>".($nb_ex > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />")."</a>";
 		if ($obj['bulletin_cb']) {
 			$res_print .= "<br />".$msg["code_start"]." ".htmlentities($obj['bulletin_cb'],ENT_QUOTES, $charset)."\n";
 			$code_cb_bulletin = $obj['bulletin_cb'];
@@ -75,7 +80,8 @@ function bulletin_affichage($id){
 		$opac_notices_depliable = 0;
 		$seule=1;
 		//$display .= pmb_bidi(aff_notice($num_notice,0,0)) ;
-		$display .= pmb_bidi(aff_notice($num_notice,0,1,0,"",0));
+		if($type == "visionneuse") $display .= pmb_bidi(aff_notice($num_notice,1,1,0,"",0,1));
+		else $display .= pmb_bidi(aff_notice($num_notice,0,1,0,"",0));
 	} else {
 		// construction des dépouillements
 		$depouill= "<br /><h3>".$msg['bull_dep']."</h3>";
@@ -133,9 +139,9 @@ function bulletin_affichage($id){
 					$display .= pmb_bidi(notice_affichage::expl_list("m",0,$id));
 			}
 		}
-		if ($notice3->visu_explnum && (!$notice3->visu_explnum_abon || ($notice3->visu_explnum_abon && $_SESSION["user_code"]))) { 
+		if ($type != "visionneuse" && $notice3->visu_explnum && (!$notice3->visu_explnum_abon || ($notice3->visu_explnum_abon && $_SESSION["user_code"]))) { 
 			if (($explnum = show_explnum_per_notice(0, $id, ''))) 
-				$display .=  pmb_bidi("<h3>".$msg["explnum"]."</h3>".$explnum);
+				$display .=  pmb_bidi("<a name='docnum'><h3>".$msg["explnum"]."</h3></a>".$explnum);
 		}	
 	}
 	mysql_free_result($res);

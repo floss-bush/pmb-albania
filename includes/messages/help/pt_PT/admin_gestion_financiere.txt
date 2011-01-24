@@ -9,10 +9,8 @@ movimentos financeiros associados a cada leitor :
 	<li>tarifa dos empr&eacute;stimos segundo o tipo de documento 
 	
 </ul>
-<p>Se escolheu a gest&atilde;o simples das tarifas das inscrições,
-estas est&atilde;o vis&iacute;veis em <a href='admin.php?categ=empr&sub=categ'>Administra&ccedil;&atilde;o;
-Leitores; Categor&iacute;as de leitores</a>.</p>
-<p>Se escolheu a gest&atilde;o simples das tarifas dos empr&eacute;stimos,
-estas est&atilde;o vis&iacute;veis em <a href='admin.php?categ=docs&sub=typdoc'>Administrac&atilde;o
-; Exemplares ; Tipos de documentos</a>.</p>
+<p>Se escolheu a gest&atilde;o simples das tarifas das inscri&ccedil;&atilde;oes,
+estas est&atilde;o vis&iacute;veis em <a href='admin.php?categ=empr&sub=categ'>Administra&ccedil;&atilde;o &gt; Leitores &gt; Categor&iacute;as</a>.</p>
+<p>Se escolheu a gest&atilde;o simples das tarifas dos empr&eacute;stimos, estas est&atilde;o vis&iacute;veis em <a href='admin.php?categ=docs&sub=typdoc'>Administrac&atilde;o 
+&gt; Exemplares &gt; Suportes</a>.</p>
 

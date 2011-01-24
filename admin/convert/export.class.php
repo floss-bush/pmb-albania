@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.class.php,v 1.49 2010-08-11 13:40:03 erwanmartin Exp $
+// $Id: export.class.php,v 1.50 2010-12-13 10:10:11 mbertin Exp $
 
 //Export d'une notice PMB en XML PMB MARC
 
@@ -426,24 +426,53 @@ class export {
 			}
 			
 			if ($keep_expl) {
-				//Traitement des exemplaires
-				$requete = "select expl_id, create_date, expl_cb,expl_cote,expl_statut,statut_libelle, statusdoc_codage_import, expl_typdoc, tdoc_libelle, tdoc_codage_import, expl_note, expl_comment, expl_section, section_libelle, sdoc_codage_import, expl_owner, lender_libelle, codestat_libelle, statisdoc_codage_import, expl_date_retour, expl_date_depot, expl_note, pret_flag, location_libelle, locdoc_codage_import from exemplaires, docs_statut, docs_type, docs_section, docs_codestat, lenders, docs_location".($is_expl_caddie==2?",expl_cart_id":"")." where expl_notice=".$res -> notice_id." and expl_statut=idstatut and expl_typdoc=idtyp_doc and expl_section=idsection and expl_owner=idlender and expl_codestat=idcode and expl_location=idlocation".($is_expl_caddie==2?" and expl_id=id":"");
-				if (($lender != "x")&&($lender!=""))
-					$requete.= " and expl_owner=".$lender;
-				if (count($td) != 0)
-					$requete.= " and expl_typdoc in (".implode(",", $td).")";
-				if (count($sd) != 0)
-					$requete.= " and expl_statut in (".implode(",", $sd).")";
-				$resultat = mysql_query($requete);
-				
-				while (($ex = mysql_fetch_object($resultat))) {
-					$subfields = array();
-					global $export996 ;
-					$export996 = array() ;
-					$subfields = export_traite_exemplaires ($ex);
-					$this -> add_field("995", "  ", $subfields);
-					if (count($export996) != 0) $this -> add_field("996", "  ", $export996);
+				if($res->niveau_biblio == 'b' && $res->niveau_hierar == '2'){//Si c'est une notice de bulletin
+					$requete="SELECT bulletin_id FROM bulletins WHERE num_notice='".$res -> notice_id."'";
+					$res_bull=mysql_query($requete);
+					if(mysql_num_rows($res_bull)){
+						$id_bull=mysql_result($res_bull,0,0);
+						if((array_search($id_bull,$this->bulletins_exporte)===false) && (array_search($id_bull,$this->expl_bulletin_a_exporter)===false)){
+					    	//Si on exporte les exemplaires on garde l'ID du bulletin pour exporter ses exemplaires
+					    	$this->expl_bulletin_a_exporter[]=$id_bull;
+					    }
+					}
+				}else{//Si non
+					//Traitement des exemplaires
+					$requete = "select expl_id, create_date, expl_cb,expl_cote,expl_statut,statut_libelle, statusdoc_codage_import, expl_typdoc, tdoc_libelle, tdoc_codage_import, expl_note, expl_comment, expl_section, section_libelle, sdoc_codage_import, expl_owner, lender_libelle, codestat_libelle, statisdoc_codage_import, expl_date_retour, expl_date_depot, expl_note, pret_flag, location_libelle, locdoc_codage_import from exemplaires, docs_statut, docs_type, docs_section, docs_codestat, lenders, docs_location".($is_expl_caddie==2?",expl_cart_id":"")." where expl_notice=".$res -> notice_id." and expl_statut=idstatut and expl_typdoc=idtyp_doc and expl_section=idsection and expl_owner=idlender and expl_codestat=idcode and expl_location=idlocation".($is_expl_caddie==2?" and expl_id=id":"");
+					if (($lender != "x")&&($lender!=""))
+						$requete.= " and expl_owner=".$lender;
+					if (count($td) != 0)
+						$requete.= " and expl_typdoc in (".implode(",", $td).")";
+					if (count($sd) != 0)
+						$requete.= " and expl_statut in (".implode(",", $sd).")";
+					$resultat = mysql_query($requete);
+					
+					while (($ex = mysql_fetch_object($resultat))) {
+						$subfields = array();
+						global $export996 ;
+						$export996 = array() ;
+						$subfields = export_traite_exemplaires ($ex);
+						$this -> add_field("995", "  ", $subfields);
+						if (count($export996) != 0) $this -> add_field("996", "  ", $export996);
+						//Export des cp d'exemplaires
+						$mes_pp= new parametres_perso("expl");
+						$mes_pp->get_values($ex->expl_id);
+						$values = $mes_pp->values;
+						foreach ( $values as $field_id => $vals ) {
+							if($mes_pp->t_fields[$field_id]["EXPORT"]) { //champ exportable
+								foreach ( $vals as $value ) {
+									$subfields = array();
+								 	$subfields["a"]=$mes_pp->get_formatted_output(array($value),$field_id);//Valeur
+								 	$subfields["l"]=$mes_pp->t_fields[$field_id]["TITRE"];//Libelle du champ
+								 	$subfields["n"]=$mes_pp->t_fields[$field_id]["NAME"];//Nom du champ
+								 	$subfields["f"]=$ex->expl_cb;
+								 	$this->add_field("999","  ",$subfields);
+								} 
+							}
+						}
+					}
 				}
+
 			}
 
 			//Mots cles
@@ -452,15 +481,16 @@ class export {
 			$this -> add_field("610", "0 ", $subfields);
 
 			//Descripteurs
-			$requete="SELECT libelle_categorie FROM categories, notices_categories WHERE notcateg_notice=".$res->notice_id." and categories.num_noeud = notices_categories.num_noeud ORDER BY ordre_categorie";
-			$resultat=mysql_query($requete);
-			if (mysql_num_rows($resultat)) {
-	  			for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-	  				$subfields=array();
-	  				$subfields["a"]=mysql_result($resultat,$i);
-	  				$this -> add_field("606"," 1",$subfields);
-				}
-			}
+			$requete="SELECT libelle_categorie,categories.num_noeud FROM categories, notices_categories WHERE notcateg_notice=".$res->notice_id." and categories.num_noeud = notices_categories.num_noeud ORDER BY ordre_categorie";
+            $resultat=mysql_query($requete);
+            if (mysql_num_rows($resultat)) {
+                  for ($i=0; $i<mysql_num_rows($resultat); $i++) {
+                      $subfields=array();
+                      $subfields["9"]=mysql_result($resultat,$i,1);
+                      $subfields["a"]=mysql_result($resultat,$i,0);
+                      $this -> add_field("606"," 1",$subfields);
+                }
+            }
 			
 			//Champs perso de notice traite par la table notice_custom
 			$mes_pp= new parametres_perso("notices");
@@ -869,6 +899,22 @@ class export {
 				$subfields = export_traite_exemplaires ($ex);
 				$this -> add_field("995", "  ", $subfields);
 				if (count($export996) != 0) $this -> add_field("996", "  ", $export996);
+				//Export des cp d'exemplaires
+				$mes_pp= new parametres_perso("expl");
+				$mes_pp->get_values($ex->expl_id);
+				$values = $mes_pp->values;
+				foreach ( $values as $field_id => $vals ) {
+					if($mes_pp->t_fields[$field_id]["EXPORT"]) { //champ exportable
+						foreach ( $vals as $value ) {
+							$subfields = array();
+						 	$subfields["a"]=$mes_pp->get_formatted_output(array($value),$field_id);//Valeur
+						 	$subfields["l"]=$mes_pp->t_fields[$field_id]["TITRE"];//Libelle du champ
+						 	$subfields["n"]=$mes_pp->t_fields[$field_id]["NAME"];//Nom du champ
+						 	$subfields["f"]=$ex->expl_cb;
+						 	$this->add_field("999","  ",$subfields);
+						} 
+					}
+				}
 			}				
 			$this -> toxml();
 			

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: amendes_relances.inc.php,v 1.6 2010-09-03 07:11:30 ngantier Exp $
+// $Id: amendes_relances.inc.php,v 1.7 2010-10-29 09:04:54 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -44,7 +44,7 @@ function show_lost_status_form() {
 	global $finance_statut_perdu,$finance_recouvrement_lecteur_statut;
 	$result ="
 	<form method='POST' action='admin.php?categ=finance&sub=amendes_relance&action=updateloststatus'>
-	<h3>".$msg["finance_statut_perdu"]."</h3>	
+	<h3>".$msg["finance_statut_perdu_expl_empr"]."</h3>	
 		<div class='form-contenu'>		
 			<div class='row'> 
 				<div class='colonne2'>
@@ -157,7 +157,7 @@ if ($pmb_gestion_amende==1) {
 	
 	//Gestion par quotas
 	if ($quota) $qt=new quota($quota,"$include_path/quotas/own/$lang/finances.xml"); else quota::parse_quotas("$include_path/quotas/own/$lang/finances.xml");
-	$admin_menu_quotas="<span><a href='./admin.php?categ=finance&sub=amendes_relance&action=edit_loststatus'>".$msg["finance_statut_perdu"]."</a></span>&nbsp;";
+	$admin_menu_quotas="<span><a href='./admin.php?categ=finance&sub=amendes_relance&action=edit_loststatus'>".$msg["finance_statut_perdu_expl_empr"]."</a></span>&nbsp;";
 	for ($i=0; $i<count($_quotas_types_); $i++) {	
 		if ($_quotas_types_[$i]["FILTER_ID"]=="amende_relance") {
 			$admin_menu_quotas.="<span><a href='./admin.php?categ=finance&sub=amendes_relance&quota=".$_quotas_types_[$i]["ID"]."'>".$_quotas_types_[$i]["SHORT_COMMENT"]."</a></span>\n";

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: param.inc.php,v 1.1 2010-07-08 15:28:34 arenou Exp $
+// $Id: param.inc.php,v 1.2 2010-10-07 07:42:28 arenou Exp $
 
 require_once($visionneuse_path."/classes/mimetypes/$quoi/$quoi.class.php");	
 
@@ -31,7 +31,7 @@ function show_form($action=''){
 	if($res=mysql_query($rqt)){
 		if(mysql_num_rows($res))
 		$paramToUnserialize= htmlspecialchars_decode(mysql_result($res,0,0));
-		$plop=$current_class->unserializeParams($paramToUnserialize);
+		$params_values=$current_class->unserializeParams($paramToUnserialize);
 		$current_class->getTabParam();
 	}
 	$form="
@@ -48,7 +48,7 @@ function show_form($action=''){
 		$form.="
 				<tr class='".($i%2 ? "odd":"even")."'>
 					<td>$key</td>
-					<td><input type='".$tabParam['type']."' name='".$tabParam['name']."' id='".$tabParam['name']." 'value='".$tabParam['value']."' /></td>
+					<td><input type='".$tabParam['type']."' name='".$tabParam['name']."' id='".$tabParam['name']." 'value='".$tabParam['value']."' ".($tabParam['type'] == "checkbox" ? ($params_values[$key] == 1 ? "checked='checked'" : ""): "")."/></td>
 					<td>".$tabParam['desc']."</td>
 				</tr>";	
 		$i++;

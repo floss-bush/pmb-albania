@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_abonnements.tpl.php,v 1.13 2009-05-16 11:19:55 dbellamy Exp $
+// $Id: abts_abonnements.tpl.php,v 1.14 2010-10-18 10:27:39 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -32,6 +32,9 @@ $abonnement_view = "
 			<td>
 				".$msg["abonnements_duree_abonnement"].": !!duree_abonnement!!
 			</td>
+			<td>
+				!!fournisseur!!
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -45,10 +48,13 @@ $abonnement_view = "
 			<td>
 				".$msg["abonnements_nombre_de_series"].": !!nombre_de_series!!
 			</td>
-		</tr>
-		<tr>
 			<td>
 				".$msg["abonnements_nombre_de_horsseries"].": !!nombre_de_horsseries!!
+			</td>
+		</tr>
+		<tr>			
+			<td>
+				!!commentaire!!
 			</td>
 		</tr>
 	</table>

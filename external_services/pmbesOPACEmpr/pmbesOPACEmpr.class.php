@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesOPACEmpr.class.php,v 1.29 2010-09-24 10:41:38 arenou Exp $
+// $Id: pmbesOPACEmpr.class.php,v 1.30 2010-12-23 12:27:37 erwanmartin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -1752,6 +1752,168 @@ class pmbesOPACEmpr extends external_services_api_class{
 	function fetchBulletinListFull($session_id,$bulletinlist, $recordFormat, $recordCharset) {
 		//TODO vérifier les droits sur les bulletins 
 		return $this->proxy_parent->pmbesNotices_fetchBulletinListFull($bulletinlist, $recordFormat, $recordCharset);
+	}
+	
+	function getReadingLists($session_id) {
+		if(!$session_id)
+			return array();
+		$session_info = $this->retrieve_session_information($session_id);
+		$emprId = $session_info["empr_id"];
+		if (!$emprId)
+			return array();
+		global $dbh;
+		$sql = "select * from opac_liste_lecture where num_empr='".$emprId."'";
+		$res = mysql_query($sql);
+		$empr = new emprunteur($emprId);
+
+		$results = array();
+		while($row = mysql_fetch_assoc($res)) {
+			$aresult = array(
+				'reading_list_id' => $row['id_liste'],
+				'reading_list_name' => utf8_normalize($row['nom_liste']),
+				'reading_list_caption' => utf8_normalize($row['description']),
+				'reading_list_emprid' => $row['num_empr'],
+				'reading_list_empr_caption' => utf8_normalize($empr->nom." ".$empr->prenom),
+				'reading_list_confidential' => $row['confidential'],
+				'reading_list_public' => $row['public'],
+				'reading_list_readonly' => $row['read_only'],
+				'reading_list_notice_ids' => $row['notices_associees'] ? explode(',', $row['notices_associees']) : array(),
+			);
+			$results[] = $aresult;
+		}
+		return $results;
+	}
+	
+	function getPublicReadingLists($session_id) {
+		if(!$session_id)
+			return array();
+		$session_info = $this->retrieve_session_information($session_id);
+		$emprId = $session_info["empr_id"];
+		if (!$emprId)
+			return array();
+		global $dbh;
+		$sql = "select opac_liste_lecture.*, empr.empr_prenom, empr.empr_nom from opac_liste_lecture left join empr on empr.id_empr = opac_liste_lecture.num_empr where public=1";
+		$res = mysql_query($sql);
+
+		$results = array();
+		while($row = mysql_fetch_assoc($res)) {
+			$aresult = array(
+				'reading_list_id' => $row['id_liste'],
+				'reading_list_name' => utf8_normalize($row['nom_liste']),
+				'reading_list_caption' => utf8_normalize($row['description']),
+				'reading_list_emprid' => $row['num_empr'],
+				'reading_list_empr_caption' => utf8_normalize($row['empr_nom']." ".$row['empr_prenom']),
+				'reading_list_confidential' => $row['confidential'],
+				'reading_list_public' => $row['public'],
+				'reading_list_readonly' => $row['read_only'],
+				'reading_list_notice_ids' => explode(',', $row['notices_associees']),
+			);
+			$results[] = $aresult;
+		}
+		return $results;
+	}
+	
+	function addNoticesToReadingList($session_id, $list_id, $notice_ids) {
+		if(!$session_id)
+			return array();
+		$session_info = $this->retrieve_session_information($session_id);
+		$emprId = $session_info["empr_id"];
+		if (!$emprId)
+			return array();
+		global $dbh;
+		
+		$list_id += 0;
+		if (!$list_id)
+			return FALSE;
+		
+		if (!is_array($notice_ids))
+			$notice_ids = array($notice_ids);
+			
+		//Vérifions que l'emprunteur a bien le droit de voir les notices
+		global $gestion_acces_active, $gestion_acces_empr_notice;
+		if ($gestion_acces_active==1 && $gestion_acces_empr_notice==1) {
+			$ac= new acces();
+			$dom_2= $ac->setDomain(2);
+			foreach ($notice_ids as $anoticeid) {
+				$rights= $dom_2->getRights($emprId, $anoticeid);
+				if ($rights && !($rights & 4)) {
+					$notice_ids = array_diff($notice_ids, array($anoticeid));
+				}
+			}
+		}
+
+		if (!$notice_ids)
+			return FALSE;
+			
+		//Vérifions que l'utilisateur a bien le droit de modifier la liste
+		$sql = "select * from opac_liste_lecture where id_liste = '".$list_id."' and num_empr='".$emprId."'";
+		$res = mysql_query($sql);
+		if (!mysql_num_rows($res))
+			return FALSE;
+			
+		$list = mysql_fetch_assoc($res);
+		$list_content = $list['notices_associees'] ? explode(',', $list['notices_associees']) : array();
+		$list_content = array_unique(array_merge($list_content, $notice_ids));
+		
+		$sql = "update opac_liste_lecture set notices_associees = '".addslashes(implode(',', $list_content))."' where id_liste = ".$list_id;
+		mysql_query($sql);
+		return TRUE;
+	}
+	
+	function removeNoticesFromReadingList($session_id, $list_id, $notice_ids) {
+		if(!$session_id)
+			return array();
+		$session_info = $this->retrieve_session_information($session_id);
+		$emprId = $session_info["empr_id"];
+		if (!$emprId)
+			return array();
+		global $dbh;
+		
+		$list_id += 0;
+		if (!$list_id)
+			return FALSE;
+
+		if (!$notice_ids)
+			return FALSE;
+			
+		//Vérifions que l'utilisateur a bien le droit de modifier la liste
+		$sql = "select * from opac_liste_lecture where id_liste = '".$list_id."' and num_empr='".$emprId."'";
+		$res = mysql_query($sql);
+		if (!mysql_num_rows($res))
+			return FALSE;
+			
+		$list = mysql_fetch_assoc($res);
+		$list_content = explode(',', $list['notices_associees']);
+		$list_content = array_diff($list_content, $notice_ids);
+		
+		$sql = "update opac_liste_lecture set notices_associees = '".addslashes(implode(',', $list_content))."' where id_liste = ".$list_id;
+		mysql_query($sql);
+		return TRUE;
+	}
+
+	function emptyReadingList($session_id, $list_id) {
+		if(!$session_id)
+			return array();
+		$session_info = $this->retrieve_session_information($session_id);
+		$emprId = $session_info["empr_id"];
+		if (!$emprId)
+			return array();
+		global $dbh;
+		
+		$list_id += 0;
+		if (!$list_id)
+			return FALSE;
+
+		//Vérifions que l'utilisateur a bien le droit de modifier la liste
+		$sql = "select * from opac_liste_lecture where id_liste = '".$list_id."' and num_empr='".$emprId."'";
+		$res = mysql_query($sql);
+		if (!mysql_num_rows($res))
+			return FALSE;
+		$list_content = array();
+		
+		$sql = "update opac_liste_lecture set notices_associees = '".addslashes(implode(',', $list_content))."' where id_liste = ".$list_id;
+		mysql_query($sql);
+		return TRUE;
 	}
 }
 

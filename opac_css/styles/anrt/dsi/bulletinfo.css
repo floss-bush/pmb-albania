@@ -62,6 +62,11 @@ hr{
 	margin-left:-5px;
 	width:800px;
 }
+
+div.hr hr {
+  display: none;
+}
+
 h1{
 	color:#8abf52;
 	text-transform:uppercase;	

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: aut_link.tpl.php,v 1.2 2010-09-21 10:17:51 ngantier Exp $
+// $Id: aut_link.tpl.php,v 1.3 2010-12-30 08:51:36 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -140,7 +140,7 @@ $aut_link0 = "
 	
 	<div class='row'>
 		!!aut_link_type!!
-		<img class='img_plus' src='./images/plus.gif' id='img_plus!!aut_link!!'
+		<img class='img_plus' border='0' hspace='3' src='./images/plus.gif' id='img_plus!!aut_link!!'
 			onclick=\"
 				if(document.getElementById('aut_link_viewcomment!!aut_link!!').style.display=='none') {
 					document.getElementById('img_plus!!aut_link!!').src='./images/minus.gif';
@@ -164,7 +164,7 @@ $aut_link0 = "
 $aut_link1 = "
 	<div class='row'>
 		!!aut_link_type!!
-		<img class='img_plus' src='./images/plus.gif' id='img_plus!!aut_link!!'
+		<img class='img_plus' border='0' hspace='3' src='./images/plus.gif' id='img_plus!!aut_link!!'
 			onclick=\"
 				if(document.getElementById('aut_link_viewcomment!!aut_link!!').style.display=='none') {
 					document.getElementById('img_plus!!aut_link!!').src='./images/minus.gif';

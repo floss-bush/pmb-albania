@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: category.class.php,v 1.18 2010-01-07 10:50:03 kantin Exp $
+// $Id: category.class.php,v 1.20 2010-11-05 09:42:52 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -55,7 +55,7 @@ function getData() {
 	global $dbh;
 	global $lang;
 	global $opac_categories_show_only_last ; // le paramètre pour afficher le chemin complet ou pas
-
+	
 	$anti_recurse=array();	
 	if(!$this->id) return;
 	$requete = "select id_noeud as categ_id, num_noeud, num_parent as categ_parent, libelle_categorie as categ_libelle,	num_renvoi_voir as categ_see, 	note_application as categ_comment, comment_public,	if(langue = '".$lang."',2, if(langue= '".$this->thes->langue_defaut."' ,1,0)) as p
@@ -156,6 +156,7 @@ function getData() {
 
 	global $opac_thesaurus;
 	if ($opac_thesaurus) $this->catalog_form="[".$this->thes->libelle_thesaurus."] ".$this->catalog_form;
+	/* Ne sert plus??
 	//Recherche des termes associés
 	$requete = "select distinct voir_aussi.num_noeud_dest as categ_assoc_categassoc, id_noeud as categ_id, num_noeud, num_parent as categ_parent, libelle_categorie as categ_libelle,num_renvoi_voir as categ_see, note_application as categ_comment, if(categories.langue = '".$lang."',2, if(categories.langue= '".$this->thes->langue_defaut."' ,1,0)) as p
 		FROM noeuds, categories, voir_aussi where id_noeud ='".$this->id."' 
@@ -166,19 +167,21 @@ function getData() {
 
 	$result=@mysql_query($requete,$dbh);
 	while ($ta=mysql_fetch_object($result)) {
+		print $requete;
 		$this->associated_terms[] = array(
 						'id' => $ta->categ_assoc_categassoc,
 						'libelle' => $ta->categ_libelle,
 						'commentaire' => $ta->categ_comment);
 	}
+	*/
 }
 
-function has_notices() {
+function has_notices($id=0) {
 	
 	global $dbh;
 	global $gestion_acces_active, $gestion_acces_empr_notice;
 	global $class_path;
-	
+	if (is_object($this) && !$id) $id=$this->id;
 	//droits d'acces emprunteur/notice
 	$acces_j='';
 	if ($gestion_acces_active==1 && $gestion_acces_empr_notice==1) {
@@ -196,7 +199,7 @@ function has_notices() {
 	}
 	
 	$query = "select count(1) from notices_categories,notices $acces_j $statut_j ";
-	$query.= "where (notices_categories.num_noeud='".$this->id."' and notices_categories.notcateg_notice=notice_id) $statut_r ";
+	$query.= "where (notices_categories.num_noeud='".$id."' and notices_categories.notcateg_notice=notice_id) $statut_r ";
 	$result = mysql_query($query, $dbh);
 	return (mysql_result($result, 0, 0));
 

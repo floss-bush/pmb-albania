@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: gris_et_couleurs.css,v 1.32 2010-01-26 13:56:38 kantin Exp $
+// $Id: gris_et_couleurs.css,v 1.35 2010-12-22 11:04:45 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -201,6 +201,15 @@ input, textarea {
 		margin-right:0px;
 		font-size:12px;
 	}
+	
+	#search ul.search_tabs li#current a, #onglets_list ul.list_tabs li#current a {
+		color:#70a91e;
+		font-weight:bold;
+		background: none;
+		border: none;
+		padding:0px;
+	}
+	
 	#search ul.search_tabs li:first-child,	#search ul.search_tabs li:first-child a,
 	 #onglets_list ul.list_tabs li:first-child, #onglets_list ul.list_tabs li:first-child a{
 		-moz-border-radius-topleft:10px;
@@ -964,4 +973,237 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+ 	padding:0 10px;
+    height: 24px;
+    margin-top: 35px;
+}
+
+#empr_onglet ul.empr_tabs{
+	font-size: 12px;
+    height: 20px;
+    left: 0 !important;
+    list-style: none outside none;
+    margin-left: -10px;
+    margin-top: -30px;
+    padding: 0;
+    position: static !important;
+    top: 0 !important;
+}
+
+#empr_onglet ul.empr_tabs li:first-child a, #empr_onglet ul.empr_tabs li#current:first-child {
+	-moz-border-radius-topleft: 6px;
+	border-radius-topleft: 6px;
+	-webkit-border-radius-topleft: 6px;
+}
+
+#empr_onglet ul.empr_tabs li:last-child a, #empr_onglet ul.empr_tabs li#current:last-child {
+	-moz-border-radius-topright: 6px;
+	border-radius-topright: 6px;
+	-webkit-border-radius-topright: 6px;
+}
+
+#empr_onglet ul.empr_tabs li{
+    display: block;
+    float: left;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background: #DDDDDD;
+    border: 1px solid #999999;
+    color: #D95700;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    text-decoration: none;
+}
+
+#empr_onglet ul.empr_tabs li a:hover{
+	background-color: #eeeeee;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+    background: #EEEEEE;
+    border-color: #999999 #999999 -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    color: #70A91E;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 16px;
+    margin-right: 0;
+    padding: 4px 10px 1px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	color: #70A91E;
+    background: none;
+    font-weight: bold;
+    margin-top: -4px;
+    border: 1px solid #EEEEEE;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 13px;
+}
+
+ul.empr_subtabs li{
+	display:inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+ ul.empr_subtabs li a {
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+    background: #EE8300;
+    border: 1px solid #D95700;
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.2em;
+}
+
+ ul.empr_subtabs li a:hover {
+	color: #ffffff;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+	margin-top: 50px;
+	margin-left: 12px;
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	background: none repeat scroll 0 0 #DDDDDD;
+    border: 1px solid #999999;
+    color: #D95700;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    text-decoration: none;
+}
+
+#empr-list #onglets_list ul.list_tabs li a:hover {
+	background-color: #eeeeee;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current {
+	background: #EEEEEE;
+    border-color: #999999 #999999 -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 16px;
+    margin-right: 0;
+    padding: 4px 10px 1px;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current a {
+    border: none;
+    background: none;
+    color: #70A91E;
+    font-weight: bold;
+    margin-right: 0;
+    padding: 0;
+}
+
+#empr-list #onglets_list ul.list_tabs li:last-child a, #empr-list #onglets_list ul.list_tabs li#current:last-child a {
+    -moz-border-radius-topright: 6px;
+    border-radius-topright: 6px;
+    -webkit-border-radius-topright: 6px;
+}
+
+#empr-list #onglets_list ul.list_tabs li:first-child a, #empr-list #onglets_list ul.list_tabs li#current:first-child a {
+    -moz-border-radius-topleft: 6px;
+    border-radius-topleft: 6px;
+    -webkit-border-radius-topleft: 6px;
+}
+
+#empr-list h3 {
+	margin-top: 55px;
+}
+
+#empr-list #onglets_list {
+	background: #EEEEEE;
+    border: 1px solid #999999;
+    margin-top: 30px;
+}
+
+#list_cadre {
+	background: #EEEEEE;
+    border: 1px solid #999999;
+}
+
+#empr-resa small form input, #make_sugg-container form table input.bouton, #change-password-container form table td input.bouton {
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+    background: #EE8300;
+    border: 1px solid #D95700;
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+#empr-resa small form input:hover, #make_sugg-container form table input.bouton:hover, #change-password-container form table td input.bouton:hover {
+	color:#ffffff !important;
+}
+
+#change-password h3 {
+	margin-top: 50px;
 }

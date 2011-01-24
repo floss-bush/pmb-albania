@@ -1,0 +1,112 @@
+
+/*****************************************************************************************
+	Note explicative
+
+	Les contenus decrits ici ont pour but de renseigner les parametres
+	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+	suivant les directives #obligatoire #recommande...
+
+	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+	implementer le parametre en question.
+	
+	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+
+	/!\ cette charte dépend de la présence de la charte du reseau
+	"reseauandorre" dans vos styles !	
+*****************************************************************************************/
+
+
+
+/*************************
+biblio_important_p1
+#obligatoire
+*************************/
+<b><br /><br /><center><font size=4>Une Bibliothèque Pour la Psychanalyse vous souhaite de Bonnes Fêtes de Noël</font></center></b><br />
+ 
+<center><img src="http://www.papanoel.free.fr/noel27.jpg"></center>
+
+<br /><b>INFORMATIONS SUR LA BIBLIOTHÈQUE</b><br />
+
+La bibliothèque met à disposition un ensemble de livres, revues, documents dont le choix est fonction de leur intérêt pour la psychanalyse.<br>
+
+La Bibliothèque s’adresse autant aux professionnels aux chercheurs aux étudiants qu’à tout public.<br /><br /><br />
+
+
+<b>VOUS POUVEZ:</b><br />
+
+- Consulter le catalogue en ligne.<br />
+- Consulter sur place.<br />
+- Faire une recherche.<br />
+- Réserver un ouvrage.<br />
+- Nous contacter.<br />
+- Devenir adhérent de la bibliothèque: 15€, étudiants: 10€
+<br />
+<br /><B>SALLE DE LECTURE:</b> 
+Salle Bernard Casanova. 46, rue de la Fosse Marine 37000 Tours.<br />
+<br />
+
+<b>OUVERTURE:</b><br />
+* Permanence:<br />
+* Consulter l'agenda sur:<a href="mailto:unebpp@gmail.com"> AGENDA </a><br />
+* Sur demande.<br />
+
+<br /><b>AUTRES ACTIVITÉS:</b><br />
+
+L’association met à disposition de ses adhérents la salle de lecture pour des groupes de travail Elle organise régulièrement des conférences sur la psychanalyse.<br />
+Pour tout renseignement, nous contacter.<br />
+
+
+<br /><b>PRÊT AUX ADHÉRENTS.</b>
+
+
+/*************************
+lien_moteur_recherche
+#obligatoire
+*************************/
+<B>AUTRES SOURCES D'INFORMATIONS</b><br /><br /> 
+
+<a href="http://www.sudoc.abes.fr" target="blank"><b>SUDOC</b>:CATALOGUE collectif des universités de France</a>
+<br /><br />
+
+<a href="http://portail.scd.univ-tours.fr" target="blank">CATALOGUE du <b>SCD</b> de l'Université de Tours</a>
+
+
+/*************************
+ biblio_adr1
+ *************************/
+<br /><br />
+<a href="http://bpp-psychanalyse.bibli.fr/opac/index.php?lvl=infopages&pagesid=2"><b>CONSEILS POUR LA RECHERCHE</b></a>
+
+
+/*************************
+biblio_main_header
+#obligatoire
+*************************/
+Une <span>B</span>ibliothèque <span>P</span>our la <span>P</span>sychanalyse
+
+
+/*************************
+biblio_name
+#obligatoire
+*************************/
+<font size=3><i>Avec le soutien de la Ville de Tours</i></font><br /><br />
+
+<b>Bureau de l’association:</b><br />
+
+<br /><B>PRÉSIDENT:</B><br />
+Didier Grimault<br />
+<b>SECRÉTAIRE:</b><br />
+Marie-Claude Campagne<br />
+<b>TRÉSORIÈRE:</b><br />
+Christine Gailliard <br />
+
+<br /><b>BASE DE DONNÉES</b>
+<br />QUENTIN Jacques: Conceptualisation
+<br />BERTIN Marie : Documentation
+
+<br /><br /><B> SIÈGE SOCIALE:</B> 13, rue Jules Grévy
+37000 Tours.
+
+

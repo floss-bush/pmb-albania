@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: authors.tpl.php,v 1.26 2010-06-16 12:13:47 ngantier Exp $
+// $Id: authors.tpl.php,v 1.27 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -247,7 +247,10 @@ $author_replace = "
 		<input class='bouton' type='button' onclick=\"openPopUp('./select.php?what=auteur&caller=author_replace&param1=by&param2=author_libelle&no_display=!!id!!', 'select_ed', $selector_x_size, $selector_x_size, -2, -2, '$selector_prop')\" title='$msg[157]' value='$msg[parcourir]' />
 		<input type='button' class='bouton' value='$msg[raz]' onclick=\"this.form.author_libelle.value=''; this.form.by.value='0'; \" />
 		<input type='hidden' name='by' id='by' value=''>
-		</div>
+	</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 	</div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=auteurs&sub=author_form&id=!!id!!';\">

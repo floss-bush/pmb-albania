@@ -2,16 +2,16 @@
 
 <!--
 /*************************************************************************
- *																		 * 
+ *																		 *
  * Fichier qui regroupe les différents états d'une demande de recherche  *
- *																		 *		
+ *																		 *
  *************************************************************************/
 -->
 <XMLlist>
-	<entry code="1">A valider</entry>
-	<entry code="2">Validée</entry>
-	<entry code="3">Refusée</entry>
-	<entry code="4">Finie</entry>
-	<entry code="5">Abandonnée</entry>
-	<entry code="6">Archivée</entry>
+	<entry code="1">A validar</entry>
+	<entry code="2">Validada</entry>
+	<entry code="3">Refusada</entry>
+	<entry code="4">Acabada</entry>
+	<entry code="5">Abandondada</entry>
+	<entry code="6">Arxivada</entry>
 </XMLlist>

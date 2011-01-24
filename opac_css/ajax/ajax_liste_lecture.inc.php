@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax_liste_lecture.inc.php,v 1.5 2010-08-19 07:35:07 touraine37 Exp $
+// $Id: ajax_liste_lecture.inc.php,v 1.6 2010-10-10 05:32:03 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -79,7 +79,7 @@ function show_refus_form(){
  * Envoyer un mail de demande d'accès à la liste confidentielle
  */
 function send_demande($id_liste){
-	global $dbh, $com, $id_empr, $empr_nom, $empr_prenom,$empr_mail, $msg, $pmb_opac_url, $opac_connexion_phrase;
+	global $dbh, $com, $id_empr, $empr_nom, $empr_prenom,$empr_mail, $msg, $opac_url_base, $opac_connexion_phrase;
 	
 	$requete = "replace into  abo_liste_lecture (num_empr,num_liste,commentaire,etat) values ('".$id_empr."','".$id_liste."','".$com."','1')";
 	mysql_query($requete,$dbh);
@@ -95,7 +95,7 @@ function send_demande($id_liste){
 	$code=md5($opac_connexion_phrase.$login.$date);
 	$corps = sprintf($msg['list_lecture_intro_mail'],$diffuseur->nom,$sender->nom_liste).", <br />".sprintf($msg['list_lecture_corps_mail'],$empr_prenom." ".$empr_nom,$diffuseur->nom_liste);
 	if($com) $corps .= sprintf("<br />".$msg['list_lecture_corps_com_mail'],$empr_prenom." ".$empr_nom,"<br />".$com);
-	$corps .= "<br /><br /><a href='".$pmb_opac_url."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=demande_list' >".$msg['list_lecture_activation_mail']."</a>";
+	$corps .= "<br /><br /><a href='".$opac_url_base."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=demande_list' >".$msg['list_lecture_activation_mail']."</a>";
 	
 	mailpmb($diffuseur->nom,$diffuseur->empr_mail,$objet,stripslashes($corps),$empr_prenom." ".$empr_nom,$empr_mail);
 }
@@ -104,7 +104,7 @@ function send_demande($id_liste){
  * Fonction qui supprime un inscrit à une liste confidentielle
  */
 function delete_empr($id_liste,$id_empr){
-	global $dbh, $msg, $pmb_opac_url, $opac_connexion_phrase, $empr_nom, $empr_prenom,$empr_mail;
+	global $dbh, $msg, $opac_url_base, $opac_connexion_phrase, $empr_nom, $empr_prenom,$empr_mail;
 	
 	//envoi du mail de désinscription
 	$req = "select empr_login, empr_mail, concat(empr_prenom,' ',empr_nom) as nom, nom_liste 
@@ -120,7 +120,7 @@ function delete_empr($id_liste,$id_empr){
 	$code=md5($opac_connexion_phrase.$login.$date);
 	$corps = sprintf($msg['list_lecture_intro_mail'],$inscrit->nom,$inscrit->nom_liste).", <br />".sprintf($msg['list_lecture_unsubscribe_mail'],$empr_prenom." ".$empr_nom,$inscrit->nom_liste);
 	if($com) $corps .= sprintf("<br />".$msg['list_lecture_corps_com_mail'],$empr_prenom." ".$empr_nom,"<br />".$com."<br />");
-	$corps .= "<br /><br /><a href='".$pmb_opac_url."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=my_list' >".$msg['redirection_mail_link']."</a>";
+	$corps .= "<br /><br /><a href='".$opac_url_base."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=my_list' >".$msg['redirection_mail_link']."</a>";
 	
 	mailpmb($inscrit->nom,$inscrit->empr_mail,$objet,stripslashes($corps),$empr_prenom." ".$empr_nom,$empr_mail);
 	

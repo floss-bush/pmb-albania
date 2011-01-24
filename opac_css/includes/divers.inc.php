@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: divers.inc.php,v 1.9 2008-09-01 13:39:53 ngantier Exp $
+// $Id: divers.inc.php,v 1.10 2010-11-04 15:33:03 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -29,10 +29,14 @@ function extraitdate($date_a_convertir) {
 	$format_local = str_replace (" ","",$format_local);
 	$format_local = str_replace ($msg["format_date_input_separator"],"",$format_local);
 	list($date[substr($format_local,0,1)],$date[substr($format_local,1,1)],$date[substr($format_local,2,1)]) = sscanf($date_a_convertir,$msg["format_date_input"]) ;
-	if ($date['Y'] && $date['m'] && $date['d']) $date_a_convertir = $date['Y']."-".$date['m']."-".$date['d'] ;
-		else $date_a_convertir="";
-	return $date_a_convertir ;
+	if ($date['Y'] && $date['m'] && $date['d']){
+		 //$date_a_convertir = $date['Y']."-".$date['m']."-".$date['d'] ;
+		 $date_a_convertir = sprintf("%04d-%02d-%02d",$date['Y'],$date['m'],$date['d']);
+	} else {
+		$date_a_convertir="";
 	}
+	return $date_a_convertir ;
+}	
 	
 // verif_date permet de vérifier si une date saisie est valide
 function verif_date($date) {

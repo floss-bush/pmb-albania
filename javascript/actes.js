@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: actes.js,v 1.5 2009-11-30 11:46:26 dbellamy Exp $
+// $Id: actes.js,v 1.8 2010-10-29 09:57:35 ngantier Exp $
 
 
 /*
@@ -219,6 +219,57 @@ function act_addPriceCell(lig) {
 	i.className='in_cell_nb';
 	i.setAttribute('value','0');
 	td.appendChild(i);
+	if(gestion_tva>0){
+        var spanTag = document.createElement('span');     
+        spanTag.id = 'convert_ht_ttc_'+lig;       
+        spanTag.className ='convert_ht_ttc';
+        var obj='input_convert_ht_ttc_'+lig;
+        spanTag.onclick=function() { 
+        	document.getElementById(obj).value='';
+        	document.getElementById(obj).style.visibility='visible';
+        	document.getElementById(obj).focus();
+        };
+      
+        spanTag.innerHTML = '0';
+        td.appendChild(spanTag);
+        
+        var i_convert = document.createElement('INPUT');      
+        i_convert.type='text';
+        i_convert.id='input_convert_ht_ttc_'+lig;
+        i_convert.name='input_convert_ht_ttc_'+lig;
+        i_convert.style.visibility='hidden';
+        i_convert.value='0'; 
+        var obj='input_convert_ht_ttc_'+lig;
+        i_convert.onblur=function() { 
+        	document.getElementById(obj).style.visibility='hidden';
+        }
+        var obj_prix='prix['+lig+']';
+        var obj_tva='tva['+lig+']';
+        var obj_convert= 'convert_ht_ttc_'+lig;		
+			
+		if(gestion_tva==1){	
+	        i_convert.onchange=function() { 
+	        	document.getElementById(obj_prix).value = ttc_to_ht(document.getElementById(obj).value,document.getElementById(obj_tva).value);
+	        	document.getElementById(obj).style.visibility='hidden'; 
+	    		document.getElementById(obj_convert).innerHTML=document.getElementById(obj).value;
+	        }		      
+	        i.onchange=function() { 
+	        	document.getElementById(obj_convert).innerHTML = ht_to_ttc(document.getElementById(obj_prix).value,document.getElementById(obj_tva).value);
+	        }
+			
+		}else if(gestion_tva==2){		
+	        i_convert.onchange=function() { 
+	        	document.getElementById(obj_prix).value = ht_to_ttc(document.getElementById(obj).value,document.getElementById(obj_tva).value);
+	        	document.getElementById(obj).style.visibility='hidden'; 
+	    		document.getElementById(obj_convert).innerHTML=document.getElementById(obj).value;
+	        }		      
+	        i.onchange=function() { 
+	        	document.getElementById(obj_convert).innerHTML = ttc_to_ht(document.getElementById(obj_prix).value,document.getElementById(obj_tva).value);
+	        }
+		} 
+        td.appendChild(i_convert);   
+	}
+
 	return td;
 }
 
@@ -260,7 +311,6 @@ function act_addTypeCell(lig) {
 	b1.setAttribute('value', msg_raz);
 	b1.onclick=function(){act_delType(this);};
 	td.appendChild(b1);
-		
 	switch (gestion_tva) {
 		case '1' :
 		case '2' :
@@ -274,6 +324,15 @@ function act_addTypeCell(lig) {
 			i2.className='in_cell_nb';
 			i2.style.width='20%';
 			i2.setAttribute('value', '0');
+			if(gestion_tva==1){
+				i2.onchange=function() { 
+		        	document.getElementById('convert_ht_ttc_'+lig).innerHTML = ht_to_ttc(document.getElementById('prix['+lig+']').value,document.getElementById('tva['+lig+']').value);
+		        }
+			} else {
+				i2.onchange=function() { 
+		        	document.getElementById('convert_ht_ttc_'+lig).innerHTML = ttc_to_ht(document.getElementById('prix['+lig+']').value,document.getElementById('tva['+lig+']').value);
+		        }
+			}	
 			td.appendChild(i2);
 			var n=document.createTextNode(' %');
 			td.appendChild(n);
@@ -370,7 +429,47 @@ function act_addRubriqueCell(lig) {
 	b1.setAttribute('value', msg_raz);
 	b1.onclick=function(){act_delRubrique(this);};
 	td.appendChild(b1);
-
+	
+	if(gestion_tva>0){
+	    var force_ht_ttc='force_ht_ttc_'+lig;
+	    var force_debit='force_debit['+lig+']';	
+	
+        var spanTag = document.createElement('span');     
+        spanTag.id = force_ht_ttc;  
+        spanTag.className ='force_ht_ttc';	
+        
+		var force_tva=document.createElement('INPUT');
+		force_tva.type='hidden';
+		force_tva.id=force_debit;
+		force_tva.name=force_debit;
+		
+		if(gestion_tva==1){
+			force_tva.value=1;	
+	        spanTag.onclick=function() { 
+	        	if(document.getElementById(force_debit).value==2){
+	        		document.getElementById(force_ht_ttc).innerHTML='&nbsp;'+acquisition_force_ht;
+	        		document.getElementById(force_debit).value=1;
+	        	}else{				
+	        		document.getElementById(force_ht_ttc).innerHTML='&nbsp;'+acquisition_force_ttc;
+	        		document.getElementById(force_debit).value=2;
+	        	}	
+	        };			
+		}else if(gestion_tva==2){
+			force_tva.value=2;	
+	        spanTag.onclick=function() { 
+	        	if(document.getElementById(force_debit).value==2){
+	        		document.getElementById(force_ht_ttc).innerHTML='&nbsp;'+acquisition_force_ht;
+	        		document.getElementById(force_debit).value=1;
+	        	}else{				
+	        		document.getElementById(force_ht_ttc).innerHTML='&nbsp;'+acquisition_force_ttc;
+	        		document.getElementById(force_debit).value=2;
+	        	}	
+	        };
+		}  
+		td.appendChild(force_tva);
+	    spanTag.innerHTML = '&nbsp;'+acquisition_force_ttc;
+    	td.appendChild(spanTag);
+	}    
 	return td;
 }
 
@@ -485,6 +584,7 @@ function act_calc(){
 	var n=act_curline;
 	var i,q,p,t,r;
 	var qt=0; 
+	var remise=0;
 	for (i=1;i<=n;i++) {
 		try {
 			q=document.getElementById('qte['+i+']').value;
@@ -494,19 +594,22 @@ function act_calc(){
 				t=document.getElementById('tva['+i+']').value;
 			}
 			r=document.getElementById('rem['+i+']').value;
-			switch(gestion_tva) {
-				case '1' :
-					mnt_ht=mnt_ht+(q*p*((100-r)/100));
-					mnt_tva=mnt_tva+(q*p*((100-r)/100)*(t/100));
-					break;
-				case '2' :
-					mnt_ttc=mnt_ttc+(q*p*((100-r)/100));
-					mnt_ht=mnt_ht+((q*p*((100-r)/100))/(1+(t/100))) ;
-					break;
-				default :
-					mnt_ttc=mnt_ttc+(q*p*((100-r)/100));
-					break;
-			}
+
+				switch(gestion_tva) {
+					case '1' :
+						mnt_ht=mnt_ht+(q*p*((100-r)/100));
+						mnt_tva=mnt_tva+(q*p*((100-r)/100)*(t/100));
+						break;
+					case '2' :
+						mnt_ttc=mnt_ttc+(q*p*((100-r)/100));
+						
+						mnt_ht=mnt_ht+((q*p*((100-r)/100))/(1+(t/100))) ;
+						break;
+					default :
+						mnt_ttc=mnt_ttc+(q*p*((100-r)/100));
+						break;
+				}
+			
 		}catch(err){}
 	}
 	switch(gestion_tva) {
@@ -525,6 +628,7 @@ function act_calc(){
 		break;
 	}
 	tot_expl.value=qt;
+	
 	return false;
 }
 
@@ -541,7 +645,7 @@ function act_clean() {
 	for (i=1;i<=n;i++) {
 		try {
 			val_clean(document.getElementById('qte['+i+']'), true,false);
-			val_clean(document.getElementById('prix['+i+']'), false,false);
+			val_clean(document.getElementById('prix['+i+']'), false,true);
 			if (gestion_tva!=0) {
 				val_clean(document.getElementById('tva['+i+']'), false,false);
 			}
@@ -657,7 +761,13 @@ function act_getEmptyLine() {
 	return act_curline;;
 }
 
-
+function ttc_to_ht(val,tva){
+	return(Math.round((val / ((tva/100)+1))*100)/100);	
+}
+function ht_to_ttc(val,tva){
+	val=val*1;
+	return(Math.round((val+(val/100*tva))*100)/100);	
+}
 
 
 

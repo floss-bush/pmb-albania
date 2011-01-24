@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: xml_unimarc.class.php,v 1.17 2009-10-01 09:41:59 mbertin Exp $
+// $Id: xml_unimarc.class.php,v 1.20 2010-11-30 15:36:50 arenou Exp $
 
 //Classe de conversion unimarc/xml ou xml/unimarc
 
@@ -31,7 +31,9 @@ class xml_unimarc {
 	var $notices_xml_;		//Tableau de notices XML converties du iso
 	var $error_msg;
 	var $warning_msg;
-
+	var $current_encoding;
+	var $is_utf8=false;
+	
     function xml_unimarc() {
     	$this->n_traitees=0;
 		$this->n_valid=0;
@@ -118,6 +120,7 @@ class xml_unimarc {
     }
 
 	function iso2709toXML_notice($contents) {
+		global $output_params;
 		
 		$n_notices=0;
 		$n_valid=0;
@@ -136,7 +139,13 @@ class xml_unimarc {
 			$notice = substr($contents, 0, $e_notice +1);
 			$contents = substr($contents, $e_notice +1);
 			$n = new iso2709_record($notice);
-
+			if ($n->is_utf8) {
+				$this->is_utf8=true;
+			}else{
+				if ($output_params['CHARSET'] == "utf-8"){
+					$n->inner_guide['pos9']="a";
+				}
+			}
 			if ($n->valid()) {
 				//Récupération des infos
 
@@ -150,24 +159,24 @@ class xml_unimarc {
 				//Etat de la notice
 				$values = array("rs", "dt", "bl", "hl", "el", "ru");
 				for ($i = 0; $i < count($values); $i ++) {
-					$v=$n -> inner_guide[$values[$i]];
+					$v=$n->inner_guide[$values[$i]];
 					if (ord($v)==32) $v="*";
 					$data.="    <".$values[$i].">".$v."</".$values[$i].">\n";
 				}
 
-				for ($i = 0; $i < count($n -> inner_data); $i ++) {
-					$data.="    <f c=\"".$n -> inner_data[$i]["label"]."\"";
+				for ($i = 0; $i < count($n->inner_data); $i ++) {
+					$data.="    <f c=\"".$n->inner_data[$i]["label"]."\"";
 					$content = substr($n -> inner_data[$i]["content"], 0, strlen($n -> inner_data[$i]["content"]) - 1);
 					$sub_fields = explode(chr(31), $content);
 					if (count($sub_fields) == 1) {
-						$data.=">".htmlspecialchars($n -> ISO_decode($sub_fields[0]))."</f>\n";
+						$data.=">".htmlspecialchars($this->is_utf8?$sub_fields[0]:$n->ISO_decode($sub_fields[0]))."</f>\n";
 					} else {
 						if (strlen($sub_fields[0])>2) {
 							$sub_fields[0]=substr($sub_fields[0],strlen($sub_fields[0])-2);
 						}
 						$data.=" ind=\"".$sub_fields[0]."\">\n";
 						for ($j = 1; $j < count($sub_fields); $j ++) {
-							$data.="      <s c=\"".substr($sub_fields[$j], 0, 1)."\">".htmlspecialchars($n -> ISO_decode(substr($sub_fields[$j], 1)))."</s>\n";
+							$data.="      <s c=\"".substr($sub_fields[$j], 0, 1)."\">".htmlspecialchars($this->is_utf8?substr($sub_fields[$j], 1):$n->ISO_decode(substr($sub_fields[$j], 1)))."</s>\n";
 						}
 						$data.="    </f>\n";
 					}
@@ -192,6 +201,7 @@ class xml_unimarc {
 		switch ($name) {
 			case "NOTICE":
 				$this->n=new iso2709_record('',0);
+				if($this->current_encoding == "UTF-8") $this->n->is_utf8 = true;
 				$this->n_=1;
 			break;
 			case "F":
@@ -253,7 +263,7 @@ class xml_unimarc {
 				eval("\$this->n->set_".strtolower($this->special)."('".$data."');");
 				return;
 			}
-			if ((string)$this->s_field!=="") {
+			if ($this->s_field!=="") {
 				//Gestion des entités
 				if ($this->new_subfield) {
 					$t=array();
@@ -355,7 +365,7 @@ class xml_unimarc {
 		}
 	}
     
-    function XMLtoiso2709_notice($notice) {
+    function XMLtoiso2709_notice($notice,$encoding) {
     	global $charset;
  		$this->n_traitees=0;
 		$this->n_valid=0;
@@ -370,15 +380,17 @@ class xml_unimarc {
 		$this->error_msg=array();
 		
 		if (strpos($notice,"<?xml")===false) {
-			$notice="<?xml version='1.0' encoding='".$charset."' ?>\n".$notice;
+			if (!$encoding) $encoding = $charset; 
+			$notice="<?xml version='1.0' encoding='".$encoding."' ?>\n".$notice;
 		}
 		
 		$rx = "/<?xml.*encoding=[\'\"](.*?)[\'\"].*?>/m";
 		if (preg_match($rx, $notice, $m)) $encoding = strtoupper($m[1]);
-			else $encoding = "ISO-8859-1";
+		else if (!$encoding) $encoding =$charset;	
+		$this->current_encoding = $encoding;
 		
-		$xml_parser = xml_parser_create($encoding);
-		xml_parser_set_option($xml_parser, XML_OPTION_TARGET_ENCODING, $charset);		
+		$xml_parser = xml_parser_create($this->current_encoding);
+		xml_parser_set_option($xml_parser, XML_OPTION_TARGET_ENCODING, $this->current_encoding);		
 		xml_set_object($xml_parser, &$this);
 		xml_set_element_handler($xml_parser, "startElement", "endElement_notice");
 		xml_set_character_data_handler($xml_parser, "characterData");

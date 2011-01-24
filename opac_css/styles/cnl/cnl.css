@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cnl.css,v 1.19 2010-01-26 13:56:38 kantin Exp $
+// $Id: cnl.css,v 1.22 2010-12-21 14:46:43 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -195,8 +195,12 @@ body {
 		background:#eeeeee;;
 		color:#444;
 		border:1px solid #4c62ad;
-		border-bottom:1px solid #e7e7e7;
-		
+		border-bottom:1px solid #e7e7e7;	
+	}
+	
+	#search ul.search_tabs li#current a, #onglets_list ul.list_tabs li#current a {
+		color:#444;
+		padding-left: 0px;
 	}    
 
 	#search p.p1 { 
@@ -1052,4 +1056,135 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+}
+
+#empr_onglet ul.empr_tabs{
+	list-style:none;
+}
+
+#empr_onglet ul.empr_tabs li{
+	background: url("images/coin.png") no-repeat #3D55A6;
+    border-bottom: 1px solid #3D55A6;
+    border-right: 1px solid #9FADDC;
+    float: left;
+    height: 17px;
+    margin-bottom: 5px;
+    margin-right: 4px;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background: none;
+	text-decoration: none;
+	color: #ffffff;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+	background: none repeat scroll 0 0 #EEEEEE;
+    border-color: #4C62AD #4C62AD #E7E7E7;
+    border-style: solid;
+    border-width: 1px;
+    color: #444444;
+    float: left;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	background: none;
+	color: #000000;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 15px;
+}
+
+ul.empr_subtabs li {
+    margin-bottom: 10px;
+    margin-right: 5px;
+	display:inline-block;
+}
+
+ul.empr_subtabs li a {
+	text-decoration:none;
+	color: #444444;
+	border: 1px solid #CCCCCC;
+	padding: 0.2em;
+}
+
+ul.empr_subtabs li a:hover {
+	background: #EEEEEE;
+    border-color: #4C62AD #4C62AD #E7E7E7;
+    border-style: solid;
+    border-width: 1px;
+    color: #444444;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+	padding:0px 12px 15px 12px;
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	margin:0 2px;
+	display:inline;
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	text-decoration: none;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+}
+
+#empr-sugg h3 {
+	color: #FF9900;
+}
+
+#make_sugg-container form table input {
+	margin-bottom: 5px;
 }

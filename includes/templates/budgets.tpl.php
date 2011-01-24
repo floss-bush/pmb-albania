@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: budgets.tpl.php,v 1.12 2009-05-16 11:19:54 dbellamy Exp $
+// $Id: budgets.tpl.php,v 1.13 2010-10-28 10:03:33 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -24,8 +24,38 @@ $search_form = "
 	</div>
 </form>
 <br />";
-
-
+if($acquisition_gestion_tva==1){
+	$en_tete_view_bud_form="
+	<div class='colonne3'><div class='colonneth'>".htmlentities($msg['acquisition_rub'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_tot'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_ava_ht'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_eng_ht'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_fac_ht'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_pay_ht'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_sol'], ENT_QUOTES, $charset)."</div></div>	
+"; 
+}elseif($acquisition_gestion_tva==2){
+	$en_tete_view_bud_form="
+	<div class='colonne3'><div class='colonneth'>".htmlentities($msg['acquisition_rub'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_tot'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_ava_ttc'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_eng_ttc'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_fac_ttc'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_pay_ttc'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_sol'], ENT_QUOTES, $charset)."</div></div>	
+"; 
+	
+}else {
+	$en_tete_view_bud_form="
+	<div class='colonne3'><div class='colonneth'>".htmlentities($msg['acquisition_rub'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_tot'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_ava'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_eng'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_fac'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_pay'], ENT_QUOTES, $charset)."</div></div>
+	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_sol'], ENT_QUOTES, $charset)."</div></div>
+"; 
+}
 //Template de visualisation d'un budget
 $view_bud_form = "
 <div class='row'>
@@ -81,15 +111,9 @@ $view_bud_form = "
 	<a href=\"javascript:expandAllImb()\"><img src='./images/expand_all.gif' id='expandall' /></a>
 	<a href=\"javascript:collapseAllImb()\"><img src='./images/collapse_all.gif' id='collapseall' /></a>
 </div>
-<div class='row'>	
-	<div class='colonne3'><div class='colonneth'>".htmlentities($msg['acquisition_rub'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_tot'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_ava'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_eng'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_fac'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_pay'], ENT_QUOTES, $charset)."</div></div>
-	<div class='colonne10'><div class='colonneth'>".htmlentities($msg['acquisition_rub_mnt_sol'], ENT_QUOTES, $charset)."</div></div>
-</div>
+
+$en_tete_view_bud_form
+
 	<!-- rubriques -->
 <div class='row'>&nbsp;</div>
 	<!-- totaux -->
@@ -188,6 +212,60 @@ $view_tot_rub_form = "
 		</div></div>
 	</div>";
 
+//Template de visualisation d'une ligne budgetaire avec TVA
+$view_lig_rub_form = "
+	<div id='el!!id_rub!!Child' class='row' >
+		<div class='colonne3'><div class='colonnetd'>
+			<!-- marge -->
+			<!-- img_plus -->
+				!!lib_rub!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_tot!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_ava!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_eng!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_fac!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_pay!!
+		</div></div>
+		<div class='colonne10'><div class='colonnetd' style='text-align:right;'>
+			!!mnt_sol!!
+		</div></div>
+	</div>
+	<div id='el_!!id_rub!!_Child' name='el_!!id_rub!!_Child' class='imb' style='display:none;'>
+		<!-- sous_rub -->
+	</div>";
+
+//Template de visualisation du total  avec TVA
+$view_tot_rub_form = "	
+	<div class='row'>
+		<div class='colonne3'>&nbsp;</div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_tot!!
+		</div></div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_ava!!
+		</div></div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_eng!!
+		</div></div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_fac!!
+		</div></div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_pay!!
+		</div></div>
+		<div class='colonne10'><div class='colonneth' style='text-align:right;'>
+			!!mnt_sol!!
+		</div></div>
+	</div>";
 
 //Template de modification du formulaire de budget
 $budg_form = "

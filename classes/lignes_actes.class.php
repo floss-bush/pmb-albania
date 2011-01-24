@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: lignes_actes.class.php,v 1.19 2009-12-24 15:28:25 mbertin Exp $
+// $Id: lignes_actes.class.php,v 1.20 2010-10-28 10:03:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -27,6 +27,7 @@ class lignes_actes{
 	var $date_cre = '0000-00-00';		//Date de création de ligne
 	var $statut = 0;					
 	var $index_ligne = '';				//Index de recherche
+	var $debit_tva = 0;				//Index de recherche
 
 	 
 	//Constructeur.	 
@@ -45,7 +46,7 @@ class lignes_actes{
 	// charge une ligne d'acte à partir de la base.
 	function load(){
 	
-		global $dbh;
+		global $dbh,$acquisition_gestion_tva;
 		
 		$q = "select * from lignes_actes where id_ligne = '".$this->id_ligne."' ";
 		$r = mysql_query($q, $dbh) ;
@@ -65,15 +66,19 @@ class lignes_actes{
 		$this->nb = $obj->nb;
 		$this->date_ech = $obj->date_ech;
 		$this->date_cre = $obj->date_cre;
-		$this->statut = $obj->statut;
-		
+		$this->statut = $obj->statut;		
+		$this->debit_tva = $obj->debit_tva;
+		// Pour les anciennes commandes
+		if(!$this->debit_tva)$this->debit_tva=$acquisition_gestion_tva;
 	}
 
 	
 	// enregistre une ligne d'acte en base
 	function save(){
 		
-		global $dbh;
+		global $dbh,$acquisition_gestion_tva;
+		
+		if(!$this->debit_tva)$this->debit_tva=$acquisition_gestion_tva;
 		
 		if (!$this->num_acte) die("Erreur de création Lignes_Actes");
 		
@@ -81,7 +86,7 @@ class lignes_actes{
 			
 			$q = "update lignes_actes set type_ligne = '".$this->type_ligne."', num_acte = '".$this->num_acte."', lig_ref = '".$this->lig_ref."', num_acquisition = '".$this->num_acquisition."', ";
 			$q.= "num_rubrique = '".$this->num_rubrique."', num_produit = '".$this->num_produit."', num_type = '".$this->num_type."', ";
-			$q.= "libelle = '".$this->libelle."', code = '".$this->code."', prix = '".$this->prix."', tva = '".$this->tva."', nb = '".$this->nb."', ";
+			$q.= "libelle = '".$this->libelle."', code = '".$this->code."', prix = '".$this->prix."', tva = '".$this->tva."', nb = '".$this->nb."', debit_tva = '".$this->debit_tva."', ";
 			$q.= "remise = '".$this->remise."', date_ech = '".$this->date_ech."', date_cre = '".$this->date_cre."', statut = '".$this->statut."', "; 
 			$q.= "index_ligne = ' ".strip_empty_words($this->libelle)." '";
 			$q.= "where id_ligne = '".$this->id_ligne."' ";
@@ -90,7 +95,7 @@ class lignes_actes{
 		} else {
 
 			$q = "insert into lignes_actes set type_ligne = '".$this->type_ligne."', num_acte = '".$this->num_acte."', lig_ref = '".$this->lig_ref."', num_acquisition = '".$this->num_acquisition."', num_rubrique = '".$this->num_rubrique."', ";
-			$q.= "num_produit = '".$this->num_produit."', num_type = '".$this->num_type."', libelle = '".$this->libelle."', code = '".$this->code."', prix = '".$this->prix."', tva = '".$this->tva."', nb = '".$this->nb."', ";
+			$q.= "num_produit = '".$this->num_produit."', num_type = '".$this->num_type."', libelle = '".$this->libelle."', code = '".$this->code."', prix = '".$this->prix."', tva = '".$this->tva."', nb = '".$this->nb."', debit_tva = '".$this->debit_tva."', ";
 			$q.= "remise = '".$this->remise."', date_ech = '".$this->date_ech."', date_cre = '".today()."', statut = '".$this->statut."', ";
 			$q.= "index_ligne = ' ".strip_empty_words($this->libelle)." '";
 			$r = mysql_query($q, $dbh);

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: admin.tpl.php,v 1.153 2010-09-14 14:57:10 ngantier Exp $
+// $Id: admin.tpl.php,v 1.155 2011-01-20 13:25:15 trenon Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -1204,7 +1204,7 @@ $admin_location_form = "
 <div class='row'><label class='etiquette'>$msg[location_details_email]</label></div><div class='row'><input type='text' name='form_locdoc_email' value='!!loc_email!!' maxlength='100' class='saisie-20em' /></div>
 <div class='row'><label class='etiquette'>$msg[location_details_website]</label></div><div class='row'><input type='text' name='form_locdoc_website' value='!!loc_website!!' maxlength='100' class='saisie-50em' /></div>
 <div class='row'><label class='etiquette'>$msg[location_details_logo]</label></div><div class='row'><input type='text' name='form_locdoc_logo', ' value='!!loc_logo!!' maxlength='255' class='saisie-50em' /></div>
-<div class='row'><label class='etiquette'>$msg[location_details_commentaire]</label></div><div class='row'><textarea class='saisie-50em' name='form_locdoc_commentaire' cols='55' rows='5'>!!loc_commentaire!!</textarea></div>
+<div class='row'><label class='etiquette'>$msg[location_details_commentaire]</label></div><div class='row'><textarea class='saisie-50em' name='form_locdoc_commentaire' id='form_locdoc_commentaire' cols='55' rows='5'>!!loc_commentaire!!</textarea></div>
 	</div>
 <!-- Boutons -->
 <div class='row'>
@@ -2249,6 +2249,27 @@ $admin_chklnk_form = "
 	<form class='form-$current_module' id='login' method='post' action='./admin.php'>
 	<h3>".$msg['chklnk_titre']."</h3>
 	<div class='form-contenu'>
+		<div class='row'>
+			<input type='checkbox' checked name='chkrestrict' value='1'>&nbsp;<label class='etiquette' >".$msg['chklnk_restrict']."</label>
+			<blockquote>";
+			$requetenoti = "SELECT idcaddie, name FROM caddie where type='NOTI' and (autorisations='$PMBuserid' or autorisations like '$PMBuserid %' or autorisations like '% $PMBuserid %' or autorisations like '% $PMBuserid') order by name ";
+			$requetebull = "SELECT idcaddie, name FROM caddie where type='BULL' and (autorisations='$PMBuserid' or autorisations like '$PMBuserid %' or autorisations like '% $PMBuserid %' or autorisations like '% $PMBuserid') order by name ";
+			$requeteexpl = "SELECT idcaddie, name FROM caddie where type='EXPL' and (autorisations='$PMBuserid' or autorisations like '$PMBuserid %' or autorisations like '% $PMBuserid %' or autorisations like '% $PMBuserid') order by name ";
+$admin_chklnk_form .= "
+				<div class='colonne3'>
+					<label class='etiquette' >".$msg['chklnk_restrict_by_basket_noti']."</label><br />
+					".gen_liste ($requetenoti, "idcaddie", "name", "idcaddienoti[]", "", "", "", "","","",1,"style='width:100%;'")."
+				</div>
+				<div class='colonne3'>
+					<label class='etiquette' >".$msg['chklnk_restrict_by_basket_bull']."</label><br />
+					".gen_liste ($requetebull, "idcaddie", "name", "idcaddiebull[]", "", "", "", "","","",1,"style='width:100%;'")."
+				</div>
+				<div class='colonne3'>
+					<label class='etiquette' >".$msg['chklnk_restrict_by_basket_expl']."</label><br />
+					".gen_liste ($requeteexpl, "idcaddie", "name", "idcaddieexpl[]", "", "", "", "","","",1,"style='width:100%;'")."
+				</div>
+			</blockquote>			
+		</div>
 		<h3>".$msg['chklnk_titre_notice']."</h3>
 		<div class='row'>
 			<input type='checkbox' checked name='chknoti' value='1'>&nbsp;<label class='etiquette' >".$msg['chklnk_chk_noti']."</label>&nbsp;

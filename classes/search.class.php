@@ -2,10 +2,9 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search.class.php,v 1.128 2010-08-27 07:48:10 mbertin Exp $
+// $Id: search.class.php,v 1.131 2010-12-23 10:36:35 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
-
 //Classe de gestion des recherches avancees
 
 require_once($include_path."/parser.inc.php");
@@ -17,10 +16,22 @@ require_once("$class_path/acces.class.php");
 require_once($include_path."/isbn.inc.php");
 require_once("$class_path/fiche.class.php");
 
+//pour les autorités
+require_once("$class_path/author.class.php");
+require_once("$class_path/categories.class.php");
+require_once("$class_path/editor.class.php");
+require_once("$class_path/collection.class.php");
+require_once("$class_path/subcollection.class.php");
+require_once("$class_path/serie.class.php");
+require_once("$class_path/titre_uniforme.class.php");
+require_once("$class_path/indexint.class.php");
+
 if ($pmb_allow_external_search && (SESSrights & ADMINISTRATION_AUTH) && $id_connector_set)
 	require_once($class_path."/connecteurs_out_sets.class.php");			
 
 class mterm {
+	var $sc_type;
+	var	$uid;			//Identifiant du champ
 	var	$ufield;		//Nom du champ UNIMARC
 	var $op;			//Operateur
 	var $values;		//Liste des valeurs (tableau)
@@ -28,7 +39,8 @@ class mterm {
 	var $sub;			//sous liste de termes (tableau)
 	var $inter;			//operateur entre ce terme et le precedent
 	
-	function mterm($ufield,$op,$values,$vars,$inter) {
+	function mterm($ufield,$op,$values,$vars,$inter,$uid="") {
+		$this->uid = $uid;
 		$this->ufield=$ufield;
 		$this->op=$op;
 		$this->values=$values;
@@ -61,6 +73,7 @@ class search {
 	var $tableau_speciaux;
 	var $operator_multi_value;
 	var $full_path='';
+	var $fichier_xml;
 	
 	var $dynamics_not_visible;
 	var $specials_not_visible;
@@ -77,6 +90,7 @@ class search {
 		}
 		$this->rec_history=$rec_history;
 		$this->full_path = $full_path;		
+		$this->fichier_xml=$fichier_xml;
     }
     
     function strip_slashes() {
@@ -120,6 +134,7 @@ class search {
     	global $aff_list_empr_search;
     	global $msg;
     	global $include_path;
+    	global $thesaurus_classement_mode_pmb;
     	
     	$r="";
     	$s=explode("_",$search);
@@ -162,6 +177,11 @@ class search {
 						$fnamesans="field_".$n."_".$search;
 						$fname="field_".$n."_".$search."[]";
 						$fname_id="field_".$n."_".$search."_id";
+						$fnamesanslib="field_".$n."_".$search."_lib";
+						$fnamelib="field_".$n."_".$search."_lib[]";
+						$fname_name_aut_id="fieldvar_".$n."_".$search."[authority_id][]";
+						$fname_aut_id="fieldvar_".$n."_".$search."_authority_id";
+
 						$ajax=$ff["INPUT_OPTIONS"]["AJAX"];
 						$selector=$ff["INPUT_OPTIONS"]["SELECTOR"];
 						$p1=$ff["INPUT_OPTIONS"]["P1"];
@@ -172,10 +192,72 @@ class search {
 						}else{
 							$fnamevar_id = "";
 						}
-						$r="<input autfield=\"$fname_id\" completion=\"$ajax\" $fnamevar_id id='$fnamesans' name=\"$fname\" value='".htmlentities($v[0],ENT_QUOTES,$charset)."' type=\"text\">" .
-						"<input class=\"bouton\" value=\"...\" " .
-						"onclick=\"openPopUp('./select.php?what=$selector&caller=search_form&mode=un&$p1=$fname_id&$p2=$fname&deb_rech='+escape(document.getElementById('$fnamesans').value), 'select_author0', 400, 400, -2, -2, 'scrollbars=yes, toolbar=no, dependent=yes, resizable=yes')\" type=\"button\">" .
-						"<input name=\"$fname_id\" id=\"$fname_id\" value=\"\" type=\"hidden\">";
+						$op = "op_".$n."_".$search;
+						global $$op;
+						global $lang;
+						$r= "
+						<input id='$fnamesans' name='$fname' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' type='hidden' />
+						";
+						
+						if ($$op == "AUTHORITY"){
+							if($v[0]!= 0){
+								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
+									case "auteur":
+										$aut=new auteur($v[0]);
+										if($aut->author_rejete) $libelle = $aut->author_name.', '.$aut->author_rejete;
+										else $libelle = $aut->author_name;
+										if($aut->author_date) $libelle .= " ($aut->author_date)";
+										$libelle = $aut->name.", ".$aut->rejete;
+										break;
+									case "categorie":
+										$categ=new categories($v[0],$lang);
+										$libelle = $categ->libelle_categorie;
+										break;
+									case "editeur":
+										$ed = new editeur($v[0]);
+										$libelle=$ed->name;
+										if ($ed->ville) 
+											if ($ed->pays) $libelle.=" ($ed->ville - $ed->pays)";
+											else $libelle.=" ($ed->ville)";
+										break;
+									case "collection" :
+										$coll = new collection($v[0]);
+										$libelle = $coll->name;
+										break;
+									case "subcollection" :
+										$coll = new subcollection($v[0]);
+										$libelle = $coll->name;
+										break;
+									case "serie" :
+										$serie = new serie($v[0]);
+										$libelle = $serie->name;
+										break;
+									case "indexint" :
+										$indexint = new indexint($v[0]);
+										if ($indexint->comment) $libelle = $indexint->name." - ".$indexint->comment;
+										else $libelle = $indexint->name ;
+										if ($thesaurus_classement_mode_pmb != 0) {
+											$libelle="[".$indexint->name_pclass."] ".$libelle;
+										}
+										break;
+									case "titre_uniforme" :
+										$tu = new titre_uniforme($v[0]);
+										$field[$j] = $tu->name;
+										break;	
+									default :
+										$libelle = $v[0];
+										break;
+								}
+							}else $libelle = "";
+							$r.="<input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($libelle,ENT_QUOTES,$charset)."' type='text' class='saisie-20emr'/>
+							";						
+						}else{
+							$r.="<input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' type='text' />
+							";
+						}
+						$r.= "<input type='hidden' value='".($fieldvar['authority_id'][0] ?$fieldvar['authority_id'][0] : "")."' id='$fname_aut_id' name='$fname_name_aut_id' />
+						<input name='$fname_id' id='$fname_id' value='".($fieldvar['id'][0] ?$fieldvar['id'][0] : "")."' type='hidden'>
+						<input class='bouton' value='...' id='$fnamesans"."_authority_selector' onclick=\"openPopUp('./select.php?what=$selector&caller=search_form&mode=un&$p1=$fname_id&$p2=$fnamelib&deb_rech='+escape(document.getElementById('$fnamesanslib').value)+'&callback=authoritySelected&infield=$fnamesans', 'select_author0', 400, 400, -2, -2, 'scrollbars=yes, toolbar=no, dependent=yes, resizable=yes')\" type=\"button\">";
     				break;
     			case "text":
     				$r="<input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."'/>";
@@ -910,6 +992,8 @@ class search {
     	global $charset;
     	global $include_path;
 		global $pmb_multi_search_operator;
+		global $lang;
+		global $thesaurus_classement_mode_pmb;
 		
 		$r="";
     	for ($i=0; $i<count($search); $i++) {
@@ -988,6 +1072,57 @@ class search {
     					break;
     				case "date":
     					$field_aff[0]=format_date($field[0]);
+    					break;
+    				case "authoritie":
+    					for($j=0 ; $j<sizeof($field) ; $j++){
+    						if(is_numeric($field[$j])){
+								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
+									case "categorie":
+										$categ=new categories($field[$j],$lang);
+										$field[$j] = $categ->libelle_categorie;
+										break;
+									case "auteur":
+										$aut=new auteur($field[$j],$lang);
+										if($aut->author_rejete) $field[$j] = $aut->author_name.', '.$aut->author_rejete;
+										else $field[$j] = $aut->author_name;
+										if($aut->author_date) $field[$j] .= " ($aut->author_date)";
+										$field[$j] = $aut->name.", ".$aut->rejete;
+										break;
+									case "editeur":
+										$ed = new editeur($field[$j]);
+										$field[$j]=$ed->name;
+										if ($ed->ville) 
+											if ($ed->pays) $field[$j].=" ($ed->ville - $ed->pays)";
+											else $field[$j].=" ($ed->ville)";
+										break;	
+									case "collection" :
+										$coll = new collection($field[$j]);
+										$field[$j] = $coll->name;
+										break;
+									case "subcollection" :
+										$coll = new subcollection($field[$j]);
+										$field[$j] = $coll->name;
+										break;
+									case "serie" :
+										$serie = new serie($field[$j]);
+										$field[$j] = $serie->name;
+										break;
+									case "indexint" :
+										$indexint = new indexint($field[$j]);
+										if ($indexint->comment) $field[$j] = $indexint->name." - ".$indexint->comment;
+										else $field[$j] = $indexint->name ;
+										if ($thesaurus_classement_mode_pmb != 0) {
+											$field[$j]="[".$indexint->name_pclass."] ".$field[$j];
+										}
+										break;
+									case "titre_uniforme" :
+										$tu = new titre_uniforme($field[$j]);
+										$field[$j] = $tu->name;
+										break;	
+								}
+    						}
+    					}
+    					$field_aff= $field;
     					break;
     				default:
     					$field_aff=$field;
@@ -1120,14 +1255,22 @@ class search {
 
 		$mt=array();
 		
-    	for ($i=0; $i<count($search); $i++) {
+		//Récupération du type de recherche
+		$sc_type = $this->fichier_xml;
+		$sc_type = substr($sc_type,0,strlen($sc_type)-8);
+
+		for ($i=0; $i<count($search); $i++) {
     		$sub="";
     		$s=explode("_",$search[$i]);
+
     		if ($s[0]=="f") {
+    			$id=$search[$i];
     			$title=$this->fixedfields[$s[1]]["UNIMARCFIELD"]; 
     		} elseif (array_key_exists($s[0],$this->pp)){
+    			$id=$search[$i];
     			$title=$this->pp[$s[0]]->t_fields[$s[1]]["UNIMARCFIELD"];
     		} elseif ($s[0]=="s") {
+    			$id=$search[$i];
     			$title=$this->specialfields[$s[1]]["UNIMARCFIELD"];
     		}
     		$op="op_".$i."_".$search[$i];
@@ -1256,7 +1399,8 @@ class search {
     		$inter="inter_".$i."_".$search[$i];
     		global $$inter;
     		
-    		$mterm=new mterm($title,$$op,$field_aff,$fieldvar_aff,$$inter);
+    		$mterm=new mterm($title,$$op,$field_aff,$fieldvar_aff,$$inter,$id);
+    		if ($i==1) $mterm->sc_type=$sc_type;
     		if ((is_array($sub))&&(count($sub))) $mterm->set_sub($sub); else if (is_array($sub)) unset($mterm);
     		if ($mterm) $mt[]=$mterm;
     	}
@@ -1974,11 +2118,21 @@ class search {
     			$op="op_".$i."_".$search[$i];
     			global $$op;
     			if ($f[0]=="f") {	
-     				$r.="<select name='op_".$n."_".$search[$i]."'>\n";
+     				$r.="<select name='op_".$n."_".$search[$i]."'";
+					//gestion des autorités
+					$onchange ="";
+
+					if (isset($this->fixedfields[$f[1]]["QUERIES_INDEX"]["AUTHORITY"])){
+						$selector=$this->fixedfields[$f[1]]["INPUT_OPTIONS"]["SELECTOR"];
+						$p1=$this->fixedfields[$f[1]]["INPUT_OPTIONS"]["P1"];
+						$p2=$this->fixedfields[$f[1]]["INPUT_OPTIONS"]["P2"];
+						$onchange ="onchange='operatorChanged(\"".$n."_".$search[$i]."\",this.value);'";
+					}
+     				$r.="$onchange>\n";
     				for ($j=0; $j<count($this->fixedfields[$f[1]]["QUERIES"]); $j++) {
     					$q=$this->fixedfields[$f[1]]["QUERIES"][$j];
     					$r.="<option value='".$q["OPERATOR"]."' ";
-    					if ($$op==$q["OPERATOR"]) $r.="selected";
+    					if ($$op==$q["OPERATOR"]) $r.=" selected";
     					$r.=">".htmlentities($this->operators[$q["OPERATOR"]],ENT_QUOTES,$charset)."</option>\n";
     				}
     				$r.="</select>";
@@ -2079,7 +2233,74 @@ class search {
 				}	
 			
 			}
-</script>";
+
+			//callback du selecteur d'opérateur
+			function operatorChanged(field,operator){
+				var selector = document.getElementById('field_'+field+'_authority_selector')
+				var f_lib = document.getElementById('field_'+field+'_lib');
+				var f_id = document.getElementById('field_'+field+'_id');
+				var f = document.getElementById('field_'+field);	
+				var authority_id = document.getElementById('fieldvar_'+field+'_authority_id');
+				if(operator == 'AUTHORITY'){
+	//				f_lib.setAttribute('class','saisie-20emr');
+	//				if(authority_id.value != 0) f.value = authority_id.value;
+				}else{
+					f_lib.removeAttribute('class');
+					f.value = f_lib.value; 
+				}
+			}
+
+			//callback du selecteur AJAX pour les autorités
+			function authoritySelected(infield){
+				//pour assurer la compatibilité avec le selecteur AJAX
+				infield=infield.replace('_lib','');
+				infield=infield.replace('_authority_label','');
+				var searchField = document.getElementById(infield);
+				var f_lib = document.getElementById(infield+'_lib');
+				var f_id = document.getElementById(infield+'_id');
+				var op_name =infield.replace('field','op');
+				var op_selector = document.forms['search_form'][op_name];
+				var authority_id = document.getElementById(infield.replace('field','fieldvar')+'_authority_id');
+				//on passe le champ en selecteur d'autorité !
+				for (var i=0 ; i<op_selector.options.length ; i++){
+					if(op_selector.options[i].value == 'AUTHORITY')
+						op_selector.options[i].selected = true;
+				}
+				f_lib.setAttribute('class','saisie-20emr');
+				searchField.value=f_id.value;
+				authority_id.value= f_id.value;
+			}
+	
+			//callback sur la saisie libre 
+			function fieldChanged(id,value){
+				var f_lib = document.getElementById(id+'_lib');
+				var f_id = document.getElementById(id+'_id');
+				var f = document.getElementById(id);		
+				var authority_id = document.getElementById(id.replace('field','fieldvar')+'_authority_id');
+				var selector = document.forms['search_form'][id.replace('field','op')];
+				
+				if (selector.options[selector.selectedIndex].value != 'AUTHORITY')
+					f.value = value;
+				else if(id+'_lib' == keepingId && value!= keepingValue){
+					f_lib.setAttribute('class','ext_search_txt');
+					for (var i=0 ; i<selector.options.length ; i++){
+						if (selector.options[i].value == 'BOOLEAN')
+							selector.options[i].selected = true;
+					}
+					f.value = f_lib.value;
+					authority_id.value = '';
+				}
+			}
+			
+			//onkeydown
+			var keepingValue;
+			var keepingId;
+			function keepFieldVal(val,id){
+				keepingValue = val;
+				keepingId = id;
+			}		
+			
+		</script>";
 
     	return $search_form;
     }
@@ -2141,6 +2362,7 @@ class search {
 			} else {
 				$t["TITLE"]=$ff["TITLE"];	
 			}
+			$t["ID"]=$ff["ID"];
 			$t["UNIMARCFIELD"]=$ff["UNIMARCFIELD"];
 			$t["INPUT_TYPE"]=$ff["INPUT"][0]["TYPE"];
 			$t["INPUT_OPTIONS"]=$ff["INPUT"][0];
@@ -2172,9 +2394,9 @@ class search {
 				}
 				$t["VAR"][]=$v;
 			}
-			
-			$q=array();
+
 			for ($j=0; $j<count($ff["QUERY"]); $j++) {
+				$q=array();
 				$q["OPERATOR"]=$ff["QUERY"][$j]["FOR"];
 				if (($ff["QUERY"][$j]["MULTIPLE"]=="yes")||($ff["QUERY"][$j]["CONDITIONAL"]=="yes")) {
 					if($ff["QUERY"][$j]["MULTIPLE"]=="yes") $element = "PART";
@@ -2193,12 +2415,11 @@ class search {
 						if ($pquery["REGDIACRIT"]=="yes")
 							$q[$k]["REGDIACRIT"]=true;
 						else
-							$q[$k]["REGDIACRIT"]=false;						
+							$q[$k]["REGDIACRIT"]=false;
 						if ($pquery["KEEP_EMPTYWORD"]=="yes")
 							$q[$k]["KEEP_EMPTYWORD"]=true;
 						else
-							$q[$k]["KEEP_EMPTYWORD"]=false;
-							
+							$q[$k]["KEEP_EMPTYWORD"]=false;					
 						if ($pquery["REPEAT"]) {
 							$q[$k]["REPEAT"]["NAME"]=$pquery["REPEAT"][0]["NAME"];
 							$q[$k]["REPEAT"]["ON"]=$pquery["REPEAT"][0]["ON"];
@@ -2470,7 +2691,7 @@ class search {
     			if ($q["DEFAULT_OPERATOR"])
     				$operator_multi=$q["DEFAULT_OPERATOR"];
     			for ($j=0; $j<count($field); $j++) {
-	    			$field_aff[$j]=$this->pp[$s[0]]->get_formatted_output(array(0=>$field[$j]),$s[1]);
+    				$field_aff[$j]=$this->pp[$s[0]]->get_formatted_output(array(0=>$field[$j]),$s[1]);
     			}
     		} elseif($s[0]=="f") {
     			$ff=$this->fixedfields[$s[1]];

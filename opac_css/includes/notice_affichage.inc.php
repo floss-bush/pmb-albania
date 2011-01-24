@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage.inc.php,v 1.28 2010-08-27 09:17:50 mbertin Exp $
+// $Id: notice_affichage.inc.php,v 1.31 2010-11-26 10:15:49 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -67,7 +67,7 @@ function get_aff_function() {
 	return $aff_notice_fonction;
 }
 
-function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="", $depliable="") {
+function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="", $depliable="",$nodocnum=0) {
 	
 	global $liens_opac;
 	global $opac_notices_format;
@@ -82,13 +82,15 @@ function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="
 		$cart=0;
 	}
 	if ($nocart) $cart=0;
-	
+		
 	//Recherche des fonctions d'affichage
 	$f=get_aff_function();
 	if ($f) return $f($id,$cart);
 	
 	if ($id>0) {
 		$current = new $opac_notice_affichage_class($id,$liens_opac,$cart);
+		if($nodocnum) $current->docnum_allowed = 0;
+		
 		if($depliable === "")$depliable=$opac_notices_depliable;
 		if($gen_header)$current->do_header();
 		if($mode_aff_notice !== "")$type_aff=$mode_aff_notice;

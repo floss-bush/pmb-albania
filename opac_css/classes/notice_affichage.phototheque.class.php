@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage.phototheque.class.php,v 1.20 2010-08-19 13:14:38 touraine37 Exp $
+// $Id: notice_affichage.phototheque.class.php,v 1.21 2010-10-07 14:10:49 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -439,6 +439,7 @@ function genere_simple($depliable=1, $what='ISBD') {
 	global $opac_url_base ;
 	global $opac_avis_allow;
 	global $opac_allow_add_tag;
+	global $opac_visionneuse_allow;
 	global $allow_tag ; // l'utilisateur a-t-il le droit d'ajouter un tag
 
 	$this->notice_childs = $this->genere_notice_childs();
@@ -525,7 +526,14 @@ function genere_simple($depliable=1, $what='ISBD') {
 				$obj="<img src='".$tmpprefix_url_image."images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";
 				
 				$expl_liste_obj = "";
-				$expl_liste_obj .= "<a href='index.php?lvl=notice_display&id=".$this->notice_id."&mode_phototeque=1' alt='$alt' title='$alt'>".$obj."</a><br />" ;
+				if ($opac_visionneuse_allow){
+					$link="<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
+						<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />";
+					$expl_liste_obj .=$link;
+				}else{
+					$suite_url_explnum ="doc_num.php?explnum_id=$expl->explnum_id$words_to_find";
+					$expl_liste_obj .= "<a href='index.php?lvl=notice_display&id=".$this->notice_id."&mode_phototeque=1' alt='$alt' title='$alt'>".$obj."</a><br />";
+				}
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
 				elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;

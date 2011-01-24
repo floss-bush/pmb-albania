@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: congres_see.inc.php,v 1.8 2010-07-02 08:15:13 arenou Exp $
+// $Id: congres_see.inc.php,v 1.11 2010-12-02 15:46:51 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -47,6 +47,8 @@ if($id) {
 	
 	$ourAuteur->get_similar_name($ourAuteur->type);
 	print $ourAuteur->print_similar_name();
+	
+	print $ourAuteur->author_comment;
 	
 	// récupération des formes rejetées pour affichage
 	$requete = "select distinct author_id as aut from authors where author_id $clause_auteurs and author_id!=$id " ;
@@ -101,8 +103,16 @@ if($id) {
 		if ($res) $nbr_lignes = mysql_result($res,0,0); else $nbr_lignes=0;
 		
 		//Recherche des types doc
-		$requete = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_notice=notice_id $acces_j, responsability $statut_j  ";
-		$requete.= "where responsability_author $clause_auteurs and notice_id=responsability_notice $statut_r  group by notices.typdoc";
+		$where = "where responsability_author $clause_auteurs and notice_id=responsability_notice $statut_r  group by notices.typdoc";
+		if ($opac_visionneuse_allow){
+			$requete_noti = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice = notice_id $acces_j, responsability $statut_j  ";
+			$requete_bull = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin = bulletin_id and explnum_bulletin != 0 $acces_j, responsability $statut_j  ";
+			$where = "where responsability_author $clause_auteurs and notice_id=responsability_notice $statut_r group by notices.typdoc";
+			$requete = "select distinct uni.typdoc, sum(nbexplnum) as nbexplnum from ($requete_noti $where union $requete_bull $where) as uni group by typdoc";
+		}else{
+			$requete = "select distinct notices.typdoc FROM notices $acces_j, responsability $statut_j $where";
+		}
+		
 		$res = mysql_query($requete, $dbh);
 		$t_typdoc=array();
 		$nbexplnum_to_photo=0;

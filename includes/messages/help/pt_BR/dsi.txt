@@ -1,0 +1,11 @@
+<h1>Módulo de Disseminação Seletiva de Informação</h1>
+<p>DSI é um sistema que regularmente alerta os leitores sobre as publicações mais recentes na área de interesse correspondente aos seus perfis.</p>
+
+<h2>Encaminhamento</h2>
+Informar os leitores por email.<br />
+<h2>Cestos DSI</h2>
+Um cesto DSI é o local onde as referências ao material recente ou publicado são colocadas. Seu conteúdo será encaminhado para os leitores.<br />
+<h2>Equações </h2>
+Equações preenchem os cestos DSI.<br />
+<h2>Classificações </h2>
+As classificações auxiliam a organizar os cestos e equações.<br />

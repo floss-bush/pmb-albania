@@ -1,0 +1,14 @@
+<h1>Módulo de Administração</h1>
+<p>Este módulo afeta o funcionamento geral da aplicação. Tenha <b>cuidado</b> ao utilizá-lo. Antes de executar qualquer comando, pense no impacto que seus dados sofrerão. 
+
+<h2>Exemplares/Registros</h2>
+<p>Estas duas seções permitem definir as configurações para as estatísticas e empréstimos de documentos.</p>
+
+<h2>Leitores</h2>
+<p>Esta seção possibilita gerenciar os leitores em categorias, ou configurar vários códigos para ajudá-lo a criar estatísticas.</p>
+
+<h2>Usuários</h2>
+<p>Esta seção permite gerenciar os usuários do PMB e definir seus privilégios. Você pode definir quais usuários podem emprestar, catalogar e/ou gerenciar autoridades. Nomes de usuários e senhas são alterados aqui. </p>
+
+<h2>Ferramentas</h2>
+<p>Ferramentas para o gerenciamento da base de dados. Nós recomendamos que seja executado um backup da base regularmente.</p>

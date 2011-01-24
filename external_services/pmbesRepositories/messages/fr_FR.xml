@@ -4,7 +4,7 @@ pmbesRepositories
 <!--
 list_agnostic_repositories
 -->
-<entry code="list_agnostic_repositories_description">Liste les sources entrepots du connecteurs agnostique.</entry>
+<entry code="list_agnostic_repositories_description">Liste les sources entrepots du connecteur agnostique.</entry>
 <entry code="list_agnostic_repositories_input_description"></entry>
 <entry code="list_agnostic_repositories_output_description"></entry>
 <entry code="list_agnostic_repositories_repositories">Les sources</entry>

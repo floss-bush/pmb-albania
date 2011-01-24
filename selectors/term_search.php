@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: term_search.php,v 1.7 2007-07-28 07:04:29 touraine37 Exp $
+// $Id: term_search.php,v 1.8 2010-12-17 10:35:11 arenou Exp $
 //
 // Recherche des termes correspondants à la saisie
 
@@ -16,7 +16,7 @@ require_once ("$class_path/thesaurus.class.php");
 
 
 //Récupération des paramètres du formulaire appellant
-$base_query = "caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&parent=&dyn=$dyn&keep_tilde=$keep_tilde&id_thes=$id_thes";
+$base_query = "caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&parent=&dyn=$dyn&keep_tilde=$keep_tilde&id_thes=$id_thes&callback=".$callback."&infield=".$infield;
 
 //Page en cours d'affichage
 $n_per_page=$thesaurus_categories_term_search_n_per_page;

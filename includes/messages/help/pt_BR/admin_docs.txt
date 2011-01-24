@@ -1,0 +1,11 @@
+<h1>Gerenciamento de exemplares e itens</h1>
+<p>Esta seção permite definir as configurações para <b>empréstimos e estatísticas</b>.
+<ul>
+<li><b>Tipos de mídia</b> permite configurar várias opções de empréstimos, incluindo o período autorizado.</li>
+<li><b>Códigos estatísticos</b> são usados para compilar estatísticas de empréstimos e das coleções da biblioteca.</li>
+<li><b>Seções</b> são sub-divisões de sua biblioteca (adultos, infanto-juvenis, etc...) onde os itens estão disponíveis para empréstimo ou consulta. Este código também é utilizado para gerar estatísticas.</li>
+<li><b>Status</b> é usado para especificar a disponibilidade de itens, que, podem ou não ser emprestados pela biblioteca.</li>
+<li><b>Locais</b> pode ser usado para designar itens em locais especiais na biblioteca (por exemplo: reserva).</li>
+<li><b>Proprietários</b> os proprietários de materiais.</li>
+<li><b>Campos personalizados</b> para exemplares.</li> 
+</ul></p>

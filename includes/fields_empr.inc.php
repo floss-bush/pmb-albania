@@ -1,18 +1,18 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fields_empr.inc.php,v 1.47 2010-08-27 07:48:10 mbertin Exp $
+// $Id: fields_empr.inc.php,v 1.52 2011-01-20 16:14:55 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr");
-$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search");
-$aff_filter_list_empr=array("text"=>"aff_filter_text_empr","list"=>"aff_filter_list_empr","query_list"=>"aff_filter_query_list_empr","date_box"=>"aff_filter_date_box_empr","comment"=>"aff_filter_comment_empr","external"=>"aff_filter_external_empr");
-$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr");
-$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr");
-$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"]);
-$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php");
+$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr","url"=>"aff_url_empr");
+$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search","url"=>"aff_url_empr_search");
+$aff_filter_list_empr=array("text"=>"aff_filter_text_empr","list"=>"aff_filter_list_empr","query_list"=>"aff_filter_query_list_empr","date_box"=>"aff_filter_date_box_empr","comment"=>"aff_filter_comment_empr","external"=>"aff_filter_external_empr","url"=>"aff_filter_url_empr");
+$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr","url"=>"chk_url_empr");
+$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr","url"=>"val_url_empr");
+$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"],"url"=>$msg["parperso_url"]);
+$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php","url"=>"options_url.php");
 
 function chk_datatype($field,$values,&$check_datatype_message) {
 	global $chk_type_list;
@@ -249,39 +249,57 @@ function aff_list_empr($field,&$check_scripts,$script="") {
 	$options=$field[OPTIONS][0];
 	$values=$field[VALUES];
 	if ($values=="") $values=array();
+	
 	if ($options["AUTORITE"][0]["value"]!="yes") {
-		$ret="<select id=\"".$field[NAME]."\" name=\"".$field[NAME];
-		$ret.="[]";
-		$ret.="\" ";
-		if ($script) $ret.=$script." ";
-		if ($options[MULTIPLE][0][value]=="yes") $ret.="multiple";
-		$ret.=">\n";
-		if (($options[UNSELECT_ITEM][0][VALUE]!="")||($options[UNSELECT_ITEM][0][value]!="")) {
-			$ret.="<option value=\"".htmlentities($options[UNSELECT_ITEM][0][VALUE],ENT_QUOTES,$charset)."\">".htmlentities($options[UNSELECT_ITEM][0][value],ENT_QUOTES,$charset)."</option>\n";
-		}
-		$requete="select ".$_custom_prefixe_."_custom_list_value, ".$_custom_prefixe_."_custom_list_lib from ".$_custom_prefixe_."_custom_lists where ".$_custom_prefixe_."_custom_champ=".$field[ID]." order by ordre";
-		$resultat=mysql_query($requete);
-		if ($resultat) {
-			$i=0;
-			while ($r=mysql_fetch_array($resultat)) {
-				$options[ITEMS][0][ITEM][$i][VALUE]=$r[$_custom_prefixe_."_custom_list_value"];
-				$options[ITEMS][0][ITEM][$i][value]=$r[$_custom_prefixe_."_custom_list_lib"];
-				$i++;
+		if ($options["CHECKBOX"][0]["value"]=="yes"){
+			if ($options[MULTIPLE][0][value]=="yes") $type = "checkbox";
+			else $type = "radio";
+			$requete="select ".$_custom_prefixe_."_custom_list_value, ".$_custom_prefixe_."_custom_list_lib from ".$_custom_prefixe_."_custom_lists where ".$_custom_prefixe_."_custom_champ=".$field[ID]." order by ordre";
+			$resultat=mysql_query($requete);	
+			if ($resultat) {
+				$i=0;
+				$ret="";
+				while ($r=mysql_fetch_array($resultat)) {
+					$r[$_custom_prefixe_."_custom_list_value"];
+					$r[$_custom_prefixe_."_custom_list_lib"];
+					$ret.= "<input id='".$field[NAME]."_$i' type='$type' name='".$field[NAME]."[]' ".(in_array($r[$_custom_prefixe_."_custom_list_value"],$values) ? "checked=checked" : "")." value='".$r[$_custom_prefixe_."_custom_list_value"]."'/><span id='lib_".$field[NAME]."_$i'>&nbsp;".$r[$_custom_prefixe_."_custom_list_lib"]."</span>";
+					$i++;
+				}
+			}	
+		}else{
+			$ret="<select id=\"".$field[NAME]."\" name=\"".$field[NAME];
+			$ret.="[]";
+			$ret.="\" ";
+			if ($script) $ret.=$script." ";
+			if ($options[MULTIPLE][0][value]=="yes") $ret.="multiple";
+			$ret.=">\n";
+			if (($options[UNSELECT_ITEM][0][VALUE]!="")||($options[UNSELECT_ITEM][0][value]!="")) {
+				$ret.="<option value=\"".htmlentities($options[UNSELECT_ITEM][0][VALUE],ENT_QUOTES,$charset)."\">".htmlentities($options[UNSELECT_ITEM][0][value],ENT_QUOTES,$charset)."</option>\n";
 			}
-		}
-		for ($i=0; $i<count($options[ITEMS][0][ITEM]); $i++) {
-			$ret.="<option value=\"".htmlentities($options[ITEMS][0][ITEM][$i][VALUE],ENT_QUOTES,$charset)."\"";
-			if (count($values)) {
-				$as=array_search($options[ITEMS][0][ITEM][$i][VALUE],$values);
-				if (($as!==FALSE)&&($as!==NULL)) $ret.=" selected"; 
-			} else {
-				//Recherche de la valeur par défaut
-				if ($options[ITEMS][0][ITEM][$i][VALUE]==$options[DEFAULT_VALUE][0][value]) $ret.=" selected";
+			$requete="select ".$_custom_prefixe_."_custom_list_value, ".$_custom_prefixe_."_custom_list_lib from ".$_custom_prefixe_."_custom_lists where ".$_custom_prefixe_."_custom_champ=".$field[ID]." order by ordre";
+			$resultat=mysql_query($requete);
+			if ($resultat) {
+				$i=0;
+				while ($r=mysql_fetch_array($resultat)) {
+					$options[ITEMS][0][ITEM][$i][VALUE]=$r[$_custom_prefixe_."_custom_list_value"];
+					$options[ITEMS][0][ITEM][$i][value]=$r[$_custom_prefixe_."_custom_list_lib"];
+					$i++;
+				}
 			}
-			$ret.=">".htmlentities($options[ITEMS][0][ITEM][$i][value],ENT_QUOTES,$charset)."</option>\n";
-		}
+			for ($i=0; $i<count($options[ITEMS][0][ITEM]); $i++) {
+				$ret.="<option value=\"".htmlentities($options[ITEMS][0][ITEM][$i][VALUE],ENT_QUOTES,$charset)."\"";
+				if (count($values)) {
+					$as=array_search($options[ITEMS][0][ITEM][$i][VALUE],$values);
+					if (($as!==FALSE)&&($as!==NULL)) $ret.=" selected"; 
+				} else {
+					//Recherche de la valeur par défaut
+					if ($options[ITEMS][0][ITEM][$i][VALUE]==$options[DEFAULT_VALUE][0][value]) $ret.=" selected";
+				}
+				$ret.=">".htmlentities($options[ITEMS][0][ITEM][$i][value],ENT_QUOTES,$charset)."</option>\n";
+			}
 		$ret.= "</select>\n";
-	} else {
+		}
+	}else {
 		$caller="";
 		switch ($_custom_prefixe_) {
 			case "empr":
@@ -293,6 +311,9 @@ function aff_list_empr($field,&$check_scripts,$script="") {
 			case "expl":
 				$caller="expl";
 				break;
+			case "gestfic0": // a modifier lorsque il y aura du multi fiches!
+				$caller="formulaire";
+			break;
 		}
 		if ($values) {
 			$values_received=$values;
@@ -433,6 +454,26 @@ function aff_list_empr_search($field,&$check_scripts,$varname,$script="") {
 	return $ret;
 }
 
+function aff_empr_search($field) {
+	$table = array();
+	$table['label'] = $field['TITRE'];
+	$table['name'] = $field['NAME'];
+	$table['type'] =$field['DATATYPE'];
+	
+	$_custom_prefixe_=$field['PREFIX'];
+	$requete="select ".$_custom_prefixe_."_custom_list_value, ".$_custom_prefixe_."_custom_list_lib from ".$_custom_prefixe_."_custom_lists where ".$_custom_prefixe_."_custom_champ=".$field[ID]." order by ordre";
+	$resultat=mysql_query($requete);
+	if ($resultat) {
+		while ($r=mysql_fetch_array($resultat)) {
+			$value['value_id']=$r[$_custom_prefixe_."_custom_list_value"];
+			$value['value_caption']=$r[$_custom_prefixe_."_custom_list_lib"];
+			$table['values'][]=$value;
+		}
+	}else{
+		$table['values'] = array();
+	}
+	return $table;
+}
 
 function chk_list_empr($field,&$check_message) {
 	global $charset;
@@ -512,22 +553,40 @@ function aff_query_list_empr($field,&$check_scripts,$script="") {
 	
 	if ($values=="") $values=array();
 	if ($options["AUTORITE"][0]["value"]!="yes") {
-		$options=$field[OPTIONS][0];
-		$ret="<select id=\"".$field[NAME]."\" name=\"".$field[NAME];
-		$ret.="[]";
-		$ret.="\" ";
-		if ($script) $ret.=$script." ";
-		if ($options[MULTIPLE][0][value]=="yes") $ret.="multiple";
-		$ret.=">\n";
-		if (($options[UNSELECT_ITEM][0][VALUE]!="")||($options[UNSELECT_ITEM][0][value]!="")) {
-			$ret.="<option value=\"".htmlentities($options[UNSELECT_ITEM][0][VALUE],ENT_QUOTES,$charset)."\">".htmlentities($options[UNSELECT_ITEM][0][value],ENT_QUOTES,$charset)."</option>\n";
-		}
-		$resultat=mysql_query($options[QUERY][0][value]);
-		while ($r=mysql_fetch_row($resultat)) {
-			$ret.="<option value=\"".htmlentities($r[0],ENT_QUOTES,$charset)."\"";
-			$as=array_search($r[0],$values);
-			if (($as!==FALSE)&&($as!==NULL)) $ret.=" selected"; 
-			$ret.=">".htmlentities($r[1],ENT_QUOTES,$charset)."</option>\n";
+		if ($options["CHECKBOX"][0]["value"]=="yes"){
+			if ($options[MULTIPLE][0][value]=="yes") $type = "checkbox";
+			else $type = "radio";
+			$resultat=mysql_query($options[QUERY][0][value]);
+			if ($resultat) {
+				$i=0;
+				$ret="<table><tr>";
+				$limit = $options[CHECKBOX_NB_ON_LINE][0][value];
+				if($limit==0) $limit = 4;
+				while ($r=mysql_fetch_array($resultat)) {
+					if ($i>0 && $i%$limit == 0)$ret.="</tr><tr>";
+					$ret.= "<td><input id='".$field[NAME]."_$i' type='$type' name='".$field[NAME]."[]' ".(in_array($r[0],$values) ? "checked=checked" : "")." value='".$r[0]."'/><span id='lib_".$field[NAME]."_$i'>&nbsp;".$r[1]."</span></td>";
+					$i++;
+				}
+				$ret.="</tr></table>";
+			}	
+		}else{
+			$options=$field[OPTIONS][0];
+			$ret="<select id=\"".$field[NAME]."\" name=\"".$field[NAME];
+			$ret.="[]";
+			$ret.="\" ";
+			if ($script) $ret.=$script." ";
+			if ($options[MULTIPLE][0][value]=="yes") $ret.="multiple";
+			$ret.=">\n";
+			if (($options[UNSELECT_ITEM][0][VALUE]!="")||($options[UNSELECT_ITEM][0][value]!="")) {
+				$ret.="<option value=\"".htmlentities($options[UNSELECT_ITEM][0][VALUE],ENT_QUOTES,$charset)."\">".htmlentities($options[UNSELECT_ITEM][0][value],ENT_QUOTES,$charset)."</option>\n";
+			}
+			$resultat=mysql_query($options[QUERY][0][value]);
+			while ($r=mysql_fetch_row($resultat)) {
+				$ret.="<option value=\"".htmlentities($r[0],ENT_QUOTES,$charset)."\"";
+				$as=array_search($r[0],$values);
+				if (($as!==FALSE)&&($as!==NULL)) $ret.=" selected"; 
+				$ret.=">".htmlentities($r[1],ENT_QUOTES,$charset)."</option>\n";
+			}
 		}
 		$ret.= "</select>\n";
 	} else {
@@ -542,6 +601,9 @@ function aff_query_list_empr($field,&$check_scripts,$script="") {
 			case "expl":
 				$caller="expl";
 				break;
+			case "gestfic0": // a modifier lorsque il y aura du multi fiches!
+				$caller="formulaire";
+			break;
 		}
 		if ($values) {
 			$values_received=$values;
@@ -994,4 +1056,162 @@ function val_external_empr($field,$value) {
 		}
 	}
 	return $value[0];
+}
+
+
+function aff_url_empr($field,&$check_scripts){
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$afield_name = $field["ID"];
+	$ret = "";
+	$count = 0;
+	if (!$values) {
+		$values = array("");
+	}
+	foreach ($values as $avalues) {
+		$avalues = explode("|",$avalues);
+		$ret.="<div id='check_$count' style='display:inline'></div>";
+		$ret.= $msg['persofield_url_link']."<input id='".$field[NAME]."_link' type='text' class='saisie-30em' name='".$field[NAME]."[link][]' onchange='cp_chklnk($count);' value='".htmlentities($avalues[0],ENT_QUOTES,$charset)."'>";
+		$ret.=" <input class=\"bouton\" type='button' value='".$msg['persofield_url_check']."' onclick='cp_chklnk($count);'>";
+		//$ret.="<br />";
+		$ret.="&nbsp;".$msg['persofield_url_linklabel']."<input id='".$field[NAME]."_linkname' type='text' class='saisie-15em' size='".$options[SIZE][0][value]."' name='".$field[NAME]."[linkname][]' value='".htmlentities($avalues[1],ENT_QUOTES,$charset)."'>";
+		if ($options[REPEATABLE][0][value] && !$count)
+			$ret.="<input class='bouton' type='button' value='+' onclick=\"add_custom_url_('.$afield_name.', '".addslashes($field[NAME])."', '".addslashes($options[SIZE][0][value])."')\">";
+		$ret.="<br />";
+		$count++;
+	}
+	$ret.= "
+	<script type='text/javascript'>
+		function cp_chklnk(indice){
+			var wait = document.createElement('img');
+			wait.setAttribute('src','images/patience.gif');
+			wait.setAttribute('align','top');
+			while(document.getElementById('check_'+indice).firstChild){
+				document.getElementById('check_'+indice).removeChild(document.getElementById('check_'+indice).firstChild);
+			}
+			document.getElementById('check_'+indice).appendChild(wait);
+
+			var links = document.forms.notice['url[link][]'];
+			if(typeof(links.length)) var link = links[indice].value;
+			else var link = links.value;
+			if(link != ''){
+				var testlink = encodeURIComponent(link);
+	 			var check = new http_request();
+				if(check.request('./ajax.php?module=ajax&categ=chklnk',true,'&timeout=".$options[TIMEOUT][0][value]."&link='+testlink)){
+					alert(check.get_text());
+				}else{
+					var result = check.get_text();
+					var img = document.createElement('img');
+					var src='';
+					if(result == '200') {
+						if(link.substr(0,7) != 'http://') document.forms.notice['url[link][]'][indice].value = 'http://'+link;
+						//impec, on print un petit message de confirmation
+						src = 'images/tick.gif';
+					}else{
+						//problème...
+						src = 'images/error.png';
+						img.setAttribute('style','height:1.5em;');
+					}
+					img.setAttribute('src',src);
+					img.setAttribute('align','top');
+					while(document.getElementById('check_'+indice).firstChild){
+						document.getElementById('check_'+indice).removeChild(document.getElementById('check_'+indice).firstChild);
+					}
+					document.getElementById('check_'+indice).appendChild(img);
+				}
+			}
+		}
+	</script>";
+	if ($options[REPEATABLE][0][value]) {
+		$ret.='<input id="customfield_text_'.$afield_name.'" type="hidden" name="customfield_text_'.$afield_name.'" value="'.($count).'">';
+		//$ret.='<input class="bouton" type="button" value="+" onclick="add_custom_text_(\''.$afield_name.'\', \''.addslashes($field[NAME]).'\', \''.addslashes($options[SIZE][0][value]).'\', \''.addslashes($options[MAXSIZE][0][value]).'\')">';
+		$ret .= '<div id="spaceformorecustomfieldtext_'.$afield_name.'"></div>';
+		$ret.="<script>
+			function add_custom_url_(field_id, field_name, field_size) {
+				cpt = document.getElementById('customfield_text_'+field_id).value;
+				var check = document.createElement('div');
+				check.setAttribute('id','check_'+cpt);
+				check.setAttribute('style','display:inline');
+				var link_label = document.createTextNode('".$msg['persofield_url_link']."');
+				var chklnk = document.createElement('input');
+				chklnk.setAttribute('type','button');
+				chklnk.setAttribute('value','".$msg['persofield_url_check']."');
+				chklnk.setAttribute('class','bouton');
+				chklnk.setAttribute('onclick','cp_chklnk('+cpt+');');
+				document.getElementById('customfield_text_'+field_id).value = cpt*1 +1;
+				var link = document.createElement('input');
+		        link.setAttribute('name',field_name+'[link][]');
+		        link.setAttribute('type','text');
+				link.setAttribute('class','saisie-30em');
+		        link.setAttribute('size',field_size);
+		        link.setAttribute('value','');
+				link.setAttribute('onchange','cp_chklnk('+cpt+');');
+				var lib_label = document.createTextNode('".$msg['persofield_url_linklabel']."');
+				var lib = document.createElement('input');
+		        lib.setAttribute('name',field_name+'[linkname][]');
+		        lib.setAttribute('type','text');
+				lib.setAttribute('class','saisie-15em');
+		        lib.setAttribute('size',field_size);
+		        lib.setAttribute('value','');
+		        space=document.createElement('br');
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(check);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(link_label);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(link);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(chklnk);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(lib_label);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(lib);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(space);
+			}
+		</script>";
+	}
+	if ($field[MANDATORY]==1) $check_scripts.="if (document.forms[0].elements[\"".$field[NAME]."[]\"].value==\"\") return cancel_submit(\"".sprintf($msg["parperso_field_is_needed"],$field[ALIAS])."\");\n";
+	return $ret;
+}
+
+function aff_url_empr_search($field,&$check_scripts,$varname) {
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$ret="<input id=\"".$varname."\" type=\"text\" size=\"".$options[SIZE][0][value]."\" name=\"".$varname."[]\" value=\"".htmlentities($values[0],ENT_QUOTES,$charset)."\">";
+	return $ret;
+}
+
+function chk_url_empr($field,&$check_message) {
+	$name=$field[NAME];
+	global $$name;
+	$val=$$name;
+	$value = array();
+	for($i=0;$i<sizeof($val['link']);$i++){
+		if($val['link'][$i] != "")
+			$value[] = $val['link'][$i]."|".$val['linkname'][$i];
+	}
+	$val = $value;
+	$check_datatype_message="";
+	$val_1=chk_datatype($field,$val,$check_datatype_message);
+	if ($check_datatype_message) {
+		$check_message=$check_datatype_message;
+		return 0;
+	}
+	$$name=$val_1;
+	return 1;
+}
+
+function val_url_empr($field,$value) {
+	global $charset;
+	$cut = $field[OPTIONS][0][MAXSIZE][0][value];
+	$values=format_output($field,$value);
+	$ret = "";
+	for ($i=0;$i<count($values);$i++){
+		$val = explode("|",$values[$i]);
+		if ($val[1])$lib = $val[1];
+		else $lib = ($cut && strlen($val[0]) > $cut ? substr($val[0],0,$cut)."[...]" : $val[0] );
+		if( $ret != "") $ret.= " / ";
+		$ret .= "<a href='".$val[0]."' />".htmlentities($lib,ENT_QUOTES,$charset)."</a>";
+	}
+	return array("ishtml" => true, "value"=>$ret);
 }

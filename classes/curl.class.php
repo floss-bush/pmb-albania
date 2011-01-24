@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: curl.class.php,v 1.5 2010-06-30 14:14:46 ngantier Exp $
+// $Id: curl.class.php,v 1.8 2011-01-20 14:36:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -27,10 +27,12 @@ class Curl {
 	# Protected
 	var $error = '';
 	var $handle;
+	var $buffer="";
 	
 	# Variables qui empechent le dépassement mémoire
 	var $limit=0;	
 	var $body_overflow;
+	var $timeout=0;
 	
 	function Curl() {
 		$this->__construct();
@@ -98,6 +100,7 @@ class Curl {
 	}
 	
 	function get($url, $vars = array()) {
+		$this->buffer="";
 		if (!empty($vars)) {
 			$url .= (stripos($url, '?') !== false) ? '&' : '?';
 			$url .= http_build_query($vars, '', '&');
@@ -114,18 +117,20 @@ class Curl {
 	}
 	
 	function getBodyOverflow($curl,$contenu) {
-		$taille_max  = 10000;
+		$taille_max  = $this->limit;
 		$taille_bloc = strlen($contenu);
 		if (strlen($this->body_overflow)+$taille_bloc<$taille_max) $this->body_overflow .= $contenu;	
 		return strlen($contenu);
 	}
 	
 	function saveBodyInFile($curl,$contenu) {
-		
 		if(!$this->header_detect) {
-			$this->header_detect=1;
+			$this->buffer.=$contenu;
 			$pattern = '#HTTP/\d\.\d.*?$.*?\r\n\r\n#ims';
-			$texte = preg_replace($pattern, '', $contenu);			
+			if (preg_match($pattern,$this->buffer)) {
+				$texte = preg_replace($pattern, '', $this->buffer);
+				$this->header_detect=1;
+			}			
 		} else $texte=$contenu;
 		if($texte) {
 			$fd = fopen($this->save_file_name,"a");
@@ -134,7 +139,7 @@ class Curl {
 		}	
 		return strlen($contenu);
 	}
-		
+	
 	/*function getHeader($curl,$contenu_header){
 				
 		return strlen($contenu_header);
@@ -146,6 +151,7 @@ class Curl {
 		$this->handle = curl_init();
 		
 		# Set some default CURL options
+		curl_setopt($this->handle, CURLOPT_CONNECTTIMEOUT, $this->timeout);
 		curl_setopt($this->handle, CURLOPT_COOKIEFILE, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_COOKIEJAR, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_FOLLOWLOCATION, true);
@@ -160,12 +166,11 @@ class Curl {
 		curl_setopt($this->handle, CURLOPT_USERAGENT, $this->user_agent);		
 		if($this->limit) 
 			curl_setopt($this->handle, CURLOPT_WRITEFUNCTION,array(&$this,'getBodyOverflow'));
-			
+		
 		if($this->save_file_name){
 			$this->header_detect=0;					
 			curl_setopt($this->handle, CURLOPT_WRITEFUNCTION,array(&$this,'saveBodyInFile'));
-		}
-				
+		}	
 		configurer_proxy_curl($this->handle);			
 		
 		# Format custom headers for this request and set CURL option

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement (français)
+$Id: nivbiblio.xml,v 1.1 2010-12-02 10:56:41 arenou Exp $ -->
+
+<XMLlist>
+	<entry code="m">Monograph</entry>
+	<entry code="a">Article</entry>
+	<entry code="s">Serial</entry>
+	<entry code="b">Serial check-in</entry>
+</XMLlist>

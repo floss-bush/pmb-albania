@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categ_replace.inc.php,v 1.1 2010-04-07 13:26:27 mbertin Exp $
+// $Id: categ_replace.inc.php,v 1.2 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -22,7 +22,7 @@ if(!$by) {
 		$noeuds->replace_categ_form($parent);
 	}
 } else {
-	$rep=$noeuds->replace($by);
+	$rep=$noeuds->replace($by,$aut_link_save);
 	if(!$rep){
 		$id=0;
 		$parent=0;

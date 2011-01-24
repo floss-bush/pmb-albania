@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax_main.inc.php,v 1.4 2009-12-10 14:37:17 kantin Exp $
+// $Id: ajax_main.inc.php,v 1.5 2011-01-20 14:36:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,6 +20,9 @@ switch($categ):
 	break;
 	case 'tri':
 		include('./ajax/misc/tri.inc.php');
+	break;
+	case 'chklnk':
+		include('./ajax/misc/chklnk.inc.php');
 	break;
 	default:
 	break;		

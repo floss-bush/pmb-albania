@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: tous.inc.php,v 1.37 2010-08-11 10:08:23 ngantier Exp $
+// $Id: tous.inc.php,v 1.41 2010-12-08 14:58:13 gueluneau Exp $
 // premier niveau de recherche OPAC sur tous
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
@@ -31,15 +31,15 @@ if($user_query=="*")$opac_indexation_docnum_allfields=0;
 $clause="";
 
 if ($acces_j) {
-	$members=$aq->get_query_members("notices_global_index","infos_global","index_infos_global","num_notice", "num_notice = notice_id");
-	$members1=$aq1->get_query_members("notices","index_wew","index_sew","notice_id", "num_notice = notice_id");
+	$members=$aq->get_query_members("notices_global_index","infos_global","index_infos_global","num_notice", "notices_global_index.num_notice = notice_id");
+	$members1=$aq1->get_query_members("notices","index_wew","index_sew","notice_id", "notices_global_index.num_notice = notice_id");
 	$statut_j='';
 } else {
-	$members=$aq->get_query_members("notices_global_index","infos_global","index_infos_global","num_notice","num_notice = notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")");
-	$members1=$aq1->get_query_members("notices","index_wew","index_sew","notice_id","num_notice = notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")");
+	$members=$aq->get_query_members("notices_global_index","infos_global","index_infos_global","num_notice","notices_global_index.num_notice = notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")");
+	$members1=$aq1->get_query_members("notices","index_wew","index_sew","notice_id","notices_global_index.num_notice = notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")");
 	$statut_j=',notice_statut';
 }
-$members_empty=$aq_empty->get_query_members("notices_global_index","infos_global","index_infos_global","num_notice");
+$members_empty=$aq_empty->get_query_members("notices_global_index","infos_global","index_infos_global","notices_global_index.num_notice");
 if (($members_empty["where"]!="()")&&($opac_default_operator)) {
 	$where="(".$members["where"].") or (".$members_empty["where"].")";
 } else {
@@ -74,7 +74,7 @@ if($opac_indexation_docnum_allfields){
 	select tc.notice_id, sum(tc.pert) as pert, tc.typdoc from (
 	(
 	select notice_id, ".$members["select"]."+".$members1["select"]." as pert,typdoc 
-	from notices left join notices_global_index on num_notice=notice_id $statut_j $acces_j 
+	from notices left join notices_global_index on notices_global_index.num_notice=notice_id $statut_j $acces_j 
 	where ".$members["where"]." $restrict_noti $filtre
 	) 
 	union 
@@ -123,16 +123,22 @@ if($clause) {
 		global $nb_results_tab;
 		$nb_results_tab['tous'] = $nb_result;
 	}
-	if(!$opac_indexation_docnum_allfields){
+	if(!$opac_indexation_docnum_allfields){	
 		$req_typdoc="select distinct typdoc from notices_global_index, notices $statut_j $acces_j $clause ";
-		if($opac_visionneuse_allow)
-			$req_typdoc="select distinct typdoc, count(explnum_id) as nbexplnum from notices_global_index, notices left join explnum on explnum_notice=notice_id and explnum_mimetype in ($opac_photo_filtre_mimetype) $statut_j $acces_j $clause group by typdoc";
+		if($opac_visionneuse_allow){
+			$req_bull="select distinct typdoc, count(explnum_id) as nbexplnum from notices_global_index,notices left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin = bulletin_id and explnum_bulletin != 0 $statut_j $acces_j $clause group by typdoc";
+			$req_noti="select distinct typdoc, count(explnum_id) as nbexplnum from notices_global_index,notices left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and (explnum_notice=notice_id) $statut_j $acces_j $clause group by typdoc";
+			$req_typdoc = "select distinct typdoc, sum(nbexplnum) as nbexplnum from ($req_noti union $req_bull) as uni group by typdoc" ; 			
+		}
 	}else {
 		$req_typdoc ="select distinct typdoc from $join"; 
-		if($opac_visionneuse_allow)
-			$req_typdoc ="select distinct typdoc, count(explnum_id) as nbexplnum from $join left join explnum on notice_id=explnum_notice and explnum_mimetype in ($opac_photo_filtre_mimetype) group by typdoc";
+		if($opac_visionneuse_allow){
+			$req_bull ="select distinct typdoc, count(explnum_id) as nbexplnum  from $join left join bulletins on notice_id = bulletins.num_notice and bulletins.num_notice != 0 join explnum on bulletin_id = explnum_bulletin and explnum_bulletin != 0 group by typdoc" ; 
+			$req_noti = "select distinct typdoc, count(explnum_id) as nbexplnum  from $join left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and (explnum_notice=notice_id) group by typdoc";
+			$req_typdoc = "select distinct typdoc, sum(nbexplnum) as nbexplnum from ($req_noti union $req_bull) as uni group by typdoc" ;
+		}
 	}
-	$res_typdoc = mysql_query($req_typdoc, $dbh);		
+	$res_typdoc = mysql_query($req_typdoc, $dbh);	
 	$t_typdoc=array();	
 	while ($tpd=mysql_fetch_object($res_typdoc)) {
 		$t_typdoc[]=$tpd->typdoc;

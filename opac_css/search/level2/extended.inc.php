@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: extended.inc.php,v 1.41 2010-07-07 08:41:16 arenou Exp $
+// $Id: extended.inc.php,v 1.46 2010-12-06 14:39:57 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -47,14 +47,20 @@ $count=@mysql_result($resultat,0,0);
 //Recherche des types doc
 
 //$requete="select distinct notices.typdoc FROM $table, notices, notice_statut where $table.notice_id=notices.notice_id and (statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"")."))";
-$requete="select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM $table, notices left join explnum on explnum_notice=notice_id $acces_j $statut_j where $table.notice_id=notices.notice_id $statut_r group by notices.typdoc";
+$requete="select distinct notices.typdoc FROM $table, notices $acces_j $statut_j where $table.notice_id=notices.notice_id $statut_r group by notices.typdoc";
+if($opac_visionneuse_allow){
+	$requete_noti="select count(explnum_id) as nbexplnum FROM $table, notices left join explnum on explnum_notice = notice_id and explnum_mimetype in ($opac_photo_filtre_mimetype) $acces_j $statut_j where $table.notice_id=notices.notice_id $statut_r group by notices.typdoc";
+	$requete_bull="select count(explnum_id) as nbexplnum FROM $table, notices left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_bulletin = bulletin_id and explnum_bulletin != 0 and explnum_mimetype in ($opac_photo_filtre_mimetype) $acces_j $statut_j where $table.notice_id=notices.notice_id $statut_r group by notices.typdoc";
+	$res = mysql_query($requete_noti, $dbh);
+	$nbexplnum_to_photo= mysql_result($res,0,0);
+	$res = mysql_query($requete_bull, $dbh);
+	$nbexplnum_to_photo+= mysql_result($res,0,0);
+}
+
 $res = mysql_query($requete, $dbh);
 $t_typdoc=array();
-$nbexplnum_to_photo=0;
 while (($tpd=mysql_fetch_object($res))) {
 	$t_typdoc[]=$tpd->typdoc;
-	if($opac_visionneuse_allow)
-		$nbexplnum_to_photo+=$tpd->nbexplnum;
 }
 $l_typdoc=implode(",",$t_typdoc);
 
@@ -124,7 +130,14 @@ if($opac_visionneuse_allow && $nbexplnum_to_photo){
 	print "&nbsp;&nbsp;&nbsp;".$link_to_visionneuse;
 	print "
 <script type='text/javascript'>
-	function sendToVisionneuse(){
+	function sendToVisionneuse(explnum_id){
+		if (typeof(explnum_id)!= 'undefined') {
+			var explnum =document.createElement('input');
+			explnum.setAttribute('type','hidden');
+			explnum.setAttribute('name','explnum_id');
+			explnum.setAttribute('value',explnum_id);
+			document.form_values.appendChild(explnum);
+		}
 		var mode = document.createElement('input');
 		mode.setAttribute('type','hidden');
 		mode.setAttribute('name','mode');
@@ -133,13 +146,13 @@ if($opac_visionneuse_allow && $nbexplnum_to_photo){
 		input.setAttribute('id','search');
 		input.setAttribute('name','search');
 		input.setAttribute('value','".htmlspecialchars($search_to_post,ENT_QUOTES,$charset)."');
-		document.cart_values.appendChild(input);
-		document.cart_values.appendChild(mode);
-		console.log(document.cart_values)
+		document.form_values.appendChild(input);
+		document.form_values.appendChild(mode);
+	
 
-		document.cart_values.action='visionneuse.php';
-		document.cart_values.target='visionneuse';
-		document.cart_values.submit();	
+		document.form_values.action='visionneuse.php';
+		document.form_values.target='visionneuse';
+		document.form_values.submit();
 	}
 </script>";
 }
@@ -177,3 +190,5 @@ print "</blockquote>";
 print " </div>\n
 		</div>
 		</div>";
+
+		

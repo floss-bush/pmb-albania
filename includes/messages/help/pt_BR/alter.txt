@@ -1,0 +1,6 @@
+<br />
+<b>TENHA CUIDADO, esta atualização pode demorar ou pode ser arriscada...
+<br />É indispensável que você faça um backup antes.</b>
+<br /><br />Ignore as mensagens de erro, elas podem estar relacionadas com a versão da base de dados que não está atualizada.
+<br />Se as mensagens ainda estiverem presentes no final da atualização, será necessário descobrir a causa.
+<br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Iniciar a atualização.</a>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collection.class.php,v 1.8 2010-01-05 15:16:12 kantin Exp $
+// $Id: collection.class.php,v 1.9 2010-11-02 16:20:29 ngantier Exp $
 
 // définition de la classe de gestion des collections
 // inclure :
@@ -29,7 +29,7 @@ class collection {
 	var $issn;               // ISSN of collection
 	var $collection_web;		// web de collection
 	var $collection_web_link;	// lien web de collection
-
+	var $comment;
 // ---------------------------------------------------------------
 //  collection($id) : constructeur
 // ---------------------------------------------------------------
@@ -69,6 +69,7 @@ function get_primaldata() {
 		$this->isbd_entry        = '';
 		$this->collection_web	 = '';
 		$this->collection_web_link = "" ;
+		$this->comment = "" ;
 	}
 }
 
@@ -83,6 +84,7 @@ function get_primaldatafrom($obj) {
 	$this->parent = $obj->collection_parent;
 	$this->issn = $obj->collection_issn;
 	$this->collection_web= $obj->collection_web;
+	$this->comment= $obj->collection_comment;
 	if($obj->collection_web) 
 		$this->collection_web_link = " <a href='$obj->collection_web' target=_blank title='".htmlentities($obj->collection_web,ENT_QUOTES,$charset)."' alt='".htmlentities($obj->collection_web,ENT_QUOTES,$charset)."' ><img src='./images/globe.gif' border=0 /></a>";
 	else 
@@ -125,12 +127,12 @@ function print_resume($level = 2,$css) {
 
 	$print = $collection_display;
 	// remplacement des champs statiques
-	$print = str_replace("!!name!!", $this->name, $print);
+	$print = str_replace("!!name!!", $this->name." ".$this->collection_web_link, $print);
 	$print = str_replace("!!issn!!", $this->issn ? $this->issn : $collection_no_issn_info, $print);
 	$print = str_replace("!!publ!!", $this->publisher_libelle, $print);
 	$print = str_replace("!!publ_isbd!!", $this->publisher_isbd, $print);
 	$print = str_replace("!!isbd!!", $this->isbd_entry, $print);
-
+	$print = str_replace("!!comment!!", $this->comment, $print);
 	// remplacement des champs dynamiques
 	if (ereg("!!publisher!!", $print)) {
 		$remplacement = "<a href='index.php?lvl=publisher_see&id=$this->parent'>$this->publisher_libelle</a>";

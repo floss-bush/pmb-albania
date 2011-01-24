@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: xmltransform.php,v 1.9 2009-07-08 15:35:58 erwanmartin Exp $
+// $Id: xmltransform.php,v 1.10 2010-11-30 15:36:51 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "xmltransform.php")) die("no access");
 
@@ -48,7 +48,7 @@ function perform_xslt($xml, $s, $islast, $isfirst, $param_path) {
 		$r['ERROR']="";
 		//Si c'est la dernière transformation, on supprime les entêtes et l'élément root
 		if ($islast) {
-			$p = preg_match("/<".$s['TNOTICEELEMENT'][0]['value']."[^>]*>/", $r["DATA"], $m, PREG_OFFSET_CAPTURE);
+			$p = preg_match("/<".$s['TNOTICEELEMENT'][0]['value']."(?:\ [^>]*|)>/", $r["DATA"], $m, PREG_OFFSET_CAPTURE);
 			if ($p) {
 				$r['DATA'] = "  ".substr($r['DATA'], $m[0][1]);
 			}
@@ -75,7 +75,10 @@ function perform_xslt($xml, $s, $islast, $isfirst, $param_path) {
 //Conversion XML en iso2709
 function toiso($notice, $s, $islast, $isfirst, $param_path) {
 	$x2i = new xml_unimarc();
-	$x2i -> XMLtoiso2709_notice($notice);
+	$x2i -> XMLtoiso2709_notice($notice,$s['ENCODING']);
+	if($x2i->warning_msg[0]){
+		$r['WARNING']=$x2i->warning_msg[0];
+	}
 	if ($x2i->n_valid==0) {
 		$r['VALID']=false;
 		$r['DATA']="";
@@ -91,9 +94,10 @@ function toiso($notice, $s, $islast, $isfirst, $param_path) {
 //Consersion iso2709 en XML
 function isotoxml($notice, $s, $islast, $isfirst, $param_path) {
 	global $charset;
+	global $output_params;
 	$i2x = new xml_unimarc();
-	$i2x -> iso2709toXML_notice($notice);
-	if ($i2x -> n_valid == 0) {
+	$i2x->iso2709toXML_notice($notice);
+	if ($i2x->n_valid == 0) {
 		$r['VALID']=false;
 		$r['DATA']="";
 		$r['ERROR']=$i2x->error_msg[0];
@@ -105,7 +109,7 @@ function isotoxml($notice, $s, $islast, $isfirst, $param_path) {
 		if (!$islast) {
 			$r['DATA'] = "<".$s['TROOTELEMENT'][0]['value'].">\n".$r['DATA'];
 			$r['DATA'].= "</".$s['TROOTELEMENT'][0]['value'].">";
-			$r['DATA'] = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n".$r['DATA'];
+			$r['DATA'] = "<?xml version=\"1.0\" encoding=\"".($i2x->is_utf8?"utf-8":$charset)."\" ?>\n".$r['DATA'];
 		}
 	}
 	return $r;
@@ -114,22 +118,62 @@ function isotoxml($notice, $s, $islast, $isfirst, $param_path) {
 //Conversion texte en XML
 function texttoxml($notice, $s, $islast, $isfirst, $param_path) {
 	global $cols, $charset;
-		
+	
 	eval("\$spt=\"".$s["SEPARATOR"][0]["value"]."\";");
 	$fields=explode($spt,$notice);
 	
 	//Recherche du type doc
 	if ($s["COLS"][0]["DT"]) {
-		$corresp=$s["COLS"][0]["DT"][0]["CORRESP"][0];
-		$f_id=$fields[($corresp["ID"]-1)];
-		if ($s["DELIMITEDBY"][0]["value"]) {
-			$f_id=trim($f_id,$s["DELIMITEDBY"][0]["value"]);
-		}
-		for ($i=0; $i<count($corresp["FOR"]); $i++) {
-			if ($corresp["FOR"][$i]["ID"]==$f_id) {
-				$dt=$corresp["FOR"][$i]["value"];
-				break;
+		if ($s["COLS"][0]["DT"][0]["CORRESP"][0]) {
+			$corresp=$s["COLS"][0]["DT"][0]["CORRESP"][0];
+			$f_id=$fields[($corresp["ID"]-1)];
+			if ($s["DELIMITEDBY"][0]["value"]) {
+				$f_id=trim($f_id,$s["DELIMITEDBY"][0]["value"]);
 			}
+			for ($i=0; $i<count($corresp["FOR"]); $i++) {
+				if ($corresp["FOR"][$i]["ID"]==$f_id) {
+					$dt=$corresp["FOR"][$i]["value"];
+					break;
+				}
+			}
+		} else $dt=$s["COLS"][0]["DT"][0]["value"];
+	}
+	
+	//Recherche du bl
+	if ($s["COLS"][0]["BL"]) {
+		if ($s["COLS"][0]["BL"][0]["CORRESP"][0]) {
+			$corresp=$s["COLS"][0]["BL"][0]["CORRESP"][0];
+			$f_id=$fields[($corresp["ID"]-1)];
+			if ($s["DELIMITEDBY"][0]["value"]) {
+				$f_id=trim($f_id,$s["DELIMITEDBY"][0]["value"]);
+			}
+			for ($i=0; $i<count($corresp["FOR"]); $i++) {
+				if ($corresp["FOR"][$i]["ID"]==$f_id) {
+					$bl=$corresp["FOR"][$i]["value"];
+					break;
+				}
+			}
+		} else {
+			$bl=$s["COLS"][0]["BL"][0]["value"];
+		}
+	}
+	
+	//Recherche du type hl
+	if ($s["COLS"][0]["HL"]) {
+		if ($s["COLS"][0]["HL"][0]["CORRESP"][0]) {
+			$corresp=$s["COLS"][0]["HL"][0]["CORRESP"][0];
+			$f_id=$fields[($corresp["ID"]-1)];
+			if ($s["DELIMITEDBY"][0]["value"]) {
+				$f_id=trim($f_id,$s["DELIMITEDBY"][0]["value"]);
+			}
+			for ($i=0; $i<count($corresp["FOR"]); $i++) {
+				if ($corresp["FOR"][$i]["ID"]==$f_id) {
+					$hl=$corresp["FOR"][$i]["value"];
+					break;
+				}
+			}
+		} else {
+			$hl=$s["COLS"][0]["HL"][0]["value"];
 		}
 	}
 	
@@ -142,8 +186,8 @@ function texttoxml($notice, $s, $islast, $isfirst, $param_path) {
 	$param=array();
 	$param["rs"][0]["value"]="n";
 	$param["dt"][0]["value"]=($dt?$dt:"a");
-	$param["bl"][0]["value"]="m";
-	$param["hl"][0]["value"]="*";
+	$param["bl"][0]["value"]=($bl?$bl:"m");
+	$param["hl"][0]["value"]=($hl?$hl:"*");
 	$param["el"][0]["value"]="1";
 	$param["ru"][0]["value"]="i";
 

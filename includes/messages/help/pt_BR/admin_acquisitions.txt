@@ -1,0 +1,15 @@
+<h1>Aquisições</h1>
+</p><p>
+<b>Nome</b> e <b>endereço</b> da biblioteca.
+</p><p>
+<b>Ano financeiro</b> define o período coberto.
+</p><p>
+<b>Input VAT</b> for managing various VAT rates and accounts for purchases (if VAT management is enabled).
+</p><p>
+<b>Tipos de materiais:</b> categorias de materiais adquiritos permitem o cálculo de descontos e verba para compras.
+</p><p>
+<b>Despesas complementares</b> para aquisições e contas relacionadas.
+</p><p>
+<b>Métodos de pagamento</b> e atrasos de liquidação.
+</p><p>
+<b>Orçamentos</b> da repartição de compras.

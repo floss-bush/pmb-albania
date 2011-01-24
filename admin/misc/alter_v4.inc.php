@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 //  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: alter_v4.inc.php,v 1.526 2010-09-21 15:56:32 touraine37 Exp $
+// $Id: alter_v4.inc.php,v 1.537 2011-01-21 09:29:32 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -459,6 +459,16 @@ switch ($action) {
 				echo form_relance ($maj_a_faire);
 				break;				
 			case "v4.90":
+				$maj_a_faire = "v4.91";			
+				echo "<strong><font color='#FF0000'>".$msg[1804]."$maj_a_faire !</font></strong><br />";
+				echo form_relance ($maj_a_faire);
+				break;				
+			case "v4.91":
+				$maj_a_faire = "v4.92";			
+				echo "<strong><font color='#FF0000'>".$msg[1804]."$maj_a_faire !</font></strong><br />";
+				echo form_relance ($maj_a_faire);
+				break;				
+			case "v4.92":
 				echo "<strong><font color='#FF0000'>".$msg[1805].$version_pmb_bdd." !</font></strong><br />";
 				break;
 			
@@ -7103,8 +7113,136 @@ switch ($action) {
 				
 		$rqt = "ALTER TABLE notice_tpl ADD notpl_show_opac int(1) unsigned NOT NULL default 0";
 		echo traite_rqt($rqt,"alter table notice_tpl add notpl_show_opac ");		
+				
+		// Recherche autopostage
 		
-        // +-------------------------------------------------+
+		$rqt = "ALTER TABLE categories ADD path_word_categ TEXT NOT NULL ";
+		echo traite_rqt($rqt,"alter table categories add path_word_categ ");
+		$rqt = "ALTER TABLE categories ADD index_path_word_categ TEXT NOT NULL ";
+		echo traite_rqt($rqt,"alter table categories add index_path_word_categ ");		
+		
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search', '0', 'Activer l\'indexation des catégories mères et filles pour la recherche de notices. \n 0 non, \n 1 oui', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search=0 into parametres");			
+		}	
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search_nb_descendant' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search_nb_descendant', '0', 'Nombre de niveaux de recherche de notices dans les catégories filles. \n *: illimité, \n n: nombre de niveaux', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search_nb_descendant=0 into parametres");
+		}
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search_nb_montant' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search_nb_montant', '0', 'Nombre de niveaux de recherche de notices dans les catégories mères. \n *: illimité, \n n: nombre de niveaux', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search_nb_montant=0 into parametres");
+		}								
+		
+		// Agrandir les champs d'indexation des documents numériques
+		$rqt="ALTER TABLE explnum CHANGE explnum_index_sew explnum_index_sew MEDIUMTEXT NOT NULL";  
+		echo traite_rqt($rqt,"ALTER TABLE explnum CHANGE explnum_index_sew explnum_index_sew MEDIUMTEXT");
+		
+		$rqt="ALTER TABLE explnum CHANGE explnum_index_wew explnum_index_wew MEDIUMTEXT NOT NULL";  
+		echo traite_rqt($rqt,"ALTER TABLE explnum CHANGE explnum_index_wew explnum_index_wew MEDIUMTEXT");
+		
+		// +-------------------------------------------------+
+		echo "</table>";
+		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
+		$res = mysql_query($rqt, $dbh) ;
+		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
+		echo form_relance ("v4.91");
+		break;
+
+
+	case "v4.91":
+		echo "<table ><tr><th>".$msg['admin_misc_action']."</th><th>".$msg['admin_misc_resultat']."</th></tr>";
+		// +-------------------------------------------------+
+		// Recherche autopostage
+		
+		$rqt = "ALTER TABLE categories ADD path_word_categ TEXT NOT NULL ";
+		echo traite_rqt($rqt,"alter table categories add path_word_categ ");
+		$rqt = "ALTER TABLE categories ADD index_path_word_categ TEXT NOT NULL ";
+		echo traite_rqt($rqt,"alter table categories add index_path_word_categ ");		
+		
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search', '0', 'Activer l\'indexation des catégories mères et filles pour la recherche de notices. \n 0 non, \n 1 oui', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search=0 into parametres");			
+		}	
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search_nb_descendant' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search_nb_descendant', '0', 'Nombre de niveaux de recherche de notices dans les catégories filles. \n *: illimité, \n n: nombre de niveaux', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search_nb_descendant=0 into parametres");
+		}
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'thesaurus' and sstype_param='auto_postage_search_nb_montant' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'thesaurus', 'auto_postage_search_nb_montant', '0', 'Nombre de niveaux de recherche de notices dans les catégories mères. \n *: illimité, \n n: nombre de niveaux', 'i_categories', 0)";
+			echo traite_rqt($rqt,"insert thesaurus_auto_postage_search_nb_montant=0 into parametres");
+		}								
+		
+		// Agrandir les champs d'indexation des documents numériques
+		$rqt="ALTER TABLE explnum CHANGE explnum_index_sew explnum_index_sew MEDIUMTEXT NOT NULL";  
+		echo traite_rqt($rqt,"ALTER TABLE explnum CHANGE explnum_index_sew explnum_index_sew MEDIUMTEXT");
+		
+		$rqt="ALTER TABLE explnum CHANGE explnum_index_wew explnum_index_wew MEDIUMTEXT NOT NULL";  
+		echo traite_rqt($rqt,"ALTER TABLE explnum CHANGE explnum_index_wew explnum_index_wew MEDIUMTEXT");
+		
+		//Ajout de la TVA dans les lignes d'acte
+		$rqt = "ALTER TABLE lignes_actes ADD debit_tva SMALLINT(2) UNSIGNED NOT NULL DEFAULT 0 ";
+		echo traite_rqt($rqt,"ALTER TABLE lignes_actes ADD debit_tva");		
+ 
+		//Possibilité de saisir un montant négatif dans une facture
+		$rqt = "ALTER TABLE lignes_actes CHANGE prix prix FLOAT( 8, 2 ) NOT NULL DEFAULT 0.00 ";
+		echo traite_rqt($rqt,"ALTER TABLE lignes_actes CHANGE prix signed");
+		
+		$rqt = "ALTER TABLE collections ADD collection_comment TEXT NOT NULL "; 
+		echo traite_rqt($rqt, "ALTER TABLE collections ADD collection_comment");		
+		$rqt = "ALTER TABLE sub_collections ADD subcollection_comment TEXT NOT NULL "; 
+		echo traite_rqt($rqt, "ALTER TABLE sub_collections ADD sub_collection_comment");
+				
+		//insertion d'un champ "charset" dans la table d'import
+		$rqt="ALTER TABLE import_marc ADD encoding VARCHAR(50) NOT NULL default '' ";
+		echo traite_rqt($rqt,"ALTER TABLE import_marc ADD encoding VARCHAR(50)");
+		
+		// navigation bulletins
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='show_bulletin_nav' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'opac', 'show_bulletin_nav', '0', 'Affichage d\'un navigateur dans les bulletins d\'un périodique. \n 0 non \n 1 oui','f_modules', 0)";
+			echo traite_rqt($rqt,"insert opac_show_bulletin_nav=0 into parametres");
+		}	
+		// Jouer l'alerte sonore si le prêt et le retour se passe sans erreur
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='play_pret_sound' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, section_param, gestion) VALUES (0, 'pmb', 'play_pret_sound', '1', 'Jouer l\'alerte sonore si le prêt et le retour se passe sans erreur ? \n 0 : Non.\n 1 : Oui.', '',0) ";
+			echo traite_rqt($rqt, "insert pmb_play_pret_sound=1 into parameters");
+		}
+		// +-------------------------------------------------+
+		echo "</table>";
+		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
+		$res = mysql_query($rqt, $dbh) ;
+		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
+		echo form_relance ("v4.92");
+		break;
+
+
+	case "v4.92":
+		echo "<table ><tr><th>".$msg['admin_misc_action']."</th><th>".$msg['admin_misc_resultat']."</th></tr>";
+		// +-------------------------------------------------+
+		$rqt="ALTER TABLE logopac drop INDEX lopac_date_log" ;
+		echo traite_rqt($rqt,"ALTER TABLE logopac drop INDEX lopac_date_log") ;
+		$rqt="ALTER TABLE statopac drop INDEX sopac_date_log" ;
+		echo traite_rqt($rqt,"ALTER TABLE statopac drop INDEX sopac_date_log") ;
+		
+		
+		$rqt="ALTER TABLE logopac ADD INDEX lopac_date_log(date_log)" ;
+		echo traite_rqt($rqt,"ALTER TABLE logopac ADD index lopac_date_log") ;
+		$rqt="ALTER TABLE statopac ADD INDEX sopac_date_log(date_log)" ;
+		echo traite_rqt($rqt,"ALTER TABLE statopac ADD index sopac_date_log") ;
+		
+		// modification de l'explication de pmb_hide_retdoc_loc_error
+		$rqt = "update parametres set comment_param='Gestion du retour de prêt d\'un document issu d\'une autre localisation:\n 0 : Rendu, sans message d\'erreur\n 1 : Non rendu, avec message d\'erreur\n 2 : Rendu, avec message d\'erreur' where type_param='pmb' and sstype_param='hide_retdoc_loc_error' ";
+		echo traite_rqt($rqt,"update parametre pmb_hide_retdoc_loc_error");	 
+		
+		
+		// +-------------------------------------------------+
 		echo "</table>";
 		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
 		$res = mysql_query($rqt, $dbh) ;
@@ -7119,5 +7257,12 @@ switch ($action) {
 	
 	
 /*	
+		A mettre en 4.93
+		// modification de l'explication de pmb_hide_retdoc_loc_error
+		$rqt = "update parametres set comment_param='Gestion du retour de prêt d\'un document issu d\'une autre localisation:\n 0 : Rendu, sans message d\'erreur\n 1 : Non rendu, avec message d\'erreur\n 2 : Rendu, avec message d\'erreur' where type_param='pmb' and sstype_param='hide_retdoc_loc_error' ";
+		echo traite_rqt($rqt,"update parametre pmb_hide_retdoc_loc_error");	 
+		
+		
+		
 
 **/

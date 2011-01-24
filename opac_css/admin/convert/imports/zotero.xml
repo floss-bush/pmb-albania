@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id: zotero.xml,v 1.2 2010-11-26 10:18:03 arenou Exp $ -->
+<formats>
+	<format name="pmbmarc" transform="pmbxml2marciso" type="application/txt" />
+	<format name="marc" transform="pmbxml2marciso" type="application/txt" /> 
+</formats>

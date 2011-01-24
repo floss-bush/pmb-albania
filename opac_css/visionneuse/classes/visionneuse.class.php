@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: visionneuse.class.php,v 1.5 2010-07-08 15:28:34 arenou Exp $
+// $Id: visionneuse.class.php,v 1.6 2010-10-11 08:22:19 arenou Exp $
 
 require_once($visionneuse_path."/api/params.interface.php");
 require_once($visionneuse_path."/classes/docNum.class.php");
@@ -81,8 +81,8 @@ class visionneuse {
 		$visionneuse = str_replace("!!close!!",$this->message->table['close'],$visionneuse);
 		$visionneuse = str_replace("!!fullscreen!!",$this->message->table['fullscreen'],$visionneuse);
 		$visionneuse = str_replace("!!normal!!",$this->message->table['normal'],$visionneuse);
-		$visionneuse = str_replace("!!previous!!",$this->message->table['previous'],$visionneuse);
-		$visionneuse = str_replace("!!next!!",$this->message->table['next'],$visionneuse);
+//		$visionneuse = str_replace("!!previous!!",$this->message->table['previous'],$visionneuse);
+//		$visionneuse = str_replace("!!next!!",$this->message->table['next'],$visionneuse);
 		
 		//tout est bon, on affiche le tout...
 		print $visionneuse;		

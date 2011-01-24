@@ -1263,3 +1263,167 @@ table{
 	visibility:hidden;
 	z-index: 2000;
 }
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+	margin-top: 25px;
+}
+
+#empr_onglet ul.empr_tabs{
+	list-style:none;
+	font-size:11px;
+	margin-left:-40px;
+	position: absolute;
+	margin-top: -20px;
+}
+
+#empr_onglet ul.empr_tabs li{
+	float:left;
+	margin-right: 5px;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background: url("images/ongletdegrade.png") repeat scroll 0 0 #0B4B66;
+    border-color: #DDDDDD #DDDDDD -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    color: white;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    text-decoration: none;
+}
+
+#empr_onglet ul.empr_tabs li a:hover{
+   	color:#0b4b66;
+    border:1px solid #aaa;
+    border-bottom:none;
+    background:white url('images/ongletdegradehover.png');
+}
+
+#empr_onglet ul.empr_tabs li#current{
+	background: #ffffff;
+    border-top: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	border-bottom: 1px solid #ffffff;
+    float: left;
+    font-size: 12px;
+    height: 15px;
+    margin-right: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	background: none;
+	border: none;
+	color: #222222;
+	font-weight: bold;
+	padding: 0;
+}
+
+#empr_onglet ul.empr_tabs li#current a:hover {
+	font-style: inherit;
+}
+
+ul.empr_subtabs{
+	border: 1px solid #B9B9BA;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #ffffff;
+}
+
+ul.empr_subtabs li{
+	border: 1px solid #CCCCCC;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display:inline-block;
+	background: #2B5578;
+	padding: 0.2em;
+}
+
+ ul.empr_subtabs li a{
+	text-decoration:none;
+	height:17px;
+    color: #ffffff;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	display:inline-block;
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	text-decoration: none;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+	border-top: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	border-bottom: 1px solid #ffffff;
+}
+
+#empr-list #onglets_list ul.list_tabs li a:hover {
+	border-bottom: 1px solid #ffffff;
+	border-top: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current a {
+	background: none;
+    border: none;
+    float: left;
+    color: #222222;
+    font-size: 12px;
+    height: 16px;
+    margin-right: 3px;
+    padding-top: 0px;
+}
+
+#empr-list #onglets_list {
+	margin-top: 30px;
+}

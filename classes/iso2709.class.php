@@ -21,7 +21,7 @@
 // ATTENTION, cette classe a été sérieusement débogguée par rapport à l'original. Les corrections ont été réalisées par PMB Services.
 // © PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: iso2709.class.php,v 1.31 2009-12-04 13:35:58 mbertin Exp $
+// $Id: iso2709.class.php,v 1.33 2010-11-30 15:21:02 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -74,7 +74,7 @@ class iso2709_record {
 	var $NSB_end;
 	var $rgx_NSB_end;
 
-	//var $is_utf8 = FALSE; //definit si notice encodee en utf-8
+	var $is_utf8 = FALSE; //definit si notice encodee en utf-8
 
 // ---------------------------------------------------
 //		déclaration des méthodes
@@ -506,7 +506,8 @@ function update() {
 	$this->guide .= $this->inner_guide["dt"];
 	$this->guide .= $this->inner_guide["bl"];
 	$this->guide .= $this->inner_guide["hl"];
-	$this->guide .= $this->inner_guide["pos9"];
+	if($this->is_utf8) $this->guide .="a";
+	else $this->guide .=$this->inner_guide["pos9"]; 
 	$this->guide .= $this->inner_guide["il"];
 	$this->guide .= $this->inner_guide["sl"];
 	$this->guide .= sprintf('%05d', $this->inner_guide["ba"]);
@@ -775,10 +776,13 @@ function set_ru($rutype) {
 	function ISO_encode($chaine) {
 		global $charset;
 		if (!$chaine) return $chaine;
-
-		if ($charset == 'utf-8')
+		if(is_object($this) && ($this->is_utf8===TRUE)){
+			return $chaine;
+		}
+		if ($charset == 'utf-8' && is_object($this) && ($this->is_utf8===false))
 			$chaine = utf8_decode($chaine);
-
+		else if ($charset != 'utf-8' && is_object($this) && ($this->is_utf8===true))
+			$chaine = utf8_encode($chaine);
 		if(is_object($this)) $chaine=$this->ISO_646_5426_encode($chaine);
 		else $chaine=iso2709_record::ISO_646_5426_encode($chaine);
 		return $chaine;

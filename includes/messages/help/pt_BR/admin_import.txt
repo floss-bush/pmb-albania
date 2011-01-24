@@ -1,0 +1,30 @@
+<h1>Gerenciamento de importações</h1>
+<p>Esta página explica como importar registros e cópias anexadas aos mesmos.</p>
+
+<p>Os processos são efetuados em fases : 
+<ul>
+	<li>Definição de parâmetros de importação :<br />
+		para registros:
+		<ul>
+		<li>ISBN obrigatório</li>
+		<li>Verificação de duplicidades no ISBN (se sim, novas entradas não serão criadas para registros existentes)</li>
+		<li>Atualizando registros (em ISBN idêntico)</li>
+		<li>Ignorando ISSN (para periódicos) </li>
+		<li>Status dos registros (com objetivo de identificar precisamente registros importados)</li>
+		</ul>
+		para cópias:
+		<ul>
+		<li>Emprestador (ex: Biblioteca Pública)</li>
+		<li>Status dos itens (ex: "sendo importados")</li>
+		<li>Localização dos itens</li>
+		<li>Número de chamado obrigatório</li>
+		<li>Conformidade com o Código 995 e coleções de sua biblioteca para os tipos de materiais, códigos estatísticos e seções</li>
+		</ul>
+	</li>
+	<li>Baixando arquivos,</li>
+	<li>Importando registros ou cópias,</li>
+	<li>For copies of documents, tagging imports to check conformity between listing and copies actually received.</li>
+	</ul>
+	</p>
+<p>Você pode realizar esta verificação muito rapidamente usando um scanner de código de barras.</p>
+

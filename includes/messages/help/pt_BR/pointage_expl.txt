@@ -1,0 +1,11 @@
+<br />
+<b>Módulo de marcação de novos registros... 
+</b>
+<br /><br />
+Você poderá "marcar" todos os novos registros e alterar seu status para torná-los disponíveis para empréstimo.
+<br /><br />
+<OL>
+<LI>Escolha o status e a seção</LI>
+<LI>Digitalize todos os documentos um por um</LI>
+</OL>
+<br /><br />	

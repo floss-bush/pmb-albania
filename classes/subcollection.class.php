@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcollection.class.php,v 1.30 2010-06-16 12:13:47 ngantier Exp $
+// $Id: subcollection.class.php,v 1.33 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -66,6 +66,7 @@ function getData() {
 		$this->issn				=	'';
 		$this->subcollection_web	= '';
 		$this->subcollection_web_link = "" ;
+		$this->comment = "" ;
 	} else {
 		$requete = "SELECT * FROM sub_collections WHERE sub_coll_id=$this->id LIMIT 1 ";
 		$result = @mysql_query($requete, $dbh);
@@ -77,6 +78,7 @@ function getData() {
 			$this->parent= $temp->sub_coll_parent;
 			$this->issn= $temp->sub_coll_issn;
 			$this->subcollection_web	= $temp->subcollection_web;
+			$this->comment	= $temp->subcollection_comment;
 			if($temp->subcollection_web) $this->subcollection_web_link = " <a href='$temp->subcollection_web' target=_blank><img src='./images/globe.gif' border=0 /></a>";
 			else $this->subcollection_web_link = "" ;
 			$parent = new collection($temp->sub_coll_parent);
@@ -110,6 +112,7 @@ function getData() {
 			$this->isbd_entry		=	'';
 			$this->issn				=	'';
 			$this->subcollection_web = '';
+			$this->comment = '';
 			$this->subcollection_web_link = "" ;
 		}
 	}
@@ -149,7 +152,7 @@ function delete() {
 // ---------------------------------------------------------------
 //		replace($by) : remplacement de la collection
 // ---------------------------------------------------------------
-function replace($by) {
+function replace($by,$link_save=0) {
 
 	global $msg;
 	global $dbh;
@@ -171,7 +174,15 @@ function replace($by) {
 		// la nouvelle collection est foireuse
 		return $msg[406];
 	}
-
+	
+	$aut_link= new aut_link(AUT_TABLE_SUB_COLLECTIONS,$this->id);
+	// "Conserver les liens entre autorités" est demandé
+	if($link_save) {
+		// liens entre autorités
+		$aut_link->add_link_to(AUT_TABLE_SUB_COLLECTIONS,$by);		
+	}
+	$aut_link->delete();
+	
 	$requete = "UPDATE notices SET ed1_id=".$n_collection->editeur;
 	$requete .= ", coll_id=".$n_collection->parent;
 	$requete .= ", subcoll_id=$by WHERE subcoll_id=".$this->id;
@@ -229,6 +240,7 @@ function show_form() {
 	$sub_collection_form = str_replace('!!remplace!!', $button_replace, $sub_collection_form);
 	$sub_collection_form = str_replace('!!voir_notices!!', $button_voir, $sub_collection_form);
 	$sub_collection_form = str_replace('!!subcollection_web!!',		htmlentities($this->subcollection_web,ENT_QUOTES, $charset),	$sub_collection_form);
+	$sub_collection_form = str_replace('!!comment!!',		htmlentities($this->comment,ENT_QUOTES, $charset),	$sub_collection_form);
 	// pour retour à la bonne page en gestion d'autorités
 	// &user_input=".rawurlencode(stripslashes($user_input))."&nbr_lignes=$nbr_lignes&page=$page
 	global $user_input, $nbr_lignes, $page ;
@@ -279,7 +291,8 @@ function update($value) {
 	$requete .= "sub_coll_parent='$value[parent]', ";
 	$requete .= "sub_coll_issn='$value[issn]', ";
 	$requete .= "subcollection_web='$value[subcollection_web]', ";
-	$requete .= "index_sub_coll=' ".strip_empty_words($value[name])." '";
+	$requete .= "subcollection_comment='$value[comment]', ";
+	$requete .= "index_sub_coll=' ".strip_empty_words($value[name])." ".strip_empty_words($value["issn"])." '";
 
 	if($this->id) {
 		// update
@@ -376,7 +389,7 @@ function import($data) {
 	$query = "INSERT INTO sub_collections SET sub_coll_name='$key0', ";
 	$query .= "sub_coll_parent='$key1', ";
 	$query .= "sub_coll_issn='$key2', ";
-	$query .= "index_sub_coll=' ".strip_empty_words($key0)." ' ";
+	$query .= "index_sub_coll=' ".strip_empty_words($key0)." ".strip_empty_words($key2)." ' ";
 	$result = @mysql_query($query, $dbh);
 	if(!$result) die("can't INSERT into sub_collections".$query);
 

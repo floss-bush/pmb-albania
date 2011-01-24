@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.class.php,v 1.20 2009-11-16 15:30:45 mbertin Exp $
+// $Id: sort.class.php,v 1.21 2010-12-03 16:39:44 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -88,16 +88,17 @@ class dataSort {
 				break;
 			
 			case 'session':
-				$this->nbResult=$_SESSION["nb_sort".$this->sortName];
+				$this->nbResult = $_SESSION["nb_sort".$this->sortName];
 
 				//s'il n'y a pas de tris
-				if ($this->nbResult<=0) {
+				if ($this->nbResult==0) {
 					//on vide la session stockant le tri en cours
 					$_SESSION["last_sort".$this->sortName]="";
 				} else {
 					//on charge les tris dans un tableau
 					for($i=0; $i<$this->nbResult; $i++) {
 						$this->tabParcours[$i]["id_tri"] = $i;
+						
 						$this->tabParcours[$i]["nom_tri"] = $objSort->descriptionTri($_SESSION["sort".$this->sortName.$i]);
 						$this->tabParcours[$i]["tri_par"] = $_SESSION["sort".$this->sortName.$i];
 					}
@@ -146,7 +147,7 @@ class dataSort {
 					$txt_requete .= "WHERE id_tri='" . $id . "'";
 				} else {
 					//on vérifie que le nom de tri n'existe pas
-					$txt_requete = "SELECT id_tri FROM tris WHERE nom_tri='" . $nomTri . "'";
+					$txt_requete = "SELECT id_tri FROM tris WHERE nom_tri='" . htmlentities($nomTri, ENT_QUOTES, $charset) . "'";
 					$txt_requete .= " AND tri_reference='" . $this->sortName . "'";
 					if (mysql_num_rows(mysql_query($txt_requete)) == 0) {
 						//on genere la requete d'insertion
@@ -182,18 +183,17 @@ class dataSort {
 				} else {
 					$bool=false;
 					for ($i=0;$i<$_SESSION["nb_sort".$this->sortName];$i++) {
-						if ($_SESSION["sort".$this->sortName.$i]==htmlentities($desTri,ENT_QUOTES,$charset)) {	
+						if ($_SESSION["sort".$this->sortName.$i] == htmlentities($desTri,ENT_QUOTES,$charset)) {	
 							$bool=true;
 						}
 					}
 					if ($bool==true) {
 						return "<script>alert ('".$msg['tri_existant']."');</script>";
 					} else {
-						$_SESSION["sort".$this->sortName.$_SESSION["nb_sort".$this->sortName]]=htmlentities($desTri,ENT_QUOTES,$charset);
+						$_SESSION["sort".$this->sortName.$_SESSION["nb_sort".$this->sortName]] = htmlentities($desTri,ENT_QUOTES,$charset);
 						$_SESSION["nb_sort".$this->sortName]++;
 					}		
 				}
-
 				break;
 
 		}
@@ -270,7 +270,6 @@ class sort {
 	 * @$sort_name nom du tri à appliquer
 	 */
 	function sort($sort_name, $accesTri) {
-		
 		if ($sort_name) {
 			$sname = $sort_name;
 		} else {
@@ -766,11 +765,11 @@ class sort {
 					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] . ") ";
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value]. ") ";
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . ") ";
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value].") ";
 						
 					}
 					
@@ -801,6 +800,7 @@ class sort {
 		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$extractinfo_sql.")";
 		//echo '<br /><br />'.$temporary2_sql.'<br /><br />';
 		mysql_query($temporary2_sql);
+		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
 
 		//
 		//Et on rempli la table tri_tempo avec les éléments de la table temporaire

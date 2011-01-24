@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.inc.php,v 1.34 2010-07-28 07:44:39 mbertin Exp $
+// $Id: author.inc.php,v 1.35 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "inc.php")) die("no access");
 
@@ -10,11 +10,10 @@ if (stristr($_SERVER['REQUEST_URI'], "inc.php")) die("no access");
 if (!$no_display) $no_display=0;
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=auteur&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn";
+$base_url = "./select.php?what=auteur&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&callback=$callback&infield=$infield";
 
 // contenu popup sélection auteur
 require("./selectors/templates/sel_author.tpl.php");
-
 
 //Initialise toutes les variables en fonction du type d'autorités
 $sel_all=$sel_pp=$see_coll=$see_con=" ";
@@ -130,6 +129,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $nb_per_page;
 	global $base_url;
 	global $caller;
+	global $callback;
 	global $class_path;
 	global $no_display;
  	global $charset;
@@ -191,12 +191,12 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 					else $author_voir = $see->author_name;
 				if($see->author_date) $author_voir .= " ($see->author_date)";
 	
-				$author_voir = "<a href='#' onclick=\"set_parent('$caller', '$see->author_id', '".htmlentities(addslashes($author_voir),ENT_QUOTES, $charset)."')\">".htmlentities($author_voir,ENT_QUOTES, $charset)."</a>";
+				$author_voir = "<a href='#' onclick=\"set_parent('$caller', '$see->author_id', '".htmlentities(addslashes($author_voir),ENT_QUOTES, $charset)."','$callback')\">".htmlentities($author_voir,ENT_QUOTES, $charset)."</a>";
 				$author_voir = ".&nbsp;-&nbsp;<i>$msg[210]</i>&nbsp;:&nbsp;".$author_voir;
 				}
   
 			print "<div class='row'>";
-			print pmb_bidi("<a href='#' onclick=\"set_parent('$caller', '$author->author_id', '".htmlentities(addslashes($author_entry),ENT_QUOTES, $charset)."')\">$author_entry</a>");
+			print pmb_bidi("<a href='#' onclick=\"set_parent('$caller', '$author->author_id', '".htmlentities(addslashes($author_entry),ENT_QUOTES, $charset)."','$callback')\">$author_entry</a>");
 			print pmb_bidi($author_voir );
 			print "</div>";
 

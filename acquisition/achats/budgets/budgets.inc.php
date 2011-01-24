@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: budgets.inc.php,v 1.5 2009-01-13 17:30:16 dbellamy Exp $
+// $Id: budgets.inc.php,v 1.6 2010-10-28 10:02:42 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -151,13 +151,16 @@ function show_bud($id_bibli=0, $id_bud=0) {
 	$mnt_bud = $bud->montant_global;
 	$devise = $pmb_gestion_devise;
 	switch ($acquisition_gestion_tva) {
-		case '0' :
+		case '0' :;
+		case '2' :
 			$htttc=htmlentities($msg['acquisition_ttc'], ENT_QUOTES, $charset);
 			$k_htttc='ttc';
+			$k_htttc_autre='ht';
 			break;
 		default:
 			$htttc=htmlentities($msg['acquisition_ht'], ENT_QUOTES, $charset);
 			$k_htttc='ht';
+			$k_htttc_autre='ttc';
 			break;
 	}
 	if(!$bud->type_budget) {
@@ -233,20 +236,23 @@ function show_bud($id_bibli=0, $id_bud=0) {
 		$mnt['pay'] = rubriques::calcPaye($row->id_rubrique);
 		//solde
 		$mnt['sol'][$k_htttc]=$mnt['tot'][$k_htttc]-$mnt['eng'][$k_htttc];  
-		
+			
 		foreach($totaux as $k=>$v) {
 			$totaux[$k]=$v+$mnt[$k][$k_htttc];
 		}
 		$lib_mnt=array();
 		foreach($mnt as $k=>$v) {
 			$lib_mnt[$k]=number_format($mnt[$k][$k_htttc],2,'.',' ');
+			if($acquisition_gestion_tva && $k!="tot" && $k!="sol")$lib_mnt_autre[$k]=number_format($mnt[$k][$k_htttc_autre],2,'.',' ');
 		}
 		if ($bud->type_budget == TYP_BUD_GLO ) {
 			$lib_mnt['tot']='&nbsp;';
 			$lib_mnt['sol']='&nbsp;';			
 		}
 		foreach($lib_mnt as $k=>$v) {
-			$form = str_replace('!!mnt_'.$k.'!!', $lib_mnt[$k], $form);
+			if(!$acquisition_gestion_tva || !$lib_mnt_autre[$k])$form = str_replace('!!mnt_'.$k.'!!', $lib_mnt[$k], $form);
+			elseif($acquisition_gestion_tva) $form = str_replace('!!mnt_'.$k.'!!', $lib_mnt[$k]."<br />".$lib_mnt_autre[$k], $form);
+			
 		}
 		
 		if($nb_sr) {
@@ -280,19 +286,23 @@ function afficheSousRubriques($bud, $id_rub, &$form, $indent=0) {
 	global $view_lig_rub_form, $lig_rub_img, $lig_indent;
 	global $acquisition_gestion_tva;
 
-		switch ($acquisition_gestion_tva) {
-		case '0' :
+	switch ($acquisition_gestion_tva) {
+		case '0' :;
+		case '2' :
+			$htttc=htmlentities($msg['acquisition_ttc'], ENT_QUOTES, $charset);
 			$k_htttc='ttc';
+			$k_htttc_autre='ht';
 			break;
 		default:
+			$htttc=htmlentities($msg['acquisition_ht'], ENT_QUOTES, $charset);
 			$k_htttc='ht';
+			$k_htttc_autre='ttc';
 			break;
 	}
 	$id_bud = $bud->id_budget;
 	$q = budgets::listRubriques($id_bud, $id_rub);
 	$list_n = mysql_query($q, $dbh); 
 	while(($row=mysql_fetch_object($list_n))){
-			
 		$form = str_replace('<!-- sous_rub'.$id_rub.' -->', $view_lig_rub_form.'<!-- sous_rub'.$id_rub.' -->', $form);
 		$marge = '';
 		for($i=0;$i<$indent;$i++){
@@ -324,18 +334,20 @@ function afficheSousRubriques($bud, $id_rub, &$form, $indent=0) {
 		$mnt['pay'] = rubriques::calcPaye($row->id_rubrique);
 		//solde 
 		$mnt['sol'][$k_htttc]=$mnt['tot'][$k_htttc]-$mnt['eng'][$k_htttc];
-		$lib_mnt=array();
+		$lib_mnt=array();		
 		foreach($mnt as $k=>$v) {
 			$lib_mnt[$k]=number_format($mnt[$k][$k_htttc],2,'.',' ');
+			if($acquisition_gestion_tva && $k!="tot" && $k!="sol")$lib_mnt_autre[$k]=number_format($mnt[$k][$k_htttc_autre],2,'.',' ');
 		}
 		if ($bud->type_budget == TYP_BUD_GLO ) {
 			$lib_mnt['tot']='&nbsp;';
 			$lib_mnt['sol']='&nbsp;';			
 		}
 		foreach($lib_mnt as $k=>$v) {
-			$form = str_replace('!!mnt_'.$k.'!!', $v, $form);
-		}
-						
+			if(!$acquisition_gestion_tva || !$lib_mnt_autre[$k])$form = str_replace('!!mnt_'.$k.'!!', $lib_mnt[$k], $form);
+			elseif($acquisition_gestion_tva) $form = str_replace('!!mnt_'.$k.'!!', $lib_mnt[$k]."<br />".$lib_mnt_autre[$k], $form);
+			
+		}							
 		if ($nb_sr) {
 			afficheSousRubriques($bud, $row->id_rubrique, $form, $indent+1);
 		}

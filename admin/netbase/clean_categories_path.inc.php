@@ -2,12 +2,13 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: clean_categories_path.inc.php,v 1.2 2009-05-16 11:11:53 dbellamy Exp $
+// $Id: clean_categories_path.inc.php,v 1.3 2010-10-12 12:33:20 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 require_once("$class_path/thesaurus.class.php");
 require_once("$class_path/noeuds.class.php");
+require_once("$class_path/categories.class.php");
 
 function process_categ_path($id_noeud, $path='') {
 	global $dbh;
@@ -24,6 +25,17 @@ function process_categ_path($id_noeud, $path='') {
 	mysql_query($req,$dbh);		
 }
 
+function process_categ_index() {
+	global $dbh;
+			
+	$q = "select * from categories ";
+	$r = mysql_query($q, $dbh);
+	while ($obj = mysql_fetch_object($r)) {	
+		$thes = new categories($obj->num_noeud,$obj->langue);
+		$thes->update_index_path_word();		
+	}	
+}
+
 // Pour tous les thésaurus, on parcours les childs
 $list_thesaurus = thesaurus::getThesaurusList();
 
@@ -35,7 +47,9 @@ foreach($list_thesaurus as $id_thesaurus=>$libelle_thesaurus) {
 		process_categ_path($row->id_noeud);
 	}
 }	
-
+if($thesaurus_auto_postage_search){
+	process_categ_index();
+}
 $spec = $spec - CLEAN_CATEGORIES_PATH;
 
 $v_state=urldecode($v_state);

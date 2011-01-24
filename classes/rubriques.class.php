@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: rubriques.class.php,v 1.17 2008-12-04 10:14:01 dbellamy Exp $
+// $Id: rubriques.class.php,v 1.19 2010-11-03 13:32:29 ngantier Exp $
 
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
@@ -103,7 +103,7 @@ class rubriques{
 		//+ Somme des Montants engagés pour une rubrique par ligne de facture					(nb_facturé)*prix_facture*(1-remise_facture)
 
 		$q1 = "select ";
-		$q1.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, lignes_actes.remise as rem ";
+		$q1.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, lignes_actes.remise as rem, lignes_actes.debit_tva ";
 		$q1.= "from actes, lignes_actes ";
 		$q1.= "where ";
 		$q1.= "lignes_actes.num_rubrique = '".$id_rubrique."' ";
@@ -117,12 +117,13 @@ class rubriques{
 			
 			$tab_cde[$row1->id_ligne]['nb']=$row1->nb;
 			$tab_cde[$row1->id_ligne]['prix']=$row1->prix;				
-			$tab_cde[$row1->id_ligne]['rem']=$row1->rem;
+			$tab_cde[$row1->id_ligne]['rem']=$row1->rem;				
+			$tab_cde[$row1->id_ligne]['debit_tva']=$row1->debit_tva;
 		
 		}			
 		
 		$q2 = "select ";
-		$q2.= "lignes_actes.lig_ref, sum(nb) as nb ";
+		$q2.= "lignes_actes.lig_ref, sum(nb) as nb, lignes_actes.debit_tva ";
 		$q2.= "from actes, lignes_actes ";
 		$q2.= "where ";
 		$q2.= "actes.type_acte = '".TYP_ACT_FAC."' ";
@@ -137,7 +138,7 @@ class rubriques{
 		}
 
 		$q3 = "select ";
-		$q3.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, lignes_actes.remise as rem ";
+		$q3.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, lignes_actes.remise as rem, lignes_actes.debit_tva ";
 		$q3.= "from actes, lignes_actes ";
 		$q3.= "where ";
 		$q3.= "lignes_actes.num_rubrique = '".$id_rubrique."' ";
@@ -191,7 +192,7 @@ class rubriques{
 		
 		$q1 = "select ";
 		$q1.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, ";
-		$q1.= "lignes_actes.tva as tva, lignes_actes.remise as rem ";
+		$q1.= "lignes_actes.tva as tva, lignes_actes.remise as rem, lignes_actes.debit_tva ";
 		$q1.= "from actes, lignes_actes ";
 		$q1.= "where ";
 		$q1.= "lignes_actes.num_rubrique in('".$id_rubrique."') ";
@@ -207,6 +208,7 @@ class rubriques{
 			$tab_cde[$row1->id_ligne]['p']=$row1->prix;
 			$tab_cde[$row1->id_ligne]['t']=$row1->tva;				
 			$tab_cde[$row1->id_ligne]['r']=$row1->rem;
+			$tab_cde[$row1->id_ligne]['debit_tva']=$row1->debit_tva;	
 		
 		}			
 		
@@ -227,7 +229,7 @@ class rubriques{
 
 		$q3 = "select ";
 		$q3.= "lignes_actes.id_ligne, lignes_actes.nb as nb, lignes_actes.prix as prix, ";
-		$q3.= "lignes_actes.tva as tva, lignes_actes.remise as rem ";
+		$q3.= "lignes_actes.tva as tva, lignes_actes.remise as rem, lignes_actes.debit_tva ";
 		$q3.= "from actes, lignes_actes ";
 		$q3.= "where ";
 		$q3.= "lignes_actes.num_rubrique in('".$id_rubrique."') ";
@@ -242,7 +244,7 @@ class rubriques{
 			$tab_fac[$row3->id_ligne]['p']=$row3->prix;				
 			$tab_fac[$row3->id_ligne]['t']=$row3->tva;				
 			$tab_fac[$row3->id_ligne]['r']=$row3->rem;
-		
+			$tab_fac[$row3->id_ligne]['debit_tva']=$row3->debit_tva;		
 		}			
 
 		$lg = array_merge($tab_cde, $tab_fac);
@@ -277,7 +279,7 @@ class rubriques{
 		}
 		$q = "select ";
 		$q.= "lignes_actes.nb as nb, lignes_actes.prix as prix, ";
-		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem ";
+		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem, lignes_actes.debit_tva  ";
 		$q.= "from actes, lignes_actes ";
 		$q.= "where 1 ";
 		$q.= "and actes.type_acte = '".TYP_ACT_CDE."' ";
@@ -292,6 +294,7 @@ class rubriques{
 			$lg[$i]['p']=$row->prix;				
 			$lg[$i]['t']=$row->tva;
 			$lg[$i]['r']=$row->rem;
+			$lg[$i]['debit_tva']=$row->debit_tva;
 			$i++;			
 		}
 		
@@ -325,7 +328,7 @@ class rubriques{
 		}
 		$q = "select ";
 		$q.= "lignes_actes.nb as nb, lignes_actes.prix as prix, ";
-		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem ";
+		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem, lignes_actes.debit_tva  ";
 		$q.= "from actes, lignes_actes ";
 		$q.= "where 1 ";
 		$q.= "and actes.type_acte = '".TYP_ACT_FAC."' ";
@@ -339,6 +342,7 @@ class rubriques{
 			$lg[$i]['p']=$row->prix;				
 			$lg[$i]['t']=$row->tva;
 			$lg[$i]['r']=$row->rem;
+			$lg[$i]['debit_tva']=$row->debit_tva;
 			$i++;			
 		}
 		
@@ -372,7 +376,7 @@ class rubriques{
 		}
 		$q = "select ";
 		$q.= "lignes_actes.nb as nb, lignes_actes.prix as prix, ";
-		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem ";
+		$q.= "lignes_actes.tva as tva, lignes_actes.remise as rem, lignes_actes.debit_tva  ";
 		$q.= "from actes, lignes_actes ";
 		$q.= "where 1 ";
 		$q.= "and actes.type_acte = '".TYP_ACT_FAC."' ";
@@ -387,13 +391,14 @@ class rubriques{
 			$lg[$i]['p']=$row->prix;				
 			$lg[$i]['t']=$row->tva;
 			$lg[$i]['r']=$row->rem;
+			$lg[$i]['debit_tva']=$row->debit_tva;
 			$i++;			
 		}
-		
 		$tot_rub = calc($lg,2);
 		return $tot_rub;
 	}	
 	
+
 	//compte le nb d'enfants directs d'une rubrique
 	function countChilds($id_rubrique=0) {
 		

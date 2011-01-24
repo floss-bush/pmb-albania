@@ -7,11 +7,11 @@ $Id: notice.xml,v 1.3 2008-12-03 10:42:57 dbellamy Exp $ -->
 
 
 <fields>
-	<field name="typdoc" label="Llojet e dokumenteve" size_max="1">
+	<field name="typdoc" label="type de doc" size_max="1">
 		<html>typdoc</html>	
 		<sql>select typdoc from notices where notice_id ='!!id!!'</sql>	
 	</field>
-	<field name="tit1" label="Titujt" size_max="1">
+	<field name="tit1" label="Titre propre" size_max="1">
 		<html>f_tit1</html>	
 		<sql>select tit1 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
@@ -19,151 +19,151 @@ $Id: notice.xml,v 1.3 2008-12-03 10:42:57 dbellamy Exp $ -->
 		<html>f_tit2</html>	
 		<sql>select tit2 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="tit3" label="Titujt paralel" size_max="1">
+	<field name="tit3" label="Titre parallèle" size_max="1">
 		<html>f_tit3</html>	
 		<sql>select tit3 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="tit4" label="Titulli plotesues" size_max="1">
+	<field name="tit4" label="Complément du titre" size_max="1">
 		<html>f_tit4</html>	
 		<sql>select tit4 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="f_tparent_id" label="Pjese e" size_max="1">
+	<field name="f_tparent_id" label="Partie de" size_max="1">
 		<html>f_tparent_id</html>	
 		<sql>select tparent_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="tnvol" label="Nr i pjeses" size_max="1">
+	<field name="tnvol" label="No. de partie" size_max="1">
 		<html>tnvol</html>	
 		<sql>select tnvol from notices where notice_id ='!!id!!' </sql>	
 	</field>	
-	<field name="aut0_id" label="Autor kryesor" size_max="1">
+	<field name="aut0_id" label="Auteur principal" size_max="1">
 		<html>f_aut0_id</html>	
 		<sql>select author_id from authors,responsability where responsability_author = author_id and responsability_type = '0' and responsability_notice = '!!id!!'</sql>	
 	</field>	
-	<field name="f0_code" label="Funksioni" size_max="1">
+	<field name="f0_code" label="Fonction" size_max="1">
 		<html>f_f0_code</html>	
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '0' and responsability_notice = '!!id!!'</sql>	
 	</field>	
-	<field name="aut1_id0" label="Autor te tjere" size_max="10">
+	<field name="aut1_id0" label="Autre(s) auteur(s)" size_max="10">
 		<html>f_aut1_id0</html>	
 		<sql>select author_id from authors,responsability where responsability_author = author_id and responsability_type = '1' and responsability_notice = '!!id!!'</sql>	
 	</field>	
-	<field name="f1_code" label="Funksioni" size_max="1">
+	<field name="f1_code" label="Fonction" size_max="1">
 		<html>f_f1_code0</html>	
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '1' and responsability_notice = '!!id!!'</sql>	
 	</field>	
-	<field name="aut2_id0" label="Autor sekondar" size_max="1">
+	<field name="aut2_id0" label="Auteur(s) secondaires(s)" size_max="1">
 		<html>f_aut2_id0</html>	
 		<sql>select  author_id from authors,responsability where responsability_author = author_id and responsability_type = '2' and responsability_notice = '!!id!!'</sql>	
 	</field>
-	<field name="f2_code" label="Funksioni" size_max="1">
+	<field name="f2_code" label="Fonction" size_max="1">
 		<html>f_f2_code0</html>	
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '2' and responsability_notice = '!!id!!' </sql>	
 	</field>
-	<field name="ed1_id" label="Shtepi botuese" size_max="1">
+	<field name="ed1_id" label="Éditeur" size_max="1">
 		<html>f_ed1_id</html>	
 		<sql>select ed1_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="coll_id" label="Koleksioni" size_max="1">
+	<field name="coll_id" label="Collection" size_max="1">
 		<html>f_coll_id</html>	
 		<sql>select coll_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="nocoll" label="Nr ne koleksion" size_max="1">
+	<field name="nocoll" label="No. dans la collection" size_max="1">
 		<html>f_nocoll</html>	
 		<sql>select nocoll from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="subcoll_id" label="Nen koleksioni" size_max="1">
+	<field name="subcoll_id" label="Sous collection" size_max="1">
 		<html>f_subcoll_id</html>	
 		<sql>select subcoll_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="year" label="Viti" size_max="1">
+	<field name="year" label="Année" size_max="1">
 		<html>f_year</html>	
 		<sql>select year from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="mention_edition" label="Shtepi botuese e permendur" size_max="1">
+	<field name="mention_edition" label="Mention d'édition" size_max="1">
 		<html>f_mention_edition</html>	
 		<sql>select mention_edition from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="ed2_id" label="Tjeter shtepi botuese" size_max="1">
+	<field name="ed2_id" label="Autre éditeur" size_max="1">
 		<html>f_ed2_id</html>	
 		<sql>select ed2_id from notices where notice_id ='!!id!!'</sql>	
 	</field>		
-	<field name="cb" label="ISBN, EAN ose nr tjeter tregtar ( fakultativ )" size_max="1">
+	<field name="cb" label="ISBN, EAN ou no. commercial (facultatif)" size_max="1">
 		<html>f_cb</html>	
 		<sql>select code from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="npages" label="Elemente te tjere (numri i faqeve, elemente...)" size_max="1">
+	<field name="npages" label="Importance matérielle (nombre de pages, d'éléments...)" size_max="1">
 		<html>f_npages</html>	
 		<sql>select npages from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="ill" label="Karaktereistika te tjera te materialit (ill., ...)" size_max="1">
+	<field name="ill" label="Autres caractéristiques matérielles (ill., ...)" size_max="1">
 		<html>f_ill</html>	
 		<sql>select ill from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="size" label="Formati" size_max="1">
+	<field name="size" label="Format" size_max="1">
 		<html>f_size</html>	
 		<sql>select size from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="prix" label="Cmimi" size_max="1">
+	<field name="prix" label="Prix" size_max="1">
 		<html>f_prix</html>	
 		<sql>select prix from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="accomp" label="MAterial shoqerues" size_max="1">
+	<field name="accomp" label="Matériel d'accompagnement" size_max="1">
 		<html>f_accomp</html>	
 		<sql>select accomp from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="n_gen" label="Shenime te pergjitshme" size_max="1">
+	<field name="n_gen" label="Note générale" size_max="1">
 		<html>f_n_gen</html>	
 		<sql>select n_gen from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="n_contenu" label="Shenime mbi permbajtjen" size_max="1">
+	<field name="n_contenu" label="Note de contenu" size_max="1">
 		<html>f_n_contenu</html>	
 		<sql>select n_contenu from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="n_resume" label="Permbledhje" size_max="1">
+	<field name="n_resume" label="Résumé" size_max="1">
 		<html>f_n_resume</html>	
 		<sql>select n_resume from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="num_noeud" label="Kategorite" size_max="10">
+	<field name="num_noeud" label="Catégories" size_max="10">
 		<html>f_categ_id0</html>	
 		<sql>select num_noeud from notices_categories where notcateg_notice ='!!id!!'</sql>	
 	</field>					
-	<field name="indexint" label="Indeksimi Dhjetor" size_max="1">
+	<field name="indexint" label="Indexation décimale" size_max="1">
 		<html>f_indexint_id</html>	
 		<sql>select indexint from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="index_l" label="Fjale kyc" size_max="1">
+	<field name="index_l" label="Mots-clés" size_max="1">
 		<html>f_indexation</html>	
 		<sql>select index_l from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="lang_code" label="Gjuha e botimit" size_max="1">
+	<field name="lang_code" label="Langues de la publication" size_max="1">
 		<html>f_lang_code0</html>	
 		<sql>select code_langue from notices_langues  where type_langue='0' and num_notice='!!id!!'</sql>	
 	</field>	
-	<field name="langorg_code" label="Gjuha origjinale" size_max="1">
+	<field name="langorg_code" label="Langues originales" size_max="1">
 		<html>f_langorg_code0</html>	
 		<sql>select code_langue from notices_langues  where type_langue='0' and num_notice='!!id!!'</sql>	
 	</field>			
-	<field name="lien" label="URL e asociaur" size_max="1">
+	<field name="lien" label="URL associée" size_max="1">
 		<html>f_lien</html>	
 		<sql>select lien from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="eformat" label="Formati elektronik i materialit" size_max="1">
+	<field name="eformat" label="Format électronique de la ressource" size_max="1">
 		<html>f_eformat</html>	
 		<sql>select eformat from notices where notice_id ='!!id!!'</sql>	
 	</field>			
-	<field name="relation_type" label="Lloji i relacionit" size_max="10">
+	<field name="relation_type" label="Type de relation" size_max="10">
 		<html>f_rel_type_0</html>	
 		<sql>select relation_type from notices_relations where num_notice ='!!id!!'</sql>	
 	</field>	
-	<field name="linked_notice" label="Shenim kryesor" size_max="10">
+	<field name="linked_notice" label="Notice mère" size_max="10">
 		<html>f_rel_id_0</html>	
 		<sql>select linked_notice from notices_relations where num_notice ='!!id!!'</sql>	
 	</field>			
-	<field name="status" label="Gjendja e shenimit" size_max="1">
+	<field name="status" label="Statut de la notice" size_max="1">
 		<html>form_notice_statut</html>	
 		<sql>select status from notices where notice_id ='!!id!!'</sql>	
 	</field>	
-	<field name="commentaire_gestion" label="Komenti" size_max="1">
+	<field name="commentaire_gestion" label="Commentaire" size_max="1">
 		<html>f_commentaire_gestion</html>	
 		<sql>select commentaire_gestion from notices where notice_id ='!!id!!'</sql>	
 	</field>			

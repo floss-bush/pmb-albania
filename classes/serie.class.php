@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serie.class.php,v 1.36 2010-06-16 12:13:47 ngantier Exp $
+// $Id: serie.class.php,v 1.37 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -171,7 +171,7 @@ function delete() {
 // ---------------------------------------------------------------
 //		replace($by) : remplacement du titre
 // ---------------------------------------------------------------
-function replace($by) {
+function replace($by,$link_save=0) {
 
 	// à compléter
 	global $msg;
@@ -180,13 +180,20 @@ function replace($by) {
 	if(!$by) {
 		// pas de valeur de remplacement !!!
 		return "serious error occured, please contact admin...";
-		}
-
+	}
 	if (($this->s_id == $by) || (!$this->s_id))  {
 		// impossible de remplacer une autorité par elle-même
 		return $msg[411];
-		}
-
+	}
+	
+	$aut_link= new aut_link(AUT_TABLE_SERIES,$this->s_id);
+	// "Conserver les liens entre autorités" est demandé
+	if($link_save) {
+		// liens entre autorités
+		$aut_link->add_link_to(AUT_TABLE_SERIES,$by);		
+	}
+	$aut_link->delete();
+	
 	// a) remplacement dans les notices
 	$requete = "UPDATE notices SET tparent_id=$by WHERE tparent_id=".$this->s_id;
 	$res = mysql_query($requete, $dbh);

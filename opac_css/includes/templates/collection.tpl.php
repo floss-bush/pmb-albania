@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collection.tpl.php,v 1.6 2008-11-20 17:58:12 touraine37 Exp $
+// $Id: collection.tpl.php,v 1.7 2010-11-02 16:20:29 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -34,6 +34,7 @@ $collection_level2_display = "
   <li>$msg[collection_tpl_publisher] : !!publisher!!</li>
   <li>$msg[collection_tpl_issn] : !!issn!!</li>
 </ul>
+<div class=aut_comment>!!comment!!</div>
 !!subcolls!!
 </div>
 ";

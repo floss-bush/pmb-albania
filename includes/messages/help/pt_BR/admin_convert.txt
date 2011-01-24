@@ -1,0 +1,6 @@
+<h1>Conversões/Exportações</h1>
+<p>Esta página lhe ajudará a gerenciar operações de conversão de vários formatos de arquivos de registros/itens para outro formato, assim como exportar seu banco de dados PMB no formulário dos registros.</p>
+<p>O processo de conversão permite converter do formato UNIMARC, USMARC, BCDI ou XML PMB para outro formato UNIMARC ou XML PMB. Se existir necessidade de converter para UNIMARC, será possível importar registros diretamente para o PMB. Caso contrário, faça o download do arquivo de dados. 
+<strong>Cuidado: converter de um formato para outro pode causar perdas de dados.</strong></p>
+<p>A exportação do banco de dados PMB é feita sob forma de registros, juntamente com as informações relacionadas com o padrão 995 do ADBDP (Association des Directeurs de Bibliothèques Départementales de Prêt, France). 
+Você poderá converter os resultados em registros UNIMARC ou em XML PMB.</p>

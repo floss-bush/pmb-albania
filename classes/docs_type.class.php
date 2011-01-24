@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docs_type.class.php,v 1.5 2007-03-10 09:25:48 touraine37 Exp $
+// $Id: docs_type.class.php,v 1.6 2011-01-12 10:39:44 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -28,12 +28,12 @@ function docs_type($id=0) {
 	if($id) {
 		/* on cherche à atteindre un  typdoc existant */
 		$this->id = $id;
+	$this->getData();
+	} else {
+		$this->id = 0;
 		$this->getData();
-		} else {
-			$this->id = 0;
-			$this->getData();
-			}
 	}
+}
 
 /* ---------------------------------------------------------------
 		getData() : récupération des propriétés
@@ -44,18 +44,18 @@ function getData() {
 	if(!$this->id) return;
 
 	/* récupération des informations de la catégorie */
-	$requete = 'SELECT * FROM docs_type WHERE idtype_doc='.$this->id.' LIMIT 1;';
-	$result = @mysql_query($requete, $dbh);
+	$requete = 'SELECT * FROM docs_type WHERE idtyp_doc='.$this->id.' LIMIT 1;';
+	$result = mysql_query($requete, $dbh) or die (mysql_error()." ".$requete);
 	if(!mysql_num_rows($result)) return;
 		
 	$data = mysql_fetch_object($result);
-	$this->id = $data->idtype_doc;		
+	$this->id = $data->idtyp_doc;		
 	$this->libelle = $data->tdoc_libelle;
 	$this->duree_pret = $data->duree_pret;
 	$this->tdoc_codage_import = $data->tdoc_codage_import;
 	$this->tdoc_owner = $data->tdoc_owner;
 
-	}
+}
 
 // ---------------------------------------------------------------
 //		import() : import d'un type de document
@@ -115,6 +115,46 @@ function import($data) {
 
 	} /* fin méthode import */
 
+/* une fonction pour générer des combo Box 
+   paramêtres :
+	$selected : l'élément sélectioné le cas échéant
+   retourne une chaine de caractères contenant l'objet complet */
+function gen_combo_box ( $selected ) {
+	global $msg;
+	$requete="select idtyp_doc, tdoc_libelle from docs_type order by tdoc_libelle ";
+	$champ_code="idtyp_doc";
+	$champ_info="tdoc_libelle";
+	$nom="book_doctype_id";
+	$on_change="";
+	$liste_vide_code="0";
+	$liste_vide_info=$msg['class_typdoc'];
+	$option_premier_code="";
+	$option_premier_info="";
+	$gen_liste_str="";
+	$resultat_liste=mysql_query($requete) or die (mysql_error()." ".$requete);
+	$gen_liste_str = "<select name=\"$nom\" onChange=\"$on_change\">\n" ;
+	$nb_liste=mysql_numrows($resultat_liste);
+	if ($nb_liste==0) {
+		$gen_liste_str.="<option value=\"$liste_vide_code\">$liste_vide_info</option>\n" ;
+	} else {
+		if ($option_premier_info!="") {	
+			$gen_liste_str.="<option value=\"".$option_premier_code."\" ";
+			if ($selected==$option_premier_code) $gen_liste_str.="selected" ;
+			$gen_liste_str.=">".$option_premier_info."\n";
+		}
+		$i=0;
+		while ($i<$nb_liste) {
+			$gen_liste_str.="<option value=\"".mysql_result($resultat_liste,$i,$champ_code)."\" " ;
+			if ($selected==mysql_result($resultat_liste,$i,$champ_code)) {
+				$gen_liste_str.="selected" ;
+				}
+			$gen_liste_str.=">".mysql_result($resultat_liste,$i,$champ_info)."</option>\n" ;
+			$i++;
+		}
+	}
+	$gen_liste_str.="</select>\n" ;
+	return $gen_liste_str ;
+} /* fin gen_combo_box */
 
 
 } /* fin de définition de la classe */

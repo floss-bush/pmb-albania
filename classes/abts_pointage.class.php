@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_pointage.class.php,v 1.33 2009-09-15 14:25:44 ngantier Exp $
+// $Id: abts_pointage.class.php,v 1.34 2010-11-10 10:03:38 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -253,7 +253,7 @@ class abts_pointage {
 	}	
 
 	function show_form() {
-		global $msg;
+		global $msg, $charset;
 		global $dbh;
 		global $pointage_form, $pointage_list;
 		global $location_view, $deflt_docs_location,$serial_id,$pmb_abt_end_delay;
@@ -414,7 +414,7 @@ ENDOFTEXT;
 					$contenu_tmp .= "<td>".$fiche['libelle_numero']."</td>";
 					$contenu_tmp .= "<td>".$fiche['libelle_abonnement']."</td>";
 					$contenu_tmp .= "<td><input name='".$id_bull."' id='".$id_bull."_1' checked='checked'  value='1' type='radio'></td>";
-					$contenu_tmp .= "<td><input name='".$id_bull."' id='".$id_bull."_2' value='2' nume='". $fiche['NUM']."' vol='". $fiche['VOL']."'	tom='". $fiche['TOM']."' num='". $fiche['libelle_numero']."'  type='radio' ".$fiche['link_recu']." ></td>";
+					$contenu_tmp .= "<td><input name='".$id_bull."' id='".$id_bull."_2' value='2' nume='". $fiche['NUM']."' vol='". $fiche['VOL']."'	tom='". $fiche['TOM']."' num='". htmlentities($fiche['libelle_numero'],ENT_QUOTES, $charset)."'  type='radio' ".$fiche['link_recu']." ></td>";
 					$contenu_tmp .= "<td><input name='".$id_bull."' id='".$id_bull."_3' value='3' type='radio' ".$fiche['link_non_recevable']." ></td>";
 					$contenu_tmp .= "<td id='". $id_bull."_bul'>&nbsp</td>";
 					$contenu_tmp .= "</tr>";	

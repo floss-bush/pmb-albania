@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: indexation_docnum.class.php,v 1.17 2010-06-30 14:18:21 ngantier Exp $
+// $Id: indexation_docnum.class.php,v 1.19 2010-12-01 16:04:30 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -11,6 +11,7 @@ require_once("$base_path/catalog/explnum/index_docnum/index_pdf.class.php");
 require_once("$base_path/catalog/explnum/index_docnum/index_html.class.php");
 require_once("$base_path/catalog/explnum/index_docnum/index_txt.class.php");
 require_once("$base_path/catalog/explnum/index_docnum/index_oo.class.php");
+require_once("$base_path/catalog/explnum/index_docnum/index_bnf.class.php");
 require_once("$class_path/curl.class.php");
 require_once("$class_path/upload_folder.class.php");
 require_once("$include_path/explnum.inc.php");
@@ -104,7 +105,7 @@ class indexation_docnum {
 			//récupération dans la base
 			$this->get_file($this->file_content);
 			create_tableau_mimetype();
-			$this->mimetype = trouve_mimetype($this->fichier);
+			if(!$this->mimetype) $this->mimetype = trouve_mimetype($this->fichier);
 			if(!$this->mimetype && $this->explnum_nomfichier){
 				//Test sur l'extension du fichier
 				$ext = extension_fichier($this->explnum_nomfichier);
@@ -185,7 +186,7 @@ class indexation_docnum {
 	function indexer(){
 		global $dbh;
 		
-		$rqt = " update explnum set explnum_index_sew=' ".addslashes(strip_empty_words(strip_tags($this->texte)))." ', explnum_index_wew='".addslashes(strip_tags($this->texte))."' where explnum_id='".$this->id_explnum."'";
+		$rqt = " update explnum set explnum_index_sew=' ".addslashes(strip_empty_words($this->texte))." ', explnum_index_wew='".addslashes($this->texte)."' where explnum_id='".$this->id_explnum."'";
 		mysql_query($rqt,$dbh);	
 		if ($this->fichier) unlink($this->fichier);	
 	}

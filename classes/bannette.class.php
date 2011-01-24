@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bannette.class.php,v 1.94 2010-08-17 12:40:23 ngantier Exp $
+// $Id: bannette.class.php,v 1.100 2010-12-02 16:24:51 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -574,7 +574,8 @@ function construit_diff() {
 	}   	
 	
 	$this->texte_diffuse = "<html><head>$css</head><body>". $titre;
-	if ($this->diffusion_email) $this->texte_diffuse .= $contenu . $this->piedpage_mail;
+	if ($this->diffusion_email) $this->texte_diffuse .= $contenu; 
+	$this->texte_diffuse .= $this->piedpage_mail;
 	$this->texte_diffuse .= "</body></html>";
 	$this->texte_diffuse = str_replace ("!!nb_notice!!",$this->nb_notices,$this->texte_diffuse) ;
 	$this->texte_export = "<html><head>$css</head><body>".$titre . $contenu_total . "</body></html>";
@@ -801,7 +802,7 @@ function construit_contenu_HTML ($use_limit=1) {
 	global $opac_url_base, $use_opac_url_base ;
 	global $deflt2docs_location;
 	
-	$url_base_opac = $opac_url_base."index.php?css=1&lvl=notice_display&id=";
+	$url_base_opac = $opac_url_base."index.php?lvl=notice_display&id=";
 	$use_opac_url_base=true;
 	// pour URL image vue de l'extérieur
 	global $prefix_url_image ;
@@ -878,13 +879,13 @@ function construit_contenu_HTML ($use_limit=1) {
 				global $use_dsi_diff_mode; $use_dsi_diff_mode=1;  
 				//function mono_display($id, $level=1,      $action='', $expl=1,    $expl_link='', $lien_suppr_cart="", $explnum_link='', $show_resa=0, $print=0, $show_explnum=1, $show_statut=0, $anti_loop='', $draggable=0, $no_link=false, $show_opac_hidden_fields=true )
 				$mono=new mono_display($n,$environement["short"],"",$environement["ex"],"","","",0,1,$environement["exnum"],0,"",0,true,false);
-				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."'><b>".$mono->header."</b></a><br /><br />\r\n";
+				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$mono->header."</b></a><br /><br />\r\n";
 				$resultat_aff .= $mono->isbd;
 			} elseif ($n->niveau_biblio == 's' || $n->niveau_biblio == 'a') {
 				// level=2 pour ne pas rajouter le "in ..." sur le titre de la notice de dépouillement
 				// function serial_display ($id, $level='1', $action_serial='', $action_analysis='', $action_bulletin='', $lien_suppr_cart="", $lien_explnum="", $bouton_explnum=1,$print=0,$show_explnum=1, $show_statut=0, $show_opac_hidden_fields=true ) {
 				$serial = new serial_display($n, 6, "", "", "", "", "", 0,1,$environement["exnum"],0, false );
-				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."'><b>".$serial->header."</b></a><br /><br />\r\n";
+				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$serial->header."</b></a><br /><br />\r\n";
 				$resultat_aff .= $serial->isbd;
 			}
 		}			
@@ -896,16 +897,24 @@ function construit_contenu_HTML ($use_limit=1) {
 	// il faut trier les regroupements par ordre alphabétique
 	if($this->notice_tpl){
 		$resultat_aff=$memo_resultat_aff;
-		ksort($tri_tpl);
-		foreach ($tri_tpl as $titre => $liste) {			
+		//ksort($tri_tpl);
+		$this->pmb_ksort($tri_tpl);	
+		foreach ($tri_tpl as $titre => $liste) {
+			global $group_separator;
+	    	if($group_separator)$resultat_aff.=$group_separator;
+	    	else $resultat_aff.= "<div class='hr_group'><hr /></div>";			
 			$resultat_aff.= "<h1>".$titre."</h1>" ;	
 			$nb=0;	
 			foreach ($liste as $val) {
 			    $resultat_aff.=$val;
-			    if(++$nb < count($liste))$resultat_aff.="<div class='hr'><hr /></div>";
+			    if(++$nb < count($liste)){			    	
+			    	global $notice_separator;
+			    	if($notice_separator)$resultat_aff.=$notice_separator;
+			    	else $resultat_aff.="<div class='hr'><hr /></div>";
+			    }
 			}
 			$resultat_aff.= "\r\n";
-		}			
+		}	
 	}
 
 	if ($this->typeexport) {
@@ -922,6 +931,23 @@ function construit_contenu_HTML ($use_limit=1) {
 	return $resultat_aff ;
 	}
 
+function pmb_ksort(&$table){
+	if (is_array($table)) {
+		reset($table);
+		$tmp=array();
+		foreach ($table as $key => $value ) {
+       		$tmp[]=strtoupper(convert_diacrit($key));
+       		$tmp_key[]=$key;
+       		$tmp_contens[]=$value;
+		}	
+		asort($tmp);	
+		foreach ($tmp as $key=>$value ) {
+       		$table_final[$tmp_key[$key]]=$tmp_contens[$key];
+		}
+		$table=$table_final;
+	}		
+}
+	
 // ---------------------------------------------------------------
 //		construit_contenu_HTML() : Préparation du contenu du mail ou du bulletin
 // ---------------------------------------------------------------

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collections.inc.php,v 1.7 2008-02-26 13:27:09 ngantier Exp $
+// $Id: collections.inc.php,v 1.9 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -31,7 +31,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$collection = new collection($id);
-			$rep_result = $collection->replace($by);
+			$rep_result = $collection->replace($by,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/collections/collections_list.inc.php');
 			else {
@@ -59,7 +59,9 @@ switch($sub) {
 					'name' => $collection_nom,
 					'parent' => $ed_id,
 					'collection_web' => $collection_web,
-					'issn' => $issn);
+					'issn' => $issn,
+					'comment' => $comment);
+				
 				$collection = new collection($id);
 				$collection->update($coll);
 				include('./autorites/collections/collections_list.inc.php');

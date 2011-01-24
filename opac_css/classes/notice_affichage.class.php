@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage.class.php,v 1.249 2010-09-16 15:16:44 trenon Exp $
+// $Id: notice_affichage.class.php,v 1.260 2010-12-09 14:45:50 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -25,6 +25,7 @@ require_once($class_path."/collstate.class.php");
 require_once("$class_path/acces.class.php");
 require_once($class_path."/indexint.class.php");
 require_once($class_path."/notice_affichage.ext.class.php");
+require_once($include_path."/notice_authors.inc.php");
 
 if (!count($tdoc)) $tdoc = new marc_list('doctype');
 if (!count($fonction_auteur)) {
@@ -176,6 +177,7 @@ class notice_affichage {
 	  	// $seule : si 1 la notice est affichée seule et dans ce cas les notices childs sont en mode dépliable
 	  	global $seule ;
 	  	$this->seule = $seule ;
+	  	$this->docnum_allowed = 1;
 	
 	  	if(!$id) return;
 		else {
@@ -702,6 +704,8 @@ class notice_affichage {
 		global $icon_doc,$biblio_doc,$tdoc;
 		global $allow_tag; // l'utilisateur a-t-il le droit d'ajouter un tag
 		global $allow_sugg;// l'utilisateur a-t-il le droit de faire une suggestion
+		global $lvl;	   // pour savoir qui demande l'affichage
+		
 		$this->result ="";
 		if(!$this->notice_id) return;	
 		$this->premier = $premier ;
@@ -754,26 +758,34 @@ class notice_affichage {
 	
 		//$template_in=$basket;
 		$template_in.="<ul id='onglets_isbd_public'>";
-	    if ($premier=='ISBD') $template_in.="
-	    	<li id='baskets!!id!!' class='onglet_basket'>$basket</li>
-	    	<li id='onglet_isbd!!id!!' class='isbd_public_active'><a href='#' onclick=\"show_what('ISBD', '!!id!!'); return false;\">".$msg['ISBD']."</a></li>
-	    	<li id='onglet_public!!id!!' class='isbd_public_inactive'><a href='#' onclick=\"show_what('PUBLIC', '!!id!!'); return false;\">".$msg['Public']."</a></li>
-	    	<li id='tags!!id!!' class='onglet_tags'>$img_tag</li>
+	    if ($premier=='ISBD'){ 
+	    	if ($basket) $template_in.="
+		    	<li id='baskets!!id!!' class='onglet_basket'>$basket</li>";
+	    	$template_in.="
+	    		<li id='onglet_isbd!!id!!' class='isbd_public_active'><a href='#' onclick=\"show_what('ISBD', '!!id!!'); return false;\">".$msg['ISBD']."</a></li>
+	    		<li id='onglet_public!!id!!' class='isbd_public_inactive'><a href='#' onclick=\"show_what('PUBLIC', '!!id!!'); return false;\">".$msg['Public']."</a></li>
+	    		<li id='tags!!id!!' class='onglet_tags'>$img_tag</li>
 			</ul>
 			<div id='div_isbd!!id!!' style='display:block;'>!!ISBD!!</div>
 	  		<div id='div_public!!id!!' style='display:none;'>!!PUBLIC!!</div>";
-	  	else $template_in.="
-		    	<li id='baskets!!id!!' class='onglet_basket'>$basket</li>
+	    }else{ 
+	    	if ($basket) $template_in.="
+		    	<li id='baskets!!id!!' class='onglet_basket'>$basket</li>";
+	    	$template_in.="
 	  			<li id='onglet_public!!id!!' class='isbd_public_active'><a href='#' onclick=\"show_what('PUBLIC', '!!id!!'); return false;\">".$msg['Public']."</a></li>
 				<li id='onglet_isbd!!id!!' class='isbd_public_inactive'><a href='#' onclick=\"show_what('ISBD', '!!id!!'); return false;\">".$msg['ISBD']."</a></li>
 		    	<li id='tags!!id!!' class='onglet_tags'>$img_tag</li>
-				</ul>
-				<div id='div_public!!id!!' style='display:block;'>!!PUBLIC!!</div>
-	  			<div id='div_isbd!!id!!' style='display:none;'>!!ISBD!!</div>";
+			</ul>
+			<div id='div_public!!id!!' style='display:block;'>!!PUBLIC!!</div>
+	  		<div id='div_isbd!!id!!' style='display:none;'>!!ISBD!!</div>";
+	    }
 		
 		// Serials : différence avec les monographies on affiche [périodique] et [article] devant l'ISBD
 		if ($this->notice->niveau_biblio =='s') {	
-			if($this->get_bulletins()) $voir_bulletins="&nbsp;&nbsp;<a href='index.php?lvl=notice_display&id=".$this->notice_id."'><i>".$msg["see_bull"]."</i></a>";
+			if($this->get_bulletins()){
+				if ($lvl == "notice_display")$voir_bulletins="&nbsp;&nbsp;<a href='#tab_bulletin'><i>".$msg["see_bull"]."</i></a>";
+				else $voir_bulletins="&nbsp;&nbsp;<a href='index.php?lvl=notice_display&id=".$this->notice_id."'><i>".$msg["see_bull"]."</i></a>";
+			}
 			//si visionneuse active...	
 			if ($opac_visionneuse_allow)	{
 				if($test=$this->get_bulletins_docnums()){
@@ -820,7 +832,9 @@ class notice_affichage {
 		global $opac_url_base ;
 		global $icon_doc,$biblio_doc,$tdoc;
 		global $allow_tag ; // l'utilisateur a-t-il le droit d'ajouter un tag
-		global $allow_sugg;// l'utilisateur a-t-il le droit de faire une suggestion
+		global $allow_sugg; // l'utilisateur a-t-il le droit de faire une suggestion
+		global $lvl;		// pour savoir qui demande l'affichage
+		
 		if(!$this->notice_id) return;
 		
 		$this->double_ou_simple = 1 ;
@@ -890,7 +904,10 @@ class notice_affichage {
 		
 		// Serials : différence avec les monographies on affiche [périodique] et [article] devant l'ISBD
 		if ($this->notice->niveau_biblio =='s') {
-			if($this->get_bulletins()) $voir_bulletins="&nbsp;<a href='index.php?lvl=notice_display&id=".$this->notice_id."'><i>".$msg["see_bull"]."</i></a>";
+			if($this->get_bulletins()){
+				if ($lvl == "notice_display")$voir_bulletins="&nbsp;&nbsp;<a href='#tab_bulletin'><i>".$msg["see_bull"]."</i></a>";
+				else $voir_bulletins="&nbsp;&nbsp;<a href='index.php?lvl=notice_display&id=".$this->notice_id."'><i>".$msg["see_bull"]."</i></a>";
+			} 
 			$template_in = str_replace('!!ISBD!!', "<span class='fond-mere'>[".$msg['isbd_type_perio']."]</span>$voir_bulletins&nbsp;!!ISBD!!", $template_in);
 			$template_in = str_replace('!!PUBLIC!!', "<span class='fond-mere'>[".$msg['isbd_type_perio']."]</span>$voir_bulletins&nbsp;!!PUBLIC!!", $template_in);
 		} elseif ($this->notice->niveau_biblio =='a') { 
@@ -1116,29 +1133,28 @@ class notice_affichage {
 		$ul_opened=false;
 		//Pour toutes les notices liées
 		while (($r_rel=mysql_fetch_object($result_linked))) {			
+				if ($opac_notice_affichage_class) $notice_affichage=$opac_notice_affichage_class; else $notice_affichage="notice_affichage";
 			if($memo_notice[$r_rel->linked_notice]["header"]) {
 				$parent_notice->notice_header=$memo_notice[$r_rel->linked_notice]["header"];	
 			} else {
-				$parent_notice=new $opac_notice_affichage_class($r_rel->linked_notice,$this->liens,1,$this->to_print,1);
+				$parent_notice=new $notice_affichage($r_rel->linked_notice,$this->liens,1,$this->to_print,1);
 				$parent_notice->visu_expl = 0 ;
 				$parent_notice->visu_explnum = 0 ;
 				$parent_notice->do_header();
 			}		
 			//Présentation différente si il y en a un ou plusieurs
-			if (mysql_num_rows($result_linked)==1) {				
-				if($this->notice->niveau_biblio != 'a' && $this->notice->niveau_hierar != 2)  {
-					// si une seule, peut-être est-ce une notice de bulletin, aller cherche $this>bulletin_id
-					$this->notice_public.="<br /><b>".$relation_listup->table[$r_rel->relation_type]."</b> ";
-					if ($this->lien_rech_notice) $this->notice_public.="<a href='".str_replace("!!id!!",$r_rel->linked_notice,$this->lien_rech_notice)."&seule=1'>";
-					$this->notice_public.=$parent_notice->notice_header;
-					if ($this->lien_rech_notice) $this->notice_public.="</a>";
-					$this->notice_public.="<br /><br />";
-					// si une seule, peut-être est-ce une notice de bulletin, aller cherche $this>bulletin_id
-					$rqbull="select bulletin_id from bulletins where num_notice=".$this->notice_id;
-					$rqbullr=mysql_query($rqbull);
-					$rqbulld=@mysql_fetch_object($rqbullr);
-					$this->bulletin_id=$rqbulld->bulletin_id; 
-				}
+			if (mysql_num_rows($result_linked)==1) {
+				// si une seule, peut-être est-ce une notice de bulletin, aller cherche $this>bulletin_id
+				$this->notice_public.="<br /><b>".$relation_listup->table[$r_rel->relation_type]."</b> ";
+				if ($this->lien_rech_notice) $this->notice_public.="<a href='".str_replace("!!id!!",$r_rel->linked_notice,$this->lien_rech_notice)."&seule=1'>";
+				$this->notice_public.=$parent_notice->notice_header;
+				if ($this->lien_rech_notice) $this->notice_public.="</a>";
+				$this->notice_public.="<br /><br />";
+				// si une seule, peut-être est-ce une notice de bulletin, aller cherche $this>bulletin_id
+				$rqbull="select bulletin_id from bulletins where num_notice=".$this->notice_id;
+				$rqbullr=mysql_query($rqbull);
+				$rqbulld=@mysql_fetch_object($rqbullr);
+				$this->bulletin_id=$rqbulld->bulletin_id; 
 			} else {
 				if (!$r_type[$r_rel->relation_type]) {
 					$r_type[$r_rel->relation_type]=1;
@@ -1271,6 +1287,8 @@ class notice_affichage {
 		global $opac_notice_reduit_format ;
 		global $opac_url_base, $msg ;
 		global $memo_notice;
+		global $opac_visionneuse_allow;
+		global $opac_url_base;
 		$this->notice_header="";
 		if(!$this->notice_id) return;	
 		
@@ -1325,7 +1343,7 @@ class notice_affichage {
 		
 		$this->notice_header .= $aff_bullperio_title;
 		$this->notice_header_without_html = $this->notice_header;	
-		$this->notice_header = "<span class='header_title'>".$this->notice_header."</span>";	
+		$this->notice_header = "<span notice='".$this->notice_id."' class='header_title'>".$this->notice_header."</span>";	
 				
 		$notice_header_suite = "";
 		if ($type_reduit=="T" && $this->notice->tit4) $notice_header_suite = " : ".$this->notice->tit4;
@@ -1369,7 +1387,21 @@ class notice_affichage {
 					else $info_bulle=$explnumrow->explnum_nom;
 				}	
 				$this->notice_header .= "&nbsp;<span>";		
-				$this->notice_header .= "<a href=\"./doc_num.php?explnum_id=".$explnumrow->explnum_id."\" target=\"__LINK__\">";
+				if ($opac_visionneuse_allow && $this->docnum_allowed){
+					$this->notice_header .="
+					<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
+					<script type='text/javascript'>
+						if(typeof(sendToVisionneuse) == 'undefined'){
+							function sendToVisionneuse(explnum_id){
+								document.getElementById('visionneuseIframe').src = 'visionneuse.php?'+(typeof(explnum_id) != 'undefined' ? 'explnum_id='+explnum_id+\"\" : '\'');
+							}
+						}
+					</script>
+					<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$explnumrow->explnum_id.");return false;\" alt='$alt' title='$alt'>";
+					
+				}else{
+					$this->notice_header .= "<a href=\"./doc_num.php?explnum_id=".$explnumrow->explnum_id."\" target=\"__LINK__\">";
+				}
 				$this->notice_header .= "<img src=\"./images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 				$this->notice_header .= " alt=\"";
 				$this->notice_header .= htmlentities($info_bulle);
@@ -1542,7 +1574,7 @@ class notice_affichage {
 		}
 		
 		//affichage exemplaires numeriques
-		$ret.= $this->aff_explnum();
+		if($this->docnum_allowed) $ret.= $this->aff_explnum();
 		
 		if (($autres_lectures = $this->autres_lectures($this->notice_id,$this->bulletin_id))) {
 			$ret .= $autres_lectures;
@@ -1609,13 +1641,10 @@ class notice_affichage {
 		}
 		
 		// résumé
-		if($this->notice->n_resume) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_resume_start']."</span></td><td>".nl2br($this->notice->n_resume)."</td></tr>";
+		if($this->notice->n_resume) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_resume_start']."</span></td><td class='td_resume'>".nl2br($this->notice->n_resume)."</td></tr>";
 	
 		// note de contenu
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
-	
-		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		//Champs personalisés
 		$perso_aff = "" ;
@@ -1624,7 +1653,7 @@ class notice_affichage {
 			if(!$this->memo_perso_) $this->memo_perso_=$this->p_perso->show_fields($this->notice_id);			
 			for ($i=0; $i<count($this->memo_perso_["FIELDS"]); $i++) {
 				$p=$this->memo_perso_["FIELDS"][$i];
-				if ($p['OPAC_SHOW'] && $p["AFF"]) $perso_aff .="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$p["TITRE"]."</span></td><td>".$p["AFF"]."</td></tr>";
+				if ($p['OPAC_SHOW'] && $p["AFF"]) $perso_aff .="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".strip_tags($p["TITRE"])."</span></td><td>".$p["AFF"]."</td></tr>";
 			}
 		}
 		if ($perso_aff) {
@@ -1649,7 +1678,14 @@ class notice_affichage {
 			$ret.="</td></tr>";
 			if ($this->notice->eformat && substr($this->notice->eformat,0,3)!='RSS') $ret.="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["eformat_start"]."</span></td><td>".htmlentities($this->notice->eformat,ENT_QUOTES,$charset)."</td></tr>";
 		}
-		
+		// Permalink avec Id
+		if ($opac_permalink) {
+			if($this->notice->niveau_biblio != "b"){
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
+			}else {
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
+			}	
+		}
 		$this->affichage_suite = $ret ;
 		$this->affichage_suite_flag = 1 ;
 		return $ret ;

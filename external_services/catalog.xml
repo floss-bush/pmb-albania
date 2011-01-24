@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: catalog.xml,v 1.7 2010-08-11 10:02:37 erwanmartin Exp $ -->
+$Id: catalog.xml,v 1.8 2010-10-15 11:41:03 erwanmartin Exp $ -->
 
 <catalog>
 	<item name="pmbesSearch" id="1"/>
@@ -21,4 +21,5 @@ $Id: catalog.xml,v 1.7 2010-08-11 10:02:37 erwanmartin Exp $ -->
     <item name="pmbesSelfServices" id="12"/>
     <item name="pmbesRepositories" id="13"/>
     <item name="pmbesThesauri" id="14"/>
+    <item name="pmbesAutLinks" id="15"/>
 </catalog>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categories.class.php,v 1.23 2009-06-19 13:17:25 dbellamy Exp $
+// $Id: categories.class.php,v 1.24 2010-10-12 12:33:20 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -87,7 +87,77 @@ class categories{
 			$q.= "where num_noeud = '".$this->num_noeud."' and langue = '".$this->langue."' "; 
 			$r = mysql_query($q, $dbh);
 			categories::update_index($this->num_noeud);
+			$this->update_index_path_word();
 		//}
+	}
+	
+	function update_index_path_word(){
+		global $dbh;
+		global $msg;
+		global $include_path;	
+		global $thesaurus_auto_postage_search;
+		global $thesaurus_auto_postage_search_nb_descendant,$thesaurus_auto_postage_search_nb_montant;	
+
+		/*	auto_postage_descendant:
+		* 		Soit categ : Europe:France:Sarthe
+		* 		et une notice sous la categ Sarthe.
+		* 	la recherche tous champs de Europe va sortir la notice sous la categ Sarthe 
+		*/				 
+		$no = new noeuds($this->num_noeud);
+		$num_thesaurus = $no->num_thesaurus;	
+		$path=$no->path;	
+		$liste_num_noeud=explode('/',$path);
+		// pour l'index coté gestion
+		$lib_list=array();	
+		if($thesaurus_auto_postage_search){	
+			$limit=$thesaurus_auto_postage_search_nb_descendant;		
+			if($limit){				
+				$liste_num_noeud=explode('/',$path);
+				if($limit != '*') array_splice($liste_num_noeud,0,count($liste_num_noeud)-$limit-1);
+				$select_num_noeud=implode(',',$liste_num_noeud);
+				$q = "select libelle_categorie from categories where num_noeud in( $select_num_noeud ) and langue = '".$this->langue."' and num_thesaurus=$num_thesaurus";
+				$r = mysql_query($q, $dbh);
+				while ($row = mysql_fetch_object($r))	{
+					$lib_list[]= $row->libelle_categorie; 
+				}
+			}
+		}		
+		
+		/*	auto_postage_montant:
+		 * 		Soit categ : Europe:France:Sarthe
+		 * 		et une notice sous la categ Europe.
+		 * 	la recherche tous champs de Sarthe va sortir la notice sous la categ Europe 
+		 */ 
+		$liste_fils="";
+		if($thesaurus_auto_postage_search){	
+			$limit=$thesaurus_auto_postage_search_nb_montant;		
+			if($limit){	
+				if( is_numeric($limit))
+					$liste_fils=" path regexp '^$path(\\/[0-9]*){0,$limit}$' ";
+				elseif($limit == '*') 
+					$liste_fils=" (path like '$path/%' or  path = '$path') ";	
+				if($liste_fils)	{
+					$q = "select libelle_categorie from categories,noeuds where id_noeud=num_noeud
+					and $liste_fils and langue = '".$this->langue."' and categories.num_thesaurus=$num_thesaurus and noeuds.num_thesaurus=$num_thesaurus";
+					$r = mysql_query($q, $dbh);
+					while ($row = mysql_fetch_object($r))	{
+						$lib_list[]= $row->libelle_categorie; 
+					}
+				}			
+			}				
+		}
+				
+		// Si rien, on ne met que le libelle de la categ
+		if(!count($lib_list))$lib_list[]=$this->libelle_categorie;
+		//$lib_list=array_unique  ($lib_list);
+		$index=implode(" ",$lib_list);		
+		$clean_index=strip_empty_words($index);
+		
+		$q = "update categories set ";
+		$q.= "path_word_categ = ' ".trim(addslashes($index))." ', ";		
+		$q.= "index_path_word_categ = ' ".trim(addslashes($clean_index))." ' ";
+		$q.= "where num_noeud = '".$this->num_noeud."' and langue = '".$this->langue."' and num_thesaurus=$num_thesaurus"; 
+		$r = mysql_query($q, $dbh);		
 	}
 	
 	//verifie si une categorie existe dans la langue concernée

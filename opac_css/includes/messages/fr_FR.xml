@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localisés en français pour l'OPAC de PMB
-$Id: fr_FR.xml,v 1.259 2010-09-24 20:57:39 touraine37 Exp $ -->
+$Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Opération non autorisée</entry>
@@ -189,32 +189,32 @@ $Id: fr_FR.xml,v 1.259 2010-09-24 20:57:39 touraine37 Exp $ -->
 <entry code="tit234_start"></entry>
 <entry code="tit234_end"></entry>
 <entry code="coll_start">Collection : </entry>
-<entry code="subcoll_start">Sous-collection : </entry>
+<entry code="subcoll_start"><![CDATA[Sous-collection&nbsp;: ]]></entry>
 <entry code="coll_end"></entry>
-<entry code="tparent_start">Titre de série : </entry>
-<entry code="typdocdisplay_start">Type de document : </entry>
+<entry code="tparent_start"><![CDATA[Titre de série&nbsp;: ]]></entry>
+<entry code="typdocdisplay_start"><![CDATA[Type de document&nbsp;: ]]></entry>
 <entry code="typdocdisplay_end"></entry>
 <entry code="editeur_start">Editeur :</entry>
-<entry code="year_start">Année de publication : </entry>
-<entry code="code_start">ISBN/ISSN/EAN : </entry>
+<entry code="year_start"><![CDATA[Année de publication&nbsp;: ]]></entry>
+<entry code="code_start"><![CDATA[ISBN/ISSN/EAN&nbsp;: ]]></entry>
 <entry code="npages_start">Importance : </entry>
 <entry code="npages_start_perio">Article en page(s) : </entry>
 <entry code="size_start">Format : </entry>
 <entry code="ill_start">Présentation : </entry>
-<entry code="accomp_start">Accompagnement : </entry>
-<entry code="n_gen_start">Note générale : </entry>
-<entry code="n_contenu_start">Note de contenu : </entry>
+<entry code="accomp_start"><![CDATA[Accompagnement&nbsp;: ]]></entry>
+<entry code="n_gen_start"><![CDATA[Note générale&nbsp;: ]]></entry>
+<entry code="n_contenu_start"><![CDATA[Note de contenu&nbsp;: ]]></entry>
 <entry code="n_resume_start">Résumé : </entry>
 <entry code="lien_start">En ligne : </entry>
 <entry code="eformat_start">Format de la ressource électronique : </entry>
 <entry code="price_start">Prix : </entry>
-<entry code="categories_start">Catégories : </entry>
-<entry code="motscle_start">Mots-clés : </entry>
-<entry code="indexint_start">Index. décimale : </entry>
+<entry code="categories_start"><![CDATA[Catégories&nbsp;: ]]></entry>
+<entry code="motscle_start"><![CDATA[Mots-clés&nbsp;: ]]></entry>
+<entry code="indexint_start"><![CDATA[Index. décimale&nbsp;: ]]></entry>
 <entry code="no_expl"><![CDATA[<b>Pas d'exemplaire associé à cette notice</b>]]></entry>
 <entry code="bull_numero">Numéro ou élément de périodique</entry>
-<entry code="bull_mention_date">Mention de date : </entry>
-<entry code="bull_date_date">Paru le : </entry>
+<entry code="bull_mention_date"><![CDATA[Mention de date&nbsp;: ]]></entry>
+<entry code="bull_date_date"><![CDATA[Paru le&nbsp;: ]]></entry>
 <entry code="bull_dep">Dépouillements</entry>
 <entry code="resa_no_expl">Aucun des exemplaires de ce document ne peut être réservé.</entry>
 <entry code="resa_doc_dispo">Réservation : le document que vous voulez réserver est disponible :</entry>
@@ -1063,4 +1063,11 @@ $Id: fr_FR.xml,v 1.259 2010-09-24 20:57:39 touraine37 Exp $ -->
 <entry code="empr_do_checkout_nok">Le prêt est refusé!</entry>
 	
 <entry code="search_custom_notices">Champs personnalisés des notices</entry>
+<entry code="search_autopostage_multicritere">Catégories et sous-catégories</entry>
+
+<entry code="codebarre_sort">Codebarre</entry>
+<entry code="coll_sort">Titre de la collection</entry>
+<entry code="subcoll_sort">Titre de la sous-collection</entry>
+<entry code="num_in_coll_sort">Numéro dans la collection</entry>
+<entry code="authority_query">Sélection d'autorité</entry>
 </XMLlist>

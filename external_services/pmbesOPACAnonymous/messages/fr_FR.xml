@@ -4,14 +4,14 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.5 2010-07-29 12:53:30 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.6 2010-12-08 07:30:22 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
   <!--
 pmbesOPACAnonymous
 -->
-  <entry code="pmbesOPACAnonymous_description">Intéragit du point de vue d'un lecteur anonyme</entry>
+  <entry code="pmbesOPACAnonymous_description">Interagit du point de vue d'un lecteur anonyme</entry>
   <!--
 simpleSearch
 -->
@@ -35,7 +35,7 @@ getAdvancedSearchFields
 <entry code="getAdvancedSearchFields_input_description"></entry>
 <entry code="getAdvancedSearchFields_output_description"></entry>
 <entry code="getAdvancedSearchFields_lang">La langue</entry>
-<entry code="getAdvancedSearchFields_fetch_values">Précise d'il faut également chercher les valeurs des champs, pour un champ select par exemple</entry>
+<entry code="getAdvancedSearchFields_fetch_values">Précise s'il faut également chercher les valeurs des champs, pour un champ select par exemple</entry>
 <entry code="getAdvancedSearchFields_results">Les différents champs</entry>
   <!--
 advancedSearch
@@ -61,7 +61,7 @@ fetchSearchRecords
 <entry code="fetchSearchRecords_output_description"></entry>
 <entry code="fetchSearchRecords_searchId">L'id renvoyé par la fonction de recherche</entry>
 <entry code="fetchSearchRecords_firstRecord">Numéro de la première notice à récupérer</entry>
-<entry code="fetchSearchRecords_recordCount">Nombre de notice à récupérer</entry>
+<entry code="fetchSearchRecords_recordCount">Nombre de notices à récupérer</entry>
 <entry code="fetchSearchRecords_recordFormat">Format des résultats</entry>
 <entry code="fetchSearchRecords_recordCharset">Charset dans lequel on souhaite les résultats</entry>
 <entry code="fetchSearchRecords_results">Les résultats</entry>
@@ -85,9 +85,9 @@ fetchSearchRecords
   <entry code="fetchSearchRecordsSorted_output_description"></entry>
   <entry code="fetchSearchRecordsSorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsSorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsSorted_recordFormat">format des résultats</entry>
-  <entry code="fetchSearchRecordsSorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
+  <entry code="fetchSearchRecordsSorted_recordCharset">le charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsSorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsSorted_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetchSearchRecordsSorted_sortType">le tri à appliquer aux résultats</entry>
@@ -103,7 +103,7 @@ fetchSearchRecords
   <entry code="fetchSearchRecordsArray_output_description"></entry>
   <entry code="fetchSearchRecordsArray_searchId">L'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArray_firstRecord">Numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArray_recordCount">Nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsArray_recordCount">Nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsArray_recordCharset">Charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArray_results">Les résultats</entry>
 
@@ -124,18 +124,18 @@ fetchSearchRecords
   <entry code="fetchSearchRecordsArraySorted_output_description"></entry>
   <entry code="fetchSearchRecordsArraySorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArraySorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsArraySorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArraySorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsArraySorted_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetchSearchRecordsArraySorted_sortType">le tri à appliquer aux résultats</entry>
-  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultat</entry>
+  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultats</entry>
 
   <!--
 fetch_notice_items
 -->
   
-<entry code="fetch_notice_items_description">Renvoi les différents exemplaires associés à une notice s'ils existent</entry>
+<entry code="fetch_notice_items_description">Renvoie les différents exemplaires associés à une notice s'ils existent</entry>
 <entry code="fetch_notice_items_input_description"></entry>
 <entry code="fetch_notice_items_output_description"></entry>
 <entry code="fetch_notice_items_session_id">Le numéro de session</entry>
@@ -189,7 +189,7 @@ fetchNoticeList
   <!--
     get_sort_types
   -->
-  <entry code="get_sort_types_description">Renvoi la liste des différents tri possibles</entry>
+  <entry code="get_sort_types_description">Renvoie la liste des différents tris possibles</entry>
   <entry code="get_sort_types_input_description"></entry>
   <entry code="get_sort_types_output_description">
     Exemple de retour:

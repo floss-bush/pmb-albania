@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +----------------------------------------------------------------------------------------+
-// $Id: category.inc.php,v 1.30 2010-01-07 10:50:03 kantin Exp $
+// $Id: category.inc.php,v 1.31 2010-11-05 09:42:52 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -91,12 +91,12 @@ while($mesCategories_trouvees = mysql_fetch_object($found)) {
 		if ($bar[1]) print pmb_bidi("<a href=./index.php?lvl=categ_see&id=".$bar[1]['num_noeud']."><img src='./images/folder.gif' border='0' align='middle'>".$bar[1]['libelle_categorie'].'</a> > ');
 	}
 	print "<a href=./index.php?lvl=categ_see&id=".$mesCategories->num_noeud.">";
-	$c_categ =  new category($mesCategories_trouvees->num_noeud);
+	
 	
 	// Si il y a présence d'un commentaire affichage du layer					
 	$result_com = categorie::zoom_categ($mesCategories_trouvees->num_noeud, $mesCategories_trouvees->note_application);
 	
-	if($c_categ->has_notices())
+	if(category::has_notices($mesCategories_trouvees->num_noeud))
 		print " <img src='$base_path/images/folder_search.gif' border=0 align='middle' />";			
 	else		
 		print "<img src='./images/folder.gif' border='0' align='middle'>"; 

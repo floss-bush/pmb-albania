@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docnum.inc.php,v 1.5 2010-07-06 13:25:13 arenou Exp $
+// $Id: docnum.inc.php,v 1.6 2010-10-13 07:58:48 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -45,9 +45,16 @@ if ($acces_j) {
 	$statut_j=',notice_statut';
 }
 
-$requete_noti = "select explnum_id, notice_id, ".$pert." from explnum, notices $statut_j $acces_j $clause "; 
-$requete_bull  = "select explnum_id, notice_id, ".$pert." from bulletins, explnum, notices $statut_j $acces_j $clause_bull ";
-$requete = "select explnum_id, uni.notice_id, pert from ($requete_noti UNION $requete_bull) as uni join notices n on uni.notice_id=n.notice_id  $tri" ; 
+$requete_noti = "select explnum_id, notice_id,explnum_mimetype, ".$pert." from explnum, notices $statut_j $acces_j $clause "; 
+$requete_bull  = "select explnum_id, notice_id,explnum_mimetype, ".$pert." from bulletins, explnum, notices $statut_j $acces_j $clause_bull ";
+$requete = "select explnum_id, uni.notice_id,explnum_mimetype, pert from ($requete_noti UNION $requete_bull) as uni join notices n on uni.notice_id=n.notice_id  $tri" ; 
+
+$requete_nbexplnum = "select explnum_id from ($requete_noti UNION $requete_bull) as uni where explnum_mimetype in ($opac_photo_filtre_mimetype)" ;
+$res_nbexplnum = mysql_query($requete_nbexplnum);
+if(mysql_num_rows($res_nbexplnum))
+	$nbexplnum = mysql_result($res_nbexplnum,0,0);
+else $nbexplnum = 0;
+
 
 //gestion du tri
 if (isset($_GET["sort"])) {	
@@ -87,7 +94,7 @@ if ($count<=$opac_nb_max_tri) {
 //fin gestion du tri
 
 print $add_cart_link;
-if($opac_visionneuse_allow && $count){
+if($opac_visionneuse_allow && $nbexplnum){
 	print "&nbsp;&nbsp;&nbsp;".$link_to_visionneuse;
 	print $sendToVisionneuseByPost; 
 }

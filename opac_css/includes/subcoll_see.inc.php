@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcoll_see.inc.php,v 1.37 2010-07-02 08:15:13 arenou Exp $
+// $Id: subcoll_see.inc.php,v 1.40 2010-11-17 17:15:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -60,9 +60,15 @@ if($id) {
 		//Recherche des types doc
 		//$requete="select distinct notices.typdoc FROM notices, notice_statut ";
 		//$requete .= " where (subcoll_id='$id') and (statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"")."))";
-		$requete="select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_notice=notice_id and explnum_mimetype in ($opac_photo_filtre_mimetype) $acces_j $statut_j ";
-		$requete .= "where subcoll_id='$id' $statut_r group by notices.typdoc";
-
+		
+		$clause = "where subcoll_id='$id' $statut_r group by notices.typdoc";
+		if($opac_visionneuse_allow){
+			$req_noti = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice=notice_id  $acces_j $statut_j $clause";
+			$req_bull = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin=bulletin_id and explnum_bulletin != 0 $acces_j $statut_j $clause";
+			$requete ="select distinct typdoc, sum(nbexplnum) as nbexplnum from ($req_bull union $req_noti) as uni group by typdoc";
+		}else {
+			$requete="select distinct notices.typdoc FROM notices  $acces_j $statut_j $clause";	
+		}
 		$res = mysql_query($requete, $dbh);
 		$t_typdoc=array();
 		$nbexplnum_to_photo = 0;

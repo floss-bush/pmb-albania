@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cart.inc.php,v 1.67 2010-04-20 13:45:20 gueluneau Exp $
+// $Id: cart.inc.php,v 1.68 2010-10-21 08:59:10 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -520,7 +520,7 @@ function aff_cart_titre ($myCart) {
 	if ($myCart->comment) $aff_tit_panier = $myCart->name." - ".$myCart->comment;
 	else $aff_tit_panier = $myCart->name;
 	$lien="./catalog.php?categ=search&mode=3&object_type=".$myCart->type."&idcaddie=".$myCart->idcaddie."&item=";
-	return "<div class='titre-panier'><h3><a href='".$lien."'>$aff_tit_panier</a> <i><small>(".$msg["caddie_de_".$myCart->type].")</small></i></h2></div>";
+	return "<div class='titre-panier'><h3><a href='".$lien."'>$aff_tit_panier</a> <i><small>(".$msg["caddie_de_".$myCart->type].")</small></i></h3></div>";
 }
 
 function aff_cart_nb_items ($myCart) {

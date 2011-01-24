@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_abonnements.class.php,v 1.24 2010-01-19 10:30:07 ngantier Exp $
+// $Id: abts_abonnements.class.php,v 1.26 2010-11-10 10:03:38 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -134,6 +134,9 @@ class abts_abonnement {
 		$r=str_replace("!!nombre_de_series!!",sql_value("select sum(nombre) from abts_grille_abt where num_abt='$this->abt_id' and type ='1'"),$r);
 		$r=str_replace("!!nombre_de_horsseries!!",sql_value("select sum(nombre) from abts_grille_abt where num_abt='$this->abt_id' and type ='2'"),$r);
 
+		if($this->fournisseur) $fournisseur_name=$msg["abonnements_fournisseur"].": ".sql_value("SELECT raison_sociale from entites where id_entite = '".$this->fournisseur."' ");
+		$r=str_replace("!!fournisseur!!",$fournisseur_name,$r);		
+		$r=str_replace("!!commentaire!!",$this->destinataire,$r);					
 		return $r;
 	}
 	
@@ -206,7 +209,7 @@ class abts_abonnement {
 			$r=str_replace('!!destinataire!!', $this->destinataire, $r);
 			
 			//Cote:
-			$r=str_replace('!!cote!!', $this->cote, $r);
+			$r=str_replace('!!cote!!', htmlentities($this->cote,ENT_QUOTES,$charset), $r);
 			
 			// select "type document"
 			$r = str_replace('!!type_doc!!',
@@ -611,14 +614,14 @@ ENDOFTEXT;
 		// nettoyage des valeurs en entrée
 		$this->abt_name = clean_string($this->abt_name); 
 		// construction de la requête
-		$requete = "SET abt_name='$this->abt_name', ";
+		$requete = "SET abt_name='".addslashes($this->abt_name)."', ";
 		$requete .= "num_notice='$this->num_notice', ";
 		$requete .= "duree_abonnement='$this->duree_abonnement', ";
 		$requete .= "date_debut='$this->date_debut', ";
 		$requete .= "date_fin='$this->date_fin', ";
 		$requete .= "fournisseur='$this->fournisseur', ";
-		$requete .= "destinataire='$this->destinataire', ";		
-		$requete .= "cote='$this->cote', ";	
+		$requete .= "destinataire='".addslashes($this->destinataire)."', ";		
+		$requete .= "cote='".addslashes($this->cote)."', ";	
 		$requete .= "typdoc_id='$this->typdoc_id', ";
 		$requete .= "exemp_auto='$this->exemp_auto', ";
 		$requete .= "location_id='$this->location_id', ";
@@ -743,14 +746,14 @@ ENDOFTEXT;
 		switch ($act) {
 			case 'update':								
 				// mise à jour modèle
-				$this->abt_name= $abt_name;
+				$this->abt_name= stripslashes($abt_name);
 				$this->num_notice= $num_notice;
 				$this->duree_abonnement = $duree_abonnement;
 				$this->date_debut= $date_debut;
 				$this->date_fin= $date_fin;
 				$this->fournisseur = $id_fou;
-				$this->destinataire = $destinataire;			
-				$this->cote=$cote;
+				$this->destinataire = stripslashes($destinataire);			
+				$this->cote=stripslashes($cote);
 				$this->typdoc_id=$typdoc_id;
 				$this->exemp_auto=$exemp_auto;
 				$this->location_id=$location_id;
@@ -765,14 +768,14 @@ ENDOFTEXT;
 			break;
 			case 'gen':								
 				// mise à jour modèle
-				$this->abt_name= $abt_name;
+				$this->abt_name= stripslashes($abt_name);
 				$this->num_notice= $num_notice;
 				$this->duree_abonnement = $duree_abonnement;
 				$this->date_debut= $date_debut;
 				$this->date_fin= $date_fin;
 				$this->fournisseur = $id_fou;
-				$this->destinataire = $destinataire;
-				$this->cote=$cote;
+				$this->destinataire = stripslashes($destinataire);
+				$this->cote=stripslashes($cote);
 				$this->typdoc_id=$typdoc_id;
 				$this->exemp_auto=$exemp_auto;
 				$this->location_id=$location_id;
@@ -787,14 +790,14 @@ ENDOFTEXT;
 			break;	
 			case 'prolonge':								
 				// mise à jour modèle
-				$this->abt_name= $abt_name;
+				$this->abt_name= stripslashes($abt_name);
 				$this->num_notice= $num_notice;
 				$this->duree_abonnement = $duree_abonnement;							
 				$this->date_debut= $date_fin;				
 				$this->date_fin= sql_value("SELECT DATE_ADD('$date_fin',INTERVAL $duree_abonnement month)");
 				$this->fournisseur = $id_fou;
-				$this->destinataire = $destinataire;
-				$this->cote=$cote;
+				$this->destinataire = stripslashes($destinataire);
+				$this->cote=stripslashes($cote);
 				$this->typdoc_id=$typdoc_id;
 				$this->exemp_auto=$exemp_auto;
 				$this->location_id=$location_id;

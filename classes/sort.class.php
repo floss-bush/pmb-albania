@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.class.php,v 1.28 2009-12-11 20:54:18 erwanmartin Exp $
+// $Id: sort.class.php,v 1.29 2010-12-03 16:24:58 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -646,7 +646,6 @@ class sort {
 
 			//on va classer la table tempo suivant les criteres donnés
 			$requete = "ALTER TABLE " . $tableEnCours ." ORDER BY ". $orderby;
-			//echo("alter:".$requete."<br />");
 			mysql_query ($requete);
 		}
 
@@ -725,9 +724,6 @@ class sort {
 	 */
 	function genereRequeteUpdate($desTable, $nomTable, $nomChp, $nomColonneTempo) {
 
-		//echo "desTable:";
-		//print_r($desTable);
-		
 		$tables = $nomTable . "," .$this->params["REFERENCE"];
 		$groupby = "";
 		
@@ -735,7 +731,7 @@ class sort {
 		//SELECT de base pour la récupération des informations
 		//
 		$extractinfo_sql = "SELECT ".$this->params["REFERENCE"].'.'.$this->params["REFERENCEKEY"].", ".$this->ajoutIfNull($desTable["TABLEFIELD"][0])." AS ".$nomChp." FROM ".$nomTable.' LEFT JOIN '.$this->params["REFERENCE"].' ON ('.$this->params["REFERENCE"].'.'.$this->params["REFERENCEKEY"].' = '.$nomTable.'.'.$this->params["REFERENCEKEY"].')';
-		
+
 		//
 		//On ajout les éventuelles liaisons
 		//
@@ -765,11 +761,11 @@ class sort {
 					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] . ") ";
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value]. ") ";
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . ") ";
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value].") ";
 						
 					}
 					
@@ -790,17 +786,18 @@ class sort {
 			$extractinfo_sql .= " GROUP BY ".$desTable["GROUPBY"][0]["value"];
 		}
 
-		//echo '<br /><br />'.$my_sql.'<br /><br />';
-
 		//
 		//On met le tout dans une table temporaire
 		//
+		
+		
 		$sql = "DROP TEMPORARY TABLE IF EXISTS ".$nomTable."_update";
 		mysql_query($sql);
 		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$extractinfo_sql.")";
-		//echo '<br /><br />'.$temporary2_sql.'<br /><br />';
-		mysql_query($temporary2_sql);
 
+		mysql_query($temporary2_sql);
+		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
+	
 		//
 		//Et on rempli la table tri_tempo avec les éléments de la table temporaire
 		//

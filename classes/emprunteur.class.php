@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: emprunteur.class.php,v 1.113 2010-09-21 15:21:37 ngantier Exp $
+// $Id: emprunteur.class.php,v 1.116 2010-12-02 17:02:11 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -592,7 +592,7 @@ function do_fiche() {
 	if (($pmb_blocage_retard)&&($force_finance==0)) {
 			if (($this->date_blocage)&&($this->blocage_active)) {
 				$this->blocage_retard=$pmb_blocage_retard_force;
-				$message_pret.=sprintf($msg["blocage_retard_pret"],formatdate($this->date_blocage))."&nbsp;<input type='button' value='".$msg["blocage_params"]."' class='bouton' onClick=\"openPopUp('./circ/blocage.php?id_empr=".$this->id."','blocage_params',400,150,-2,-2,'toolbar=no, dependent=yes,resizable=yes');\"/><br />";
+				$message_pret.=sprintf($msg["blocage_retard_pret"],formatdate($this->date_blocage))."&nbsp;<input type='button' value='".$msg["blocage_params"]."' class='bouton' onClick=\"openPopUp('./circ/blocage.php?id_empr=".$this->id."','blocage_params',400,200,-2,-2,'toolbar=no, dependent=yes,resizable=yes');\"/><br />";
 				if ($pret_ok<2) $pret_ok=$pmb_blocage_retard_force;
 			}
 	}
@@ -1240,30 +1240,7 @@ function picture_empr($empr_cb) {
 	if ($empr_pics_url) {
 		$code_chiffre = pmb_preg_replace('/ /', '', $empr_cb);
 		$url_image = $empr_pics_url ;
-		$bidon = str_replace("!!num_carte!!", $code_chiffre, $url_image) ;
-		$size = @getimagesize($bidon);
-		switch ($size[2]) {
-			case 1:
-				$src_img = imagecreatefromgif($bidon);
-			 	break;
-			case 2:
-				$src_img = imagecreatefromjpeg($bidon);
-				break;
-			case 3:
-				$src_img = imagecreatefrompng($bidon);
-				break;
-			case 6:
-				$src_img = imagecreatefromwbmp($bidon);
-				break;
-			default:
-				break;
-		}
-		if ($src_img) {
-			if (imagesx($src_img)>$empr_pics_max_size) $maxsize="width=".htmlentities($empr_pics_max_size,ENT_QUOTES,$charset)."px";
-				elseif ($tailley=imagesy($src_img)>$empr_pics_max_size) $maxsize="height=".htmlentities($empr_pics_max_size,ENT_QUOTES,$charset)."px";
-					else  $maxsize="";
-		}
-		$url_image = "./getimage.php?url_image=".urlencode($url_image) ;
+		$url_image = "./getimage.php?url_image=".urlencode($url_image)."&empr_pic=1" ;
 		$url_image_ok = str_replace("%21%21num_carte%21%21", $code_chiffre, $url_image) ;
 		$image = "<img src='".$url_image_ok."' $maxsize />";
 	} else 
@@ -1637,7 +1614,7 @@ function do_fiche_retard(){
 	}
 	$empr_retard_tpl = str_replace("!!id!!",$this->id,$empr_retard_tpl);	
 	$empr_retard_tpl = str_replace("!!liste_retard!!",$result,$empr_retard_tpl);	
-	
+	$empr_retard_tpl = str_replace("!!nivo_relance!!",0,$empr_retard_tpl);// si aucun imprimé
 	$this->fiche_retard = $empr_retard_tpl;
 }
 

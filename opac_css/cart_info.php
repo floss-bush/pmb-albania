@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cart_info.php,v 1.43 2010-05-18 14:27:44 mbertin Exp $
+// $Id: cart_info.php,v 1.44 2011-01-18 16:09:18 trenon Exp $
 
 //Actions et affichage du résultat pour un panier de l'opac
 
@@ -35,7 +35,7 @@ require_once($base_path."/classes/search.class.php");
 
 ?>
 <html>
-<body>
+<body class="cart_info_body">
 <span id='cart_info_iframe_content'>
 <?php
 

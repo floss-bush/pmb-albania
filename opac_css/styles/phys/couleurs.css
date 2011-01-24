@@ -74,6 +74,11 @@ scrollbar-arrow-color: #FFCC00;
 
 	#search_result {
 	color:#000000;
+	font-size: 19px;
+	}
+	
+	#search_result .row{
+	font-size: 11px;
 	}
 
 #search_result h3 {

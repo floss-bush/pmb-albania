@@ -742,9 +742,9 @@
 					</boolean>
 				</part>				
 				<part>
-					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
 				</part>
-			</query>
+			</query>	
 			<query for="STARTWITH" multiple="yes">
 				<part>
 					<main>drop table if exists catdef</main>
@@ -780,7 +780,7 @@
 					</main>				
 				</part>				
 				<part>
-					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
 				</part>
 			</query>
 			<query for="ENDWITH" multiple="yes">
@@ -818,7 +818,7 @@
 					</main>				
 				</part>				
 				<part>
-					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
 				</part>
 			</query>
 			<query for="EXACT" multiple="yes">
@@ -856,9 +856,104 @@
 					</main>				
 				</part>				
 				<part>
-					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
 				</part>
 			</query>
+		</field>		
+		<field title="msg:search_autopostage_multicritere" id="54" separator="msg:indexations_query">
+			<input type="authoritie" ajax="categories" selector="categorie" p1="p1" p2="p2"/>
+			<variable name="lang" type="global"/>
+			<variable name="thesaurus_defaut" type="global"/>
+			<variable name="id_thesaurus" type="input" comment="Thésaurus">
+				<var name="thesaurus_mode_pmb" visibility="yes">
+					<value visibility="no">0</value>
+				</var>
+				<default type="var">thesaurus_defaut</default>
+				<input type="query_list">
+					<query>select id_thesaurus, libelle_thesaurus from thesaurus</query>
+				</input>
+			</variable>
+			<variable name="langue_defaut" type="calculated">
+				<calc type="value_from_query">
+					<query>select langue_defaut from thesaurus where id_thesaurus=!!id_thesaurus!!</query>
+				</calc>
+			</variable>
+			<query for="BOOLEAN" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>
+				<part>
+					<main>create temporary table catdef as select num_noeud,path_word_categ,index_path_word_categ from  categories where categories.langue='!!langue_defaut!!' and num_thesaurus = '!!id_thesaurus!!'</main>
+				</part>
+				<part>
+					<main>alter table catdef add key (num_noeud)</main>
+				</part>
+				<part>
+					<main>drop table if exists catlg</main>
+				</part>
+				<part>
+					<main>create temporary table catlg as select num_noeud,path_word_categ, index_path_word_categ from categories where categories.langue='!!lang!!' and num_thesaurus = '!!id_thesaurus!!'</main>
+				</part>
+				<part>
+					<main>alter table catlg add key (num_noeud)</main>
+				</part>
+						
+				<part booleanSearch="yes">					
+					<main>create temporary table t_mono_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=expl_notice
+					</main>				
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.path_word_categ</index_l>
+						<index_i>catlg.index_path_word_categ</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.path_word_categ</index_l>
+						<index_i>catdef.index_path_word_categ</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>
+				<part booleanSearch="yes">				
+					<main>create temporary table t_bull_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,bulletins, notices, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=num_notice AND bulletin_id = expl_bulletin and num_notice=notice_id
+					</main>				
+
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.path_word_categ</index_l>
+						<index_i>catlg.index_path_word_categ</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.path_word_categ</index_l>
+						<index_i>catdef.index_path_word_categ</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>
+				<part booleanSearch="yes">				
+					<main>create temporary table t_depouille_expl as select distinct expl_id,if(catlg.num_noeud is null, !!pert_term_2!!, !!pert_term_1!!) as pert from exemplaires,bulletins, notices,analysis, catdef left join catlg on catdef.num_noeud = catlg.num_noeud, notices_categories 
+					where notices_categories.num_noeud=catdef.num_noeud and ((!!where_term_1!!) or (catlg.num_noeud is null and !!where_term_2!!)) and notcateg_notice=analysis_notice  and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+					</main>				
+					<boolean>
+						<table>catlg.categories</table>
+						<index_l>catlg.path_word_categ</index_l>
+						<index_i>catlg.index_path_word_categ</index_i>
+						<id_field>catlg.num_noeud</id_field>
+					</boolean>
+					<boolean>
+						<table>catdef.categories</table>
+						<index_l>catdef.path_word_categ</index_l>
+						<index_i>catdef.index_path_word_categ</index_i>
+						<id_field>catdef.num_noeud</id_field>
+					</boolean>
+				</part>				
+				<part>
+					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
+				</part>
+			</query>		
 		</field>
 		<field title="msg:indexint_menu_title" id="12">
 			<input type="authoritie" ajax="indexint" selector="indexint" p1="param1" p2="param2"/>
@@ -1514,277 +1609,277 @@
 			<field dataType="small_text" id="1">
 				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
 					]]></main>
 					<multipleTerm>notices_custom_small_text like '%!!p!!%'</multipleTerm>
 					<multipleOperator>or</multipleOperator>
 				</query>
 				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
 					]]></main>
 					<multipleTerm>notices_custom_small_text like '%!!p!!%'</multipleTerm>
 					<multipleOperator>and</multipleOperator>
 				</query>
 				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '!!p!!%' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text like '%!!p!!' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="EQ">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text = '!!p!!' AND num_notice=notices_custom_origine
 					]]></main>			
 				</query>
 				<query for="ISEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_small_text='' OR notices_custom_small_text IS NULL)
 					]]></main>
 				</query>
 				<query for="ISNOTEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 			</field>
 			<field dataType="text" id="2">
 				<query for="CONTAINS_AT_LEAST" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
 					]]></main>
 					<multipleTerm>notices_custom_text like '%!!p!!%'</multipleTerm>
 					<multipleOperator>or</multipleOperator>
 				</query>
 				<query for="CONTAINS_ALL" multipleWords="yes" regDiacrit="yes" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON expl_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON bulletin_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON num_notice=notices_custom_origine AND notices_custom_champ=!!field!! WHERE !!multiple_term!!
 					]]></main>
 					<multipleTerm>notices_custom_text like '%!!p!!%'</multipleTerm>
 					<multipleOperator>and</multipleOperator>
 				</query>
 				<query for="STARTWITH" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '!!p!!%' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="ENDWITH" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text like '%!!p!!' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="EXACT" notAllowedFor="list,query_list" regDiacrit="no">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 				<query for="EQ">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text = '!!p!!' AND num_notice=notices_custom_origine
 					]]></main>			
 				</query>
 				<query for="ISEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_text='' OR notices_custom_text IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_text='' OR notices_custom_text IS NULL)
 					]]></main>
 				</query>
 				<query for="ISNOTEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_small_text!='' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_text!='' AND num_notice=notices_custom_origine
 					]]></main>
 				</query>
 			</field>
 			<field dataType="integer" id="3">
 				<query for="EQ">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>			
 				</query>
 				<query for="LT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="LTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer<='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer>='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="ISEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_integer='' OR notices_custom_integer IS NULL)
 					]]></main>					
 				</query>
 				<query for="ISNOTEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_integer!='' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 			</field>
 			<field dataType="float" id="4">
 				<query for="EQ">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>			
 				</query>
 				<query for="LT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="LTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float<='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float>='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="ISEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_float='' OR notices_custom_float IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_float='' OR notices_custom_float IS NULL)
 					]]></main>					
 				</query>
 				<query for="ISNOTEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_float!='' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 			</field>
 			<field dataType="date" id="5">
 				<query for="EQ">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>			
 				</query>
 				<query for="LT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GT" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>'!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="LTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					sSELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date<='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="GTEQ" notAllowedFor="list,query_list">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date>='!!p!!' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 				<query for="ISEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
-					UNION SELECT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_custom_values ON notices_custom_champ=!!field!! AND expl_notice=notices_custom_origine WHERE expl_notice IS NOT NULL AND expl_notice !=0 AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND bulletin_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
+					UNION SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN bulletins ON bulletin_id=expl_bulletin LEFT JOIN notices_custom_values ON notices_custom_champ=1 AND num_notice=notices_custom_origine WHERE expl_bulletin != 0 AND expl_bulletin IS NOT NULL AND (notices_custom_date='' OR notices_custom_date='0000-00-00' OR notices_custom_date IS NULL)
 					]]></main>					
 				</query>
 				<query for="ISNOTEMPTY">
 					<main><![CDATA[
-					SELECT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND expl_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND bulletin_notice=notices_custom_origine
-					UNION SELECT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND num_notice=notices_custom_origine
+					SELECT DISTINCT expl_id FROM exemplaires JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND expl_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND bulletin_notice=notices_custom_origine
+					UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN notices_custom_values ON notices_custom_champ=!!field!! AND notices_custom_date!='' AND notices_custom_date!='0000-00-00' AND num_notice=notices_custom_origine
 					]]></main>					
 				</query>
 			</field>

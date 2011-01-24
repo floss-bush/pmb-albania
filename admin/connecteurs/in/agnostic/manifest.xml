@@ -4,12 +4,12 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.1 2010-06-23 00:39:27 erwanmartin Exp $ -->
+$Id: manifest.xml,v 1.2 2010-12-27 13:59:24 dbellamy Exp $ -->
 
 <manifest>
 	<name>agnostic</name>
 	<repository>yes</repository>
-	<comment>Connecteur agnostique. Fourni des entrepots génériques.</comment>
+	<comment>Connecteur agnostique. Fournit des entrepôts génériques.</comment>
 	<author>Erwan MARTIN</author>
 	<org>PMB Services</org>
 	<date>2010-06-18</date>

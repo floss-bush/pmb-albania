@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
+$Id: fr_FR.xml,v 1.865 2011-01-20 16:14:53 arenou Exp $ -->
 
 <XMLlist>
 <entry code="demo">Démo</entry>
@@ -534,7 +534,7 @@ $Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="559">Veuillez saisir un nom.</entry>
 <entry code="560">Choisissez votre propriétaire et un statut</entry>
 <entry code="561">Vous devez choisir un propriétaire et un statut...</entry>
-<entry code="562">Choisissez un statut, une section et une localisation :</entry>
+<entry code="562">Choisissez les propriétés à appliquer :</entry>
 <entry code="563">Nouveau : </entry>
 <entry code="564">ISBN obligatoire ?</entry>
 <entry code="565">Notice : créée avec ISBN vide</entry>
@@ -687,7 +687,7 @@ $Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="933">Préférences</entry>
 <entry code="934">Edition des paramètres pour l'utilisateur</entry>
 <entry code="935">Style/thème</entry>
-<entry code="936">Impossible de mettre à jour les paramètres pour cet emprunteur. Il y a un problème avec votre base MySQL. Veuillez vous assurer que la structure de votre base correspond à la version installée de PMB.</entry>
+<entry code="936">Impossible de mettre à jour les paramètres pour cet utilisateur. Il y a un problème avec votre base MySQL. Veuillez vous assurer que la structure de votre base correspond à la version installée de PMB.</entry>
 <entry code="937">Mise à jour des paramètres en cours...</entry>
 <entry code="938">Dernières notices</entry>
 <entry code="939">Aucune notice à afficher</entry>
@@ -2084,7 +2084,7 @@ $Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="finance_amende_delai_1_2">Délai entre la 1ère et la 2ème relance</entry>
 <entry code="finance_amende_delai_2_3">Délai entre la 2ème et la 3ème relance</entry>
 <entry code="finance_amendes_relances">Gestion des amendes : relances</entry>
-<entry code="finance_statut_perdu">Statuts des exemplaires et des lecteurs</entry>
+<entry code="finance_statut_perdu">Statuts des exemplaires</entry>
 <entry code="finance_relance_1">Frais de la première relance</entry>
 <entry code="finance_relance_2">Frais de la deuxième relance</entry>
 <entry code="finance_relance_3">Frais de la troisième relance</entry>
@@ -3427,7 +3427,7 @@ $Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="autorite_suppr_categ_titre">Cette catégorie est utilisée</entry>
 <entry code="autorite_suppr_categ_forcage_button">Forcer la suppression</entry>
 <entry code="parperso_field_search_tableau">Indexation</entry>
-<entry code="parperso_field_search">Indexer, pour activer la recherche dans 'Tous les champs'</entry>
+<entry code="parperso_field_search">Indexer pour activer la recherche dans ce champ</entry>
 <entry code="catalogue_saut_de_ligne">un saut de ligne</entry>
 <entry code="caddie_transfert_BULL_DEP">Dépouillements de chaque bulletin</entry>
 <entry code="caddie_transfert_BULL_NOT">Notices de bulletin de chaque bulletin</entry>
@@ -4940,4 +4940,60 @@ $Id: fr_FR.xml,v 1.848 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="param_fiches">Fiches</entry>
 <entry code="relance_recouvrement_cote">Cote</entry>
 <entry code="relance_recouvrement_cb">No.</entry>
+<entry code="search_categorie_title">Catégorie</entry>
+<entry code="search_autopostage_check">Etendre la recherche à l'autopostage</entry>
+<entry code="search_autopostage_multicritere">Catégories avec autopostage</entry>
+<entry code="acquisition_rub_mnt_tot_ht">Total HT</entry>
+<entry code="acquisition_rub_mnt_ava_ht">A valider HT/TTC</entry>
+<entry code="acquisition_rub_mnt_eng_ht">Engagé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_fac_ht">Facturé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_pay_ht">Payé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_sol_ht">Solde HT</entry>
+<entry code="acquisition_rub_mnt_tot_ttc">Total TTC</entry>
+<entry code="acquisition_rub_mnt_ava_ttc">A valider TTC/HT</entry>
+<entry code="acquisition_rub_mnt_eng_ttc">Engagé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_fac_ttc">Facturé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_pay_ttc">Payé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_sol_ttc">Solde TTC</entry>
+<entry code="acquisition_force_ttc">Débité en TTC</entry>
+<entry code="acquisition_force_ht">Débité en HT</entry> 
+<entry code="finance_statut_perdu_expl_empr">Statuts des exemplaires et des lecteurs</entry>
+<entry code="collection_comment">Commentaire</entry>
+<entry code="subcollection_comment">Commentaire</entry>
+<entry code="chklnk_restrict">Restreindre à une liste de paniers</entry>
+<entry code="chklnk_restrict_by_basket_noti">Paniers de notices</entry>
+<entry code="chklnk_restrict_by_basket_bull">Paniers de bulletins</entry>
+<entry code="chklnk_restrict_by_basket_expl">Paniers d'exemplaires</entry>
+
+<entry code="editeur_adr1">Adresse (ligne 1)</entry>
+<entry code="editeur_adr2">Adresse (ligne 2)</entry>
+<entry code="editeur_cp">C.P.</entry>
+<entry code="editeur_ville">Ville</entry>
+<entry code="editeur_web">Site web</entry>
+
+<entry code="info_docs_num_notice">Des documents numériques sont associés</entry>
+<entry code="expl_nbprets">Cet exemplaire a été prêté !!nb_prets!! fois.</entry>
+<entry code="aut_replace_link_save">Conserver les liens entre autorités</entry>
+<entry code="codebarre_sort">Codebarre</entry>
+<entry code="coll_sort">Titre de la collection</entry>
+<entry code="subcoll_sort">Titre de la sous-collection</entry>
+<entry code="num_in_coll_sort">Numéro dans la collection</entry>
+<entry code="authority_query">Sélection d'autorité</entry>
+<entry code="plus_detail">détail</entry>
+
+<entry code="class_codestat">Aucun code statistique défini</entry>
+<entry code="class_typdoc">Aucun type de support défini</entry>
+
+<entry code="parperso_url">URL</entry>
+<entry code="procs_options_url_max">Nombre maximum de caractères à afficher </entry>
+<entry code="procs_options_url_timeout">Durée maximale en secondes de la vérification d'un lien (laisser vide pour ne pas en tenir compte)</entry>
+<entry code="persofield_urlrepeat">Répétable </entry>
+<entry code="persofield_url_check">vérifier</entry>
+<entry code="persofield_url_link">Lien : </entry>
+<entry code="persofield_url_linklabel">Libellé : </entry>
+<entry code="pprocs_options_liste_authorities">Affichage sous forme d'autorité</entry>
+<entry code="pprocs_options_liste_authorities_new_value">Affichage sous forme d'autorité : autoriser l'insertion de nouvelle valeur</entry>
+<entry code="pprocs_options_liste_checkbox">Affichage sous forme de cases à cocher ou boutons radio</entry>
+<entry code="pprocs_options_liste_optimize_req">Optimiser la requête à l'affichage (vous devez la tester pour que cela fonctionne) ?</entry>
+<entry code="pprocs_options_liste_checkbox_nb_on_line">Nombre de choix par ligne : </entry>
 </XMLlist>

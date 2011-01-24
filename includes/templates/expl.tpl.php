@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl.tpl.php,v 1.61 2010-02-17 14:13:51 ngantier Exp $
+// $Id: expl.tpl.php,v 1.63 2011-01-12 10:39:44 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -416,18 +416,76 @@ $expl_pointage_base = "
 <h3>$msg[569]</h3>
 <!--	Contenu du form	-->
 <div class='form-contenu'>
+
 	<div class='row'>
-		<label class='etiquette' for='no_ex'>$msg[291]</label>
+		<div class='colonne4'>
+			<!-- CB -->
+			<label class='etiquette' for='f_ex_statut'>$msg[291]</label>
+			<div class='row'>
+				<input type='text' class='saisie-20em' name='noex' value=''>
+				</div>
 		</div>
+	
+		<div class='colonne4'>
+			<!-- statut -->
+			<label class='etiquette' for='f_ex_stat'>$msg[297]</label>
+			<div class='row'>
+				!!book_statut_id!!
+			</div>
+		</div>
+		
+		<div class='colonne4'>
+			<!-- section -->
+			<label class='etiquette' for='f_ex_section'>$msg[295]</label>
+			<div class='row'>
+				!!book_section_id!!
+			</div>
+		</div>
+		
+		<div class='colonne_suite'>
+			<!-- localisation -->
+			<label class='etiquette' for='f_ex_location'>$msg[298]</label>
+			<div class='row'>
+				!!book_location_id!!
+			</div>
+		</div>
+	</div>
 	<div class='row'>
-		<input type='text' class='saisie-20em' name='noex' value=''>
+		<div class='colonne4'>
+			<div class='row'>
+				&nbsp;
+			</div>
 		</div>
-	</div>	
+	
+		<div class='colonne4'>
+			<!-- typdoc=support -->
+			<label class='etiquette' for='f_ex_typdoc'>$msg[294]</label>
+			<div class='row'>
+				!!book_doctype_id!! 
+			</div>
+		</div>
+			
+		<div class='colonne4'>
+			<!-- codestat -->
+			<label class='etiquette' for='f_ex_cstat'>$msg[299]</label>
+			<div class='row'>
+				!!book_codestat_id!! 
+			</div>
+		</div>
+			
+		<div class='colonne_suite'>
+			<!-- owner -->
+			<label class='etiquette' for='f_ex_owner'>$msg[651]</label>
+			<div class='row'>
+				!!book_lender_id!! 
+			</div>
+		</div>
+	</div>
+	<div class='row'> </div>
+
+</div>	
 <input type='submit' class='bouton' value=' ".$msg[89]." ' onClick=\"return test_noex('1')\" />
 <input type='hidden' name='action' value='pointage' />
-<input type='hidden' name='book_statut_id' value='!!book_statut_id!!' />
-<input type='hidden' name='book_section_id' value='!!book_section_id!!' />
-<input type='hidden' name='book_location_id' value='!!book_location_id!!' />
 <script type='text/javascript'>
 	document.forms['pointage_expl'].elements['noex'].focus();
 	</script>
@@ -468,6 +526,7 @@ $expl_pointage = "
 				!!type_doc!!
 			</td>
 			<td>
+			<font color='red' size='-1'> !!nouveau_support!! </font>
 			</td>
 		</tr>
 		<tr>
@@ -505,12 +564,24 @@ $expl_pointage = "
 		</tr>
 		<tr>
 			<td>
+				$msg[651] <!-- owner -->
+			</td>
+			<td>
+				!!owner!!
+			</td>
+			<td>
+				<font color='red' size='-1'> !!nouveau_proprio!! </font>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				$msg[299] <!-- code stat -->
 			</td>
 			<td>
 				!!codestat!!
 			</td>
 			<td>
+				<font color='red' size='-1'> !!nouveau_codestat!! </font>
 			</td>
 		</tr>
 		<tr>

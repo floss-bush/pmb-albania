@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author_see.inc.php,v 1.52 2010-07-05 12:40:29 arenou Exp $
+// $Id: author_see.inc.php,v 1.57 2010-11-17 17:15:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -90,14 +90,22 @@ if($id) {
 		if ($res) $nbr_lignes = mysql_result($res,0,0); else $nbr_lignes=0;
 		
 		//Recherche des types doc
-		$requete = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_notice=notice_id $acces_j, responsability $statut_j  ";
+		$requete = "select distinct notices.typdoc FROM notices $acces_j, responsability $statut_j  ";
 		$requete.= "where responsability_author $clause_auteurs and notice_id=responsability_notice $statut_r group by notices.typdoc";
+		if ($opac_visionneuse_allow){
+			$requete_noti = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice = notice_id $acces_j, responsability $statut_j  ";
+			$requete_bull = "select distinct notices.typdoc, count(explnum_id) as nbexplnum FROM notices left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin != 0 and explnum_bulletin = bulletin_id $acces_j, responsability $statut_j  ";
+			$where = "where responsability_author $clause_auteurs and notice_id=responsability_notice $statut_r group by notices.typdoc";
+			$requete = "select distinct uni.typdoc, sum(nbexplnum) as nbexplnum from ($requete_noti $where union $requete_bull $where) as uni group by typdoc";
+		}
+
 		$res = mysql_query($requete, $dbh);
 		$t_typdoc=array();
 		$nbexplnum_to_photo=0;
 		while ($tpd=mysql_fetch_object($res)) {
 			$t_typdoc[]=$tpd->typdoc;
-			$nbexplnum_to_photo += $tpd->nbexplnum;
+			if ($opac_visionneuse_allow)
+				$nbexplnum_to_photo += $tpd->nbexplnum;
 		}
 		$l_typdoc=implode(",",$t_typdoc);
 	}

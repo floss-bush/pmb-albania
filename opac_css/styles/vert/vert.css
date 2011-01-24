@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la r�utilisation du code est cadr�e            |
 // +--------------------------------------------------------------------------+
-// $Id: vert.css,v 1.45 2010-01-26 13:56:38 kantin Exp $                 */
+// $Id: vert.css,v 1.48 2010-12-24 08:51:15 trenon Exp $                 */
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
@@ -140,9 +140,9 @@ td{
 		padding-bottom:-10px;
 		margin-bottom:-10px; }
 
-#main ul.search_tabs, #onglets_list ul.list_tabs{
-	margin:0;
-	padding:0;
+#main ul.search_tabs, #onglets_list ul.list_tabs, #empr_onglet ul.empr_tabs {
+		margin:0;
+		padding:0;
         list-style:none;
         clear:right;
         height:24px;
@@ -150,7 +150,7 @@ td{
        	background : url("pointvert.gif") repeat-x bottom left;
         }
 
-#main ul.search_tabs li, #onglets_list ul.list_tabs li{
+#main ul.search_tabs li, #onglets_list ul.list_tabs li, #empr_onglet ul.empr_tabs li {
 	  float:left;
 	  padding:3px 6px 0px 6px;
           border:1px solid #765;  
@@ -162,21 +162,25 @@ td{
 	  color:#0023A4;
 	  }
 
-#main ul.search_tabs li a, #onglets_list ul.list_tabs li a{
+#main ul.search_tabs li a, #onglets_list ul.list_tabs li a, #empr_onglet ul.empr_tabs li a {
 	text-decoration:none;
 	font-weight:normal;
 	color:#333366;
 	}
           
-#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current{
+#main ul.search_tabs li#current, #onglets_list ul.list_tabs li#current, #empr_onglet ul.empr_tabs li#current {
 	  float:left;
 	  padding:3px 6px 0px 6px;
 	  background:#DDF0A7;
-          border-bottom:1px solid #DDF0A7; 
+      border-bottom:1px solid #DDF0A7; 
 	  margin-bottom:4px; 
-          height:19px;
-          }
-          
+      height:19px;
+}
+
+#empr-sugg h3 {
+	color:#6B7B3B;
+}
+
 #search_crl {
     	clear:both;
     	}      
@@ -577,10 +581,9 @@ td.expl-empr-retard {
 
 /* divers pour les affichages simples de texte   */
 /*-----------------------------------------------*/
-.row
-	{ clear: both;
-	  width: 80%;
-	  margin-left:30px; }
+.row {
+	clear: both;
+}
 
 .right,
 .right-50,
@@ -871,3 +874,26 @@ table{
 .erreur_saisie {
 	background-color: #ff0000;
 }
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+

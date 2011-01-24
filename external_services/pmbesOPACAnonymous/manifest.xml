@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
+$Id: manifest.xml,v 1.25 2010-10-15 11:42:03 erwanmartin Exp $ -->
 <manifest>
 	<name>pmbesOPACAnonymous</name>
 	<description>msg:pmbesOPACAnonymous_description</description>
@@ -111,7 +111,9 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 					<param name="inter" type="scalar" dataType="string" description="msg:advancedSearch_search_inter"/>
 					<param name="field" type="scalar" dataType="integer" description="msg:advancedSearch_search_field"/>
 					<param name="operator" type="scalar" dataType="string" description="msg:advancedSearch_search_operator"/>
-					<param name="value" type="scalar" dataType="string" description="msg:advancedSearch_search_value"/>
+					<param name="value" type="array">
+						<param name="avalue" type="scalar" dataType="string" description=""/>
+					</param>
 				</param>
 			</inputs>
 			<outputs>
@@ -132,7 +134,9 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 					<param name="inter" type="scalar" dataType="string"/>
 					<param name="field" type="scalar" dataType="integer"/>
 					<param name="operator" type="scalar" dataType="string"/>
-					<param name="value" type="scalar" dataType="string"/>
+					<param name="value" type="array">
+						<param name="avalue" type="scalar" dataType="string" description=""/>
+					</param>
 				</param>
 				<param name="sourceIds" type="array">
 					<param name="aSourceId" type="scalar" dataType="integer"/>
@@ -445,7 +449,7 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="true" comment="msg:get_author_information_and_notices_description">
+		<method name="get_author_information_and_notices" rights="" version="1.0" language_independant="false" comment="msg:get_author_information_and_notices_description">
 			<requirements>
 		  		<requirement group="pmbesAuthors" name="get_author_information_and_notices" version="1.0"/>
 			</requirements>
@@ -461,7 +465,7 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_collection_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesCollections" name="get_collection_information_and_notices" version="1.0"/>
 			</requirements>
@@ -475,7 +479,7 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_subcollection_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesCollections" name="get_subcollection_information_and_notices" version="1.0"/>
 			</requirements>
@@ -489,7 +493,7 @@ $Id: manifest.xml,v 1.23 2010-09-24 10:41:39 arenou Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="true">
+		<method name="get_publisher_information_and_notices" rights="" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesPublishers" name="get_publisher_information_and_notices" version="1.0"/>
 			</requirements>

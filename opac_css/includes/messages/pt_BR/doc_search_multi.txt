@@ -1,0 +1,17 @@
+<h2>Busca multi-critérios</h2>
+<p><strong>A busca multi-critérios permite combinar diferentes critérios para realizar uma busca precisa. </strong></p>
+<p>
+Você pode selecionar um ou mais campos de busca s&nbsp;: título, autor, campos personalizados...</p>
+<p>Para fazer uma busca multi-critério :</p>
+<ul><li><b>escolher um</b> primeiro <b>campo</b> onde deve ser realiada a busca. Por exemplo : Autor</li>
+<li>clicar em <b>Adicionar</b> para definir um primeiro campo da busca</li>
+<li><b>escolher</b> em seguida <b>um tipo de busca</b> para o campo selecionado. Para um campo título você  
+pode escolher entre "expressão booleana", "começa com", 
+"termina com" ou "exatamente como". Este tipo de busca varia de acordo com o campo em questão. Por exemplo, para Autor "começa com"</li>
+<li><b>se o campo requer um valor</b>, <b>inserí-lo</b> no campo de texto ; se o campo requer uma escolha (por exemplo o tipo de mídia), escolher uma ou mais opções clicando em  pressionando a tecla Ctrl do teclado. Por exemplo, para nosso "Autor", começa por "Zol"</li>
+<li><b>adicionar quantos critérios você quiser</b>. Seguindo o mesmo exemplo, você pode adicionar um Título exatamente como "Germinal".
+<li>finalmente confirme clicando em <b>Buscar</b></li></ul>
+<hr />
+<p>A sua pesquisa pode ser uma <a href=help.php?whatis=expbool>expressão booleana</a>.</p>
+<hr />
+<p>Uma busca multi-critérios pode cobrir todos os dados do catálogo da biblioteca.</p>

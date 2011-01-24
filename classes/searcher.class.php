@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: searcher.class.php,v 1.102 2010-08-03 12:52:39 ngantier Exp $
+// $Id: searcher.class.php,v 1.104 2010-11-08 14:10:06 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -54,7 +54,7 @@ class searcher {
 	
 	//Constructeur
 	function searcher($base_url,$rec_history=false) {
-		global $type,$etat,$aut_id,$page, $docnum_query;
+		global $type,$etat,$aut_id,$page, $docnum_query,$auto_postage_query;
 
 		$this->sort = new sort('notices','base');
 		$this->type=$type;
@@ -64,6 +64,7 @@ class searcher {
 		$this->base_url=$base_url;
 		$this->rec_history=$rec_history;
 		$this->docnum = ($docnum_query?1:0);
+		$this->auto_postage_query = ($auto_postage_query?1:0);
 		$this->run();
 	}
 
@@ -270,7 +271,7 @@ class searcher_title extends searcher {
 		global $charset,$lang;
 		global $NOTICE_author_query;
 		global $title_query,$all_query, $author_query,$ex_query,$typdoc_query, $statut_query, $docnum_query, $pmb_indexation_docnum_allfields, $pmb_indexation_docnum;
-		
+		global $categ_query,$thesaurus_auto_postage_search,$auto_postage_query;
 		// on commence par créer le champ de sélection de document
 		// récupération des types de documents utilisés.
 		$query = "SELECT count(typdoc), typdoc ";
@@ -300,6 +301,20 @@ class searcher_title extends searcher {
 		$NOTICE_author_query = str_replace("!!title_query!!",  htmlentities(stripslashes($title_query ),ENT_QUOTES, $charset),  $NOTICE_author_query);
 		$NOTICE_author_query = str_replace("!!all_query!!", htmlentities(stripslashes($all_query),ENT_QUOTES, $charset),  $NOTICE_author_query);
 		$NOTICE_author_query = str_replace("!!author_query!!", htmlentities(stripslashes($author_query),ENT_QUOTES, $charset),  $NOTICE_author_query);
+		$NOTICE_author_query = str_replace("!!categ_query!!", htmlentities(stripslashes($categ_query),ENT_QUOTES, $charset),  $NOTICE_author_query);
+		
+		$checkbox="";
+		if($thesaurus_auto_postage_search){			
+			$checkbox = "
+			<div class='colonne'>
+				<div class='row'>
+					<input type='checkbox' !!auto_postage_checked!! id='auto_postage_query' name='auto_postage_query'/><label for='auto_postage_query'>".$msg["search_autopostage_check"]."</label>
+				</div>
+			</div>";
+			$checkbox = str_replace("!!auto_postage_checked!!",   (($auto_postage_query) ? 'checked' : ''),  $checkbox);			
+		} 
+		$NOTICE_author_query = str_replace("!!auto_postage!!",   $checkbox,  $NOTICE_author_query);	
+		
 		$NOTICE_author_query = str_replace("!!ex_query!!",     htmlentities(stripslashes($ex_query    ),ENT_QUOTES, $charset),  $NOTICE_author_query);
 		if($pmb_indexation_docnum){			
 			$checkbox = "<div class='colonne'>
@@ -317,7 +332,8 @@ class searcher_title extends searcher {
 	function make_first_search() {
 		
 		global $msg,$charset,$lang,$dbh;
-		global $title_query,$all_query, $author_query,$ex_query,$typdoc_query, $statut_query, $etat, $docnum_query;
+		global $title_query,$all_query, $author_query,$ex_query,$typdoc_query, $statut_query, $etat, $docnum_query;		
+		global $categ_query,$thesaurus_auto_postage_search, $auto_postage_query;
 		global $nb_per_page_a_search;
 		global $class_path;
 		global $pmb_default_operator;
@@ -331,12 +347,12 @@ class searcher_title extends searcher {
 		if ($typdoc_query) $restrict = "and typdoc='".$typdoc_query."' ";
 		if ($statut_query) $restrict.= "and statut='".$statut_query."' ";
 			
-		if (!$author_query && !$all_query) {
+		if (!$author_query && !$all_query && !$categ_query) {
 			
 				// Recherche sur le titre uniquement :
 				$aq=new analyse_query(stripslashes($title_query));
 
-		} else if ($author_query && $title_query && !$all_query) {
+		} else if ($author_query && $title_query && !$all_query && !$categ_query) {
 			
 				// Recherche sur l'auteur et le titre :
 				$aq_auth=new analyse_query(stripslashes($author_query),0,0,1,1);
@@ -368,7 +384,7 @@ class searcher_title extends searcher {
 					$aq=$aq_auth;
 				}
 				
-		} else if (!$title_query && !$all_query) {
+		} else if (!$title_query && !$all_query && !$categ_query) {
 			
 				// Recherche sur l'auteur uniquement :
 				$aq=new analyse_query(stripslashes($author_query),0,0,1,1);
@@ -400,7 +416,7 @@ class searcher_title extends searcher {
 					return AUT_LIST;
 				}
 				
-		} else if (!$title_query && !$author_query) {
+		} else if (!$title_query && !$author_query && !$categ_query) {
 			
 			// Recherche sur tous les champs (index global) uniquement :
 			$aq=new analyse_query(stripslashes($all_query),0,0,1,1);
@@ -468,7 +484,7 @@ class searcher_title extends searcher {
 				$this->text_query=$requete;
 				return NOTICE_LIST;
 			}
-		} else if(!$author_query) {
+		} else if(!$author_query && !$categ_query) {
 			
 			// Recherche sur le titre et l'index global :
 			$aq_all=new analyse_query(stripslashes($all_query),0,0,1,1);
@@ -505,7 +521,7 @@ class searcher_title extends searcher {
 				$aq=$aq_all;
 			}
 			
-		} else if (!$title_query) {
+		} else if (!$title_query && !$categ_query) {
 			
 			// Recherche sur l'auteur et l'index global :
 			$aq_auth=new analyse_query(stripslashes($author_query),0,0,1,1);
@@ -544,9 +560,38 @@ class searcher_title extends searcher {
 			} else {
 				$aq=$aq_auth;
 			}
+		} elseif($categ_query){
+			$aq_auth=new analyse_query(stripslashes($categ_query),0,0,0,0);
+			if (!$aq_auth->error) {
+				if($thesaurus_auto_postage_search && $auto_postage_query)
+					$members_auth=$aq_auth->get_query_members("categories","path_word_categ","index_path_word_categ","num_noeud");						
+				else 
+					$members_auth=$aq_auth->get_query_members("categories","libelle_categorie","index_categorie","num_noeud");						
+				$requete_count = "select count(distinct notice_id) from notices ";
+				$requete_count.= $acces_j;
+				$requete_count.= ", categories, noeuds, notices_categories ";
+				$requete_count.= "where (".$members_auth["where"].")  ";
+				$requete_count.= "and id_noeud= categories.num_noeud and notices_categories.num_noeud=categories.num_noeud and notcateg_notice = notice_id ";
+				$requete_count.= $restrict;
+					
+				$requete = "select distinct notice_id, ".$members_auth["select"]." as pert from notices ";
+				$requete.= $acces_j;
+				$requete.= ", categories, noeuds, notices_categories ";
+				$requete.= "where (".$members_auth["where"].") ";
+				$requete.= "and id_noeud= categories.num_noeud and notices_categories.num_noeud=categories.num_noeud and notcateg_notice = notice_id ";
+				$requete.= $restrict." order by pert desc "; 
+					
+				$this->nbresults=@mysql_result(@mysql_query($requete_count),0,0);
+				//la requete et la limitation d'enregistrements seront traitées et exécutées dans sort_notices
+				$this->nbepage=ceil($this->nbresults/$this->nb_per_page);
+				$this->text_query=$requete;
+				return NOTICE_LIST;	
+					
+			} else {
+				$aq=$aq_auth;
+			}
 			
-		} else {
-			
+		} else {			
 			// Recherche sur l'auteur, l'index global et le titre :
 			$aq_auth=new analyse_query(stripslashes($author_query),0,0,1,1);
 			if (!$aq_auth->error) {
@@ -650,13 +695,14 @@ class searcher_title extends searcher {
 	}
 
 	function store_search() {
-		global $title_query,$all_query, $author_query,$typdoc_query, $statut_query;
+		global $title_query,$all_query, $author_query,$typdoc_query, $statut_query,$categ_query;
 		global $charset;
 		$champs="<input type='hidden' name='title_query' value='".htmlentities(stripslashes($title_query),ENT_QUOTES,$charset)."'/>";
 		$champs.="<input type='hidden' name='all_query' value='".htmlentities(stripslashes($all_query),ENT_QUOTES,$charset)."'/>";
 		$champs.="<input type='hidden' name='author_query' value='".htmlentities(stripslashes($author_query),ENT_QUOTES,$charset)."'/>";
 		$champs.="<input type='hidden' name='typdoc_query' value='".htmlentities(stripslashes($typdoc_query),ENT_QUOTES,$charset)."'/>";
 		$champs.="<input type='hidden' name='statut_query' value='".htmlentities(stripslashes($statut_query),ENT_QUOTES,$charset)."'/>";
+		$champs.="<input type='hidden' name='categ_query' value='".htmlentities(stripslashes($categ_query),ENT_QUOTES,$charset)."'/>";
 		$this->store_form=str_replace("!!first_search_variables!!",$champs,$this->store_form);
 		print $this->store_form;
 	}
@@ -729,7 +775,7 @@ class searcher_title extends searcher {
 		global $msg;
 		global $charset;
 		global $pmb_nb_max_tri;
-		global $title_query,$author_query, $all_query;
+		global $title_query,$author_query, $all_query,$categ_query;
 		global $link,$link_expl,$link_explnum,$link_serial,$link_analysis,$link_bulletin,$link_explnum_serial,$link_notice_bulletin;
 		global $pmb_allow_external_search;
 		global $load_tablist_js;
@@ -829,7 +875,7 @@ class searcher_title extends searcher {
 	function notice_list() {
 		global $msg;
 		global $charset;
-		global $title_query,$author_query,$all_query;
+		global $title_query,$author_query,$all_query,$categ_query;
 		
 		if($this->docnum){
 			$libelle = " [".$msg[docnum_search_with]."]";
@@ -844,6 +890,9 @@ class searcher_title extends searcher {
 		}	
 		if ($author_query) {
 			$research.=", <b>${msg[234]}</b>&nbsp;".htmlentities(stripslashes($author_query),ENT_QUOTES,$charset);
+		}
+		if ($categ_query) {
+			$research .= "<b>${msg["search_categorie_title"]}</b>&nbsp;".htmlentities(stripslashes($categ_query),ENT_QUOTES,$charset);
 		}
 
 		$this->human_query=$research;
@@ -881,6 +930,7 @@ class searcher_title extends searcher {
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["QUERY"]["HUMAN_QUERY"]=$this->human_query;
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["QUERY"]["HUMAN_TITLE"]=$msg["354"];
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["QUERY"]["DOCNUM_QUERY"]=$this->docnum;
+						$_SESSION["session_history"][$_SESSION["CURRENT"]]["NOTI"]["AUTO_POSTAGE_QUERY"]=$this->auto_postage_query;
 					}
 					if ((string)$this->page=="") { $_POST["page"]=0; $page=0; }
 					if (($this->first_search_result==AUT_LIST)&&($_SESSION["CURRENT"]!==false)) {
@@ -900,6 +950,7 @@ class searcher_title extends searcher {
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["NOTI"]['PAGE']=$this->page+1;
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["NOTI"]["HUMAN_QUERY"]=$this->human_notice_query;
 						$_SESSION["session_history"][$_SESSION["CURRENT"]]["NOTI"]["DOCNUM_QUERY"]=$this->docnum;
+						$_SESSION["session_history"][$_SESSION["CURRENT"]]["NOTI"]["AUTO_POSTAGE_QUERY"]=$this->auto_postage_query;
 					}
 					break;
 				case 'aut_search':

@@ -4,10 +4,8 @@
 ****************************************************************************************
 © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.4 2010-07-08 15:28:34 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.5 2010-10-11 08:22:19 arenou Exp $ -->
 <messages>
-	<entry code="next">Suivant</entry>
-	<entry code="previous">Précédent</entry>
 	<entry code="close">Fermer</entry>
 	<entry code="fullscreen">Plein Ecran</entry>
 	<entry code="normal">Normal</entry>

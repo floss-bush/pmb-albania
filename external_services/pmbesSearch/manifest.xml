@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
+$Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
 <manifest>
 	<name>pmbesSearch</name>
 	<description>msg:search_functions_description</description>
@@ -15,49 +15,49 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 		<type name="unimarc_notice" imported="true" imported_from="pmbesSpecialTypes" description="msg:unimarc_notice_description"/>
 	</types>
 	<methods>
-		<method name="simpleSearch" comment="msg:simpleSearch_description" rights="" version="1.0" language_independant="true">
+		<method name="simpleSearch" comment="msg:simple_search_description" rights="" version="1.0" language_independant="true">
 			<pmb_requirements>
 				<pmb_requirement start_path="class" file="external_services_searchcache.class.php"/>
 			</pmb_requirements>
 			<inputs>
 				<description>msg:simple_search_inputs_description</description>
-				<param name="searchType" type="scalar" dataType="integer" description="msg:simpleSearch_searchType"/>
-				<param name="searchTerm" type="scalar" dataType="string" description="msg:simpleSearch_searchTerm"/>
-				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:simpleSearch_pmbUserId"/>
-				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:simpleSearch_OPACUserId"/>
+				<param name="searchType" type="scalar" dataType="integer" description="msg:simple_search_inputs_description_searchType"/>
+				<param name="searchTerm" type="scalar" dataType="string" description="msg:simple_search_inputs_description_searchTerm"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:simple_search_inputs_description_pmbUserId"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:simple_search_inputs_description_OPACUserId"/>
 			</inputs>
 			<outputs>
 				<description>msg:simple_search_outputs_description</description>
-				<result name="searchId" type="scalar" dataType="string" description="msg:simpleSearch_searchId"/>
-				<result name="nbResults" type="scalar" dataType="integer" description="msg:simpleSearch_nbResults"/>
+				<result name="searchId"  type="scalar" dataType="string" description="msg:simple_search_outputs_description_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:simple_search_outputs_description_nbResults"/>
 				<result name="typdocs" type="array" description="msg:simpleSearch_typdocs">
 					<result name="typdoc" type="scalar" dataType="string" description=""/>
 				</result>
 			</outputs>
 		</method>
-		<method name="simpleSearchLocalise" comment="msg:simpleSearchLocalise_description" rights="" version="1.0" language_independant="true">
+		<method name="simpleSearchLocalise" comment="msg:simple_search_localise_description" rights="" version="1.0" language_independant="true">
 			<pmb_requirements>
 				<pmb_requirement start_path="class" file="external_services_searchcache.class.php"/>
 			</pmb_requirements>
 			<inputs>
 				<description>msg:simple_search_localise_inputs_description</description>
-				<param name="searchType" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_searchType"/>
-				<param name="searchTerm" type="scalar" dataType="string" description="msg:simpleSearchLocalise_searchTerm"/>
-				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_pmbUserId"/>
-				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_OPACUserId"/>
-				<param name="localisation" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_localisation"/>
-				<param name="section" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_section"/>				
+				<param name="searchType" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_searchType"/>
+				<param name="searchTerm" type="scalar" dataType="string" description="msg:simple_search_localise_inputs_description_searchTerm"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_pmbUserId"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_OPACUserId"/>
+				<param name="localisation" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_localisation"/>
+				<param name="section" type="scalar" dataType="integer" description="msg:simple_search_localise_inputs_description_section"/>				
 			</inputs>
 			<outputs>
 				<description>msg:simple_search_localise_outputs_description</description>
-				<result name="searchId" type="scalar" dataType="string" description="msg:simpleSearchLocalise_searchId"/>
-				<result name="nbResults" type="scalar" dataType="integer" description="msg:simpleSearchLocalise_nbResults"/>
+				<result name="searchId" type="scalar" dataType="string" description="msg:simple_search_localise_outputs_description_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:simple_search_localise_outputs_description_nbResults"/>
 				<result name="typdocs" type="array" description="msg:simpleSearchLocalise_typdocs">
 					<result name="typdoc" type="scalar" dataType="string" description=""/>
 				</result>
 			</outputs>
 		</method>
-		<method name="getAdvancedSearchFields" comment="msg:getAdvancedSearchFields_description" version="1.0" language_independant="false">
+		<method name="getAdvancedSearchFields" comment="msg:get_advanced_sf_description" version="1.0" language_independant="false">
 			<requirements>
 		  		<requirement group="pmbesSearch" name="getAdvancedSearchField" version="1.0"/>
 			</requirements>
@@ -67,18 +67,18 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 			</pmb_requirements>
 			<inputs>
 				<description>msg:get_advanced_sf_inputs_description</description>
-				<param name="search_realm" type="scalar" dataType="string" description="msg:getAdvancedSearchFields_search_realm"/>
-				<param name="lang" type="scalar" dataType="string" description="msg:getAdvancedSearchFields_lang"/>
-				<param name="fetch_values" type="scalar" dataType="boolean" description="msg:getAdvancedSearchFields_fetch_values"/>
+				<param name="search_realm" type="scalar" dataType="string" description="msg:get_advanced_sf_inputs_description_search_realm"/>
+				<param name="lang" type="scalar" dataType="string" description="msg:get_advanced_sf_inputs_description_lang"/>
+				<param name="fetch_values" type="scalar" dataType="boolean" description="msg:get_advanced_sf_inputs_description_fetch_values"/>
 			</inputs>
 			<outputs>
 				<description>msg:get_advanced_sf_outputs_description</description>
-				<result name="results" type="array" description="msg:getAdvancedSearchFields_results">
+				<result name="results" type="array" description="msg:get_advanced_sf_outputs_description_results">
 					<result name="search_field" type="scalar" dataType="search_field"/>
 				</result>
 			</outputs>
 		</method>
-		<method name="getAdvancedSearchField" comment="msg:getAdvancedSearchField_description" version="1.0" language_independant="false">
+		<method name="getAdvancedSearchField" comment="msg:get_advanced_sfone_description" version="1.0" language_independant="false">
 			<pmb_requirements>
 				<pmb_requirement start_path="class" file="external_services_caches.class.php"/>
 				<pmb_requirement start_path="class" file="search.class.php"/>
@@ -86,14 +86,14 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 			</pmb_requirements>
 			<inputs>
 				<description>msg:get_advanced_sfone_inputs_description</description>
-				<param name="field_id" type="scalar" dataType="integer" description="msg:getAdvancedSearchField_field_id"/>
-				<param name="search_realm" type="scalar" dataType="string" description="msg:getAdvancedSearchField_search_realm"/>
-				<param name="lang" type="scalar" dataType="string" description="msg:getAdvancedSearchField_lang"/>
-				<param name="fetch_values" type="scalar" dataType="boolean" description="msg:getAdvancedSearchField_fetch_values"/>
+				<param name="field_id" type="scalar" dataType="integer" description="msg:get_advanced_sfone_inputs_description_field_id"/>
+				<param name="search_realm" type="scalar" dataType="string" description="msg:get_advanced_sfone_inputs_description_search_realm"/>
+				<param name="lang" type="scalar" dataType="string" description="msg:get_advanced_sfone_inputs_description_lang"/>
+				<param name="fetch_values" type="scalar" dataType="boolean" description="msg:get_advanced_sfone_inputs_description_fetch_values"/>
 			</inputs>
 			<outputs>
 				<description>msg:get_advanced_sfone_outputs_description</description>
-				<result name="search_field" type="scalar" dataType="search_field" description="msg:getAdvancedSearchField_search_field"/>
+				<result name="search_field" type="scalar" dataType="search_field" description="msg:get_advanced_sfone_outputs_description_search_field"/>
 			</outputs>
 		</method>
 		<method name="advancedSearch" comment="msg:advancedSearch_description" rights="" version="1.0" language_independant="false">
@@ -102,20 +102,22 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 			</pmb_requirements>
 			<inputs>
 				<description>msg:advancedSearch_inputs_description</description>
-				<param name="search_realm" type="scalar" dataType="string" description="msg:advancedSearch_search_realm"/>
-				<param name="search" type="array" description="msg:advancedSearch_search">
-					<param name="inter" type="scalar" dataType="string" description="msg:advancedSearch_search_inter"/>
-					<param name="field" type="scalar" dataType="integer" description="msg:advancedSearch_search_field"/>
-					<param name="operator" type="scalar" dataType="string" description="msg:advancedSearch_search_operator"/>
-					<param name="value" type="scalar" dataType="string" description="msg:advancedSearch_search_value"/>
+				<param name="search_realm" type="scalar" dataType="string"  description="msg:advancedSearch_inputs_description_search_realm"/>
+				<param name="search" type="array" description="msg:advancedSearch_inputs_description_search">
+					<param name="inter" type="scalar" dataType="string" description="msg:advancedSearch_inputs_description_search_inter"/>
+					<param name="field" type="scalar" dataType="integer" description="msg:advancedSearch_inputs_description_search_field"/>
+					<param name="operator" type="scalar" dataType="string" description="msg:advancedSearch_inputs_description_search_operator"/>
+					<param name="value" type="array">
+						<param name="avalue" type="scalar" dataType="string" description="msg:advancedSearch_inputs_description_search_value"/>
+					</param>
 				</param>
-				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:advancedSearch_pmbUserId"/>
-				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:advancedSearch_OPACUserId"/>
+				<param name="pmbUserId" type="scalar" dataType="integer" description="msg:advancedSearch_inputs_description_pmbUserId"/>
+				<param name="OPACUserId" type="scalar" dataType="integer" description="msg:advancedSearch_inputs_description_OPACUserId"/>
 			</inputs>
 			<outputs>
 				<description>msg:advancedSearch_outputs_description</description>
-				<result name="searchId" type="scalar" dataType="string" description="msg:advancedSearch_searchId"/>
-				<result name="nbResults" type="scalar" dataType="integer" description="msg:advancedSearch_nbResults"/>
+				<result name="searchId"  type="scalar" dataType="string" description="msg:advancedSearch_outputs_description_searchId"/>
+				<result name="nbResults" type="scalar" dataType="integer" description="msg:advancedSearch_outputs_description_nbResults"/>
 				<result name="typdocs" type="array" description="msg:advancedSearch_typdocs">
 					<result name="typdoc" type="scalar" dataType="string" description=""/>
 				</result>
@@ -136,7 +138,7 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 				</result>
 			</outputs>
 		</method>
-		<method name="fetchSearchRecords" comment="msg:fetchSearchRecords_description" rights="" version="1.0" language_independant="true">
+		<method name="fetchSearchRecords" comment="msg:fetch_search_records_description" rights="" version="1.0" language_independant="true">
 			<requirements>
 		  		<requirement group="pmbesSearch" name="fetchSearchRecordsSorted" version="1.0"/>
 			</requirements>
@@ -146,19 +148,19 @@ $Id: manifest.xml,v 1.9 2010-08-13 08:35:20 erwanmartin Exp $ -->
 			</pmb_requirements>
 			<inputs>
 				<description>msg:fetch_search_records_inputs_description</description>
-				<param name="searchId" type="scalar" dataType="string" description="msg:fetchSearchRecords_searchId"/>
-				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetchSearchRecords_firstRecord"/>
-				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetchSearchRecords_recordCount"/>
-				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetchSearchRecords_recordFormat"/>
-				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetchSearchRecords_recordCharset"/>
-				<param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetchSearchRecords_includeLinks"/>
-				<param name="includeItems" type="scalar" dataType="boolean" description="msg:fetchSearchRecords_includeItems"/>
+				<param name="searchId" type="scalar" dataType="string" description="msg:fetch_search_records_inputs_description_searchId"/>
+				<param name="firstRecord" type="scalar" dataType="integer" description="msg:fetch_search_records_inputs_description_firstRecord"/>
+				<param name="recordCount" type="scalar" dataType="integer" description="msg:fetch_search_records_inputs_description_recordCount"/>
+				<param name="recordFormat" type="scalar" dataType="string" description="msg:fetch_search_records_inputs_description_recordFormat"/>
+				<param name="recordCharset" type="scalar" dataType="string" description="msg:fetch_search_records_inputs_description_recordCharset"/>
+				<param name="includeLinks" type="scalar" dataType="boolean" description="msg:fetch_search_records_inputs_description_includeLinks"/>
+				<param name="includeItems" type="scalar" dataType="boolean" description="msg:fetch_search_records_inputs_description_includeItems"/>
 			</inputs>
 			<outputs>
 				<description>msg:fetch_search_records_outputs_description</description>
-				<result type="array" name="results" description="msg:fetchSearchRecords_results">
-					<result name="noticeId" type="scalar" dataType="integer" description="msg:fetchSearchRecords_results_noticeId"/>
-					<result name="noticeContent" type="scalar" dataType="string" description="msg:fetchSearchRecords_results_noticeContent"/>
+				<result type="array" name="results" description="msg:fetch_search_records_outputs_description_results">
+					<result name="noticeId"  type="scalar" dataType="integer" description="msg:fetch_search_records_outputs_description_noticeId"/>
+					<result name="noticeContent" type="scalar" dataType="string" description="msg:fetch_search_records_outputs_description_noticeContent"/>
 				</result>
 			</outputs>
 		</method>

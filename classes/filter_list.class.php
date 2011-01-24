@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: filter_list.class.php,v 1.26 2009-12-07 15:33:58 kantin Exp $
+// $Id: filter_list.class.php,v 1.27 2010-12-02 11:07:25 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -112,7 +112,7 @@ class filter_list {
     			require_once($class_path."/parametres_perso.class.php");
     			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
     			if (!$cp->no_special_fields) {
-    				$id=substr($s[$i],1,strlen($s[$i])-1);
+    				$id=substr($s[$i],1);
     				$valeurs_post="f".$cp->t_fields[$id]["NAME"];
     				global $$valeurs_post;
     				$v=array();
@@ -132,14 +132,16 @@ class filter_list {
 						$field[OPTIONS][0][UNSELECT_ITEM][0][value]=$msg["empr_perso_all_values"];
 					}
 					$human_filters.=strtolower($cp->t_fields[$id]["TITRE"])." \"";
+					$temp=array();
 					foreach($v as $dummykey) {
-						$temp=array();
 						if ($dummykey!=$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE]) {
     						if (($field[DATATYPE]=="text")||($field[DATATYPE]=="comment")) $temp[]=$dummykey;
     							else $temp[]=$cp->get_formatted_output($dummykey,$id);
 						}
 					}
-					$human_filters.=implode(",",$temp);
+					if (count($temp)) {
+						$human_filters.=implode(",",$temp);
+					}
 					$human_filters.="\" ".htmlentities($msg["filters_sort_next"],ENT_QUOTES,$charset)." ";	
     			}
     		} elseif (array_key_exists($s[$i],$this->fixedfields)) {

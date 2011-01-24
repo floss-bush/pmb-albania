@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: start_import.php,v 1.19 2009-11-09 15:40:02 ngantier Exp $
+// $Id: start_import.php,v 1.20 2010-11-04 11:13:28 arenou Exp $
 
 //Execution de l'import
 $base_path = "../..";
@@ -182,7 +182,7 @@ if (!$first) {
 	//mysql_query("delete from error_log where error_origin='convert.log'");
 }
 
-function convert_notice($notice) {
+function convert_notice($notice,$encoding) {
 	global $step;
 	global $param_path;
 	global $n_errors;
@@ -192,6 +192,8 @@ function convert_notice($notice) {
 
 	for ($i = 0; $i < count($step); $i ++) {
 		$s = $step[$i];
+		//si on a un encodage sur la notice, on le rajoute aux parametres
+		if($encoding) $s['ENCODING'] = $encoding;
 		$islast=($i==count($step)-1);
 		$isfirst=($i==0);
 		switch ($s[TYPE]) {
@@ -254,13 +256,13 @@ $fo = fopen("$base_path/temp/".$file_out, "r+");
 fseek($fo, filesize("$base_path/temp/".$file_out));
 
 for ($i = $n_current; $i < $n_current + $n_per_pass; $i ++) {
-	$requete="select notice from import_marc where no_notice=".($i+1)." and origine='$origine'";
+	$requete="select notice, encoding from import_marc where no_notice=".($i+1)." and origine='$origine'";
 	$resultat=mysql_query($requete);
 
 	if (mysql_num_rows($resultat)!=0) {
 		//Si la notice existe début de conversion
-		$notice=mysql_result($resultat,0,0);
-		$notice_ = convert_notice($notice);
+		$obj=mysql_fetch_object($resultat);
+		$notice_ = convert_notice($obj->notice,$obj->encoding);
 		@fwrite($fo, $notice_);
 		$z ++;
 	} else

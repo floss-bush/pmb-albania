@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fichier_gestion.inc.php,v 1.3 2010-07-22 14:56:28 mbertin Exp $
+// $Id: fichier_gestion.inc.php,v 1.4 2010-11-26 16:17:27 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -16,7 +16,7 @@ switch($mode){
 		$option_visibilite["multiple"]="block";
 		$option_visibilite["obligatoire"]="block";
 		$option_visibilite["search"]="block";
-		$option_visibilite["export"]="block";
+		$option_visibilite["export"]="none";
 		$option_visibilite["exclusion"]="none";
 		$p_perso=new parametres_perso($prefix,"./fichier.php?categ=gerer&mode=champs",$option_visibilite);
 		$p_perso->proceed();

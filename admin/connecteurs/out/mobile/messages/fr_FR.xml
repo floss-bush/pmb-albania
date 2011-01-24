@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.2 2010-08-19 07:12:21 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.3 2010-10-13 14:02:15 arenou Exp $ -->
 
 <XMLlist>
 <entry code="mobile_admin_menu">Mobile</entry>
@@ -46,4 +46,7 @@ $Id: fr_FR.xml,v 1.2 2010-08-19 07:12:21 arenou Exp $ -->
 <entry code="mobile_admin_form_paramsGen">Paramètres d'affichage Généraux</entry>
 <entry code="mobile_admin_form_bulletinsList_nbResultsByPage">Nombre de bulletins par page</entry>
 <entry code="mobile_admin_form_analysisList_nbResultsByPage">Nombre de dépouillements par page</entry>
+<entry code="mobile_admin_pickWSInList_yes">Choisir dans une liste</entry>
+<entry code="mobile_admin_pickWSInList_no">Saisir l'url manuellement</entry>
+<entry code="mobile_admin_writeWS">URL du WebServices</entry>
 </XMLlist>

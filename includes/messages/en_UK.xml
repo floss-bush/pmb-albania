@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: en_UK.xml,v 1.574 2010-09-21 14:14:09 ngantier Exp $ -->
+$Id: en_UK.xml,v 1.589 2011-01-20 16:14:54 arenou Exp $ -->
 
 <XMLlist>
 <entry code="demo">Demo</entry>
@@ -4767,7 +4767,7 @@ $Id: en_UK.xml,v 1.574 2010-09-21 14:14:09 ngantier Exp $ -->
 <entry code="remote_procedures">Remote Procedures</entry>
 <entry code="remote_procedures_no_procs">No remote procedures were found in this category on the server</entry>
 <entry code="remote_procedures_proc_notfound">Procedure not found</entry>
-<entry code="remote_procedures_error_nosoap">The client for the procedure server require the precense of the php extension php_soap</entry>
+<entry code="remote_procedures_error_nosoap">The client for the procedure server require the presence of the php extension php_soap</entry>
 <entry code="remote_procedures_error_server">The procedure server responded by an error</entry>
 <entry code="remote_procedures_error_client">The client for the procedure server responded by an error</entry>
 <entry code="remote_procedures_error_noaddress">The client for the procedure server isn't configured.</entry>
@@ -4795,7 +4795,7 @@ $Id: en_UK.xml,v 1.574 2010-09-21 14:14:09 ngantier Exp $ -->
 <entry code="remote_procedures_circ_action">Remote procedure of action</entry>
 <entry code="remote_procedures_circ_noPEMPS">You can only test procedures of selection</entry>
 <entry code="remote_procedures_catalog_title">Remote procedures</entry>
-<entry code="remote_procedures_circ_nocatalogproc">This procedure  is not of the right type</entry>
+<entry code="remote_procedures_circ_nocatalogproc">This procedure is not of the right type</entry>
 <entry code="remote_procedures_catalog_caddienotice_select">Remote procedures of selection for notice caddies</entry>
 <entry code="remote_procedures_catalog_caddienotice_action">Remote procedures of action for notice caddies</entry>
 <entry code="remote_procedures_catalog_caddieexpl_select">Remote procedures of selection for item caddies</entry>
@@ -4803,6 +4803,7 @@ $Id: en_UK.xml,v 1.574 2010-09-21 14:14:09 ngantier Exp $ -->
 <entry code="remote_procedures_catalog_caddiebull_select">Remote procedures of selection for bulletin caddies</entry>
 <entry code="remote_procedures_catalog_caddiebull_action">Remote procedures of action for bulletin caddies</entry>
 <entry code="remote_procedures_catalog_noSELECT">You can only test procedures of selection</entry>  
+<entry code="send_sms">Sms actif:</entry> 
 
 <entry code="empr_nivo_relance">Niveau de relance</entry>
 <entry code="empr_see_late">Voir l'historique</entry>
@@ -4937,4 +4938,58 @@ $Id: en_UK.xml,v 1.574 2010-09-21 14:14:09 ngantier Exp $ -->
 <entry code="param_fiches">Fiches</entry>
 <entry code="relance_recouvrement_cote">Cote</entry>
 <entry code="relance_recouvrement_cb">No.</entry>
+<entry code="search_categorie_title">Catégorie</entry>
+<entry code="search_autopostage_check">Etendre la recherche à l'autopostage</entry>
+<entry code="search_autopostage_multicritere">Catégories avec autopostage</entry>
+<entry code="acquisition_rub_mnt_tot_ht">Total HT</entry>
+<entry code="acquisition_rub_mnt_ava_ht">A valider HT/TTC</entry>
+<entry code="acquisition_rub_mnt_eng_ht">Engagé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_fac_ht">Facturé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_pay_ht">Payé HT/TTC</entry>
+<entry code="acquisition_rub_mnt_sol_ht">Solde HT</entry>
+<entry code="acquisition_rub_mnt_tot_ttc">Total TTC</entry>
+<entry code="acquisition_rub_mnt_ava_ttc">A valider TTC/HT</entry>
+<entry code="acquisition_rub_mnt_eng_ttc">Engagé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_fac_ttc">Facturé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_pay_ttc">Payé TTC/HT</entry>
+<entry code="acquisition_rub_mnt_sol_ttc">Solde TTC</entry>
+<entry code="acquisition_force_ttc">Débité en TTC</entry>
+<entry code="acquisition_force_ht">Débité en HT</entry>
+<entry code="finance_statut_perdu_expl_empr">Statuts des exemplaires et des lecteurs</entry>
+<entry code="collection_comment">Commentaire</entry>
+<entry code="subcollection_comment">Commentaire</entry>
+<entry code="chklnk_restrict">Restreindre à une liste de paniers</entry>
+<entry code="chklnk_restrict_by_basket_noti">Paniers de notices</entry>
+<entry code="chklnk_restrict_by_basket_bull">Paniers de bulletins</entry>
+<entry code="chklnk_restrict_by_basket_expl">Paniers d'exemplaires</entry>
+<entry code="editeur_adr1">Adresse (ligne 1)</entry>
+<entry code="editeur_adr2">Adresse (ligne 2)</entry>
+<entry code="editeur_cp">C.P.</entry>
+<entry code="editeur_ville">Ville</entry>
+<entry code="editeur_web">Site web</entry>
+<entry code="info_docs_num_notice">Des documents numériques sont associés</entry>
+<entry code="expl_nbprets">Cet exemplaire a été prêté !!nb_prets!! fois.</entry>
+<entry code="codebarre_sort">Codebarre</entry>
+<entry code="coll_sort">Titre de la collection</entry>
+<entry code="subcoll_sort">Titre de la sous-collection</entry>
+<entry code="num_in_coll_sort">Numéro dans la collection</entry>
+<entry code="aut_replace_link_save">Conserver les liens entre autorités</entry>
+<entry code="authority_query">Selection d'autorité</entry>
+<entry code="plus_detail">détail</entry>
+
+<entry code="class_codestat">No statiscal code available</entry>
+<entry code="class_typdoc">No document type available</entry>
+
+<entry code="parperso_url">URL</entry>
+<entry code="procs_options_url_max">Nombre maximum de caractères à afficher </entry>
+<entry code="procs_options_url_timeout">Durée maximale en secondes de la vérification d'un lien (laisser vide pour ne pas en tenir compte)</entry>
+<entry code="persofield_urlrepeat">Répétable </entry>
+<entry code="persofield_url_check">vérifier</entry>
+<entry code="persofield_url_link">Lien : </entry>
+<entry code="persofield_url_linklabel">Libellé : </entry>
+<entry code="pprocs_options_liste_authorities">Affichage sous forme d'autorité</entry>
+<entry code="pprocs_options_liste_authorities_new_value">Affichage sous forme d'autorité : autoriser l'insertion de nouvelle valeur</entry>
+<entry code="pprocs_options_liste_checkbox">Affichage sous forme de cases à cocher ou boutons radio</entry>
+<entry code="pprocs_options_liste_optimize_req">Optimiser la requête à l'affichage (vous devez la tester pour que cela fonctionne) ?</entry>
+<entry code="pprocs_options_liste_checkbox_nb_on_line">Nombre de choix par ligne : </entry>
 </XMLlist>

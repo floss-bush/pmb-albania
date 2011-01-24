@@ -1,4 +1,4 @@
-<h1>Gestion financi&egrave;res des lecteurs</h1>
+<h1>Gestion financi&egrave;re des lecteurs</h1>
 <p>La gestion financi&egrave;re des lecteurs permet de g&eacute;rer les mouvements financiers li&eacute;s aux lecteurs :
 </p>
 <ul>
@@ -6,6 +6,6 @@
 <li>amendes suite &agrave; des retards de retour de pr&ecirc;ts
 <li>pr&ecirc;ts payants pour une plusieurs cat&eacute;gories de documents
 </ul>
-<p>Si vous avez choisi la gestion simple des tarifs d'abonnements, ceux-ci sont visibles dans <a href='admin.php?categ=empr&sub=categ'>Administration &gt; Lecteurs &gt; Cat&eacute;gories de lecteurs</a>.</p>
-<p>Si vous avez choisi la gestion simple des tarifs de pr&ecirc;ts, ceux-ci sont visibles dans <a href='admin.php?categ=docs&sub=typdoc'>Administration &gt; Exemplaires &gt; Types de documents</a>.</p>
+<p>Si vous avez choisi la gestion simple des tarifs d'abonnements, ceux-ci sont visibles dans <a href='admin.php?categ=empr&sub=categ'>Administration &gt; Lecteurs &gt; Cat&eacute;gories</a>.</p>
+<p>Si vous avez choisi la gestion simple des tarifs de pr&ecirc;ts, ceux-ci sont visibles dans <a href='admin.php?categ=docs&sub=typdoc'>Administration &gt; Exemplaires &gt; Supports</a>.</p>
 

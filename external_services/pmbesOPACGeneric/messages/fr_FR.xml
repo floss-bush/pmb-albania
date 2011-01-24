@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.3 2009-11-07 12:56:11 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.4 2010-12-08 07:30:22 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -45,7 +45,7 @@ is_also_borrowed_enabled
    <entry code="is_also_borrowed_enabled_output_description"></entry>
    <entry code="is_also_borrowed_enabled_result">Si la fonction est activée ou non</entry>
 
-  <entry code="also_borrowed_description">Renvoi les autres lectures associées à une notice</entry>
+  <entry code="also_borrowed_description">Renvoie les autres lectures associées à une notice</entry>
   <entry code="also_borrowed_input_description"></entry>
   <entry code="also_borrowed_input_notice_id">L'id de la notice</entry>
   <entry code="also_borrowed_input_bulletin_id">L'id du bulletin</entry>
@@ -58,7 +58,7 @@ is_also_borrowed_enabled
 
    <!--
 list_sections
---><entry code="list_sections_description">Liste les différentes sections visible de l'OPAC</entry>
+--><entry code="list_sections_description">Liste les différentes sections visibles de l'OPAC</entry>
    <entry code="list_sections_input_description"></entry>
    <entry code="list_sections_output_description"></entry>
    <entry code="list_sections_location">La localisation des sections</entry>
@@ -67,7 +67,7 @@ list_sections
 	<!--
 	get_location_information
 	-->
-	<entry code="get_location_information_description">Renvoi les informations associées à une localisation</entry>
+	<entry code="get_location_information_description">Renvoie les informations associées à une localisation</entry>
 	<entry code="get_location_information_input_description"></entry>
 	<entry code="get_location_information_output_description"></entry>
 	<entry code="get_location_information_location_id">L'id de la localisation</entry>
@@ -75,7 +75,7 @@ list_sections
 	<!--
 	get_location_information_and_sections
 	-->
-	<entry code="get_location_information_and_sections_description">Renvoi les informations et les différentes sections associées à une localisation</entry>
+	<entry code="get_location_information_and_sections_description">Renvoie les informations et les différentes sections associées à une localisation</entry>
 	<entry code="get_location_information_and_sections_input_description"></entry>
 	<entry code="get_location_information_and_sections_output_description"></entry>
 	<entry code="get_location_information_and_sections_location_id">L'id de la localisation</entry>
@@ -85,7 +85,7 @@ list_sections
 	<!--
 	get_section_information
 	-->
-	<entry code="get_section_information_description">Renvoi les informations associées à une section</entry>
+	<entry code="get_section_information_description">Renvoie les informations associées à une section</entry>
 	<entry code="get_section_information_input_description"></entry>
 	<entry code="get_section_information_output_description"></entry>
 	<entry code="get_section_information_section_id">L'id de la section</entry>

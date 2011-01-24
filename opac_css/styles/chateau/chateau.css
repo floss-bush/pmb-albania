@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: chateau.css,v 1.15 2010-01-26 13:56:38 kantin Exp $
+// $Id: chateau.css,v 1.19 2010-12-22 09:27:36 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -209,8 +209,7 @@ input, textarea {
 
 	#search ul.search_tabs li, #onglets_list ul.list_tabs li{
 		float:left;
-		margin-right:4px;
-		padding-right:15px;
+		margin-right: 5px;
         height:20px;
 		display:block;
 	}
@@ -232,7 +231,7 @@ input, textarea {
 		float:left;
 		color:#448212;
 		font-weight:bold;
-		padding:3px 10px 0px 10px;
+		padding:3px 5px 0px 5px;
         height:16px;
 		border:1px #b9b9ba solid;
 		border-bottom:none;
@@ -1131,4 +1130,160 @@ table{
 	position: absolute;
 	visibility:hidden;
 	z-index: 2000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+ 	    padding:20px 0px;
+}
+
+#empr_onglet ul.empr_tabs{
+	list-style:none;
+	font-size:11px;
+	position:absolute;
+	margin-top:-21px;
+}
+
+#empr_onglet ul.empr_tabs li{
+	float:left;
+	margin: 0 5px;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	color: #555555;
+    display: table;
+    float: left;
+    font-weight: normal;
+    height: 17px;
+    text-decoration: none;
+}
+
+#empr_onglet ul.empr_tabs li a:hover{
+   	font-style: italic;
+   	color: #000000;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+	background: #ECECEC;
+    border-left: 1px solid #B9B9BA;
+    border-top: 1px solid #B9B9BA;
+    border-right: 1px solid #B9B9BA;
+    float: left;
+    padding: 0.4em;
+    margin-top: -5px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	background: none;
+	color: #56881C;
+	font-weight: bold;
+}
+
+#empr_onglet ul.empr_tabs li#current a:hover {
+	font-style: inherit;
+}
+
+ul.empr_subtabs{
+	border: 1px solid #B9B9BA;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #ECECEC;
+}
+
+ul.empr_subtabs li{
+	border: 1px solid #CCCCCC;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display:inline-block;
+	background: #53402B;
+	padding: 0.2em;
+}
+
+ ul.empr_subtabs li a{
+	text-decoration:none;
+	height:17px;
+    color: #ffffff;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+	padding:5px 12px 15px 12px;
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs {
+	background-color: #ffffff;
+	border: none;
+	margin-top: -5px;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	display:inline-block;
+	padding-top: 3px;
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	text-decoration: none;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current {
+	padding-top: 8px;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current a {
+	color: #56881C;
+	font-weight: bold;
+	margin-top:-5px;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current a:hover {
+	font-style: inherit;
+}
+
+#empr-list #onglets_list {
+	margin-top: 35px;
+	background-color: #ECECEC;
+    border: 1px solid #B9B9BA;
+}
+
+#make_sugg-container table input {
+	margin-bottom: 5px;
 }

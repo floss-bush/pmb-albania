@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice.inc.php,v 1.23 2009-05-16 10:52:44 dbellamy Exp $
+// $Id: notice.inc.php,v 1.24 2010-11-05 16:19:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -73,13 +73,18 @@ function show_results ($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 		$suite_rqt="";
 		if (isISBN($isbn_verif)) {
 			if (strlen($isbn_verif)==13)
-				$suite_rqt=" or code='".formatISBN($isbn_verif,13)."' ";
-			else $suite_rqt="or code='".formatISBN($isbn_verif,10)."' ";
-		}
-		$requete_count = "select count(1) from notices ";
-		$requete_count.= $acces_j;
-		$requete_count.= "where (".$members["where"]." or code like '".addslashes($isbn_verif)."' ".$suite_rqt." ) ";
-		$requete_count.= "and notice_id!='".$no_display."' $filtre_notice";
+				$suite_rqt="  code like '".formatISBN($isbn_verif,13)."' or code like '".addslashes($isbn_verif)."' ";
+			else $suite_rqt=" code like '".formatISBN($isbn_verif,10)."' or code like '".addslashes($isbn_verif)."' ";
+			$requete_count = "select count(1) from notices ";
+			$requete_count.= $acces_j;
+			$requete_count.= "where ( ".$suite_rqt." ) ";
+			$requete_count.= "and notice_id!='".$no_display."' $filtre_notice";
+		} else {
+			$requete_count = "select count(1) from notices ";
+			$requete_count.= $acces_j;
+			$requete_count.= "where (".$members["where"]." or code like '".addslashes($isbn_verif)."' ) ";
+			$requete_count.= "and notice_id!='".$no_display."' $filtre_notice";
+		}	
 	}
 	$res = mysql_query($requete_count, $dbh);
 	$nbr_lignes = @mysql_result($res, 0, 0);
@@ -89,23 +94,29 @@ function show_results ($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 
 	if($nbr_lignes) {
 		// on lance la vraie requête
-		$isbn_verif=traite_code_isbn(stripslashes($user_input));
-		$suite_rqt="";
-		if (isISBN($isbn_verif)) {
-			if (strlen($isbn_verif)==13)
-				$suite_rqt=" or code='".formatISBN($isbn_verif,13)."' ";
-			else $suite_rqt="or code='".formatISBN($isbn_verif,10)."' ";
-		}
 		if($user_input=="") {
 			$requete = "SELECT notice_id, tit1, serie_name, tnvol, code FROM notices ";
 			$requete.= $acces_j;
 			$requete.= "left join series on serie_id=tparent_id ";
 			$requete.= "where notice_id!='".$no_display."' $filtre_notice ORDER BY index_sew, code LIMIT $debut,$nb_per_page ";
 		} else {
-			$requete = "select notice_id, tit1, serie_name, tnvol, code, ".$members["select"]." as pert from notices ";
-			$requete.= $acces_j;
-			$requete.= "left join series on serie_id=tparent_id where (".$members["where"]." or (code like '".addslashes($isbn_verif)."' ".$suite_rqt.")) ";
-			$requete.= "and notice_id!='".$no_display."' $filtre_notice group by notice_id order by pert desc, index_sew, code limit $debut,$nb_per_page";
+			$isbn_verif=traite_code_isbn(stripslashes($user_input));
+			$suite_rqt="";
+			if (isISBN($isbn_verif)) {
+				if (strlen($isbn_verif)==13)
+					$suite_rqt="  code like '".formatISBN($isbn_verif,13)."' or code like '".addslashes($isbn_verif)."' ";
+				else $suite_rqt=" code like '".formatISBN($isbn_verif,10)."' or code like '".addslashes($isbn_verif)."' ";			
+				$requete = "select notice_id, tit1, serie_name, tnvol, code from notices ";
+				$requete.= $acces_j;
+				$requete.= "left join series on serie_id=tparent_id ";
+				$requete.= "where (  ".$suite_rqt." ) ";
+				$requete.= "and notice_id!='".$no_display."' $filtre_notice group by notice_id limit $debut,$nb_per_page";
+			} else {
+				$requete = "select notice_id, tit1, serie_name, tnvol, code, ".$members["select"]." as pert from notices ";
+				$requete.= $acces_j;
+				$requete.= "left join series on serie_id=tparent_id where (".$members["where"]." or (code like '".addslashes($isbn_verif)."' )) ";
+				$requete.= "and notice_id!='".$no_display."' $filtre_notice group by notice_id order by pert desc, index_sew, code limit $debut,$nb_per_page";
+			}	
 		}
 
 		$res = @mysql_query($requete, $dbh);

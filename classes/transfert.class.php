@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: transfert.class.php,v 1.23 2010-02-23 10:33:06 ngantier Exp $
+// $Id: transfert.class.php,v 1.24 2010-12-07 08:34:40 ngantier Exp $
 
 if (stristr ( $_SERVER ['REQUEST_URI'], ".class.php" ))
 	die ( "no access" );
@@ -763,7 +763,7 @@ class transfert {
 	
 		//on met a jour l'etat de la demande => on passe en refus traité et la date de retour souhaitée
 		$rqt = "UPDATE transferts INNER JOIN transferts_demande ON id_transfert=num_transfert 
-				SET etat_demande=6, date_retour='".$dateRetour."' 
+				SET etat_demande=6, date_retour='".$dateRetour."', motif='$motif'
 				WHERE id_transfert=".$transId." AND etat_demande=4";
 		mysql_query ( $rqt );
 

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: livraisons.inc.php,v 1.29 2009-06-03 06:06:45 dbellamy Exp $
+// $Id: livraisons.inc.php,v 1.30 2010-10-15 14:19:39 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -88,6 +88,7 @@ function show_list_liv($id_bibli) {
 	$action ="./acquisition.php?categ=ach&sub=livr&action=list&user_input=";
 	$search_form = str_replace('!!form_title!!', $titre, $search_form);
 	$search_form = str_replace('!!action!!', $action, $search_form);
+	$search_form = str_replace('!!user_input!!', $user_input, $search_form);
 	
 	print $search_form;
 	if (!$statut) {
@@ -95,8 +96,8 @@ function show_list_liv($id_bibli) {
 	} else {
 		setSessionLivState($statut);	
 	}
-	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = ".$statut.";document.forms['search'].elements['user_input'].focus();</script>";
-
+	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = ".$statut.";document.forms['search'].elements['user_input'].focus();
+	document.forms['search'].elements['user_input'].select();</script>";
 
 	//Prise en compte du formulaire de recherche
 	// nombre de références par pages

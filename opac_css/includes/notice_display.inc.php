@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_display.inc.php,v 1.59 2010-05-19 14:24:20 arenou Exp $
+// $Id: notice_display.inc.php,v 1.61 2010-10-11 08:26:16 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -92,6 +92,14 @@ if($acces_v) {
 				if ($opac_photo_show_form) print "<center><a href='index.php?lvl=doc_command&id=$id&mode_phototeque=1'>".htmlentities($msg["command_phototeque_command_command"],ENT_QUOTES,$charset)."</a></center>";
 			}
 			$hide_explnum=1;
+		}else{
+			$req = "select explnum_id from explnum left join bulletins on num_notice = $id where explnum_notice = $id or explnum_bulletin = bulletin_id";
+			$resultat = mysql_query($req, $dbh) or die ($req." ".mysql_error());
+			$nb_ex = mysql_num_rows($resultat);
+			if($opac_visionneuse_allow && $nb_ex){
+				//print "&nbsp;&nbsp;&nbsp;".$link_to_visionneuse;
+				print $sendToVisionneuseNoticeDisplay;
+		}	
 		}
 	
 		$id = $obj->notice_id ;
@@ -164,6 +172,7 @@ if($acces_v) {
 				";
 							
 				$tableau = "
+				<a name='tab_bulletin'></a>
 				<h3>$msg[perio_list_bulletins]</h3>
 				<div id='form_search_bull'>
 					<div class='row'></div>\n
@@ -196,13 +205,14 @@ if($acces_v) {
 				
 				print "<script type='text/javascript'>ajax_parse_dom();</script>";	
 				// A EXTERNALISER ENSUITE DANS un bulletin_list.inc.php
-				$requete="SELECT * FROM bulletins where bulletin_id in(
+				$requete="SELECT bulletins.*,count(explnum_id) as nbexplnum FROM bulletins LEFT JOIN explnum ON explnum_bulletin = bulletin_id where bulletin_id in(
 				SELECT bulletin_id FROM bulletins WHERE bulletin_notice='$id' $restrict_num $restrict_date and num_notice=0
 				) or bulletin_id in(
 				SELECT bulletin_id FROM bulletins,notice_statut, notices WHERE bulletin_notice='$id' $restrict_num $restrict_date 
 				and notice_id=num_notice
 				and statut=id_notice_statut 
-				and((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")) ";
+				and((notice_visible_opac=1 and notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_visible_opac_abon=1 and notice_visible_opac=1)":"").")) 
+				GROUP BY bulletins.bulletin_id ";
 				
 				$rescount1=mysql_query($requete);
 				$count1=mysql_num_rows($rescount1);

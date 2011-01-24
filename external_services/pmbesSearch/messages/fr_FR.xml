@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.6 2010-12-08 07:30:21 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -44,7 +44,7 @@ $Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
   <entry code="get_advanced_sfone_inputs_description_field_id">l'id du champ dont on souhaite les informations</entry>
   <entry code="get_advanced_sfone_inputs_description_search_realm">dans quel domaine de recherche on se situe. exemple: search_simple_fields, opac|search_fields</entry>
   <entry code="get_advanced_sfone_inputs_description_lang">la langue dans laquelle on souhaite le résultat</entry>
-  <entry code="get_advanced_sfone_inputs_description_fetch_values">si l'on souhaite également les différentes valeurs possibles du champs, (pour les champs select par exemple)</entry>
+  <entry code="get_advanced_sfone_inputs_description_fetch_values">si l'on souhaite également les différentes valeurs possibles du champ, (pour les champs select par exemple)</entry>
   <entry code="get_advanced_sfone_outputs_description"></entry>
   <entry code="get_advanced_sfone_outputs_description_search_field">un champ de recherche</entry>
 
@@ -70,9 +70,9 @@ $Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
   <entry code="fetch_search_records_inputs_description"></entry>
   <entry code="fetch_search_records_inputs_description_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetch_search_records_inputs_description_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetch_search_records_inputs_description_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetch_search_records_inputs_description_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetch_search_records_inputs_description_recordFormat">format des résultats</entry>
-  <entry code="fetch_search_records_inputs_description_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
+  <entry code="fetch_search_records_inputs_description_recordCharset">le charset dans lequel on souhaite les résultats</entry>
   <entry code="fetch_search_records_inputs_description_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetch_search_records_inputs_description_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetch_search_records_outputs_description"></entry>
@@ -97,7 +97,7 @@ $Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
   <entry code="fetchSearchRecordsSorted_output_description"></entry>
   <entry code="fetchSearchRecordsSorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsSorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsSorted_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsSorted_recordFormat">format des résultats</entry>
   <entry code="fetchSearchRecordsSorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsSorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
@@ -115,11 +115,11 @@ $Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
   <entry code="fetchSearchRecordsArray_output_description"></entry>
   <entry code="fetchSearchRecordsArray_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArray_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArray_recordCount">nombre de notice à récupérer</entry>
+  <entry code="fetchSearchRecordsArray_recordCount">nombre de notices à récupérer</entry>
   <entry code="fetchSearchRecordsArray_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArray_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsArray_includeItems">inclure les exemplaires dans la zone 995</entry>
-  <entry code="fetchSearchRecordsArray_results">Un tableau de résultat</entry>
+  <entry code="fetchSearchRecordsArray_results">Un tableau de résultats</entry>
 
   <!--
     fetchSearchRecordsArraySorted
@@ -138,19 +138,19 @@ $Id: fr_FR.xml,v 1.5 2010-08-11 10:25:38 arenou Exp $ -->
   <entry code="fetchSearchRecordsArraySorted_output_description"></entry>
   <entry code="fetchSearchRecordsArraySorted_searchId">l'id renvoyé par la fonction de recherche</entry>
   <entry code="fetchSearchRecordsArraySorted_firstRecord">numéro de la première notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notice à récupérer</entry>
-  <entry code="fetchSearchRecordsArraySorted_recordCharset">le charset dans le lequel on souhaite les résultats</entry>
+  <entry code="fetchSearchRecordsArraySorted_recordCount">nombre de notices à récupérer</entry>
+  <entry code="fetchSearchRecordsArraySorted_recordCharset">le charset dans lequel on souhaite les résultats</entry>
   <entry code="fetchSearchRecordsArraySorted_includeLinks">inclure les liens entre notices, bulletins et articles</entry>
   <entry code="fetchSearchRecordsArraySorted_includeItems">inclure les exemplaires dans la zone 995</entry>
   <entry code="fetchSearchRecordsArraySorted_sortType">le tri à appliquer aux résultats</entry>
-  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultat</entry>
+  <entry code="fetchSearchRecordsArraySorted_results">Un tableau de résultats</entry>
 
-  <entry code="unknown_field">Critère de recherche unconnu</entry>
+  <entry code="unknown_field">Critère de recherche inconnu</entry>
   
   <!--
     get_sort_types
   -->
-  <entry code="get_sort_types_description">Renvoi la liste des différents tri possibles</entry>
+  <entry code="get_sort_types_description">Renvoie la liste des différents tris possibles</entry>
   <entry code="get_sort_types_input_description"></entry>
   <entry code="get_sort_types_output_description">
     Exemple de retour:

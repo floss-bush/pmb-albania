@@ -1,0 +1,21 @@
+<?php
+
+// $Id: import_empr.txt,v 0.1 2003/11/21 9:44:264 Jonathan charest
+
+// Documentation sur l'utilisation de l'import
+
+$content = "
+  <p><b>PMB: como importar</b> </p>
+  <p><strong>Na coluna esquerda</strong> estão os nomes dos campos do seu banco de dados.<br />
+    Este é o local onde são inseridas informações do leitor..</p>
+  <p><strong>A coluna central</strong> indica a posição do campo no arquivo, por exemplo:<br />
+    &quot;12527&quot;,&quot;Archambault&quot;,&quot;rue de... <br />
+    &quot;12528&quot;,&quot;Baudin&quot;,&quot;rue de... <br /> <br />12527 na 1a posição 
+    está o código de barras do leitor/devedor, na 2a posição está seu sobrenome e, na 3a posição está seu endereço, etc.</p>
+  <p><strong>Na coluna direita</strong>, há um exemplo da 1a linha do arquivo. Ele pode ser muito útil se você quiser alterar sua posição no arquivo. Não esqueça de clicar em "Update/Atualizar" para confirmar as alterações feitas.</p>
+  <p><strong>Campos em vermelho</strong> não podem ser modificados pelo usuário, eles serão automaticamente preenchidos pela aplicação.</p>
+";
+
+print $content;
+
+?>

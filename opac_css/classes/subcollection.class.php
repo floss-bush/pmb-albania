@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcollection.class.php,v 1.6 2006-12-29 16:10:04 touraine37 Exp $
+// $Id: subcollection.class.php,v 1.7 2010-11-02 16:20:29 ngantier Exp $
 
 // définition de la classe de gestion des 'sous-collections'
 
@@ -28,7 +28,7 @@ class subcollection {
 	var $display;            //// usable form for displaying	( _collection_. _name_ (_editeur_) )
 	var $isbd_entry;         //// ISBD form ( _collection_. _name_ )
 	var $issn;                // ISSN of sub collection
-
+	var $comment;
 
 
 	// ---------------------------------------------------------------
@@ -78,6 +78,7 @@ class subcollection {
 			$this->display            = '';
 			$this->issn               = '';
 			$this->isbd_entry         = '';
+			$this->comment         	  = '';
 		}
 	}
 
@@ -93,6 +94,7 @@ class subcollection {
 		$this->name = $obj->sub_coll_name;
 		$this->parent = $obj->sub_coll_parent;
 		$this->issn = $obj->sub_coll_issn;
+		$this->comment = $obj->subcollection_comment;
 	}
 
 
@@ -156,6 +158,7 @@ class subcollection {
 		$print = str_replace("!!coll!!", $this->parent_libelle, $print);
 		$print = str_replace("!!coll_isbd!!", $this->parent_isbd, $print);
 		$print = str_replace("!!isbd!!", $this->isbd_entry, $print);
+		$print = str_replace("!!comment!!", $this->comment, $print);
 
 		// remplacement des champs dynamiques
 		if (ereg("!!publisher!!", $print))

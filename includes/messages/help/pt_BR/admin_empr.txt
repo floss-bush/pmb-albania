@@ -1,0 +1,4 @@
+<h1>Gerenciamento de relacionamento</h1>
+
+<p>Os vários códigos anexados a cada um dos usuários da biblioteca permitem obter estatísticas sobre a leitura da sua biblioteca.</p>
+<p>Ao combinar estes códigos você pode adaptar a aplicação às necessidade da biblioteca.</p>

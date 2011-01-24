@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: searcher_templates.tpl.php,v 1.21 2010-04-22 07:37:05 gueluneau Exp $
+// $Id: searcher_templates.tpl.php,v 1.22 2010-10-12 12:33:20 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -19,15 +19,16 @@ $NOTICE_author_query = "
       }
 
 function test_form(form) {
-	if ((form.ex_query.value.length == 0) && (form.title_query.value.length == 0) && (form.author_query.value.length == 0) && (form.all_query.value.length == 0)) {
+	if ((form.ex_query.value.length == 0) && (form.title_query.value.length == 0) && (form.author_query.value.length == 0) && (form.categ_query.value.length == 0) && (form.all_query.value.length == 0)) {
 		form.all_query.value='*';
 		return true;
 		}
-	if ((form.ex_query.value.length != 0) && ((form.title_query.value.length != 0) || (form.author_query.value.length != 0) || (form.all_query.value.length != 0))) {
+	if ((form.ex_query.value.length != 0) && ((form.title_query.value.length != 0) || (form.author_query.value.length != 0)  || (form.categ_query.value.length != 0) || (form.all_query.value.length != 0))) {
 		if (confirm('$msg[1917]')) {
                   	form.title_query.value = '';
                   	form.all_query.value = '';
                   	form.author_query.value = '';
+                  	form.categ_query.value = '';
 			return true;
 			} else {
                   		return false;
@@ -61,6 +62,16 @@ function test_form(form) {
 <div class='row'>
 	<input class='saisie-80em' id='author_query' type='text' value='!!author_query!!' size='36' name='author_query' />
 	</div>
+
+<div class='row'>
+	<label class='etiquette' for='categ_query'>".$msg["search_categorie_title"]."</label>
+</div>
+<div class='colonne'>
+	<div class='row'>
+		<input class='saisie-80em' id='categ_query' type='text' value='!!categ_query!!' size='36' name='categ_query' />
+	</div> 
+</div>
+!!auto_postage!!	
 <div class='row'>
 			<span class='saisie-contenu'>
 				$msg[155]&nbsp;<a class='aide' title='$msg[1900]$msg[1901]$msg[1902]' href='./help.php?whatis=regex' onclick='aide_regex();return false;'>$msg[1550]</a>

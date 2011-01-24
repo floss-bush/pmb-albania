@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la r.utilisation du code est cadr.e            |
 // +--------------------------------------------------------------------------+
-// $Id: uni_bleu.css,v 1.33 2010-01-26 13:56:38 kantin Exp $                 */
+// $Id: uni_bleu.css,v 1.36 2010-12-24 08:38:39 trenon Exp $                 */
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
@@ -865,4 +865,115 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+}
+
+#empr_onglet ul.empr_tabs{
+	list-style:none;
+	font-size:11px;
+    clear:right;
+    height:23px;
+	position:absolute;
+	padding-left: 0px;
+}
+
+#empr_onglet ul.empr_tabs li{
+	background: #D0D0E0;
+    border-color: #6B7B7B #6B7B7B;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    float: left;
+    height: 19px;
+    margin-bottom: 5px;
+    margin-right: 4px;
+    padding: 3px 6px 0;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background: none;
+	text-decoration: none;
+	color: #333366;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+	background: #FBFBFB;
+    border-bottom: 1px solid #FBFBFB;
+    float: left;
+    height: 19px;
+    margin-bottom: 4px;
+    padding: 3px 6px 0;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	background: none;
+	color: #333366;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 50px;
+}
+
+ul.empr_subtabs li {
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	margin:0 2px;
+	display:inline;
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	text-decoration: none;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+}
+
+#empr-list #onglets_list .list_tabs {
+	padding-left: 0px;
+}
+
+#empr-sugg h3 {
+	color: #6B7B7B;
 }

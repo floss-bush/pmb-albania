@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: term_show.php,v 1.12 2010-01-07 10:50:04 kantin Exp $
+// $Id: term_show.php,v 1.14 2010-12-23 10:36:34 arenou Exp $
 
 $base_path="..";                            
 $base_auth = ""; 
@@ -15,7 +15,7 @@ require_once($base_path."/selectors/templates/category.tpl.php");
 print reverse_html_entities();
 
 //Récupération des paramètres du formulaire appellant
-$base_query = "caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&parent=&history=".rawurlencode(stripslashes($term))."&dyn=$dyn&keep_tilde=$keep_tilde&id_thes=$id_thes";
+$base_query = "caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&parent=&history=".rawurlencode(stripslashes($term))."&dyn=$dyn&keep_tilde=$keep_tilde&id_thes=$id_thes&callback=".$callback."&infield=".$infield;
 
 echo $jscript_term;
 
@@ -24,6 +24,7 @@ function parent_link($categ_id,$categ_see) {
 	global $caller;
 	global $charset;
 	global $thesaurus_mode_pmb ;
+	global $callback;
 	
 	if ($categ_see) $categ=$categ_see; else $categ=$categ_id;
 	$tcateg =  new category($categ);
@@ -38,7 +39,7 @@ function parent_link($categ_id,$categ_see) {
 	
 	if ($thesaurus_mode_pmb) $nom_tesaurus='['.$tcateg->thes->getLibelle().'] ' ;
 		else $nom_tesaurus='' ;
-	$link="<a href=\"\" onclick=\"set_parent('$caller', '$tcateg->id', '".htmlentities(addslashes($nom_tesaurus.$tcateg->catalog_form),ENT_QUOTES, $charset)."'); return false;\" $java_comment><span class='plus_terme'><span>+</span></span></a>$zoom_comment";
+	$link="<a href=\"\" onclick=\"set_parent('$caller', '$tcateg->id', '".htmlentities(addslashes($nom_tesaurus.$tcateg->catalog_form),ENT_QUOTES, $charset)."','$callback','".$tcateg->thes->id_thesaurus."'); return false;\" $java_comment><span class='plus_terme'><span>+</span></span></a>$zoom_comment";
 	$visible=true;
 	$r=array("VISIBLE"=>$visible,"LINK"=>$link);
 	return $r;

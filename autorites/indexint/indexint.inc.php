@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: indexint.inc.php,v 1.8 2007-07-31 09:23:03 ngantier Exp $
+// $Id: indexint.inc.php,v 1.9 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -34,7 +34,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$indexint = new indexint($id,$id_pclass);
-			$rep_result = $indexint->replace($n_indexint_id);
+			$rep_result = $indexint->replace($n_indexint_id,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/indexint/indexint_list.inc.php');
 			else {

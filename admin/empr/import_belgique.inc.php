@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: import_belgique.inc.php,v 1.8 2009-05-16 11:12:01 dbellamy Exp $
+// $Id: import_belgique.inc.php,v 1.9 2010-12-01 16:28:26 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -344,12 +344,11 @@ function import_profs($separateur, $dbh, $type_import){
             //Vide la table empr_groupe
             mysql_query("DELETE FROM empr_groupe",$dbh);
             //Supprime les profs qui n'ont pas de prêts en cours
-            $req_select_verif_pret = "SELECT empr_cb FROM empr left join pret on id_empr=pret_idempr WHERE pret_idempr is null and empr_cb NOT LIKE 'E%'";
+            $req_select_verif_pret = "SELECT id_empr FROM empr left join pret on id_empr=pret_idempr WHERE pret_idempr is null and empr_cb NOT LIKE 'E%'";
             $select_verif_pret = mysql_query($req_select_verif_pret,$dbh);
             while (($verif_pret = mysql_fetch_array($select_verif_pret))) {
             	//pour tous les emprunteurs qui n'ont pas de pret en cours
-                $req_delete = "DELETE FROM empr WHERE empr_cb = '".$verif_pret["empr_cb"]."'";
-                mysql_query($req_delete);
+                emprunteur::del_empr($verif_pret["id_empr"]);
             }
         }
         

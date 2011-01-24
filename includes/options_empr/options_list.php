@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: options_list.php,v 1.26 2010-06-23 14:29:56 ngantier Exp $
+// $Id: options_list.php,v 1.29 2011-01-20 16:14:54 arenou Exp $
 
 //Gestion des options de type list
 $base_path="../..";
@@ -29,7 +29,10 @@ if ($first==1) {
 		$param[AUTORITE][0][value]="yes";
 	else
 		$param[AUTORITE][0][value]="no";
-		
+	if ($CHECKBOX=="yes")
+		$param[CHECKBOX][0][value]="yes";	
+	else
+		$param[CHECKBOX][0][value]="no";
 	if ($NUM_AUTO=="yes")
 		$param[NUM_AUTO][0][value]="yes";
 	else
@@ -80,6 +83,7 @@ if ($first==1) {
 	$param[UNSELECT_ITEM][0][VALUE]=stripslashes($UNSELECT_ITEM_VALUE);
 	$param[UNSELECT_ITEM][0][value]="<![CDATA[".stripslashes($UNSELECT_ITEM_LIB)."]]>";	
 	$param[DEFAULT_VALUE][0][value]=stripslashes($DEFAULT_VALUE);
+	$param[CHECKBOX_NB_ON_LINE][0][value]=stripslashes($CHECKBOX_NB_ON_LINE);
 	$options=array_to_xml($param,"OPTIONS");
 	?>
 	<script>
@@ -100,6 +104,8 @@ if ($first==1) {
 		}
 		$MULTIPLE=$param[MULTIPLE][0][value];
 		$AUTORITE=$param[AUTORITE][0][value];
+		$CHECKBOX=$param[CHECKBOX][0][value];
+		$CHECKBOX_NB_ON_LINE=$param[CHECKBOX_NB_ON_LINE][0][value];
 		$NUM_AUTO=$param[NUM_AUTO][0][value];
 		$UNSELECT_ITEM_VALUE=$param[UNSELECT_ITEM][0][VALUE];
 		$UNSELECT_ITEM_LIB=$param[UNSELECT_ITEM][0][value];
@@ -120,7 +126,7 @@ if ($first==1) {
 			}
 		}
 	} else {
-
+		$CHECKBOX_NB_ON_LINE=stripslashes($CHECKBOX_NB_ON_LINE);
 		$UNSELECT_ITEM_VALUE=stripslashes($UNSELECT_ITEM_VALUE);
 		$UNSELECT_ITEM_LIB=stripslashes($UNSELECT_ITEM_LIB);
 		$DEFAULT_VALUE=stripslashes($DEFAULT_VALUE);
@@ -134,12 +140,14 @@ if ($first==1) {
 			 * On regarde si il n'y a pas un doubon dans les valeurs quand elle existe
 			 */
 			$temp2=$VALUE;
-			foreach ( $temp2 as $key => $value ) {
-		       if($value === ""){
-		       		unset($temp2[$key]);
-		       }
+			if( is_array($temp2)) {
+				foreach ( $temp2 as $key => $value ) {
+			       if($value === ""){
+			       		unset($temp2[$key]);
+			       }
+				}
+				$temp=array_flip($temp2);
 			}
-			$temp=array_flip($temp2);
 			if(is_array($temp2) && (count($temp) != count($temp2))){
 				?>
 				<script>
@@ -201,9 +209,16 @@ if ($first==1) {
 						<td><input type="checkbox" value="yes" name="MULTIPLE" <?php if ($MULTIPLE=="yes") echo "checked"; ?>></td>
 					</tr>
 					<tr>
-						<div><td>Affichage sous forme d'autorité</td></div>
-						<div><td><input type="checkbox" value="yes" name="AUTORITE" <?php if ($AUTORITE=="yes") echo "checked"; ?>></td></div>
+						<td><?php echo $msg[pprocs_options_liste_authorities]; ?></td>
+						<td><input type="checkbox" value="yes" name="AUTORITE" <?php if ($AUTORITE=="yes") echo "checked"; ?>></td>
 					</tr>
+					<tr>
+						<td><?php echo $msg[pprocs_options_liste_checkbox]; ?></td>
+						<td>
+							<input type="checkbox" value="yes" name="CHECKBOX" <?php if ($CHECKBOX=="yes") echo "checked"; ?>/>
+							&nbsp;<?php echo $msg[pprocs_options_liste_checkbox_nb_on_line]; ?><input class='saisie-2em' type="text" name="CHECKBOX_NB_ON_LINE" value="<?php echo htmlentities($CHECKBOX_NB_ON_LINE,ENT_QUOTES,$charset); ?>"/>
+						</td>					
+					</tr>					
 					<tr>
 						<td><?php echo $msg[num_auto_list]; ?></td>
 						<td><input type="checkbox" value="yes" name="NUM_AUTO" <?php if ($NUM_AUTO=="yes") echo "checked"; ?>></td>

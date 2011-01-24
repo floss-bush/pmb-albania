@@ -2,14 +2,14 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcollection.inc.php,v 1.25 2010-07-28 07:44:39 mbertin Exp $
+// $Id: subcollection.inc.php,v 1.26 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 // sélecteur pour sous collection
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=subcollection&caller=$caller&mode=$mode&p1=$p1&p2=$p2&p3=$p3&p4=$p4&p5=$p5&p6=$p6&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn";
+$base_url = "./select.php?what=subcollection&caller=$caller&mode=$mode&p1=$p1&p2=$p2&p3=$p3&p4=$p4&p5=$p5&p6=$p6&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&callback=$callback&infield=$infield";
 
 // contenu popup sélection collection
 require('./selectors/templates/sel_sub_collection.tpl.php');
@@ -68,6 +68,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $caller;
 	global $msg;
 	global $charset;
+	global $callback;
 	
 	// on récupére le nombre de lignes qui vont bien
 	if (!$id) {
@@ -110,7 +111,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 			$idediteur = $col->ed_id;
 			$libelleediteur = htmlentities(addslashes($col->ed_name),ENT_QUOTES,$charset);
 			print pmb_bidi("
-			<a href='#' onclick=\"set_parent('$caller', $idsubcoll, '".$libellesubcoll."', $idparentcoll, '".$idparentlibelle."', $idediteur, '".$libelleediteur."')\">
+			<a href='#' onclick=\"set_parent('$caller', $idsubcoll, '".$libellesubcoll."', $idparentcoll, '".$idparentlibelle."', $idediteur, '".$libelleediteur."','$callback')\">
 				$col->sub_coll_name</a>");
 			print pmb_bidi("&nbsp;($col->collection_name.&nbsp;$col->ed_name)<br />");
 		}

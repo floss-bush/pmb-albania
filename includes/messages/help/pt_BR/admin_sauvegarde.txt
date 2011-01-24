@@ -1,0 +1,13 @@
+<h1>Backups</h1>
+</p><p>
+<b>Locais de backup</b>, onde os backups são alocados no disco rígido ou pela rede
+</p><p>
+<b>Grupos de tabelas</b> para backup
+</p><p>
+<b>Conjuntos de backup</b> lugares/grupos de tabelas correspondentes
+</p><p>
+<b>Iniciar backup</b> 
+</p><p>
+<b>Backups realizados</b> exibe as listas de backups já realizados.
+
+

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_exldap.inc.php,v 1.4 2008-11-19 03:59:26 maxman Exp $
+// $Id: empr_exldap.inc.php,v 1.5 2010-12-01 16:28:26 ngantier Exp $
 
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
@@ -133,8 +133,7 @@ function erase_exldap_users($uu){
 	foreach ($auu as $u){
 		$cc=explode('|',$u);
 		$id=$cc[0];
-		$req = "DELETE FROM empr WHERE id_empr=$id";
-      	$res = mysql_query($req);
+      	$res=emprunteur::del_empr($id);
       	if ($res) ++$n;
 	}
 //	print "<h2> utenti exldap eliminati: $n su $nuu</h2>";

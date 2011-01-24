@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sip2.php,v 1.3 2010-08-25 15:11:41 ngantier Exp $
+// $Id: sip2.php,v 1.4 2010-10-13 09:34:47 ngantier Exp $
 
 // définition du minimum nécéssaire 
 $base_path=".";                            
@@ -15,11 +15,12 @@ require_once("$include_path/sip2/sip2_functions.inc.php");
 $message=stripslashes($message);
 
 $protocol=new sip2_protocol("$include_path/sip2/protocol.xml",$charset);
-/*
-$fp=fopen("temp/messages.log","a+");
-fwrite($fp,$message."\n");
-fclose($fp);
-*/
+
+if($debug) $fp_debug=fopen("temp/messages.log","a+");
+if($fp_debug){
+	fwrite($fp_debug,$message."\n");
+}
+
 //Analyse de la trame
 $trame=new sip2_trame($message,$protocol);
 
@@ -72,9 +73,15 @@ if ($message_pair) {
 	    	print "exit";
 	    } else {
 	    	print $tramer->trame;
+	    	if($fp_debug){
+	    		fwrite($fp_debug,$tramer->trame."\n");
+	    	}
 	    	$last_trame=$tramer->trame;
 	    }
 	}
+}
+if($fp_debug){
+	fclose($fp_debug);	    		
 }
 $_SESSION[$id]["ltrame"]=$last_trame;
 ?>

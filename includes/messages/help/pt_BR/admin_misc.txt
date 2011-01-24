@@ -1,0 +1,9 @@
+<h1>Ferramentas</h1>
+<p>Várias opções estão disponíveis aqui.</p>
+</p>
+<b>Limpeza da base de dados</b> ajuda com: remoção de registros sem cópia, etc.</p><p>
+<b>Ações personalizáveis</b> em estatísticas personalizáveis visíveis na guia Editar ou atualizar pedidos processados em uma base regular, que pode ser guardada aqui.</p><p>
+<b>Atualição da base de dados</b> é uma opção muito importante. Ela auxilia na atualização da estrutura do banco de dados quando uma nova versão do PMB é instalada. Este processo não envolve qualquer risco de perda de dados.</p><p>
+<b>Descrição das tabelas</b> como o próprio nome sugere, exibe a estrutura das tabelas do banco de dados e suas propriedades.</p><p>
+<b>Manutenção do MySQL</b> permite que seja feita a verificação da integridade do banco de dados.</p><p>
+<b>Parâmetros</b> permitem a personanlização de configurações gerais da aplicação, por exemplo, o endereço da biblioteca ou a previsão do tempo no OPAC...

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: edit.tpl.php,v 1.19 2009-08-11 12:32:36 ngantier Exp $
+// $Id: edit.tpl.php,v 1.20 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -45,6 +45,7 @@ $edit_menu = "
 <h3 onclick='menuHide(this,event)'>".$msg["edit_tpl_menu"]."</h3>
 <ul>
 <li><a href='./edit.php?categ=tpl&sub=notice'>".$msg["edit_notice_tpl_menu"]."</a></li>
+<li><a href='./edit.php?categ=tpl&sub=autorite'>".$msg["edit_autorite_tpl_menu"]."</a></li>
 </ul>";
 
 if ($pmb_transferts_actif=="1") {

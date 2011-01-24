@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa.inc.php,v 1.34 2010-07-27 10:20:47 mbertin Exp $
+// $Id: resa.inc.php,v 1.35 2010-11-24 07:42:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,6 +20,7 @@ function alert_empr_resa($id_resa=0, $id_empr_concerne=0, $print_mode=0) {
 	global $bouton_impr_conf, $pdflettreresa_priorite_email_manuel;
 	global $pmb_transferts_actif,$transferts_choix_lieu_opac;
 	global $empr_sms_activation;	
+	global $empr_sms_msg_resa_dispo;  		
 	// si c'est une impression à partir du bouton, on prend le paramètre ad hoc
 	if ($bouton_impr_conf) $pdflettreresa_priorite_email = $pdflettreresa_priorite_email_manuel ;
 
@@ -109,8 +110,7 @@ function alert_empr_resa($id_resa=0, $id_empr_concerne=0, $print_mode=0) {
 		} elseif ($pdflettreresa_priorite_email!=3) {
 			if(is_resa_confirme($empr->id_resa)) array_push($tab_resa,$empr->id_resa);
 		}				
-		if(is_resa_confirme($empr->id_resa) && $empr_sms_activation && $empr->empr_tel1 && $empr->empr_sms ){		
-			global $empr_sms_msg_resa_dispo;  		
+		if(is_resa_confirme($empr->id_resa) && $empr_sms_activation && $empr->empr_tel1 && $empr->empr_sms && $empr_sms_msg_resa_dispo){		
 			$res_envoi_sms=send_sms($empr->empr_prenom." ".$empr->empr_nom, $empr->empr_tel1,$msg["mail_obj_resa_validee"],$empr_sms_msg_resa_dispo,$biblio_name, $biblio_email, $headers, "", $PMBuseremailbcc, 1);
 		}		
 	} // end while

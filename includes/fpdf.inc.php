@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fpdf.inc.php,v 1.64 2010-01-07 10:50:03 kantin Exp $
+// $Id: fpdf.inc.php,v 1.65 2010-11-26 13:20:15 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -496,9 +496,15 @@ function lettre_retard_par_lecteur($id_empr) {
 	if(!$pmb_hide_biblioinfo_letter) biblio_info( $marge_page_gauche, 15) ;
 	lecteur_adresse($id_empr, ($marge_page_gauche+90), 45, $dbh, !$pmb_afficher_numero_lecteur_lettres, true);
 	
+	$rqt="select empr_nom, empr_prenom from empr where id_empr='".$id_empr."'";							
+	$req=mysql_query($rqt) or die('Erreur SQL !<br />'.$rqt.'<br />'.mysql_error()); ;
+	$r = mysql_fetch_object($req); 
+	$texte_madame_monsieur=str_replace("!!empr_name!!", $r->empr_nom,$madame_monsieur); 
+	$texte_madame_monsieur=str_replace("!!empr_first_name!!", $r->empr_prenom,$texte_madame_monsieur); 
+	
 	$ourPDF->SetXY ($marge_page_gauche,105);
 	$ourPDF->setFont($pmb_pdf_font, '', 10);
-	$ourPDF->multiCell(($largeur_page - $marge_page_droite - $marge_page_gauche), 8, $madame_monsieur, 0, 'L', 0);
+	$ourPDF->multiCell(($largeur_page - $marge_page_droite - $marge_page_gauche), 8, $texte_madame_monsieur, 0, 'L', 0);
 	$ourPDF->SetXY ($marge_page_gauche,$ourPDF->GetY()+4);
 	$ourPDF->multiCell(($largeur_page - $marge_page_droite - $marge_page_gauche), 5, $before_list, 0, 'J', 0);
 		

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: noeuds.class.php,v 1.18 2010-06-16 12:13:47 ngantier Exp $
+// $Id: noeuds.class.php,v 1.21 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -11,6 +11,7 @@ require_once($class_path."/category.class.php");
 require_once($include_path."/templates/category.tpl.php");
 require_once("$include_path/user_error.inc.php");
 require_once("$include_path/misc.inc.php");
+require_once("$class_path/aut_link.class.php");
 
 class noeuds{
 	
@@ -139,7 +140,6 @@ class noeuds{
 		mysql_query($q, $dbh);
 		
 		// liens entre autorités 
-		require_once("$class_path/aut_link.class.php");
 		$aut_link= new aut_link(AUT_TABLE_CATEG,$id_noeud);
 		$aut_link->delete();
 				
@@ -333,11 +333,19 @@ class noeuds{
 	// ---------------------------------------------------------------
 	//		replace : Remplacement d'un noeud du thésaurus par un autre
 	// ---------------------------------------------------------------
-	function replace($by=0) {
+	function replace($by=0,$link_save=0) {
 		global $msg,$dbh;
 		if (($this->id_noeud == $by) || (!$this->id_noeud) || (!$by))  {
 			return $msg["categ_imposible_remplace_elle_meme"];
 		}
+		
+		$aut_link= new aut_link(AUT_TABLE_CATEG,$this->id_noeud);
+		// "Conserver les liens entre autorités" est demandé
+		if($link_save) {
+			// liens entre autorités
+			$aut_link->add_link_to(AUT_TABLE_CATEG,$by);		
+		}
+		$aut_link->delete();
 		
 		$noeuds_a_garder = new noeuds($by);
 		

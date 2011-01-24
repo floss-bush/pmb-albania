@@ -1,7 +1,7 @@
 /* +---------------------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +---------------------------------------------------------------------------------------+
-// $Id: nomargin.css,v 1.35 2010-07-27 13:34:13 pdesiles Exp $
+// $Id: nomargin.css,v 1.38 2010-12-23 13:44:54 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -747,4 +747,176 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+.authorities{
+	background : #A8A8A8;
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+}
+
+#empr_onglet ul.empr_tabs{
+	font-size: 12px;
+    list-style: none outside none;
+    padding: 0;
+}
+
+#empr_onglet ul.empr_tabs li:first-child a, #empr_onglet ul.empr_tabs li#current:first-child {
+	-moz-border-radius-topleft: 6px;
+	border-radius-topleft: 6px;
+	-webkit-border-radius-topleft: 6px;
+}
+
+#empr_onglet ul.empr_tabs li:last-child a, #empr_onglet ul.empr_tabs li#current:last-child {
+	-moz-border-radius-topright: 6px;
+	border-radius-topright: 6px;
+	-webkit-border-radius-topright: 6px;
+}
+
+#empr_onglet ul.empr_tabs li{
+    display: block;
+    float: left;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background-color: #CFB898;
+	border-left: 1px solid #CFB898;
+    border-top: 1px solid #CFB898;
+    border-right: 1px solid #CFB898;
+    border-bottom: 1px solid #CFB898;
+    color: #222222;
+    display: table;
+    float: left;
+    font-weight: normal;
+    height: 18px;
+    padding: 5px 8px 5px 8px;
+    text-decoration: none;
+}
+
+#empr_onglet ul.empr_tabs li a:hover{
+    background-color: #F9F3D5;
+    border-left: 1px solid #CFB898;
+    border-top: 1px solid #CFB898;
+    border-right: 1px solid #CFB898;
+    border-bottom: 1px solid #F9F3D5;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+    background-color: #F9F3D5;
+    border-left: 1px solid #CFB898;
+    border-top: 1px solid #CFB898;
+    border-right: 1px solid #CFB898;
+    border-bottom: 1px solid #F9F3D5;
+    float: left;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	color:#000000;
+    background: none;
+    border: none;
+    font-weight: bold;
+}
+
+#empr_onglet ul.empr_tabs li#current a:hover {
+    border: none;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 13px;
+}
+
+ul.empr_subtabs li{
+	display:inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+ ul.empr_subtabs li a {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+    background: #F1E1B5;
+    border: 1px solid #72643F;
+    color: #72643F;
+    cursor: pointer;
+    text-decoration: none;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+}
+
+ ul.empr_subtabs li a:hover {
+	background: #fff0a7;
+	border: 1px solid #333333;
+    color: #333333;
+}
+
+#empr-list #onglets_list {
+
+	position: relative;
+}
+
+#empr-list #onglets_list ul.list_tabs li#current a {
+	font-weight: bold;
+}
+
+#empr-list #onglets_list ul.list_tabs {
+	border-bottom: 1px solid #CCCCCC;
+	margin-top: 30px !important;
+	margin-left: 0px;
+}
+
+#empr-resa small form input {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+    background: #F1E1B5;
+    border: 1px solid #72643F;
+    color: #72643F;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+}
+
+#empr-resa small form input:hover {
+	background: #fff0a7;
+	border: 1px solid #333333;
+    color: #333333;
 }

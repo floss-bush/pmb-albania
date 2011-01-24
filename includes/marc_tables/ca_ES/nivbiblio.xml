@@ -1,1 +1,12 @@
-<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd"><!-- liste des section 995 (public visé) de AFBDP$Id: nivbiblio.xml,v 1.1 2005-03-19 18:40:29 touraine37 Exp $ --><XMLlist>	<entry code="m">monografies</entry>	<entry code="s">publicacions periòdiques</entry></XMLlist>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement (français)
+$Id: nivbiblio.xml,v 1.3 2010-12-18 14:52:59 rgarcia Exp $ -->
+
+<XMLlist>
+	<entry code="m">Monografia</entry>
+	<entry code="a">Article</entry>
+	<entry code="s">Sèrie</entry>
+	<entry code="b">Sèrie check-in</entry>
+</XMLlist>

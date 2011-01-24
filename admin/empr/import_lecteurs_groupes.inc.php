@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: import_lecteurs_groupes.inc.php,v 1.9 2009-05-16 11:12:01 dbellamy Exp $
+// $Id: import_lecteurs_groupes.inc.php,v 1.10 2010-12-01 16:28:26 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -270,15 +270,18 @@ function import($separateur, $dbh, $type_import){
 
 		           
         if ($type_import == 'maj_complete') {
-        	$requete_empr_groupe_delete = "DELETE FROM empr_groupe LEFT JOIN empr ON empr_id=id_empr ";
-        	$requete_count_empr_delete = "SELECT id_empr FROM empr ";
-			$requete_empr_delete = "DELETE FROM empr ";
-			$requete_empr_where = "LEFT JOIN pret ON pret_idempr=id_empr WHERE pret_idempr IS NULL and empr_modif != '$date_auj' and empr_categ=$categorie and empr_codestat= $codestat";
-			if ($pmb_lecteurs_localises=="1") {$requete_empr_where .= " and empr_location=$localisation";}
+        	$requete_empr_groupe_delete = "DELETE FROM empr_groupe LEFT JOIN empr ON empr_id=id_empr LEFT JOIN pret ON pret_idempr=id_empr WHERE pret_idempr IS NULL and empr_modif != '$date_auj' and empr_categ=$categorie and empr_codestat= $codestat";
+			if ($pmb_lecteurs_localises=="1") {
+				$requete_empr_where .= " and empr_location=$localisation";
+			}
 			mysql_query($requete_empr_groupe_delete.$requete_empr_where,$dbh);
-			$count_empr_delete = mysql_query($requete_count_empr_delete.$requete_empr_where,$dbh);
-			$cpt_delete=mysql_num_rows($count_empr_delete);
-        	mysql_query($requete_empr_delete.$requete_empr_where,$dbh);
+			
+        	$requete_list_empr_delete = "SELECT id_empr FROM empr LEFT JOIN pret ON pret_idempr=id_empr 
+        		WHERE pret_idempr IS NULL and empr_modif != '$date_auj' and empr_categ=$categorie and empr_codestat= $codestat $requete_empr_where ";
+        	$list_empr_delete=mysql_query($requete_list_empr_delete,$dbh);
+        	while (($empr_delete = mysql_fetch_array($list_empr_delete))) {
+            	emprunteur::del_empr($empr_delete["id_empr"]);
+            }
         }
 		
         //Affichage des insert et update

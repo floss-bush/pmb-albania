@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax_selector.php,v 1.20 2010-01-12 14:13:54 mbertin Exp $
+// $Id: ajax_selector.php,v 1.22 2010-12-23 09:11:41 arenou Exp $
 
 $base_path=".";
 require_once("includes/init.inc.php");
@@ -138,10 +138,76 @@ switch($completion):
 				if (!$array_selector[$id_categ_retenue]) {			
 					$tab_lib_categ[$display_temp] = $lib_simple;		
 					$array_selector["*".$id_categ_retenue] = $tab_lib_categ ;
-					if ($display_temp_prefix) $array_prefix["*".$id_categ_retenue]=$display_temp_prefix;
+					if ($display_temp_prefix) {
+						$array_prefix["*".$id_categ_retenue]=array(
+							'id' => $categ->num_thesaurus,
+							'libelle' => $display_temp_prefix
+						);	
+					}
 				}
 			} // fin while		
 		}
+		$origine = "ARRAY" ;
+		break;
+	case 'categories_mul':
+		$array_selector=array();
+		require_once("$class_path/thesaurus.class.php");
+		require_once("$class_path/categories.class.php");
+		
+		if ($opac_thesaurus==1) $id_thes=-1;
+			else $id_thes=$opac_thesaurus_defaut;
+
+		$aq=new analyse_query($start);
+
+		$members_catdef = $aq->get_query_members("catdef", "catdef.libelle_categorie", "catdef.index_categorie", "catdef.num_noeud");
+		$members_catlg = $aq->get_query_members("catlg", "catlg.libelle_categorie", "catlg.index_categorie", "catlg.num_noeud");
+
+		$thesaurus_requette='';
+		
+		if($thesaurus_mode_pmb==0) $thesaurus_requette= " id_thesaurus='$thesaurus_defaut' and ";
+		elseif($linkfield) $thesaurus_requette= " id_thesaurus in ($linkfield) and ";
+		
+		$requete_langue="select catlg.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catlg.langue as langue, 
+		catlg.libelle_categorie as categ_libelle,catlg.index_categorie as index_categorie, catlg.note_application as categ_comment, 
+		(".$members_catlg["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catlg on noeuds.id_noeud = catlg.num_noeud 
+		and catlg.langue = '".$lang."' where $thesaurus_requette catlg.libelle_categorie like '".addslashes($start)."%' and catlg.libelle_categorie not like '~%'";
+		
+		$requete_defaut="select catdef.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catdef.langue as langue, 
+		catdef.libelle_categorie as categ_libelle,catdef.index_categorie as index_categorie, catdef.note_application as categ_comment, 
+		(".$members_catdef["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catdef on noeuds.id_noeud = catdef.num_noeud 
+		and catdef.langue = thesaurus.langue_defaut where $thesaurus_requette catdef.libelle_categorie like '".addslashes($start)."%' and catdef.libelle_categorie not like '~%'";
+		
+		$requete="select * from (".$requete_langue." union ".$requete_defaut.") as sub1 group by categ_id order by pert desc,num_thesaurus, index_categorie limit 20";
+
+		$res = @mysql_query($requete, $dbh) or die(mysql_error()."<br />$requete");
+		while(($categ=mysql_fetch_object($res))) {
+			$display_temp = "" ;
+			$lib_simple="";
+			$tab_lib_categ="";
+			$temp = new categories($categ->categ_id, $categ->langue);
+			if ($id_thes == -1) {
+				$thes = new thesaurus($categ->num_thesaurus);
+				$display_temp = htmlentities('['.$thes->libelle_thesaurus.'] ',ENT_QUOTES, $charset);
+			}
+			$id_categ_retenue = $categ->categ_id ;	
+			if($categ->categ_see) {
+				$id_categ_retenue = $categ->categ_see ;
+				$temp = new categories($categ->categ_see, $categ->langue);
+				$display_temp.= $categ->categ_libelle." -> ";
+				$lib_simple = $temp->libelle_categorie;
+				if ($thesaurus_categories_show_only_last) $display_temp.= $temp->libelle_categorie;
+					else $display_temp.= categories::listAncestorNames($categ->categ_see, $categ->langue);				
+				$display_temp.= "@";
+			} else {
+				$lib_simple = $categ->categ_libelle;
+				if ($thesaurus_categories_show_only_last) $display_temp.= $categ->categ_libelle;
+				else $display_temp.= categories::listAncestorNames($categ->categ_id, $categ->langue); 			
+			}		
+			
+			$tab_lib_categ[$display_temp] = $lib_simple; 
+			$array_selector[$id_categ_retenue] = $tab_lib_categ;
+			$array_prefix[$id_categ_retenue]['id'] = $categ->num_thesaurus;
+		} // fin while		
 		$origine = "ARRAY" ;
 		break;
 	case 'authors':
@@ -245,7 +311,7 @@ switch ($origine):
 		$i=1;
 		while($r=@mysql_fetch_array($resultat)) {
 			if($r[2])
-				echo "<div id="."c".$id."_".$i." style='display:none'>$r[2]</div>";
+				echo "<div id="."c".$id."_".$i." style='display:none' autid='".$r[1]."'>".$r[2]."</div>";
 			echo "<div id='l".$id."_".$i."'";
 			if ($autfield) echo " autid='".$r[1]."'";
 			echo " style='cursor:default;font-family:arial,helvetica;font-size:10px;width:100%' onClick='if(document.getElementById(\"c".$id."_".$i."\")) ajax_set_datas(\"c".$id."_".$i."\",\"$id\"); else ajax_set_datas(\"l".$id."_".$i."\",\"$id\");'>".$r[0]."</div>";
@@ -267,7 +333,8 @@ switch ($origine):
 		$i=1;
 		while(list($index, $value) = each($array_selector)) {
 			$grey=false;
-			$prefix=$array_prefix[$index];
+			$prefix=$array_prefix[$index]['libelle'];
+			$thesid = $array_prefix[$index]['id'];
 			if ($index[0]=="*") { $index=substr($index,1); $grey=true; }
 			if ($prefix) {
 				echo "<div id='p".$id.$i."' style='cursor:default;font-family:arial,helvetica;font-size:10px;".($prefix?"width:100%":"").($grey?";color:#888":"").";'>";
@@ -277,11 +344,12 @@ switch ($origine):
 			if(is_array($value)){
 				foreach($value as $k=>$v){
 					$lib_liste = $k;
-					echo "<div id="."c".$id."_".$i." style='display:none'>$v</div>";
+					echo "<div id="."c".$id."_".$i." style='display:none' thesid='".$thesid."' autid='".$index."'>$v</div>";
 				}
 			} else $lib_liste=$value;
 			echo " <".($prefix?"span":"div")." id='l".$id."_".$i."'";
 			if ($autfield) echo " autid='".$index."'";
+			if ($thesid) echo " thesid='".$thesid."'";
 			echo " style='cursor:default;font-family:arial,helvetica;font-size:10px;".(!$prefix?"width:100%":"").($grey?";color:#888":"").";' onClick='if(document.getElementById(\"c".$id."_".$i."\")) ajax_set_datas(\"c".$id."_".$i."\",\"$id\"); else ajax_set_datas(\"l".$id."_".$i."\",\"$id\");'>".$lib_liste."</".($prefix?"span":"div").">";
 			if ($prefix) echo "</div>";
 			$i++;	

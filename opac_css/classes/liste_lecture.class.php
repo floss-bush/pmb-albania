@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: liste_lecture.class.php,v 1.19 2010-08-19 07:35:07 touraine37 Exp $
+// $Id: liste_lecture.class.php,v 1.21 2010-12-27 14:15:50 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -150,7 +150,7 @@ class liste_lecture {
 	 * Accepte l'accès aux listes confidentielles
 	 */
 	function accepter_acces_confidentiel(){		
-		global $cb_demande, $dbh,$opac_connexion_phrase ,$pmb_opac_url, $msg;
+		global $cb_demande, $dbh,$opac_connexion_phrase ,$opac_url_base, $msg;
 		
 		for($i=0;$i<sizeof($cb_demande);$i++){
 			$info = explode('-',$cb_demande[$i]);
@@ -168,7 +168,7 @@ class liste_lecture {
 			$login = $destinataire->empr_login;
 			$code=md5($opac_connexion_phrase.$login.$date);			
 			$corps = sprintf($msg['list_lecture_intro_mail'],$destinataire->nom,$sender->nom_liste).", <br />".sprintf($msg['list_lecture_confirm_mail'],$sender->nom,$sender->nom_liste);
-			$corps .= "<br /><br /><a href='".$pmb_opac_url."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=shared_list' >".sprintf($msg['list_lecture_confirm_redir_mail'],$sender->nom_liste)."</a>";
+			$corps .= "<br /><br /><a href='".$opac_url_base."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=shared_list' >".sprintf($msg['list_lecture_confirm_redir_mail'],$sender->nom_liste)."</a>";
 			
 			mailpmb($destinataire->nom,$destinataire->empr_mail,sprintf($msg['list_lecture_objet_confirm_mail'],$sender->nom_liste),stripslashes($corps),$sender->nom,$sender->empr_mail);
 			
@@ -179,7 +179,7 @@ class liste_lecture {
 	 * Refuse l'accès aux listes confidentielles
 	 */
 	function refuser_acces_confidentiel(){
-		global $cb_demande, $dbh, $msg, $com,$pmb_opac_url,$opac_connexion_phrase;
+		global $cb_demande, $dbh, $msg, $com,$opac_url_base,$opac_connexion_phrase;
 		
 		for($i=0;$i<sizeof($cb_demande);$i++){
 			$info = explode('-',$cb_demande[$i]);
@@ -197,7 +197,7 @@ class liste_lecture {
 			$code=md5($opac_connexion_phrase.$login.$date);			
 			$corps = sprintf($msg['list_lecture_intro_mail'],$destinataire->nom,$sender->nom_liste).", <br />".sprintf($msg['list_lecture_refus_corps_mail'],$sender->nom,$sender->nom_liste);
 			if($com) $corps .= sprintf("<br />".$msg['list_lecture_corps_com_mail'],$sender->nom," <br />".$com);
-			$corps .= "<br /><br /><a href='".$pmb_opac_url."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=my_list' >".$msg['redirection_mail_link']."</a>";
+			$corps .= "<br /><br /><a href='".$opac_url_base."empr.php?code=$code&emprlogin=$login&date_conex=$date&tab=lecture&lvl=private_list&sub=my_list' >".$msg['redirection_mail_link']."</a>";
 			
 			mailpmb($destinataire->nom,$destinataire->empr_mail,sprintf($msg['list_lecture_refus_mail'],$sender->nom_liste),stripslashes($corps),$sender->nom,$sender->empr_mail);
 		}
@@ -369,10 +369,12 @@ class liste_lecture {
 						<label>".$msg['list_lecture_no_mylist']."</label>
 					</div>
 				</div></form>";
+				
 				$liste_lecture_prive = str_replace('!!current_shared!!','',$liste_lecture_prive);
 				$liste_lecture_prive = str_replace('!!my_current!!','current',$liste_lecture_prive);
 				$liste_lecture_prive = str_replace('!!listes!!',$affichage_liste,$liste_lecture_prive);				
 				$this->display=$liste_lecture_prive;
+				return;
 			}
 			while(($liste=mysql_fetch_object($res))){
 				$div_description = "";
@@ -498,7 +500,7 @@ class liste_lecture {
 		$res = mysql_query($rqt) ;
 		if(mysql_num_rows($res) == 0){
 			//Si on a aucune liste partagée dispo
-			$affichage_liste .= "<div class='row'><label>".$msg['list_lecture_no_publiclist']."</label></div></form>";		
+			$affichage_liste .= "<div class='row'><label>".$msg['list_lecture_no_publiclist']."</label></div>";		
 			$liste_lecture_public = str_replace('!!inscrire_btn!!','',$liste_lecture_public);
 			$liste_lecture_public = str_replace('!!desinscrire_btn!!','',$liste_lecture_public);
 			$liste_lecture_public = str_replace('!!public_list!!',$affichage_liste,$liste_lecture_public);
@@ -588,7 +590,7 @@ class liste_lecture {
 		order by nom_liste";
 		$res=mysql_query($req,$dbh);
 		if(!mysql_num_rows($res)){		
-			$affichage_liste .= "<div class='row'><label>".$msg['list_lecture_no_demande']."</label></div></form>";	
+			$affichage_liste .= "<div class='row'><label>".$msg['list_lecture_no_demande']."</label></div>";	
 			$liste_demande =  str_replace("!!accepter_btn!!",'',$liste_demande);
 			$liste_demande =  str_replace("!!refuser_btn!!",'',$liste_demande);
 			$liste_demande =  str_replace("!!demande_list!!",$affichage_liste,$liste_demande);

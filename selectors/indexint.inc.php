@@ -2,14 +2,14 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: indexint.inc.php,v 1.33 2010-07-28 07:44:39 mbertin Exp $
+// $Id: indexint.inc.php,v 1.34 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 // gestion d'un élément à ne pas afficher
 if (!$no_display) $no_display=0;
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=indexint&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&typdoc=$typdoc&f_user_input=$f_user_input&dyn=$dyn";
+$base_url = "./select.php?what=indexint&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&typdoc=$typdoc&f_user_input=$f_user_input&dyn=$dyn&callback=$callback&infield=$infield";
 if (!$id_pclass && !$num_pclass && $thesaurus_classement_defaut){
 	$id_pclass=$thesaurus_classement_defaut;
 }elseif (!$id_pclass && $num_pclass){
@@ -126,6 +126,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $charset;
 	global $msg ;
 	global $thesaurus_classement_mode_pmb,$thesaurus_classement_defaut,$id_pclass,$typdoc;
+	global $callback;
 
 	
 	if ($thesaurus_classement_mode_pmb != 0) { //classement indexation décimale autorisé en parametrage
@@ -180,7 +181,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 				$entry="[".$indexint->name_pclass."] ".$entry;
 			}
 			print pmb_bidi("
-			<a href='#' onclick=\"set_parent('$caller', '$indexint->indexint_id', '".htmlentities(addslashes(str_replace("\r"," ",str_replace("\n"," ",$entry))),ENT_QUOTES,$charset)."')\">
+			<a href='#' onclick=\"set_parent('$caller', '$indexint->indexint_id', '".htmlentities(addslashes(str_replace("\r"," ",str_replace("\n"," ",$entry))),ENT_QUOTES,$charset)."','$callback')\">
 				$entry</a>");
 			print "<br />";
 		}

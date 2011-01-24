@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docs_codestat.class.php,v 1.5 2007-03-10 09:25:49 touraine37 Exp $
+// $Id: docs_codestat.class.php,v 1.6 2011-01-12 10:39:44 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -31,11 +31,11 @@ function docs_codestat($id=0) {
 		/* on cherche à atteindre un code statistique existant */
 		$this->id = $id;
 		$this->getData();
-		} else {
-			$this->id = 0;
-			$this->getData();
-			}
+	} else {
+		$this->id = 0;
+		$this->getData();
 	}
+}
 
 /* ---------------------------------------------------------------
 		getData() : récupération des propriétés
@@ -53,7 +53,7 @@ function getData() {
 	if(!mysql_num_rows($result)) return;
 		
 	$data = mysql_fetch_object($result);
-	$this->id = $data->idscodestat;		
+	$this->id = $data->idcode;		
 	$this->libelle = $data->codestat_libelle;
 	$this->statisdoc_codage_import = $data->statisdoc_codage_import;
 	$this->statisdoc_owner = $data->statisdoc_owner;
@@ -116,7 +116,48 @@ function import($data) {
 
 	} /* fin méthode import */
 
+/* une fonction pour générer des combo Box 
+   paramêtres :
+	$selected : l'élément sélectioné le cas échéant
+   retourne une chaine de caractères contenant l'objet complet */
+function gen_combo_box ( $selected ) {
+	global $msg;
+	$requete="select idcode, codestat_libelle from docs_codestat order by codestat_libelle ";
+	$champ_code="idcode";
+	$champ_info="codestat_libelle";
+	$nom="book_codestat_id";
+	$on_change="";
+	$liste_vide_code="0";
+	$liste_vide_info=$msg['class_codestat'];
+	$option_premier_code="";
+	$option_premier_info="";
+	$gen_liste_str="";
+	$resultat_liste=mysql_query($requete) or die (mysql_error()." ".$requete);
+	$gen_liste_str = "<select name=\"$nom\" onChange=\"$on_change\">\n" ;
+	$nb_liste=mysql_numrows($resultat_liste);
+	if ($nb_liste==0) {
+		$gen_liste_str.="<option value=\"$liste_vide_code\">$liste_vide_info</option>\n" ;
+	} else {
+		if ($option_premier_info!="") {	
+			$gen_liste_str.="<option value=\"".$option_premier_code."\" ";
+			if ($selected==$option_premier_code) $gen_liste_str.="selected" ;
+			$gen_liste_str.=">".$option_premier_info."\n";
+		}
+		$i=0;
+		while ($i<$nb_liste) {
+			$gen_liste_str.="<option value=\"".mysql_result($resultat_liste,$i,$champ_code)."\" " ;
+			if ($selected==mysql_result($resultat_liste,$i,$champ_code)) {
+				$gen_liste_str.="selected" ;
+				}
+			$gen_liste_str.=">".mysql_result($resultat_liste,$i,$champ_info)."</option>\n" ;
+			$i++;
+		}
+	}
+	$gen_liste_str.="</select>\n" ;
+	return $gen_liste_str ;
+} /* fin gen_combo_box */
 
+	
 
 } /* fin de définition de la classe */
 

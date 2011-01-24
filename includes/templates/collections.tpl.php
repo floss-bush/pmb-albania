@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collections.tpl.php,v 1.19 2010-06-16 12:13:47 ngantier Exp $
+// $Id: collections.tpl.php,v 1.21 2010-12-06 15:53:22 ngantier Exp $
 
 // templates pour gestion des autorités collections
 
@@ -92,6 +92,15 @@ function check_link(id) {
 	<input type='text' class='saisie-80em' name='collection_web' id='collection_web' value=\"!!collection_web!!\" maxlength='255' />
 	<input class='bouton' type='button' onClick=\"check_link('collection_web')\" title='$msg[CheckLink]' value='$msg[CheckButton]' />
 </div>
+
+<!-- Commentaire -->
+<div class='row'>
+	<label class='etiquette' for='comment'>$msg[collection_comment]</label>
+</div>
+<div class='row'>
+	<textarea class='saisie-80em' id='comment' name='comment' cols='62' rows='4' wrap='virtual'>!!comment!!</textarea>
+</div>
+
 <!-- aut_link -->
 </div>
 
@@ -206,6 +215,14 @@ function check_link(id) {
 	<input class='bouton' type='button' onClick=\"check_link('subcollection_web')\" title='$msg[CheckLink]' value='$msg[CheckButton]' />
 </div>
 
+<!-- Commentaire -->
+<div class='row'>
+	<label class='etiquette' for='comment'>$msg[subcollection_comment]</label>
+</div>
+<div class='row'>
+	<textarea class='saisie-80em' id='comment' name='comment' cols='62' rows='4' wrap='virtual'>!!comment!!</textarea>
+</div>
+
 <!-- aut_link -->
 		<div class='row'></div>
 	</div>
@@ -269,6 +286,9 @@ $collection_replace_form = "
 		<input type='hidden' name='dsubcoll_lib'>
 		<input type='hidden' name='ed_id' value='!!ed_id!!'>
 		</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 	</div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=collections&sub=collection_form&id=!!id!!'\">
@@ -321,6 +341,9 @@ $sub_coll_rep_form = "
 		<input type='text' class='saisie-30emr' name='ed_libelle' readonly value='' />
 		<input type='hidden' name='ed_id' value=''>
 		</div>
+	<div class='row'>		
+		<input id='aut_link_save' name='aut_link_save' type='checkbox'  value='1'>".$msg["aut_replace_link_save"]."
+	</div>	
 	</div>
 <div class='row'>
 	<input type='button' class='bouton' value='$msg[76]' onClick=\"document.location='./autorites.php?categ=souscollections&sub=collection_form&id=!!id!!'\">

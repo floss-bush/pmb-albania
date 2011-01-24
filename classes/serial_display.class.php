@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serial_display.class.php,v 1.119 2010-07-30 13:17:48 mbertin Exp $
+// $Id: serial_display.class.php,v 1.121 2010-12-02 16:43:01 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -21,6 +21,14 @@ if (!count($langue_doc)) {
 	$f_lang = new marc_list('lang');
 	$langue_doc = $f_lang->table;
 } 
+if (!count($icon_doc)) {
+	$icon_doc = new marc_list('icondoc');
+	$icon_doc = $icon_doc->table;
+}
+if(!count($biblio_doc)) {
+	$biblio_doc = new marc_list('nivbiblio');
+	$biblio_doc = $biblio_doc->table;
+}
 
 // propriétés pour le selecteur de panier (kinda template)
 $selector_prop = "toolbar=no, dependent=yes, width=500, height=400, resizable=yes, scrollbars=yes";
@@ -936,6 +944,15 @@ function do_image(&$entree) {
 	function do_header() {
 		global $dbh, $base_path;
 		global $charset;
+		global $icon_doc,$biblio_doc,$use_opac_url_base,$opac_url_base;
+		
+		//Icone type de Document
+		$icon = $icon_doc[$this->notice->niveau_biblio.$this->notice->typdoc];
+		if ($icon) {    			
+			$info_bulle_icon=$biblio_doc[$this->notice->niveau_biblio]." : ".$tdoc->table[$this->notice->typdoc];
+			if ($use_opac_url_base)	$this->icondoc="<img src=\"".$opac_url_base."images/$icon\" alt=\"$info_bulle_icon\" title=\"$info_bulle_icon\"align='top' />";
+			else $this->icondoc="<img src=\"".$base_path."/images/$icon\" alt=\"$info_bulle_icon\" title=\"$info_bulle_icon\"align='top' />";
+    	}	
 		
 		if ($this->notice->statut) {
 			$rqt_st = "SELECT class_html , gestion_libelle FROM notice_statut WHERE id_notice_statut='".$this->notice->statut."' ";
@@ -961,6 +978,11 @@ function do_image(&$entree) {
 		$this->memo_titre=$this->notice->tit1;
 		$this->memo_complement_titre=$this->notice->tit4;
 		$this->memo_titre_parallele=$this->notice->tit3;
+		
+		if ((floor($pmb_notice_reduit_format/10) == 1)&&($this->memo_complement_titre)) {
+			$this->header.="&nbsp;:&nbsp;".htmlentities($this->memo_complement_titre,ENT_QUOTES,$charset);
+		}
+		
 		$aut1_libelle = array() ;
 		//$this->responsabilites
 		$as = array_search ("0", $this->responsabilites["responsabilites"]) ;
@@ -1033,7 +1055,7 @@ function do_image(&$entree) {
 				if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
 				else $this->header .= "<img src=\"".$opac_url_base."images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
 			}
-			
+			if ($this->icondoc) $this->header = $this->icondoc.$this->header;
 			if ($this->drag) $this->header.="<span onMouseOver='if(init_drag) init_drag();' id=\"NOTI_drag_".$this->notice_id."\" dragicon=\"$base_path/images/icone_drag_notice.png\" dragtext=\"".htmlentities($this->notice->tit1,ENT_QUOTES, $charset)."\" draggable=\"yes\" dragtype=\"notice\" callback_before=\"show_carts\" callback_after=\"\" style=\"padding-left:7px\"><img src=\"".$base_path."/images/notice_drag.png\"/></span>";
 			if ($this->show_statut) $this->header = $this->aff_statut.$this->header ;
 		}	

@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax.js,v 1.9 2009-10-14 12:13:55 kantin Exp $
+// $Id: ajax.js,v 1.11 2010-12-23 09:13:00 arenou Exp $
 
 requete=new Array();
 line=new Array();
@@ -127,11 +127,27 @@ function ajax_set_datas(sp_name,id) {
 	var sp=document.getElementById(sp_name);
 	var text=sp.firstChild.nodeValue;
 	var autfield=document.getElementById(id).getAttribute("autfield");
-	if (autfield) document.getElementById(autfield).value=sp.getAttribute("autid");
+	if (autfield){
+		document.getElementById(autfield).value=sp.getAttribute("autid");
+		var thesid = sp.getAttribute("thesid");
+		if(thesid && thesid >0){
+			var theselector = document.getElementById(autfield.replace('field','fieldvar').replace("_id","")+"[id_thesaurus][]");
+			if(theselector){
+				for (var i=1 ; i< theselector.options.length ; i++){
+					if (theselector.options[i].value == thesid){
+						theselector.options[i].selected = true;
+						break;
+					}
+				}
+			}
+		}	
+	}
+	var callback=document.getElementById(id).getAttribute("callback");
 	document.getElementById(id).value=text;
 	document.getElementById(id).focus();
 	document.getElementById("d"+id).style.display='none';
 	not_show[id]=true;
+	if(callback)window[callback](id);
 }
 		
 function ajax_update_info(e,code) {
@@ -234,9 +250,8 @@ function ajax_update_info(e,code) {
 				var sp=document.getElementById("l"+id+"_"+line[id]);
 				var text=sp.firstChild.nodeValue;
 				var autfield=document.getElementById(id).getAttribute("autfield");
-				var div_cache=document.getElementById("c"+id+"_"+line[id]);
-				
-				if (autfield) {
+				var callback=document.getElementById(id).getAttribute("callback");
+				var div_cache=document.getElementById("c"+id+"_"+line[id]);								if (autfield) {
 					var autid=sp.getAttribute("autid");
 					document.getElementById(autfield).value=autid;
 				}
@@ -252,6 +267,19 @@ function ajax_update_info(e,code) {
 			if (e.stopPropagation){
 				e.stopPropagation();
 			}
+			var thesid = sp.getAttribute("thesid");
+			if(thesid && thesid >0){
+				var theselector = document.getElementById(autfield.replace('field','fieldvar').replace("_id","")+"[id_thesaurus][]");
+				if(theselector){
+					for (var i=1 ; i< theselector.options.length ; i++){
+						if (theselector.options[i].value == thesid){
+							theselector.options[i].selected = true;
+							break;
+						}
+					}
+				}
+			}
+			if (callback) window[callback](id);
 			break;
 		case 113:
 			if ((document.getElementById("d"+id).style.display=="none")&&(document.getElementById(id).value!="")) {

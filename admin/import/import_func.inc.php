@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: import_func.inc.php,v 1.90 2010-08-17 08:29:32 mbertin Exp $
+// $Id: import_func.inc.php,v 1.91 2010-12-13 10:10:11 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -799,6 +799,9 @@ function import_new_notice() {
 			if(!$serie_id){
 				$serie_id = serie::import(clean_string($serie_200[0]['i']));
 				$serie[0]['t'] = $serie_200[0]['i'];
+				//$tnvol_ins=$serie_200[0]['h'];
+			}
+			if(!$tnvol_ins){
 				$tnvol_ins=$serie_200[0]['h'];
 			}
 			$serie[0]['t'] ? $index_serie = ' '.strip_empty_words($serie[0]['t']).' ' : $index_serie='';
@@ -1818,7 +1821,7 @@ function creer_bulletin($id_perio=0,$bulletin=array(),$titre_perio="",$code_peri
  * Bulletin est un tableau avec les clés : titre, date, mention, num
  */
 function creer_notice_article($ancien_id=0,$titre_article="",$npage_article="",$id_article=0,$bulletin=array(),$titre_perio="",$code_perio="",$id_perio=0){
-	global $notices_crees,$dbh;
+	global $notices_crees,$dbh,$msg;
 	if($ancien_id){
 		if($notices_crees[$ancien_id]){
 			$id_article=$notices_crees[$ancien_id];
@@ -1839,9 +1842,22 @@ function creer_notice_article($ancien_id=0,$titre_article="",$npage_article="",$
 				// Mise à jour de la table "notices_mots_global_index"
 				notice::majNoticesMotsGlobalIndex($id_article);
 			}
-			//On créer le lien entre le bulletin et l'article
-			$requete="insert into analysis (analysis_bulletin, analysis_notice) values ( '".addslashes($id_bulletin)."', '".addslashes($id_article)."' )";
-			mysql_query($requete,$dbh);
+			//Je regarde si je n'ai pas un autre article avec ce titre
+			$requete="SELECT old.notice_id,old.tit1 FROM notices new, notices old JOIN analysis ON analysis_notice=old.notice_id WHERE new.notice_id='".addslashes($id_article)."' AND new.notice_id!=old.notice_id AND analysis_bulletin='".addslashes($id_bulletin)."' AND new.tit1=old.tit1 ";
+			$res_doubl=mysql_query($requete);
+			if(mysql_num_rows($res_doubl)){
+				notice::del_notice($id_article);
+				mysql_query("insert into error_log (error_origin, error_text) values ('import_".addslashes(SESSid).".inc', '".$msg[542]." $id_unimarc "." $isbn_OK ".addslashes(mysql_result($res_doubl,0,1))."') ",$dbh) ;
+				$id_article=mysql_result($res_doubl,0,0);//A voir pr modif
+			}else{
+				$requete="SELECT notice_id FROM notices WHERE notice_id='".addslashes($id_article)."'";
+				$res_art=mysql_query($requete);
+				if(mysql_num_rows($res_art)){
+					//On créer le lien entre le bulletin et l'article
+					$requete="insert into analysis (analysis_bulletin, analysis_notice) values ( '".addslashes($id_bulletin)."', '".addslashes($id_article)."' )";
+					mysql_query($requete,$dbh);
+				}
+			}
 			$notices_crees[$ancien_id]=$id_article;
 		}
 	}else{
@@ -1861,9 +1877,22 @@ function creer_notice_article($ancien_id=0,$titre_article="",$npage_article="",$
 			// Mise à jour de la table "notices_mots_global_index"
 			notice::majNoticesMotsGlobalIndex($id_article);
 		}
-		//On créer le lien entre le bulletin et l'article
-		$requete="insert into analysis (analysis_bulletin, analysis_notice) values ( '".addslashes($id_bulletin)."', '".addslashes($id_article)."' )";
-		mysql_query($requete,$dbh);
+		//Je regarde si je n'ai pas un autre article avec ce titre
+		$requete="SELECT old.notice_id,old.tit1 FROM notices new, notices old JOIN analysis ON analysis_notice=old.notice_id WHERE new.notice_id='".addslashes($id_article)."' AND new.notice_id!=old.notice_id  AND analysis_bulletin='".addslashes($id_bulletin)."' AND new.tit1=old.tit1 ";
+		$res_doubl=mysql_query($requete);
+		if(mysql_num_rows($res_doubl)){
+			notice::del_notice($id_article);
+			mysql_query("insert into error_log (error_origin, error_text) values ('import_".addslashes(SESSid).".inc', '".$msg[542]." $id_unimarc "." $isbn_OK ".addslashes(mysql_result($res_doubl,0,1))."') ",$dbh) ;
+			$id_article=mysql_result($res_doubl,0,0);//A voir pr modif
+		}else{
+			$requete="SELECT notice_id FROM notices WHERE notice_id='".addslashes($id_article)."'";
+			$res_art=mysql_query($requete);
+			if(mysql_num_rows($res_art)){
+				//On créer le lien entre le bulletin et l'article
+				$requete="insert into analysis (analysis_bulletin, analysis_notice) values ( '".addslashes($id_bulletin)."', '".addslashes($id_article)."' )";
+				mysql_query($requete,$dbh);
+			}
+		}
 	}
 	return $id_article;
 }

@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax.js,v 1.17 2010-01-07 10:50:03 kantin Exp $
+// $Id: ajax.js,v 1.20 2010-12-23 10:36:35 arenou Exp $
 
 requete=new Array();
 line=new Array();
@@ -137,15 +137,40 @@ function ajax_set_datas(sp_name,id) {
 	if (autfield && document.getElementById(nom_div)) {
 		var autid=document.getElementById(nom_div).getAttribute("autid");
 		document.getElementById(autfield).value=autid;
+		var thesid = document.getElementById(nom_div).getAttribute("thesid");
+		if(thesid && thesid >0){
+			var theselector = document.getElementById(autfield.replace('field','fieldvar').replace("_id","")+"[id_thesaurus][]");
+			if(theselector){
+				for (var i=1 ; i< theselector.options.length ; i++){
+					if (theselector.options[i].value == thesid){
+						theselector.options[i].selected = true;
+						break;
+					}
+				}
+			}
+		}
 	} else if(autfield){
 		document.getElementById(autfield).value=sp.getAttribute("autid");
+		var thesid = sp.getAttribute("thesid");
+		if(thesid && thesid >0){
+			var theselector = document.getElementById(autfield.replace('field','fieldvar').replace("_id","")+"[id_thesaurus][]");
+			if(theselector){
+				for (var i=1 ; i< theselector.options.length ; i++){
+					if (theselector.options[i].value == thesid){
+						theselector.options[i].selected = true;
+						break;
+					}
+				}
+			}
+		}
 	}
-	
+	var callback=document.getElementById(id).getAttribute("callback");
 	document.getElementById(id).value=text;
 	document.getElementById(id).focus();
 	document.getElementById("d"+id).style.display='none';
 	not_show[id]=true;
 	if(taille_txt) setCursorPosition(document.getElementById(id), (position_curseur+taille_txt)-taille_search);
+	if (callback) window[callback](id);
 }
 		
 function ajax_update_info(e,code,touche) {
@@ -203,10 +228,23 @@ function ajax_update_info(e,code,touche) {
 				var sp=document.getElementById("l"+id+"_"+line[id]);
 				var text=sp.firstChild.nodeValue;
 				var autfield=document.getElementById(id).getAttribute("autfield");
+				var callback=document.getElementById(id).getAttribute("callback");
 				var div_cache=document.getElementById("c"+id+"_"+line[id]);				
 				if (autfield) {
 					var autid=sp.getAttribute("autid");
 					document.getElementById(autfield).value=autid;
+					var thesid = sp.getAttribute("thesid");
+					if(thesid >0){
+						var theselector = document.getElementById(autfield.replace('field','fieldvar').replace("_id","")+"[id_thesaurus][]");
+						if(theselector){
+							for (var i=1 ; i< theselector.options.length ; i++){
+								if (theselector.options[i].value == thesid){
+									theselector.options[i].selected = true;
+									break;
+								}
+							}
+						}
+					}
 				}
 				
 				if(div_cache){
@@ -222,6 +260,7 @@ function ajax_update_info(e,code,touche) {
 			}
 			e.cancelBubble = true;
 			if (e.stopPropagation) e.stopPropagation();
+			if (callback) window[callback](id);
 			break;
 			
 		default:

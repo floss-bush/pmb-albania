@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titres_uniformes.inc.php,v 1.2 2009-02-10 15:22:49 kantin Exp $
+// $Id: titres_uniformes.inc.php,v 1.3 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -36,7 +36,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$titre_uniforme = new titre_uniforme($id);
-			$rep_result = $titre_uniforme->replace($by);
+			$rep_result = $titre_uniforme->replace($by,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/titres_uniformes/titres_uniformes_list.inc.php');
 			else {

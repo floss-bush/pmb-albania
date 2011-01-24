@@ -11,7 +11,8 @@
 <xsl:template match="notice">
 	<xsl:call-template name="subtype"/>
 	<xsl:call-template name="auteur"/>	
-	<xsl:call-template name="titre"/>
+	<xsl:call-template name="titres"/>
+	<xsl:call-template name="collection"/>
 	<xsl:call-template name="publisher"/>
 	<xsl:call-template name="keywords"/>
 	<xsl:call-template name="date"/>
@@ -29,10 +30,22 @@
 </xsl:template>
 
 
-<xsl:template name="titre">
-		<xsl:if test="f[@c='200']/s[@c='a']">	
+<xsl:template name="titres">
+		<xsl:if test="f[@c='200']/s[@c='a'] or f[@c='200']/s[@c='c'] or f[@c='200']/s[@c='d'] or f[@c='200']/s[@c='e']">	
 			<xsl:text>%T </xsl:text>
-			<xsl:value-of select="normalize-space(f[@c='200']/s[@c='a'])"/>			
+			<xsl:value-of select="normalize-space(f[@c='200']/s[@c='a'])"/>
+			<xsl:if test="f[@c='200']/s[@c='d']">
+				<xsl:text> = </xsl:text>
+				<xsl:value-of select="normalize-space(f[@c='200']/s[@c='d'])"/>
+			</xsl:if>
+			<xsl:if test="f[@c='200']/s[@c='e']">
+				<xsl:text> : </xsl:text>
+				<xsl:value-of select="normalize-space(f[@c='200']/s[@c='e'])"/>
+			</xsl:if>
+			<xsl:if test="f[@c='200']/s[@c='c']">
+				<xsl:text> ; </xsl:text>
+				<xsl:value-of select="normalize-space(f[@c='200']/s[@c='c'])"/>
+			</xsl:if>				
 			<xsl:text>&#010;</xsl:text>
 		</xsl:if>
 </xsl:template>
@@ -88,7 +101,24 @@
 			<xsl:text>%+ </xsl:text>
 			<xsl:value-of select="concat(normalize-space(s[@c='a']),', ',translate(normalize-space(s[@c='e']),';',','))"/>
 			<xsl:text>&#010;</xsl:text>	
-		</xsl:for-each> 
+		</xsl:for-each>
+		<xsl:for-each select="f[@c='712']">
+			<xsl:text>%+ </xsl:text>
+			<xsl:value-of select="concat(normalize-space(s[@c='a']),', ',translate(normalize-space(s[@c='e']),';',','))"/>
+			<xsl:text>&#010;</xsl:text>	
+		</xsl:for-each>  
+</xsl:template>
+<xsl:template name="collection">
+		<xsl:if test="f[@c='225']/s[@c='a']">
+			<xsl:text>%S </xsl:text>
+			<xsl:value-of select="normalize-space(f[@c='225']/s[@c='a'])"/>
+			<xsl:text>&#010;</xsl:text>
+		</xsl:if>
+		<xsl:if test="f[@c='225']/s[@c='v']">
+			<xsl:text>%7 </xsl:text>
+			<xsl:value-of select="normalize-space(f[@c='225']/s[@c='v'])"/>
+			<xsl:text>&#010;</xsl:text>
+		</xsl:if>				
 </xsl:template>
 <xsl:template name="date">
 		<xsl:if test="f[@c='210']/s[@c='d']">	

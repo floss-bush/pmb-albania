@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa.inc.php,v 1.29 2010-04-27 14:13:00 ngantier Exp $
+// $Id: resa.inc.php,v 1.30 2010-12-02 11:19:26 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -13,17 +13,29 @@ if ($temp_aff) $aff_alerte .= "<ul>".$msg['resa_menu_alert'].$temp_aff."</ul>" ;
 function resa_a_traiter () {
 	global $dbh ;
 	global $msg;
-	global $pmb_transferts_actif,$transferts_choix_lieu_opac,$deflt_docs_location, $pmb_location_reservation,$transferts_site_fixe;
-/*	
-	if($deflt_docs_location)
-		$sql="SELECT resa_idnotice, resa_idbulletin FROM resa, empr WHERE resa_idempr = id_empr AND (resa_cb is null OR resa_cb='') AND empr_location='".$deflt_docs_location."' limit 1";
-	else 
-*/	
-		$sql="SELECT resa_idnotice, resa_idbulletin FROM resa WHERE (resa_cb is null OR resa_cb='') limit 1";
-		
+	global $pmb_transferts_actif,$transferts_choix_lieu_opac,$deflt_docs_location, $pmb_location_reservation,$transferts_site_fixe,$pmb_lecteurs_localises;
+	
+	$sql="SELECT resa_idnotice, resa_idbulletin FROM resa, exemplaires, docs_statut  WHERE (resa_cb is null OR resa_cb='') 
+	and resa_idnotice=expl_notice and resa_idbulletin=expl_bulletin 
+	and expl_statut=idstatut AND pret_flag=1	
+	limit 1";
+	
+	if($pmb_lecteurs_localises && $deflt_docs_location){
+		$sql="SELECT resa_idnotice, resa_idbulletin FROM resa, exemplaires, docs_statut  WHERE (resa_cb is null OR resa_cb='') 
+		and resa_idnotice=expl_notice and resa_idbulletin=expl_bulletin  
+		and expl_location='".$deflt_docs_location."'
+		and expl_statut=idstatut AND pret_flag=1	
+		limit 1";		
+	}	
 	// respecter les droits de réservation du lecteur 
 	if($pmb_location_reservation)
-		$sql="SELECT resa_idnotice, resa_idbulletin FROM resa, empr, resa_loc WHERE resa_idempr = id_empr AND (resa_cb is null OR resa_cb='') and empr_location=resa_emprloc and resa_loc='$deflt_docs_location' limit 1";
+		$sql="SELECT resa_idnotice, resa_idbulletin FROM resa, empr, resa_loc, exemplaires , docs_statut WHERE 
+		resa_idnotice=expl_notice and resa_idbulletin=expl_bulletin 
+		and expl_location='".$deflt_docs_location."' 
+		and	expl_statut=idstatut AND pret_flag=1 
+		and	resa_idempr = id_empr AND (resa_cb is null OR resa_cb='') 
+		and empr_location=resa_emprloc and resa_loc='$deflt_docs_location' 
+		limit 1";
 	
 	if ($pmb_transferts_actif=="1") {
 		switch ($transferts_choix_lieu_opac) {
@@ -34,7 +46,7 @@ function resa_a_traiter () {
 			case "2":
 				//retrait de la resa sur lieu fixé
 				if ($deflt_docs_location==$transferts_site_fixe)
-					$sql="SELECT resa_idnotice, resa_idbulletin FROM resa WHERE (resa_cb is null OR resa_cb='')";
+					$sql="SELECT resa_idnotice, resa_idbulletin FROM resa WHERE (resa_cb is null OR resa_cb='') limit 1";
 				else return "";	
 				 	
 			break;		

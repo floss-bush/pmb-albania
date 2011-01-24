@@ -1,0 +1,9 @@
+<h1>Gestão financeira</h1>
+<p>Este módulo permite que você gerencie transações financeiras relacionadas às assinaturas dos membros:</p>
+<ul>
+<li>relacionamento
+<li>multas de itens atrasados
+<li>empréstimos mediante pagamento por uma ou mais categorias de documentos
+</ul>
+<p>Se você escolheu o tipo simples de assinatura, as taxas são exibidas em <a href='admin.php?categ=empr&sub=categ'>Administration &gt; Borrowers &gt; Categoria de Leitores</a>.</p>
+<p>Se você escolheu o tipo simples de reserva, as taxas são exibidas em <a href='admin.php?categ=docs&sub=typdoc'>Administration &gt; Items &gt; Tipos de documentos</a>.</p>

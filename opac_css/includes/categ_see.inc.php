@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categ_see.inc.php,v 1.58 2010-07-05 12:40:29 arenou Exp $
+// $Id: categ_see.inc.php,v 1.68 2010-11-17 17:15:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -55,13 +55,13 @@ if ($id) {
 		while (($mesCategories_see_too = mysql_fetch_object($found_see_too))) {
 			if ($deb) print " / " ;
 			$note = $mesCategories_see_too->comment_public;
-			$c_categ =  new category($mesCategories_see_too->num_noeud);
+			//$c_categ =  new category($mesCategories_see_too->num_noeud);
 			// Affichage du commentaire par le layer sur les "Voir aussi"
 			 $result_com = categorie::zoom_categ($mesCategories_see_too->num_noeud, $note);			
 		
 			print "<a href=./index.php?lvl=categ_see&id=".$mesCategories_see_too->num_noeud.">";
 		
-			if ($c_categ->has_notices()) print " <img src='$base_path/images/folder_search.gif' border=0 align='absmiddle'>";	
+			if (category::has_notices($mesCategories_see_too->num_noeud)) print " <img src='$base_path/images/folder_search.gif' border=0 align='absmiddle'>";	
 			else print  " <img src='./images/folder.gif' border='0' align='middle'>";	
 			print pmb_bidi("</a><a href=./index.php?lvl=categ_see&id=".$mesCategories_see_too->num_noeud."".$result_com['java_com'].">".$mesCategories_see_too->libelle_categorie.'</a>'.$result_com['zoom']);
 			$deb = 1 ;
@@ -118,14 +118,15 @@ if ($id) {
 	
 	
 	// Si un path est renseigné et le paramètrage activé			
-	if ($path && ($opac_auto_postage_descendant || $opac_auto_postage_montant || $auto_postage_etendre_recherche) && ($nb_level_montant || $nb_level_descendant)){
+	if ($path && ($opac_auto_postage_descendant || $opac_auto_postage_montant || $opac_auto_postage_etendre_recherche) && ($nb_level_montant || $nb_level_descendant)){
 		
 		//Recherche des fils 
 		if(($opac_auto_postage_descendant || $opac_auto_postage_etendre_recherche)&& $nb_level_descendant) {
 			if($nb_level_descendant != '*' && is_numeric($nb_level_descendant))
 				$liste_fils=" path regexp '^$path(\\/[0-9]*){0,$nb_level_descendant}$' ";
 			else 
-				$liste_fils=" path regexp '^$path(\\/[0-9]*)*' ";
+				//$liste_fils=" path regexp '^$path(\\/[0-9]*)*' ";
+				$liste_fils=" path like '$path/%' or  path = '$path' ";
 		} else {
 			$liste_fils=" id_noeud='".$id."' ";
 		}
@@ -145,13 +146,13 @@ if ($id) {
 		//$suite_req = " FROM noeuds inner join notices_categories on id_noeud=num_noeud inner join notices on notcateg_notice=notice_id, notice_statut 
 		//	WHERE ($liste_fils $liste_pere)	and (notices.statut = notice_statut.id_notice_statut 
 		//	and ((notice_statut.notice_visible_opac = 1 and notice_statut.notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_statut.notice_visible_opac_abon=1 and notice_statut.notice_visible_opac = 1)":"").")) ";
-		$suite_req = " FROM noeuds join notices_categories on id_noeud=num_noeud join notices on notcateg_notice=notice_id !!opac_phototeque!! $acces_j $statut_j ";
+		$suite_req = " FROM noeuds join notices_categories on id_noeud=num_noeud join notices on notcateg_notice=notice_id $acces_j $statut_j ";
 		$suite_req.= "WHERE ($liste_fils $liste_pere) $statut_r ";
 		
 	} else {	
 		// cas normal d'avant		
 		//$suite_req=" FROM notices_categories, notices, notice_statut WHERE (notices_categories.num_noeud = '".$id."' and notices_categories.notcateg_notice = notices.notice_id) and (notices.statut = notice_statut.id_notice_statut and ((notice_statut.notice_visible_opac = 1 and notice_statut.notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_statut.notice_visible_opac_abon=1 and notice_statut.notice_visible_opac = 1)":"").")) ";
-		$suite_req = " FROM notices_categories join notices on notcateg_notice=notice_id !!opac_phototeque!! $acces_j $statut_j ";
+		$suite_req = " FROM notices_categories join notices on notcateg_notice=notice_id $acces_j $statut_j ";
 		$suite_req.= "WHERE num_noeud=".$id." $statut_r ";
 	}
 	if ($path) {
@@ -182,20 +183,32 @@ if ($id) {
 
 	// comptage des notices associées
 	if (!$nbr_lignes) {
-		$requete = "SELECT count(distinct notice_id) ".str_replace("!!opac_phototeque!!","",$suite_req);
+		$requete = "SELECT count(distinct notice_id) ".$suite_req;
 		$res = mysql_query($requete, $dbh);
 		
 		$nbr_lignes = mysql_result($res, 0, 0);
 		
 		//Recherche des types doc
-		$requete="select distinct notices.typdoc ";
+		$requete="select distinct typdoc ";
 		if($opac_visionneuse_allow){
 			$requete.= ",count(explnum_id) as nbexplnum ";
-			$suite_req = str_replace("!!opac_phototeque!!","LEFT JOIN explnum on notcateg_notice = explnum_notice and explnum_mimetype in ($opac_photo_filtre_mimetype)",$suite_req);
-			$suite_req.= "group by notices.typdoc";
-		}else $suite_req = str_replace("!!opac_phototeque!!","",$suite_req);
-		$requete.= $suite_req;	
-		$res = mysql_query($requete, $dbh);
+			if ($path && ($opac_auto_postage_descendant || $opac_auto_postage_montant || $opac_auto_postage_etendre_recherche) && ($nb_level_montant || $nb_level_descendant)){
+				$suite_req_type_doc_noti = "FROM noeuds join notices_categories on id_noeud=num_noeud join notices on notcateg_notice=notice_id left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice = notice_id $acces_j $statut_j ";
+				$suite_req_type_doc_bull = "FROM noeuds join notices_categories on id_noeud=num_noeud join notices on notcateg_notice=notice_id left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin != 0 and explnum_bulletin = bulletin_id $acces_j $statut_j ";
+				$suite_req_type_doc= "WHERE ($liste_fils $liste_pere) $statut_r group by typdoc";
+			}else {
+				$suite_req_type_doc_noti = "FROM notices_categories join notices on notcateg_notice=notice_id left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice = notice_id $acces_j $statut_j ";
+				$suite_req_type_doc_bull = "FROM notices_categories join notices on notcateg_notice=notice_id left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin != 0 and explnum_bulletin = bulletin_id $acces_j $statut_j ";
+				$suite_req_type_doc= "WHERE num_noeud=".$id." $statut_r  group by typdoc";				
+			}
+			
+			$requete_noti = $requete.$suite_req_type_doc_noti.$suite_req_type_doc;
+			$requete_bull = $requete.$suite_req_type_doc_bull.$suite_req_type_doc;
+			$requete = "select distinct uni.typdoc, sum(nbexplnum) as nbexplnum from (($requete_noti) union ($requete_bull)) as uni group by typdoc";
+		}else{
+			$requete .= $suite_req;
+		}
+		$res = mysql_query($requete, $dbh) or  die(mysql_error());
 		$t_typdoc=array();
 		$nbexplnum_to_photo=0;
 		while (($tpd=mysql_fetch_object($res))) {

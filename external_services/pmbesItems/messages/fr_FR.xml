@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.2 2010-07-29 12:51:02 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.3 2010-12-08 07:30:21 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -16,7 +16,7 @@ pmbesItems
 	<!--
 fetch_notice_items
 -->
-	<entry code="fetch_notice_items_description">Renvoi les différents exemplaires associés à une notice s'ils existent</entry>
+	<entry code="fetch_notice_items_description">Renvoie les différents exemplaires associés à une notice s'ils existent</entry>
 	<entry code="fetch_notice_items_input_description"></entry>
 	<entry code="fetch_notice_items_output_description"></entry>
 	<entry code="fetch_notice_items_noticeid">Le numéro de la notice</entry>
@@ -27,7 +27,7 @@ fetch_notice_items
 	<entry code="fetch_notice_items_items">Les exemplaire s'ils existent</entry><!--
 fetch_item
 -->
-	<entry code="fetch_item_description">Renvoi un exemplaire par un de ses identifiants</entry>
+	<entry code="fetch_item_description">Renvoie un exemplaire par un de ses identifiants</entry>
 	<entry code="fetch_item_input_description">Au choix: item_cb ou item_id</entry>
 	<entry code="fetch_item_output_description"></entry>
 	<entry code="fetch_item_item_cb">Le code barre de l'exemplaire</entry>
@@ -56,7 +56,7 @@ fetch_notices_items
 <!--
 fetch_bulletins_items
 -->
-	<entry code="fetch_bulletins_items_description">Renvoi les exemplaires associés à une liste de bulletins</entry>
+	<entry code="fetch_bulletins_items_description">Renvoie les exemplaires associés à une liste de bulletins</entry>
 	<entry code="fetch_bulletins_items_input_description"></entry>
 	<entry code="fetch_bulletins_items_output_description"></entry>
 	<entry code="fetch_bulletins_items_bulletinids">Les ids des bulletins</entry>

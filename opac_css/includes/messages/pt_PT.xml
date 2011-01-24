@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localisés en portugais pour l'OPAC de PMB
-$Id: pt_PT.xml,v 1.131 2010-08-27 07:48:08 mbertin Exp $ -->
+$Id: pt_PT.xml,v 1.134 2010-12-20 10:05:05 arenou Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Operação não autorizada</entry>
@@ -1062,4 +1062,11 @@ $Id: pt_PT.xml,v 1.131 2010-08-27 07:48:08 mbertin Exp $ -->
 <entry code="empr_do_checkout_nok">Le prêt est refusé!</entry>
 	
 <entry code="search_custom_notices">Champs personnalisés des notices</entry>
+<entry code="search_autopostage_multicritere">Catégories et sous-catégories</entry>
+
+<entry code="codebarre_sort">Codebarre</entry>
+<entry code="coll_sort">Titre de la collection</entry>
+<entry code="subcoll_sort">Titre de la sous-collection</entry>
+<entry code="num_in_coll_sort">Numéro dans la collection</entry>
+<entry code="authority_query">Sélection d'autorité</entry>
 </XMLlist>

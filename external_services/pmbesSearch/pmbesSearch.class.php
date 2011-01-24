@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesSearch.class.php,v 1.15 2010-08-13 08:35:20 erwanmartin Exp $
+// $Id: pmbesSearch.class.php,v 1.18 2011-01-07 13:45:47 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -245,8 +245,17 @@ class pmbesSearch extends external_services_api_class {
 
 		$s=new search(false, $search_realm, $full_path);
 		$results=array();
+		//les champs statiques
 		foreach ($s->fixedfields as $id => $content) {
 			$results[] = $this->getAdvancedSearchField($id, $search_realm, $vlang, $fetch_values, $s, true);
+		}
+		//les champs dynamiques
+		foreach ($s->dynamicfields as $prefix => $content) {
+			$pp = new parametres_perso($content['TYPE']);
+			foreach($pp->t_fields as $id=>$field){
+				if($field['OPAC_SHOW'] && $field['SEARCH'])
+					$results[] = $this->getAdvancedSearchField($prefix.$id, $search_realm, $vlang, $fetch_values, $s, true);
+			}
 		}
 		
 		//Mettons le resultat dans le cache
@@ -306,84 +315,153 @@ class pmbesSearch extends external_services_api_class {
 			$search_object=new search(false, $search_realm, $full_path);
 		}
 
-		if (!isset($search_object->fixedfields[$field_id]))
-			throw new Exception("id not found");
-
-		$content = $search_object->fixedfields[$field_id];
 		
-		$aresult = array("operators" => array());
-		$aresult["id"] = $field_id;
-		$aresult["label"] = $content["TITLE"];
-		$aresult["type"] = $content["INPUT_TYPE"];
-		foreach($content["QUERIES"] as $aquery) {
-			$aresult["operators"][] = array("id" => $aquery["OPERATOR"], "label" => $search_object->operators[$aquery["OPERATOR"]]);
-		}
-		$aresult["values"] = array();
-		if ($fetch_values) {
-			switch ($content["INPUT_TYPE"]) {
-				case "query_list":
-					$aresult["values"] = array();
-	   				$requete=$content["INPUT_OPTIONS"]["QUERY"][0]["value"];
-	   				$resultat=mysql_query($requete, $dbh);
-	   				while ($opt=mysql_fetch_row($resultat)) {
-						$aresult["values"][] = array(
-							"value_id" => $opt[0],
-							"value_caption" => utf8_normalize($opt[1])
-						);
-	   				}
-					break;
-				case "list":
-					if (!isset($content["INPUT_OPTIONS"]["OPTIONS"][0]["OPTION"]))
+		
+		
+		if (isset($search_object->fixedfields[$field_id])){
+			$content = $search_object->fixedfields[$field_id];
+			$aresult = array("operators" => array());
+			$aresult["id"] = $field_id;
+			$aresult["label"] = utf8_normalize($content["TITLE"]);
+			$aresult["type"] = $content["INPUT_TYPE"];
+			foreach($content["QUERIES"] as $aquery) {
+				$aresult["operators"][] = array("id" => $aquery["OPERATOR"], "label" =>utf8_normalize($search_object->operators[$aquery["OPERATOR"]]));
+			}
+			$aresult["values"] = array();
+			if ($fetch_values) {
+				switch ($content["INPUT_TYPE"]) {
+					case "query_list":
+						$aresult["values"] = array();
+		   				$requete=$content["INPUT_OPTIONS"]["QUERY"][0]["value"];
+		   				$resultat=mysql_query($requete, $dbh);
+		   				while ($opt=mysql_fetch_row($resultat)) {
+							$aresult["values"][] = array(
+								"value_id" => $opt[0],
+								"value_caption" => utf8_normalize($opt[1])
+							);
+		   				}
 						break;
-					foreach ($content["INPUT_OPTIONS"]["OPTIONS"][0]["OPTION"] as $aoption) {
-						if (substr($aoption["value"],0,4)=="msg:") {
-							$aoption["value"] = $msg[substr($aoption["value"],4)];
+					case "list":
+						if (!isset($content["INPUT_OPTIONS"]["OPTIONS"][0]["OPTION"]))
+							break;
+						foreach ($content["INPUT_OPTIONS"]["OPTIONS"][0]["OPTION"] as $aoption) {
+							if (substr($aoption["value"],0,4)=="msg:") {
+								$aoption["value"] = $msg[substr($aoption["value"],4)];
+							}
+							$aresult["values"][] = array(
+								"value_id" => $aoption["VALUE"],
+								"value_caption" => utf8_normalize($aoption["value"])
+							);						
 						}
-						$aresult["values"][] = array(
-							"value_id" => $aoption["VALUE"],
-							"value_caption" => utf8_normalize($aoption["value"])
-						);						
+						break;
+					case "marc_list":
+		   				$options=new marc_list($content["INPUT_OPTIONS"]["NAME"][0]["value"]);
+		   				asort($options->table);
+		   				reset($options->table);
+		
+		 		  			// gestion restriction par code utilise.
+		 		  			if ($content["INPUT_OPTIONS"]["RESTRICTQUERY"][0]["value"]) {
+		 		  				$restrictquery=mysql_query($content["INPUT_OPTIONS"]["RESTRICTQUERY"][0]["value"], $dbh);
+					  		if ($restrictqueryrow=@mysql_fetch_row($restrictquery)) {
+					  			if ($restrictqueryrow[0]) {
+					  				$restrictqueryarray=explode(",",$restrictqueryrow[0]);
+					  				$existrestrict=true;
+					  			} else $existrestrict=false;
+					  		} else $existrestrict=false;
+		 		  			} else $existrestrict=false;
+		
+		   				while (list($key,$val)=each($options->table)) {
+		   					if ($existrestrict && array_search($key,$restrictqueryarray)!==false) {
+								$aresult["values"][] = array(
+									"value_id" => $key,
+									"value_caption" => utf8_normalize($val)
+								);
+		   					} elseif (!$existrestrict) {
+								$aresult["values"][] = array(
+									"value_id" => $key,
+									"value_caption" => utf8_normalize($val)
+								);
+		   					}    						
+		   				}
+		   				$r.="</select>";
+						break;
+					case "text":
+					case "authoritie":
+					default:
+						$aresult["values"] = array();
+						break;
+				}
+			}
+			if($content['VAR']){
+				$params = array();
+				foreach($content['VAR'] as $variable){
+					if($variable['TYPE'] == "input"){
+	   		 			$input=$variable['OPTIONS']['INPUT'][0];
+	   		 			$values = array();
+			  		  	switch ($input['TYPE']) {
+			  		  		case "query_list":
+			  		  			$concat = "";
+			  		  			$query_list_result=@mysql_query($input['QUERY'][0]['value']);
+			  		  			while ($value=mysql_fetch_array($query_list_result)) {
+									if($concat)$concat.=",";
+			  		  				$concat.=$value[0];
+									$values[]=array(
+										'value_id' => $value[0],
+										'value_caption' => utf8_normalize($value[1])
+									);
+			  		  			}
+			  		  			if($input['QUERY'][0]['ALLCHOICE'] == "yes"){
+			  		  				$values[]=array(
+			  		  					'value_id' => $concat,
+			  		  					'value_caption' =>utf8_normalize($msg[substr($input['QUERY'][0]['TITLEALLCHOICE'],4,strlen($input['QUERY'][0]['TITLEALLCHOICE'])-4)])
+			  		  				);
+			  		  			}
+			  		  			break;
+			  		  		case "checkbox" :
+			  		  		case "hidden" :
+				  		  		$values = array($input["VALUE"][0]["value"]);
+			  		  			break;
+			  		  	}
+			  		 	$params[]=array(
+							'label'=>utf8_normalize($variable['COMMENT']),
+							'name'=>$variable['NAME'],
+							'type'=>$input['TYPE'],
+							'values'=>$values, 	
+						);
 					}
-					break;
-				case "marc_list":
-	   				$options=new marc_list($content["INPUT_OPTIONS"]["NAME"][0]["value"]);
-	   				asort($options->table);
-	   				reset($options->table);
-	
-	 		  			// gestion restriction par code utilise.
-	 		  			if ($content["INPUT_OPTIONS"]["RESTRICTQUERY"][0]["value"]) {
-	 		  				$restrictquery=mysql_query($content["INPUT_OPTIONS"]["RESTRICTQUERY"][0]["value"], $dbh);
-				  		if ($restrictqueryrow=@mysql_fetch_row($restrictquery)) {
-				  			if ($restrictqueryrow[0]) {
-				  				$restrictqueryarray=explode(",",$restrictqueryrow[0]);
-				  				$existrestrict=true;
-				  			} else $existrestrict=false;
-				  		} else $existrestrict=false;
-	 		  			} else $existrestrict=false;
-	
-	   				while (list($key,$val)=each($options->table)) {
-	   					if ($existrestrict && array_search($key,$restrictqueryarray)!==false) {
-							$aresult["values"][] = array(
-								"value_id" => $key,
-								"value_caption" => utf8_normalize($val)
-							);
-	   					} elseif (!$existrestrict) {
-							$aresult["values"][] = array(
-								"value_id" => $key,
-								"value_caption" => utf8_normalize($val)
-							);
-	   					}    						
-	   				}
-	   				$r.="</select>";
-					break;
-				case "text":
-				case "authoritie":
-				default:
-					$aresult["values"] = array();
-					break;
+					$aresult['fieldvar']=$params;
+				}
+			}
+		}else{
+			$aresult = array();
+			foreach ($search_object->dynamicfields as $prefix => $content) {
+				$pp = new parametres_perso($content['TYPE']);
+				foreach($pp->t_fields as $id=>$field){
+					if($field_id == $prefix.$id){
+						if ($field['OPAC_SHOW'] && $field['SEARCH']){
+							$field['ident']=$field_id;
+							$field['ID']=$id;
+							$field['PREFIX']="notices";
+							$aresult= aff_empr_search($field);	
+							$aresult['label'] = utf8_normalize($aresult['label']);
+							$aresult['id']=$prefix."_".$id;
+							foreach($content['FIELD'] as $field_spec){
+								if($field_spec['DATATYPE'] == $field['DATATYPE'])
+									$queries = $field_spec['QUERIES'];
+							}
+							foreach($queries as $aquery) {
+								$aresult['operators'][]= array("id" => $aquery["OPERATOR"], "label" => utf8_normalize($search_object->operators[$aquery["OPERATOR"]]));
+							}
+						}
+					}
+				}
 			}
 		}
 		
+//		if(sizeof($aresult)==0){
+//			throw new Exception("id not found");	
+//		}
+//		
 		if (!$nocache) {
 			//Mettons le resultat dans le cache
 			$es_cache = new external_services_cache('es_cache_blob', 86400);
@@ -402,21 +480,41 @@ class pmbesSearch extends external_services_api_class {
 		global $charset;
 		if ($this->proxy_parent->input_charset!='utf-8' && $charset == 'utf-8') {
 			foreach ($search_description as $index => $afield_s) {
-				$search_description[$index]["value"] = utf8_encode($search_description[$index]["value"]);
+				if (!is_array($search_description[$index]["value"]))
+					$search_description[$index]["value"] = utf8_encode($search_description[$index]["value"]);
+				else {
+					foreach($search_description[$index]["value"] as $value_index => $value) {
+						$search_description[$index]["value"][$value_index] = utf8_encode($search_description[$index]["value"][$value_index]);
+					}
+				}
 			}
 		}
 		else if ($this->proxy_parent->input_charset=='utf-8' && $charset != 'utf-8') {
 			foreach ($search_description as $index => $afield_s) {
-				$search_description[$index]["value"] = utf8_decode($search_description[$index]["value"]);
+				if (!is_array($search_description[$index]["value"]))
+					$search_description[$index]["value"] = utf8_decode($search_description[$index]["value"]);
+				else {
+					foreach($search_description[$index]["value"] as $value_index => $value) {
+						$search_description[$index]["value"][$value_index] = utf8_decode($search_description[$index]["value"][$value_index]);
+					}
+				}
 			}	
 		}
-		
+
 		$count=0;
 		foreach ($search_description as $afield_s) {
-			$search[$count]="f_".$afield_s["field"];
+			if(preg_match("/^[a-z]/",$afield_s['field'])){
+				$search[$count]=$afield_s["field"];	
+			}else{
+				$search[$count]="f_".$afield_s["field"];
+			}
 			$field="field_".$count."_".$search[$count];
+			$var[]=$field;
 			global $$field;
-			$$field=array($afield_s["value"]);
+			if (is_array($afield_s["value"]))
+				$$field=$afield_s["value"];
+			else
+				$$field=array($afield_s["value"]);
 			$op="op_".$count."_".$search[$count];
 			global $$op;
 			$$op=$afield_s["operator"];
@@ -425,13 +523,15 @@ class pmbesSearch extends external_services_api_class {
 				global $$inter;
 				$$inter = $afield_s["inter"];
 			}
+			$fieldvar ="fieldvar_".$count."_".$search[$count];
+			global $$fieldvar;
+			$$fieldvar=$afield_s["fieldvar"];
+			
 			global $explicit_search;
 			$explicit_search=1;
 			$count++;
 		}
-		
 		return $this->make_search($search_realm, $PMBUserId, $OPACEmprId);
-		
 	}
 	
 	function get_sort_types() {

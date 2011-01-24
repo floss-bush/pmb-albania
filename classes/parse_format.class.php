@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parse_format.class.php,v 1.5 2009-05-20 15:19:29 kantin Exp $
+// $Id: parse_format.class.php,v 1.7 2010-10-15 08:38:15 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -89,16 +89,20 @@ class parse_format {
 	
 					switch ($cmd[$i]) {
 						case '$' :
-							$param_name[$param_number] .= $this->exec($cmd, $i);
+							if($param_name[$param_number])$param_name[$param_number] .= $this->exec($cmd, $i);
+							else $param_name[$param_number]= $this->exec($cmd, $i);
 							break;
 						case '#' :
-							$param_name[$param_number] .= $this->exec($cmd, $i);
+							
+							if($param_name[$param_number])$param_name[$param_number] .= $this->exec($cmd, $i);
+							else $param_name[$param_number]= $this->exec($cmd, $i);
 							break;
 						case ')' :
 							if ($cmd[$i +1] == ';') { // fin d'une fonction par );
 								$i++;
 								if(($function_name == "SET") || ($function_name == "set")) {
 									$this->var_format[$this->var_set_name]=$param_name[1];
+									eval( "global \$".$param_name[0].";\$".$param_name[0]."=\"".$param_name[1]."\";");
 									$this->var_set=0;
 									return '';
 								}else 
@@ -138,7 +142,8 @@ class parse_format {
 					
 					if(!$this->var_return){	
 						//C'est le retour pour afficher
-						$ret .=$return;
+						if($ret)$ret.=$return;
+						else $ret=$return;
 							
 					}else{
 						//C'est une affectation d'une variable

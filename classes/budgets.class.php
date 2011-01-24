@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: budgets.class.php,v 1.23 2008-12-16 11:49:55 dbellamy Exp $
+// $Id: budgets.class.php,v 1.24 2010-10-28 10:03:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 

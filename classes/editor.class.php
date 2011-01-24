@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: editor.class.php,v 1.38 2010-08-17 13:21:26 mbertin Exp $
+// $Id: editor.class.php,v 1.39 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -249,7 +249,7 @@ function delete() {
 // ---------------------------------------------------------------
 //		replace($by) : remplacement de l'editeur
 // ---------------------------------------------------------------
-function replace($by) {
+function replace($by,$link_save=0) {
 
 	global $msg;
 	global $dbh;
@@ -257,13 +257,21 @@ function replace($by) {
 	if((!$by)||(!$this->id)) {
 		// pas de valeur de remplacement !!!
 		return "L'identifiant editeur est vide ou l'editeur de remplacement est meme que celui d'origine !";
-		}
+	}
 
 	if($this->id == $by) {
 		// impossible de remplacer un editeur par lui-meme
 		return $msg[228];
-		}
-
+	}
+		
+	$aut_link= new aut_link(AUT_TABLE_PUBLISHERS,$this->id);
+	// "Conserver les liens entre autorités" est demandé
+	if($link_save) {
+		// liens entre autorités
+		$aut_link->add_link_to(AUT_TABLE_PUBLISHERS,$by);		
+	}	
+	$aut_link->delete();
+	
 	// a) remplacement dans les notices
 	$requete = "UPDATE notices SET ed1_id=$by WHERE ed1_id=".$this->id;
 	$res = mysql_query($requete, $dbh);

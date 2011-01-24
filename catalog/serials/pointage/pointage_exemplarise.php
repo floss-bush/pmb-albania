@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pointage_exemplarise.php,v 1.31 2009-09-18 08:48:01 gueluneau Exp $
+// $Id: pointage_exemplarise.php,v 1.32 2010-11-10 10:03:38 ngantier Exp $
 
 // définition du minimum nécéssaire
 $base_path="./../../..";
@@ -99,7 +99,7 @@ function bul_do_form($obj,$titre='', $bul_id=0,$titre='') {
 	$bul_expl_form1 = str_replace('!!cb!!', $obj->expl_cb, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!note!!', $obj->expl_note, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!comment!!', $obj->expl_comment, $bul_expl_form1);
-	$bul_expl_form1 = str_replace('!!cote!!', $obj->expl_cote, $bul_expl_form1);
+	$bul_expl_form1 = str_replace('!!cote!!', htmlentities($obj->expl_cote,ENT_QUOTES, $charset), $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!prix!!', $obj->expl_prix, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!focus!!',$obj->focus, $bul_expl_form1);
 	
@@ -154,7 +154,7 @@ function bul_do_form($obj,$titre='', $bul_id=0,$titre='') {
 	$bul_expl_form1 = str_replace('!!type_antivol!!', $selector, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!bul_id!!', $bul_id, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!expl_id!!', $obj->expl_id, $bul_expl_form1);	
-	$bul_expl_form1 = str_replace('!!bul_no!!', $obj->bul_no, $bul_expl_form1);
+	$bul_expl_form1 = str_replace('!!bul_no!!', htmlentities($obj->bul_no,ENT_QUOTES, $charset)	, $bul_expl_form1);
 	$date_date_formatee = formatdate($obj->date_date);
 	$date_clic = "onClick=\"openPopUp('./../../../select.php?what=calendrier&caller=expl&date_caller=".str_replace('-', '', $obj->date_date)."&param1=date_date&param2=date_date_lib&auto_submit=NO&date_anterieure=YES', 'date_date', 250, 300, -2, -2, 'toolbar=no, dependent=yes, resizable=yes')\"  ";
 	$date_date = "<input type='hidden' name='date_date' value='".str_replace('-','', $obj->date_date)."' />
@@ -162,8 +162,8 @@ function bul_do_form($obj,$titre='', $bul_id=0,$titre='') {
 		<input class='bouton_small' type='button' name='date_date_lib_bouton' value='".$msg["bouton_calendrier"]."' ".$date_clic." />";
 		
 	$bul_expl_form1 = str_replace('!!date_date!!', $date_date, $bul_expl_form1);
-	$bul_expl_form1 = str_replace('!!bul_date!!', $obj->bul_date, $bul_expl_form1);
-	$bul_expl_form1 = str_replace('!!bul_titre!!', $obj->bul_titre, $bul_expl_form1);
+	$bul_expl_form1 = str_replace('!!bul_date!!', htmlentities($obj->bul_date,ENT_QUOTES, $charset), $bul_expl_form1);
+	$bul_expl_form1 = str_replace('!!bul_titre!!', htmlentities($obj->bul_titre,ENT_QUOTES, $charset), $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!serial_id!!', $serial_id, $bul_expl_form1);
 	$bul_expl_form1 = str_replace('!!numero!!', $obj->bul_titre, $bul_expl_form1);	
 	$bul_expl_form1 = str_replace('!!destinataire!!', $obj->destinataire, $bul_expl_form1);
@@ -354,7 +354,8 @@ else {
 	} 
 	$expl->date_date =$value['date_date'];
 	$expl->bul_date = $libelle_periode; 
-	$expl->bul_no = $numero;
+	$expl->bul_no = stripslashes($numero);
+	
 	//Récupération des infos du bulletin pour les proposer sur la frame
 	$requete = "SELECT * FROM bulletins where bulletin_numero='$numero' and bulletin_notice='$serial_id' and date_date='".$value['date_date']."'";
 	$bull_Query = mysql_query($requete, $dbh);

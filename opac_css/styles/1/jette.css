@@ -1,7 +1,7 @@
 /* +---------------------------------------------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +---------------------------------------------------------------------------------------+
-// $Id: jette.css,v 1.20 2010-01-26 13:56:39 kantin Exp $
+// $Id: jette.css,v 1.25 2010-12-20 10:05:06 arenou Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -88,10 +88,10 @@ td{
 		height: 100%;
 		width:86%;
 		top:110px;
-		}
+}
 
-	#main h3
-	{	margin-top: 0px;
+#main h3{
+		margin-top: 0px;
 		margin-left: 0px;
 		margin-bottom: 15px;
 		margin-right: 0px;
@@ -102,14 +102,17 @@ td{
 		font-weight: bold;
 		text-align: left;
 		border-bottom: dotted 1px #0023A4;
-		font-size:11pt; }
+		font-size:11pt;
+		color: #0023A4;
+}
 
-	#main h3 span 
-	{ 	color:#0023A4;
+#main h3 span { 
+		color:#0023A4;
 		padding-left: 0px;
 		padding-right: 20px;
 		padding-bottom:-10px;
-		margin-bottom:-10px; }
+		margin-bottom:-10px;
+}
 
 #main ul.search_tabs li:hover {
 	background: #EAFFFF;
@@ -553,7 +556,7 @@ input.numero_page
 	height:35px;
 	width:100%;
 	border:none;
-	}
+}
 
 
 
@@ -706,3 +709,141 @@ table.exemplaires {
 .etiq_champ {
 	font-weight:bold;
 	}
+
+/***********************
+ * Carroussel bulletin *
+ ***********************/
+.carroussel_bulletin{
+	text-align : center;
+	/*border : 1px solid black;*/
+}
+
+.carroussel_bulletin .active{
+	border : 1px solid black;
+	cursor : pointer;
+}
+
+.carroussel_bulletin .current_bull_carroussel{
+	border : 1px solid black;
+	font-weight : bold;
+}
+
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		      Mise en forme de la fiche emprunteur				 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+  
+#empr_onglet {
+ 	    padding:0 10px;
+}
+
+#empr_onglet ul.empr_tabs{
+	list-style:none;
+	font-size:11px;
+    clear:right;
+    height:24px;
+	position:absolute;
+	margin-top:-0px;
+	padding-left: 0px;
+}
+
+#empr_onglet ul.empr_tabs li{
+	float:left;
+	font-weight:bold;
+	margin: 0 5px;
+}
+
+#empr_onglet ul.empr_tabs li a{
+	background-color: #EFE097;
+	background-repeat: no-repeat;
+	background-position: left top;
+	color:#0023A4;
+	display:block;
+	font-weight:normal;
+	height:17px;
+	padding:2px 7px;
+	position:relative;
+	text-decoration:none;
+	border-top: 1px solid #000000;
+	border-left: 1px solid #000000;
+	border-right: 1px solid #000000;
+}
+
+#empr_onglet ul.empr_tabs li a:hover{
+   	color: #0023A4;
+   	background-color: #EAFFFF;
+   	background-image:  none;
+}
+
+#empr_onglet ul.empr_tabs li#current{
+	float:left;
+	font-weight:bold;
+    height:21px;
+	background:#FFF0A7 !important;
+	color: #0023A4;
+}
+
+#empr_onglet ul.empr_tabs li#current a {
+	background: none;
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+ul.empr_subtabs{
+	padding:0;
+	list-style:none;
+    clear:right;
+    padding-top: 40px;
+}
+
+ul.empr_subtabs li{
+	border:1px solid #000000;
+	margin:0 2px;
+	display:inline;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+}
+
+ ul.empr_subtabs li a{
+	text-decoration:none;
+	margin:1px 7px;
+	height:17px;
+}
+
+#fiche-empr,#empr-all, #empr-late, #empr-old, #empr-resa, #empr-dsi, #empr-sugg, #empr-list, #empr-dema {
+	padding:5px 12px 15px 12px;
+} 
+
+#empr-list #onglets_list #div_mylist #list_cadre {
+	border: none !important;
+}
+
+#empr-list #onglets_list ul.list_tabs li {
+	border:1px solid #000000;
+	margin:0 2px;
+	display:inline;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+}
+
+#empr-list #onglets_list ul.list_tabs li a {
+	text-decoration: none;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+}
+
+#empr-list #onglets_list ul.list_tabs {
+	margin-left: -41px;
+}
+
+
+.authorities{
+	background : #A8A8A8;
+}

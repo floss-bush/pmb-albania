@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titre_uniforme.inc.php,v 1.3 2010-07-28 07:44:39 mbertin Exp $
+// $Id: titre_uniforme.inc.php,v 1.4 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "inc.php")) die("no access");
 
@@ -10,7 +10,7 @@ if (stristr($_SERVER['REQUEST_URI'], "inc.php")) die("no access");
 if (!$no_display) $no_display=0;
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "./select.php?what=titre_uniforme&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn";
+$base_url = "./select.php?what=titre_uniforme&caller=$caller&param1=$param1&param2=$param2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&callback=$callback&infield=$infield";
 
 // contenu popup sélection auteur
 require("./selectors/templates/sel_titre_uniforme.tpl.php");
@@ -71,6 +71,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 	global $no_display;
  	global $charset;
  	global $msg ;
+ 	global $callback;
 
 	if (!$id) { 	
 		// on récupére le nombre de lignes 
@@ -83,6 +84,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 				exit;
 			}
 			$requete=$aq->get_query_count("titres_uniformes","tu_name,","index_tu","tu_id","tu_id!='$no_display'");
+			print $requete;
 		}
 		$res = mysql_query($requete, $dbh);
 		$nbr_lignes = @mysql_result($res, 0, 0);
@@ -109,7 +111,7 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 			$name = $titre_uniforme->tu_name;
 
 			print "<div class='row'>";
-			print pmb_bidi("<a href='#' onclick=\"set_parent('$caller', '$titre_uniforme->tu_id', '".htmlentities(addslashes($name),ENT_QUOTES, $charset)."')\">$name</a>");
+			print pmb_bidi("<a href='#' onclick=\"set_parent('$caller', '$titre_uniforme->tu_id', '".htmlentities(addslashes($name),ENT_QUOTES, $charset)."','$callback')\">$name</a>");
 			print "</div>";
 
 		}

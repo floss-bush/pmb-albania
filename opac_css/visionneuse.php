@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: visionneuse.php,v 1.4 2010-09-15 13:06:56 touraine37 Exp $
+// $Id: visionneuse.php,v 1.7 2010-10-11 08:23:24 arenou Exp $
 $base_path = ".";
 $include_path ="$base_path/includes";
 $class_path ="$base_path/classes";
@@ -29,8 +29,8 @@ if($lvl == "" || $lvl == "visionneuse"){
 	$lvl = "visionneuse";
 	$short_header= str_replace("!!liens_rss!!","",$short_header);
 	print $short_header;
+	print "<script type='text/javascript' src='$include_path/javascript/tablist.js'></script>";
 }
-
 if (isset($_POST["position"])){
 	$position = $_POST["position"];
 	if ($lvl == "visionneuse"){

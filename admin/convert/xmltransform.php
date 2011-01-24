@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: xmltransform.php,v 1.19 2009-10-01 09:41:59 mbertin Exp $
+// $Id: xmltransform.php,v 1.22 2010-11-30 15:36:50 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "xmltransform.php")) die("no access");
 
@@ -40,7 +40,6 @@ function perform_xslt($xml, $s, $islast, $isfirst, $param_path) {
 	if (defined("ICONV_IMPL")) {
 		xslt_set_encoding($xh, "$charset");	
 	}
-	
 
 	// Traite le document
 	if ($result = @xslt_process($xh, 'arg:/_xml', 'arg:/_xsl', NULL, array("/_xml" => $xml, "/_xsl" => $xsl))) {
@@ -76,7 +75,7 @@ function perform_xslt($xml, $s, $islast, $isfirst, $param_path) {
 //Conversion XML en iso2709
 function toiso($notice, $s, $islast, $isfirst, $param_path) {
 	$x2i = new xml_unimarc();
-	$x2i -> XMLtoiso2709_notice($notice);
+	$x2i -> XMLtoiso2709_notice($notice,$s['ENCODING']);
 	if($x2i->warning_msg[0]){
 		$r['WARNING']=$x2i->warning_msg[0];
 	}
@@ -95,9 +94,10 @@ function toiso($notice, $s, $islast, $isfirst, $param_path) {
 //Consersion iso2709 en XML
 function isotoxml($notice, $s, $islast, $isfirst, $param_path) {
 	global $charset;
+	global $output_params;
 	$i2x = new xml_unimarc();
-	$i2x -> iso2709toXML_notice($notice);
-	if ($i2x -> n_valid == 0) {
+	$i2x->iso2709toXML_notice($notice);
+	if ($i2x->n_valid == 0) {
 		$r['VALID']=false;
 		$r['DATA']="";
 		$r['ERROR']=$i2x->error_msg[0];
@@ -109,7 +109,7 @@ function isotoxml($notice, $s, $islast, $isfirst, $param_path) {
 		if (!$islast) {
 			$r['DATA'] = "<".$s['TROOTELEMENT'][0]['value'].">\n".$r['DATA'];
 			$r['DATA'].= "</".$s['TROOTELEMENT'][0]['value'].">";
-			$r['DATA'] = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n".$r['DATA'];
+			$r['DATA'] = "<?xml version=\"1.0\" encoding=\"".($i2x->is_utf8?"utf-8":$charset)."\" ?>\n".$r['DATA'];
 		}
 	}
 	return $r;

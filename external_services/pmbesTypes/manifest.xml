@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
+$Id: manifest.xml,v 1.14 2011-01-07 13:45:46 arenou Exp $ -->
 <manifest>
 	<name>pmbesTypes</name>
 	<description>msg:pmbesTypes_description</description>
@@ -121,6 +121,15 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 				<part name="value_id" type="scalar" dataType="integer" description="msg:search_field_values_value_id"/>
 				<part name="value_caption" type="scalar" dataType="string" description="msg:search_field_values_value_caption"/>
 			</part>
+			<part name="fieldvar" type="array" description="msg:search_field_fieldvar">
+				<part name="label" type="scalar" dataType="string" description="msg:search_field_fieldvar_label"/>
+				<part name="name" type="scalar" dataType="string" description="msg:search_field_fieldvar_name"/>
+				<part name="type" type="scalar" dataType="string" description="msg:search_field_fieldvar_type"/>
+				<part name="values" type="array" description="msg:search_field_fieldvar_values">
+					<part name="value_id" type="scalar" dataType="integer" description="msg:search_field_fieldvar_values_value_id"/>
+					<part name="value_caption" type="scalar" dataType="string" description="msg:search_field_fieldvar_values_value_caption"/>
+				</part>
+			</part>
 		</type>
 		<type name="explNum" description="msg:explNum_description">
 			<part name="id" type="scalar" dataType="integer" description="msg:explNum_id"/>
@@ -150,6 +159,14 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 			<part name="author_pays" type="scalar" dataType="string" description="msg:author_author_pays"/>
 			<part name="author_subdivision" type="scalar" dataType="string" description="msg:author_author_subdivision"/>
 			<part name="author_numero" type="scalar" dataType="string" description="msg:author_author_numero"/>
+			<part name="author_links" type="array">
+				<part name="autlink_to" type="scalar" dataType="string"/>
+				<part name="autlink_to_id" type="scalar" dataType="integer"/>
+				<part name="autlink_to_libelle" type="scalar" dataType="string"/>
+				<part name="autlink_type" type="scalar" dataType="integer"/>
+				<part name="autlink_reciproc" type="scalar" dataType="boolean"/>
+				<part name="autlink_comment" type="scalar" dataType="string"/>
+			</part>
 		</type>
 		<type name="publisher" description="msg:publisher_description">
 			<part name="publisher_id" type="scalar" dataType="integer" description="msg:publisher_publisher_id"/>
@@ -161,6 +178,14 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 			<part name="publisher_country" type="scalar" dataType="string" description="msg:publisher_publisher_country"/>
 			<part name="publisher_web" type="scalar" dataType="string" description="msg:publisher_publisher_web"/>
 			<part name="publisher_comment" type="scalar" dataType="string" description="msg:publisher_publisher_comment"/>
+			<part name="publisher_links" type="array">
+				<part name="autlink_to" type="scalar" dataType="string"/>
+				<part name="autlink_to_id" type="scalar" dataType="integer"/>
+				<part name="autlink_to_libelle" type="scalar" dataType="string"/>
+				<part name="autlink_type" type="scalar" dataType="integer"/>
+				<part name="autlink_reciproc" type="scalar" dataType="boolean"/>
+				<part name="autlink_comment" type="scalar" dataType="string"/>
+			</part>			
 		</type>
 		<type name="collection" description="msg:collection_description">
 			<part name="collection_id" type="scalar" dataType="integer" description="msg:collection_collection_id"/>
@@ -168,6 +193,14 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 			<part name="collection_parent" type="scalar" dataType="integer" description="msg:collection_collection_parent"/>
 			<part name="collection_issn" type="scalar" dataType="string" description="msg:collection_collection_issn"/>
 			<part name="collection_web" type="scalar" dataType="string" description="msg:collection_collection_web"/>
+			<part name="collection_links" type="array">
+				<part name="autlink_to" type="scalar" dataType="string"/>
+				<part name="autlink_to_id" type="scalar" dataType="integer"/>
+				<part name="autlink_to_libelle" type="scalar" dataType="string"/>
+				<part name="autlink_type" type="scalar" dataType="integer"/>
+				<part name="autlink_reciproc" type="scalar" dataType="boolean"/>
+				<part name="autlink_comment" type="scalar" dataType="string"/>
+			</part>			
 		</type>
 		<type name="sous_collection" description="msg:sous_collection_description">
 			<part name="sous_collection_id" type="scalar" dataType="integer" description="msg:sous_collection_sous_collection_id"/>
@@ -175,6 +208,14 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 			<part name="sous_collection_parent" type="scalar" dataType="integer" description="msg:sous_collection_sous_collection_parent"/>
 			<part name="sous_collection_issn" type="scalar" dataType="string" description="msg:sous_collection_sous_collection_issn"/>
 			<part name="sous_collection_web" type="scalar" dataType="string" description="msg:sous_collection_sous_collection_web"/>
+			<part name="collection_links" type="array">
+				<part name="autlink_to" type="scalar" dataType="string"/>
+				<part name="autlink_to_id" type="scalar" dataType="integer"/>
+				<part name="autlink_to_libelle" type="scalar" dataType="string"/>
+				<part name="autlink_type" type="scalar" dataType="integer"/>
+				<part name="autlink_reciproc" type="scalar" dataType="boolean"/>
+				<part name="autlink_comment" type="scalar" dataType="string"/>
+			</part>			
 		</type>
 		<type name="bulletin" description="msg:bulletin_description">
 			<part name="bulletin_id" type="scalar" dataType="integer" description="msg:bulletin_bulletin_id"/>
@@ -246,6 +287,19 @@ $Id: manifest.xml,v 1.11 2010-09-21 13:31:01 arenou Exp $ -->
 			<part name="serial_issues_count" type="scalar" dataType="integer"/>
 			<part name="serial_items_count" type="scalar" dataType="integer"/>
 			<part name="serial_analysis_count" type="scalar" dataType="integer"/>
+		</type>
+		<type name="reading_list">
+			<part name="reading_list_id" type="scalar" dataType="integer"/>
+			<part name="reading_list_name" type="scalar" dataType="string"/>
+			<part name="reading_list_caption" type="scalar" dataType="string"/>
+			<part name="reading_list_emprid" type="scalar" dataType="integer"/>
+			<part name="reading_list_caption" type="scalar" dataType="string"/>
+			<part name="reading_list_confidential" type="scalar" dataType="boolean"/>
+			<part name="reading_list_public" type="scalar" dataType="boolean"/>
+			<part name="reading_list_readonly" type="scalar" dataType="boolean"/>
+			<part name="reading_list_notice_ids" type="array">
+				<part name="anotice_id" type="scalar" dataType="integer"/>	
+			</part>
 		</type>
 	</types>
 

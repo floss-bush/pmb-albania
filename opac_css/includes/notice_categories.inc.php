@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_categories.inc.php,v 1.6 2008-03-26 12:55:53 ohennequin Exp $
+// $Id: notice_categories.inc.php,v 1.7 2010-10-28 10:04:46 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -29,3 +29,34 @@ function get_notice_categories($notice=0) {
 		}
 	return $categories;
 	}
+	
+require_once("$class_path/marc_table.class.php");
+// get_notice_langues : retourne un tableau avec les langues d'une notice donnée
+function get_notice_langues($notice=0, $quelle_langues=0) {
+	global $dbh;
+
+	global $marc_liste_langues ;
+	if (!$marc_liste_langues) $marc_liste_langues=new marc_list('lang');
+
+	$langues = array() ;
+	$rqt = "select code_langue from notices_langues where num_notice='$notice' and type_langue=$quelle_langues ";
+	$res_sql = mysql_query($rqt, $dbh);
+	while ($notice=mysql_fetch_object($res_sql)) {
+		if ($notice->code_langue)
+			$langues[] = array( 
+				'lang_code' => $notice->code_langue,
+				'langue' => $marc_liste_langues->table[$notice->code_langue]
+				) ;
+		}
+	return $langues;
+}
+
+function construit_liste_langues($tableau) {
+
+	for ($i = 0 ; $i < sizeof($tableau) ; $i++) {
+		if ($langues) $langues.=" ";
+		$langues .= $tableau[$i]["langue"]." (<i>".$tableau[$i]["lang_code"]."</i>)";
+		}
+	return $langues;
+}
+	

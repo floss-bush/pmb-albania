@@ -3,7 +3,7 @@
 
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sel_editeur.tpl.php,v 1.11 2010-06-16 12:14:36 ngantier Exp $
+// $Id: sel_editeur.tpl.php,v 1.13 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -68,10 +68,12 @@ if ($dyn==2) { // Pour les liens entre autorités
 $jscript = "
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, id_value, libelle_value)
+function set_parent(f_caller, id_value, libelle_value,callback)
 {
 	window.opener.document.forms[f_caller].elements['$p1'].value = id_value;
 	window.opener.document.forms[f_caller].elements['$p2'].value = reverse_html_entities(libelle_value);
+	if(callback)
+		window.opener[callback]('$infield');
 	window.close();
 }
 -->
@@ -115,25 +117,25 @@ $publisher_form = "
 <h3>$msg[143]</h3>
 <div class='form-contenu'>
 	<div class='row'>
-		<label class='etiquette'>$msg[67]</label>
+		<label class='etiquette'>".$msg["editeur_nom"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' size='40' name='ed_nom' value='' >
 		</div>
 	<div class='row'>
-		<label class='etiquette'>$msg[69]</label>
+		<label class='etiquette'>".$msg["editeur_adr1"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' size='40' name='ed_adr1' value='' >
 		</div>
 	<div class='row'>
-		<label class='etiquette'>$msg[70]</label>
+		<label class='etiquette'>".$msg["editeur_adr2"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' size='40' name='ed_adr2' value='' >
 		</div>
 	<div class='row'>
-		<label class='etiquette'>$msg[71]&nbsp;-&nbsp;$msg[72]</label>
+		<label class='etiquette'>".$msg["editeur_cp"]."&nbsp;-&nbsp;".$msg["editeur_ville"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' size='10' name='ed_cp' value='' maxlength='10'> - <input type='text' size='31' name='ed_ville' value=''>
@@ -145,7 +147,7 @@ $publisher_form = "
 		<input type='text' size='40' name='ed_pays' value='' >
 		</div>
 	<div class='row'>
-		<label class='etiquette'>$msg[147]</label>
+		<label class='etiquette'>".$msg["editeur_web"]."</label>
 		</div>
 	<div class='row'>
 		<input type='text' size='40' name='ed_web' value='' >

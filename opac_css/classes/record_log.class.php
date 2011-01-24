@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: record_log.class.php,v 1.8 2010-09-10 07:32:53 gueluneau Exp $
+// $Id: record_log.class.php,v 1.9 2010-12-07 16:36:06 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -67,7 +67,7 @@ class record_log{
 		
 		$rqt = "INSERT INTO logopac (url_demandee,url_referente,get_log,post_log,num_session,server_log,empr_carac,empr_doc,empr_expl,nb_result, gen_stat) VALUES ('";
 		$rqt .= addslashes($this->url_asked)."','".addslashes($this->url_ref)."','".addslashes(serialize($this->get_log))."','".addslashes(serialize($this->post_log))."','".addslashes($this->num_session)."','".addslashes(serialize($this->serveur))."','".addslashes(serialize($this->empr))."','".addslashes(serialize($this->doc))."','".addslashes(serialize($this->expl))."','".addslashes(serialize($this->nb_results))."','".addslashes(serialize($this->generique))."')";
-		$first_day = $this->sql_value("SELECT date_log FROM logopac limit 1");
+		$first_day = $this->sql_value("SELECT date_log FROM logopac order by date_log limit 1");
 		$periodicite = $this->sql_value("SELECT DATEDIFF(CURRENT_DATE(),'".addslashes($first_day)."')");
 		if($periodicite >= $pmb_perio_vidage_log){	
 			//On copie la table log dans stat et on la vide
@@ -89,7 +89,7 @@ class record_log{
 			$perio_stat = explode(",",$pmb_perio_vidage_stat);
 			$mode=$perio_stat[0];
 			$nb_jours=$perio_stat[1];
-			$first_day_stat = $this->sql_value("SELECT date_log FROM statopac limit 1");
+			$first_day_stat = $this->sql_value("SELECT date_log FROM statopac order by date_log limit 1");
 			switch($mode){
 				case '1' :
 					//On vide tous les x jours

@@ -1,0 +1,4 @@
+<h1><img src="./images/icone_editions.gif" hspace="6" vspace="6" align="middle"> módulo de edições</h1>
+<p>Você acabou de acessar o módulo de edição do PMB.</p>
+<div align="right">A equipe de desenvolvimento</div>
+

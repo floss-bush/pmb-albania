@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: prolongation.inc.php,v 1.25 2010-07-06 10:07:39 ngantier Exp $
+// $Id: prolongation.inc.php,v 1.26 2010-11-30 14:35:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -23,6 +23,7 @@ function prolonger($id_prolong) {
 	global $id_empr,$date_retour, $date_retour_lib, $form_cb, $cb_doc, $confirm;
 	global $dbh, $alert_sound_list, $msg;
 	global $pmb_pret_restriction_prolongation, $pmb_pret_nombre_prolongation, $force_prolongation, $bloc_prolongation;
+	global $deflt2docs_location,$pmb_location_reservation;
 	
 		$prolongation=TRUE;	
 	
@@ -44,11 +45,18 @@ function prolonger($id_prolong) {
 			$pret_day=split(" ",$pret_date);
 			if($pret_day[0] != today())	$cpt_prolongation++;			
 			if ($force_prolongation!=1) {
-				//Rechercher s'il subsiste une réservation sur le bulletin ou la notice
-				$query_resa = "select count(1) from resa where resa_idnotice=".$retour->expl_notice." and resa_idbulletin=".$retour->expl_bulletin;
+				//Rechercher s'il subsiste une réservation à traiter sur le bulletin ou la notice
+				$query_resa = "select count(1) from resa where resa_idnotice=".$retour->expl_notice." and resa_idbulletin=".$retour->expl_bulletin." and (resa_cb='' or resa_cb='$cb_doc')";
+				
+				if($pmb_location_reservation ) {	
+					$query_resa = "select count(1) from resa,empr,resa_loc 
+					where resa_idnotice=".$retour->expl_notice." and resa_idbulletin=".$retour->expl_bulletin." and (resa_cb='' or resa_cb='$cb_doc')
+					and resa_idempr=id_empr
+					and empr_location=resa_emprloc and resa_loc='".$deflt2docs_location."' 
+					";
+				}	
 				$result_resa = mysql_query($query_resa, $dbh);
 				$has_resa = mysql_result($result_resa,0,0);
-			
 				if (!$has_resa) {
 					if ($pmb_pret_restriction_prolongation>0) {
 						//limitation simple du prêt

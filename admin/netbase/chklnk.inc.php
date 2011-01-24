@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: chklnk.inc.php,v 1.8 2009-05-16 11:11:53 dbellamy Exp $
+// $Id: chklnk.inc.php,v 1.10 2010-11-04 16:36:18 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,8 +20,65 @@ if (!$suite) {
 	error_reporting (E_ERROR | E_PARSE | E_WARNING);
 	@set_time_limit($pmb_set_time_limit) ;
 	$curl = new Curl();
-	$curl->limit=1;
+	$curl->limit=1000;//Limite à 1Ko
 	mysql_query("set wait_timeout=3600");
+	
+	
+	$req_notice = array();
+	$req_explnum_noti = array();
+	$req_explnum_bull = array();
+	
+	$requete_notice ="select notice_id, tit1, lien from notices !!JOIN!! where lien!='' and lien is not null";
+	$requete_explnum_noti = "select notice_id, tit1, explnum_url, explnum_id from notices !!JOIN!! join explnum on explnum_notice=notice_id and explnum_notice != 0 where explnum_mimetype = 'URL'"; 
+	$requete_explnum_bull = "select bulletin_id, concat(notices.tit1,' ',bulletin_numero,' ',date_date) as tit, explnum_url, explnum_id, notices.notice_id from notices join bulletins on notices.notice_id=bulletin_notice !!JOIN!! join explnum on explnum_bulletin=bulletin_id and explnum_bulletin != 0 where explnum_mimetype = 'URL'";	
+	//on s'occupe des restrictions
+	if($chkrestrict){
+		//pour les paniers de notice	
+		if($idcaddienoti){
+			$paniers_ids = implode(",",$idcaddienoti);
+			//restriction aux notices des paniers
+			$limit_noti = "join caddie_content as c1 on c1.caddie_id in ($paniers_ids) and notice_id = c1.object_id";
+			//restriction aux bulletins des notices de bulletins des paniers
+			$limit_noti_bull = "join notices as n1 on n1.niveau_biblio = 'b' and n1.niveau_hierar = '2' and num_notice = n1.notice_id join caddie_content as c2 on n1.notice_id = c2.object_id and c2.caddie_id in ($paniers_ids)";
+
+			$req_notice[] =str_replace("!!JOIN!!",$limit_noti,$requete_notice);
+			$req_explnum_noti[]= str_replace("!!JOIN!!",$limit_noti,$requete_explnum_noti);
+			$req_explnum_bull[]=str_replace("!!JOIN!!",$limit_noti_bull,$requete_explnum_bull);
+		}
+		//pour les paniers de bulletins
+		if($idcaddiebull){
+			$paniers_ids = implode(",",$idcaddiebull);
+			//restriction aux bulletins du paniers 
+			$limit_bull = "join caddie_content as c3 on c3.caddie_id in ($paniers_ids) and bulletin_id = c3.object_id";
+			//restriction aux notices de bulletins associées aux bulletins des paniers
+			$limit_bull_noti = "join bulletins as b1 on b1.num_notice = notice_id join caddie_content as c4 on c4.caddie_id in ($paniers_ids) and c4.object_id = b1.bulletin_id";
+				
+			$req_notice[] =str_replace("!!JOIN!!",$limit_bull_noti,$requete_notice);
+			$req_explnum_noti[]= str_replace("!!JOIN!!",$limit_bull_noti,$requete_explnum_noti);
+			$req_explnum_bull[]=str_replace("!!JOIN!!",$limit_bull,$requete_explnum_bull);
+		}
+		//pour les paniers d'exemplaires
+		if($idcaddieexpl){
+			$paniers_ids = implode(",",$idcaddieexpl);
+			//restriction aux notices associées au exemplaires des paniers
+			$limit_expl_noti = "join exemplaires as e1 on e1.expl_notice = notice_id and e1.expl_notice != 0 join caddie_content as c5 on c5.caddie_id in ($paniers_ids) and e1.expl_id = c5.object_id";
+			//restrictions aux bulletin associés au exemplaires des paniers
+			$limit_expl_bull = "join exemplaires as e2 on e2.expl_bulletin = bulletin_id join caddie_content as c6 on c6.caddie_id in ($paniers_ids) and e2.expl_id = c6.object_id";
+			//restriction aux notices de bulletins associées aux bulletins dont les exemplaires sont dans le paniers
+			$limit_expl_bull_noti ="join bulletins as b2 on b2.num_notice = notice_id join exemplaires as e3 on e3.expl_bulletin = b2.bulletin_id join caddie_content as c7 on c7.caddie_id in ($paniers_ids) and e3.expl_id = c7.object_id";
+			
+			$req_notice[] =str_replace("!!JOIN!!",$limit_expl_noti,$requete_notice);
+			$req_notice[] =str_replace("!!JOIN!!",$limit_expl_bull_noti,$requete_notice);	
+			$req_explnum_noti[]= str_replace("!!JOIN!!",$limit_expl_noti,$requete_explnum_noti);
+			$req_explnum_bull[]=str_replace("!!JOIN!!",$limit_expl_bull,$requete_explnum_bull);
+		}
+	}else{
+		//si on a pas restreint par panier, 
+		$req_notice[] =str_replace("!!JOIN!!","",$requete_notice);
+		$req_explnum_noti[]= str_replace("!!JOIN!!","",$requete_explnum_noti);
+		$req_explnum_bull[]=str_replace("!!JOIN!!","",$requete_explnum_bull);
+	}
+
 	if ($chknoti) {
 		if ($ajtnoti) {
 			$cad=new caddie($idcaddienot);
@@ -29,7 +86,7 @@ if (!$suite) {
 		} else $liencad="";
 		echo "<div class='row'><hr /></div><div class='row'><label class='etiquette' >".$msg['chklnk_verifnoti']."</label>".$liencad."</div>
 			<div class='row'>";
-		$q = "select notice_id, tit1, lien from notices where lien!='' and lien is not null ";
+		$q =implode($req_notice," union ");
 		$r = mysql_query($q) ;
 		while ($o=mysql_fetch_object($r)) {
 			$response = $curl->get($o->lien);
@@ -45,7 +102,7 @@ if (!$suite) {
 		echo "</div>";
 		flush();
 	}
-
+	
 	if ($chkenum) {
 		$resl="";
 		if ($ajtenum) {
@@ -54,7 +111,8 @@ if (!$suite) {
 		} else $liencad="";
 		echo "<div class='row'><hr /></div><div class='row'><label class='etiquette' >".$msg['chklnk_verifenum']."</label>".$liencad."</div>
 			<div class='row'>";
-		$q = "select notice_id, tit1, explnum_url, explnum_id from notices join explnum on explnum_notice=notice_id where explnum_url!='' and explnum_url is not null ";
+
+		$q = implode($req_explnum_noti," union ");
 		$r = mysql_query($q) or die(mysql_error()."<br />".$q);
 		while ($o=mysql_fetch_object($r)) {
 			$response = $curl->get($o->explnum_url);
@@ -70,7 +128,7 @@ if (!$suite) {
 		echo "</div>";
 		flush();
 	}
-
+	
 	if ($chkbull) {
 		$resl="";
 		if ($ajtbull) {
@@ -79,7 +137,8 @@ if (!$suite) {
 		} else $liencad="";
 		echo "<div class='row'><hr /></div><div class='row'><label class='etiquette' >".$msg['chklnk_verifbull']."</label>".$liencad."</div>
 			<div class='row'>";
-		$q = "select bulletin_id, concat(tit1,' ',bulletin_numero,' ',date_date) as tit, explnum_url, explnum_id, notice_id from notices join bulletins on notice_id=bulletin_notice join explnum on explnum_bulletin=bulletin_id where explnum_url!='' and explnum_url is not null ";
+
+		$q = implode($req_explnum_bull," union ");
 		$r = mysql_query($q) or die(mysql_error()."<br />".$q);
 		while ($o=mysql_fetch_object($r)) {
 			$response = $curl->get($o->explnum_url);

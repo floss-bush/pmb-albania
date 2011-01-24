@@ -1,0 +1,15 @@
+<h1>Reservas interbibliotecas (Interlibrary loans - ILL)</h1>
+<p>Abaixo estão as opções para configurar os ILLs. </p>
+<p>
+<b>Geral</b> Configurações gerais
+</p><p>
+<b>Entrega</b> Configurações de entrega
+</p><p>
+<b>OPAC</b> Configurações OPAC
+</p><p>
+<b>Ordem de pesquisa</b> permite a classificação por ordem de prioridade os locais onde você procura as cópias para transferência
+</p><p>
+<b>Status padrão</b> quando receber uma cópia
+</p><p>
+<b>Histórico vazio</b> remove todos os históricos de reserva
+</p>

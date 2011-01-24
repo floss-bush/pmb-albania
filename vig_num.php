@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: vig_num.php,v 1.6 2010-04-14 09:20:43 erwanmartin Exp $
+// $Id: vig_num.php,v 1.7 2010-10-25 13:10:34 mbertin Exp $
 
 // définition du minimum nécéssaire 
 $base_path     = ".";                            
@@ -26,7 +26,7 @@ if ($ligne->explnum_vignette) {
 	print $ligne->explnum_vignette;
 	exit ;
 	} else {
-		if ($curl_available) {
+		if ($pmb_curl_available) {
 			$image_url = 'http';
  			if ($_SERVER["HTTPS"] == "on") {$image_url .= "s";}
  			$image_url .= "://";

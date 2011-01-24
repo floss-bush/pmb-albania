@@ -5,7 +5,7 @@
 	-premier caractère et niveau bibliographique : m a s 
 	-deuxième caractère : recordtype
 	CE FICHIER EST UTILISE EN OPAC, PAS EN GESTION, IL N'EST RECOPIE EN GESTION QUE POUR UNE QUESTION DE COHERENCE
-$Id: icondoc.xml,v 1.1 2006-10-28 06:11:16 touraine37 Exp $ -->
+$Id: icondoc.xml,v 1.2 2010-12-02 16:43:13 arenou Exp $ -->
 
 <XMLlist>
 	<entry code="ma">icon_a_16x16.gif</entry>
@@ -49,4 +49,18 @@ $Id: icondoc.xml,v 1.1 2006-10-28 06:11:16 touraine37 Exp $ -->
 	<entry code="al">icon_art_16x16.gif</entry>
 	<entry code="am">icon_art_16x16.gif</entry>
 	<entry code="ar">icon_art_16x16.gif</entry>
+
+	<entry code="ba">icon_bul_16x16.gif</entry>
+	<entry code="bb">icon_bul_16x16.gif</entry>
+	<entry code="bc">icon_bul_16x16.gif</entry>
+	<entry code="bd">icon_bul_16x16.gif</entry>
+	<entry code="be">icon_bul_16x16.gif</entry>
+	<entry code="bf">icon_bul_16x16.gif</entry>
+	<entry code="bg">icon_bul_16x16.gif</entry>
+	<entry code="bi">icon_bul_16x16.gif</entry>
+	<entry code="bj">icon_bul_16x16.gif</entry>
+	<entry code="bk">icon_bul_16x16.gif</entry>
+	<entry code="bl">icon_bul_16x16.gif</entry>
+	<entry code="bm">icon_bul_16x16.gif</entry>
+	<entry code="br">icon_bul_16x16.gif</entry>
 </XMLlist>

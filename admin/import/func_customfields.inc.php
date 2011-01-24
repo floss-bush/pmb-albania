@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: func_customfields.inc.php,v 1.1 2009-12-11 12:54:47 kantin Exp $
+// $Id: func_customfields.inc.php,v 1.2 2011-01-12 19:37:02 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -45,7 +45,7 @@ function import_new_notice_suite() {
 						mysql_query($requete);
 						$value=$n;
 					}
-					$requete="insert into notices_custom_values (notices_custom_champ,notices_custom_origine,notices_custom_integer) values($perso->idchamp,$notice_id,$value)";
+					$requete="insert into notices_custom_values (notices_custom_champ,notices_custom_origine,notices_custom_".$perso->datatype.") values($perso->idchamp,$notice_id,'".$value."')";
 					mysql_query($requete);
 				} else {
 					$requete="insert into notices_custom_values (notices_custom_champ,notices_custom_origine,notices_custom_".$perso->datatype.") values($perso->idchamp,$notice_id,'".addslashes($info_900[$i]['a'])."')";

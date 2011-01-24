@@ -1,0 +1,2 @@
+<h1>Gestão do terminal de empréstimo</h1>
+<p>Permite gerar o comportamento de um terminal de empréstimo e definir as mensagens exibidas por estes comportamentos. </p>

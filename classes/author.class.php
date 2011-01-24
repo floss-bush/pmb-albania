@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.class.php,v 1.60 2010-06-16 12:13:47 ngantier Exp $
+// $Id: author.class.php,v 1.61 2010-12-06 15:53:22 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -414,7 +414,7 @@ class auteur {
 	// ---------------------------------------------------------------
 	//		replace($by) : remplacement de l'auteur
 	// ---------------------------------------------------------------
-	function replace($by) {
+	function replace($by,$link_save=0) {
 	
 		global $msg;
 		global $dbh;
@@ -422,7 +422,19 @@ class auteur {
 		if (($this->id == $by) || (!$this->id))  {
 			return $msg[223];
 		}
-	
+		$aut_link= new aut_link(AUT_TABLE_AUTHORS,$this->id);
+		// "Conserver les liens entre autorités" est demandé
+		if($link_save) {
+			// liens entre autorités
+			$aut_link->add_link_to(AUT_TABLE_AUTHORS,$by);
+			// Voir aussi	
+			if($this->see){		
+				$requete = "UPDATE authors SET author_see='".$this->see."'  WHERE author_id='$by' ";
+				@mysql_query($requete, $dbh);
+			}		
+		}
+		$aut_link->delete();
+		
 		// remplacement dans les responsabilités
 		$requete = "UPDATE responsability SET responsability_author='$by' WHERE responsability_author='$this->id' ";
 		@mysql_query($requete, $dbh);

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: commandes.inc.php,v 1.66 2010-05-31 12:55:42 gueluneau Exp $
+// $Id: commandes.inc.php,v 1.69 2010-10-29 08:35:20 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -103,7 +103,8 @@ function show_list_cde($id_bibli) {
 	$search_form = str_replace('!!form_title!!', $titre, $search_form);
 	$search_form = str_replace('!!action!!', $action, $search_form);
 	$search_form = str_replace('<!-- bouton_add -->', $bouton_add, $search_form);
-	
+	$search_form = str_replace('!!user_input!!', $user_input, $search_form);
+		
 	print $search_form;
 	
 	if (!$statut) {
@@ -111,8 +112,9 @@ function show_list_cde($id_bibli) {
 	} else {
 		setSessionCdeState($statut);	
 	}
-	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();</script>";
-	
+	print "<script type='text/javascript' >document.forms['search'].elements['statut'].value = '".$statut."';document.forms['search'].elements['user_input'].focus();
+	document.forms['search'].elements['user_input'].select();</script>";
+	 
 	//Prise en compte du formulaire de recherche
 	// nombre de références par pages
 	if ($nb_per_page_acq != "") $nb_per_page = $nb_per_page_acq ;
@@ -425,7 +427,7 @@ function show_cde($id_bibli, $id_exer, $id_cde) {
 		$bt_audit = '';
 		$bt_arc = '';
 		$bt_sup = '';
-		$lignes= array(0=>0, 1=>'');
+		$lignes= show_lig_cde(0);//$lignes= array(0=>0, 1=>'');
 		
 	} else {		//visualisation ou modification de commmande
 
@@ -668,11 +670,16 @@ function show_cde($id_bibli, $id_exer, $id_cde) {
 //Affiche les lignes d'une commande
 function show_lig_cde($id_cde, $mod=TRUE) {
 	
-	global $charset;
+	global $charset,$msg;
 	global $acquisition_gestion_tva;
 	global $modif_cde_row_form, $valid_cde_row_form;
 	
-	$form = "";
+	$form = "	
+	<script type='text/javascript'>	
+		acquisition_force_ttc='".$msg["acquisition_force_ttc"]."';
+		acquisition_force_ht='".$msg["acquisition_force_ht"]."';
+	</script>
+	";
 	$i=0;	
 	if (!$id_cde) {
 		$t = array(0=>$i, $form);
@@ -686,8 +693,7 @@ function show_lig_cde($id_cde, $mod=TRUE) {
 	}
 	
 	$lignes = actes::getLignes($id_cde);
-	while (($row = mysql_fetch_object($lignes))) {
-		
+	while (($row = mysql_fetch_object($lignes))) {		
 		$i++;	
 		$form.= $row_form;
 		$form = str_replace('!!no!!', $i, $form);
@@ -697,7 +703,95 @@ function show_lig_cde($id_cde, $mod=TRUE) {
 		$form = str_replace('!!prix!!', $row->prix, $form);
 		if ($acquisition_gestion_tva) {
 			$form = str_replace('!!tva!!', $row->tva , $form);
+			if ($acquisition_gestion_tva==1 ) {
+				$prix_ttc=round($row->prix+($row->prix/100*$row->tva),2);
+				$onchange_tva="
+					onChange='document.getElementById(\"convert_ht_ttc_$i\").innerHTML=
+						ht_to_ttc(document.getElementById(\"prix[$i]\").value,document.getElementById(\"tva[$i]\").value);
+					' ";
+				$convert_prix="
+					onChange='document.getElementById(\"convert_ht_ttc_$i\").innerHTML=
+						ht_to_ttc(document.getElementById(\"prix[$i]\").value,document.getElementById(\"tva[$i]\").value);
+					' ";				
+				$convert_ht_ttc="
+				<span class='convert_ht_ttc' id='convert_ht_ttc_$i' 
+					onclick='
+						document.getElementById(\"input_convert_ht_ttc_$i\").value=\"\";
+						document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"visible\"; 
+						document.getElementById(\"input_convert_ht_ttc_$i\").focus();
+					'							
+				>".$prix_ttc."</span>
+				<input style='visibility:hidden' type='text' id='input_convert_ht_ttc_$i' name='convert_ht_ttc_$i' value='' 				
+					onBlur='document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"hidden\";'				
+					onChange='document.getElementById(\"prix[$i]\").value=
+						ttc_to_ht(document.getElementById(\"input_convert_ht_ttc_$i\").value,document.getElementById(\"tva[$i]\").value);
+						document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"hidden\"; 
+						document.getElementById(\"convert_ht_ttc_$i\").innerHTML=document.getElementById(\"input_convert_ht_ttc_$i\").value;
+					'  
+				/>";		
+			}elseif ($acquisition_gestion_tva==2 ) {		
+				$prix=$row->prix;
+				$tva=$row->tva;
+				$prix_ht=round( $prix / (($tva/100)+1),2);
+				$onchange_tva="
+					onChange='document.getElementById(\"convert_ht_ttc_$i\").innerHTML=
+						ttc_to_ht(document.getElementById(\"prix[$i]\").value,document.getElementById(\"tva[$i]\").value);
+					' ";
+				$convert_prix="
+					onChange='document.getElementById(\"convert_ht_ttc_$i\").innerHTML=
+						ttc_to_ht(document.getElementById(\"prix[$i]\").value,document.getElementById(\"tva[$i]\").value);
+					' ";
+				$convert_ht_ttc="
+				<span class='convert_ht_ttc' id='convert_ht_ttc_$i' 
+					onclick='
+						document.getElementById(\"input_convert_ht_ttc_$i\").value=\"\";
+						document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"visible\"; 
+						document.getElementById(\"input_convert_ht_ttc_$i\").focus();
+					'							
+				>".$prix_ht."</span>
+				<input style='visibility:hidden' type='text' id='input_convert_ht_ttc_$i' name='convert_ht_ttc_$i' value='$prix_ttc' 				
+					onBlur='document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"hidden\";'				
+					onChange='document.getElementById(\"prix[$i]\").value=
+						ht_to_ttc(document.getElementById(\"input_convert_ht_ttc_$i\").value,document.getElementById(\"tva[$i]\").value);
+						document.getElementById(\"input_convert_ht_ttc_$i\").style.visibility=\"hidden\"; 
+						document.getElementById(\"convert_ht_ttc_$i\").innerHTML=document.getElementById(\"input_convert_ht_ttc_$i\").value;
+					'  
+				/>";				
+			}				
+			if ($row->debit_tva==1 ) {
+				$force_ht_ttc="<br />
+				<input type='hidden' id='force_debit[$i]' name='force_debit[$i]' value='1' />				
+				<span class='force_ht_ttc' id='force_ht_ttc_$i'				
+					onclick='
+						if(document.getElementById(\"force_debit[$i]\").value==1){
+							document.getElementById(\"force_ht_ttc_$i\").innerHTML=\"".$msg["acquisition_force_ttc"]."\";
+							document.getElementById(\"force_debit[$i]\").value=2;
+						}else{				
+							document.getElementById(\"force_ht_ttc_$i\").innerHTML=\"".$msg["acquisition_force_ht"]."\";
+							document.getElementById(\"force_debit[$i]\").value=1;
+						}				
+					'				
+				>".$msg["acquisition_force_ht"]."</span>";				
+			}else{
+				$force_ht_ttc="<br />
+				<input type='hidden' id='force_debit[$i]' name='force_debit[$i]' value='2' />				
+				<span class='force_ht_ttc' id='force_ht_ttc_$i'				
+					onclick='
+						if(document.getElementById(\"force_debit[$i]\").value==2){
+							document.getElementById(\"force_ht_ttc_$i\").innerHTML=\"".$msg["acquisition_force_ht"]."\";
+							document.getElementById(\"force_debit[$i]\").value=1;
+						}else{				
+							document.getElementById(\"force_ht_ttc_$i\").innerHTML=\"".$msg["acquisition_force_ttc"]."\";
+							document.getElementById(\"force_debit[$i]\").value=2;
+						}				
+					'				
+				>".$msg["acquisition_force_ttc"]."</span>";
+			}	
 		}
+		$form = str_replace('!!onchange_tva!!', $onchange_tva, $form);
+		$form = str_replace('!!convert_prix!!', $convert_prix, $form);
+		$form = str_replace('!!convert_ht_ttc!!', $convert_ht_ttc, $form);
+		$form = str_replace('!!force_ht_ttc!!', $force_ht_ttc, $form);
 		$form = str_replace('!!rem!!', $row->remise, $form);
 		
 		if ($mod) {
@@ -1400,7 +1494,8 @@ function update_cde() {
 	global $code, $lib, $qte, $prix, $typ, $tva, $rem, $rub, $id_sug, $id_lig, $typ_lig, $id_prod;
 	global $acquisition_gestion_tva;
 	global $action;
-
+	global $force_debit;
+	
 	//Recuperation des lignes valides
 	$tab_lig=array();
 	if (count($id_lig)) {
@@ -1460,15 +1555,15 @@ function update_cde() {
 			$lig_cde->num_type = $typ[$k];
 			$lig_cde->code = trim($code[$k]);
 			$lig_cde->libelle = trim($lib[$k]);
-			$lig_cde->prix = $prix[$k];
+			$lig_cde->prix = $prix[$k]; 
 			if ($acquisition_gestion_tva) {
-				$lig_cde->tva = $tva[$k];
+				$lig_cde->tva = $tva[$k];				
 			} else {
 				$lig_cde->tva = '0.00';
-			}
+			}			
+			$lig_cde->debit_tva= $force_debit[$k];
 			$lig_cde->remise = $rem[$k];
 			$lig_cde->nb = round($qte[$k]);
-
 			$lig_cde->date_ech = $date_liv;			
 			$lig_cde->date_cre = today();			
 //TODO Verifier que ce statut est utile
@@ -1526,7 +1621,8 @@ function update_cde() {
 					$lig_cde->tva = $tva[$k];
 				} else {
 					$lig_cde->tva = '0.00';
-				}		
+				}
+				$lig_cde->debit_tva= $force_debit[$k];		
 				$lig_cde->remise = $rem[$k];
 				$lig_cde->nb = round($qte[$k]);
 

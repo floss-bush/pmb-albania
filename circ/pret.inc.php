@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pret.inc.php,v 1.78 2010-08-25 09:52:50 ngantier Exp $
+// $Id: pret.inc.php,v 1.80 2010-12-02 14:16:07 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -45,7 +45,7 @@ if($confirm_pret && $id_empr){
 		<div class='colonne10'><img src='./images/info.png' /></div>
 		<div class='colonne-suite'><span class='erreur'>".$msg[384]."</span><br />
 		";
-	$alert_sound_list[]="information";	
+	if($pmb_play_pret_sound)$alert_sound_list[]="information";	
 	$empr = new emprunteur($id_empr, $erreur_affichage, FALSE, 1);
 	$affichage = $empr -> fiche;
 		
@@ -140,7 +140,7 @@ function magnetise(commande){
 						$titre_prete="<b>".$titre_prete."<br />".$cb_doc."</b> $statut->tdoc_libelle $statut->location_libelle $statut->section_libelle <b>$statut->expl_cote</b>";
 						
 						//Y-a-t-il un quota ?
-						if (!$expl_todo) {		
+						if (!$expl_todo && $deflt_docs_location) {		
 							$sql = "SELECT expl_retloc FROM exemplaires where expl_retloc='".$deflt_docs_location."' and  expl_id='".$id_expl."' ";
 							$req = mysql_query($sql) or die ($msg["err_sql"]."<br />".$sql."<br />".mysql_error());
 							$nb = mysql_num_rows($req) ;
@@ -411,7 +411,7 @@ function magnetise(commande){
 										<div class='colonne10'><img src='./images/info.png' /></div>
 										<div class='colonne-suite'>$titre_prete : <span class='erreur'>".$msg[384]."</span><br />
 										";
-									$alert_sound_list[]="information";
+									if($pmb_play_pret_sound)$alert_sound_list[]="information";
 									$erreur_affichage.= "<input type='button' class='bouton' value='${msg[76]}' onClick=\"document.location='circ.php?categ=pret&sub=pret_annulation&id_empr=".$id_empr."&id_expl=".$id_expl."&cb_doc=".$cb_doc."'\" />";
 									
 									if($pmb_printer_ticket_url) $erreur_affichage.="&nbsp;<a href='#' onclick=\"print_ticket('./ajax.php?module=circ&categ=print_pret&sub=one&id_empr=".$id_empr."&id_expl=".$id_expl."&cb_doc=$cb_doc'); return false;\"><img src='./images/print.gif' alt='Imprimer...' title='Imprimer...' align='middle' border='0'></a>";

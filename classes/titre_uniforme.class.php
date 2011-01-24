@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titre_uniforme.class.php,v 1.13 2010-06-16 12:13:48 ngantier Exp $
+// $Id: titre_uniforme.class.php,v 1.14 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -323,7 +323,7 @@ class titre_uniforme {
 	// ---------------------------------------------------------------
 	//		replace($by) : remplacement 
 	// ---------------------------------------------------------------
-	function replace($by) {
+	function replace($by,$link_save) {
 	
 		global $msg;
 		global $dbh;
@@ -332,6 +332,14 @@ class titre_uniforme {
 			return $msg[223];
 		}
 		
+		$aut_link= new aut_link(AUT_TABLE_TITRES_UNIFORMES,$this->id);
+		// "Conserver les liens entre autorités" est demandé
+		if($link_save) {
+			// liens entre autorités
+			$aut_link->add_link_to(AUT_TABLE_TITRES_UNIFORMES,$by);		
+		}
+		$aut_link->delete();
+	
 		// remplacement dans les responsabilités
 		$requete = "UPDATE notices_titres_uniformes SET ntu_num_tu='$by' WHERE ntu_num_tu='$this->id' ";
 		@mysql_query($requete, $dbh);

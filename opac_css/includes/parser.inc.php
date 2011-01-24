@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parser.inc.php,v 1.12 2008-08-05 09:03:45 touraine37 Exp $
+// $Id: parser.inc.php,v 1.13 2010-11-04 16:39:26 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -81,7 +81,13 @@ function _parser_($nom_fichier, $fonction, $rootelement) {
 				if (isset($fonction[$key])) {
 					for ($j = 0; $j < count($val); $j ++) {
 						$param_fonction = $val[$j];
-						eval($fonction[$key]."(\$param_fonction);");
+						if(is_array($fonction[$key])){
+							//si on a un tableau, on rapelle un objet
+							$fonction[$key]['obj']->$fonction[$key]['method']($param_fonction);
+						}else{
+							//sinon, c'est comme avant...
+							eval($fonction[$key]."(\$param_fonction);");
+						}
 					}
 				}
 			}
@@ -119,7 +125,12 @@ function _parser_text_($xml, $fonction, $rootelement) {
 				if (isset($fonction[$key])) {
 					for ($j = 0; $j < count($val); $j ++) {
 						$param_fonction = $val[$j];
-						eval($fonction[$key]."(\$param_fonction);");
+						if(is_array($fonction[$key])){
+							//si on a un tableau, on rapelle un objet
+							$fonction[$key]['obj']->$fonction[$key]['method']($param_fonction);
+						}else{
+							eval($fonction[$key]."(\$param_fonction);");
+						}
 					}
 				}
 			}

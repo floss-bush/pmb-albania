@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: title.inc.php,v 1.31 2010-07-02 08:15:15 arenou Exp $
+// $Id: title.inc.php,v 1.33 2010-11-17 17:15:24 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -61,10 +61,14 @@ if($clause) {
 		$nb_results_tab['titres'] = $nb_result_titres;
 	}
 	
-	$req_typdoc="select distinct typdoc as nbexplnum from notices $statut_j $acces_j $clause group by typdoc";
-	if($opac_visionneuse_allow)
-		$req_typdoc = "select distinct typdoc, count(explnum_id) as nbexplnum from notices left join explnum on explnum_notice=notice_id and explnum_mimetype in ($opac_photo_filtre_mimetype) $statut_j $acces_j $clause group by typdoc";
+	$req_typdoc="select distinct typdoc from notices $statut_j $acces_j $clause group by typdoc";
+	if($opac_visionneuse_allow){
+		$req_noti = "select distinct typdoc, count(explnum_id) as nbexplnum from notices left join explnum on explnum_notice = notice_id and explnum_mimetype in ($opac_photo_filtre_mimetype) $statut_j $acces_j $clause group by typdoc";
+		$req_bull = "select distinct typdoc, count(explnum_id) as nbexplnum from bulletins left join notices on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_bulletin = bulletin_id and explnum_bulletin != 0 and explnum_mimetype in ($opac_photo_filtre_mimetype) $statut_j $acces_j $clause group by typdoc";
+		$req_typdoc ="select distinct typdoc, sum(nbexplnum) as nbexplnum from ($req_bull union $req_noti) as uni group by typdoc";
+	}
 	$res_typdoc = mysql_query($req_typdoc, $dbh);	
+	
 	$t_typdoc=array();	
 	$nbexplnum_to_photo = 0;
 	while (($tpd=mysql_fetch_object($res_typdoc))) {

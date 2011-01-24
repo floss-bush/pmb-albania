@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: upload_folder.tpl.php,v 1.2 2009-07-07 13:14:54 kantin Exp $
+// $Id: upload_folder.tpl.php,v 1.3 2011-01-17 13:02:54 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -105,7 +105,7 @@ $rep_edit_form .="<div class='row'>
 		</div>		
 		<div class='row'>
 			<label>$msg[upload_repertoire_utf8] </label>
-		</div
+		</div>
 		<div class='row'>
 			<select name='rep_utf8'>
 				<option value='1' !!select_utf8_yes!!>$msg[upload_repertoire_yes]</option>

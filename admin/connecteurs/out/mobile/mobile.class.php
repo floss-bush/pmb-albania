@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: mobile.class.php,v 1.3 2010-09-01 09:03:41 arenou Exp $
+// $Id: mobile.class.php,v 1.4 2010-10-13 14:02:16 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -86,24 +86,36 @@ class mobile_source extends connecteur_out_source {
 		$connecteurs = new connecteurs_out();
 		foreach($connecteurs->connectors as $conn) {
 			if( $conn->name == 'JSON-RPC') $sources = $conn->sources;
-		}			
+		}	
+		
+		//on génère l'affichage du sélecteur
+		$proxyIsInList = false; 
+		if(sizeof($sources) == 0) {
+			$selectWS = $this->msg['mobile_admin_error_proxy'];
+		} else {
+			$selectWS="<select name='proxyUrl'>";
+			foreach ($sources as $source){
+				if ($this->config['proxyUrl'] == $pmb_url_base."ws/connector_out.php?source_id=".$source->id){
+					$proxyIsInList = true;
+				}
+				$selectWS.= "<option value='".$pmb_url_base."ws/connector_out.php?source_id=".$source->id."'".($this->config['proxyUrl']== $pmb_url_base."ws/connector_out.php?source_id=".$source->id ? " selected":"").">".$source->name."</option>";
+			}
+			$selectWS.="</select>";
+		}
+		//maintenant l'entrée manuelle...
+		$writeWS = "<input type='text' id='proxyUrl' name='proxyUrl' value='".$this->config['proxyUrl']."' />";
+					
 		$result .= "
 		<div class='row'>&nbsp;</div>
 		<div class='row'>
-			<label class='etiquette' for='proxyUrl'>".$this->msg['mobile_admin_proxyUrl']."</label><br />";
-		if(sizeof($sources) == 0) {
-			$result .= $this->msg['mobile_admin_error_proxy'];
-		} else {
-			$result.="
-			<select name='proxyUrl'>";
-			foreach ($sources as $source){
-				$result.= "
-				<option value='".$pmb_url_base."ws/connector_out.php?source_id=".$source->id."'".($this->config['proxyUrl']== $pmb_url_base."ws/connector_out.php?source_id=".$source->id ? " selected":"").">".$source->name."</option>";
-			}
-			$result.="
-			</select>";
-		}		
-		
+			<label class='etiquette' for='proxyUrl'>".$this->msg['mobile_admin_proxyUrl']."</label><br />
+			".$this->msg['mobile_admin_pickWSInList_yes']."
+			&nbsp;<input type='radio' name='pickWSInList' value='yes' ".($proxyIsInList == true ? "checked='checked'": "")." onchange='switchWSMethod();'/>
+			&nbsp;".$this->msg['mobile_admin_pickWSInList_no']."			
+			&nbsp;<input type='radio' name='pickWSInList' value='no' ".($proxyIsInList == true  ? "": "checked='checked'")." onchange='switchWSMethod();' /><br /><br />
+			<div id='selectWS'></div>
+			";
+			
 		$result .="
 		</div>
 		<div class='row'>&nbsp;</div>";
@@ -286,6 +298,7 @@ class mobile_source extends connecteur_out_source {
 			function init(){";
 			foreach($this->onglets as $onglet =>$value){
 				$result.="
+				switchWSMethod();
 				checkParam('$onglet');
 				expandBase('paramGen',true);
 			";
@@ -294,6 +307,19 @@ class mobile_source extends connecteur_out_source {
 			}
 
 			onload = init;
+
+			function switchWSMethod(){
+				if(document.form_connectorout.pickWSInList[0].checked){
+					var pickWSInList = document.form_connectorout.pickWSInList[0].value
+				}else{
+					var pickWSInList = document.form_connectorout.pickWSInList[1].value	
+				}
+				if (pickWSInList == 'yes'){
+					document.getElementById('selectWS').innerHTML = \"$selectWS\";
+				}else{
+					document.getElementById('selectWS').innerHTML = \"$writeWS\";
+				}
+			}
 
 			// on s'assure que l'application dispose bien d'une première page à la soumission du formulaire...
 			document.forms['form_connectorout'].onsubmit = function(){

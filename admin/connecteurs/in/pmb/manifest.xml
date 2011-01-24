@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2010-10-08 15:05:04 dgoron Exp $ -->
+
+<manifest>
+	<name>pmb</name>
+	<repository>no</repository>
+	<comment>Connecteur webservices PMB</comment>
+	<author>Dimitri GORON</author>
+	<org>PMB Services</org>
+	<date>2010-09-29</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

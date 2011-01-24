@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- Fichier manifest de description des méthodes disponibles
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2010-10-15 11:41:28 erwanmartin Exp $ -->
+<manifest>
+	<name>pmbesAutLinks</name>
+	<requirements>
+		<requirement group="pmbesTypes"/>
+	</requirements>
+	<methods>
+		<method name="getLinks" rights="" version="1.0" language_independant="false">
+			<pmb_requirements>
+				<pmb_requirement start_path="class" file="aut_link.class.php"/>
+			</pmb_requirements>
+			<inputs>
+				<param name="authTable" type="scalar" dataType="integer"/>
+				<param name="authId" type="scalar" dataType="integer"/>
+			</inputs>
+			<outputs>
+				<result type="array" name="links">
+					<result name="autlink_to" type="scalar" dataType="string"/>
+					<result name="autlink_to_id" type="scalar" dataType="integer"/>
+					<result name="autlink_to_libelle" type="scalar" dataType="string"/>
+					<result name="autlink_type" type="scalar" dataType="integer"/>
+					<result name="autlink_reciproc" type="scalar" dataType="boolean"/>
+					<result name="autlink_comment" type="scalar" dataType="string"/>				
+				</result>
+			</outputs>
+		</method>
+	</methods>
+</manifest>

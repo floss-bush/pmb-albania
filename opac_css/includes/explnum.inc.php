@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum.inc.php,v 1.22 2010-07-02 08:15:13 arenou Exp $
+// $Id: explnum.inc.php,v 1.27 2010-12-08 15:40:06 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -52,7 +52,6 @@ function trouve_mimetype ($fichier, $ext='') {
 		if ($_mimetypes_byext_[$ext]["mimetype"]) return $_mimetypes_byext_[$ext]["mimetype"] ;
 	}
 	if (extension_loaded('mime_magic')) {
-		print("toto");
 		$mime_type = mime_content_type($fichier) ;
 		if ($mime_type) return $mime_type ;
 	}
@@ -107,6 +106,8 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 	global $dbh;
 	global $charset;
 	global $opac_url_base ;
+	global $opac_visionneuse_allow;
+	global $opac_photo_filtre_mimetype;
 	
 	if (!$no_notice && !$no_bulletin) return "";
 	
@@ -145,8 +146,25 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 			if(($expl->explnum_mimetype=='application/pdf') ||($expl->explnum_mimetype=='URL' && (strpos($expl->explnum_nom,'.pdf')!==false))){
 				$words_to_find = "#search=\"".trim(str_replace('*','',implode(' ',$search_terms)))."\"";
 			}
-			$expl_liste_obj .= "<a href='".$opac_url_base."/doc_num.php?explnum_id=$expl->explnum_id$words_to_find' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
-			
+			if($opac_visionneuse_allow)
+				$allowed_mimetype = explode(",",str_replace("'","",$opac_photo_filtre_mimetype));
+			if ($allowed_mimetype && in_array($expl->explnum_mimetype,$allowed_mimetype)){
+				$link="
+					<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
+					<script type='text/javascript'>
+						if(typeof(sendToVisionneuse) == 'undefined'){
+							function sendToVisionneuse(explnum_id){
+								document.getElementById('visionneuseIframe').src = 'visionneuse.php?'+(typeof(explnum_id) != 'undefined' ? 'explnum_id='+explnum_id+\"\" : '\'');
+							}
+						}
+					</script>
+					<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />";
+				$expl_liste_obj .=$link;
+			}else{
+				$suite_url_explnum ="doc_num.php?explnum_id=$expl->explnum_id$words_to_find";
+				$expl_liste_obj .= "<a href='$opac_url_base$suite_url_explnum' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+			}
+
 			if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
 				elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;
 					else $explmime_nom = $expl->explnum_mimetype ;

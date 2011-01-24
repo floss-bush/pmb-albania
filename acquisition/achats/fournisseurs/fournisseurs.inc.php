@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fournisseurs.inc.php,v 1.30 2010-01-11 15:47:37 mbertin Exp $
+// $Id: fournisseurs.inc.php,v 1.31 2010-10-15 14:19:39 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "fournisseurs.inc.php")) die("no access");
 
@@ -83,11 +83,13 @@ function show_list_coord($id_bibli) {
 	$search_form = str_replace('!!action!!', $action, $search_form);
 	$search_form = str_replace('<!-- bouton_add -->', $bouton_add, $search_form);
 	$search_form = str_replace('<!-- lien_last -->', $lien_last_fou, $search_form);
+	$search_form = str_replace('!!user_input!!', $user_input, $search_form);
 	
 	print $search_form;
-
-
-
+	
+	print "<script type='text/javascript' >document.forms['search'].elements['user_input'].focus();
+	document.forms['search'].elements['user_input'].select();</script>";
+	
 	//Prise en compte du formulaire de recherche
 	// nombre de références par pages
 	if ($nb_per_page_acq != "") 

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: quotas.class.php,v 1.12 2009-10-22 08:36:03 gueluneau Exp $
+// $Id: quotas.class.php,v 1.13 2011-01-17 20:46:58 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -33,13 +33,18 @@ class quota {
 		global $_quotas_table_;
 		
 		//Recherche du fichier de description
-		if ($this->descriptor)
+		if (is_object($this)&&($this->descriptor))
 			$p_descriptor=$this->descriptor;
-		else if ($descriptor)
+		elseif ($descriptor)
 			$p_descriptor=$descriptor;
 		else
 			$p_descriptor=$include_path."/quotas/$lang.xml";
 		
+		// Gestion de fichier subst	
+		$p_descriptor_subst=substr($p_descriptor,0,-4)."_subst.xml";
+		if (file_exists($p_descriptor_subst)) 
+			$p_descriptor=$p_descriptor_subst;
+				
 		//Parse le fichier dans un tableau
 		$fp=fopen($p_descriptor,"r") or die("Can't find XML file $p_descriptor");
 		$xml=fread($fp,filesize($p_descriptor));
@@ -47,10 +52,13 @@ class quota {
 		$param=_parser_text_no_function_($xml, "PMBQUOTAS");
 	
 		if (!$param["TABLE"]) {
-			$this->table="quotas";
-		} else $this->table=$param["TABLE"];
-		
-		$_quotas_table_=$this->table;
+			$table="quotas";
+			if (is_object($this)) $this->table=$table;
+		} else  {
+			$table=$param["TABLE"];
+			if (is_object($this)) $this->table=$param["TABLE"];
+		}
+		$_quotas_table_=$table;
 		
 		//Récupération des éléments
 		$_quotas_elements_=array();

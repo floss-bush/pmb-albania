@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.1 2010-10-08 15:05:04 dgoron Exp $ -->
+
+<XMLlist>
+	<entry code="pmb_site">Adresse du webservice</entry>
+	<entry code="pmb_max_return">Nombre maximum de résultats</entry>
+	<entry code="pmb_title">Titres</entry>
+	<entry code="pmb_authors">Auteurs</entry>
+	<entry code="pmb_editors">Editeurs</entry>
+	<entry code="pmb_title_uniforme">Titres uniformes</entry>
+	<entry code="pmb_category">Catégories</entry>
+	<entry code="pmb_index">Indexations décimales</entry>
+	<entry code="pmb_keywords">Mots-clés</entry>
+	<entry code="pmb_summary">Résumé et notes</entry>
+	<entry code="pmb_all">Tous les champs</entry>
+	<entry code="pmb_protocole">Protocole utilisé</entry>
+	<entry code="pmb_prtcl_soap">SOAP</entry>
+	<entry code="pmb_prtcl_json">Json-RPC</entry>
+	<entry code="pmb_display_items">Récupérer les exemplaires ?</entry>
+	<entry code="pmb_authentification">Une authentification est-elle necessaire ?</entry>
+	<entry code="pmb_username">Identifiant pour l'authentification</entry>
+	<entry code="pmb_password">Mot de passe pour l'authentification</entry>
+</XMLlist>

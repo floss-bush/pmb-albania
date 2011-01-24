@@ -1,0 +1,8 @@
+<h1>Gerenciamento de assinaturas</h1>
+
+<p>Seção de <b>Gerenciamento de assinaturas</b> possibilita definir as configurações para as assinaturas.
+<ul>
+<li><b>Periodicidade:</b> Periodicidade de assinaturas permite descrever todos os tipos de periodicidade usados nas assinaturas.</li>
+
+</ul></p>
+ 

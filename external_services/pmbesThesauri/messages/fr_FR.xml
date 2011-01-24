@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.1 2010-08-11 10:02:47 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.2 2010-12-08 07:30:22 dbellamy Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -14,7 +14,7 @@ pmbesCollections
 <!--
 get_collection_information
 -->
-<entry code="get_collection_information_description">Renvoi les informations d'une collection</entry>
+<entry code="get_collection_information_description">Renvoie les informations d'une collection</entry>
 <entry code="get_collection_information_input_description"></entry>
 <entry code="get_collection_information_output_description"></entry>
 <entry code="get_collection_information_collection_id">L'id de la collection</entry>
@@ -22,7 +22,7 @@ get_collection_information
 <!--
 get_subcollection_information
 -->
-<entry code="get_subcollection_information_description">Renvoi les informations d'une sous collection</entry>
+<entry code="get_subcollection_information_description">Renvoie les informations d'une sous collection</entry>
 <entry code="get_subcollection_information_input_description"></entry>
 <entry code="get_subcollection_information_output_description"></entry>
 <entry code="get_subcollection_information_subcollection_id">L'id de la sous collection</entry>
@@ -30,7 +30,7 @@ get_subcollection_information
 <!--
 list_collection_notices
 -->
-<entry code="list_collection_notices_description">Renvoi les ids des notices appartenant à une collection</entry>
+<entry code="list_collection_notices_description">Renvoie les ids des notices appartenant à une collection</entry>
 <entry code="list_collection_notices_input_description"></entry>
 <entry code="list_collection_notices_output_description"></entry>
 <entry code="list_collection_notices_collection_id">L'id de la collection</entry>
@@ -42,7 +42,7 @@ list_collection_notices
 <!--
 list_subcollection_notices
 -->
-<entry code="list_subcollection_notices_description">Renvoi les ids des notices appartenant à une sous-collection</entry>
+<entry code="list_subcollection_notices_description">Renvoie les ids des notices appartenant à une sous-collection</entry>
 <entry code="list_subcollection_notices_input_description"></entry>
 <entry code="list_subcollection_notices_output_description"></entry>
 <entry code="list_subcollection_notices_subcollection_id">L'id de la sous collection</entry>

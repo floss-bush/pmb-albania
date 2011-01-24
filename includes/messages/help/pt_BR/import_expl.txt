@@ -1,0 +1,16 @@
+<br />
+<b>CUIDADO, esta ferramenta adiciona registros e autoridades somente se necessário.
+<br />Este recurso não atualiza registros existentes.</b>
+<br /><br />
+
+O arquivo deve estar no formato UNIMARC<br />
+<ul>
+<li>A importação é feita em 3 passos:
+<OL>
+<LI>Upload do arquivo</LI>
+<LI>Preload do arquivo</LI>
+<LI>Transferir para o registro do banco de dados</LI>
+</OL></li>
+<br /><li>Ao invés de fazer upload do arquivo, é possível enviá-lo diretamente para o servidor por FTP, por exemplo. O arquivo deve ser nomeado <i><?php echo $nom_fichier_transfert_ftp; ?></i> e alocado em admin/import. Neste caso, você deve ir diretamente para o passo <a href="iimport_expl.php?categ=import&sub=import&action=preload">Preload</a>.</li>
+</ul>
+<br /><br /><a href="iimport_expl.php?categ=import&sub=import&action=beforeupload">Passo 1: Upload</a>

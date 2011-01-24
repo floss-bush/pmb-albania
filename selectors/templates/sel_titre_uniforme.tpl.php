@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sel_titre_uniforme.tpl.php,v 1.3 2010-06-16 12:14:36 ngantier Exp $
+// $Id: sel_titre_uniforme.tpl.php,v 1.4 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -67,10 +67,12 @@ if ($dyn==2) { // Pour les liens entre autorités
 $jscript = "
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, id_value, libelle_value)
+function set_parent(f_caller, id_value, libelle_value,callback)
 {
 	window.opener.document.forms[f_caller].elements['$param1'].value = id_value;
 	window.opener.document.forms[f_caller].elements['$param2'].value = reverse_html_entities(libelle_value);
+	if(callback)
+		window.opener[callback]('$infield');	
 	window.close();
 }
 -->

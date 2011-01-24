@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: category.php,v 1.7 2010-07-28 07:44:39 mbertin Exp $
+// $Id: category.php,v 1.10 2011-01-17 13:38:04 ngantier Exp $
 //
 // Affichage de la zone de recherche et choix du mode de navigation dans les catégories
 
@@ -19,7 +19,7 @@ include_once ("$javascript_path/misc.inc.php");
 print reverse_html_entities();
 
 // la variable $caller, passée par l'URL, contient le nom du form appelant
-$base_url = "category.php?caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&keep_tilde=$keep_tilde&parent=";
+$base_url = "category.php?caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&keep_tilde=$keep_tilde&parent=&callback=".$callback."&infield=".$infield;
 
 include("$base_path/selectors/templates/category.tpl.php");
 
@@ -33,7 +33,7 @@ switch ($caller) {
 		break;
 	case 'categ_form' :
 		if (!$id_thes) $id_thes = thesaurus::getSessionThesaurusId();
-		thesaurus::setSessionThesaurusId($id_thes);
+		if( $dyn!=2) thesaurus::setSessionThesaurusId($id_thes);
 		break;
 	default :
 		if (!$id_thes) $id_thes = thesaurus::getSessionThesaurusId();
@@ -51,7 +51,7 @@ if ($thesaurus_mode_pmb != 0) {	 //la liste des thesaurus n'est pas affichée en 
 	$sel_thesaurus = "<select class='saisie-20em' id='id_thes' name='id_thes' ";
 
 	//si on vient du form de categories, le choix du thesaurus n'est pas possible
-	if($caller == 'categ_form') $sel_thesaurus.= "disabled "; 
+	if($caller == 'categ_form' && $dyn!=2) $sel_thesaurus.= "disabled "; 
 	$sel_thesaurus.= "onchange = \"this.form.submit()\">" ;
 	foreach($liste_thesaurus as $id_thesaurus=>$libelle_thesaurus) {
 		$sel_thesaurus.= "<option value='".$id_thesaurus."' "; ;
@@ -94,5 +94,5 @@ print $sel_search_form;
 
 if(!$parent) $parent=0;
 
-print "<script>parent.category_browse.location='$src?caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&keep_tilde=$keep_tilde&parent=$parent&id2=$id2&id_thes=$id_thes&user_input=".rawurlencode(stripslashes($user_input))."&f_user_input=".rawurlencode(stripslashes($f_user_input))."';</script>\n";
+print "<script>parent.category_browse.location='$src?caller=$caller&p1=$p1&p2=$p2&no_display=$no_display&bt_ajouter=$bt_ajouter&dyn=$dyn&keep_tilde=$keep_tilde&parent=$parent&id2=$id2&id_thes=$id_thes&user_input=".rawurlencode(stripslashes($user_input))."&f_user_input=".rawurlencode(stripslashes($f_user_input))."&callback=".$callback."&infield=".$infield."';</script>\n";
 print $sel_footer;

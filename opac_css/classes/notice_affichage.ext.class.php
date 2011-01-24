@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage.ext.class.php,v 1.87 2010-09-14 14:07:52 dbellamy Exp $
+// $Id: notice_affichage.ext.class.php,v 1.93 2011-01-03 15:40:50 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -1727,12 +1727,7 @@ class notice_affichage_abiodoc extends notice_affichage {
 				if ($expl->explnum_statut==1) {	//document payant
 					$expl_liste_obj .= "<a href='".$this->explnum_shoplink.$expl->explnum_id."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				} else {						//document gratuit
-					//$expl_liste_obj .= "<a href='".$opac_url_base."doc_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
-					if (strpos($expl->explnum_url, '://')===FALSE) {
-						$expl_liste_obj .= "<a href='".$opac_url_base."docnum_public/".$expl->explnum_url."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
-					} else {
-						$expl_liste_obj .= "<a href='".$url_base."doc_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
-					}
+					$expl_liste_obj .= "<a href='".$opac_url_base."doc_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				}
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) {
@@ -2745,11 +2740,11 @@ class notice_affichage_pmi extends notice_affichage {
 	
 		// récupération du nombre d'exemplaires
 		$requete = "SELECT explnum_id, explnum_notice, explnum_bulletin, explnum_nom, explnum_mimetype, explnum_url, explnum_data, explnum_vignette, explnum_nomfichier, explnum_extfichier 
-		FROM explnum join explnum_location on (num_explnum=explnum_id and num_location='".$_SESSION['empr_location']."') WHERE ";
+		FROM explnum left join explnum_location on (num_explnum=explnum_id) WHERE ";
 		if ($no_notice && !$no_bulletin) $requete .= "explnum_notice='$no_notice' ";
 		elseif (!$no_notice && $no_bulletin) $requete .= "explnum_bulletin='$no_bulletin' ";
 		elseif ($no_notice && $no_bulletin) $requete .= "explnum_bulletin='$no_bulletin' or explnum_notice='$no_notice' ";
-		$requete .= " order by explnum_mimetype, explnum_id ";
+		$requete .= " and (num_location='".$_SESSION['empr_location']."' or num_location is null) order by explnum_mimetype, explnum_id ";
 		$res = mysql_query($requete, $dbh);
 		$nb_ex = mysql_num_rows($res);
 		
@@ -4282,10 +4277,13 @@ class notice_affichage_cedias extends notice_affichage {
 			if ($this->notice->niveau_biblio=="b" && ($explnum = $this->show_explnum_per_notice(0, $this->bulletin_id, ''))) {
 				$ret .= "<h3>$msg[explnum]</h3>".$explnum;
 				$this->affichage_expl .= "<h3>$msg[explnum]</h3>".$explnum;
-			} elseif (($explnum = $this->show_explnum_per_notice($this->notice_id,0, ''))) {
-				$ret .= "<h3>$msg[explnum]</h3>".$explnum;
-				$this->affichage_expl .= "<h3>$msg[explnum]</h3>".$explnum;
+			} else {
+				if(($explnum = $this->show_explnum_per_notice($this->notice_id,0, ''))){
+					$ret .= "<h3>$msg[explnum]</h3>".$explnum;
+					$this->affichage_expl .= "<h3>$msg[explnum]</h3>".$explnum;
+				}				
 				if($this->notice->niveau_biblio=="a" && $this->notice->niveau_hierar=="2"){
+					//cas des dépouillements...
 					$req = "select analysis_bulletin from analysis where analysis_notice='".$this->notice_id."'";
 					$res = mysql_query($req,$dbh);
 					if(mysql_num_rows($res)){
@@ -4361,17 +4359,14 @@ class notice_affichage_cedias extends notice_affichage {
 
 				if ($opac_visionneuse_allow){
 					$link="<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
-						<a href='#' onclick=\"open_visionneuse(sendVisionneuse".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />
 						<script type='text/javascript'>
-							function sendVisionneuse".$expl->explnum_id."(){
-								";
-					if($expl->explnum_bulletin != 0)
-						$link.="document.getElementById('visionneuseIframe').src = '".$opac_url_base."visionneuse.php?&mode=perio_bulletin&idperio=".$this->parent_id."&bulletin=".$expl->explnum_bulletin."&explnum_id=".$expl->explnum_id."'";
-					else
-						$link.="document.getElementById('visionneuseIframe').src = '".$opac_url_base."visionneuse.php?explnum=".$expl->explnum_id."';";
-					$link.="
+							if(typeof(sendToVisionneuse) == 'undefined'){
+								function sendToVisionneuse(explnum_id){
+									document.getElementById('visionneuseIframe').src = 'visionneuse.php?'+(typeof(explnum_id) != 'undefined' ? 'explnum_id='+explnum_id+\"\" : '\'');
+								}
 							}
-						</script>";
+						</script>
+						<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />";
 					$expl_liste_obj .=$link;
 				}else{
 					$suite_url_explnum ="doc_num.php?explnum_id=$expl->explnum_id$words_to_find";
@@ -4978,3 +4973,98 @@ class notice_affichage_commande_copie extends notice_affichage {
 				
 	}
 }
+
+
+/*
+ * Classe d'affichage pour le RECI 
+ */
+class notice_affichage_reci extends notice_affichage {	
+	
+	// fonction d'affichage de la suite ISBD ou PUBLIC : partie commune, pour éviter la redondance de calcul
+	function aff_suite() {
+		global $msg;
+		global $charset;
+		global $opac_allow_tags_search, $opac_permalink, $opac_url_base;
+		
+		// afin d'éviter de recalculer un truc déjà calculé...
+		if ($this->affichage_suite_flag) return $this->affichage_suite ;
+		
+		$ret .= $this->genere_in_perio () ;
+		
+		// résumé
+		if($this->notice->n_resume) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_resume_start']."</span></td><td class='td_resume'>".nl2br($this->notice->n_resume)."</td></tr>";
+	
+		// note de contenu
+		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
+		
+		//Espace
+		//$ret.="<tr class='tr_spacer'><td colspan='2' class='td_spacer'>&nbsp;</td></tr>";
+		
+		// toutes indexations
+		$ret_index = "";
+		// Catégories
+		if ($this->categories_toutes) $ret_index .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['categories_start']."</span></td><td>".$this->categories_toutes."</td></tr>";
+				
+		// Affectation du libellé mots clés ou tags en fonction de la recherche précédente	
+		if($opac_allow_tags_search == 1) $libelle_key = $msg['tags'];
+		else $libelle_key = 	$msg['motscle_start'];
+				
+		// indexation libre
+		$mots_cles = $this->do_mots_cle() ;
+		if($mots_cles) $ret_index.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$libelle_key."</span></td><td>".nl2br($mots_cles)."</td></tr>";
+			
+		// indexation interne
+		if($this->notice->indexint) {
+			$indexint = new indexint($this->notice->indexint);
+			$ret_index.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['indexint_start']."</span></td><td>".inslink($indexint->name,  str_replace("!!id!!", $this->notice->indexint, $this->lien_rech_indexint))." ".nl2br(htmlentities($indexint->comment,ENT_QUOTES, $charset))."</td></tr>" ;
+		}
+		if ($ret_index) {
+			$ret.=$ret_index;
+			//$ret.="<tr class='tr_spacer'><td colspan='2' class='td_spacer'>&nbsp;</td></tr>";
+		}
+			
+		//Champs personalisés
+		$perso_aff = "" ;
+		if (!$this->p_perso->no_special_fields) {
+			// $this->memo_perso_ permet au affichages personalisés dans notice_affichage_ex de gagner du temps
+			if(!$this->memo_perso_) $this->memo_perso_=$this->p_perso->show_fields($this->notice_id);			
+			for ($i=0; $i<count($this->memo_perso_["FIELDS"]); $i++) {
+				$p=$this->memo_perso_["FIELDS"][$i];
+				if ($p['OPAC_SHOW'] && $p["AFF"]) $perso_aff .="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".strip_tags($p["TITRE"])."</span></td><td>".$p["AFF"]."</td></tr>";
+			}
+		}
+		if ($perso_aff) {
+			//Espace
+			//$ret.="<tr class='tr_spacer'><td colspan='2' class='td_spacer'>&nbsp;</td></tr>";
+			$ret .= $perso_aff ;
+		}
+		
+		if ($this->notice->lien) {
+			//$ret.="<tr class='tr_spacer'><td colspan='2' class='td_spacer'>&nbsp;</td></tr>";
+			$ret.="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["lien_start"]."</span></td><td>" ;
+			if (substr($this->notice->eformat,0,3)=='RSS') {
+				$ret .= affiche_rss($this->notice->notice_id) ;
+			} else {
+				if (strlen($this->notice->lien)>80) {
+					$ret.="<a href=\"".$this->notice->lien."\" target=\"top\" class='lien856'>".htmlentities(substr($this->notice->lien, 0, 80),ENT_QUOTES,$charset)."</a>&nbsp;[...]";
+				} else {
+					$ret.="<a href=\"".$this->notice->lien."\" target=\"top\" class='lien856'>".htmlentities($this->notice->lien,ENT_QUOTES,$charset)."</a>";
+				}
+				$ret.="</td></tr>";
+			}
+			$ret.="</td></tr>";
+			if ($this->notice->eformat && substr($this->notice->eformat,0,3)!='RSS') $ret.="<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["eformat_start"]."</span></td><td>".htmlentities($this->notice->eformat,ENT_QUOTES,$charset)."</td></tr>";
+		}
+		// Permalink avec Id
+		if ($opac_permalink) {
+			if($this->notice->niveau_biblio != "b"){
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
+			}else {
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
+			}	
+		}
+		$this->affichage_suite = $ret ;
+		$this->affichage_suite_flag = 1 ;
+		return $ret ;
+	} 
+}	

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax_selector.php,v 1.36 2010-01-12 14:13:54 mbertin Exp $
+// $Id: ajax_selector.php,v 1.37 2010-12-23 10:36:35 arenou Exp $
 
 $base_path=".";
 $base_noheader=1;
@@ -33,12 +33,12 @@ switch($completion):
 		$requete_langue="select catlg.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catlg.langue as langue, 
 		catlg.libelle_categorie as categ_libelle,catlg.index_categorie as index_categorie, catlg.note_application as categ_comment, 
 		(".$members_catlg["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catlg on noeuds.id_noeud = catlg.num_noeud 
-		and catlg.langue = '".$lang."' where catlg.libelle_categorie like '".addslashes($start)."%'";
+		and catlg.langue = '".$lang."' where catlg.libelle_categorie like '".addslashes($start)."%' and catlg.libelle_categorie not like '~%'";
 		
 		$requete_defaut="select catdef.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catdef.langue as langue, 
 		catdef.libelle_categorie as categ_libelle,catdef.index_categorie as index_categorie, catdef.note_application as categ_comment, 
 		(".$members_catdef["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catdef on noeuds.id_noeud = catdef.num_noeud 
-		and catdef.langue = thesaurus.langue_defaut where catdef.libelle_categorie like '".addslashes($start)."%'";
+		and catdef.langue = thesaurus.langue_defaut where catdef.libelle_categorie like '".addslashes($start)."%' and catlg.libelle_categorie not like '~%'";
 		
 		$requete="select * from (".$requete_langue." union ".$requete_defaut.") as sub1 group by categ_id order by pert desc,num_thesaurus, index_categorie limit 20";
 		
@@ -93,12 +93,12 @@ switch($completion):
 		$requete_langue="select catlg.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catlg.langue as langue, 
 		catlg.libelle_categorie as categ_libelle,catlg.index_categorie as index_categorie, catlg.note_application as categ_comment, 
 		(".$members_catlg["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catlg on noeuds.id_noeud = catlg.num_noeud 
-		and catlg.langue = '".$lang."' where $thesaurus_requette catlg.libelle_categorie like '".addslashes($start)."%'";
+		and catlg.langue = '".$lang."' where $thesaurus_requette catlg.libelle_categorie like '".addslashes($start)."%' and catlg.libelle_categorie not like '~%'";
 		
 		$requete_defaut="select catdef.num_noeud as categ_id, noeuds.num_parent as categ_parent, noeuds.num_renvoi_voir as categ_see, noeuds.num_thesaurus, catdef.langue as langue, 
 		catdef.libelle_categorie as categ_libelle,catdef.index_categorie as index_categorie, catdef.note_application as categ_comment, 
 		(".$members_catdef["select"].") as pert from thesaurus left join noeuds on  thesaurus.id_thesaurus = noeuds.num_thesaurus left join categories as catdef on noeuds.id_noeud = catdef.num_noeud 
-		and catdef.langue = thesaurus.langue_defaut where $thesaurus_requette catdef.libelle_categorie like '".addslashes($start)."%'";
+		and catdef.langue = thesaurus.langue_defaut where $thesaurus_requette catdef.libelle_categorie like '".addslashes($start)."%' and catdef.libelle_categorie not like '~%'";
 		
 		$requete="select * from (".$requete_langue." union ".$requete_defaut.") as sub1 group by categ_id order by pert desc,num_thesaurus, index_categorie limit 20";
 		
@@ -110,13 +110,13 @@ switch($completion):
 			$temp = new categories($categ->categ_id, $categ->langue);
 			if ($id_thes == -1) {
 				$thes = new thesaurus($categ->num_thesaurus);
-				$display_temp = htmlentities('['.$thes->libelle_thesaurus.'] ',ENT_QUOTES, $charset);
+//				$display_temp = htmlentities('['.$thes->libelle_thesaurus.'] ',ENT_QUOTES, $charset);
 			}
 			$id_categ_retenue = $categ->categ_id ;	
 			if($categ->categ_see) {
 				$id_categ_retenue = $categ->categ_see ;
 				$temp = new categories($categ->categ_see, $categ->langue);
-				$display_temp.= $categ->categ_libelle." -> ";
+				$display_temp= $categ->categ_libelle." -> ";
 				$lib_simple = $temp->libelle_categorie;
 				if ($thesaurus_categories_show_only_last) $display_temp.= $temp->libelle_categorie;
 					else $display_temp.= categories::listAncestorNames($categ->categ_see, $categ->langue);				
@@ -129,6 +129,10 @@ switch($completion):
 			
 			$tab_lib_categ[$display_temp] = $lib_simple; 
 			$array_selector[$id_categ_retenue] = $tab_lib_categ;
+			$array_prefix[$id_categ_retenue] = array(
+				'id' => $categ->num_thesaurus,
+				'libelle' => htmlentities('['.$thes->libelle_thesaurus.'] ',ENT_QUOTES, $charset)
+			);
 		} // fin while		
 		$origine = "ARRAY" ;
 		break;
@@ -325,6 +329,8 @@ switch ($origine):
 		$i=1;
 		while(list($index, $value) = each($array_selector)) {			
 			$lib_liste="";
+			$thesaurus_lib = $array_prefix[$index]['libelle'];
+			$thesaurus_id = $array_prefix[$index]['id'];
 			if(is_array($value)){
 				foreach($value as $k=>$v){
 					$lib_liste = $k;
@@ -333,7 +339,8 @@ switch ($origine):
 			} else $lib_liste=$value;
 			echo "<div id='l".$id."_".$i."'";
 			if ($autfield) echo " autid='".$index."'";
-			echo " style='cursor:default;font-family:arial,helvetica;font-size:10px;width:100%' onClick='if(document.getElementById(\"c".$id."_".$i."\")) ajax_set_datas(\"c".$id."_".$i."\",\"$id\"); else ajax_set_datas(\"l".$id."_".$i."\",\"$id\");'>".$lib_liste."</div>";
+			if ($thesaurus_id) echo " thesid='".$thesaurus_id."'";
+			echo " style='cursor:default;font-family:arial,helvetica;font-size:10px;width:100%' onClick='if(document.getElementById(\"c".$id."_".$i."\")) ajax_set_datas(\"c".$id."_".$i."\",\"$id\"); else ajax_set_datas(\"l".$id."_".$i."\",\"$id\");'>".$thesaurus_lib." ".$lib_liste."</div>";
 			$i++;	
 		}
 		break;

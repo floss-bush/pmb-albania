@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcollections.inc.php,v 1.5 2008-10-09 20:12:29 touraine37 Exp $
+// $Id: subcollections.inc.php,v 1.7 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -32,7 +32,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$collection = new subcollection($id);
-			$rep_result = $collection->replace($by);
+			$rep_result = $collection->replace($by,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/subcollections/sub_collections_list.inc.php');
 			else {
@@ -56,7 +56,8 @@ switch($sub) {
 				'name' => $collection_nom,
 				'parent' => $coll_id,
 				'issn' => $issn,
-				'subcollection_web' => $subcollection_web);
+				'subcollection_web' => $subcollection_web,
+				'comment' => $comment);
 		$collection->update($coll);
 		include('./autorites/subcollections/sub_collections_list.inc.php');
 		break;

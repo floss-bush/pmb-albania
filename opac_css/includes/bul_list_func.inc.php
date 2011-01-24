@@ -47,7 +47,7 @@ function affichage_liste_bulletins_tableau($res) {
 				$odd_even=0;
 				}
 		$tr_javascript=" class='$pair_impair' onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" onmousedown=\"document.location='./index.php?lvl=bulletin_display&id=".$tableau['bulletin_id']."';\" style='cursor: pointer' ";
-		print "<tr $tr_javascript><td>".$tableau['bulletin_numero'];
+		print "<tr $tr_javascript><td><table width='100%'><tr><td style='border:none;width:16px'>".($tableau['nbexplnum'] != 0 ? ($tableau['nbexplnum'] > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />"):"")."</td><td style='border:none;'>".$tableau['bulletin_numero']."</td></tr></table>";
 		print "</td><td>";
 		if ($tableau['mention_date']) print pmb_bidi(" ".$tableau['mention_date']."\n"); 
 		elseif ($tableau['date_date']) print pmb_bidi(" ".formatdate($tableau['date_date'])."\n");

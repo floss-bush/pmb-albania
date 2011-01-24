@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: authors.inc.php,v 1.11 2009-03-31 06:36:12 ngantier Exp $
+// $Id: authors.inc.php,v 1.12 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -37,7 +37,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$auteur = new auteur($id);
-			$rep_result = $auteur->replace($by);
+			$rep_result = $auteur->replace($by,$aut_link_save);
 			if(!$rep_result)
 				include('./autorites/authors/authors_list.inc.php');
 			else {

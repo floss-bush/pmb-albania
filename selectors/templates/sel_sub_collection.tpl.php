@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sel_sub_collection.tpl.php,v 1.14 2010-06-16 12:14:36 ngantier Exp $
+// $Id: sel_sub_collection.tpl.php,v 1.15 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -85,10 +85,12 @@ if($mode=="un")
 $jscript = "
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, idSubColl, libelleSubColl, idParent, idLibelleParent, idEd, libelleEd)
+function set_parent(f_caller, idSubColl, libelleSubColl, idParent, idLibelleParent, idEd, libelleEd, callback)
 {
 	window.opener.document.forms[f_caller].elements['$p1'].value = idSubColl;
 	window.opener.document.forms[f_caller].elements['$p2'].value = reverse_html_entities(libelleSubColl);
+	if(callback)
+		window.opener[callback]('$infield');
 	window.close();
 }
 -->

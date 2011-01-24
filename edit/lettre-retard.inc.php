@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: lettre-retard.inc.php,v 1.34 2010-05-18 14:49:21 ngantier Exp $
+// $Id: lettre-retard.inc.php,v 1.36 2010-11-24 07:43:58 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 require_once($include_path."/sms.inc.php");
@@ -146,7 +146,7 @@ switch($pdfdoc) {
 			if($pdflettreretard_impression_tri) $order_by= " ORDER BY $pdflettreretard_impression_tri";
 			else $order_by= "";
 
-			$rqt="select id_empr, concat(empr_nom,' ',empr_prenom) as  empr_name, empr_cb, empr_mail, empr_tel1, empr_sms, count(pret_idexpl) as empr_nb, $pdflettreretard_impression_tri from empr, pret, exemplaires where $restrict_localisation pret_retour<now() and pret_idempr=id_empr  and pret_idexpl=expl_id group by id_empr $order_by";							
+			$rqt="select id_empr, concat(empr_nom,' ',empr_prenom) as  empr_name, empr_cb, empr_mail, empr_tel1, empr_sms, count(pret_idexpl) as empr_nb, $pdflettreretard_impression_tri from empr, pret, exemplaires where $restrict_localisation pret_retour<curdate() and pret_idempr=id_empr  and pret_idexpl=expl_id group by id_empr $order_by";							
 			$req=mysql_query($rqt) or die('Erreur SQL !<br />'.$rqt.'<br />'.mysql_error()); ;
 			while ($r = mysql_fetch_object($req)) {
 				if (($pmb_gestion_financiere)&&($pmb_gestion_amende)) {
@@ -170,7 +170,7 @@ switch($pdfdoc) {
 					lettre_retard_par_lecteur($r->id_empr) ;
 					$ourPDF->SetMargins($marge_page_gauche,$marge_page_gauche);
 				}
-				if($empr_sms_activation && $r->empr_tel1 && $r->empr_sms ){	
+				if($empr_sms_activation && $r->empr_tel1 && $r->empr_sms && $empr_sms_msg_retard){	
 					$res_envoi_sms=send_sms($r->empr_name, $r->empr_tel1,"",$empr_sms_msg_retard,$biblio_name, $biblio_email, $headers, "", $PMBuseremailbcc, 1);
 				}	
 			} // fin while		
@@ -179,7 +179,7 @@ switch($pdfdoc) {
 			get_texts($niveau);
 			lettre_retard_par_lecteur($id_empr) ;
 			$ourPDF->SetMargins($marge_page_gauche,$marge_page_gauche);
-			if($empr_sms_activation) {
+			if($empr_sms_activation && $empr_sms_msg_retard) {
 				$rqt="select concat(empr_nom,' ',empr_prenom) as  empr_name, empr_mail, empr_tel1, empr_sms from empr where id_empr='".$id_empr."' and empr_tel1!='' and empr_sms=1";							
 				$req=mysql_query($rqt) or die('Erreur SQL !<br />'.$rqt.'<br />'.mysql_error()); ;
 				if ($r = mysql_fetch_object($req)) {

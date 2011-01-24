@@ -17,7 +17,7 @@ class lender {
 //		propriétés de la classe
 // ---------------------------------------------------------------
 
-	var 	$idlender=0;			// MySQL idlender in table 'lenders'
+	var $idlender=0;			// MySQL idlender in table 'lenders'
 	var	$lender_libelle='';		// nom du prêteur
 
 
@@ -26,15 +26,15 @@ class lender {
 // ---------------------------------------------------------------
 
 function lender($id=0) {
-if($id!="") {
-	// on cherche à atteindre un lender existant
-	$this->idlender = $id;
-	$this->getData();
+	if($id!="") {
+		// on cherche à atteindre un lender existant
+		$this->idlender = $id;
+		$this->getData();
 	} else {
 		// le lender n'existe pas
 		$this->idlender = 0;
 		$this->getData();
-		}
+	}
 }
 
 // ---------------------------------------------------------------
@@ -42,12 +42,12 @@ if($id!="") {
 // ---------------------------------------------------------------
 
 function getData() {
-global $dbh;
-
-if($this->idlender=="") {
-	// pas d'identifiant. on retourne un tableau vide
-	$this->idlender	= 0;
-	$this->lender_libelle =	"";
+	global $dbh;
+	
+	if($this->idlender=="") {
+		// pas d'identifiant. on retourne un tableau vide
+		$this->idlender	= 0;
+		$this->lender_libelle =	"";
 	} else {
 		$requete = "SELECT idlender, lender_libelle FROM lenders WHERE idlender='".$this->idlender."' LIMIT 1 " or die (mysql_error());
 		$result = mysql_query($requete, $dbh);
@@ -55,12 +55,12 @@ if($this->idlender=="") {
 			$temp = mysql_fetch_object($result);
 			$this->idlender		= $temp->idlender;
 			$this->lender_libelle		= $temp->lender_libelle;
-			} else {
-				// pas de lender avec cette clé
-				$this->idlender		=	0;
-				$this->lender_libelle	=	"";
-				}
+		} else {
+			// pas de lender avec cette clé
+			$this->idlender		=	0;
+			$this->lender_libelle	=	"";
 		}
+	}
 }
 
 /* une fonction pour générer des combo Box 
@@ -84,25 +84,25 @@ function gen_combo_box ( $selected ) {
 	$nb_liste=mysql_numrows($resultat_liste);
 	if ($nb_liste==0) {
 		$gen_liste_str.="<option value=\"$liste_vide_code\">$liste_vide_info</option>\n" ;
-		} else {
-			if ($option_premier_info!="") {	
-				$gen_liste_str.="<option value=\"".$option_premier_code."\" ";
-				if ($selected==$option_premier_code) $gen_liste_str.="selected" ;
-				$gen_liste_str.=">".$option_premier_info."\n";
-				}
-			$i=0;
-			while ($i<$nb_liste) {
-				$gen_liste_str.="<option value=\"".mysql_result($resultat_liste,$i,$champ_code)."\" " ;
-				if ($selected==mysql_result($resultat_liste,$i,$champ_code)) {
-					$gen_liste_str.="selected" ;
-					}
-				$gen_liste_str.=">".mysql_result($resultat_liste,$i,$champ_info)."</option>\n" ;
-				$i++;
-				}
+	} else {
+		if ($option_premier_info!="") {	
+			$gen_liste_str.="<option value=\"".$option_premier_code."\" ";
+			if ($selected==$option_premier_code) $gen_liste_str.="selected" ;
+			$gen_liste_str.=">".$option_premier_info."\n";
+		}
+		$i=0;
+		while ($i<$nb_liste) {
+			$gen_liste_str.="<option value=\"".mysql_result($resultat_liste,$i,$champ_code)."\" " ;
+			if ($selected==mysql_result($resultat_liste,$i,$champ_code)) {
+				$gen_liste_str.="selected" ;
 			}
+			$gen_liste_str.=">".mysql_result($resultat_liste,$i,$champ_info)."</option>\n" ;
+			$i++;
+		}
+	}
 	$gen_liste_str.="</select>\n" ;
 	return $gen_liste_str ;
-	} /* fin gen_combo_box */
+} /* fin gen_combo_box */
 
 function import($data) {
 
@@ -115,7 +115,7 @@ function import($data) {
 	if(!sizeof($data) || !is_array($data)) {
 		// si ce n'est pas un tableau ou un tableau vide, on retourne 0
 		return 0;
-		}
+	}
 	// check sur les éléments du tableau
 	
 	$long_maxi = mysql_field_len(mysql_query("SELECT lender_libelle FROM lenders limit 1"),0);
@@ -143,9 +143,7 @@ function import($data) {
 
 	return mysql_insert_id($dbh);
 
-	} /* fin méthode import */
-
-
+} /* fin méthode import */
 
 
 } # fin de définition de la classe serie

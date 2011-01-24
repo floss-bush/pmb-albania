@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: external_services_searchcache.class.php,v 1.11 2010-09-18 17:22:20 erwanmartin Exp $
+// $Id: external_services_searchcache.class.php,v 1.12 2011-01-07 13:45:47 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -268,7 +268,7 @@ class external_services_searchcache {
 					$dom_2= $ac->setDomain(2);
 					$acces_j = $dom_2->getJoin($this->OPACEmprId,4,'notice_id');
 				}
-				if(!$acces_j) {
+				if($acces_j) {
 					$statut_j='';
 					$statut_r='';
 				} else {

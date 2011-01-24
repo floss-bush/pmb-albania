@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docnum.inc.php,v 1.6 2010-09-07 21:55:19 dbellamy Exp $
+// $Id: docnum.inc.php,v 1.7 2010-10-12 15:49:31 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -77,21 +77,13 @@ if($clause) {
 	}
 	
 	
-	$req_typdoc_noti="select distinct typdoc as td  from notices $statut_j $acces_j $clause group by typdoc"; 
-	if($opac_visionneuse_allow)
-		$req_typdoc_noti="select distinct typdoc as td, count(explnum_id) as nbexplnum from notices left join explnum on explnum_notice= notice_id AND explnum_mimetype($opac_photo_filtre_mimetype) $statut_j $acces_j $clause group by typdoc";
-	$req_typdoc_bull = "select distinct typdoc as td from bulletins, explnum,notices $statut_j $acces_j $clause_bull group by typdoc";  
-	if($opac_visionneuse_allow)
-		$req_typdoc_bull = "select distinct typdoc as td ,count(explnum_id) as nbexplnum from bulletins,notices left join explnum_bulletin = bulletin_id and explnum_mimetype($opac_photo_filtre_mimetype) $statut_j $acces_j $clause_bull group by typdoc";
-	$req_typdoc = "select td  from ( $req_typdoc_noti UNION $req_typdoc_bull) as uni";
-	if($opac_visionneuse_allow)
-		$req_typdoc = "select td,nbexplnum  from ( $req_typdoc_noti UNION $req_typdoc_bull) as uni";
+	$req_typdoc_noti="select distinct typdoc from notices $statut_j $acces_j $clause group by typdoc"; 
+	$req_typdoc_bull = "select distinct typdoc from bulletins, explnum,notices $statut_j $acces_j $clause_bull group by typdoc";  
+	$req_typdoc = "($req_typdoc_noti) UNION ($req_typdoc_bull)";
 	$res_typdoc = mysql_query($req_typdoc, $dbh);	
 	$t_typdoc=array();	
 	while (($tpd=mysql_fetch_object($res_typdoc))) {
 		$t_typdoc[]=$tpd->typdoc;
-		if($opac_visionneuse_allow)
-			$nbexplnum_to_photo+=$tpd->nbexplnum;	
 	}
 	$l_typdoc=implode(",",$t_typdoc);
 	if ($nb_result_docnum) {

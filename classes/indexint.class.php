@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: indexint.class.php,v 1.44 2010-06-16 12:13:47 ngantier Exp $
+// $Id: indexint.class.php,v 1.45 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -212,7 +212,7 @@ function delete() {
 // ---------------------------------------------------------------
 //		replace($by) : remplacement 
 // ---------------------------------------------------------------
-function replace($by) {
+function replace($by,$link_save) {
 
 	global $msg;
 	global $dbh;
@@ -225,6 +225,15 @@ function replace($by) {
 		// impossible de remplacer une autorité par elle-même
 		return $msg[indexint_self];
 	}
+	
+	$aut_link= new aut_link(AUT_TABLE_INDEXINT,$this->indexint_id);
+	// "Conserver les liens entre autorités" est demandé
+	if($link_save) {
+		// liens entre autorités
+		$aut_link->add_link_to(AUT_TABLE_INDEXINT,$by);		
+	}
+	$aut_link->delete();
+	
 	// a) remplacement dans les notices
 	$requete = "UPDATE notices SET indexint=$by WHERE indexint='".$this->indexint_id."' ";
 	$res = mysql_query($requete, $dbh);

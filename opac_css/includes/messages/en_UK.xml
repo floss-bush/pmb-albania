@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localises en anglais pour l'OPAC de PMB
-$Id: en_UK.xml,v 1.198 2010-09-24 20:57:39 touraine37 Exp $ -->
+$Id: en_UK.xml,v 1.201 2010-12-20 10:05:05 arenou Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Operation not allowed</entry>
@@ -1060,4 +1060,10 @@ $Id: en_UK.xml,v 1.198 2010-09-24 20:57:39 touraine37 Exp $ -->
 <entry code="empr_do_checkout_nok">The loan is refused!</entry>
 	
 <entry code="search_custom_notices">Champs personnalisés des notices</entry>
+<entry code="search_autopostage_multicritere">Catégories et sous-catégories</entry>
+<entry code="codebarre_sort">Codebarre</entry>
+<entry code="coll_sort">Titre de la collection</entry>
+<entry code="subcoll_sort">Titre de la sous-collection</entry>
+<entry code="num_in_coll_sort">Numéro dans la collection</entry>
+<entry code="authority_query">Sélection d'autorité</entry>
 </XMLlist>

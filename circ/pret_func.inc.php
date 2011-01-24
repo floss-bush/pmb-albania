@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pret_func.inc.php,v 1.47 2010-07-06 10:07:40 ngantier Exp $
+// $Id: pret_func.inc.php,v 1.48 2010-12-02 14:16:07 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -19,7 +19,7 @@ function do_retour($stuff,$confirmed=1) {
 
 	global $dbh;
 	global $msg;
-	global $alert_sound_list;
+	global $alert_sound_list,$pmb_play_pret_sound;
 	global $pmb_gestion_amende,$pmb_gestion_financiere,$pmb_blocage_retard, $pmb_blocage_max, $pmb_blocage_delai, $pmb_blocage_coef;
 	global $deflt_docs_location;
 	$erreur_affichage='';
@@ -299,7 +299,7 @@ function enregLoc(obj) {
 	if ($stuff->expl_note) {
 		$alert_sound_list[]="critique";
 		print pmb_bidi("<hr /><div class='erreur'>${msg[377]} :</div><div class='message_important'>".$stuff->expl_note."</div>");
-		} else $alert_sound_list[]="information";
+		} elseif($pmb_play_pret_sound) $alert_sound_list[]="information";
 
 	// zone du dernier emrunteur
 	if ($stuff->expl_lastempr) {

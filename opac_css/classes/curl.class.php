@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: curl.class.php,v 1.1 2010-04-14 09:20:02 erwanmartin Exp $
+// $Id: curl.class.php,v 1.2 2010-10-25 13:10:34 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -116,9 +116,24 @@ class Curl {
 	}
 	
 	function getBodyOverflow($curl,$contenu) {
-		$taille_max  = 10000;
+		$taille_max  = $this->limit;
 		$taille_bloc = strlen($contenu);
 		if (strlen($this->body_overflow)+$taille_bloc<$taille_max) $this->body_overflow .= $contenu;	
+		return strlen($contenu);
+	}
+	
+	function saveBodyInFile($curl,$contenu) {
+		
+		if(!$this->header_detect) {
+			$this->header_detect=1;
+			$pattern = '#HTTP/\d\.\d.*?$.*?\r\n\r\n#ims';
+			$texte = preg_replace($pattern, '', $contenu);			
+		} else $texte=$contenu;
+		if($texte) {
+			$fd = fopen($this->save_file_name,"a");
+			fwrite($fd,$texte);
+			fclose($fd);	
+		}	
 		return strlen($contenu);
 	}
 	
@@ -147,7 +162,11 @@ class Curl {
 		curl_setopt($this->handle, CURLOPT_USERAGENT, $this->user_agent);		
 		if($this->limit) 
 			curl_setopt($this->handle, CURLOPT_WRITEFUNCTION,array(&$this,'getBodyOverflow'));
-			
+		
+		if($this->save_file_name){
+			$this->header_detect=0;					
+			curl_setopt($this->handle, CURLOPT_WRITEFUNCTION,array(&$this,'saveBodyInFile'));
+		}	
 		configurer_proxy_curl($this->handle);			
 		
 		# Format custom headers for this request and set CURL option

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesCollections.class.php,v 1.5 2010-04-13 09:38:38 erwanmartin Exp $
+// $Id: pmbesCollections.class.php,v 1.6 2010-10-15 11:41:55 erwanmartin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -120,7 +120,8 @@ class pmbesCollections extends external_services_api_class {
 			"collection_name" => utf8_normalize($row["collection_name"]),
 			"collection_parent" => $row["collection_parent"],
 			"collection_issn" => utf8_normalize($row["collection_issn"]),
-			"collection_web" => utf8_normalize($row["collection_web"])
+			"collection_web" => utf8_normalize($row["collection_web"]),
+			"collection_links" => $this->proxy_parent->pmbesAutLinks_getLinks(4, $collection_id),			
 		);
 		
 		return $result;
@@ -146,7 +147,8 @@ class pmbesCollections extends external_services_api_class {
 			"sous_collection_name" => utf8_normalize($row["sub_coll_name"]),
 			"sous_collection_parent" => $row["sub_coll_parent"],
 			"sous_collection_issn" => utf8_normalize($row["sub_coll_issn"]),
-			"sous_collection_web" => utf8_normalize($row["subcollection_web"])
+			"sous_collection_web" => utf8_normalize($row["subcollection_web"]),
+			"sous_collection_links" => $this->proxy_parent->pmbesAutLinks_getLinks(5, $subcollection_id),			
 		);
 		
 		return $result;
@@ -184,7 +186,8 @@ class pmbesCollections extends external_services_api_class {
 					"sous_collection_name" => utf8_normalize($row["sub_coll_name"]),
 					"sous_collection_parent" => $row["sub_coll_parent"],
 					"sous_collection_issn" => utf8_normalize($row["sub_coll_issn"]),
-					"sous_collection_web" => utf8_normalize($row["subcollection_web"])
+					"sous_collection_web" => utf8_normalize($row["subcollection_web"]),
+					"sous_collection_links" => $this->proxy_parent->pmbesAutLinks_getLinks(5, $collection_id),
 				);
 				$result[] = $aresult;
 			}

@@ -2,11 +2,11 @@
 <!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
 
 <!-- liste des codes type enregistrement (français)
-$Id: nivbiblio.xml,v 1.1 2009-11-16 15:59:29 kantin Exp $ -->
+$Id: nivbiblio.xml,v 1.2 2010-12-18 13:01:33 rgarcia Exp $ -->
 
 <XMLlist>
-	<entry code="m">Monograph</entry>
+	<entry code="m">Monografia</entry>
 	<entry code="a">Article</entry>
-	<entry code="s">Serial</entry>
-	<entry code="b">Serial check-in</entry>
+	<entry code="s">Sèrie</entry>
+	<entry code="b">Sèrie check-in</entry>
 </XMLlist>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collection.class.php,v 1.31 2010-06-16 12:13:47 ngantier Exp $
+// $Id: collection.class.php,v 1.33 2010-12-06 15:53:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -61,6 +61,7 @@ function getData() {
 		$this->display	=	'';
 		$this->issn		=	'';
 		$this->collection_web	= '';
+		$this->comment	= '';
 	} else {
 		$requete = "SELECT * FROM collections WHERE collection_id=$this->id LIMIT 1 ";
 		$result = @mysql_query($requete, $dbh);
@@ -72,6 +73,7 @@ function getData() {
 			$this->parent = $temp->collection_parent;
 			$this->issn = $temp->collection_issn;
 			$this->collection_web	= $temp->collection_web;
+			$this->comment	= $temp->collection_comment;
 			if($temp->collection_web) 
 				$this->collection_web_link = " <a href='$temp->collection_web' target=_blank><img src='./images/globe.gif' border=0 /></a>";
 			else 
@@ -98,6 +100,7 @@ function getData() {
 			$this->issn		=	'';
 			$this->collection_web = '';
 			$this->collection_web_link = "" ;
+			$this->comment = "" ;
 		}
 	}
 }
@@ -145,7 +148,7 @@ function delete() {
 // ---------------------------------------------------------------
 //		replace($by) : remplacement de la collection
 // ---------------------------------------------------------------
-function replace($by) {
+function replace($by,$link_save=0) {
 
 	global $msg;
 	global $dbh;
@@ -166,6 +169,14 @@ function replace($by) {
 		// la nouvelle collection est foireuse
 		return $msg[406];
 	}
+	
+	$aut_link= new aut_link(AUT_TABLE_COLLECTIONS,$this->id);
+	// "Conserver les liens entre autorités" est demandé
+	if($link_save) {
+		// liens entre autorités
+		$aut_link->add_link_to(AUT_TABLE_COLLECTIONS,$by);		
+	}
+	$aut_link->delete();
 
 	$requete = "UPDATE notices SET ed1_id=".$n_collection->parent.", coll_id=$by WHERE coll_id=".$this->id;
 	$res = mysql_query($requete, $dbh);
@@ -224,6 +235,7 @@ function show_form() {
 	$collection_form = str_replace('!!remplace!!', 				$button_remplace, 									$collection_form);
 	$collection_form = str_replace('!!voir_notices!!', 			$button_voir, 										$collection_form);
 	$collection_form = str_replace('!!collection_web!!',		htmlentities($this->collection_web,ENT_QUOTES, $charset),	$collection_form);
+	$collection_form = str_replace('!!comment!!',				htmlentities($this->comment,ENT_QUOTES, $charset),	$collection_form);
 	// pour retour à la bonne page en gestion d'autorités
 	// &user_input=".rawurlencode(stripslashes($user_input))."&nbr_lignes=$nbr_lignes&page=$page
 	global $user_input, $nbr_lignes, $page ;
@@ -276,6 +288,7 @@ function update($value) {
 	$requete .= "collection_parent='$value[parent]', ";
 	$requete .= "collection_issn='$value[issn]', ";
 	$requete .= "collection_web='$value[collection_web]', ";
+	$requete .= "collection_comment='$value[comment]', ";
 	$requete .= "index_coll=' ".strip_empty_words($value[name])." ".strip_empty_words($value["issn"])." '";
 
 	if($this->id) {

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: series.inc.php,v 1.8 2007-03-10 09:03:17 touraine37 Exp $
+// $Id: series.inc.php,v 1.9 2010-12-06 15:51:18 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -34,7 +34,7 @@ switch($sub) {
 		} else {
 			// routine de remplacement
 			$serie = new serie($id);
-			$rep_result = $serie->replace($n_serie_id);
+			$rep_result = $serie->replace($n_serie_id,$aut_link_save);
 			if (!$rep_result)
 				include('./autorites/series/series_list.inc.php');
 			else {

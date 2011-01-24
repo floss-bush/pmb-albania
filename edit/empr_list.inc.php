@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_list.inc.php,v 1.29 2009-05-16 11:08:24 dbellamy Exp $
+// $Id: empr_list.inc.php,v 1.30 2010-12-02 14:39:16 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -186,14 +186,23 @@ if($nbr_lignes) {
 
 			// affichage du résultat
 			echo "
-				<form class='form-$current_module' action='$page_url?categ=$categ&sub=$sub&limite_page=$limite_page&numero_page=$numero_page' method=post>
+				<form class='form-$current_module' id='form-$current_module-list' name='form-$current_module-list' action='$page_url?categ=$categ&sub=$sub&limite_page=$limite_page&numero_page=$numero_page' method=post>
 			 	<div class='left'>
 					$nav_bar $msg[circ_afficher] <input type=text name=limite_page value='$limite_page' class='saisie-5em'> $msg[1905] &nbsp;
 				</div>
 				<div class='right'>
-					<input type='image' src='./images/tableur.gif' border='0' onClick=\"this.form.dest.value='TABLEAU';\" alt='Export tableau EXCEL' title='Export tableau EXCEL' />&nbsp;&nbsp;
-					<input type='image' src='./images/tableur_html.gif' border='0' onClick=\"this.form.dest.value='TABLEAUHTML';\" alt='Export tableau HTML' title='Export tableau HTML' />
+					<img  src='./images/tableur.gif' border='0' align='top' onMouseOver ='survol(this);' onclick=\"start_export('TABLEAU');\" alt='Export tableau EXCEL' title='Export tableau EXCEL'/>&nbsp;&nbsp;
+					<img  src='./images/tableur_html.gif' border='0' align='top' onMouseOver ='survol(this);' onclick=\"start_export('TABLEAUHTML');\" alt='Export tableau HTML' title='Export tableau HTML'/>&nbsp;&nbsp;
 				</div>
+				<script type='text/javascript'>
+					function survol(obj){
+						obj.style.cursor = 'pointer';
+					}
+					function start_export(type){
+						document.forms['form-$current_module-list'].dest.value = type;
+						document.forms['form-$current_module-list'].submit();
+					}	
+				</script>
 			";
 					
 			if ($pmb_lecteurs_localises) echo docs_location::gen_combo_box_empr($empr_location_id);
@@ -215,7 +224,7 @@ if($nbr_lignes) {
 			print pmb_bidi("<table>".$empr_list."</table>");
 			
 			echo "
-				<br /><form class='form-$current_module' action='$PHP_SELF?categ=empr&sub=$sub&page=$precedente&nbr_lignes=$nbr_lignes&form_cb=".rawurlencode($form_cb)."&limite_page=$limite_page&empr_location_id=$empr_location_id&empr_statut_edit=$empr_statut_edit&statut_action=modify' method='post'>
+				<br /><form class='form-$current_module' id='form-$current_module-action' name='form-$current_module-action' action='$PHP_SELF?categ=empr&sub=$sub&page=$precedente&nbr_lignes=$nbr_lignes&form_cb=".rawurlencode($form_cb)."&limite_page=$limite_page&empr_location_id=$empr_location_id&empr_statut_edit=$empr_statut_edit&statut_action=modify' method='post'>
 				<div class='left'>";
 			if ($sub=="limite" || $sub=="depasse") echo "<input type='button' class='bouton_small' value='".htmlentities($msg["print_all_relances"],ENT_QUOTES,$charset)."' onclick='document.location=\"./edit.php?categ=$categ&sub=$sub&action=print_all\"'>&nbsp;";
 			

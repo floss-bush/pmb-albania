@@ -3,7 +3,7 @@
 
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sel_collection.tpl.php,v 1.13 2010-06-16 12:14:36 ngantier Exp $
+// $Id: sel_collection.tpl.php,v 1.14 2010-12-15 13:37:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -76,6 +76,7 @@ function set_parent(f_caller, id_coll, libelle_coll, id_ed, libelle_ed)
 	window.opener.document.forms[f_caller].elements['$p4'].value = reverse_html_entities(libelle_coll);
 	window.opener.document.forms[f_caller].elements['$p5'].value = '';
 	window.opener.document.forms[f_caller].elements['$p6'].value = '';
+
 	window.close();
 }
 -->
@@ -85,10 +86,12 @@ if($mode=="un")
 $jscript = "
 <script type='text/javascript'>
 <!--
-function set_parent(f_caller, id_coll, libelle_coll, id_ed, libelle_ed)
+function set_parent(f_caller, id_coll, libelle_coll, id_ed, libelle_ed, callback)
 {
 	window.opener.document.forms[f_caller].elements['$p1'].value = id_coll;
 	window.opener.document.forms[f_caller].elements['$p2'].value = reverse_html_entities(libelle_coll);
+	if(callback)
+		window.opener[callback]('$infield');
 	window.close();
 }
 -->
