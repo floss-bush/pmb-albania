@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<pmbquotas table="quotas">
+
+	<elements>
+
+
+
+	  	<element name="READER_CATEG" id="2" comment="Kategorite e lexuesve">
+
+			<linkedto>READER</linkedto>
+
+			<tablelinked>empr</tablelinked>
+
+			<linkedfield>empr_categ</linkedfield>
+
+			<linkedid>id_empr</linkedid>
+
+			<table>empr_categ</table>
+
+			<field>id_categ_empr</field>
+
+			<label>libelle</label>
+
+		</element>
+
+
+
+		<element name="DOCTYPE" id="1" comment="Llojet e materialeve">
+
+			<linkedto>EXPL</linkedto>
+
+			<tablelinked>exemplaires</tablelinked>
+
+			<linkedfield>expl_typdoc</linkedfield>
+
+			<linkedid>expl_id</linkedid>
+
+			<table>docs_type</table>
+
+			<field>idtyp_doc</field>
+
+			<label>tdoc_libelle</label>
+
+		</element>
+
+
+
+		<element name="TYP_ABO" id="4" comment="Llojet e abonimeve">
+
+			<linkedto>READER</linkedto>
+
+			<tablelinked>empr</tablelinked>
+
+			<linkedfield>type_abt</linkedfield>
+
+			<linkedid>id_empr</linkedid>
+
+			<table>type_abts</table>
+
+			<field>id_type_abt</field>
+
+			<label>type_abt_libelle</label>
+
+		</element>
+
+
+
+		<element name="LOCATION" id="8" comment="Lokalizimi">
+
+            <linkedto>EXPL</linkedto>
+
+            <tablelinked>exemplaires</tablelinked>
+
+            <linkedfield>expl_location</linkedfield>
+
+            <linkedid>expl_id</linkedid>
+
+            <table>docs_location</table>
+
+            <field>idlocation</field>
+
+            <label>location_libelle</label>
+
+        </element>
+
+
+
+	</elements>
+
+
+
+	<types>
+
+
+
+		<type name="COST_LEND_QUOTA" id="1" max="no" min="no" forcelend="no" comment="Kuota e tarifes se huazimit" short_comment="tarifa e huazimit" filter_id="tarif_pret">
+
+			<quotas>
+
+				<on>DOCTYPE</on>
+
+				<on>READER_CATEG,DOCTYPE</on>
+
+				<on>LOCATION,DOCTYPE</on>
+
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+
+				<on>TYP_ABO,DOCTYPE</on>
+
+				<on>READER_CATEG,TYP_ABO,DOCTYPE</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDE_BY_DAY" id="2" max="no" min="no" forcelend="no" comment="Vlera ditore e gjobes" short_comment="gjoba ditore" filter_id="penale">
+
+			<quotas>
+
+				<on>DOCTYPE</on>
+
+				<on>READER_CATEG</on>
+
+				<on>READER_CATEG,DOCTYPE</on>
+
+				<on>LOCATION,DOCTYPE</on>
+
+				<on>LOCATION,READER_CATEG</on>
+
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDE_DELAI" id="4" max="no" min="no" forcelend="no" comment="Vonesa e lejuar para aplikimit te gjobes" short_comment="vonese para gjobes" filter_id="amende">
+
+			<quotas>
+
+				<on>DOCTYPE</on>
+
+				<on>READER_CATEG</on>
+
+				<on>READER_CATEG,DOCTYPE</on>
+
+				<on>LOCATION,DOCTYPE</on>
+
+				<on>LOCATION,READER_CATEG</on>
+
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDE_DELAI_RECOUVREMENT" id="8" max="no" min="no" forcelend="no" comment="Vonesa e lejuar para mbledhjes se materialit" short_comment="vonesa para mbledhjes" filter_id="amende">
+
+			<quotas>
+
+				<on>DOCTYPE</on>
+
+				<on>READER_CATEG</on>
+
+				<on>READER_CATEG,DOCTYPE</on>
+
+				<on>LOCATION,DOCTYPE</on>
+
+				<on>LOCATION,READER_CATEG</on>
+
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDE_MAXIMUM" id="16" max="no" min="no" forcelend="no" comment="Gjoba maksimale" short_comment="gjoba maksimale" filter_id="amende">
+
+			<quotas>
+
+				<on>DOCTYPE</on>
+
+				<on>READER_CATEG</on>
+
+				<on>READER_CATEG,DOCTYPE</on>
+
+				<on>LOCATION,DOCTYPE</on>
+
+				<on>LOCATION,READER_CATEG</on>
+
+				<on>LOCATION,READER_CATEG,DOCTYPE</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDERELANCE_FRAISPREMIERERELANCE" id="256" max="no" min="no" forcelend="no" comment="Vlera e thirrjes se pare" short_comment="Vlera e thirrjes se pare" filter_id="amende_relance">
+
+			<quotas>
+
+				<on>READER_CATEG</on>
+
+				<on>LOCATION_READER</on>
+
+				<on>LOCATION_READER,READER_CATEG</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDERELANCE_FRAISDEUXIEMERELANCE" id="512" max="no" min="no" forcelend="no" comment="Vlera e thirrjes se dyte" short_comment="Vlera e thirrjes se dyte" filter_id="amende_relance">
+
+			<quotas>
+
+				<on>READER_CATEG</on>
+
+				<on>LOCATION_READER</on>
+
+				<on>LOCATION_READER,READER_CATEG</on>
+
+			</quotas>
+
+		</type>
+
+
+
+		<type name="AMENDERELANCE_FRAISTROISIEMERELANCE" id="1024" max="no" min="no" forcelend="no" comment="Vlera e thirrjes se trete" short_comment="Vlera e thirrjes se trete" filter_id="amende_relance">
+
+			<quotas>
+
+				<on>READER_CATEG</on>
+
+				<on>LOCATION_READER</on>
+
+				<on>LOCATION_READER,READER_CATEG</on>
+
+			</quotas>
+
+		</type>
+
+	</types>
+
+</pmbquotas>
+
