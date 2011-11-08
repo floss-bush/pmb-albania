@@ -10,7 +10,7 @@ $Id: languages.xml,v 1.15 2010-12-01 20:06:37 touraine37 Exp $
 -->
 
 <XMLlist>
-	<entry code="sq_AL">S</entry>
+	<entry code="sq_AL">Shqip</entry>
 	<entry code="ar">Arabe</entry>
 	<entry code="fr_FR">Français</entry>
 	<entry code="es_ES">Español</entry>
