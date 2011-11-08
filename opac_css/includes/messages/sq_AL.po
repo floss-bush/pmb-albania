@@ -1,0 +1,3488 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-11-08 11:02+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: sq_AL.xml:8(entry)
+msgid "Operation not allowed"
+msgstr ""
+
+#: sq_AL.xml:9(entry) sq_AL.xml:252(entry) sq_AL.xml:830(entry)
+msgid "Search"
+msgstr ""
+
+#: sq_AL.xml:10(entry)
+msgid "ok"
+msgstr ""
+
+#: sq_AL.xml:11(entry)
+msgid "Subjects"
+msgstr ""
+
+#: sq_AL.xml:12(entry)
+msgid "Record unknown or unavailable"
+msgstr ""
+
+#: sq_AL.xml:13(entry)
+msgid "Responsibilities"
+msgstr ""
+
+#: sq_AL.xml:14(entry)
+msgid "Place this record in a basket"
+msgstr ""
+
+#: sq_AL.xml:15(entry) sq_AL.xml:642(entry)
+msgid "Contains"
+msgstr ""
+
+#: sq_AL.xml:16(entry)
+msgid "Abstract/Extract"
+msgstr ""
+
+#: sq_AL.xml:17(entry) sq_AL.xml:18(entry)
+msgid "%m/%d/%Y"
+msgstr ""
+
+#: sq_AL.xml:19(entry)
+msgid "%d/%d/%d"
+msgstr ""
+
+#: sq_AL.xml:21(entry)
+msgid "http://www.sigb.net"
+msgstr ""
+
+#: sq_AL.xml:22(entry)
+msgid "opac 1.0"
+msgstr ""
+
+#: sq_AL.xml:23(entry)
+msgid "Demo"
+msgstr ""
+
+#: sq_AL.xml:24(entry)
+msgid "Identification"
+msgstr ""
+
+#: sq_AL.xml:25(entry)
+msgid "PMB"
+msgstr ""
+
+#: sq_AL.xml:26(entry)
+msgid "sq"
+msgstr ""
+
+#: sq_AL.xml:27(entry)
+msgid "-"
+msgstr ""
+
+#: sq_AL.xml:28(entry)
+msgid "m/d/Y"
+msgstr ""
+
+#: sq_AL.xml:29(entry) sq_AL.xml:727(entry)
+msgid "January"
+msgstr ""
+
+#: sq_AL.xml:30(entry) sq_AL.xml:728(entry)
+msgid "February"
+msgstr ""
+
+#: sq_AL.xml:31(entry) sq_AL.xml:729(entry)
+msgid "March"
+msgstr ""
+
+#: sq_AL.xml:32(entry) sq_AL.xml:730(entry)
+msgid "April"
+msgstr ""
+
+#: sq_AL.xml:33(entry) sq_AL.xml:731(entry)
+msgid "May"
+msgstr ""
+
+#: sq_AL.xml:34(entry) sq_AL.xml:732(entry)
+msgid "June"
+msgstr ""
+
+#: sq_AL.xml:35(entry) sq_AL.xml:733(entry)
+msgid "July"
+msgstr ""
+
+#: sq_AL.xml:36(entry) sq_AL.xml:734(entry)
+msgid "August"
+msgstr ""
+
+#: sq_AL.xml:37(entry) sq_AL.xml:735(entry)
+msgid "September"
+msgstr ""
+
+#: sq_AL.xml:38(entry) sq_AL.xml:736(entry)
+msgid "October"
+msgstr ""
+
+#: sq_AL.xml:39(entry) sq_AL.xml:737(entry)
+msgid "November"
+msgstr ""
+
+#: sq_AL.xml:40(entry) sq_AL.xml:738(entry)
+msgid "December"
+msgstr ""
+
+#: sq_AL.xml:41(entry) sq_AL.xml:720(entry)
+msgid "M"
+msgstr ""
+
+#: sq_AL.xml:42(entry) sq_AL.xml:44(entry) sq_AL.xml:721(entry) sq_AL.xml:723(entry)
+msgid "T"
+msgstr ""
+
+#: sq_AL.xml:43(entry) sq_AL.xml:722(entry)
+msgid "W"
+msgstr ""
+
+#: sq_AL.xml:45(entry) sq_AL.xml:724(entry)
+msgid "F"
+msgstr ""
+
+#: sq_AL.xml:46(entry) sq_AL.xml:47(entry) sq_AL.xml:725(entry) sq_AL.xml:726(entry)
+msgid "S"
+msgstr ""
+
+#: sq_AL.xml:48(entry)
+msgid "Monday"
+msgstr ""
+
+#: sq_AL.xml:49(entry)
+msgid "Tuesday"
+msgstr ""
+
+#: sq_AL.xml:50(entry)
+msgid "Wednesday"
+msgstr ""
+
+#: sq_AL.xml:51(entry)
+msgid "Thursday"
+msgstr ""
+
+#: sq_AL.xml:52(entry)
+msgid "Friday"
+msgstr ""
+
+#: sq_AL.xml:53(entry)
+msgid "Saturday"
+msgstr ""
+
+#: sq_AL.xml:54(entry)
+msgid "Sunday"
+msgstr ""
+
+#: sq_AL.xml:55(entry)
+msgid "iso-8859-1"
+msgstr ""
+
+#: sq_AL.xml:56(entry)
+msgid "en"
+msgstr ""
+
+#: sq_AL.xml:57(entry)
+msgid "OPAC"
+msgstr ""
+
+#: sq_AL.xml:58(entry) sq_AL.xml:73(entry) sq_AL.xml:76(entry)
+msgid "Overdue loans"
+msgstr ""
+
+#: sq_AL.xml:59(entry) sq_AL.xml:72(entry)
+msgid "Current loans"
+msgstr ""
+
+#: sq_AL.xml:60(entry)
+msgid "Actions"
+msgstr ""
+
+#: sq_AL.xml:61(entry) sq_AL.xml:109(entry)
+msgid "View"
+msgstr ""
+
+#: sq_AL.xml:62(entry)
+msgid "overdue items"
+msgstr ""
+
+#: sq_AL.xml:63(entry)
+msgid "current loans"
+msgstr ""
+
+#: sq_AL.xml:64(entry)
+msgid "Edit"
+msgstr ""
+
+#: sq_AL.xml:65(entry)
+msgid "Change password"
+msgstr ""
+
+#: sq_AL.xml:66(entry) sq_AL.xml:469(entry)
+msgid "Validate"
+msgstr ""
+
+#: sq_AL.xml:67(entry)
+msgid "go"
+msgstr ""
+
+#: sq_AL.xml:68(entry)
+msgid "Please enter your new password:"
+msgstr ""
+
+#: sq_AL.xml:69(entry)
+msgid "For security purposes, please re-enter your new password:"
+msgstr ""
+
+#: sq_AL.xml:70(entry)
+msgid "Your password was successfully changed."
+msgstr ""
+
+#: sq_AL.xml:71(entry)
+msgid "The two entries for your new password do not match."
+msgstr ""
+
+#: sq_AL.xml:74(entry)
+msgid "Holds"
+msgstr ""
+
+#: sq_AL.xml:75(entry)
+msgid "Request an item"
+msgstr ""
+
+#: sq_AL.xml:77(entry)
+msgid "No current loan"
+msgstr ""
+
+#: sq_AL.xml:78(entry)
+msgid "No overdue loan"
+msgstr ""
+
+#: sq_AL.xml:80(entry)
+msgid "Available"
+msgstr ""
+
+#: sq_AL.xml:81(entry)
+msgid "Not for loan"
+msgstr ""
+
+#: sq_AL.xml:82(entry)
+msgid "Due for return by"
+msgstr ""
+
+#: sq_AL.xml:83(entry)
+msgid "previous"
+msgstr ""
+
+#: sq_AL.xml:84(entry)
+msgid "next"
+msgstr ""
+
+#: sq_AL.xml:85(entry) sq_AL.xml:712(entry) sq_AL.xml:762(entry) sq_AL.xml:1053(entry)
+msgid "Barcode"
+msgstr ""
+
+#: sq_AL.xml:86(entry) sq_AL.xml:625(entry) sq_AL.xml:813(entry) sq_AL.xml:927(entry)
+msgid "Title"
+msgstr ""
+
+#: sq_AL.xml:87(entry) sq_AL.xml:114(entry) sq_AL.xml:464(entry) sq_AL.xml:516(entry) sq_AL.xml:624(entry)
+msgid "Author"
+msgstr ""
+
+#: sq_AL.xml:88(entry)
+msgid "Date of loan"
+msgstr ""
+
+#: sq_AL.xml:89(entry)
+msgid "Due date"
+msgstr ""
+
+#: sq_AL.xml:90(entry)
+msgid "start"
+msgstr ""
+
+#: sq_AL.xml:91(entry)
+msgid "end"
+msgstr ""
+
+#: sq_AL.xml:92(entry)
+msgid "first page"
+msgstr ""
+
+#: sq_AL.xml:93(entry)
+msgid "last page"
+msgstr ""
+
+#: sq_AL.xml:94(entry)
+msgid "previous page"
+msgstr ""
+
+#: sq_AL.xml:95(entry)
+msgid "next page"
+msgstr ""
+
+#: sq_AL.xml:96(entry)
+msgid "back to index"
+msgstr ""
+
+#: sq_AL.xml:97(entry)
+msgid "page"
+msgstr ""
+
+#: sq_AL.xml:98(entry)
+msgid "Pagination"
+msgstr ""
+
+#: sq_AL.xml:99(entry)
+msgid "Descriptor"
+msgstr ""
+
+#: sq_AL.xml:100(entry) sq_AL.xml:641(entry) sq_AL.xml:713(entry) sq_AL.xml:763(entry) sq_AL.xml:824(entry)
+msgid "Call number"
+msgstr ""
+
+#: sq_AL.xml:101(entry) sq_AL.xml:596(entry) sq_AL.xml:714(entry) sq_AL.xml:748(entry) sq_AL.xml:750(entry) sq_AL.xml:764(entry) sq_AL.xml:818(entry)
+msgid "Location"
+msgstr ""
+
+#: sq_AL.xml:102(entry) sq_AL.xml:715(entry) sq_AL.xml:765(entry)
+msgid "Section"
+msgstr ""
+
+#: sq_AL.xml:103(entry) sq_AL.xml:517(entry) sq_AL.xml:766(entry) sq_AL.xml:827(entry)
+msgid "Status"
+msgstr ""
+
+#: sq_AL.xml:104(entry) sq_AL.xml:611(entry)
+msgid "Copies"
+msgstr ""
+
+#: sq_AL.xml:105(entry)
+msgid "Available item(s) by this author"
+msgstr ""
+
+#: sq_AL.xml:106(entry)
+msgid "empty descriptor"
+msgstr ""
+
+#: sq_AL.xml:107(entry)
+msgid "Available item(s) in this series"
+msgstr ""
+
+#: sq_AL.xml:108(entry)
+msgid "Available item(s) in this sub-series"
+msgstr ""
+
+#: sq_AL.xml:110(entry)
+msgid "results per page"
+msgstr ""
+
+#: sq_AL.xml:111(entry)
+msgid "Available items(s) from this publisher"
+msgstr ""
+
+#: sq_AL.xml:112(entry)
+msgid "Search result for word(s)"
+msgstr ""
+
+#: sq_AL.xml:113(entry)
+msgid "The search did not return any result"
+msgstr ""
+
+#: sq_AL.xml:115(entry) sq_AL.xml:116(entry) sq_AL.xml:152(entry) sq_AL.xml:633(entry)
+msgid "Descriptors"
+msgstr ""
+
+#: sq_AL.xml:117(entry)
+msgid "Series details"
+msgstr ""
+
+#: sq_AL.xml:118(entry)
+msgid "Class number details"
+msgstr ""
+
+#: sq_AL.xml:119(entry) sq_AL.xml:153(entry) sq_AL.xml:628(entry)
+msgid "Series"
+msgstr ""
+
+#: sq_AL.xml:120(entry) sq_AL.xml:465(entry) sq_AL.xml:515(entry) sq_AL.xml:580(entry) sq_AL.xml:627(entry)
+msgid "Publisher"
+msgstr ""
+
+#: sq_AL.xml:121(entry) sq_AL.xml:651(entry)
+msgid "ISSN"
+msgstr ""
+
+#: sq_AL.xml:122(entry)
+msgid "no ISSN"
+msgstr ""
+
+#: sq_AL.xml:133(entry) sq_AL.xml:135(entry)
+msgid "Borrower profile"
+msgstr ""
+
+#: sq_AL.xml:134(entry)
+msgid "You can search the database using one or more keywords (title, author, publisher, descriptor, ...)."
+msgstr ""
+
+#: sq_AL.xml:136(entry)
+msgid "Occupation"
+msgstr ""
+
+#: sq_AL.xml:137(entry)
+msgid "Year of birth"
+msgstr ""
+
+#: sq_AL.xml:138(entry)
+msgid "Email"
+msgstr ""
+
+#: sq_AL.xml:139(entry)
+msgid "Membership"
+msgstr ""
+
+#: sq_AL.xml:140(entry)
+msgid "Statistical code"
+msgstr ""
+
+#: sq_AL.xml:141(entry)
+msgid "Date of subscription"
+msgstr ""
+
+#: sq_AL.xml:142(entry)
+msgid "Date of expiry"
+msgstr ""
+
+#: sq_AL.xml:143(entry)
+msgid "Borrower ID"
+msgstr ""
+
+#: sq_AL.xml:144(entry)
+msgid "Latest entries"
+msgstr ""
+
+#: sq_AL.xml:145(entry)
+msgid "These are the latest entries in the catalogue:"
+msgstr ""
+
+#: sq_AL.xml:146(entry)
+msgid "News"
+msgstr ""
+
+#: sq_AL.xml:147(entry) sq_AL.xml:1030(entry)
+msgid "Record"
+msgstr ""
+
+#: sq_AL.xml:148(entry)
+msgid "result(s)"
+msgstr ""
+
+#: sq_AL.xml:149(entry)
+msgid "Search results"
+msgstr ""
+
+#: sq_AL.xml:150(entry)
+msgid "display"
+msgstr ""
+
+#: sq_AL.xml:151(entry)
+msgid "Authors"
+msgstr ""
+
+#: sq_AL.xml:154(entry) sq_AL.xml:232(entry) sq_AL.xml:635(entry)
+msgid "Keywords"
+msgstr ""
+
+#: sq_AL.xml:155(entry)
+msgid "Abstract and notes"
+msgstr ""
+
+#: sq_AL.xml:156(entry)
+msgid "Publishers"
+msgstr ""
+
+#: sq_AL.xml:157(entry) sq_AL.xml:629(entry)
+msgid "Sub-series"
+msgstr ""
+
+#: sq_AL.xml:158(entry)
+msgid "Titles"
+msgstr ""
+
+#: sq_AL.xml:159(entry)
+msgid "Class numbers"
+msgstr ""
+
+#: sq_AL.xml:160(entry)
+msgid "Other titles"
+msgstr ""
+
+#: sq_AL.xml:161(entry)
+msgid "authors"
+msgstr ""
+
+#: sq_AL.xml:162(entry)
+msgid "descriptors"
+msgstr ""
+
+#: sq_AL.xml:163(entry)
+msgid "series"
+msgstr ""
+
+#: sq_AL.xml:164(entry)
+msgid "keywords"
+msgstr ""
+
+#: sq_AL.xml:165(entry)
+msgid "abstract and notes"
+msgstr ""
+
+#: sq_AL.xml:166(entry)
+msgid "publishers"
+msgstr ""
+
+#: sq_AL.xml:167(entry)
+msgid "sub-series"
+msgstr ""
+
+#: sq_AL.xml:168(entry)
+msgid "titles"
+msgstr ""
+
+#: sq_AL.xml:169(entry)
+msgid "class numbers"
+msgstr ""
+
+#: sq_AL.xml:170(entry)
+msgid "authors found"
+msgstr ""
+
+#: sq_AL.xml:171(entry)
+msgid "descriptors found"
+msgstr ""
+
+#: sq_AL.xml:172(entry)
+msgid "series found"
+msgstr ""
+
+#: sq_AL.xml:173(entry)
+msgid "search for keyword(s)"
+msgstr ""
+
+#: sq_AL.xml:174(entry)
+msgid "search for tag"
+msgstr ""
+
+#: sq_AL.xml:175(entry)
+msgid "Tags:"
+msgstr ""
+
+#: sq_AL.xml:176(entry)
+msgid "Tags"
+msgstr ""
+
+#: sq_AL.xml:177(entry)
+msgid "records out of"
+msgstr ""
+
+#: sq_AL.xml:178(entry)
+msgid "publishers found"
+msgstr ""
+
+#: sq_AL.xml:179(entry)
+msgid "sub-series found"
+msgstr ""
+
+#: sq_AL.xml:180(entry)
+msgid "title(s) found"
+msgstr ""
+
+#: sq_AL.xml:181(entry)
+msgid "class numbers found"
+msgstr ""
+
+#: sq_AL.xml:182(entry)
+msgid "notes or summaries found"
+msgstr ""
+
+#: sq_AL.xml:183(entry)
+msgid "Record number:"
+msgstr ""
+
+#: sq_AL.xml:185(entry) sq_AL.xml:853(entry)
+msgid "Title:"
+msgstr ""
+
+#: sq_AL.xml:187(entry)
+msgid "Authors:"
+msgstr ""
+
+#: sq_AL.xml:191(entry)
+msgid "Series:"
+msgstr ""
+
+#: sq_AL.xml:192(entry)
+msgid "Sub-series:"
+msgstr ""
+
+#: sq_AL.xml:194(entry)
+msgid "Collection Title:"
+msgstr ""
+
+#: sq_AL.xml:195(entry)
+msgid "Material Type:"
+msgstr ""
+
+#: sq_AL.xml:197(entry)
+msgid "Publisher:"
+msgstr ""
+
+#: sq_AL.xml:198(entry)
+msgid "Publication Date:"
+msgstr ""
+
+#: sq_AL.xml:199(entry)
+msgid "ISBN (or other code):"
+msgstr ""
+
+#: sq_AL.xml:200(entry)
+msgid "Pagination:"
+msgstr ""
+
+#: sq_AL.xml:201(entry)
+msgid "Article on page:"
+msgstr ""
+
+#: sq_AL.xml:202(entry)
+msgid "Size:"
+msgstr ""
+
+#: sq_AL.xml:203(entry)
+msgid "Layout:"
+msgstr ""
+
+#: sq_AL.xml:204(entry)
+msgid "Accompanying material:"
+msgstr ""
+
+#: sq_AL.xml:205(entry)
+msgid "General note:"
+msgstr ""
+
+#: sq_AL.xml:206(entry)
+msgid "Contents note:"
+msgstr ""
+
+#: sq_AL.xml:207(entry)
+msgid "Abstract:"
+msgstr ""
+
+#: sq_AL.xml:208(entry)
+msgid "Link for e-copy:"
+msgstr ""
+
+#: sq_AL.xml:209(entry)
+msgid "Format of e-copy:"
+msgstr ""
+
+#: sq_AL.xml:210(entry)
+msgid "Price:"
+msgstr ""
+
+#: sq_AL.xml:211(entry)
+msgid "Descriptors:"
+msgstr ""
+
+#: sq_AL.xml:212(entry)
+msgid "Keywords:"
+msgstr ""
+
+#: sq_AL.xml:213(entry)
+msgid "Class number:"
+msgstr ""
+
+#: sq_AL.xml:215(entry)
+msgid "Available issues"
+msgstr ""
+
+#: sq_AL.xml:216(entry)
+msgid "Period included :"
+msgstr ""
+
+#: sq_AL.xml:217(entry)
+msgid "Published date :"
+msgstr ""
+
+#: sq_AL.xml:218(entry)
+msgid "Available articles"
+msgstr ""
+
+#: sq_AL.xml:219(entry)
+msgid "No hold can be placed on copy of this item."
+msgstr ""
+
+#: sq_AL.xml:220(entry)
+msgid "Hold: You can place an hold on this item:"
+msgstr ""
+
+#: sq_AL.xml:221(entry)
+msgid "Item already on hold"
+msgstr ""
+
+#: sq_AL.xml:222(entry)
+msgid "No item on hold"
+msgstr ""
+
+#: sq_AL.xml:223(entry)
+msgid "No hold placed."
+msgstr ""
+
+#: sq_AL.xml:224(entry)
+msgid "You can place new holds by searching the catalog or clicking on"
+msgstr ""
+
+#: sq_AL.xml:225(entry)
+msgid "Held"
+msgstr ""
+
+#: sq_AL.xml:226(entry)
+msgid "Place an item on hold"
+msgstr ""
+
+#: sq_AL.xml:227(entry)
+msgid "You can only place items on hold which are currently on loan."
+msgstr ""
+
+#: sq_AL.xml:228(entry)
+msgid "E-copies"
+msgstr ""
+
+#: sq_AL.xml:229(entry)
+msgid "The hold is therefore not possible"
+msgstr ""
+
+#: sq_AL.xml:230(entry)
+msgid "Contents note"
+msgstr ""
+
+#: sq_AL.xml:231(entry)
+msgid "Abstract/extract"
+msgstr ""
+
+#: sq_AL.xml:233(entry)
+msgid "Languages"
+msgstr ""
+
+#: sq_AL.xml:234(entry) sq_AL.xml:605(entry)
+msgid "Original Language"
+msgstr ""
+
+#: sq_AL.xml:235(entry) sq_AL.xml:581(entry) sq_AL.xml:634(entry)
+msgid "Class number"
+msgstr ""
+
+#: sq_AL.xml:236(entry) sq_AL.xml:261(entry)
+msgid "serial"
+msgstr ""
+
+#: sq_AL.xml:237(entry) sq_AL.xml:260(entry)
+msgid "article"
+msgstr ""
+
+#: sq_AL.xml:238(entry) sq_AL.xml:646(entry)
+msgid "Virtual shelves"
+msgstr ""
+
+#: sq_AL.xml:239(entry) sq_AL.xml:247(entry) sq_AL.xml:287(entry)
+msgid "Advanced search"
+msgstr ""
+
+#: sq_AL.xml:240(entry)
+msgid "Choose search criteria"
+msgstr ""
+
+#: sq_AL.xml:241(entry)
+msgid "Custom record fields"
+msgstr ""
+
+#: sq_AL.xml:242(entry)
+msgid "And"
+msgstr ""
+
+#: sq_AL.xml:243(entry)
+msgid "Or"
+msgstr ""
+
+#: sq_AL.xml:244(entry)
+msgid "Not"
+msgstr ""
+
+#: sq_AL.xml:245(entry)
+msgid "Empty field"
+msgstr ""
+
+#: sq_AL.xml:246(entry)
+msgid "The field %s is empty!"
+msgstr ""
+
+#: sq_AL.xml:248(entry)
+msgid "Return to search screen"
+msgstr ""
+
+#: sq_AL.xml:249(entry)
+msgid "There is no field selected for the search"
+msgstr ""
+
+#: sq_AL.xml:250(entry)
+msgid "Advanced search results"
+msgstr ""
+
+#: sq_AL.xml:251(entry) sq_AL.xml:510(entry)
+msgid "Add"
+msgstr ""
+
+#: sq_AL.xml:253(entry)
+msgid "X"
+msgstr ""
+
+#: sq_AL.xml:254(entry) sq_AL.xml:288(entry) sq_AL.xml:347(entry)
+msgid "Search by terms"
+msgstr ""
+
+#: sq_AL.xml:255(entry)
+msgid "Attached sub-series"
+msgstr ""
+
+#: sq_AL.xml:256(entry)
+msgid "no message for this borrower"
+msgstr ""
+
+#: sq_AL.xml:257(entry)
+msgid "no copy on loan for this borrower"
+msgstr ""
+
+#: sq_AL.xml:258(entry)
+msgid "details"
+msgstr ""
+
+#: sq_AL.xml:259(entry)
+msgid "Hierarchy Level"
+msgstr ""
+
+#: sq_AL.xml:262(entry)
+msgid "Library items in the descriptor"
+msgstr ""
+
+#: sq_AL.xml:263(entry)
+msgid "Library items with class number"
+msgstr ""
+
+#: sq_AL.xml:264(entry)
+msgid "Publisher details"
+msgstr ""
+
+#: sq_AL.xml:265(entry)
+msgid "Author details"
+msgstr ""
+
+#: sq_AL.xml:266(entry)
+msgid "PMB: Public Access"
+msgstr ""
+
+#: sq_AL.xml:267(entry) sq_AL.xml:322(entry)
+msgid "Home"
+msgstr ""
+
+#: sq_AL.xml:268(entry)
+msgid "unknown series"
+msgstr ""
+
+#: sq_AL.xml:269(entry)
+msgid "unknown author"
+msgstr ""
+
+#: sq_AL.xml:270(entry)
+msgid "unknown authors"
+msgstr ""
+
+#: sq_AL.xml:271(entry)
+msgid "unknown publisher"
+msgstr ""
+
+#: sq_AL.xml:272(entry)
+msgid "display intermarc"
+msgstr ""
+
+#: sq_AL.xml:273(entry)
+msgid "Publisher %"
+msgstr ""
+
+#: sq_AL.xml:274(entry)
+msgid "located at %s"
+msgstr ""
+
+#: sq_AL.xml:275(entry)
+msgid "Sub-series %s"
+msgstr ""
+
+#: sq_AL.xml:276(entry)
+msgid "Publisher: %s"
+msgstr ""
+
+#: sq_AL.xml:277(entry)
+msgid "Series: %s"
+msgstr ""
+
+#: sq_AL.xml:278(entry)
+msgid "ISSN: %s"
+msgstr ""
+
+#: sq_AL.xml:279(entry)
+msgid "No ISSN"
+msgstr ""
+
+#: sq_AL.xml:280(entry)
+msgid "Hold"
+msgstr ""
+
+#: sq_AL.xml:281(entry)
+msgid "Place a hold on this item"
+msgstr ""
+
+#: sq_AL.xml:282(entry)
+msgid "No copy"
+msgstr ""
+
+#: sq_AL.xml:283(entry)
+msgid "No record to display"
+msgstr ""
+
+#: sq_AL.xml:284(entry)
+msgid "Page number too high!"
+msgstr ""
+
+#: sq_AL.xml:285(entry)
+msgid "Page number too low!"
+msgstr ""
+
+#: sq_AL.xml:286(entry)
+msgid "Quick search"
+msgstr ""
+
+#: sq_AL.xml:290(entry)
+msgid "material types %s"
+msgstr ""
+
+#: sq_AL.xml:291(entry)
+msgid "all material types"
+msgstr ""
+
+#: sq_AL.xml:292(entry)
+msgid "Advanced search: %s"
+msgstr ""
+
+#: sq_AL.xml:294(entry)
+msgid "Clear history"
+msgstr ""
+
+#: sq_AL.xml:295(entry) sq_AL.xml:321(entry)
+msgid "Search history"
+msgstr ""
+
+#: sq_AL.xml:296(entry)
+msgid "All material types"
+msgstr ""
+
+#: sq_AL.xml:297(entry)
+msgid "Search for terms"
+msgstr ""
+
+#: sq_AL.xml:298(entry)
+msgid "The table of 100 knowledge boxes"
+msgstr ""
+
+#: sq_AL.xml:299(entry)
+msgid "Colour wheel"
+msgstr ""
+
+#: sq_AL.xml:300(entry)
+msgid "Move your mouse on the petals of the colour wheel"
+msgstr ""
+
+#: sq_AL.xml:301(entry)
+msgid "Use at least one field!"
+msgstr ""
+
+#: sq_AL.xml:302(entry)
+msgid "The field %s is empty, complete the search term!"
+msgstr ""
+
+#: sq_AL.xml:303(entry)
+msgid "Please enter a borrower card number"
+msgstr ""
+
+#: sq_AL.xml:304(entry)
+msgid "Try again"
+msgstr ""
+
+#: sq_AL.xml:305(entry)
+msgid "The barcode and password do not match."
+msgstr ""
+
+#: sq_AL.xml:306(entry) sq_AL.xml:994(entry)
+msgid "My account"
+msgstr ""
+
+#: sq_AL.xml:307(entry)
+msgid "Logout"
+msgstr ""
+
+#: sq_AL.xml:308(entry)
+msgid "Warning, you have not used the OPAC for more than %s minutes. Your session has expired. Please login again if you wish to access your account."
+msgstr ""
+
+#: sq_AL.xml:309(entry)
+msgid "Hold cleared"
+msgstr ""
+
+#: sq_AL.xml:310(entry)
+msgid "Failed to place hold"
+msgstr ""
+
+#: sq_AL.xml:311(entry) sq_AL.xml:335(entry)
+msgid "Hold placed"
+msgstr ""
+
+#: sq_AL.xml:313(entry)
+msgid "(Your copy is on hold until %s)"
+msgstr ""
+
+#: sq_AL.xml:314(entry)
+msgid "(Hold valid until %s)"
+msgstr ""
+
+#: sq_AL.xml:315(entry)
+msgid "(Hold expired)"
+msgstr ""
+
+#: sq_AL.xml:316(entry)
+msgid "Return to last results set"
+msgstr ""
+
+#: sq_AL.xml:317(entry)
+msgid "Return to page %s of %s list of the %s"
+msgstr ""
+
+#: sq_AL.xml:318(entry)
+msgid "latest search"
+msgstr ""
+
+#: sq_AL.xml:319(entry)
+msgid "advanced search"
+msgstr ""
+
+#: sq_AL.xml:320(entry)
+msgid "quick search"
+msgstr ""
+
+#: sq_AL.xml:323(entry)
+msgid "From this page you can:"
+msgstr ""
+
+#: sq_AL.xml:324(entry)
+msgid "See all other shelves"
+msgstr ""
+
+#: sq_AL.xml:325(entry)
+msgid "with the descriptors"
+msgstr ""
+
+#: sq_AL.xml:326(entry)
+msgid "with the latest entries"
+msgstr ""
+
+#: sq_AL.xml:327(entry)
+msgid "with the virtual shelves"
+msgstr ""
+
+#: sq_AL.xml:328(entry)
+msgid "with the colour wheel"
+msgstr ""
+
+#: sq_AL.xml:329(entry)
+msgid "with the table of 100 knowledge boxes"
+msgstr ""
+
+#: sq_AL.xml:330(entry)
+msgid "View items on this descriptor..."
+msgstr ""
+
+#: sq_AL.xml:331(entry)
+msgid "No indexing entry for this issue."
+msgstr ""
+
+#: sq_AL.xml:332(entry)
+msgid "See available issues"
+msgstr ""
+
+#: sq_AL.xml:333(entry)
+msgid "Hold not possible: you already have this item on loan."
+msgstr ""
+
+#: sq_AL.xml:334(entry)
+msgid "Clear the hold."
+msgstr ""
+
+#: sq_AL.xml:336(entry)
+msgid "(Hold awaiting validation.)"
+msgstr ""
+
+#: sq_AL.xml:338(entry)
+msgid "There are already !!nb_max_resa!! holds on this item, request not possible."
+msgstr ""
+
+#: sq_AL.xml:339(entry)
+msgid "Your library subscription has expired!"
+msgstr ""
+
+#: sq_AL.xml:340(entry)
+msgid "Terms found for expression:"
+msgstr ""
+
+#: sq_AL.xml:341(entry)
+msgid "No search expression, all terms are listed"
+msgstr ""
+
+#: sq_AL.xml:342(entry)
+msgid "See:"
+msgstr ""
+
+#: sq_AL.xml:343(entry)
+msgid "See also:"
+msgstr ""
+
+#: sq_AL.xml:344(entry)
+msgid "The descriptor you have selected is already in use!"
+msgstr ""
+
+#: sq_AL.xml:345(entry)
+msgid "search hierarchy"
+msgstr ""
+
+#: sq_AL.xml:346(entry)
+msgid "search by terms"
+msgstr ""
+
+#: sq_AL.xml:349(entry)
+msgid "A term and ) is missing"
+msgstr ""
+
+#: sq_AL.xml:350(entry)
+msgid "A term and \" is missing"
+msgstr ""
+
+#: sq_AL.xml:351(entry)
+msgid "+~: to do \"and not\", use the character -"
+msgstr ""
+
+#: sq_AL.xml:352(entry)
+msgid "-~: - is already a negative"
+msgstr ""
+
+#: sq_AL.xml:353(entry)
+msgid "~%s: an operator + or - cannot be used after a negative"
+msgstr ""
+
+#: sq_AL.xml:354(entry)
+msgid "A single operator is allowed"
+msgstr ""
+
+#: sq_AL.xml:355(entry)
+msgid "\" missing"
+msgstr ""
+
+#: sq_AL.xml:356(entry)
+msgid ") missing"
+msgstr ""
+
+#: sq_AL.xml:357(entry)
+msgid "Space missing"
+msgstr ""
+
+#: sq_AL.xml:358(entry)
+msgid "There is no search term"
+msgstr ""
+
+#: sq_AL.xml:359(entry)
+msgid "%s record(s) added to %s"
+msgstr ""
+
+#: sq_AL.xml:360(entry)
+msgid "%s already in the basket"
+msgstr ""
+
+#: sq_AL.xml:361(entry)
+msgid "Basket: full"
+msgstr ""
+
+#: sq_AL.xml:362(entry)
+msgid "Basket: empty"
+msgstr ""
+
+#: sq_AL.xml:363(entry)
+msgid "The record %s already exists in this basket!"
+msgstr ""
+
+#: sq_AL.xml:364(entry)
+msgid "The record %s was added!"
+msgstr ""
+
+#: sq_AL.xml:365(entry)
+msgid "Basket: %s records"
+msgstr ""
+
+#: sq_AL.xml:366(entry)
+msgid "Add the result to your basket"
+msgstr ""
+
+#: sq_AL.xml:367(entry)
+msgid "Empty basket"
+msgstr ""
+
+#: sq_AL.xml:368(entry)
+msgid "Remove selected records"
+msgstr ""
+
+#: sq_AL.xml:369(entry)
+msgid "Output..."
+msgstr ""
+
+#: sq_AL.xml:370(entry)
+msgid "Basket contents"
+msgstr ""
+
+#: sq_AL.xml:371(entry)
+msgid "%s record(s)"
+msgstr ""
+
+#: sq_AL.xml:372(entry)
+msgid "Your basket is empty!"
+msgstr ""
+
+#: sq_AL.xml:373(entry)
+msgid "You don't know what to search for? Enter the library..."
+msgstr ""
+
+#: sq_AL.xml:374(entry)
+msgid "You have a title or author in mind: %s click here to do a search %s, otherwise explore the bookshelves..."
+msgstr ""
+
+#: sq_AL.xml:375(entry)
+msgid "Return to see all bookshelves"
+msgstr ""
+
+#: sq_AL.xml:376(entry)
+msgid "General"
+msgstr ""
+
+#: sq_AL.xml:377(entry)
+msgid "Unclassified"
+msgstr ""
+
+#: sq_AL.xml:378(entry)
+msgid "In section %s there are different shelves, click below to explore them..."
+msgstr ""
+
+#: sq_AL.xml:379(entry)
+msgid "On the shelf %s there are different topics, click below to explore them..."
+msgstr ""
+
+#: sq_AL.xml:380(entry)
+msgid "In the topic %s there are different subtopics, click below to explore them..."
+msgstr ""
+
+#: sq_AL.xml:381(entry)
+msgid "Printing"
+msgstr ""
+
+#: sq_AL.xml:382(entry)
+msgid "Output Options"
+msgstr ""
+
+#: sq_AL.xml:383(entry)
+msgid "Display type of records"
+msgstr ""
+
+#: sq_AL.xml:384(entry)
+msgid "ISBD type"
+msgstr ""
+
+#: sq_AL.xml:385(entry)
+msgid "PUBLIC type"
+msgstr ""
+
+#: sq_AL.xml:386(entry)
+msgid "Record format"
+msgstr ""
+
+#: sq_AL.xml:387(entry)
+msgid "Short format"
+msgstr ""
+
+#: sq_AL.xml:388(entry)
+msgid "Long format"
+msgstr ""
+
+#: sq_AL.xml:389(entry)
+msgid "Copy information"
+msgstr ""
+
+#: sq_AL.xml:391(entry)
+msgid "Print copies"
+msgstr ""
+
+#: sq_AL.xml:392(entry)
+msgid "Don't print copies"
+msgstr ""
+
+#: sq_AL.xml:393(entry)
+msgid "Output format"
+msgstr ""
+
+#: sq_AL.xml:394(entry)
+msgid "Printer"
+msgstr ""
+
+#: sq_AL.xml:395(entry)
+msgid "Text file"
+msgstr ""
+
+#: sq_AL.xml:396(entry)
+msgid "Print"
+msgstr ""
+
+#: sq_AL.xml:397(entry) sq_AL.xml:547(entry) sq_AL.xml:879(entry) sq_AL.xml:953(entry)
+msgid "Cancel"
+msgstr ""
+
+#: sq_AL.xml:398(entry)
+msgid "Send by email:"
+msgstr ""
+
+#: sq_AL.xml:399(entry)
+msgid "Recipient:"
+msgstr ""
+
+#: sq_AL.xml:400(entry)
+msgid "Object: export your catalogue basket:"
+msgstr ""
+
+#: sq_AL.xml:401(entry)
+msgid "Contents of basket sent to %s !"
+msgstr ""
+
+#: sq_AL.xml:402(entry)
+msgid "Failed to send to %s!"
+msgstr ""
+
+#: sq_AL.xml:403(entry) sq_AL.xml:481(entry) sq_AL.xml:490(entry)
+msgid "Close window"
+msgstr ""
+
+#: sq_AL.xml:404(entry)
+msgid "Holdings statement:"
+msgstr ""
+
+#: sq_AL.xml:405(entry)
+msgid "Help"
+msgstr ""
+
+#: sq_AL.xml:406(entry)
+msgid "Close Help"
+msgstr ""
+
+#: sq_AL.xml:407(entry)
+msgid "Return to top of page"
+msgstr ""
+
+#: sq_AL.xml:408(entry)
+msgid "with searches"
+msgstr ""
+
+#: sq_AL.xml:409(entry)
+msgid "New hold placed from the OPAC"
+msgstr ""
+
+#: sq_AL.xml:410(entry)
+msgid "Hold deleted in the OPAC"
+msgstr ""
+
+#: sq_AL.xml:411(entry)
+msgid "Hold deleted or moved down in the OPAC"
+msgstr ""
+
+#: sq_AL.xml:412(entry)
+msgid "%m/%d/%Y %T"
+msgstr ""
+
+#: sq_AL.xml:413(entry)
+msgid "Online catalogue"
+msgstr ""
+
+#: sq_AL.xml:414(entry)
+msgid "contact"
+msgstr ""
+
+#: sq_AL.xml:415(entry)
+msgid "see"
+msgstr ""
+
+#: sq_AL.xml:416(entry)
+msgid "Edition statement:"
+msgstr ""
+
+#: sq_AL.xml:417(entry)
+msgid "Select language"
+msgstr ""
+
+#: sq_AL.xml:418(entry)
+msgid "Access my alerts"
+msgstr ""
+
+#: sq_AL.xml:419(entry)
+msgid "The libraries"
+msgstr ""
+
+#: sq_AL.xml:420(entry)
+msgid "You must log in to place a hold on an item:"
+msgstr ""
+
+#: sq_AL.xml:421(entry)
+msgid "Login:"
+msgstr ""
+
+#: sq_AL.xml:422(entry) sq_AL.xml:475(entry) sq_AL.xml:682(entry)
+msgid "Password:"
+msgstr ""
+
+#: sq_AL.xml:423(entry)
+msgid "Placing a hold:"
+msgstr ""
+
+#: sq_AL.xml:424(entry)
+msgid "Manage my alerts"
+msgstr ""
+
+#: sq_AL.xml:425(entry)
+msgid "Manage my customized alerts"
+msgstr ""
+
+#: sq_AL.xml:426(entry) sq_AL.xml:433(entry) sq_AL.xml:858(entry)
+msgid "Save"
+msgstr ""
+
+#: sq_AL.xml:427(entry) sq_AL.xml:1021(entry)
+msgid "Delete"
+msgstr ""
+
+#: sq_AL.xml:428(entry)
+msgid "Alerts"
+msgstr ""
+
+#: sq_AL.xml:429(entry)
+msgid "Title of New Items list"
+msgstr ""
+
+#: sq_AL.xml:430(entry)
+msgid "Date of last dispatch"
+msgstr ""
+
+#: sq_AL.xml:431(entry)
+msgid "Number of records"
+msgstr ""
+
+#: sq_AL.xml:432(entry)
+msgid "Create an alert"
+msgstr ""
+
+#: sq_AL.xml:434(entry)
+msgid "Hi, here is the list of new items for your customized alert:"
+msgstr ""
+
+#: sq_AL.xml:435(entry)
+msgid "You will find this information in your account (after login) by clicking on the button"
+msgstr ""
+
+#: sq_AL.xml:436(entry)
+msgid "Contact"
+msgstr ""
+
+#: sq_AL.xml:437(entry)
+msgid "New Items list !!nom_bannette!! created."
+msgstr ""
+
+#: sq_AL.xml:438(entry)
+msgid "Enter a title for this list:"
+msgstr ""
+
+#: sq_AL.xml:439(entry)
+msgid "Dispatch frequency (in days):"
+msgstr ""
+
+#: sq_AL.xml:440(entry)
+msgid "%s record(s) dispatched on a total of %s."
+msgstr ""
+
+#: sq_AL.xml:441(entry)
+msgid "RSS feeds"
+msgstr ""
+
+#: sq_AL.xml:442(entry)
+msgid "#"
+msgstr ""
+
+#: sq_AL.xml:443(entry)
+msgid "Collection details"
+msgstr ""
+
+#: sq_AL.xml:444(entry)
+msgid "Documents available under this collective title"
+msgstr ""
+
+#: sq_AL.xml:445(entry)
+msgid "Collection %s"
+msgstr ""
+
+#: sq_AL.xml:446(entry)
+msgid "Print record header"
+msgstr ""
+
+#: sq_AL.xml:447(entry)
+msgid "Thesaurus"
+msgstr ""
+
+#: sq_AL.xml:448(entry) sq_AL.xml:940(entry)
+msgid "All"
+msgstr ""
+
+#: sq_AL.xml:449(entry)
+msgid "No. !!nocoll!!"
+msgstr ""
+
+#: sq_AL.xml:450(entry)
+msgid "Choose a field to search"
+msgstr ""
+
+#: sq_AL.xml:451(entry)
+msgid "Export format : %s"
+msgstr ""
+
+#: sq_AL.xml:452(entry)
+msgid "OK"
+msgstr ""
+
+#: sq_AL.xml:453(entry)
+msgid "Available RSS feeds on this site"
+msgstr ""
+
+#: sq_AL.xml:454(entry)
+msgid "Link to RSS feed"
+msgstr ""
+
+#: sq_AL.xml:455(entry)
+msgid "Booking dates"
+msgstr ""
+
+#: sq_AL.xml:456(entry)
+msgid "Start:"
+msgstr ""
+
+#: sq_AL.xml:457(entry)
+msgid "End:"
+msgstr ""
+
+#: sq_AL.xml:458(entry) sq_AL.xml:626(entry)
+msgid "All fields"
+msgstr ""
+
+#: sq_AL.xml:459(entry)
+msgid "of all fields"
+msgstr ""
+
+#: sq_AL.xml:460(entry) sq_AL.xml:716(entry)
+msgid "Media type"
+msgstr ""
+
+#: sq_AL.xml:461(entry)
+msgid "Make a suggestion"
+msgstr ""
+
+#: sq_AL.xml:462(entry)
+msgid "Suggest a document for acquisition"
+msgstr ""
+
+#: sq_AL.xml:463(entry) sq_AL.xml:514(entry)
+msgid "Title/File Description"
+msgstr ""
+
+#: sq_AL.xml:466(entry)
+msgid "EAN/ISBN"
+msgstr ""
+
+#: sq_AL.xml:467(entry)
+msgid "Suggested price"
+msgstr ""
+
+#: sq_AL.xml:468(entry)
+msgid "Comments"
+msgstr ""
+
+#: sq_AL.xml:470(entry)
+msgid "The right format for suggestions is :\\n - A title and an author or a publisher \\n - A title and a file (except in multiple suggestion) \\n - A title and a ISBN"
+msgstr ""
+
+#: sq_AL.xml:471(entry)
+msgid "Your suggestion is under consideration"
+msgstr ""
+
+#: sq_AL.xml:472(entry)
+msgid "Enter your email address to stay informed"
+msgstr ""
+
+#: sq_AL.xml:473(entry)
+msgid "You must log in before you can make a suggestion:"
+msgstr ""
+
+#: sq_AL.xml:474(entry)
+msgid "User Id :"
+msgstr ""
+
+#: sq_AL.xml:476(entry)
+msgid "URL"
+msgstr ""
+
+#: sq_AL.xml:477(entry)
+msgid "Search tags"
+msgstr ""
+
+#: sq_AL.xml:478(entry)
+msgid "You may start a search using one or more keywords."
+msgstr ""
+
+#: sq_AL.xml:479(entry)
+msgid "Add a tag"
+msgstr ""
+
+#: sq_AL.xml:480(entry)
+msgid "Your tag suggestion has been recorded. Thank you"
+msgstr ""
+
+#: sq_AL.xml:482(entry)
+msgid "This tag already exists for this record."
+msgstr ""
+
+#: sq_AL.xml:483(entry)
+msgid "A problem was encountered while recording your tag. Please try again later. Thank you."
+msgstr ""
+
+#: sq_AL.xml:484(entry)
+msgid "Choose an existing tag"
+msgstr ""
+
+#: sq_AL.xml:485(entry)
+msgid "or enter a new one"
+msgstr ""
+
+#: sq_AL.xml:486(entry) sq_AL.xml:495(entry)
+msgid "Review"
+msgstr ""
+
+#: sq_AL.xml:487(entry)
+msgid "Add your review"
+msgstr ""
+
+#: sq_AL.xml:488(entry)
+msgid "Average rating"
+msgstr ""
+
+#: sq_AL.xml:489(entry)
+msgid "Review of"
+msgstr ""
+
+#: sq_AL.xml:491(entry)
+msgid "No review available on this record."
+msgstr ""
+
+#: sq_AL.xml:492(entry)
+msgid "This space allows you to share your opinion on this document."
+msgstr ""
+
+#: sq_AL.xml:493(entry)
+msgid "Your rating:"
+msgstr ""
+
+#: sq_AL.xml:494(entry) sq_AL.xml:931(entry) sq_AL.xml:946(entry)
+msgid "Subject"
+msgstr ""
+
+#: sq_AL.xml:496(entry) sq_AL.xml:528(entry) sq_AL.xml:694(entry)
+msgid "Send"
+msgstr ""
+
+#: sq_AL.xml:497(entry) sq_AL.xml:752(entry)
+msgid "Return"
+msgstr ""
+
+#: sq_AL.xml:498(entry)
+msgid "Thank you for your review. It will be displayed once it has been validated."
+msgstr ""
+
+#: sq_AL.xml:499(entry)
+msgid "A problem was encountered while recording your review. Please try again later. Thank you."
+msgstr ""
+
+#: sq_AL.xml:500(entry)
+msgid "review"
+msgstr ""
+
+#: sq_AL.xml:501(entry)
+msgid "add a tag"
+msgstr ""
+
+#: sq_AL.xml:502(entry)
+msgid "basket"
+msgstr ""
+
+#: sq_AL.xml:503(entry)
+msgid "Add a review"
+msgstr ""
+
+#: sq_AL.xml:504(entry)
+msgid "Add a keyword"
+msgstr ""
+
+#: sq_AL.xml:505(entry)
+msgid "Add to your basket"
+msgstr ""
+
+#: sq_AL.xml:506(entry)
+msgid "Display all records"
+msgstr ""
+
+#: sq_AL.xml:507(entry)
+msgid "1 (poor)"
+msgstr ""
+
+#: sq_AL.xml:508(entry)
+msgid "5 (excellent)"
+msgstr ""
+
+#: sq_AL.xml:509(entry)
+msgid "All reviews"
+msgstr ""
+
+#: sq_AL.xml:511(entry)
+msgid "Display suggestions"
+msgstr ""
+
+#: sq_AL.xml:512(entry) sq_AL.xml:998(entry)
+msgid "My suggestions"
+msgstr ""
+
+#: sq_AL.xml:513(entry) sq_AL.xml:610(entry) sq_AL.xml:815(entry)
+msgid "Date of creation"
+msgstr ""
+
+#: sq_AL.xml:518(entry)
+msgid "awaiting validation"
+msgstr ""
+
+#: sq_AL.xml:519(entry)
+msgid "validated"
+msgstr ""
+
+#: sq_AL.xml:520(entry)
+msgid "rejected"
+msgstr ""
+
+#: sq_AL.xml:521(entry)
+msgid "confirmed"
+msgstr ""
+
+#: sq_AL.xml:522(entry)
+msgid "dropped"
+msgstr ""
+
+#: sq_AL.xml:523(entry)
+msgid "ordered"
+msgstr ""
+
+#: sq_AL.xml:524(entry)
+msgid "received"
+msgstr ""
+
+#: sq_AL.xml:525(entry)
+msgid "filed"
+msgstr ""
+
+#: sq_AL.xml:526(entry)
+msgid "See inside in details"
+msgstr ""
+
+#: sq_AL.xml:527(entry)
+msgid "Enter your email so we can send you your login information."
+msgstr ""
+
+#: sq_AL.xml:530(entry)
+msgid "Login information for !!biblioname!!"
+msgstr ""
+
+#: sq_AL.xml:531(entry)
+msgid "The login information has been sent to"
+msgstr ""
+
+#: sq_AL.xml:532(entry)
+msgid "Wrong or unknown email, if you're having trouble, send an email to !!biblioemail!!."
+msgstr ""
+
+#: sq_AL.xml:533(entry)
+msgid "Forgotten password?"
+msgstr ""
+
+#: sq_AL.xml:534(entry)
+msgid "Login"
+msgstr ""
+
+#: sq_AL.xml:535(entry)
+msgid "My Account"
+msgstr ""
+
+#: sq_AL.xml:536(entry)
+msgid "You must be logged in to give your opinion:"
+msgstr ""
+
+#: sq_AL.xml:537(entry)
+msgid "You must be logged in to add a tag:"
+msgstr ""
+
+#: sq_AL.xml:538(entry)
+msgid "Surname &amp; first name are mandatory!"
+msgstr ""
+
+#: sq_AL.xml:539(entry)
+msgid "Telephone number or email is mandatory!"
+msgstr ""
+
+#: sq_AL.xml:540(entry)
+msgid "Enter your personal information"
+msgstr ""
+
+#: sq_AL.xml:541(entry)
+msgid "Your surname &amp; first name"
+msgstr ""
+
+#: sq_AL.xml:542(entry)
+msgid "Your telephone number"
+msgstr ""
+
+#: sq_AL.xml:543(entry)
+msgid "Your email"
+msgstr ""
+
+#: sq_AL.xml:544(entry)
+msgid "Number of copies"
+msgstr ""
+
+#: sq_AL.xml:545(entry) sq_AL.xml:769(entry) sq_AL.xml:823(entry)
+msgid "Note"
+msgstr ""
+
+#: sq_AL.xml:546(entry) sq_AL.xml:876(entry)
+msgid "Send request"
+msgstr ""
+
+#: sq_AL.xml:548(entry)
+msgid "Order placed from borrower account: %s"
+msgstr ""
+
+#: sq_AL.xml:549(entry)
+msgid "Document Nb %s"
+msgstr ""
+
+#: sq_AL.xml:550(entry)
+msgid "Ordering document"
+msgstr ""
+
+#: sq_AL.xml:551(entry)
+msgid "Request transmitted!"
+msgstr ""
+
+#: sq_AL.xml:552(entry)
+msgid "Error during transmission!"
+msgstr ""
+
+#: sq_AL.xml:553(entry)
+msgid "Order"
+msgstr ""
+
+#: sq_AL.xml:554(entry)
+msgid "Borrowed by:"
+msgstr ""
+
+#: sq_AL.xml:555(entry)
+msgid "Public"
+msgstr ""
+
+#: sq_AL.xml:556(entry)
+msgid "ISBD"
+msgstr ""
+
+#: sq_AL.xml:557(entry)
+msgid "Category"
+msgstr ""
+
+#: sq_AL.xml:558(entry)
+msgid "Extend the loan until"
+msgstr ""
+
+#: sq_AL.xml:559(entry)
+msgid "Your account parameters don't allow you to borrow documents."
+msgstr ""
+
+#: sq_AL.xml:560(entry)
+msgid "Your account parameters don't allow you to place a hold."
+msgstr ""
+
+#: sq_AL.xml:561(entry)
+msgid "Your account parameters don't allow you to enter this area."
+msgstr ""
+
+#: sq_AL.xml:562(entry)
+msgid "Your account parameters don't allow you to access to this custom information area."
+msgstr ""
+
+#: sq_AL.xml:563(entry)
+msgid "Your account parameters don't allow you to subscribe to alerts."
+msgstr ""
+
+#: sq_AL.xml:564(entry)
+msgid "Your account parameters don't allow you to suggest a document for acquisition."
+msgstr ""
+
+#: sq_AL.xml:565(entry)
+msgid "Your account parameters don't allow you to extend your loans."
+msgstr ""
+
+#: sq_AL.xml:566(entry)
+msgid "%s records shown on %s, see the other %s"
+msgstr ""
+
+#: sq_AL.xml:567(entry)
+msgid "Highlight searched words"
+msgstr ""
+
+#: sq_AL.xml:568(entry)
+msgid "Disable highlighting"
+msgstr ""
+
+#: sq_AL.xml:569(entry)
+msgid "!!nb_export!! exportable record(s) on !!nb_total!!."
+msgstr ""
+
+#: sq_AL.xml:570(entry)
+msgid "No exportable record."
+msgstr ""
+
+#: sq_AL.xml:571(entry)
+msgid "Select all"
+msgstr ""
+
+#: sq_AL.xml:572(entry)
+msgid "Delete selected searches"
+msgstr ""
+
+#: sq_AL.xml:573(entry)
+msgid "Sort available"
+msgstr ""
+
+#: sq_AL.xml:574(entry)
+msgid "No sort available"
+msgstr ""
+
+#: sq_AL.xml:575(entry)
+msgid "sorted by"
+msgstr ""
+
+#: sq_AL.xml:576(entry)
+msgid "and by"
+msgstr ""
+
+#: sq_AL.xml:577(entry)
+msgid "Delete checked sort"
+msgstr ""
+
+#: sq_AL.xml:578(entry)
+msgid "Create new sort"
+msgstr ""
+
+#: sq_AL.xml:579(entry)
+msgid "Relevance"
+msgstr ""
+
+#: sq_AL.xml:582(entry)
+msgid "Publishing year"
+msgstr ""
+
+#: sq_AL.xml:583(entry)
+msgid "Ascending"
+msgstr ""
+
+#: sq_AL.xml:584(entry)
+msgid "Descending"
+msgstr ""
+
+#: sq_AL.xml:585(entry)
+msgid "Alphabetical"
+msgstr ""
+
+#: sq_AL.xml:586(entry)
+msgid "Numerical"
+msgstr ""
+
+#: sq_AL.xml:587(entry)
+msgid "No sort criteria applied"
+msgstr ""
+
+#: sq_AL.xml:588(entry)
+msgid "Apply these sort criteria"
+msgstr ""
+
+#: sq_AL.xml:589(entry)
+msgid "Save and apply this sort criteria"
+msgstr ""
+
+#: sq_AL.xml:590(entry)
+msgid "These sort criteria already exist"
+msgstr ""
+
+#: sq_AL.xml:591(entry)
+msgid "Delete checked sort criteria"
+msgstr ""
+
+#: sq_AL.xml:592(entry)
+msgid "Title of collection"
+msgstr ""
+
+#: sq_AL.xml:593(entry)
+msgid "Number of collection"
+msgstr ""
+
+#: sq_AL.xml:594(entry)
+msgid "Record status"
+msgstr ""
+
+#: sq_AL.xml:595(entry) sq_AL.xml:768(entry)
+msgid "Material Type"
+msgstr ""
+
+#: sq_AL.xml:597(entry)
+msgid "Language"
+msgstr ""
+
+#: sq_AL.xml:598(entry)
+msgid "Main fields"
+msgstr ""
+
+#: sq_AL.xml:599(entry) sq_AL.xml:819(entry)
+msgid "Collection"
+msgstr ""
+
+#: sq_AL.xml:600(entry)
+msgid "ISBN, ISSN or EAN"
+msgstr ""
+
+#: sq_AL.xml:601(entry)
+msgid "Abstract note"
+msgstr ""
+
+#: sq_AL.xml:602(entry)
+msgid "All notes"
+msgstr ""
+
+#: sq_AL.xml:603(entry)
+msgid "Indexing"
+msgstr ""
+
+#: sq_AL.xml:604(entry)
+msgid "Publishing Language"
+msgstr ""
+
+#: sq_AL.xml:606(entry)
+msgid "Document/serial/item"
+msgstr ""
+
+#: sq_AL.xml:607(entry)
+msgid "Items"
+msgstr ""
+
+#: sq_AL.xml:608(entry)
+msgid "Source of record"
+msgstr ""
+
+#: sq_AL.xml:609(entry)
+msgid "Management note"
+msgstr ""
+
+#: sq_AL.xml:612(entry)
+msgid "Barcodes"
+msgstr ""
+
+#: sq_AL.xml:613(entry)
+msgid "Date of issue"
+msgstr ""
+
+#: sq_AL.xml:614(entry)
+msgid "Serial title"
+msgstr ""
+
+#: sq_AL.xml:615(entry)
+msgid "Issue number"
+msgstr ""
+
+#: sq_AL.xml:616(entry)
+msgid "Boolean expression"
+msgstr ""
+
+#: sq_AL.xml:617(entry)
+msgid "Contain all words"
+msgstr ""
+
+#: sq_AL.xml:618(entry)
+msgid "Contain any word"
+msgstr ""
+
+#: sq_AL.xml:619(entry)
+msgid "Begins with"
+msgstr ""
+
+#: sq_AL.xml:620(entry)
+msgid "Ends with"
+msgstr ""
+
+#: sq_AL.xml:621(entry)
+msgid "Exactly like"
+msgstr ""
+
+#: sq_AL.xml:622(entry)
+msgid "Is empty"
+msgstr ""
+
+#: sq_AL.xml:623(entry)
+msgid "Is not empty"
+msgstr ""
+
+#: sq_AL.xml:630(entry)
+msgid "Notes"
+msgstr ""
+
+#: sq_AL.xml:631(entry)
+msgid "General note"
+msgstr ""
+
+#: sq_AL.xml:632(entry)
+msgid "Note on contents"
+msgstr ""
+
+#: sq_AL.xml:636(entry) sq_AL.xml:637(entry)
+msgid "Serials"
+msgstr ""
+
+#: sq_AL.xml:638(entry)
+msgid "Records"
+msgstr ""
+
+#: sq_AL.xml:639(entry)
+msgid "Owner"
+msgstr ""
+
+#: sq_AL.xml:640(entry)
+msgid "Material type"
+msgstr ""
+
+#: sq_AL.xml:643(entry)
+msgid "Search queries"
+msgstr ""
+
+#: sq_AL.xml:644(entry) sq_AL.xml:671(entry)
+msgid "Previous searches"
+msgstr ""
+
+#: sq_AL.xml:645(entry)
+msgid "No previous search"
+msgstr ""
+
+#: sq_AL.xml:647(entry)
+msgid "Types"
+msgstr ""
+
+#: sq_AL.xml:648(entry)
+msgid "Choose a previous search"
+msgstr ""
+
+#: sq_AL.xml:649(entry)
+msgid "Refine your search"
+msgstr ""
+
+#: sq_AL.xml:650(entry)
+msgid "Browsing: %s"
+msgstr ""
+
+#: sq_AL.xml:652(entry)
+msgid "View previous loans"
+msgstr ""
+
+#: sq_AL.xml:653(entry)
+msgid "Previous loans"
+msgstr ""
+
+#: sq_AL.xml:654(entry)
+msgid "Readers who borrowed this document also borrowed:"
+msgstr ""
+
+#: sq_AL.xml:655(entry)
+msgid "Holdings Statement"
+msgstr ""
+
+#: sq_AL.xml:656(entry)
+msgid "Search issues"
+msgstr ""
+
+#: sq_AL.xml:657(entry)
+msgid "by issue number"
+msgstr ""
+
+#: sq_AL.xml:658(entry)
+msgid "by date"
+msgstr ""
+
+#: sq_AL.xml:659(entry)
+msgid "Invalid date"
+msgstr ""
+
+#: sq_AL.xml:660(entry)
+msgid "No issue found"
+msgstr ""
+
+#: sq_AL.xml:661(entry)
+msgid "from"
+msgstr ""
+
+#: sq_AL.xml:662(entry)
+msgid "to"
+msgstr ""
+
+#: sq_AL.xml:663(entry)
+msgid "Related collections"
+msgstr ""
+
+#: sq_AL.xml:664(entry)
+msgid "Rank %s"
+msgstr ""
+
+#: sq_AL.xml:665(entry)
+msgid "External search"
+msgstr ""
+
+#: sq_AL.xml:666(entry)
+msgid "Edit search criteria"
+msgstr ""
+
+#: sq_AL.xml:667(entry)
+msgid "Apply to external sources"
+msgstr ""
+
+#: sq_AL.xml:668(entry)
+msgid "Any language"
+msgstr ""
+
+#: sq_AL.xml:669(entry)
+msgid "Electronic link in record"
+msgstr ""
+
+#: sq_AL.xml:670(entry)
+msgid "Sources"
+msgstr ""
+
+#: sq_AL.xml:672(entry)
+msgid "No source selected!"
+msgstr ""
+
+#: sq_AL.xml:673(entry)
+msgid "&lt;a href='%s'&gt;Additional search criteria&lt;/a&gt;"
+msgstr ""
+
+#: sq_AL.xml:674(entry)
+msgid "Not a member?"
+msgstr ""
+
+#: sq_AL.xml:677(entry)
+msgid "Personal information:"
+msgstr ""
+
+#: sq_AL.xml:678(entry)
+msgid "Surname:"
+msgstr ""
+
+#: sq_AL.xml:679(entry)
+msgid "First name:"
+msgstr ""
+
+#: sq_AL.xml:680(entry)
+msgid "Email:"
+msgstr ""
+
+#: sq_AL.xml:681(entry)
+msgid "User name:"
+msgstr ""
+
+#: sq_AL.xml:683(entry)
+msgid "Confirm password:"
+msgstr ""
+
+#: sq_AL.xml:684(entry)
+msgid "Verification:"
+msgstr ""
+
+#: sq_AL.xml:685(entry)
+msgid "Verification code:"
+msgstr ""
+
+#: sq_AL.xml:686(entry)
+msgid "Address 1:"
+msgstr ""
+
+#: sq_AL.xml:687(entry)
+msgid "Address 2:"
+msgstr ""
+
+#: sq_AL.xml:688(entry)
+msgid "Postcode -"
+msgstr ""
+
+#: sq_AL.xml:689(entry)
+msgid "City:"
+msgstr ""
+
+#: sq_AL.xml:690(entry)
+msgid "Country:"
+msgstr ""
+
+#: sq_AL.xml:691(entry)
+msgid "Telephone:"
+msgstr ""
+
+#: sq_AL.xml:692(entry)
+msgid "Comments:"
+msgstr ""
+
+#: sq_AL.xml:693(entry)
+msgid "In order to prevent robots to sign in, please copy the code in the box below (case sensitive):"
+msgstr ""
+
+#: sq_AL.xml:695(entry)
+msgid "Information incomplete, you have to fill out all the bold fields!"
+msgstr ""
+
+#: sq_AL.xml:696(entry)
+msgid "The passwords don't match!"
+msgstr ""
+
+#: sq_AL.xml:703(entry)
+msgid "Subscription to !!biblio_name!!"
+msgstr ""
+
+#: sq_AL.xml:709(entry)
+msgid "You can now access your account."
+msgstr ""
+
+#: sq_AL.xml:710(entry)
+msgid "Also receive the records in this format:"
+msgstr ""
+
+#: sq_AL.xml:711(entry)
+msgid "No export"
+msgstr ""
+
+#: sq_AL.xml:717(entry)
+msgid "Search in..."
+msgstr ""
+
+#: sq_AL.xml:718(entry)
+msgid "quoted"
+msgstr ""
+
+#: sq_AL.xml:719(entry)
+msgid "Record link:"
+msgstr ""
+
+#: sq_AL.xml:739(entry)
+msgid "Previous month"
+msgstr ""
+
+#: sq_AL.xml:740(entry)
+msgid "Next month"
+msgstr ""
+
+#: sq_AL.xml:741(entry)
+msgid "Select"
+msgstr ""
+
+#: sq_AL.xml:742(entry)
+msgid "ascending"
+msgstr ""
+
+#: sq_AL.xml:743(entry)
+msgid "descending"
+msgstr ""
+
+#: sq_AL.xml:744(entry)
+msgid "Are you sure you want to delete this sort?"
+msgstr ""
+
+#: sq_AL.xml:749(entry) sq_AL.xml:828(entry)
+msgid "All locations"
+msgstr ""
+
+#: sq_AL.xml:751(entry)
+msgid "No location specified"
+msgstr ""
+
+#: sq_AL.xml:753(entry)
+msgid "Electronic format for this resource"
+msgstr ""
+
+#: sq_AL.xml:754(entry)
+msgid "Where do you want to pick up the item?"
+msgstr ""
+
+#: sq_AL.xml:755(entry)
+msgid "Choose"
+msgstr ""
+
+#: sq_AL.xml:756(entry)
+msgid "Transfer in progress"
+msgstr ""
+
+#: sq_AL.xml:757(entry)
+msgid "Other title"
+msgstr ""
+
+#: sq_AL.xml:758(entry)
+msgid "Original title"
+msgstr ""
+
+#: sq_AL.xml:759(entry)
+msgid "Other publisher:"
+msgstr ""
+
+#: sq_AL.xml:760(entry)
+msgid "Not classified sources"
+msgstr ""
+
+#: sq_AL.xml:761(entry)
+msgid "Source blocked"
+msgstr ""
+
+#: sq_AL.xml:767(entry)
+msgid "Borrower"
+msgstr ""
+
+#: sq_AL.xml:770(entry)
+msgid "Extend search on !!nb_level_parents!! up-posting(s)"
+msgstr ""
+
+#: sq_AL.xml:771(entry)
+msgid "Extend search on !!nb_level_enfants!! down-posting(s)"
+msgstr ""
+
+#: sq_AL.xml:772(entry)
+msgid "Extend search on !!nb_level_parents!! up-posting(s) and !!nb_level_enfants!! down-posting(s)"
+msgstr ""
+
+#: sq_AL.xml:773(entry)
+msgid "More information..."
+msgstr ""
+
+#: sq_AL.xml:774(entry)
+msgid "In bookstore:"
+msgstr ""
+
+#: sq_AL.xml:775(entry)
+msgid "Find this book at a library near you"
+msgstr ""
+
+#: sq_AL.xml:776(entry) sq_AL.xml:805(entry)
+msgid "Convention"
+msgstr ""
+
+#: sq_AL.xml:777(entry)
+msgid "Convention information"
+msgstr ""
+
+#: sq_AL.xml:778(entry)
+msgid "Available documents from this convention"
+msgstr ""
+
+#: sq_AL.xml:779(entry)
+msgid "Stats code"
+msgstr ""
+
+#: sq_AL.xml:780(entry)
+msgid "Issues"
+msgstr ""
+
+#: sq_AL.xml:781(entry)
+msgid "Reader review"
+msgstr ""
+
+#: sq_AL.xml:782(entry)
+msgid "Give your average rating:"
+msgstr ""
+
+#: sq_AL.xml:783(entry)
+msgid "No redeeming qualities"
+msgstr ""
+
+#: sq_AL.xml:784(entry)
+msgid "Average, but nothing spectacular"
+msgstr ""
+
+#: sq_AL.xml:785(entry)
+msgid "Good book"
+msgstr ""
+
+#: sq_AL.xml:786(entry)
+msgid "Has many interesting qualities"
+msgstr ""
+
+#: sq_AL.xml:787(entry)
+msgid "Very good book"
+msgstr ""
+
+#: sq_AL.xml:788(entry)
+msgid "Best pick"
+msgstr ""
+
+#: sq_AL.xml:789(entry)
+msgid "!!nb_avis!! review, add yours!"
+msgstr ""
+
+#: sq_AL.xml:790(entry)
+msgid "No review, add yours!"
+msgstr ""
+
+#: sq_AL.xml:791(entry)
+msgid "Subject:"
+msgstr ""
+
+#: sq_AL.xml:792(entry)
+msgid "Add a comment:"
+msgstr ""
+
+#: sq_AL.xml:793(entry)
+msgid "Review must include a subject and a comment!"
+msgstr ""
+
+#: sq_AL.xml:794(entry)
+msgid "Suggest a purchase"
+msgstr ""
+
+#: sq_AL.xml:795(entry)
+msgid "Uniform Titles"
+msgstr ""
+
+#: sq_AL.xml:796(entry)
+msgid "Uniform titles found"
+msgstr ""
+
+#: sq_AL.xml:797(entry) sq_AL.xml:803(entry)
+msgid "Uniform Title"
+msgstr ""
+
+#: sq_AL.xml:798(entry)
+msgid "uniform titles"
+msgstr ""
+
+#: sq_AL.xml:799(entry)
+msgid "Uniform title information"
+msgstr ""
+
+#: sq_AL.xml:800(entry)
+msgid "Available documents with this uniform title"
+msgstr ""
+
+#: sq_AL.xml:801(entry)
+msgid "Uniform Title %s"
+msgstr ""
+
+#: sq_AL.xml:802(entry)
+msgid "Uniform Titles:"
+msgstr ""
+
+#: sq_AL.xml:804(entry)
+msgid "Convention:"
+msgstr ""
+
+#: sq_AL.xml:806(entry)
+msgid "Communities"
+msgstr ""
+
+#: sq_AL.xml:807(entry)
+msgid "Individuals"
+msgstr ""
+
+#: sq_AL.xml:808(entry)
+msgid "communities found for search"
+msgstr ""
+
+#: sq_AL.xml:809(entry)
+msgid "conventions found for search"
+msgstr ""
+
+#: sq_AL.xml:810(entry)
+msgid "Community information"
+msgstr ""
+
+#: sq_AL.xml:811(entry)
+msgid "Available documents from this community"
+msgstr ""
+
+#: sq_AL.xml:814(entry)
+msgid "(Issue of %s)"
+msgstr ""
+
+#: sq_AL.xml:817(entry)
+msgid "No holdings statement"
+msgstr ""
+
+#: sq_AL.xml:820(entry)
+msgid "Site"
+msgstr ""
+
+#: sq_AL.xml:821(entry)
+msgid "Medium"
+msgstr ""
+
+#: sq_AL.xml:822(entry)
+msgid "Origin"
+msgstr ""
+
+#: sq_AL.xml:825(entry)
+msgid "Archive"
+msgstr ""
+
+#: sq_AL.xml:826(entry)
+msgid "Gaps"
+msgstr ""
+
+#: sq_AL.xml:829(entry)
+msgid "Library:"
+msgstr ""
+
+#: sq_AL.xml:831(entry)
+msgid "Search template"
+msgstr ""
+
+#: sq_AL.xml:832(entry)
+msgid "List of all search templates"
+msgstr ""
+
+#: sq_AL.xml:833(entry)
+msgid "Description"
+msgstr ""
+
+#: sq_AL.xml:834(entry)
+msgid "Short name"
+msgstr ""
+
+#: sq_AL.xml:835(entry)
+msgid "Preselected search criteria"
+msgstr ""
+
+#: sq_AL.xml:836(entry)
+msgid "No term matches this expression."
+msgstr ""
+
+#: sq_AL.xml:838(entry) sq_AL.xml:843(entry) sq_AL.xml:1000(entry)
+msgid "My reading lists"
+msgstr ""
+
+#: sq_AL.xml:839(entry)
+msgid "Show public reading lists"
+msgstr ""
+
+#: sq_AL.xml:840(entry)
+msgid "Created by me"
+msgstr ""
+
+#: sq_AL.xml:841(entry)
+msgid "Created by others"
+msgstr ""
+
+#: sq_AL.xml:842(entry)
+msgid "Public reading lists"
+msgstr ""
+
+#: sq_AL.xml:844(entry)
+msgid "Subscribe to the list"
+msgstr ""
+
+#: sq_AL.xml:845(entry)
+msgid "Subscribe to checked lists"
+msgstr ""
+
+#: sq_AL.xml:846(entry)
+msgid "Unsubscribe from selected lists"
+msgstr ""
+
+#: sq_AL.xml:847(entry)
+msgid "Delete selected lists"
+msgstr ""
+
+#: sq_AL.xml:848(entry)
+msgid "Share selected lists"
+msgstr ""
+
+#: sq_AL.xml:849(entry)
+msgid "Restrict selected lists"
+msgstr ""
+
+#: sq_AL.xml:850(entry)
+msgid "Create reading list from selected records"
+msgstr ""
+
+#: sq_AL.xml:851(entry)
+msgid "Create reading list from basket"
+msgstr ""
+
+#: sq_AL.xml:852(entry)
+msgid "Check all"
+msgstr ""
+
+#: sq_AL.xml:854(entry)
+msgid "Description:"
+msgstr ""
+
+#: sq_AL.xml:855(entry)
+msgid "Manage a reading list"
+msgstr ""
+
+#: sq_AL.xml:856(entry)
+msgid "Add a reading list"
+msgstr ""
+
+#: sq_AL.xml:857(entry)
+msgid "Go to my reading lists"
+msgstr ""
+
+#: sq_AL.xml:859(entry)
+msgid "Delete list"
+msgstr ""
+
+#: sq_AL.xml:860(entry)
+msgid "Delete selected records"
+msgstr ""
+
+#: sq_AL.xml:861(entry)
+msgid "Move records from basket to list"
+msgstr ""
+
+#: sq_AL.xml:862(entry)
+msgid "Move records from list to basket"
+msgstr ""
+
+#: sq_AL.xml:863(entry)
+msgid "Output"
+msgstr ""
+
+#: sq_AL.xml:864(entry)
+msgid "Share with others"
+msgstr ""
+
+#: sq_AL.xml:865(entry)
+msgid "Enter a list name. \\n This is mandatory!"
+msgstr ""
+
+#: sq_AL.xml:866(entry)
+msgid "Shared"
+msgstr ""
+
+#: sq_AL.xml:867(entry)
+msgid "No reading list has been added"
+msgstr ""
+
+#: sq_AL.xml:868(entry)
+msgid "You don't have any shared list"
+msgstr ""
+
+#: sq_AL.xml:869(entry)
+msgid "View %s"
+msgstr ""
+
+#: sq_AL.xml:870(entry)
+msgid "Are you sure you want to delete the reading list(s)?"
+msgstr ""
+
+#: sq_AL.xml:871(entry)
+msgid "No reading list is currently available"
+msgstr ""
+
+#: sq_AL.xml:872(entry)
+msgid "List of %s"
+msgstr ""
+
+#: sq_AL.xml:873(entry)
+msgid "Unsubscribe from the list"
+msgstr ""
+
+#: sq_AL.xml:874(entry)
+msgid "Read-only list"
+msgstr ""
+
+#: sq_AL.xml:875(entry)
+msgid "Restrict to subscribers"
+msgstr ""
+
+#: sq_AL.xml:877(entry)
+msgid "It's a confidential list. Please send a registration request to its creator."
+msgstr ""
+
+#: sq_AL.xml:878(entry)
+msgid "Request details (optional) :"
+msgstr ""
+
+#: sq_AL.xml:880(entry)
+msgid "Subscription to the \"%s\" reading list"
+msgstr ""
+
+#: sq_AL.xml:881(entry)
+msgid "%s would like to subscribe to your reading list, i.e. \"%s\" ."
+msgstr ""
+
+#: sq_AL.xml:882(entry)
+msgid "%s's message : %s"
+msgstr ""
+
+#: sq_AL.xml:883(entry)
+msgid "Manage subscribers"
+msgstr ""
+
+#: sq_AL.xml:884(entry)
+msgid "You have no registration request."
+msgstr ""
+
+#: sq_AL.xml:885(entry)
+msgid "List of the registration requests"
+msgstr ""
+
+#: sq_AL.xml:886(entry)
+msgid "Allow checked registration requests"
+msgstr ""
+
+#: sq_AL.xml:887(entry)
+msgid "Reject checked registration requests"
+msgstr ""
+
+#: sq_AL.xml:888(entry)
+msgid "Subscribers :"
+msgstr ""
+
+#: sq_AL.xml:889(entry)
+msgid "No users are registered to this list"
+msgstr ""
+
+#: sq_AL.xml:890(entry)
+msgid "Request in progress"
+msgstr ""
+
+#: sq_AL.xml:891(entry)
+msgid "Authorized access"
+msgstr ""
+
+#: sq_AL.xml:892(entry)
+msgid "Subscription to the \"%s\" reading list has been denied"
+msgstr ""
+
+#: sq_AL.xml:893(entry)
+msgid "%s denied your subscription request to the \"%s\" reading list."
+msgstr ""
+
+#: sq_AL.xml:894(entry)
+msgid "Please click here to grant or decline her/his request"
+msgstr ""
+
+#: sq_AL.xml:895(entry)
+msgid "Select at least a record !"
+msgstr ""
+
+#: sq_AL.xml:896(entry)
+msgid "Do you really want to delete this records from the reading list ?"
+msgstr ""
+
+#: sq_AL.xml:898(entry)
+msgid "Electronic Documents"
+msgstr ""
+
+#: sq_AL.xml:899(entry)
+msgid "Electronic Documents : yes"
+msgstr ""
+
+#: sq_AL.xml:900(entry)
+msgid "Electronic Documents contents"
+msgstr ""
+
+#: sq_AL.xml:901(entry)
+msgid "electronic documents found for search"
+msgstr ""
+
+#: sq_AL.xml:902(entry)
+msgid "electronic documents or"
+msgstr ""
+
+#: sq_AL.xml:903(entry)
+msgid "of electronic documents"
+msgstr ""
+
+#: sq_AL.xml:904(entry)
+msgid "This item cannot be booked."
+msgstr ""
+
+#: sq_AL.xml:905(entry)
+msgid "External selector"
+msgstr ""
+
+#: sq_AL.xml:907(entry) sq_AL.xml:908(entry)
+msgid "Record a multiple-suggestion"
+msgstr ""
+
+#: sq_AL.xml:909(entry)
+msgid "Record suggestions"
+msgstr ""
+
+#: sq_AL.xml:910(entry)
+msgid "Source"
+msgstr ""
+
+#: sq_AL.xml:911(entry)
+msgid "Qty"
+msgstr ""
+
+#: sq_AL.xml:912(entry)
+msgid "Some quantities are not in a number format"
+msgstr ""
+
+#: sq_AL.xml:913(entry)
+msgid "Attachment"
+msgstr ""
+
+#: sq_AL.xml:914(entry)
+msgid "Published date"
+msgstr ""
+
+#: sq_AL.xml:915(entry)
+msgid "Create multiple-suggestions from basket"
+msgstr ""
+
+#: sq_AL.xml:916(entry)
+msgid "Change multiple-suggestions from reading list"
+msgstr ""
+
+#: sq_AL.xml:917(entry)
+msgid "Collation :"
+msgstr ""
+
+#: sq_AL.xml:918(entry)
+msgid "Form title :"
+msgstr ""
+
+#: sq_AL.xml:920(entry)
+msgid "Reason of refusal"
+msgstr ""
+
+#: sq_AL.xml:921(entry)
+msgid "Inform of your refusal"
+msgstr ""
+
+#: sq_AL.xml:923(entry)
+msgid "Make a request"
+msgstr ""
+
+#: sq_AL.xml:924(entry)
+msgid "Save request"
+msgstr ""
+
+#: sq_AL.xml:925(entry) sq_AL.xml:999(entry)
+msgid "My requests"
+msgstr ""
+
+#: sq_AL.xml:926(entry)
+msgid "List of actions related to request"
+msgstr ""
+
+#: sq_AL.xml:928(entry)
+msgid "Theme"
+msgstr ""
+
+#: sq_AL.xml:929(entry)
+msgid "Type"
+msgstr ""
+
+#: sq_AL.xml:930(entry)
+msgid "Deadline"
+msgstr ""
+
+#: sq_AL.xml:932(entry)
+msgid "You must give a title to your request !"
+msgstr ""
+
+#: sq_AL.xml:933(entry)
+msgid "State"
+msgstr ""
+
+#: sq_AL.xml:934(entry)
+msgid "Expected date"
+msgstr ""
+
+#: sq_AL.xml:935(entry)
+msgid "Date of the request"
+msgstr ""
+
+#: sq_AL.xml:936(entry)
+msgid "Pattron"
+msgstr ""
+
+#: sq_AL.xml:937(entry)
+msgid "Assigned to"
+msgstr ""
+
+#: sq_AL.xml:938(entry)
+msgid "Progress"
+msgstr ""
+
+#: sq_AL.xml:939(entry)
+msgid "No request in this state."
+msgstr ""
+
+#: sq_AL.xml:941(entry)
+msgid "Progress of action"
+msgstr ""
+
+#: sq_AL.xml:942(entry)
+msgid "Add a note"
+msgstr ""
+
+#: sq_AL.xml:943(entry)
+msgid "Add a complementary information"
+msgstr ""
+
+#: sq_AL.xml:944(entry)
+msgid "Ask a question"
+msgstr ""
+
+#: sq_AL.xml:945(entry)
+msgid "Add a meeting date"
+msgstr ""
+
+#: sq_AL.xml:947(entry)
+msgid "Detail"
+msgstr ""
+
+#: sq_AL.xml:948(entry)
+msgid "There is no action related to this request."
+msgstr ""
+
+#: sq_AL.xml:949(entry)
+msgid "Fill in your question"
+msgstr ""
+
+#: sq_AL.xml:950(entry)
+msgid "Save your question"
+msgstr ""
+
+#: sq_AL.xml:951(entry)
+msgid "Save your information"
+msgstr ""
+
+#: sq_AL.xml:952(entry)
+msgid "Save your meeting date"
+msgstr ""
+
+#: sq_AL.xml:954(entry)
+msgid "Fill in complementary information"
+msgstr ""
+
+#: sq_AL.xml:955(entry)
+msgid "Fill in your meeting date"
+msgstr ""
+
+#: sq_AL.xml:956(entry)
+msgid "Meeting date"
+msgstr ""
+
+#: sq_AL.xml:957(entry)
+msgid "Fill in your note"
+msgstr ""
+
+#: sq_AL.xml:958(entry)
+msgid "Content"
+msgstr ""
+
+#: sq_AL.xml:959(entry)
+msgid "Save your note"
+msgstr ""
+
+#: sq_AL.xml:960(entry)
+msgid "Answer to note"
+msgstr ""
+
+#: sq_AL.xml:961(entry)
+msgid "Subject of the request"
+msgstr ""
+
+#: sq_AL.xml:962(entry)
+msgid "Your request is saved."
+msgstr ""
+
+#: sq_AL.xml:963(entry)
+msgid "Related actions"
+msgstr ""
+
+#: sq_AL.xml:964(entry)
+msgid "You're not allowed to record requests."
+msgstr ""
+
+#: sq_AL.xml:966(entry)
+msgid "answered to the note %s in the action %s of the request %s"
+msgstr ""
+
+#: sq_AL.xml:967(entry)
+msgid "posted a note in the action %s of the request %s"
+msgstr ""
+
+#: sq_AL.xml:968(entry)
+msgid "A new note has been created"
+msgstr ""
+
+#: sq_AL.xml:969(entry)
+msgid "Answer to the note %s"
+msgstr ""
+
+#: sq_AL.xml:971(entry)
+msgid "Dear %s"
+msgstr ""
+
+#: sq_AL.xml:972(entry)
+msgid "Click here for direct access to PMB"
+msgstr ""
+
+#: sq_AL.xml:973(entry)
+msgid "Subscription to the \"%s\" reading list has been cancelled"
+msgstr ""
+
+#: sq_AL.xml:974(entry)
+msgid "%s has canceled your access to the \"%s\" reading list."
+msgstr ""
+
+#: sq_AL.xml:975(entry)
+msgid "Subscription to the \"%s\" reading list has been granted"
+msgstr ""
+
+#: sq_AL.xml:976(entry)
+msgid "%s has now granted you access to the \"%s\" reading list."
+msgstr ""
+
+#: sq_AL.xml:977(entry)
+msgid "Please click here to access the \"%s\" reading list."
+msgstr ""
+
+#: sq_AL.xml:978(entry)
+msgid "You have already requested access to this reading list.The request is in process."
+msgstr ""
+
+#: sq_AL.xml:979(entry)
+msgid "Do you really want to remove the access to the reading list for this user ?"
+msgstr ""
+
+#: sq_AL.xml:980(entry)
+msgid "No source"
+msgstr ""
+
+#: sq_AL.xml:982(entry) sq_AL.xml:996(entry)
+msgid "My alerts"
+msgstr ""
+
+#: sq_AL.xml:983(entry)
+msgid "No alerts available"
+msgstr ""
+
+#: sq_AL.xml:984(entry)
+msgid "No orders available"
+msgstr ""
+
+#: sq_AL.xml:986(entry)
+msgid "OPAC access is forbidden !"
+msgstr ""
+
+#: sq_AL.xml:987(entry)
+msgid "Export all records"
+msgstr ""
+
+#: sq_AL.xml:988(entry)
+msgid "Export selected records"
+msgstr ""
+
+#: sq_AL.xml:989(entry)
+msgid "Output records"
+msgstr ""
+
+#: sq_AL.xml:990(entry)
+msgid "All the records"
+msgstr ""
+
+#: sq_AL.xml:991(entry)
+msgid "Selected records"
+msgstr ""
+
+#: sq_AL.xml:992(entry)
+msgid "Message :"
+msgstr ""
+
+#: sq_AL.xml:993(entry)
+msgid "Your account"
+msgstr ""
+
+#: sq_AL.xml:995(entry)
+msgid "My holds"
+msgstr ""
+
+#: sq_AL.xml:997(entry)
+msgid "My loans"
+msgstr ""
+
+#: sq_AL.xml:1001(entry)
+msgid "Open link"
+msgstr ""
+
+#: sq_AL.xml:1002(entry)
+msgid "Open document"
+msgstr ""
+
+#: sq_AL.xml:1003(entry)
+msgid "E-Copies are linked"
+msgstr ""
+
+#: sq_AL.xml:1004(entry)
+msgid "The operator 'begins with' has been already used before the boolean operator."
+msgstr ""
+
+#: sq_AL.xml:1005(entry)
+msgid "The time to live (TTL) of the record es%s expired."
+msgstr ""
+
+#: sq_AL.xml:1006(entry)
+msgid "Do you really want to place a hold on this document ?"
+msgstr ""
+
+#: sq_AL.xml:1008(entry)
+msgid "Please add a new line to record a multiple-suggestion"
+msgstr ""
+
+#: sq_AL.xml:1009(entry) sq_AL.xml:1016(entry)
+msgid "/"
+msgstr ""
+
+#: sq_AL.xml:1010(entry)
+msgid "Mail"
+msgstr ""
+
+#: sq_AL.xml:1014(entry)
+msgid "!!niveau_biblio!!: !!typdoc!!"
+msgstr ""
+
+#: sq_AL.xml:1015(entry)
+msgid "Adress"
+msgstr ""
+
+#: sq_AL.xml:1017(entry)
+msgid "Phone"
+msgstr ""
+
+#: sq_AL.xml:1018(entry)
+msgid "Subscription available from !!date_adhesion!! to !!date_expiration!!"
+msgstr ""
+
+#: sq_AL.xml:1022(entry)
+msgid "Do you really want to delete this suggestion ?"
+msgstr ""
+
+#: sq_AL.xml:1023(entry)
+msgid "Your suggestion has been deleted"
+msgstr ""
+
+#: sq_AL.xml:1025(entry)
+msgid "Create a multiple suggestion from selected records"
+msgstr ""
+
+#: sq_AL.xml:1026(entry)
+msgid "A subject is required to save your action"
+msgstr ""
+
+#: sq_AL.xml:1028(entry)
+msgid "by %s"
+msgstr ""
+
+#: sq_AL.xml:1029(entry)
+msgid "Add an answer"
+msgstr ""
+
+#: sq_AL.xml:1031(entry)
+msgid "See record"
+msgstr ""
+
+#: sq_AL.xml:1032(entry)
+msgid "New"
+msgstr ""
+
+#: sq_AL.xml:1033(entry)
+msgid "Enter your answer"
+msgstr ""
+
+#: sq_AL.xml:1035(entry)
+msgid "Electronics documents of an issue"
+msgstr ""
+
+#: sq_AL.xml:1036(entry)
+msgid "Search in serial"
+msgstr ""
+
+#: sq_AL.xml:1037(entry)
+msgid "Display into picture library"
+msgstr ""
+
+#: sq_AL.xml:1038(entry)
+msgid "See electronics documents linked to issues"
+msgstr ""
+
+#: sq_AL.xml:1040(entry)
+msgid "Authors list"
+msgstr ""
+
+#: sq_AL.xml:1041(entry)
+msgid "No author"
+msgstr ""
+
+#: sq_AL.xml:1042(entry)
+msgid "Author starting with"
+msgstr ""
+
+#: sq_AL.xml:1043(entry)
+msgid "Author starting with a number"
+msgstr ""
+
+#: sq_AL.xml:1045(entry)
+msgid "Code statistique"
+msgstr ""
+
+#: sq_AL.xml:1046(entry)
+msgid "Propriétaire"
+msgstr ""
+
+#: sq_AL.xml:1047(entry)
+msgid "Statut"
+msgstr ""
+
+#: sq_AL.xml:1048(entry)
+msgid "Template par défaut"
+msgstr ""
+
+#: sq_AL.xml:1049(entry)
+msgid "Borrow"
+msgstr ""
+
+#: sq_AL.xml:1050(entry)
+msgid "Bring back"
+msgstr ""
+
+#: sq_AL.xml:1051(entry)
+msgid "Record a loan"
+msgstr ""
+
+#: sq_AL.xml:1052(entry)
+msgid "Bring back a copy"
+msgstr ""
+
+#: sq_AL.xml:1054(entry) sq_AL.xml:1055(entry)
+msgid "Next"
+msgstr ""
+
+#: sq_AL.xml:1056(entry)
+msgid "Fill in the barcode"
+msgstr ""
+
+#: sq_AL.xml:1057(entry)
+msgid "Return of !!expl_cb!! is recorded."
+msgstr ""
+
+#: sq_AL.xml:1058(entry)
+msgid "Return is refused!"
+msgstr ""
+
+#: sq_AL.xml:1059(entry)
+msgid "The loan of !!expl_cb!! is recorded. Bring it back before !!due_date!!."
+msgstr ""
+
+#: sq_AL.xml:1060(entry)
+msgid "The loan is refused!"
+msgstr ""
+
+#: sq_AL.xml:1062(entry)
+msgid "Champs personnalisés des notices"
+msgstr ""
+
+#: sq_AL.xml:1063(entry)
+msgid "Catégories et sous-catégories"
+msgstr ""
+
+#: sq_AL.xml:1064(entry)
+msgid "Codebarre"
+msgstr ""
+
+#: sq_AL.xml:1065(entry)
+msgid "Titre de la collection"
+msgstr ""
+
+#: sq_AL.xml:1066(entry)
+msgid "Titre de la sous-collection"
+msgstr ""
+
+#: sq_AL.xml:1067(entry)
+msgid "Numéro dans la collection"
+msgstr ""
+
+#: sq_AL.xml:1068(entry)
+msgid "Sélection d'autorité"
+msgstr ""
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: sq_AL.xml:0(None)
+msgid "translator-credits"
+msgstr ""
+
