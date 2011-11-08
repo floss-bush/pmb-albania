@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: user_modif.inc.php,v 1.33 2010-04-13 10:22:08 mbertin Exp $
 
@@ -42,10 +42,10 @@ while ($i < mysql_num_fields($res_param)) {
 						</div>
 					</div>\n";
 			} elseif ($field=="deflt_docs_location") {
-				//visibilité des exemplaires
-				if ($pmb_droits_explr_localises && $explr_visible_mod) $where_clause_explr = "idlocation in (".$explr_visible_mod.") and";
+				//visibilitï¿½ des exemplaires
+				if ($pmb_droits_explr_localises && $explr_visible_mod) $where_clause_explr = "where idlocation in (".$explr_visible_mod.") and";
 				else $where_clause_explr = "";
-				$selector = gen_liste ("select distinct idlocation, location_libelle from docs_location, docsloc_section where $where_clause_explr num_location=idlocation order by 2 ", "idlocation", "location_libelle", 'form_'.$field, "account_calcule_section(this);", $field_values[$i], "", "","","",0);
+				$selector = gen_liste ("select distinct idlocation, location_libelle from docs_location $where_clause_explr order by location_libelle ", "idlocation", "location_libelle", 'form_'.$field, "account_calcule_section(this);", $field_values[$i], "", "","","",0);
 				$deflt_user.="
 					<div class='row'>
 						<div class='colonne60'>".$msg[$field]."&nbsp;:&nbsp;
@@ -349,7 +349,7 @@ while ($i < mysql_num_fields($res_param)) {
 		$i++;
 	}
 
-//visibilité des exemplaires
+//visibilitï¿½ des exemplaires
 if ($pmb_droits_explr_localises) {
 	
 	$explr_tab_invis=explode(",",$explr_invisible);
@@ -392,7 +392,7 @@ if ($pmb_droits_explr_localises) {
 	}
 	
 	$deflt_user .=$visibilite_expl_user;
-	} //fin visibilité des exemplaires
+	} //fin visibilitï¿½ des exemplaires
 
 $param_default="
 <div class='row'><hr /></div>

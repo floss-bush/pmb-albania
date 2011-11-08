@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: calendar.class.php,v 1.7 2007-03-10 09:25:49 touraine37 Exp $
 
@@ -33,15 +33,16 @@ class calendar {
     function add_days($dd,$md,$yd,$days) {
     	global $utiliser_calendrier;
     	global $deflt2docs_location;
+    	if($days == "") $days = "-1";
     	if ($utiliser_calendrier) {
  		   	$requete="select min(date_ouverture) from ouvertures where ouvert=1 and num_location=$deflt2docs_location and date_ouverture>=adddate('".$yd."-".$md."-".$dd."', interval $days day)";
-   		 	$resultat=mysql_query($requete) or die ($requete." ".mysql_error());;
+ 		   	$resultat=mysql_query($requete) or die ($requete." ".mysql_error());;
    		 	if (!@mysql_num_rows($resultat)) {
-   		 		$requete="select adddate('".$yd."-".$md."-".$dd."', interval $days day)";
+   		 		$requete="select adddate('".$yd."-".$md."-".$dd."', interval ". $days ." day)";
     			$resultat=mysql_query($requete) or die ($requete." ".mysql_error());;
    		 	}
     	} else {
-    		$requete="select adddate('".$yd."-".$md."-".$dd."', interval $days day)";
+    		$requete="select adddate('".$yd."-".$md."-".$dd."', interval ". $days ." day)";
     		$resultat=mysql_query($requete) or die ($requete." ".mysql_error());
     	} 
     	

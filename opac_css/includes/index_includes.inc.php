@@ -4,6 +4,7 @@
 // +-------------------------------------------------+
 // $Id: index_includes.inc.php,v 1.25 2010-12-08 15:46:42 gueluneau Exp $
 
+error_reporting(E_ALL);
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 require_once($base_path."/includes/init.inc.php");
@@ -51,9 +52,10 @@ require_once($base_path.'/classes/indexint.class.php');
 
 // classe d'affichage des tags
 require_once($base_path.'/classes/tags.class.php');
-
 require_once($base_path."/includes/marc_tables/".$lang."/empty_words");
+
 require_once($base_path."/includes/misc.inc.php");
+
 // pour l'affichage correct des notices
 require_once($base_path."/includes/templates/common.tpl.php");
 require_once($base_path."/includes/templates/notice.tpl.php");

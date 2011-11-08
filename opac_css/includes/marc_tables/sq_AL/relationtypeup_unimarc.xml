@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes et libellés type de relation enfants > parent
+$Id: relationtypeup_unimarc.xml,v 1.1 2009/05/04 15:09:04 kantin Exp $ -->
+
+<XMLlist>
+	<!-- article de périodique ou extrait de livre (parties analytiques indissociables physiquement)-->
+	<entry code="a">463</entry>
+
+	<!-- bulletin d'un périodique -->
+	<entry code="b">461</entry>
+
+	<!-- fait partie d'une série, une encyclopédie -->
+	<entry code="c">410</entry>
+
+	<!-- est contenu dans une boite (parties analytiques stockées physiquement ensemble)-->
+	<entry code="d">461</entry>
+	
+	<entry code="e">422</entry>
+	<entry code="f">430</entry>
+	<entry code="g">440</entry>
+	<entry code="h">453</entry>
+	<entry code="i">454</entry>
+	<entry code="j">423</entry>
+</XMLlist>

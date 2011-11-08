@@ -1,10 +1,10 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: iimport_expl.php,v 1.62 2009-12-22 15:53:44 mbertin Exp $
 
-// définition du minimum necessaire
+// dï¿½finition du minimum necessaire
 $base_path="../..";
 $base_auth = "ADMINISTRATION_AUTH";
 $base_title = "";
@@ -148,14 +148,14 @@ switch ($action) {
 		if ($sub == "import_expl") {
 			/* Does the file exist ? */
 			if ($file_submit=="") {
-				/* l'utilisateur n'est pas passé par le téléchargement du fichier */
+				/* l'utilisateur n'est pas passï¿½ par le tï¿½lï¿½chargement du fichier */
 				$filename = $base_path."/admin/import/unimarc".(defined("LOCATION")?"_".constant("LOCATION"):"").".fic";
 				$from_file = "unimarc".(defined("LOCATION")?"_".constant("LOCATION"):"").".fic";
 			} else {
 				$filename=$file_submit;
 			}
 			if ($book_lender_id=="" || $book_statut_id=="" || $isbn_mandatory=="" || $cote_mandatory=="" || $book_location_id=="" || $statutnot=="") {
-				/* l'utilisateur n'est pas passé par le téléchargement du fichier, il faut qu'il choisisse un prêteur s'il n'en a pas communiqué auparavant */
+				/* l'utilisateur n'est pas passï¿½ par le tï¿½lï¿½chargement du fichier, il faut qu'il choisisse un prï¿½teur s'il n'en a pas communiquï¿½ auparavant */
 				print "
 					<form class='form-$current_module' NAME=\"preload\" METHOD=\"post\" ACTION=\"iimport_expl.php\">
 						<h3>".$msg['import_expl_form_titre']."</h3>
@@ -189,7 +189,7 @@ switch ($action) {
                     	</div>
 						<div class='row'><hr /></div>
 						<div class='row'>
-                            <label class='etiquette' for='prêteur statut'>$msg[560]</label>
+                            <label class='etiquette' for='prï¿½teur statut'>$msg[560]</label>
                             </div>
                         <div class='row'>".
                             lender::gen_combo_box($book_lender_id)."&nbsp;&nbsp;".
@@ -310,7 +310,7 @@ switch ($action) {
 		    }
 		
 		    if ($isbn_mandatory=="") {
-		        /* l'utilisateur n'est pas passé par le téléchargement du fichier, il faut qu'il nous dise si l'ISBN est obligatoire */
+		        /* l'utilisateur n'est pas passï¿½ par le tï¿½lï¿½chargement du fichier, il faut qu'il nous dise si l'ISBN est obligatoire */
 		        print "
 		            <form class='form-$current_module' NAME=\"preload\" METHOD=\"post\" ACTION=\"iimport_expl.php\">
 		            <h3>".$msg['import_noti_form_titre']."</h3>
@@ -442,19 +442,19 @@ switch ($action) {
 
                 /* We've got everything, let's have a look if ISBN already exists in notices table */
                 if($isbn[0]=="NULL") $isbn[0]="";
-                // si isbn vide, on va tenter de prendre l'EAN stocké en 345$b
+                // si isbn vide, on va tenter de prendre l'EAN stockï¿½ en 345$b
                 if ($isbn[0]=="") $isbn[0]=$EAN[0] ;
                 // si isbn vide, on va tenter de prendre le serial en 011
                 if ($isbn[0]=="") $isbn[0]=$issn_011[0];
                 // si ISBN obligatoire et isbn toujours vide :
                 if ($isbn_mandatory == 1 && $isbn[0]=="") {
-                    // on va tenter de prendre l'ISSN stocké en 225$x
+                    // on va tenter de prendre l'ISSN stockï¿½ en 225$x
                     $isbn[0]=$collection_225[0]['x'] ;
-                    // si isbn toujours vide, on va tenter de prendre l'ISSN stocké en 410$x
+                    // si isbn toujours vide, on va tenter de prendre l'ISSN stockï¿½ en 410$x
                     if ($isbn[0]=="") $isbn[0]=$collection_410[0]['x'] ;
                 }
 
-				// on commence par voir ce que le code est (basé sur la recherche par code du module catalogage 
+				// on commence par voir ce que le code est (basï¿½ sur la recherche par code du module catalogage 
 				$ex_query = clean_string($isbn[0]);
 				
 				$EAN = '';
@@ -466,7 +466,7 @@ switch ($action) {
 					// la saisie est un EAN -> on tente de le formater en ISBN
 					$EAN=$ex_query;
 					$isbn = EANtoISBN($ex_query);
-					// si échec, on prend l'EAN comme il vient
+					// si ï¿½chec, on prend l'EAN comme il vient
 					if(!$isbn) 
 						$code = str_replace("*","%",$ex_query);
 					else {
@@ -477,7 +477,7 @@ switch ($action) {
 					if(isISBN($ex_query)) {
 						// si la saisie est un ISBN
 						$isbn = formatISBN($ex_query);
-						// si échec, ISBN erroné on le prend sous cette forme
+						// si ï¿½chec, ISBN erronï¿½ on le prend sous cette forme
 						if(!$isbn) 
 							$code = str_replace("*","%",$ex_query);
 						else {
@@ -485,7 +485,7 @@ switch ($action) {
 							$code=formatISBN($code10,13);
 						}
 					} else {
-						// ce n'est rien de tout ça, on prend la saisie telle quelle
+						// ce n'est rien de tout ï¿½a, on prend la saisie telle quelle
 						$code = str_replace("*","%",$ex_query);
 					}
 				}
@@ -493,12 +493,12 @@ switch ($action) {
 				$isbn_OK=$code;
                 $new_notice = 0;
                 $notice_id = 0 ;
-				// le paramétrage est-il : dédoublonnage sur code ? / Ne dédoublonner que sur code ISBN (ignorer les ISSN) ?
+				// le paramï¿½trage est-il : dï¿½doublonnage sur code ? / Ne dï¿½doublonner que sur code ISBN (ignorer les ISSN) ?
                 if ((($isbn_dedoublonnage)&&(!$isbn_only))||(($isbn_dedoublonnage)&&($isbn_only)&&(isISBN($isbn)))) {
 					
 					$trouvees=0;
 					if ($EAN && $isbn) {
-						// cas des EAN purs : constitution de la requête
+						// cas des EAN purs : constitution de la requï¿½te
 						$requete = "SELECT distinct notice_id FROM notices ";
 						$requete.= " WHERE notices.code in ('$code','$EAN'".($code10?",'$code10'":"").") limit 1";
 						$myQuery = mysql_query($requete, $dbh);
@@ -510,8 +510,8 @@ switch ($action) {
 						$myQuery = mysql_query($requete, $dbh);
 						$trouvees=mysql_num_rows($myQuery);
 					} elseif ($code) {
-						// note : le code est recherché dans le champ code des notices
-						// (cas des code-barres disques qui échappent à l'EAN)
+						// note : le code est recherchï¿½ dans le champ code des notices
+						// (cas des code-barres disques qui ï¿½chappent ï¿½ l'EAN)
 						//
 						$requete = "SELECT notice_id FROM notices ";
 						$requete.= " WHERE notices.code like '$code' limit 10";
@@ -519,7 +519,7 @@ switch ($action) {
 						$trouvees=mysql_num_rows($myQuery);
 					}
 
-                    // dédoublonnage sur isbn
+                    // dï¿½doublonnage sur isbn
                     if ($EAN  || $isbn || $code) {
                         if ($trouvees==0) {
                             $new_notice=1;
@@ -537,7 +537,7 @@ switch ($action) {
                         }
                     }
                 } else {
-                    // pas de dédoublonnage
+                    // pas de dï¿½doublonnage
                     if ($isbn_mandatory == 1 && $isbn_OK=="") {
                        $sql_log = mysql_query("insert into error_log (error_origin, error_text) values ('import_".addslashes(SESSid).".inc', '".$msg[543]."') ") ;
                     }elseif($isbn_OK){
@@ -552,9 +552,9 @@ switch ($action) {
                     import_new_notice() ; 
                     if($link_generate) import_notice_link();                   
     				import_new_notice_suite() ;    				
-    				// Mise à jour de la table "notices_global_index"
+    				// Mise ï¿½ jour de la table "notices_global_index"
     				notice::majNoticesGlobalIndex($notice_id);
-    				// Mise à jour de la table "notices_mots_global_index"
+    				// Mise ï¿½ jour de la table "notices_mots_global_index"
     				notice::majNoticesMotsGlobalIndex($notice_id);
                 } else {
                 	$notice_deja_presente++;
@@ -607,7 +607,7 @@ switch ($action) {
                 $formulaire.="<INPUT TYPE=\"hidden\" NAME=\"link_generate\" VALUE=\"$link_generate\" />\n";
                 $formulaire.="</form>";
                    
-                 //On enregistre les ids utilisés avant le rechargement
+                 //On enregistre les ids utilisï¿½s avant le rechargement
                 global $notices_crees, $notices_a_creer,$bulletins_crees,$bulletins_a_creer;
                 $tabimport_id['notices_existantes'] = $notices_crees;
                 $tabimport_id['notices_a_creer'] = $notices_a_creer;
@@ -625,7 +625,7 @@ switch ($action) {
                 if ($notice_rejetee>0) {
                 	print "<br /> ".$notice_rejetee." ".$msg['notices_invalides'];
                 }
-                printf ($msg[521], $nb_expl_ignores); /* ## exemplaire(s) ignoré(s) */
+                printf ($msg[521], $nb_expl_ignores); /* ## exemplaire(s) ignorï¿½(s) */
             } else {
                 $formulaire="";
                 $script="";
@@ -638,7 +638,7 @@ switch ($action) {
                 if ($notice_rejetee>0) {
                 	print "<br /> ".$notice_rejetee." ".$msg['notices_invalides'];
                 }
-                printf ($msg[521], $nb_expl_ignores); /* ## exemplaire(s) ignoré(s) */
+                printf ($msg[521], $nb_expl_ignores); /* ## exemplaire(s) ignorï¿½(s) */
                 /* ajouter ici SELECT error_origin, error_text, count(*) FROM error_log group by error_origin, error_text */
                 $gen_liste_log="";
                 $resultat_liste=mysql_query("SELECT error_origin, error_text, count(*) as nb_error FROM error_log where error_origin in ('expl_".addslashes(SESSid).".class','import_expl_".addslashes(SESSid).".inc','iimport_expl_".addslashes(SESSid).".inc','import_".addslashes(SESSid).".inc.php','import_".addslashes(SESSid).".inc','import_func_".addslashes(SESSid).".inc.php') group by error_origin, error_text" );
@@ -683,7 +683,7 @@ switch ($action) {
                 $formulaire.="<INPUT TYPE=\"hidden\" NAME=\"link_generate\" VALUE=\"$link_generate\" />\n";
                 $formulaire.="</form>";
                 
-                //On enregistre les ids utilisés avant le rechargement
+                //On enregistre les ids utilisï¿½s avant le rechargement
                 global $notices_crees, $notices_a_creer,$bulletins_crees,$bulletins_a_creer;
                 $tabimport_id['notices_existantes'] = $notices_crees;
                 $tabimport_id['notices_a_creer'] = $notices_a_creer;

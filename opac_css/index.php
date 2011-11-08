@@ -39,9 +39,9 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 
  */
-
+error_reporting(E_ALL);
 $base_path=".";
-$is_opac_included=false;
+$is_opac_included=true;
 
 //Inclusion de l'OPAC
 require_once($base_path."/includes/index_includes.inc.php");

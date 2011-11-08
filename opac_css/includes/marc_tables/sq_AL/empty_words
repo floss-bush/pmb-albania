@@ -1,0 +1,1 @@
+<?PHP// $Id: empty_words,v 1.6 2007/06/06 22:16:38 touraine37 Exp $// tabele me fjalet qe duhen injoruar$empty_word[] = 'dhe';$empty_word[] = 'e';$empty_word[] = 'ose';?>
