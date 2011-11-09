@@ -2,13 +2,14 @@
 // +-------------------------------------------------+
 // ? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl.tpl.php,v 1.63 2011-01-12 10:39:44 touraine37 Exp $
+// $Id: expl.tpl.php,v 1.64 2011-01-25 16:35:19 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
 $select_categ_prop = "scrollbars=yes, toolbar=no, dependent=yes, resizable=yes";
 
-if($pmb_numero_exemplaire_auto>0) $num_exemplaire_test="if(eval(form.option_num_auto.checked == false ))";
+//if($pmb_numero_exemplaire_auto>0) $num_exemplaire_test="if(eval(form.option_num_auto.checked == false ))";
+if($pmb_numero_exemplaire_auto==1 || $pmb_numero_exemplaire_auto==2) $num_exemplaire_test="var r=false;try { r=form.option_num_auto.checked;} catch(e) {};if(r==false) ";
 
 // permet d'autoriser un no exemplaire vide en mode rfid
 if ($pmb_rfid_activate==1 ) {

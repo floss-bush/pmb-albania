@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
 
 <!-- 
 PMB
-table des langues supportées
-PMB est sous licence GPL, la réutilisation du code est cadrée
-modified: Armelle Nedelec - Ajout Français unicode
-$Id: languages.xml,v 1.15 2010-12-01 20:06:37 touraine37 Exp $
+table des langues supportÃ©es
+PMB est sous licence GPL, la rÃ©utilisation du code est cadrÃ©e
+modified: Armelle Nedelec - Ajout FranÃ§ais unicode
+$Id: languages.xml,v 1.15.2.2 2011-06-30 00:34:18 dbellamy Exp $
 -->
 
 <XMLlist>
-	<entry code="sq_AL">Shqip</entry>
 	<entry code="ar">Arabe</entry>
-	<entry code="fr_FR">Français</entry>
-	<entry code="es_ES">Español</entry>
+	<entry code="fr_FR">FranÃ§ais</entry>
+	<entry code="es_ES">EspaÃ±ol</entry>
 	<entry code="en_US">English (US)</entry>	
 	<entry code="en_UK">English (UK)</entry>
 	<entry code="hu_HU">Magyar</entry>
 	<entry code="it_IT">Italiano</entry>
 	<entry code="oc_FR">Occitan</entry>
 	<entry code="nl_NL">Nederlands</entry>
-	<entry code="ca_ES">Català</entry> 
+	<entry code="ca_ES">CatalÃ </entry> 
 	<entry code="br_FR">Breton</entry>
 	<entry code="la_LA">Laos</entry> 
-	<entry code="pt_PT">Português</entry>
-	<entry code="pt_BR">Brasilian português</entry>
-	<entry code="tr_TR">Türkçe</entry>
+	<entry code="pt_PT">PortuguÃªs</entry>
+	<entry code="pt_BR">Brasilian portuguÃªs</entry>
+	<entry code="tr_TR">TÃ¼rkÃ§e</entry>
+	<entry code="ja_JP">æ—¥æœ¬èªž</entry>
 </XMLlist>

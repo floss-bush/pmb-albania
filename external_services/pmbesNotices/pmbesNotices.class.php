@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesNotices.class.php,v 1.20 2010-09-24 10:41:38 arenou Exp $
+// $Id: pmbesNotices.class.php,v 1.21.2.1 2011-08-31 10:14:45 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -83,17 +83,30 @@ class pmbesNotices extends external_services_api_class {
 			}
 		}
 
-		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url FROM explnum WHERE explnum_notice = ".$noticeId;
+		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_extfichier, explnum_nomfichier,explnum_repertoire, explnum_path FROM explnum WHERE explnum_notice = ".$noticeId;
 		$res = mysql_query($sql, $dbh);
 
 		$results = array();
 		while($row = mysql_fetch_assoc($res)) {
+			if($row['explnum_repertoire']){
+				$rqt="select repertoire_path from upload_repertoire where repertoire_id = ".$row['explnum_repertoire'];
+				$r= mysql_query($rqt);
+				$path = mysql_result($r,0,0);
+				$filesize = filesize(str_replace("//","/",$path.$row['explnum_path']."/".$row['explnum_nomfichier']));
+			}else if ($row['explnum_url'] == ""){
+				$rqt = "select bit_length(explnum_data) from explnum where explnum_id = ".$row["explnum_id"];
+				$r= mysql_query($rqt);
+				$filesize = mysql_result($r,0,0);
+			}
 			$aresult = array(
 				"id" => $row["explnum_id"],
 				"noticeId" => $noticeId,
 				"bulletinId" => 0,
 				"name" =>utf8_normalize( $row["explnum_nom"]),
 				"mimetype" => utf8_normalize($row["explnum_mimetype"]),
+				"filename" => utf8_normalize($row["explnum_nomfichier"]),
+				"extention" => utf8_normalize($row["explnum_extfichier"]),
+				"filesize" => utf8_normalize($filesize),
 				"url" => utf8_normalize($row["explnum_url"]),
 				"downloadUrl" => utf8_normalize($opac_url_base."/doc_num.php?explnum_id=".$row["explnum_id"])
 			);
@@ -128,7 +141,7 @@ class pmbesNotices extends external_services_api_class {
 			}
 		}
 
-		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_notice FROM explnum WHERE explnum_notice IN (".(implode(',', $notice_ids)).") order by explnum_notice";
+		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_notice, explnum_extfichier, explnum_nomfichier, explnum_repertoire, explnum_path FROM explnum WHERE explnum_notice IN (".(implode(',', $notice_ids)).") order by explnum_notice";
 		$res = mysql_query($sql, $dbh);
 
 		$results = array();
@@ -146,15 +159,28 @@ class pmbesNotices extends external_services_api_class {
 				$current_explnums = array();
 				$current_noticeid = $row['explnum_notice'];
 			}
-			
+			if($row['explnum_repertoire']){
+				$rqt="select repertoire_path from upload_repertoire where repertoire_id = ".$row['explnum_repertoire'];
+				$r= mysql_query($rqt, $dbh);
+				$path = mysql_result($r,0,0);
+				$filesize = filesize(str_replace("//","/",$path.$row['explnum_path']."/".$row['explnum_nomfichier']));
+			}else if ($row['explnum_url'] == ""){
+				$rqt = "select bit_length(explnum_data) from explnum where explnum_id = ".$row["explnum_id"];
+				$r= mysql_query($rqt, $dbh);
+				$filesize = mysql_result($r,0,0);
+			}
 			$aresult = array(
 				"id" => $row["explnum_id"],
 				"noticeId" => $row['explnum_notice'],
 				"bulletinId" => 0,
 				"name" =>utf8_normalize( $row["explnum_nom"]),
 				"mimetype" => utf8_normalize($row["explnum_mimetype"]),
+				"filename" => utf8_normalize($row["explnum_nomfichier"]),
+				"extention" => utf8_normalize($row["explnum_extfichier"]),
+				"filesize" => utf8_normalize($filesize),	
 				"url" => utf8_normalize($row["explnum_url"]),
-				"downloadUrl" => utf8_normalize($opac_url_base."doc_num.php?explnum_id=".$row["explnum_id"])
+				"downloadUrl" => utf8_normalize($opac_url_base."doc_num.php?explnum_id=".$row["explnum_id"]),
+				"vignUrl" => utf8_normalize($opac_url_base."vig_num.php?explnum_id=".$row["explnum_id"])
 			);
 			$current_explnums[] = $aresult;
 		}
@@ -173,17 +199,30 @@ class pmbesNotices extends external_services_api_class {
 		
 		//TODO: Vérifier les droits de voir les bulletins, si applicable
 		
-		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url FROM explnum WHERE explnum_bulletin = ".$bulletinId;
+		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_extfichier, explnum_nomfichier,explnum_repertoire, explnum_path FROM explnum WHERE explnum_bulletin = ".$bulletinId;
 		$res = mysql_query($sql, $dbh);
-
+	
 		$results = array();
 		while($row = mysql_fetch_assoc($res)) {
+			if($row['explnum_repertoire']){
+				$rqt="select repertoire_path from upload_repertoire where repertoire_id = ".$row['explnum_repertoire'];
+				$r= mysql_query($rqt, $dbh);
+				$path = mysql_result($r,0,0);
+				$filesize = filesize(str_replace("//","/",$path.$row['explnum_path']."/".$row['explnum_nomfichier']));
+			}else if ($row['explnum_url'] == ""){
+				$rqt = "select bit_length(explnum_data) from explnum where explnum_id = ".$row["explnum_id"];
+				$r= mysql_query($rqt, $dbh);
+				$filesize = mysql_result($r,0,0);
+			}
 			$aresult = array(
 				"id" => $row["explnum_id"],
 				"bulletinId" => $bulletinId,
 				"noticeId" => 0,
 				"name" => utf8_normalize($row["explnum_nom"]),
 				"mimetype" => utf8_normalize($row["explnum_mimetype"]),
+				"filename" => utf8_normalize($row["explnum_nomfichier"]),
+				"extention" => utf8_normalize($row["explnum_extfichier"]),
+				"filesize" => filesize($opac_url_base."/doc_num.php?explnum_id=".$row["explnum_id"]),
 				"url" => utf8_normalize($row["explnum_url"]),
 				"downloadUrl" => utf8_normalize($opac_url_base."/doc_num.php?explnum_id=".$row["explnum_id"])
 			);
@@ -206,7 +245,7 @@ class pmbesNotices extends external_services_api_class {
 		if (!$bulletin_ids)
 			return array();
 		
-		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_bulletin FROM explnum WHERE explnum_bulletin IN (".implode(',', $bulletin_ids).') ORDER BY explnum_bulletin';
+		$sql = "SELECT explnum_id, explnum_nom, explnum_mimetype, explnum_url, explnum_bulletin, explnum_extfichier, explnum_nomfichier,explnum_repertoire, explnum_path FROM explnum WHERE explnum_bulletin IN (".implode(',', $bulletin_ids).') ORDER BY explnum_bulletin';
 		$res = mysql_query($sql, $dbh);
 
 		$results = array();
@@ -224,12 +263,25 @@ class pmbesNotices extends external_services_api_class {
 				$current_explnums = array();
 				$current_id = $row["explnum_bulletin"];
 			}
+			if($row['explnum_repertoire']){
+				$rqt="select repertoire_path from upload_repertoire where repertoire_id = ".$row['explnum_repertoire'];
+				$r= mysql_query($rqt, $dbh);
+				$path = mysql_result($r,0,0);
+				$filesize = filesize(str_replace("//","/",$path.$row['explnum_path']."/".$row['explnum_nomfichier']));
+			}else if ($row['explnum_url'] == ""){
+				$rqt = "select bit_length(explnum_data) from explnum where explnum_id = ".$row["explnum_id"];
+				$r= mysql_query($rqt, $dbh);
+				$filesize = mysql_result($r,0,0);
+			}			
 			$aresult = array(
 				"id" => $row["explnum_id"],
 				"noticeId" => 0,
 				"bulletinId" => $current_id,
 				"name" => utf8_normalize($row["explnum_nom"]),
 				"mimetype" => utf8_normalize($row["explnum_mimetype"]),
+				"filename" => utf8_normalize($row["explnum_nomfichier"]),
+				"extention" => utf8_normalize($row["explnum_extfichier"]),
+				"filesize" => filesize($opac_url_base."/doc_num.php?explnum_id=".$row["explnum_id"]),
 				"url" => utf8_normalize($row["explnum_url"]),
 				"downloadUrl" => utf8_normalize($opac_url_base."/doc_num.php?explnum_id=".$row["explnum_id"])
 			);

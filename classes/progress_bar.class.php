@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: progress_bar.class.php,v 1.1 2010-09-03 07:11:30 ngantier Exp $
+// $Id: progress_bar.class.php,v 1.1.2.1 2011-07-21 08:51:35 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -65,7 +65,7 @@ class progress_bar{
     		$this->set_percent(100);
     		$this->finish=1;
     	}    	
-    	if($this->nb_progress_call%$this->pas){    		
+    	if(!($this->nb_progress_call%$this->pas)){    		 		
 	        $this->set_percent($percent);
     	
     	}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: procs.inc.php,v 1.33 2010-09-14 14:57:10 ngantier Exp $
+// $Id: procs.inc.php,v 1.33.2.1 2011-05-10 04:34:31 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -93,7 +93,7 @@ if (!$id_proc) {
 	//Récupération des variables postées, on en aura besoin pour les liens
 	$page=$_SERVER[SCRIPT_NAME];
 	$requete = "SELECT idproc, name, requete, comment, proc_notice_tpl, proc_notice_tpl_field FROM procs where idproc='".$id_proc."' ";
-	$res = mysql_query($requete, $dbh);
+	$res = mysql_query($requete, $dbh) or die ("<br/>SQL error : <br/>".mysql_error()."<br/>SQL Query : <br/>".$requete);
 	$row=mysql_fetch_row($res);
 	
 	//Requete et calcul du nombre de pages à afficher selon la taille de la base 'pret'

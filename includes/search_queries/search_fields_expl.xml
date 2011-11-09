@@ -150,6 +150,34 @@
 				 union select distinct expl_id from exemplaires, responsability, authors, analysis,bulletins 
 				 	where index_author like ' !!p!! ' and responsability_notice=analysis_notice and responsability_author=author_id and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN responsability ON expl_notice=responsability_notice WHERE responsability_author='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN responsability ON bulletin_notice=responsability_notice WHERE responsability_author='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN responsability ON num_notice=responsability_notice WHERE responsability_author='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN analysis ON analysis_bulletin=bulletin_id JOIN responsability ON responsability_notice=analysis_notice WHERE responsability_author='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[
+				SELECT distinct expl_id from exemplaires join notices on notice_id = expl_notice and expl_bulletin = 0 left join responsability on responsability_notice = notice_id where responsability_author is null
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 left join responsability on responsability_notice = bulletin_notice where responsability_author is null
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 and num_notice != 0 left join responsability on responsability_notice = num_notice where responsability_author is null
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 join analysis on analysis_bulletin=bulletin_id left join responsability on responsability_notice = analysis_notice where responsability_author is null
+				]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[
+				SELECT distinct expl_id from exemplaires join notices on notice_id = expl_notice and expl_bulletin = 0 join responsability on responsability_notice = notice_id
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 join responsability on responsability_notice = bulletin_notice
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 and num_notice != 0 join responsability on responsability_notice = num_notice
+				union
+				SELECT distinct expl_id from exemplaires join bulletins on bulletin_id = expl_bulletin and expl_notice = 0 join analysis on analysis_bulletin=bulletin_id join responsability on responsability_notice = analysis_notice
+				]]></main>
+			</query>
 		</field>
 		<field title="msg:recherche_fonction_auteur" id="49">
 			<input type="marc_list">
@@ -165,6 +193,26 @@
 				responsability_notice=num_notice and responsability_fonction='!!p!!' and bulletin_id=expl_bulletin
 				union select distinct expl_id from exemplaires, responsability,analysis,bulletins, notices where 
 				responsability_notice=analysis_notice and responsability_fonction='!!p!!' and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>		
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, responsability where 
+				responsability_notice=expl_notice and responsability_fonction='' 
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=bulletin_notice and responsability_fonction='' and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=num_notice and responsability_fonction='' and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability,analysis,bulletins, notices where 
+				responsability_notice=analysis_notice and responsability_fonction='' and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, responsability where 
+				responsability_notice=expl_notice and responsability_fonction!='' 
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=bulletin_notice and responsability_fonction!=''  and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability, bulletins where 
+				responsability_notice=num_notice and responsability_fonction!=''  and bulletin_id=expl_bulletin
+				union select distinct expl_id from exemplaires, responsability,analysis,bulletins, notices where 
+				responsability_notice=analysis_notice and responsability_fonction!=''  and analysis_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin]]></main>		
 			</query>
 		</field>	
 		<field title="msg:searcher_publisher" id="3">
@@ -214,6 +262,32 @@
 				 union select distinct expl_id from exemplaires, publishers, notices,analysis,bulletins 
 				 	where (index_publisher like ' !!p!! ') and (ed_id=ed1_id or ed_id=ed2_id) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE ed1_id='!!p!!' OR ed2_id='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON bulletin_notice=notice_id WHERE ed1_id='!!p!!' OR ed2_id='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON num_notice=notice_id WHERE ed1_id='!!p!!' OR ed2_id='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices ON notice_id=analysis_notice WHERE ed1_id='!!p!!' OR ed2_id='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where notice_id=expl_notice  and (ed1_id=0 and ed2_id=0) 
+				 union select distinct expl_id from exemplaires,  bulletins, notices 
+				 	where (ed1_id=0 and ed2_id=0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (ed1_id=0 and ed2_id=0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (ed1_id=0 and ed2_id=0) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>	
+			<query for="ISNOTEMPTY" regDiacrit="yes" Keep_EmptyWord="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where notice_id=expl_notice  and (ed1_id!=0 or ed2_id!=0) 
+				 union select distinct expl_id from exemplaires,  bulletins, notices 
+				 	where (ed1_id!=0 or ed2_id!=0) AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (ed1_id!=0 or ed2_id!=0) AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (ed1_id!=0 or ed2_id!=0) and  analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>	
 		</field>
 		<field title="msg:annee_edition" id="23">
 			<input type="text"/>
@@ -321,6 +395,25 @@
 				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
 				 	where (year*1>='!!p!!'*1 and year*1>0) and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year='') and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year='') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year='') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year='') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (year!='') and notice_id=expl_notice 
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year!='') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id  from exemplaires, bulletins, notices 
+				 	where (year!='') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (year!='') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>			</query>
 		</field>
 		<field title="msg:searcher_coll" id="4">
 			<input type="authoritie" ajax="collections" selector="collection" p1="p1" p2="p2"/>
@@ -339,6 +432,15 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct expl_id from exemplaires, notices, collections where (collection_name like '!!p!!') and notice_id=expl_notice and coll_id=collection_id]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE coll_id='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices where notice_id=expl_notice and coll_id=0]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices where notice_id=expl_notice and coll_id!=0]]></main>
 			</query>
 		</field>
 		<field title="msg:searcher_subcoll" id="5">
@@ -359,6 +461,15 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct expl_id from exemplaires, notices, sub_collections where (sub_coll_name='!!p!!') and notice_id=expl_notice and subcoll_id=sub_coll_id]]></main>
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE subcoll_id='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE subcoll_id=0]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE subcoll_id!=0]]></main>
+			</query>
 		</field>
 		<field title="msg:serie_query" id="6">
 			<input type="authoritie" ajax="serie" selector="serie" p1="param1" p2="param2"/>
@@ -377,6 +488,15 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct expl_id from exemplaires, notices, series where (serie_index like ' !!p!! ') and notice_id=expl_notice and tparent_id=serie_id]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE tparent_id='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE tparent_id=0]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE tparent_id!=0]]></main>
 			</query>
 		</field>
 		<field title="msg:isbn_query" id="22">
@@ -415,7 +535,7 @@
 			</query>
 		</field>
 		<field title="msg:titre_uniforme_search" id="51">
-			<input type="authoritie" ajax="titres_uniformes" selector="titre_uniforme" p1="param1" p2="param2"/>
+			<input type="authoritie" ajax="titre_uniforme" selector="titre_uniforme" p1="param1" p2="param2"/>
 			<query for="BOOLEAN" booleanSearch="yes">
 				<main><![CDATA[
 				 select distinct expl_id , !!pert_term!! as pert from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
@@ -437,6 +557,15 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct expl_id  from exemplaires, notices_titres_uniformes, titres_uniformes, notices 
 				 	where tu_name like '!!p!!' and ntu_num_notice=expl_notice and ntu_num_tu=tu_id and notice_id=expl_notice]]></main>
+			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices_titres_uniformes ON expl_notice=ntu_num_notice WHERE ntu_num_tu='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires LEFT JOIN notices_titres_uniformes ON expl_notice=ntu_num_notice WHERE ntu_num_tu is null]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices_titres_uniformes ON expl_notice=ntu_num_notice]]></main>
 			</query>
 		</field>
 		<field title="msg:docnum_indexation_contenu" id="72">
@@ -504,6 +633,26 @@
 				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
 				 	where (index_n_gen like ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_gen like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_gen like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_gen like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_gen like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_gen not like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_gen not like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_gen not like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_gen not like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
 		</field>
 		<field title="msg:266" id="8">
 			<input type="text"/>
@@ -550,6 +699,26 @@
 				 	where (index_n_contenu like ' !!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
 				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
 				 	where (index_n_contenu like ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_contenu like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_contenu like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_contenu like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_contenu like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_contenu not like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_contenu not like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_contenu not like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_contenu not like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
 			</query>
 		</field>
 		<field title="msg:note_resume_query" id="9">
@@ -599,6 +768,26 @@
 				 	where (index_n_resume = ' !!p!! ') AND bulletin_id = expl_bulletin and num_notice=notice_id
 				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
 				 	where (index_n_resume = ' !!p!! ') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_resume like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_resume like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_resume like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_resume like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (n_resume not like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_resume not like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (n_resume not like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (n_resume not like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
 			</query>
 		</field>
 		<field title="msg:toutes_notes_query" id="10">
@@ -650,9 +839,29 @@
 				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
 				 	where ( CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume)) like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct expl_id from exemplaires, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) not like '') and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) not like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id
+				 union select distinct expl_id from exemplaires, bulletins, notices 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) not like '') AND bulletin_id = expl_bulletin and num_notice=notice_id
+				 union select distinct expl_id as pert from exemplaires, notices,analysis,bulletins 
+				 	where (trim(CONCAT_WS(' ',trim(index_n_gen),trim(index_n_contenu),trim(index_n_resume))) not like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id]]></main>				
+			</query>
 		</field>
 		<field title="msg:134" id="11" separator="msg:indexations_query">
-			<input type="authoritie" ajax="categories" selector="categorie" p1="p1" p2="p2"/>
+			<input type="authoritie" ajax="categories_mul" selector="categorie" p1="p1" p2="p2"/>
 			<variable name="lang" type="global"/>
 			<variable name="thesaurus_defaut" type="global"/>
 			<variable name="id_thesaurus" type="input" comment="Thésaurus">
@@ -661,7 +870,7 @@
 				</var>
 				<default type="var">thesaurus_defaut</default>
 				<input type="query_list">
-					<query>select id_thesaurus, libelle_thesaurus from thesaurus</query>
+					<query allChoice="yes" titleAllChoice="msg:thes_all">select id_thesaurus, libelle_thesaurus from thesaurus order by libelle_thesaurus</query>
 				</input>
 			</variable>
 			<variable name="langue_defaut" type="calculated">
@@ -859,9 +1068,60 @@
 					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
 				</part>
 			</query>
+			<query for="AUTHORITY" multiple="yes">
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires JOIN notices_categories ON notcateg_notice=expl_notice where notices_categories.num_noeud='!!p!!'
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id = expl_bulletin JOIN notices_categories ON num_notice=notcateg_notice where notices_categories.num_noeud='!!p!!'
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices_categories ON notcateg_notice=analysis_notice where notices_categories.num_noeud='!!p!!'
+					</main>				
+				</part>				
+				<part>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
+				</part>
+			</query>
+			<query for="ISEMPTY" multiple="yes">
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires LEFT JOIN notices_categories ON notcateg_notice=expl_notice where notices_categories.num_noeud is null
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id = expl_bulletin LEFT JOIN notices_categories ON num_notice=notcateg_notice where notices_categories.num_noeud is null
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN analysis ON analysis_bulletin=bulletin_id LEFT JOIN notices_categories ON notcateg_notice=analysis_notice where notices_categories.num_noeud is null
+					</main>				
+				</part>				
+				<part>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
+				</part>
+			</query>
+			<query for="ISNOTEMPTY" multiple="yes">
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires JOIN notices_categories ON notcateg_notice=expl_notice
+					</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id = expl_bulletin JOIN notices_categories ON num_notice=notcateg_notice
+					</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices_categories ON notcateg_notice=analysis_notice
+					</main>				
+				</part>				
+				<part>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
+				</part>
+			</query>
 		</field>		
-		<field title="msg:search_autopostage_multicritere" id="54" separator="msg:indexations_query">
-			<input type="authoritie" ajax="categories" selector="categorie" p1="p1" p2="p2"/>
+		<field title="msg:search_autopostage_multicritere" id="54" >
+			<input type="authoritie" ajax="categories_mul" selector="categorie" p1="p1" p2="p2"/>
 			<variable name="lang" type="global"/>
 			<variable name="thesaurus_defaut" type="global"/>
 			<variable name="id_thesaurus" type="input" comment="Thésaurus">
@@ -870,13 +1130,24 @@
 				</var>
 				<default type="var">thesaurus_defaut</default>
 				<input type="query_list">
-					<query>select id_thesaurus, libelle_thesaurus from thesaurus</query>
+					<query allChoice="yes" titleAllChoice="msg:thes_all">select id_thesaurus, libelle_thesaurus from thesaurus order by libelle_thesaurus</query>
 				</input>
 			</variable>
 			<variable name="langue_defaut" type="calculated">
 				<calc type="value_from_query">
 					<query>select langue_defaut from thesaurus where id_thesaurus=!!id_thesaurus!!</query>
 				</calc>
+			</variable>
+			<!-- variables pour la recherche autorité... -->
+			<variable name="limit_montant" type="calculated">
+				<calc type="value_from_query">
+					<query>select case valeur_param when '0' then '{0,0}' when '*' then '*' else concat('{0,',valeur_param,'}') end  as limit_montant from parametres where sstype_param='auto_postage_search_nb_montant' and type_param='thesaurus'</query>
+				</calc>			
+			</variable>
+			<variable name="limit_descendant" type="calculated">
+				<calc type="value_from_query">
+					<query>select case valeur_param when '0' then '{0,0}' when '*' then '*' else concat('{0,',valeur_param,'}') end  as limit_montant from parametres where sstype_param='auto_postage_search_nb_descendant' and type_param='thesaurus'</query>
+				</calc>			
 			</variable>
 			<query for="BOOLEAN" multiple="yes">
 				<part>
@@ -953,7 +1224,27 @@
 				<part>
 					<main>select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl</main>
 				</part>
-			</query>		
+			</query>
+			<query for="AUTHORITY" multiple="yes">
+				<part>
+					<main>drop table if exists catdef</main>
+				</part>	
+				<part>
+					<main>create table catdef as select uni.* from (select n.id_noeud,n.path from noeuds as n join noeuds as term on n.path like concat(term.path,'%') where n.path regexp concat(term.path,'(\/[0-9]+)!!limit_descendant!!$') and term.id_noeud = !!p!! union select n.id_noeud,n.path from noeuds as n join noeuds as term on term.path like concat(n.path,'%') where n.path != 0 and term.path regexp concat(n.path,'(\/[0-9]+)!!limit_montant!!$') and term.id_noeud = !!p!!)as uni</main>
+				</part>
+				<part>					
+					<main>create temporary table t_mono_expl as select distinct expl_id from exemplaires JOIN notices_categories ON notcateg_notice=expl_notice JOIN catdef ON catdef.id_noeud=notices_categories.num_noeud</main>				
+				</part>
+				<part>				
+					<main>create temporary table t_bull_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id = expl_bulletin JOIN notices_categories ON num_notice=notcateg_notice JOIN catdef ON catdef.id_noeud=notices_categories.num_noeud</main>	
+				</part>
+				<part>				
+					<main>create temporary table t_depouille_expl as select distinct expl_id from exemplaires JOIN bulletins ON bulletin_id=expl_bulletin JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices_categories ON notcateg_notice=analysis_notice JOIN catdef ON catdef.id_noeud=notices_categories.num_noeud</main>				
+				</part>				
+				<part>
+					<main>select * from (select * from t_mono_expl union select * from t_bull_expl union select * from t_depouille_expl) as uni group by uni.expl_id</main>
+				</part>
+			</query>	
 		</field>
 		<field title="msg:indexint_menu_title" id="12">
 			<input type="authoritie" ajax="indexint" selector="indexint" p1="param1" p2="param2"/>
@@ -1009,6 +1300,24 @@
 				 	where (indexint_name like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id  and (indexint=indexint_id)
 				 ]]></main>					
 			</query>
+			<query for="AUTHORITY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE indexint='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON bulletin_notice=notice_id WHERE indexint='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON num_notice=notice_id WHERE indexint='!!p!!'
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices ON notice_id=analysis_notice WHERE indexint='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE indexint=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON bulletin_notice=notice_id WHERE indexint=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON num_notice=notice_id WHERE indexint=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices ON notice_id=analysis_notice WHERE indexint=0]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[SELECT DISTINCT expl_id FROM exemplaires JOIN notices ON expl_notice=notice_id WHERE indexint!=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON bulletin_notice=notice_id WHERE indexint!=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN notices ON num_notice=notice_id WHERE indexint!=0
+				UNION SELECT DISTINCT expl_id FROM exemplaires JOIN bulletins ON expl_bulletin=bulletin_id JOIN analysis ON analysis_bulletin=bulletin_id JOIN notices ON notice_id=analysis_notice WHERE indexint!=0]]></main>
+			</query>
 		</field>
 		<field title="msg:324" id="13">
 			<input type="text"/>
@@ -1062,7 +1371,31 @@
 				 	where (index_l like '!!p!!') AND bulletin_id = expl_bulletin and num_notice=notice_id 
 				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
 				 	where (index_l like '!!p!!') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
-				 ]]></main>						
+				 ]]></main>					
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (index_l like '') and notice_id=expl_notice
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l like '') AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (index_l like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>					
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices
+				 	where (index_l not like '') and notice_id=expl_notice
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l not like '') AND bulletin_id = expl_bulletin and bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices
+				 	where (index_l not like '') AND bulletin_id = expl_bulletin and num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, notices,analysis,bulletins 
+				 	where (index_l not like '') and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>					
 			</query>
 		</field>
 		<field title="msg:langue_publication_query" id="20" separator='msg:537'>
@@ -1080,6 +1413,30 @@
 				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id AND bulletin_id = expl_bulletin and bulletins.num_notice=notice_id 
 				 union select distinct expl_id from exemplaires, notices,analysis,bulletins, notices_langues
 				 	where (code_langue='!!p!!') and type_langue=0 and notices_langues.num_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+			<query for="ISEMPTY">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=0
+				 	where code_langue is null and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=0
+				 	where code_langue is null and bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=0
+				 	where code_langue is null and bulletin_id = expl_bulletin and bulletins.num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, analysis,bulletins,notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=0
+				 	where code_langue is null and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+			<query for="ISNOTEMPTY">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_langues 
+				 	where notice_id=expl_notice and notices_langues.num_notice=notice_id and type_langue=0
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues 
+				 	where bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id  and notices_langues.num_notice=notice_id and type_langue=0
+				 union select distinct expl_id from exemplaires, bulletins, notices,notices_langues 
+				 	where bulletin_id = expl_bulletin and bulletins.num_notice=notice_id and notices_langues.num_notice=notice_id and type_langue=0
+				 union select distinct expl_id from exemplaires, analysis,bulletins,notices,notices_langues 
+				 	where analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id and notices_langues.num_notice=notice_id and type_langue=0
 				 ]]></main>						
 			</query>
 		</field>
@@ -1100,6 +1457,30 @@
 				 	where (code_langue='!!p!!') and type_langue=1 and notices_langues.num_notice=notice_id and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
 				 ]]></main>						
 			</query>
+			<query for="ISEMPTY">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=1
+				 	where code_langue is null and notice_id=expl_notice 
+				 union select distinct expl_id from exemplaires, bulletins, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=1
+				 	where code_langue is null and bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id 
+				 union select distinct expl_id from exemplaires, bulletins, notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=1
+				 	where code_langue is null and bulletin_id = expl_bulletin and bulletins.num_notice=notice_id 
+				 union select distinct expl_id from exemplaires, analysis,bulletins,notices left join notices_langues on notices_langues.num_notice=notice_id and type_langue=1
+				 	where code_langue is null and analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id
+				 ]]></main>						
+			</query>
+			<query for="ISNOTEMPTY">
+				 <main><![CDATA[
+				 select distinct expl_id from exemplaires, notices, notices_langues 
+				 	where notice_id=expl_notice and notices_langues.num_notice=notice_id and type_langue=1
+				 union select distinct expl_id from exemplaires, bulletins, notices, notices_langues 
+				 	where bulletin_id = expl_bulletin and bulletins.bulletin_notice=notice_id  and notices_langues.num_notice=notice_id and type_langue=1
+				 union select distinct expl_id from exemplaires, bulletins, notices,notices_langues 
+				 	where bulletin_id = expl_bulletin and bulletins.num_notice=notice_id and notices_langues.num_notice=notice_id and type_langue=1
+				 union select distinct expl_id from exemplaires, analysis,bulletins,notices,notices_langues 
+				 	where analysis_bulletin=bulletin_id and bulletin_id=expl_bulletin and analysis_notice=notice_id and notices_langues.num_notice=notice_id and type_langue=1
+				 ]]></main>						
+			</query>			
 		</field>
 		<field title="msg:doc_perio_art_query" id="14" separator="msg:130">
 			<input type="list">
@@ -1539,6 +1920,12 @@
 			<input type="text"/>
 			<query for="CONTAINS">
 				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and  bulletin_numero like '%!!p!!%' ]]></main>	
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and  bulletin_numero like '']]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct expl_id from exemplaires,bulletins where bulletin_id=expl_bulletin and  bulletin_numero not like '']]></main>
 			</query>
 		</field>
 		<field title="msg:search_titre_article" id="37">
@@ -2036,5 +2423,6 @@
 		<operator name="LTEQ">&lt;=</operator>
 		<operator name="ISEMPTY" emptyAllowed="yes">msg:est_vide_query</operator>
 		<operator name="ISNOTEMPTY" emptyAllowed="yes">msg:pas_vide_query</operator>
+		<operator name="AUTHORITY">msg:authority_query</operator>
 	</operators>
 </pmbfields>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: amazon.class.php,v 1.19 2009-11-17 16:10:05 gueluneau Exp $
+// $Id: amazon.class.php,v 1.20 2011-04-15 15:16:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -786,7 +786,6 @@ class amazon extends connector {
 			$user_proxy = $param_proxy[2];
 			$pwd_proxy = $param_proxy[3];
 		}
-		
 		$client=new nusoapclient("http://ecs.amazonaws.com/AWSECommerceService/2009-10-01/".$this->profile["SITES"][0]["SITE"][$this->current_site]["COUNTRY"]."/AWSECommerceService.wsdl",true,
 		$adresse_proxy, $port_proxy, $user_proxy, $pwd_proxy);
 		if ($err=$client->getError()) {
@@ -855,6 +854,161 @@ class amazon extends connector {
 		//$client_soap->setHeaders(array($accessKey,$timestamp,$sign));
 		return array($accessKey,$timestamp,$sign);
 		
+	}
+		
+	function enrichment_is_allow(){
+		return true;
+	}
+	
+	function getEnrichmentHeader(){
+		$header= array();
+		//$header[]= "<!-- Script d'enrichissement pour Amazon-->";
+		return $header;
+	}
+	
+	function getTypeOfEnrichment($source_id){
+		$type['type'] = array(
+			"similarities"
+		);		
+		$type['source_id'] = $source_id;
+		return $type;
+	}
+	
+	function getEnrichment($notice_id,$source_id,$type=""){
+		$enrichment= array();
+		//on renvoi ce qui est demandé... si on demande rien, on renvoi tout..
+		switch ($type){
+			case "similarities" :
+			default :
+				$info = $this->getNoticeInfos($notice_id,$source_id);
+				if($info) $enrichment['similarities']['content'] = $info;
+				else $enrichment['similarities']['content'] = $this->msg['amazon_enrichment_no_similarities'];
+				break;
+		}
+		$enrichment['source_label']=$this->msg['amazon_enrichment_source'];
+		return $enrichment;
+	}
+	
+	function getNoticeInfos($notice_id,$source_id){
+		global $search_index,$url;
+		global $opac_curl_proxy;
+		
+		$info = "";
+		$asin = 0;
+		$params=$this->get_source_params($source_id);
+		$this->fetch_global_properties();
+		if ($params["PARAMETERS"]) {
+			//Affichage du formulaire avec $params["PARAMETERS"]
+			$vars=unserialize($params["PARAMETERS"]);
+			foreach ($vars as $key=>$val) {
+				global $$key;
+				$$key=$val;
+			}	
+		}
+			
+		$client = $this->initAWS($source_id);
+		
+		$client->setHeaders($this->make_soap_headers('ItemSearch'));
+		$proxy=$client->getProxy();			
+		
+		$rqt = "select code from notices where notice_id = '".$notice_id."'";
+		$res = mysql_query($rqt);
+		if(mysql_num_rows($res)){
+			$code = mysql_result($res,0,0);
+			if($code != ""){
+				$code = preg_replace('/-|\.| /', '', $code);
+				$paws["Request"]=array(
+					"SearchIndex" => $search_index[$url][0],
+					"ResponseGroup"=>"ItemIds",
+					"Keywords" => "$code"
+				);
+						
+				$result=$proxy->ItemSearch($paws);
+				$items=$this->soap2array($result["Items"],"Item");
+				$asin = $items[0][ASIN];
+				if($asin){
+					$client->setHeaders($this->make_soap_headers('ItemLookup'));
+					$proxy=$client->getProxy();	
+					$paws["Request"]=array(
+						"ResponseGroup"=>"Similarities",
+						"IdType" => "ASIN",
+						"ItemId" => $asin
+					);
+					$result=$proxy->ItemLookup($paws);
+					$items=$this->soap2array($result["Items"],"Item");
+					foreach($items[0][SimilarProducts][SimilarProduct] as $similar){
+						if(isISBN($similar[ASIN])){
+							$rqt= "select notice_id from notices where code = '".formatISBN($similar[ASIN],10)."' or code = '".formatISBN($similar[ASIN],13)."' limit 1";
+							$res = mysql_query($rqt);
+							if(mysql_num_rows($res)){
+								$notice = mysql_result($res,0,0);
+								if($notice)	$infos.=aff_notice($notice,1,1,0, AFF_ETA_NOTICES_REDUIT, "no",0, 1);
+							}
+						}else {
+							//si c'est pas un ISBN on cherche ce que ca peut être...
+							$paws["Request"]=array(
+								"ResponseGroup"=>"ItemAttributes",
+								"IdType" => "ASIN",
+								"ItemId" => $similar[ASIN]
+							);
+							$result=$proxy->ItemLookup($paws);	
+							$items=$this->soap2array($result["Items"],"Item");
+							$code = $items[0][ItemAttributes][UPC];
+							if($code){
+								$rqt= "select notice_id from notices where code = '".$code."' or code = '".$code."' limit 1";
+								$res = mysql_query($rqt);
+								if(mysql_num_rows($res)){
+									$notice = mysql_result($res,0,0);
+									if($notice)	$infos.=aff_notice($notice,1,1,0, AFF_ETA_NOTICES_REDUIT, "no",0, 1);
+								}
+							}									
+						}
+					}
+				}
+			}
+		}
+		return $infos;
+	}	
+	
+	function initAWS($source_id){
+		global $search_index,$url;
+		global $opac_curl_proxy;
+		
+		$this->parse_profile();
+		$params=$this->get_source_params($source_id);
+		$this->fetch_global_properties();
+		if ($params["PARAMETERS"]) {
+			//Affichage du formulaire avec $params["PARAMETERS"]
+			$vars=unserialize($params["PARAMETERS"]);
+			foreach ($vars as $key=>$val) {
+				global $$key;
+				$$key=$val;
+			}	
+		}	
+				
+		$adresse_proxy = false;
+		$port_proxy = false;
+		$user_proxy = false;
+		$pwd_proxy = false;
+		if($opac_curl_proxy!=''){
+			$param_proxy = explode(',',$opac_curl_proxy);
+			$adresse_proxy = $param_proxy[0];
+			$port_proxy = $param_proxy[1];
+			$user_proxy = $param_proxy[2];
+			$pwd_proxy = $param_proxy[3];
+		}
+		$client=new nusoapclient("http://ecs.amazonaws.com/AWSECommerceService/2009-10-01/".$this->profile["SITES"][0]["SITE"][$this->current_site]["COUNTRY"]."/AWSECommerceService.wsdl",true,
+		$adresse_proxy, $port_proxy, $user_proxy, $pwd_proxy);
+		if ($err=$client->getError()) {
+			if ($err) {
+				$this->error=true;
+				$this->error_message=$err;
+			}
+		} else {
+			$client->timeout = $params["TIMEOUT"];
+			$client->response_timeout = $params["TIMEOUT"];
+		}
+		return $client;
 	}
 }
 ?>

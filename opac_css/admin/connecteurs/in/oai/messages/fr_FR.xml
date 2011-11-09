@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.2 2010-06-08 19:33:38 gueluneau Exp $ -->
+$Id: fr_FR.xml,v 1.2.2.1 2011-06-19 15:31:21 dbellamy Exp $ -->
 
 <XMLlist>
 	<entry code="rec_addr">Enregistrez une adresse pour pouvoir accéder aux propriétés de l'entrepôt</entry>
@@ -22,7 +22,7 @@ $Id: fr_FR.xml,v 1.2 2010-06-08 19:33:38 gueluneau Exp $ -->
 	<entry code="oai_xslt_file">Fichier xslt pour la conversion en unimarc</entry>
 	<entry code="oai_xslt_file_linked">Un fichier xslt a été associé : %s</entry>
 	<entry code="oai_del_xslt_file">Le supprimer</entry>
-	<entry code="oai_del_marked_elts">Supression des éléments marqués par le serveur ? (le serveur les conserve de manière %s)</entry>
+	<entry code="oai_del_marked_elts">Suppression des éléments marqués par le serveur ? (le serveur les conserve de manière %s)</entry>
 	<entry code="oai_del_marked_persistent">persistente</entry>
 	<entry code="oai_del_marked_temp">temporaire</entry>
 	<entry code="oai_yes">Oui</entry>
@@ -31,7 +31,7 @@ $Id: fr_FR.xml,v 1.2 2010-06-08 19:33:38 gueluneau Exp $ -->
 	<entry code="oai_between_part1">Entre le</entry>
 	<entry code="oai_between_part2">Et le</entry>
 	<entry code="oai_syncinfo_date_baserecent">Date de la notice la plus récente dans la base: %s</entry>
-	<entry code="oai_syncinfo_date_serverearlyiest">Date de la notice la plus vieille sur le serveur: %s</entry>
+	<entry code="oai_syncinfo_date_serverearlyiest">Date de la notice la plus ancienne sur le serveur: %s</entry>
 	<entry code="oai_syncinfo_nonotice">Aucune notice dans la base.</entry>
 	<entry code="oai_clean_url">Récupérer la forme canonique de l'url renvoyée</entry>
 </XMLlist>

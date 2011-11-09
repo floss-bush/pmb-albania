@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: admin.tpl.php,v 1.155 2011-01-20 13:25:15 trenon Exp $
+// $Id: admin.tpl.php,v 1.157.2.3 2011-09-14 08:12:03 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -54,7 +54,7 @@ $admin_menu_new.="</ul>
 </ul>
 <ul>
 	<li><a href='./admin.php?categ=z3950'>Z39.50</a></li>
-	<li><a href='./admin.php?categ=external_services'>".$msg["es_admin_menu"]."</li>
+	<li><a href='./admin.php?categ=external_services'>".$msg["es_admin_menu"]."</a></li>
 	".($pmb_allow_external_search?"<li><a href='./admin.php?categ=connecteurs'>".$msg["admin_connecteurs_menu"]."</a></li>":"")."
 	".($pmb_selfservice_allow?"<li><a href='./admin.php?categ=selfservice'>".$msg["selfservice_admin_menu"]."</a></li>":"")."
 </ul>
@@ -567,6 +567,11 @@ $admin_menu_connecteurs = "
 			".$msg["admin_connecteurs_categsets"]."
 		</a>
 	</span>
+	<span".ongletSelect("categ=connecteurs&sub=enrichment").">
+		<a title='".$msg["admin_connecteurs_enrichment"]."' href='./admin.php?categ=connecteurs&sub=enrichment'>
+			".$msg["admin_connecteurs_enrichment"]."
+		</a>
+	</span>
 </div>";
 
 //Borne de prêt 
@@ -872,11 +877,13 @@ function account_calcule_section(selectBox) {
 <div class='colonne4'>
 		<input type='checkbox' class='checkbox' !!circ_flg!! value='1' id='form_circ' name='form_circ' /><label for='form_circ'>$msg[5]</label><br />\n
 		<input type='checkbox' class='checkbox' !!restrictcirc_flg!! value='1' id='form_restrictcirc' name='form_restrictcirc' /><label for='form_restrictcirc'><i>".$msg["restrictcirc_auth"]."</i></label><br />
-		<input type='checkbox' class='checkbox' !!admin_flg!! value='1' id='form_admin' name='form_admin' /><label for='form_admin'>$msg[7]</label>\n
-	</div>
+		<input type='checkbox' class='checkbox' !!admin_flg!! value='1' id='form_admin' name='form_admin' /><label for='form_admin'>$msg[7]</label><br />\n";
+if ($fiches_active) $admin_user_form .= "<input type='checkbox' class='checkbox' !!fiches_flg!! value='1' id='form_fiches' name='form_fiches' /><label for='form_fiches'>".$msg["onglet_fichier"]."</label><br />\n";	
+$admin_user_form .= "
+		</div>
 <div class='colonne4'>
 		<input type='checkbox' class='checkbox' !!catal_flg!! value='1' id='form_catal' name='form_catal' /><label for='form_catal'>$msg[93]</label><br />\n
-		<input type='checkbox' class='checkbox' !!edit_flg!! value='1' id='form_edit' name='form_edit' /><label for='form_edit'>$msg[1100]</label><br />\n
+		<input type='checkbox' class='checkbox' !!edit_flg!! value='1' id='form_edition' name='form_edition' /><label for='form_edition'>$msg[1100]</label><br />\n
 		<input type='checkbox' class='checkbox' !!sauv_flg!! value='1' id='form_sauv' name='form_sauv' /><label for='form_sauv'>$msg[28]</label>\n	
 	</div>
 <div class='colonne4'>
@@ -1065,7 +1072,10 @@ $admin_user_list .= "<tr>
 			if ($demandes_active) 
 				$admin_user_list .= "!!nuserdemandes!!$msg[demandes_droit]</td>";
 			else $admin_user_list .= "&nbsp;</td>";
-	$admin_user_list .= "<td class='brd'>&nbsp;</td>";
+			$admin_user_list .= "<td class='brd'>";
+			if ($fiches_active) 
+				$admin_user_list .= "!!nuserfiches!!$msg[onglet_fichier]</td>";
+			else $admin_user_list .= "&nbsp;</td>";
 	$admin_user_list .= "<td class='brd'>&nbsp;</td>";
 $admin_user_list .= "</tr>";
 
@@ -2344,7 +2354,9 @@ $admin_infopages_form = "
 	<div class='colonne_suite'>
 		<div class='row'>
 			<label class='etiquette' for='form_valid_infopage'>".$msg['infopage_valid_infopage']."</label>
-			<input type=checkbox name='form_valid_infopage' value='1' !!checkbox!! class='checkbox' />
+			<input type=checkbox name='form_valid_infopage' value='1' !!checkbox!! class='checkbox' /><br />
+			<label class='etiquette' for='form_restrict_infopage'>".$msg['infopage_restrict_infopage']."</label>
+			<input type=checkbox name='form_restrict_infopage' value='1' !!restrict_checkbox!! class='checkbox' />
 		</div>
 	</div>
 	<div class='row'>

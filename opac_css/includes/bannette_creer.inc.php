@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bannette_creer.inc.php,v 1.17 2009-05-16 10:52:45 dbellamy Exp $
+// $Id: bannette_creer.inc.php,v 1.17.4.2 2011-09-29 09:18:23 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,8 +20,10 @@ print "<div id='aut_details'>\n";
 print "<h3><span>".$msg['dsi_bt_bannette_priv']."</span></h3>\n";
 
 if ($enregistrer==1 && !$nom_bannette) $enregistrer = 2 ;
-if (!$enregistrer) $equation = search::serialize_search();
-	else $equation = stripslashes($equation) ;
+if (!$enregistrer) {
+	search::strip_slashes();
+	$equation = search::serialize_search();
+} else $equation = stripslashes($equation) ;
 
 if ($equation) {
 	// on arrive de la rech multi-critères
@@ -40,9 +42,6 @@ if ($equation) {
 		$res = mysql_query($requete, $dbh);
 		$loc=mysql_fetch_object($res) ;
 	
-
-		
-		
 		if (!$periodicite || $periodicite>200) $periodicite=15 ;
 		$entete_email = "<SPAN style=\'FONT-SIZE: 11pt; FONT-FAMILY: Arial\'>".addslashes($msg['dsi_priv_mail_1'])."!!public!!</SPAN><br /><SPAN style=\'FONT-SIZE: 10pt; FONT-FAMILY: Arial\'>".addslashes($msg['dsi_priv_mail_2'])." «&nbsp;".addslashes($msg['empr_my_account'])."&nbsp;» > «&nbsp;".addslashes($msg['dsi_bannette_acceder'])."&nbsp;»&nbsp;:&nbsp; !!public!! - !!date!! </SPAN><br />" ;
 		$entete_email .=addslashes($loc->location_libelle."<br />".$loc->adr1."<br />".$loc->cp." ".$loc->town)."<br />";
@@ -87,48 +86,47 @@ if ($equation) {
 		$bannette->vider();
 		print pmb_bidi($bannette->remplir());
 		$bannette->diffuser($equ_human);
-		} else {
-			$s = new search() ;
-			$equ_human = $s->make_serialized_human_query($equation) ;
-			
-			if ($opac_allow_bannette_export) {
-				$exp = start_export::get_exports();
-				$liste_exports = "<tr>
-							<td align=right>".$msg['dsi_ban_typeexport']."</td>
-							<td><select name='typeexport'>" ;
-				$liste_exports .= "<option value='' selected>".$msg[dsi_ban_noexport]."</option>";
-				for ($i=0;$i<count($exp);$i++) {
-					$liste_exports .= "<option value='".$exp[$i]["PATH"]."' >".$exp[$i]["NAME"]."</option>";
-				}
-				$liste_exports .= "</select></td>
-							</tr>" ;
-			} else $liste_exports = "";
-			
-			
-			print pmb_bidi($equ_human."<br /><br />") ;
-			print "<form name='creer_dsi' method='post'>
-					<input type='hidden' name='equation' value=\"".htmlentities($equation,ENT_QUOTES, $charset)."\" />
-					<input type='hidden' name='enregistrer' value='1' />
-					<input type='hidden' name='lvl' value='bannette_creer' />
-					<table>
-						<tr>
-							<td align=right>".$msg['dsi_priv_form_nom']."</td>
-							<td><input type='text' name='nom_bannette' value='' /></td>
-							</tr>
-						<tr>
-							<td align=right>".$msg['dsi_priv_form_periodicite']."</td>
-							<td><input type='text' name='periodicite' value='15' /></td>
-							</tr>
-						$liste_exports
-						</table>
-					<input type='submit' class='bouton' value=\"".$msg[dsi_bannette_creer_sauver]."\"/>
-					</form>
-					" ;
-					
-			}
 	} else {
-		// y'a un binz, pas d'équation...
-		}
+		$s = new search() ;
+		$equ_human = $s->make_serialized_human_query($equation) ;
+		
+		if ($opac_allow_bannette_export) {
+			$exp = start_export::get_exports();
+			$liste_exports = "<tr>
+						<td align=right>".$msg['dsi_ban_typeexport']."</td>
+						<td><select name='typeexport'>" ;
+			$liste_exports .= "<option value='' selected>".$msg[dsi_ban_noexport]."</option>";
+			for ($i=0;$i<count($exp);$i++) {
+				$liste_exports .= "<option value='".$exp[$i]["PATH"]."' >".$exp[$i]["NAME"]."</option>";
+			}
+			$liste_exports .= "</select></td>
+						</tr>" ;
+		} else $liste_exports = "";
+			
+		print pmb_bidi($equ_human."<br /><br />") ;
+		print "<form name='creer_dsi' method='post'>
+				<input type='hidden' name='equation' value=\"".htmlentities($equation,ENT_QUOTES, $charset)."\" />
+				<input type='hidden' name='enregistrer' value='1' />
+				<input type='hidden' name='lvl' value='bannette_creer' />
+				<table>
+					<tr>
+						<td align=right>".$msg['dsi_priv_form_nom']."</td>
+						<td><input type='text' name='nom_bannette' value='' /></td>
+						</tr>
+					<tr>
+						<td align=right>".$msg['dsi_priv_form_periodicite']."</td>
+						<td><input type='text' name='periodicite' value='15' /></td>
+						</tr>
+					$liste_exports
+					</table>
+				<input type='submit' class='bouton' value=\"".$msg[dsi_bannette_creer_sauver]."\"/>
+				</form>
+				" ;
+				
+	}
+} else {
+	// y'a un binz, pas d'équation...
+}
 
 
 print "</div><!-- fermeture #aut_details -->\n";	

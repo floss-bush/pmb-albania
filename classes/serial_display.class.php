@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serial_display.class.php,v 1.121 2010-12-02 16:43:01 arenou Exp $
+// $Id: serial_display.class.php,v 1.123.2.4 2011-09-08 10:15:12 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -135,7 +135,11 @@ class serial_display {
 	
 		// mise à jour des catégories
 		if(!$this->ajax_mode)$this->categories = get_notice_categories($this->notice_id) ;
-	
+		
+		//récupération des langues
+		$this->langues	= get_notice_langues($this->notice_id, 0) ;	// langues de la publication
+		$this->languesorg	= get_notice_langues($this->notice_id, 1) ; // langues originales
+		
 		$this->level = $level;
 		$this->lien_suppr_cart = $lien_suppr_cart;
 	
@@ -508,9 +512,14 @@ class serial_display {
 			$this->isbd .= "<br /><b>".$msg['notice_id_libelle']."&nbsp;</b>".($prefixe[1] ? $prefixe[1] : '').$this->notice_id."<br />";
 		}
 		// fin du niveau 1
-		if($this->level == 1)
-			return;
-			
+		if($this->level == 1) {
+			if ($this->show_explnum) {
+				$explnum = show_explnum_per_notice($this->notice_id, 0, $this->lien_explnum);
+				if ($explnum) $this->isbd .= "<br /><b>$msg[explnum_docs_associes]</b><br />".$explnum ;
+				if ($this->notice->niveau_biblio == 'a' && $this->notice->niveau_hierar == '2' && (SESSrights & CATALOGAGE_AUTH) && $this->bouton_explnum) $this->isbd .= "<br /><input type='button' class='bouton' value=' $msg[explnum_ajouter_doc] ' onClick=\"document.location='./catalog.php?categ=serials&analysis_id=$this->notice_id&sub=analysis&action=explnum_form&bul_id=$this->bul_id'\">" ;
+			}
+			return;			
+		}
 		// début du niveau 2
 		// note générale
 		if($this->notice->n_gen)
@@ -867,7 +876,7 @@ function do_image(&$entree) {
 		if ($pmb_book_pics_show=='1' && ($pmb_book_pics_url || $this->notice->thumbnail_url)) {
 			$code_chiffre = pmb_preg_replace('/-|\.| /', '', $this->notice->code);
 			$url_image = $pmb_book_pics_url ;
-			$url_image = $prefix_url_image."getimage.php?url_image=".urlencode($url_image)."&noticecode=!!noticecode!!&vigurl=".urlencode($this->notice->thumbnail_url) ;
+			$url_image = $prefix_url_image."getimage.php?url_image=".urlencode($url_image)."&amp;noticecode=!!noticecode!!&amp;vigurl=".urlencode($this->notice->thumbnail_url) ;
 			if ($depliable) $image = "<img id='PMBimagecover".$this->notice_id."' src='".$prefix_url_image."images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."' vigurl=\"".$this->notice->thumbnail_url."\">";
 			else {
 				if ($this->notice->thumbnail_url) $url_image_ok=$this->notice->thumbnail_url;
@@ -945,6 +954,8 @@ function do_image(&$entree) {
 		global $dbh, $base_path;
 		global $charset;
 		global $icon_doc,$biblio_doc,$use_opac_url_base,$opac_url_base;
+		global $tdoc;
+		global $no_aff_doc_num_image;
 		
 		//Icone type de Document
 		$icon = $icon_doc[$this->notice->niveau_biblio.$this->notice->typdoc];
@@ -1016,7 +1027,7 @@ function do_image(&$entree) {
 			}
 		}
 		global $use_opac_url_base, $opac_url_base, $use_dsi_diff_mode ;
-		if($this->notice->lien) {
+		if($this->notice->lien && !$no_aff_doc_num_image) {
 			// ajout du lien pour les ressources électroniques			
 			if (!$this->print_mode || $use_dsi_diff_mode){
 				$this->header .= "<a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
@@ -1034,7 +1045,7 @@ function do_image(&$entree) {
 				$this->header .= '<font size="-1">'.$this->notice->lien.'</font>';
 			}				
 		}
-		if (!$this->print_mode) {
+		if (!$this->print_mode && !$no_aff_doc_num_image) {
 			$sql_explnum = "SELECT explnum_id, explnum_nom FROM explnum WHERE explnum_notice = ".$this->notice_id;
 			$explnums = mysql_query($sql_explnum);
 			$explnumscount = mysql_num_rows($explnums);
@@ -1045,9 +1056,9 @@ function do_image(&$entree) {
 				if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 				else $this->header .= "<img src=\"".$opac_url_base."images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 				$this->header .= " alt=\"";
-				$this->header .= htmlentities($explnumrow->explnum_nom);
+				$this->header .= htmlentities($explnumrow->explnum_nom,ENT_QUOTES,$charset);
 				$this->header .= "\" title=\"";
-				$this->header .= htmlentities($explnumrow->explnum_nom);
+				$this->header .= htmlentities($explnumrow->explnum_nom,ENT_QUOTES,$charset);
 				$this->header .= "\">";
 				$this->header .='</a>';
 			}

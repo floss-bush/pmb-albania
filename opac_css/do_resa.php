@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: do_resa.php,v 1.38 2010-03-05 09:02:08 dbellamy Exp $
+// $Id: do_resa.php,v 1.39.2.3 2011-09-14 15:31:38 dgoron Exp $
 
 $base_path=".";
 
@@ -82,6 +82,10 @@ if ( ($lvl=='make_sugg' || $lvl=='valid_sugg') && $opac_show_suggest == 2) {
 	if (file_exists($base_path.'/includes/ext_auth.inc.php')) require_once($base_path.'/includes/ext_auth.inc.php');
 	$log_ok=connexion_empr();
 }
+
+if($opac_parse_html){
+	ob_start();
+}
 	
 if ($opac_resa_popup) {
 	print $popup_header;
@@ -91,6 +95,7 @@ if ($opac_resa_popup) {
 	// mise à jour du contenu opac_biblio_main_header
 	$std_header= str_replace("!!main_header!!",$opac_biblio_main_header,$std_header);
 	$std_header= str_replace("!!liens_rss!!",genere_link_rss(),$std_header);
+	$std_header = str_replace("!!enrichment_headers!!","",$std_header);
 	print $std_header ;
 	include($base_path.'/includes/navigator.inc.php');
 }
@@ -108,13 +113,13 @@ if ($log_ok) {
 				else print $msg[empr_no_allow_sugg];
 			break;
 		case 'resa_planning' : 
-			if ($allow_book) include($base_path.'/includes/resa_planning.inc.php');
+			if ($allow_book && $opac_resa) include($base_path.'/includes/resa_planning.inc.php');
 				else print $msg[empr_no_allow_book];
 			break;
 		default:
 		case 'resa':
 			if($pmb_logs_activate) recup_notice_infos($id_notice);
-			if ($allow_book) include($base_path.'/includes/resa.inc.php');
+			if ($allow_book && $opac_resa) include($base_path.'/includes/resa.inc.php');
 			else print $msg[empr_no_allow_book];
 			break;
 	}
@@ -162,7 +167,7 @@ else {
 			$loginform__ = genere_form_connexion_empr();
 		} else {
 			$loginform__.="<b>".$empr_prenom." ".$empr_nom."</b><br />\n";
-			$loginform__.="<a href=\"empr.php\">".$msg["empr_my_account"]."</a><br />
+			$loginform__.="<a href=\"empr.php\" id=\"empr_my_account\">".$msg["empr_my_account"]."</a><br />
 					<a href=\"index.php?logout=1\" id=\"empr_logout_lnk\">".$msg["empr_logout"]."</a>";
 		}
 		$loginform = str_replace("!!login_form!!",$loginform__,$loginform);
@@ -235,3 +240,10 @@ if($pmb_logs_activate){
 
 /* Fermeture de la connexion */
 mysql_close();
+
+if($opac_parse_html){
+	$htmltoparse = ob_get_contents();
+	ob_end_clean();
+	$res = parseHTML($htmltoparse);
+	print $res;
+}

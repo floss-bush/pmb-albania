@@ -1,11 +1,11 @@
 <?php
 // +-------------------------------------------------+
-// Â© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serials.tpl.php,v 1.132 2010-03-26 11:34:12 kantin Exp $
+// $Id: serials.tpl.php,v 1.135.2.2 2011-06-17 12:43:45 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
-//	template pour la gestion des pÃ©riodiques
+//	template pour la gestion des périodiques
 
 $serial_header = "
 	<h1>!!page_title!!</h1>";
@@ -150,7 +150,7 @@ $ptab_bul[0] = "
 ";
 
 //	----------------------------------------------------
-// 	  $ptab[1] : contenu de l'onglet 1 (Mention de responsabilitÃ©)
+// 	  $ptab[1] : contenu de l'onglet 1 (Mention de responsabilité)
 //	----------------------------------------------------
 $aut_fonctions = new marc_list('function');
 
@@ -618,7 +618,7 @@ $ptab[2] = "
 	</div>
 
 	<div id='el2Child_4' title='".htmlentities($msg[252],ENT_QUOTES, $charset)."' movable='yes'>
-	<!--    AnnÃ©e    -->
+	<!--    Année    -->
 		<div id='el2Child_4a' class='row'>
 			<label for='f_year' class='etiquette'>$msg[252]</label>
 		</div>
@@ -628,7 +628,7 @@ $ptab[2] = "
 	</div>
 	
 	<div id='el2Child_7' title='".htmlentities($msg[254],ENT_QUOTES, $charset)."' movable='yes'>
-	<!--    Autre Ã©diteur    -->
+	<!--    Autre éditeur    -->
 	<div id='el2Child_7a' class='row'>
     	<label for='f_ed2' class='etiquette'>$msg[254]</label>
 		</div>
@@ -688,7 +688,7 @@ $ptab[3] = "
 <div id='el5Child' class='child' etirable='yes' title='".htmlentities($msg[264],ENT_QUOTES, $charset)."'>
 
 <div id='el5Child_0' title='".htmlentities($msg[265],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Note gÃ©nÃ©rale    -->
+<!--    Note générale    -->
 <div id='el5Child_0a' class='row'>
     <label for='f_n_gen' class='etiquette'>$msg[265]</label>
 </div>
@@ -708,7 +708,7 @@ $ptab[3] = "
 </div>
 
 <div id='el5Child_2' title='".htmlentities($msg[267],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    RÃ©sumÃ©/extrait    -->
+<!--    Résumé/extrait    -->
 <div id='el5Child_2a' class='row'>
     <label for='f_n_resume' class='etiquette'>$msg[267]</label>
 </div>
@@ -734,7 +734,7 @@ $ptab[4] = "
 <div id='el6Child' class='child' etirable='yes' title='".htmlentities($msg[269],ENT_QUOTES, $charset)."'>
 
 <div id='el6Child_0' title='".htmlentities($msg[134],ENT_QUOTES, $charset)."' movable='yes'>
-    <!--    CatÃ©gories    -->
+    <!--    Catégories    -->
     <div id='el6Child_0a' class='row'>
         <label for='f_categ' class='etiquette'>$msg[134]</label>
     </div>
@@ -897,7 +897,7 @@ $ptab[6] = "
 <div id='el8Child' class='child' etirable='yes' title='".htmlentities($msg[274],ENT_QUOTES, $charset)."'>
 
 <div id='el8Child_0' title='".htmlentities($msg[275],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    URL associÃ©e    -->
+<!--    URL associée    -->
 <div id='el8Child_0a' class='row'>
     <label for='f_l' class='etiquette'>$msg[275]</label>
 </div>
@@ -908,7 +908,7 @@ $ptab[6] = "
 </div>
 
 <div id='el8Child_1' title='".htmlentities($msg[276],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Format Ã©lectronique de la ressource    -->
+<!--    Format électronique de la ressource    -->
 <div id='el8Child_1a' class='row'>
     <label for='f_eformat' class='etiquette'>$msg[276]</label>
 </div>
@@ -1010,7 +1010,7 @@ $ptab[41] = "
 <div id='el41Child' class='child' etirable='yes' title='".htmlentities($msg[258],ENT_QUOTES, $charset)."'>
 
 <div id='el41Child_0' title='".htmlentities($msg[259],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Importance matÃ©rielle (nombre de pages, d'Ã©lÃ©ments...)    -->
+<!--    Importance matérielle (nombre de pages, d'éléments...)    -->
 <div id='el41Child_0a' class='row'>
     <label for='f_npages' class='etiquette'>$msg[259]</label>
 </div>
@@ -1020,7 +1020,7 @@ $ptab[41] = "
 </div>
 
 <div id='el41Child_1' title='".htmlentities($msg[260],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Autres caractÃ¨ristiques matÃ©rielle (ill., ...)    -->
+<!--    Autres caractèristiques matérielle (ill., ...)    -->
 <div id='el41Child_1a' class='row'>
     <label for='f_ill' class='etiquette'>$msg[260]</label>
 </div>
@@ -1051,7 +1051,7 @@ $ptab[41] = "
 </div>
 
 <div id='el41Child_4' title='".htmlentities($msg[262],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    MatÃ©riel d'accompagnement    -->
+<!--    Matériel d'accompagnement    -->
 <div id='el41Child_4a' class='row'>
     <label for='f_accomp' class='etiquette'>$msg[262]</label>
 </div>
@@ -1132,7 +1132,7 @@ $ptab[13] = "
 		
 		suffixe = document.notice.max_rel.value;
 		
-		//CrÃ©ation de la relation supplÃ©mentaire
+		//Création de la relation supplémentaire
 		colonne_sel=document.createElement('div');
         colonne_sel.className='colonne4';
         row_sel=document.createElement('div');
@@ -1229,7 +1229,7 @@ $ptab[13] = "
 
 
 //	----------------------------------------------------
-// 	  $form_notice : Nouveau pÃ©riodique
+// 	  $form_notice : Nouveau périodique
 //	----------------------------------------------------
 $serial_top_form = jscript_unload_question();
 $serial_top_form.= "
@@ -1396,7 +1396,7 @@ $serial_bul_form.= "
 <!--
 	function test_form(form)
 	{
-		test1 = form.bul_no.value+form.bul_date.value+form.bul_titre.value;// concatÃ©nation des valeurs Ã  tester
+		test1 = form.bul_no.value+form.bul_date.value+form.bul_titre.value;// concaténation des valeurs à tester
 		test = test1.replace(/^\s+|\s+$/g, ''); //trim de la valeur
 		if(test.length == 0)
 			{
@@ -1524,7 +1524,7 @@ $serial_bul_form.="</div></h3>
 
 ";
 
-/* Ã  partir d'ici, template du forme de catalogage de dÃ©pouillement */
+/* à partir d'ici, template du forme de catalogage de dépouillement */
 //	----------------------------------------------------
 // 	  $pdeptab[0] : contenu de l'onglet 0 (zone de titre)
 
@@ -1570,7 +1570,7 @@ $pdeptab[0] = "
 ";
 
 //	----------------------------------------------------
-// 	  $pdeptab[1] : contenu de l'onglet 1 (mention de responsabilitÃ©)
+// 	  $pdeptab[1] : contenu de l'onglet 1 (mention de responsabilité)
 //	----------------------------------------------------
 $aut_fonctions= new marc_list('function');
 
@@ -2047,7 +2047,7 @@ $pdeptab[3] = "
 <div id='el5Child' class='child' etirable='yes' title='".htmlentities($msg[264],ENT_QUOTES, $charset)."'>
 
 <div id='el5Child_0' title='".htmlentities($msg[265],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Note gÃ©nÃ©rale    -->
+<!--    Note générale    -->
 <div id='el5Child_0a' class='row'>
     <label for='f_n_gen' class='etiquette'>$msg[265]</label>
 </div>
@@ -2067,7 +2067,7 @@ $pdeptab[3] = "
 </div>
 
 <div id='el5Child_2' title='".htmlentities($msg[267],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    RÃ©sumÃ©/extrait    -->
+<!--    Résumé/extrait    -->
 <div id='el5Child_2a' class='row'>
     <label for='f_n_resume' class='etiquette'>$msg[267]</label>
 </div>
@@ -2093,7 +2093,7 @@ $pdeptab[4] = "
 <div id='el6Child' class='child' etirable='yes' title='".htmlentities($msg[269],ENT_QUOTES, $charset)."'>
 
 <div id='el6Child_0' title='".htmlentities($msg[134],ENT_QUOTES, $charset)."' movable='yes'>
-    <!--    CatÃ©gories    -->
+    <!--    Catégories    -->
     <div id='el6Child_0a' class='row'>
         <label for='f_categ' class='etiquette'>$msg[134]</label>
     </div>
@@ -2195,7 +2195,7 @@ $pdeptab[5] = "
 ";
 
 //    ----------------------------------------------------
-//     Langues rÃ©pÃ©tables
+//     Langues répétables
 //       $ptab[70]
 //    ----------------------------------------------------
 $pdeptab[50] = "
@@ -2218,7 +2218,7 @@ $pdeptab[501] = "
     ";
 
 //    ----------------------------------------------------
-//     Langues originales rÃ©pÃ©tables
+//     Langues originales répétables
 //       $ptab[71]
 //    ----------------------------------------------------
 $pdeptab[51] = "
@@ -2256,7 +2256,7 @@ $pdeptab[6] = "
 <div id='el8Child' class='child' etirable='yes' title='".htmlentities($msg[274],ENT_QUOTES, $charset)."'>
 
 <div id='el8Child_0' title='".htmlentities($msg[275],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    URL associÃ©e    -->
+<!--    URL associée    -->
 <div id='el8Child_0a' class='row'>
     <label for='f_l' class='etiquette'>$msg[275]</label>
 </div>
@@ -2267,7 +2267,7 @@ $pdeptab[6] = "
 </div>
 
 <div id='el8Child_1' title='".htmlentities($msg[276],ENT_QUOTES, $charset)."' movable='yes'>
-<!--    Format Ã©lectronique de la ressource    -->
+<!--    Format électronique de la ressource    -->
 <div id='el8Child_1a' class='row'>
     <label for='f_eformat' class='etiquette'>$msg[276]</label>
 </div>
@@ -2279,8 +2279,8 @@ $pdeptab[6] = "
 ";
 
 //	----------------------------------------------------
-//	Champs personalisÃ©s
-// 	  $ptab[7] : Contenu de l'onglet 7 (champs personalisÃ©s)
+//	Champs personalisés
+// 	  $ptab[7] : Contenu de l'onglet 7 (champs personalisés)
 //	----------------------------------------------------
 
 $pdeptab[7] = "
@@ -2344,12 +2344,13 @@ $pdeptab[8] = "
 
 
 //	-----------------------------------------------------------
-// 	  $analysis_top : formulaire de notice de dÃ©pouillement
+// 	  $analysis_top : formulaire de notice de dépouillement
+global $pmb_catalog_verif_js;
 $analysis_top_form = jscript_unload_question();
 $analysis_top_form.= "
 <!-- script de gestion des onglets -->
-<script type='text/javascript' src='./javascript/tabform.js'>
-</script>
+<script type='text/javascript' src='./javascript/tabform.js'></script>
+".($pmb_catalog_verif_js!= "" ? "<script type='text/javascript' src='./javascript/$pmb_catalog_verif_js'></script>":"")."
 <script type='text/javascript'>
 <!--
 	function test_notice(form)
@@ -2385,8 +2386,13 @@ $analysis_top_form.= "
 	        		alert(\"".$msg['z3950_no_bull_selected']."\")
 	        		return false;
 	        }
-        }
-	  	
+        }";
+if($pmb_catalog_verif_js!= ""){
+	$analysis_top_form.= "
+		var check = check_perso_analysis_form()
+		if(check == false) return false;";
+} 
+$analysis_top_form.= "
 		return check_form();
 	}
 -->
@@ -2400,11 +2406,13 @@ if ($pmb_form_editables==1) $analysis_top_form.="<input type='button' class='bou
 $analysis_top_form.="</div></h3>&nbsp; 
 <div class='form-contenu'>
 <div class='row'>
+	!!doc_type!!  !!location!!
+</div>
+<div class='row'>
 	<a href=\"javascript:expandAll()\"><img src='./images/expand_all.gif' border='0' id=\"expandall\"></a>
 	<a href=\"javascript:collapseAll()\"><img src='./images/collapse_all.gif' border='0' id=\"collapseall\"></a>";
 
 $analysis_top_form .= "
-	<input type=\"hidden\" name=\"typdoc\" value=\"!!doc_type!!\">!!location!!
 	<input type=\"hidden\" name=\"b_level\" value=\"!!b_level!!\">
 	<input type=\"hidden\" name=\"h_level\" value=\"!!h_level!!\">
 	<input type=\"hidden\" name=\"serial_id\" id=\"serial_id\" value=\"!!id!!\">
@@ -2498,9 +2506,10 @@ $liste_debut ="
 
 $liste_fin = "";
 
-// template pour le form de saisie code barre (pÃ©riodiques)
-// crÃ©ation d'un exemplaire rattachÃ© Ã  un bulletin
-if($pmb_numero_exemplaire_auto>0) $num_exemplaire_test="if(eval(form.option_num_auto.checked == false ))";
+// template pour le form de saisie code barre (périodiques)
+// création d'un exemplaire rattaché à un bulletin
+//if($pmb_numero_exemplaire_auto>0) $num_exemplaire_test="if(eval(form.option_num_auto.checked == false ))";
+if($pmb_numero_exemplaire_auto==1 || $pmb_numero_exemplaire_auto==3) $num_exemplaire_test="var r=false;try { r=form.option_num_auto.checked;} catch(e) {};if(r==false) ";
 if ($pmb_rfid_activate==1 ) {
 	$num_exemplaire_rfid_test="if(0)";	
 }	
@@ -2711,7 +2720,7 @@ $rfid_script_catalog
 		</div>
 
 	<div class='colonne3'>
-		<!-- propriÃ©taire -->
+		<!-- propriétaire -->
 		<label class='etiquette' for='f_ex_owner'>$msg[651]</label> 
 		<div class='row'>
 			!!owner!!
@@ -3050,7 +3059,7 @@ function calcule_section(selectBox) {
 		</div>
 	
 		<div class='colonne3'>
-			<!-- propriÃ©taire -->
+			<!-- propriétaire -->
 			<label class='etiquette' for='f_ex_owner'>$msg[651]</label> 
 			<div class='row'>
 				!!owner!!
@@ -3085,7 +3094,7 @@ function calcule_section(selectBox) {
 		<label class='etiquette' for='f_ex_comment'>$msg[expl_zone_comment]</label>
 	</div>
 	<div class='row'>
-		<textarea name='f_ex_comment' id='f_ex_comment' class='saisie-80em'>!!comment!!</textarea>
+		<textarea name='expl_comment' id='f_ex_comment' class='saisie-80em'>!!comment!!</textarea>
 	</div>
 	
 	<!-- prix -->

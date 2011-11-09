@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- liste des enrichissements de notice 
+$Id: categories.xml,v 1.1.2.1 2011-06-24 08:16:03 arenou Exp $ -->
+
+<XMLlist>
+	<entry code="resume">msg:source_enrichment_resume</entry>
+	<entry code="bio">msg:source_enrichment_bio</entry>
+	<entry code="sommaire">msg:source_enrichment_sommaire</entry>
+	<entry code="books">msg:source_enrichment_books</entry>
+	<entry code="similarities">msg:source_enrichment_similarities</entry>
+	<entry code="critique">msg:source_enrichment_critique</entry>
+	<entry code="citation">msg:source_enrichment_citation</entry>
+</XMLlist>

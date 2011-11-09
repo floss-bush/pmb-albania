@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bull_info.inc.php,v 1.46 2010-05-25 08:21:30 mbertin Exp $
+// $Id: bull_info.inc.php,v 1.47.2.1 2011-08-31 09:20:45 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -183,7 +183,7 @@ function get_analysis($bul_id) {
 } 
 
 // affichage d'informations pour une entrée de bulletinage
-function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0 ) {
+function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0, $flag_pointe=0 ) {
 	global $dbh;
 	global $msg, $base_path, $charset;
 	global $liste_script;
@@ -243,8 +243,11 @@ function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0 )
 			} else 
 				$cart_link="" ;
 				
-			if ($lien_cart_suppr) 
-				$cart_link .= "<a href='$url_base_suppr_cart&action=del_item&object_type=BULL&item=$bul_id&page=$page_suppr&nbr_lignes=$nb_after_suppr&nb_per_page=$nb_per_page'><img src='./images/basket_empty_20x20.gif' align='middle' alt='basket' title=\"".$msg[caddie_icone_suppr_elt]."\" /></a>";
+			if ($lien_cart_suppr) {
+				if ($flag_pointe) $marque_flag ="<img src='images/tick.gif'/>" ;
+				else $marque_flag ="" ;
+				$cart_link .= "<a href='$url_base_suppr_cart&action=del_item&object_type=BULL&item=$bul_id&page=$page_suppr&nbr_lignes=$nb_after_suppr&nb_per_page=$nb_per_page'><img src='./images/basket_empty_20x20.gif' align='middle' alt='basket' title=\"".$msg[caddie_icone_suppr_elt]."\" /></a> $marque_flag";
+			}
 				
 		}else{
 			$myBul = new bulletinage($bul_id, 0, "");
@@ -289,7 +292,7 @@ function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0 )
 			// inclusion du javascript inline
 			$liste_dep .= $liste_script;
 		} else {
-			$liste_dep .= "<div class='row'>Pas de dépouillement</div>";
+			$liste_dep .= "<div class='row'>".htmlentities($msg['bull_no_item'],ENT_QUOTES,$charset)."</div>";
 		}
 		$affichage_final .= "
 			<div class='depouillements-perio'>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: aligastore.class.php,v 1.9 2009-06-16 12:52:13 erwanmartin Exp $
+// $Id: aligastore.class.php,v 1.10 2011-04-15 15:16:00 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -811,6 +811,133 @@ class aligastore extends connector {
 			$this->fetch_and_record_notice($isbn, $xsl_transform);
 		}
 
+	}
+			
+	function enrichment_is_allow(){
+		return true;
+	}
+	
+	function getEnrichmentHeader(){
+		$header= array();
+		$header[]= "<!-- Script d'enrichissement pour Alligastore-->";
+		return $header;
+	}
+	
+	function getTypeOfEnrichment($source_id){
+		$type['type'] = array(
+			"resume",
+			"sommaire",
+			"bio"
+		);		
+		$type['source_id'] = $source_id;
+		return $type;		
+	}
+	
+	function getEnrichment($notice_id,$source_id,$type=""){
+		$enrichment= array();
+		$infos = $this->getNoticeInfos($notice_id,$source_id);
+		//on renvoi ce qui est demandé... si on demande rien, on renvoi tout..
+		switch ($type){
+			case "resume" :
+				if($infos['resume']) $enrichment['resume']['content'] = $infos['resume'];
+				else $enrichment['resume']['content'] = $this->msg['aliga_enrichment_no_resume'];
+				break;
+			case "sommaire" :
+				if($infos['sommaire']) $enrichment['sommaire']['content'] = $infos['sommaire'];
+				else $enrichment['sommaire']['content'] = $this->msg['aliga_enrichment_no_sommaire'];
+				break;
+			case "bio" :
+				if($infos['bio']) $enrichment['bio']['content'] = $infos['bio'];
+				else $enrichment['bio']['content'] = $this->msg['aliga_enrichment_no_bio'];
+				break;
+			default :
+				if($infos['resume']) $enrichment['resume']['content'] = $infos['resume'];
+				else $enrichment['resume']['content'] = $this->msg['aliga_enrichment_no_resume'];
+				if($infos['sommaire']) $enrichment['sommaire']['content'] = $infos['sommaire'];
+				else $enrichment['sommaire']['content'] = $this->msg['aliga_enrichment_no_sommaire'];
+				if($infos['bio']) $enrichment['bio']['content'] = $infos['bio'];
+				else $enrichment['bio']['content'] = $this->msg['aliga_enrichment_no_bio'];
+				break;
+		}		
+		
+		$enrichment['source_label']=$this->msg['aliga_enrichment_source'];	
+		return $enrichment;
+	}
+	
+	function getNoticeInfos($notice_id,$source_id){
+		global $base_path,$charset;
+		$this->initSource($source_id);
+		$return = array();
+		$rqt = "select code from notices where notice_id = '".$notice_id."'";
+		$res = mysql_query($rqt);
+		if(mysql_num_rows($res)){
+			$code = mysql_result($res,0,0);
+			$code = preg_replace('/-|\.| /', '', $code);
+			if($code != ""){
+				$parameters = array(
+					"LOG" => $this->username,
+					"PASS" => $this->password,
+					"GcdFab" => $code
+				);
+				$arequest = new aligastore_request($this->url, $parameters);
+				$arequest->aligastore_response();
+			//	$xsl_transform = file_get_contents($base_path."/admin/connecteurs/in/aligastore/xslt/aligatopmbunimarx.xsl");
+				$xsl_transform = file_get_contents($base_path."/admin/connecteurs/in/aligastore/xslt/aligaEnrichment.xsl");
+				if ($arequest->data){
+					file_put_contents("/home/arenou/public_html/alligastore.xml",$arequest->data);
+					$arequest->data = $this->apply_xsl_to_xml($arequest->data, $xsl_transform);
+					file_put_contents("/home/arenou/public_html/alligastore-convert.xml",$arequest->data);
+					$dom=new xml_dom_aligastore($arequest->data,$charset, false);
+					$return['resume'] = $dom->get_value("enrichment/resume");
+					$return['bio'] = $dom->get_value("enrichment/biographie");
+					$return['sommaire'] = $dom->get_value("enrichment/sommaire");
+				} 
+			}
+		}
+		return $return;
+	}
+	
+	function initSource($source_id){
+		$params=$this->get_source_params($source_id);
+		$this->fetch_global_properties();
+		if ($params["PARAMETERS"]) {
+			//Affichage du formulaire avec $params["PARAMETERS"]
+			$vars=unserialize($params["PARAMETERS"]);
+			foreach ($vars as $key=>$val) {
+				global $$key;
+				$$key=$val;
+			}	
+		}
+		if (!isset($url))
+			$url = "";
+		if (!isset($username))
+			$username = "";
+		if (!isset($password))
+			$password = "";
+		if (!isset($fetch_images))
+			$fetch_images = 0;
+		if (!isset($image_folder))
+			$image_folder = 0;
+		if (!isset($image_folder_public))
+			$image_folder_public = 0;
+		if (!isset($image_thumb_url))
+			$image_thumb_url = 0;
+		if (!isset($image_front))
+			$image_front = 0;
+		if (!isset($image_back))
+			$image_back = 0;
+
+		$this->url = $url;
+		$this->username = $username;
+		$this->password = $password;
+		$this->source_id = $source_id;
+		$this->search_id = 0;
+		$this->image_thumb_url = $image_thumb_url;
+		$this->image_front = $image_front;
+		$this->image_back = $image_back;
+		$this->image_folder = $image_folder;
+		$this->image_folder_url = $image_folder_public;
+		$this->fetchimages = $fetch_images;
 	}
 }
 ?>

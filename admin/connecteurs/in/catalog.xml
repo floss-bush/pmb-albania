@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: catalog.xml,v 1.10 2010-10-08 15:05:04 dgoron Exp $ -->
+$Id: catalog.xml,v 1.12.2.1 2011-06-24 08:16:04 arenou Exp $ -->
 
 <catalog>
 	<item name="Z 39.50" path="z3950" id="1"/>
@@ -14,7 +14,10 @@ $Id: catalog.xml,v 1.10 2010-10-08 15:05:04 dgoron Exp $ -->
 	<item name="entrez" path="entrez" id="7"/>
 	<item name="cfile" path="cfile" id="6"/>
 	<item name="Amazon ECommerce Service" path="amazon" id="4"/>
-	<item name="Lehmanns.de" path="lehmanns" id="5"/>
+	<item name="Lehmanns.de" path="lehmanns" id="10"/>
 	<item name="Agnostic" path="agnostic" id="8"/>
 	<item name="Pmb" path="pmb" id="9"/>	
+	<item name="Nasa ADS" path="nasa_ads" id="11"/>	
+	<item name="Google Books" path="google_book" id="12"/>
+	<item name="Babelio" path="babelio" id="13"/>
 </catalog>

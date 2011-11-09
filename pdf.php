@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pdf.php,v 1.33 2010-05-21 15:20:46 mbertin Exp $
+// $Id: pdf.php,v 1.34 2011-04-15 15:01:59 touraine37 Exp $
 
 // définition du minimum nécéssaire 
 $base_path=".";                            
@@ -50,6 +50,10 @@ switch ($pdfdoc) {
 	case 'liste_pret':
 		if(SESSrights & CIRCULATION_AUTH) include("./edit/liste_pret.inc.php");
 			else echo "<script> self.close(); </script>" ;
+		break;
+	case 'mail_liste_pret':
+		if(SESSrights & CIRCULATION_AUTH) include("./circ/ticket-pret-electro.inc.php");
+		echo "<script> self.close(); </script>" ;
 		break;
 	case 'lettre_retard':
 		if ($niveau) $relance=$niveau; else $relance=1;

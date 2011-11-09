@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: curl.class.php,v 1.2 2010-10-25 13:10:34 mbertin Exp $
+// $Id: curl.class.php,v 1.2.2.3 2011-06-14 06:07:36 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -33,6 +33,7 @@ class Curl {
 	# Variables qui empechent le dépassement mémoire
 	var $limit=0;	
 	var $body_overflow;
+	var $timeout=0;
 	
 	function Curl() {
 		$this->__construct();
@@ -148,6 +149,10 @@ class Curl {
 		$this->handle = curl_init();
 		
 		# Set some default CURL options
+		if ($this->timeout) {
+			curl_setopt($this->handle, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+			curl_setopt($this->handle, CURLOPT_TIMEOUT, $this->timeout);
+		}
 		curl_setopt($this->handle, CURLOPT_COOKIEFILE, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_COOKIEJAR, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_FOLLOWLOCATION, true);

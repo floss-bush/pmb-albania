@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cfile.class.php,v 1.7 2009-11-06 16:38:23 gueluneau Exp $
+// $Id: cfile.class.php,v 1.7.4.1 2011-09-06 09:11:23 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -104,7 +104,7 @@ class cfile extends connector {
 		$convert_select .= '<option '.$selected.' value="none_xml">'.$this->msg["cfile_noconversion_pmbxml"].'</option>';
 		foreach($catalogs as $catalog) {
 			$selected = $convert_type == $catalog["path"] ? "selected" : "";
-			$convert_select .= '<option '.$selected.' value="'.$catalog["path"].'">'.htmlentities($catalog["name"]).'</option>';			
+			$convert_select .= '<option '.$selected.' value="'.$catalog["path"].'">'.htmlentities($catalog["name"],ENT_QUOTES,$charset).'</option>';			
 		}
 		$convert_select .= '</select>';
 

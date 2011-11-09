@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
+$Id: manifest.xml,v 1.12 2011-03-10 09:08:11 arenou Exp $ -->
 <manifest>
 	<name>pmbesSearch</name>
 	<description>msg:search_functions_description</description>
@@ -261,8 +261,8 @@ $Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
 					<result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
 						<result name="aItem" type="scalar" dataType="item"/>                         
 					</result>                                                                            
-					<result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
-						<result name="aDocNum" type="scalar" dataType="explNum"/>                    
+					<result name="noticesExplNum" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+						<result name="aExplNum" type="scalar" dataType="explNum"/>                    
 					</result>                                                                            
 					<result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>                 
@@ -296,8 +296,8 @@ $Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
 					<result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
 						<result name="aItem" type="scalar" dataType="item"/>                         
 					</result>                                                                            
-					<result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
-						<result name="aDocNum" type="scalar" dataType="explNum"/>                    
+					<result name="noticeExplNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+						<result name="aExplNum" type="scalar" dataType="explNum"/>                    
 					</result>                                                                            
 					<result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>                 
@@ -330,8 +330,8 @@ $Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
 					<result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
 						<result name="aItem" type="scalar" dataType="item"/>                         
 					</result>                                                                            
-					<result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
-						<result name="aDocNum" type="scalar" dataType="explNum"/>                    
+					<result name="noticeExplNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+						<result name="aExplNum" type="scalar" dataType="explNum"/>                    
 					</result>                                                                            
 					<result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>                 
@@ -365,8 +365,8 @@ $Id: manifest.xml,v 1.11 2010-12-14 10:45:13 gueluneau Exp $ -->
 					<result name="noticeItems" type="array" description="msg:fetchNoticeListFull_results_noticeItems">                                                                                                                
 						<result name="aItem" type="scalar" dataType="item"/>                         
 					</result>                                                                            
-					<result name="noticeDocNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
-						<result name="aDocNum" type="scalar" dataType="explNum"/>                    
+					<result name="noticeExplNums" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">                                                                                                            
+						<result name="aExplNum" type="scalar" dataType="explNum"/>                    
 					</result>                                                                            
 					<result name="noticeBulletins" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>                 

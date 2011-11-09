@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: external.inc.php,v 1.6 2008-09-16 21:51:29 touraine37 Exp $
+// $Id: external.inc.php,v 1.7.2.1 2011-06-23 13:47:07 arenou Exp $
 
 //Fonctions pour les recherches externes
 
@@ -19,11 +19,14 @@ function entrepot_to_unimarc($recid) {
 	
 	$requete="select * from entrepot_source_$source_id where recid='".addslashes($recid)."' group by ufield,usubfield,field_order,subfield_order,value order by field_order,subfield_order";
 	$resultat = mysql_query($requete, $dbh);
-	
 	$unimarc=new iso2709_record("",USER_UPDATE);
 	
 	$field_order=-1;
 	$field=$r->ufield;
+	$field_ind= $r->field_ind;
+	while(strlen($field_ind)<2){
+		$field_ind.= ' ';
+	}
 	$sfields=array();
 	
 	while ($r=mysql_fetch_object($resultat)) {
@@ -51,9 +54,13 @@ function entrepot_to_unimarc($recid) {
 			default:
 				if ($field_order!=$r->field_order) {
 					if (count($sfields)) {
-						$unimarc->add_field($field,'  ',$sfields);
+						$unimarc->add_field($field,$field_ind,$sfields);
 					}
 					$field=$r->ufield;
+					$field_ind= $r->field_ind;
+					while(strlen($field_ind)<2){
+						$field_ind.= ' ';
+					}
 					$sfields=array();
 					$field_order=$r->field_order;
 				}
@@ -67,9 +74,29 @@ function entrepot_to_unimarc($recid) {
 		}
 	}
 	if (count($sfields)) {
-		$unimarc->add_field($field,'  ',$sfields);
+		$unimarc->add_field($field,$field_ind,$sfields);
 	}
 	$unimarc->update();
-	return $unimarc->full_record;
+	return array('notice' => $unimarc->full_record, 'source_id' => $source_id);
+}
+
+function suppr_item_to_entrepot($item){
+	global $dbh;
+	
+	$requete = "SELECT source_id FROM external_count WHERE rid=".addslashes($item).";";
+	$myQuery = mysql_query($requete, $dbh);
+	//on évite les mauvaises surprises (genre rechargement de page...)
+	if(mysql_num_rows($myQuery)){
+		$source_id = mysql_result($myQuery, 0, 0);
+		if($source_id){
+			//on supprime les infos
+			$requete="delete from entrepot_source_$source_id where recid='".addslashes($item)."'";
+			$resultat = mysql_query($requete, $dbh);
+			//on supprime la référence
+			$requete = "delete from external_count WHERE rid=".addslashes($item).";";
+			$myQuery = mysql_query($requete, $dbh);
+			
+		}
+	}
 }
 ?>

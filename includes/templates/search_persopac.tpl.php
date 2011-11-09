@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search_persopac.tpl.php,v 1.4 2009-05-20 15:19:29 kantin Exp $
+// $Id: search_persopac.tpl.php,v 1.5 2011-01-27 10:26:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -86,7 +86,10 @@ function check_link(id) {
 		<div class='row'>
 			<input value='1' name='limitsearch' !!limitsearch!! type='checkbox'>
 			<label for='limitsearch' class='etiquette'>".$msg["search_perso_form_limitsearch"]."</label>  
-		</div>			
+		</div>
+		<div class='row'>
+				!!categorie!!
+		</div>				
 	</div>
 	<input type='hidden' name='query' value='!!query!!' />
 	<input type='hidden' name='id' value='!!id!!' />

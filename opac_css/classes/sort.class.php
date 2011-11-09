@@ -2,13 +2,14 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.class.php,v 1.21 2010-12-03 16:39:44 arenou Exp $
+// $Id: sort.class.php,v 1.23.2.4 2011-07-21 08:51:35 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
 
 require_once ($include_path . "/parser.inc.php");
 require_once ($include_path . "/templates/sort.tpl.php");
+require_once ($class_path . "/parametres_perso.class.php");
 
 /**
  * Classe d'abstraction d'acces aux données des tris stockés
@@ -263,6 +264,7 @@ class sort {
 	var $table_select; //table éventuelle à retourner dans la requête
 	var $table_primary_key_select; //clé de la table éventuelle à retourner dans la requête
 	var $dSort; // objet d'acces aux informations 
+	private static $nb_instance = 1;
 
 
 	/**
@@ -275,7 +277,8 @@ class sort {
 		} else {
 			$sname = 'notices';
 		}
-		
+		$this->table_tri_tempo .= "_".self::$nb_instance;
+		self::$nb_instance++;
 		
 		if ($accesTri) {
 			$this->dSort = new dataSort($sname,$accesTri);
@@ -406,7 +409,10 @@ class sort {
 
 							//la liste des champs sélectionnés
 							$liste_selectionnes .= "<option value='" . $tri_par1[0] . "_" . $tri_par1[1] . "_" . $tri_par1[2] . "'>";
-							$liste_selectionnes .= $debut . "" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset);
+							//si champ perso, on a déjà le libellé
+							if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+							else $name = $msg[$fields[$j]['NAME']]; 
+							$liste_selectionnes .= $debut . "" . htmlentities($name, ENT_QUOTES, $charset);
 							$liste_selectionnes .= "</option>\n";
 							
 							//ce champ est utilise donc on ne l'affichera pas
@@ -419,15 +425,23 @@ class sort {
 				//on créé la liste des criteres restants
 				for ($j = 0; $j < count($fields); $j++) {
 					// sans les champs déja utilisés
-					if ($fields[$j]["UTILISE"]!=true)
-						$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset) . "</option>\n";
+					if ($fields[$j]["UTILISE"]!=true){
+						//si champ perso, on a déjà le libellé
+						if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+						else $name = $msg[$fields[$j]['NAME']]; 
+						$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($name, ENT_QUOTES, $charset) . "</option>\n"; 
+					}
+						
 				}
 				
 			}
 		} else {
 			//on créé la liste des criteres
 			for ($j = 0; $j < count($fields); $j++) {
-				$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset) . "</option>\n";
+				//si champ perso, on a déjà le libellé
+				if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+				else $name = $msg[$fields[$j]['NAME']]; 
+				$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($name, ENT_QUOTES, $charset) . "</option>\n";
 			}
 		}
 
@@ -451,7 +465,10 @@ class sort {
 		$fields = $this->params["FIELD"];
 
     	for ($i=0;$i<count($fields);$i++) {
-    		$liste_criteres.="<option value='".$fields[$i]["ID"]."'>".htmlentities($msg[$fields[$i]["NAME"]],ENT_QUOTES,$charset)."</option>\n";
+    		//si champ perso, on a déjà le libellé
+			if($fields[$i]['SOURCE'] == "cp") $name = $fields[$i]['LABEL'];
+			else $name = $msg[$fields[$i]['NAME']]; 
+    		$liste_criteres.="<option value='".$fields[$i]["ID"]."'>".htmlentities($name,ENT_QUOTES,$charset)."</option>\n";
     	}
     	
     	$listes_tri = "";
@@ -558,13 +575,14 @@ class sort {
 		//récuperations des champs
 		$fields = $this->params["FIELD"];
 		$tableEnCours = $this->table_tri_tempo;
+		
 
 		//creation de la table de tri
 		//$cmd_table = "DROP TABLE " . $tableEnCours;
 		//mysql_query ($cmd_table);
 		//$cmd_table = "CREATE TABLE " . $tableEnCours . " ENGINE=MyISAM (".$selectTempo.")";
 		$cmd_table = "CREATE TEMPORARY TABLE " . $tableEnCours . " ENGINE=MyISAM (".$selectTempo.")";
-		//echo $cmd_table."<br />";
+		
 		mysql_query ($cmd_table);
 		$cmd_table = "ALTER TABLE " . $tableEnCours . " PRIMARY KEY " . $nomColonneIndex;
 		mysql_query ($cmd_table);	
@@ -628,7 +646,13 @@ class sort {
 								//echo("updateSort:".$requete."<br />");
 								mysql_query ($requete);
 							}
-
+							
+							//on a aussi des champs persos maitenant...
+							if($fields[$i]['SOURCE'] == "cp"){
+								$requete = $this->generateRequeteCPUpdate($fields[$i], $tableEnCours, $nomChamp);
+								mysql_query ($requete);
+							}
+							
 							break;
 
 					} //switch
@@ -644,20 +668,19 @@ class sort {
 
 			//on va classer la table tempo suivant les criteres donnés
 			$requete = "ALTER TABLE " . $tableEnCours ." ORDER BY ". $orderby;
-			//echo("alter:".$requete."<br />");
 			mysql_query ($requete);
 		}
 
 		//on retourne la requete sur la table de tri
     	if ($this->table_select!="") {
-    		//c'est une requete avec des informations extérieurs
+    		//c'est une requete avec des informations extérieures
     		$requete = "SELECT " . $nomColonneIndex . "," . $this->champs_select;
     		$requete .= " FROM " . $this->table_tri_tempo . "," . $this->table_select;
     		$requete .= " WHERE " . $this->table_select . "." . $this->table_primary_key_select;
     		$requete .= "=" . $this->table_tri_tempo . "." . $nomColonneIndex;
     		$requete .= " GROUP BY " . $nomColonneIndex;	
     		if ($orderby!="") $requete .= " ORDER BY " . $orderby;
-    		$requete .= " LIMIT " . $debLimit . "," . $nbLimit;
+    		if ($nbLimit>0) $requete .= " LIMIT " . $debLimit . "," . $nbLimit;
     	} else {
 			if ($nbLimit>0) {
 	    		//requete de base sur la table triée avec limit
@@ -667,9 +690,7 @@ class sort {
 				$requete = "SELECT " . $nomColonneIndex . " FROM " . $tableEnCours;
 			}
     	}
-    	
-    	//echo $requete."<br />";
-		return $requete;
+ 		return $requete;
 
 	}
 	
@@ -724,10 +745,6 @@ class sort {
 	 */
 	function genereRequeteUpdate($desTable, $nomTable, $nomChp, $nomColonneTempo) {
 
-
-		//echo "desTable:";
-		//print_r($desTable);
-		
 		$tables = $nomTable . "," .$this->params["REFERENCE"];
 		$groupby = "";
 		
@@ -740,36 +757,41 @@ class sort {
 		//On ajout les éventuelles liaisons
 		//
 		for ($x = 0; $x <= count($desTable["LINK"]); $x++) {
+			if($desTable["LINK"][$x]["TABLE"][0]['ALIAS']){
+				$alias = $desTable["LINK"][$x]["TABLE"][0]['ALIAS'];
+			}else{
+				$alias =$desTable["LINK"][$x]["TABLE"][0]['value'];
+			}
 			switch ($desTable["LINK"][$x]["TYPE"]) {
 				case "n1" :
-					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
-						$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0][value];
-						$extractinfo_sql .= " ON " . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
+					if ($desTable["LINK"][$x]["TABLEKEY"][0]['value']) {
+						$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0]['value'].($desTable["LINK"][$x]["TABLE"][0]['value'] != $alias  ? " AS ".$alias : "");
+						$extractinfo_sql .= " ON " . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
+						$extractinfo_sql .= "=" . $alias . "." . $desTable["LINK"][$x]["TABLEKEY"][0]['value'];
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON " . $this->params["REFERENCE"] . "." . $this->params["REFERENCEKEY"];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
 					}
 					break;
 				case "1n" :
 					$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-					$extractinfo_sql .= " ON (" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value];
-					$extractinfo_sql .= "=" . $this->params["REFERENCE"] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0][value] . ") ";
+					$extractinfo_sql .= " ON (" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0]['value'];
+					$extractinfo_sql .= "=" . $this->params["REFERENCE"] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0]['value'] . ") ";
 					break;
 				case "nn" :
-					$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0][value];
+					$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0]['value'].($desTable["LINK"][$x]["TABLE"][0]['value'] != $alias  ? " AS ".$alias : "");
 					$extractinfo_sql .= " ON (" . $nomTable . "." . $this->params["REFERENCEKEY"];
-					$extractinfo_sql .= "=" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0][value] . ") ";
+					$extractinfo_sql .= "=" . $alias . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0]['value'] . ") ";
 					
-					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
+					if ($desTable["LINK"][$x]["TABLEKEY"][0]['value']) {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value]. ") ";
+						$extractinfo_sql .= " ON (" . $alias . "." . $desTable["LINK"][$x]["TABLEKEY"][0]['value'];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0]['value']. ") ";
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value].") ";
+						$extractinfo_sql .= " ON (" . $alias . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0]['value'] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0]['value'].") ";
 						
 					}
 					
@@ -780,6 +802,9 @@ class sort {
 		//
 		//On applique les restrictions GROUP BY et ORDER BY
 		//
+		if (isset($desTable["GROUPBY"])) {
+			$extractinfo_sql .= " GROUP BY ".$desTable["GROUPBY"][0]["value"];		
+		}		
 		if (isset($desTable["ORDERBY"])) {
 			$extractinfo_sql .= " ORDER BY ".$this->ajoutIfNull($desTable["ORDERBY"][0]);		
 		}
@@ -790,15 +815,13 @@ class sort {
 			$extractinfo_sql .= " GROUP BY ".$desTable["GROUPBY"][0]["value"];
 		}
 
-		//echo '<br /><br />'.$extractinfo_sql.'<br /><br />';
-
 		//
 		//On met le tout dans une table temporaire
 		//
 		$sql = "DROP TEMPORARY TABLE IF EXISTS ".$nomTable."_update";
 		mysql_query($sql);
 		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$extractinfo_sql.")";
-		//echo '<br /><br />'.$temporary2_sql.'<br /><br />';
+		
 		mysql_query($temporary2_sql);
 		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
 
@@ -811,6 +834,7 @@ class sort {
 		//le lien vers la table de tri temporaire
 		$requete .= " WHERE " . $nomTable.".".$this->params["REFERENCEKEY"];
 		$requete .= "=" . $nomTable."_update.".$this->params["REFERENCEKEY"];
+		$requete .= " AND ".$this->params["REFERENCE"].".".$this->params["REFERENCEKEY"]."=".$nomTable.".".$this->params["REFERENCEKEY"];
 		$requete .= " AND ".$nomTable."_update.".$nomChp." IS NOT NULL";
 		$requete .= " AND ".$nomTable."_update.".$nomChp." != ''";
 		
@@ -821,7 +845,6 @@ class sort {
 		}
 
 		return $requete;
-		
 	}
 
 
@@ -846,7 +869,7 @@ class sort {
 	function parse() {
 		global $include_path;
 		global $$params_name;
-		
+		global $charset;
 		$params_name = $this->dSort->sortName . "_params";
 		$params = $$params_name;
 
@@ -855,7 +878,10 @@ class sort {
 		} else {
 			$nomfichier = $include_path . "/sort/" . $this->dSort->sortName . "/sort.xml";
 
-			if (file_exists($nomfichier)) {
+			if (file_exists($include_path . "/sort/" . $this->dSort->sortName . "/sort_subst.xml")) {
+				$nomfichier=$include_path . "/sort/" . $this->dSort->sortName . "/sort_subst.xml";
+				$fp = fopen($nomfichier, "r");
+			} else if (file_exists($nomfichier)) {
 				$fp = fopen($nomfichier, "r");
 			}
 
@@ -873,6 +899,107 @@ class sort {
 				$this->error_message = "Can't open definition file";
 			}
 		}
+				
+		//tri perso
+		$p_perso = new parametres_perso("notices");
+		if(function_exists("param_perso_form")) {
+			param_perso_form($p_perso);			
+		}
+		
+		foreach($p_perso->t_fields as $key => $t_field){	
+			if($t_field['OPAC_SHOW']){
+				$param=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$t_field['OPTIONS'], "OPTIONS");
+				switch($t_field['TYPE']){
+					case "comment" :
+					case "text":
+						if($param['REPETABLE'][0]['value']){
+							$tablefield = "group_concat(".$p_perso->prefix."_custom_".$t_field['DATATYPE']." separator ' ')";
+							$groupby = "group by notice_id";
+						}else{
+							$tablefield = $p_perso->prefix."_custom_".$t_field['DATATYPE'];
+							$groupby = "";
+						}
+						$p_tri = array(
+							'SOURCE' => "cp",
+							'TYPEFIELD' => "select",
+							'ID' => "cp".$key,
+							'TYPE' => "text",
+							'NAME' => $t_field['NAME'],
+							'LABEL' => $t_field['TITRE'],
+							'TABLEFIELD' => array('value'=>$tablefield),
+							'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine where ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ = '".$key."' ".$groupby 
+						);
+						break;
+					case "list":
+						if($param['MULTIPLE'][0]['value']){
+							$tablefield = "group_concat(".$p_perso->prefix."_custom_list_lib separator ' ')";
+							$groupby = "group by notice_id";
+						}else{
+							$tablefield = $p_perso->prefix."_custom_list_lib";
+							$groupby = "";
+						}				
+						$p_tri = array(
+							'SOURCE' => "cp",
+							'TYPEFIELD' => "select",
+							'ID' => "cp".$key,
+							'TYPE' => "text",
+							'NAME' => $t_field['NAME'],
+							'LABEL' => $t_field['TITRE'],
+							'TABLEFIELD' => array('value'=>$tablefield),
+							'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine 
+left join ".$p_perso->prefix."_custom_lists on ".$p_perso->prefix."_custom_".$t_field['DATATYPE']." = ".$p_perso->prefix."_custom_list_value 
+where ".$p_perso->prefix."_custom_lists.".$p_perso->prefix."_custom_champ ='".$key."' and ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ ='".$key."'  ".$groupby 
+						);
+						break;
+					case "date_box" :
+						$p_tri = array(
+							'SOURCE' => "cp",
+							'TYPEFIELD' => "select",
+							'ID' => "cp".$key,
+							'TYPE' => "text",
+							'NAME' => $t_field['NAME'],
+							'LABEL' => $t_field['TITRE'],
+							'TABLEFIELD' => array('value'=>$p_perso->prefix."_custom_".$t_field['DATATYPE']),
+							'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine where ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ = '".$key."'"
+						);
+						break;
+					default : 
+						$p_tri =array();
+						break;
+				}
+				if($p_tri)$this->params['FIELD'][]=$p_tri;
+			}
+		}
+	}
+	
+	function generateRequeteCPUpdate($field, $nomTable, $nomChp){
+		$requete = "
+			SELECT 
+				".$this->params['REFERENCE'].'.'.$this->params['REFERENCEKEY'].", 
+				".$this->ajoutIfNull($field['TABLEFIELD'])." AS ".$nomChp." 
+			FROM ".$nomTable." LEFT JOIN ".$this->params['REFERENCE']." ON (".$this->params['REFERENCE'].".".$this->params['REFERENCEKEY']." = ".$nomTable.".".$this->params['REFERENCEKEY'].") 
+				".$field['REQ_SUITE'];
+
+		//On met le tout dans une table temporaire
+		$sql = "DROP TEMPORARY TABLE IF EXISTS ".$nomTable."_update";
+		mysql_query($sql);
+		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$requete.")";
+		mysql_query($temporary2_sql);
+		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
+	
+		//
+		//Et on rempli la table tri_tempo avec les éléments de la table temporaire
+		//
+		$requete = "UPDATE ".$nomTable.", ".$nomTable."_update";
+		$requete .= " SET " . $nomTable.".".$nomChp . " = " . $nomTable."_update.".$nomChp;
+		
+		//le lien vers la table de tri temporaire
+		$requete .= " WHERE " . $nomTable.".".$this->params["REFERENCEKEY"];
+		$requete .= "=" . $nomTable."_update.".$this->params["REFERENCEKEY"];
+		$requete .= " AND ".$nomTable."_update.".$nomChp." IS NOT NULL";
+		$requete .= " AND ".$nomTable."_update.".$nomChp." != ''";
+
+		return $requete;
 	}
 }
 ?>

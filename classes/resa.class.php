@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa.class.php,v 1.28 2010-08-05 14:45:33 erwanmartin Exp $
+// $Id: resa.class.php,v 1.30.2.1 2011-06-22 13:21:40 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -129,7 +129,7 @@ if ( ! defined( 'RESA_CLASS' ) ) {
 		}
 		
 		function check_localisation_expl() {
-			global $dbh,$msg;
+			global $dbh,$msg,$pmb_transferts_actif, $transferts_choix_lieu_opac;
 			// recup de la localisation de l'emprunteur
 			$query = "select empr_location from empr where id_empr=".$this->id_empr;
 			$res = mysql_query($query, $dbh);			
@@ -139,26 +139,39 @@ if ( ! defined( 'RESA_CLASS' ) ) {
 			if($this->id_notice) $field_expl= " expl_notice=$this->id_notice ";
 			else $field_expl= " expl_bulletin=$this->id_bulletin ";
 			// vérifier si un exemplaire est disponible dans les localisation autorisées
-			$requete="select expl_id from exemplaires e ,docs_statut s
-			where  $field_expl and  expl_location in (select resa_loc  from resa_loc where resa_emprloc=$empr_location )
-			and s.idstatut=e.expl_statut and s.pret_flag=1
-			limit 1";
-
-			$res = mysql_query($requete, $dbh);	
-			if(mysql_num_rows($res)) {
-				return TRUE;							
-			}			
-			// recup de la liste des localisations ou l'emprunteur peut réserver un exemplaire
-			$requete="select location_libelle from resa_loc, docs_location  where resa_emprloc=$empr_location and idlocation=resa_loc";
-			$res = mysql_query($requete, $dbh);	
-			$locations="";
-			if(mysql_num_rows($res)) {
-				while(($row=mysql_fetch_object($res))) {
-					if($locations) $locations.=", ";
-					$locations.=$row->location_libelle;				
+			
+			if ($pmb_transferts_actif && $transferts_choix_lieu_opac !=3) {
+				$transf_possible=" and (s.transfert_flag=1 or expl_location=$empr_location )";
+				$requete="select expl_id from exemplaires e ,docs_statut s
+				where  $field_expl and  expl_location in (select resa_loc  from resa_loc where resa_emprloc=$empr_location )
+				and s.idstatut=e.expl_statut and s.pret_flag=1 $transf_possible limit 1";
+				
+				$res = mysql_query($requete, $dbh);	
+				if(mysql_num_rows($res)) {
+					return TRUE;							
+				}	
+				$this->message = "<strong>".$msg["resa_no_expl_in_location_transferable"]."</strong>";				
+			}else{			
+				$requete="select expl_id from exemplaires e ,docs_statut s
+				where  $field_expl and  expl_location in (select resa_loc  from resa_loc where resa_emprloc=$empr_location )
+				and s.idstatut=e.expl_statut and s.pret_flag=1 limit 1";
+				
+				$res = mysql_query($requete, $dbh);	
+				if(mysql_num_rows($res)) {
+					return TRUE;							
+				}			
+				// recup de la liste des localisations ou l'emprunteur peut réserver un exemplaire
+				$requete="select location_libelle from resa_loc, docs_location  where resa_emprloc=$empr_location and idlocation=resa_loc";
+				$res = mysql_query($requete, $dbh);	
+				$locations="";
+				if(mysql_num_rows($res)) {
+					while(($row=mysql_fetch_object($res))) {
+						if($locations) $locations.=", ";
+						$locations.=$row->location_libelle;				
+					}
 				}
-			}
-			$this->message = "<strong>".str_replace("!!loc_liste!!",$locations,$msg["resa_no_expl_in_location"])."</strong>";
+				$this->message = "<strong>".str_replace("!!loc_liste!!",$locations,$msg["resa_no_expl_in_location"])."</strong>";
+			}	
 			return FALSE;
 		}
 		

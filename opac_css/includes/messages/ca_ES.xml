@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- missatges localitzats en català per l'OPAC de PMB
-$Id: ca_ES.xml,v 1.153 2010-12-20 10:05:05 arenou Exp $ -->
+$Id: ca_ES.xml,v 1.160.2.6 2011-09-23 15:07:16 dgoron Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Operació no autoritzada</entry>
@@ -171,10 +171,10 @@ $Id: ca_ES.xml,v 1.153 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="categs_found">matèries trobades per la cerca</entry>
 <entry code="collections_found">col·leccions trobades per la cerca</entry>
 <entry code="keywords_found">cerca per la paraula clau</entry>
-<entry code="tags_found">search for tag</entry>
+<entry code="tags_found">recerca de l'etiqueta</entry>
 <entry code="tags">Tags :</entry>
 <entry code="tag">Tags</entry>
-<entry code="notice_premiere">first records on</entry>
+<entry code="notice_premiere">primers registres de</entry>
 <entry code="publishers_found">editorials trobades per la cerca</entry>
 <entry code="subcolls_found">subcol·leccions trobades per la cerca</entry>
 <entry code="titles_found">títols trobats per la cerca</entry>
@@ -503,7 +503,7 @@ $Id: ca_ES.xml,v 1.153 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="notice_title_avis">Emetre el comentari</entry>
 <entry code="notice_title_tag">Afegir una paraula clau</entry>
 <entry code="notice_title_basket">Afegir al teu cistell</entry>
-<entry code="notice_toute">See all the records</entry>
+<entry code="notice_toute">Veure tots els registres</entry>
 <entry code="avis_note_1">(dolent) 1</entry>
 <entry code="avis_note_5">5 (excel·lent)</entry>
 <entry code="avis_titre_tous">Tots els comentaris</entry>
@@ -1077,4 +1077,31 @@ Heu de validar aquesta inscripció fent click en l'enllaç o enganxant aquesta adr
 <entry code="subcoll_sort">Títol de la sub-col·lecció</entry>
 <entry code="num_in_coll_sort">Número dins la col·lecció</entry>
 <entry code="authority_query">Sélection d'autorité</entry>
+
+<entry code="etagere_suite">Browse next...</entry>
+<entry code="in_serial">in</entry>
+
+<entry code="date_parution">Date de parution</entry>
+<entry code="biblio_send_by">Cette bibliographie vous est envoyé par :</entry>
+
+<entry code="autre_auteur_sort">Autre(s) auteur(s)</entry>
+<entry code="auteur_secondaire_sort">Auteur(s) secondaire(s)</entry>
+<entry code="perio_title_sort">Titre de Périodique</entry>
+<entry code="bullnum_sort">Numéro du bulletin</entry>
+<entry code="section_sort">Section</entry>
+<entry code="id_notice_sort">Identifiant de la notice</entry>
+<entry code="auteur_principal_sort">Auteur principal</entry>
+
+<entry code="source_enrichment_resume">Résumé</entry>
+<entry code="source_enrichment_sommaire">Sommaire</entry>
+<entry code="source_enrichment_books">Feuilletage</entry>
+<entry code="source_enrichment_bio">Biographie</entry>
+<entry code="source_enrichment_similarities">Similarités</entry>
+<entry code="common_tpl_motto_pmb"><![CDATA[pmb]]></entry>
+<entry code="serial_name_sort">Titre de Périodique</entry>
+<entry code="dsi_bannette_gerer_periodicite">Périodicité (en jours)</entry>
+<entry code="format_date_short">%m/%Y</entry>
+<entry code="format_date_short_input">%d/%d</entry>
+
+<entry code="opac_keywords">OPAC, web, library, opensource, catalog, catalogue, bibliothèque, médiathèque, pmb, phpmybibli</entry>
 </XMLlist>

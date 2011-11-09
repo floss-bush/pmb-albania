@@ -133,6 +133,7 @@
 						<index_l>explnum_index_wew</index_l>
 						<index_i>explnum_index_sew</index_i>
 						<id_field>explnum_notice</id_field>
+						<fulltext>yes</fulltext>
 					</boolean>
 				</var>
 			</query>
@@ -159,6 +160,12 @@
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct responsability_notice as notice_id from responsability,authors where responsability_author=' !!p!! ' and responsability_author=author_id order by index_author]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[SELECT distinct notice_id from notices left join responsability on responsability_notice = notice_id where responsability_author is null order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[SELECT distinct notice_id from notices join responsability on responsability_notice = notice_id join authors on responsability_author=author_id order by index_sew,index_author]]></main>
+			</query>			
 		</field>	
 		<field title="msg:recherche_fonction_auteur" id="49">
 			<input type="marc_list">
@@ -167,6 +174,12 @@
 			</input>
 			<query for="EQ">
 				<main><![CDATA[SELECT distinct responsability_notice as notice_id from responsability where responsability_fonction='!!p!!']]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[SELECT distinct responsability_notice as notice_id from responsability where responsability_fonction='']]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[SELECT distinct responsability_notice as notice_id from responsability where responsability_fonction!='']]></main>
 			</query>
 		</field>	
 		<field title="msg:searcher_publisher" id="3">
@@ -191,6 +204,12 @@
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct notice_id from notices, publishers where (ed_id=ed1_id or ed_id=ed2_id)  and ed_id = !!p!! order by index_publisher]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where ed1_id = 0 and ed2_id = 0 order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices, publishers where (ed1_id != 0 or ed2_id != 0) and (ed_id=ed1_id or ed_id=ed2_id) order by index_publisher, index_sew]]></main>
+			</query>	
 		</field>
 		<field title="msg:annee_edition" id="23">
 			<input type="text"/>
@@ -228,6 +247,12 @@
 			<query for="GTEQ">
 				<main><![CDATA[select distinct notice_id from notices where (year*1>='!!p!!'*1 and year*1>0) order by year]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where year is null or year = '' order by year,index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where year is not null order by year,index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:searcher_coll" id="4">
 			<input type="authoritie" ajax="collections" selector="collection" p1="p1" p2="p2"/>
@@ -249,6 +274,12 @@
 			</query>
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct notice_id from notices, collections where collection_id=!!p!! and coll_id=collection_id order by index_coll]]></main>
+			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where coll_id = 0 order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices join collections on collection_id = coll_id order by index_coll, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:searcher_subcoll" id="5">
@@ -272,6 +303,12 @@
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct notice_id from notices, sub_collections where subcoll_id=!!p!! and subcoll_id=sub_coll_id order by index_sub_coll]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where subcoll_id = 0 order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices join sub_collections on sub_coll_id = subcoll_id order by index_sub_coll, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:serie_query" id="6">
 			<input type="authoritie" ajax="serie" selector="serie" p1="param1" p2="param2"/>
@@ -293,6 +330,12 @@
 			</query>
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct notice_id from notices, series where tparent_id='!!p!!' and tparent_id=serie_id order by serie_index, tnvol, index_sew]]></main>
+			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices where tparent_id = 0 order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices join series on serie_id = tparent_id order by serie_index, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:isbn_query" id="22">
@@ -331,6 +374,12 @@
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct ntu_num_notice as notice_id from  notices_titres_uniformes, titres_uniformes where ntu_num_tu='!!p!!' and ntu_num_tu=tu_id order by index_tu]]></main>
 			</query>
+			<query for='ISEMPTY'>
+				<main><![CDATA[select distinct notice_id from notices left join notices_titres_uniformes on notice_id = ntu_num_notice where ntu_num_notice is null order by index_sew]]></main>
+			</query>
+			<query for='ISNOTEMPTY'>
+				<main><![CDATA[select distinct ntu_num_notice as notice_id from notices_titres_uniformes join titres_uniformes on ntu_num_tu=tu_id order by index_tu]]></main>
+			</query>
 		</field>	
 		<field title="msg:docnum_indexation_contenu" id="52">
 			<input type="text"/>
@@ -347,6 +396,7 @@
 				<index_l>explnum_index_wew</index_l>
 				<index_i>explnum_index_sew</index_i>
 				<id_field>explnum_notice</id_field>
+				<fulltext>yes</fulltext>
 			</query>
 		</field>		
 		<field title="msg:265" id="7" separator="msg:264">
@@ -367,6 +417,12 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices where (n_gen like '!!p!!') order by index_serie, tnvol, index_sew]]></main>
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_gen like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_gen not like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:266" id="8">
 			<input type="text"/>
@@ -385,6 +441,12 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices where (n_contenu like '!!p!!') order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_contenu like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_contenu not like '' order by index_serie, tnvol, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:note_resume_query" id="9">
@@ -405,6 +467,12 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices where (n_resume like '!!p!!') order by index_serie, tnvol, index_sew]]></main>
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_resume like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where n_resume not like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:toutes_notes_query" id="10">
 			<input type="text"/>
@@ -423,6 +491,12 @@
 			</query>
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices where (concat(index_n_gen,index_n_contenu,index_n_resume) like ' !!p!! ')  order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where concat(index_n_gen,index_n_contenu,index_n_resume) like '' order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where concat(index_n_gen,index_n_contenu,index_n_resume) not like '' order by index_serie, tnvol, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:134" id="11" separator="msg:indexations_query">
@@ -548,10 +622,19 @@
 				</part>
 			</query>
 			<query for="AUTHORITY">
-				<main><![CDATA[select distinct notice_id from notices_categories join notices on notcateg_notice = notice_id join categories on notices_categories.num_noeud = categories.num_noeud and langue='!!lang!!' where notices_categories.num_noeud = !!p!! order by index_categorie, index_sew]]></main>
+				<main><![CDATA[select distinct notice_id from notices_categories join notices on notcateg_notice = notice_id where notices_categories.num_noeud = !!p!! order by index_sew]]></main>
+			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices left join notices_categories on notcateg_notice = notice_id where notices_categories.num_noeud is null order by index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices join notices_categories on notcateg_notice = notice_id order by index_sew]]></main>
 			</query>
 		</field>		
 		<field title="msg:search_autopostage_multicritere" id="54">
+			<var name="thesaurus_auto_postage_search" visibility="yes">
+				<value visibility="no">0</value>
+			</var>
 			<input type="authoritie" ajax="categories_mul" selector="categorie" p1="p1" p2="p2"/>
 			<variable name="lang" type="global"/>
 			<variable name="thesaurus_defaut" type="global"/>
@@ -648,6 +731,12 @@
 			<query for="AUTHORITY">
 				<main><![CDATA[select distinct notice_id from notices, indexint where (indexint='!!p!!') and (indexint=indexint_id) order by index_serie, tnvol, index_sew]]></main>
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where indexint=0 order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where indexint!=0 order by index_serie, tnvol, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:324" id="13">
 			<input type="text"/>
@@ -667,6 +756,12 @@
 			<query for="EXACT" regDiacrit="yes">
 				<main><![CDATA[select distinct notice_id from notices where (index_l like '!!p!!') order by index_serie, tnvol, index_sew]]></main>
 			</query>
+			<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where (index_l like '') order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices where (index_l not like '') order by index_serie, tnvol, index_sew]]></main>
+			</query>
 		</field>
 		<field title="msg:langue_publication_query" id="20" separator='msg:537'>
 			<input type="marc_list">
@@ -676,6 +771,13 @@
 			<query for="EQ">
 				<main><![CDATA[SELECT distinct notice_id from notices, notices_langues where code_langue='!!p!!' and type_langue=0 and notice_id=num_notice order by index_serie, tnvol, index_sew]]></main>
 			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from notices left join notices_langues on type_langue=0 and num_notice = notice_id where code_langue is null order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from notices join notices_langues on type_langue=0 and num_notice = notice_id order by index_serie, tnvol, index_sew]]></main>
+			</query>
+ 
 		</field>
 		<field title="msg:langue_originale_query" id="21">
 			<input type="marc_list">
@@ -684,6 +786,12 @@
 			</input>
 			<query for="EQ">
 				<main><![CDATA[SELECT distinct notice_id from notices, notices_langues where code_langue='!!p!!' and type_langue=1 and notice_id=num_notice order by index_serie, tnvol, index_sew]]></main>
+			</query>
+	 		<query for="ISEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices left join notices_langues on type_langue=1 and num_notice = notice_id where code_langue is null order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY" regDiacrit="yes">
+				<main><![CDATA[select distinct notice_id from notices join notices_langues on type_langue=1 and num_notice = notice_id order by index_serie, tnvol, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:doc_perio_art_query" id="14" separator="msg:130">
@@ -801,7 +909,7 @@
 			<query for="EQ">
 				<main><![CDATA[SELECT distinct notice_id from notices,notices_relations where num_notice=notice_id and relation_type='!!p!!' order by index_serie, tnvol, index_sew]]></main>			
 			</query>
-		</field>		
+		</field>	
 		<field title="msg:localisation_sort" id="16" separator="msg:exemplaires_query">
 			<input type="query_list">
 				<query>select idlocation,location_libelle from docs_location order by location_libelle</query>	
@@ -975,6 +1083,12 @@
 			<input type="text"/>
 			<query for="CONTAINS">
 				<main><![CDATA[select distinct notice_id from bulletins, analysis, notices where analysis_bulletin=bulletin_id and bulletin_numero like '%!!p!!%' and analysis_notice=notice_id order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISEMPTY">
+				<main><![CDATA[select distinct notice_id from bulletins, analysis, notices where analysis_bulletin=bulletin_id and bulletin_numero like '' and analysis_notice=notice_id order by index_serie, tnvol, index_sew]]></main>
+			</query>
+			<query for="ISNOTEMPTY">
+				<main><![CDATA[select distinct notice_id from bulletins, analysis, notices where analysis_bulletin=bulletin_id and bulletin_numero not like '' and analysis_notice=notice_id order by index_serie, tnvol, index_sew]]></main>
 			</query>
 		</field>
 		<field title="msg:caddie_de_NOTI" id="25" separator="msg:caddie_menu">

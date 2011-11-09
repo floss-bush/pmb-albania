@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docnum.inc.php,v 1.6 2010-10-13 07:58:48 arenou Exp $
+// $Id: docnum.inc.php,v 1.6.2.2 2011-10-07 12:52:35 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -21,7 +21,7 @@ print "	<div id=\"resultatrech\"><h3>$msg[resultat_recherche]</h3>\n
 ";
 
 // requête de recherche sur les titres
-print pmb_bidi("<h3><span>$count $msg[docnum_found] '".stripslashes($user_query)."'");
+print pmb_bidi("<h3><span>$count $msg[docnum_found] '".htmlentities(stripslashes($user_query),ENT_QUOTES,$charset)."'");
 if ($opac_search_other_function) {
 	require_once($include_path."/".$opac_search_other_function);
 	print pmb_bidi(" ".search_other_function_human_query($_SESSION["last_query"]));
@@ -49,7 +49,7 @@ $requete_noti = "select explnum_id, notice_id,explnum_mimetype, ".$pert." from e
 $requete_bull  = "select explnum_id, notice_id,explnum_mimetype, ".$pert." from bulletins, explnum, notices $statut_j $acces_j $clause_bull ";
 $requete = "select explnum_id, uni.notice_id,explnum_mimetype, pert from ($requete_noti UNION $requete_bull) as uni join notices n on uni.notice_id=n.notice_id  $tri" ; 
 
-$requete_nbexplnum = "select explnum_id from ($requete_noti UNION $requete_bull) as uni where explnum_mimetype in ($opac_photo_filtre_mimetype)" ;
+$requete_nbexplnum = "select count(*) from ($requete_noti UNION $requete_bull) as uni where explnum_mimetype in ($opac_photo_filtre_mimetype)" ;
 $res_nbexplnum = mysql_query($requete_nbexplnum);
 if(mysql_num_rows($res_nbexplnum))
 	$nbexplnum = mysql_result($res_nbexplnum,0,0);

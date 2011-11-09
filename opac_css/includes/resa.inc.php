@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa.inc.php,v 1.45 2010-08-19 07:35:07 touraine37 Exp $
+// $Id: resa.inc.php,v 1.46 2011-03-01 08:27:31 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -42,9 +42,24 @@ if ($opac_resa) {
 		// réaffectation du doc éventuellement
 		if ($cb_recup) {
 			if (!affecte_cb ($cb_recup) && $cb_recup) {
-				// cb non réaffecté, il faut transférer les infos de la résa dans la table des docs à ranger
-				$rqt = "insert into resa_ranger (resa_cb) values ('".$cb_recup."') ";
-				$res = mysql_query ($rqt, $dbh) ;
+				if($pmb_transferts_actif){
+					$rqt = "SELECT expl_location
+						FROM transferts, transferts_demande, exemplaires						
+						WHERE id_transfert=num_transfert and num_expl=expl_id  and expl_cb='".$cb_recup."' AND etat_transfert=0" ;
+					$res = mysql_query ( $rqt );
+					if (mysql_num_rows($res)){	
+						$obj_expl=mysql_fetch_object($res);	 		
+						// Document à traiter au lieu de à ranger, car transfert en cours?			
+						$sql = "UPDATE exemplaires set expl_retloc='".$obj_expl->expl_location."' where expl_cb='".$cb_recup."' limit 1";						
+						mysql_query($sql);
+						$pas_ranger=1;
+					}
+				}
+				if(!$pas_ranger){
+					// cb non réaffecté, il faut transférer les infos de la résa dans la table des docs à ranger
+					$rqt = "insert into resa_ranger (resa_cb) values ('".$cb_recup."') ";
+					$res = mysql_query ($rqt, $dbh) ;
+				}	
 				alert_mail_users_pmb($id_notice, $id_bulletin, $_SESSION["id_empr_session"], 1) ;
 			}
 			alert_mail_users_pmb($id_notice, $id_bulletin, $_SESSION["id_empr_session"], 2) ;

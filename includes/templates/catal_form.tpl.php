@@ -2,9 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: catal_form.tpl.php,v 1.109 2010-11-30 07:30:54 ngantier Exp $
+// $Id: catal_form.tpl.php,v 1.110.2.1 2011-09-23 13:24:50 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
+
+global $base_path;
 
 // template pour le form de catalogage
 
@@ -1243,22 +1245,30 @@ $ptab[10] = "
 
 
 // $form_notice : formulaire de notice
+global $pmb_catalog_verif_js;
 $form_notice = jscript_unload_question();
 $form_notice.= "
 <!-- script de gestion des onglets -->
-<script type='text/javascript' src='./javascript/tabform.js'>
-</script>
+<script type='text/javascript' src='./javascript/tabform.js'></script>
+".($pmb_catalog_verif_js!= "" ? "<script type='text/javascript' src='$base_path/javascript/$pmb_catalog_verif_js'></script>":"")."
 <script type='text/javascript'>
 <!--
     function test_notice(form)
     {
+    ";
+if($pmb_catalog_verif_js!= ""){
+	$form_notice.= "
+		var check = check_perso_form()
+		if(check == false) return false;";
+} 
+$form_notice.= "
 		titre1 = form.f_tit1.value; 
 		titre1 = titre1.replace(/^\s+|\s+$/g, ''); //trim la valeur
         if(titre1.length == 0) {
            alert(\"$msg[277]\");  
            return false;
 		}
-        return check_form();
+		return check_form();
     }
 -->
 </script>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: transfert.class.php,v 1.24 2010-12-07 08:34:40 ngantier Exp $
+// $Id: transfert.class.php,v 1.24.2.1 2011-05-23 12:46:24 ngantier Exp $
 
 if (stristr ( $_SERVER ['REQUEST_URI'], ".class.php" ))
 	die ( "no access" );
@@ -862,7 +862,10 @@ class transfert {
 		} else
 			return false;
 */	
-			
+		$rqt = "SELECT COUNT(1) FROM pret WHERE pret_idexpl=".$expl; 
+		$res = mysql_query ( $rqt );
+		if (mysql_result ( $res, 0 ) )return false;
+					
 		//on verifie qu'un transfert n'est pas déja demande
 		$rqt = "SELECT COUNT(1) 
 				FROM transferts INNER JOIN transferts_demande ON id_transfert=num_transfert 

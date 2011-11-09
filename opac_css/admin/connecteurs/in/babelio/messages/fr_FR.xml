@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.1.2.1 2011-06-24 08:16:03 arenou Exp $ -->
+
+<XMLlist>
+	<entry code="babelio_no_infos">Aucunes informations disponibles.</entry>
+	<entry code="babelio_enrichment_source">(source Babélio)</entry>
+	<entry code="babelio_enrichment_publish_date">publié le </entry>
+	<entry code="babelio_enrichment_see_more">voir sur Babélio</entry>
+	<entry code="babelio_login">Login</entry>
+	<entry code="babelio_mdp">Mot de passe</entry>
+</XMLlist>

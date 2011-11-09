@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.14 2011-01-07 13:45:46 arenou Exp $ -->
+$Id: manifest.xml,v 1.15.2.2 2011-09-28 14:36:21 gueluneau Exp $ -->
 <manifest>
 	<name>pmbesTypes</name>
 	<description>msg:pmbesTypes_description</description>
@@ -34,6 +34,7 @@ $Id: manifest.xml,v 1.14 2011-01-07 13:45:46 arenou Exp $ -->
 				<part name="phone_number2" type="scalar" dataType="string" description="msg:reader_personal_information_phone_number2"/>
 				<part name="email" type="scalar" dataType="string" description="msg:reader_personal_information_email"/>
 				<part name="birthyear" type="scalar" dataType="integer" description="msg:reader_personal_information_birthyear"/>
+				<part name="sex" type="scalar" dataType="integer" description="msg:reader_personal_information_sex"/>
 			</part>
 			<part name="location_id" type="scalar" dataType="integer" description="msg:reader_location_id"/>
 			<part name="location_caption" type="scalar" dataType="string" description="msg:reader_location_caption"/>
@@ -134,11 +135,15 @@ $Id: manifest.xml,v 1.14 2011-01-07 13:45:46 arenou Exp $ -->
 		<type name="explNum" description="msg:explNum_description">
 			<part name="id" type="scalar" dataType="integer" description="msg:explNum_id"/>
 			<part name="noticeId" type="scalar" dataType="integer" description="msg:explNum_noticeId"/>
-			<part name="bulletinId" type="scalar" dataType="integer"/>
+			<part name="bulletinId" type="scalar" dataType="integer" description="msg:explNum_bulletinId"/>
 			<part name="name" type="scalar" dataType="string" description="msg:explNum_name"/>
 			<part name="mimetype" type="scalar" dataType="string" description="msg:explNum_mimetype"/>
+			<part name="extention" type="scalar" dataType="string" description="msg:explNum_extention"/>
+			<part name="filename" type="scalar" dataType="string" description="msg:explNum_filename"/>
+			<part name="filesize" type="scalar" dataType="string" description="msg:explNum_filesize"/>
 			<part name="url" type="scalar" dataType="string" description="msg:explNum_url"/>
 			<part name="downloadUrl" type="scalar" dataType="string" description="msg:explNum_downloadUrl"/>
+			<part name="vignUrl" type="scalar" dataType="string" description="msg:explNum_vignUrl"/>
 		</type>
 		<type name="shelf" description="msg:shelf_description">
 			<part name="id" type="scalar" dataType="integer" description="msg:shelf_id"/>

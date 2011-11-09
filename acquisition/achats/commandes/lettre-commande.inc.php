@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: lettre-commande.inc.php,v 1.29 2009-10-27 10:44:41 ngantier Exp $
+// $Id: lettre-commande.inc.php,v 1.29.4.1 2011-08-31 14:50:56 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -231,9 +231,9 @@ if ($acquisition_pdfcde_print) {
 	$ourPDF->MultiCell($l_raison, $h_raison, $raison, 0, 'L', 0);
 	
 	//Affichage date $ville
-	if(stripos)$ville_end=stripos($coord_fac->ville," cedex");
-	else $ville_end=strpos($coord_fac->ville," cedex");
-	if($ville_end!==false)$ville=substr($coord_fac->ville,0,-$ville_end);
+	if(stripos)$ville_end=stripos($coord_fac->ville,"cedex");
+	else $ville_end=strpos($coord_fac->ville,"cedex");
+	if($ville_end!==false) $ville=trim(substr($coord_fac->ville,0,$ville_end));
 	else $ville=$coord_fac->ville;
 	$date = $ville.$sep_ville_date.formatdate($cde->date_acte);
 	$ourPDF->setFontSize($fs_date);

@@ -2,12 +2,20 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: common.tpl.php,v 1.78 2010-09-13 14:22:02 touraine37 Exp $
+// $Id: common.tpl.php,v 1.79.2.2 2011-09-13 09:57:48 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
-require_once($class_path."/sort.class.php");
+// Get current page...  pour marquer l'onglet...
 
+if (!$current_alert) {
+	$current = current_page();
+	$current_module=str_replace(".php","",$current);
+	} else  $current_module = $current_alert ; 
+
+if (!$current_module) $current_module = "index" ;
+
+require_once($class_path."/sort.class.php");
 
 function link_styles($style) {
 	// où $rep = répertoire de stockage des feuilles
@@ -59,13 +67,6 @@ function link_styles($style) {
 	return $feuilles_style;
 	}
 
-// Get current page...  pour marquer l'onglet...
-if (!$current_alert) {
-	$current = current_page();
-	$current_module=str_replace(".php","",$current);
-	} else  $current_module = $current_alert ; 
-
-if (!$current_module) $current_module = "index" ;
 
 //	----------------------------------
 // $std_header : template header standard
@@ -96,8 +97,8 @@ $std_header.="
 	<script type=\"text/javascript\">
 		function keep_context(myObject,methodName){
 			return function(){
-				return myObject[methodName]();
-			}
+			return myObject[methodName]();
+		}
 		}
 	</script>
 ";
@@ -222,7 +223,7 @@ if ($demandes_active && (SESSrights & DEMANDES_AUTH)) {
 }
 
 //	L'utilisateur fait l'onglet FICHES ?
-if ($fiches_active) {
+if ($fiches_active && (SESSrights & FICHES_AUTH)) {
 	$menu_bar = $menu_bar."\n<li id='navbar-fichier'";
 	if ("$current" == "fichier.php") $menu_bar = $menu_bar." class='current'><a class='current' ";
 		else $menu_bar = $menu_bar."><a ";
@@ -259,9 +260,9 @@ if ($pmb_show_help) {
 	$doc_params = $doc_params_explode[1]; 
  	$pos = strrpos($doc_params_explode[0], "/") + 1;
 	$script_name=substr($doc_params_explode[0],$pos);
-    $extra .= "<a class=\"icon_help\" href=\"#\" onclick=\"openPopUp('doc/index.php?script_name=".$script_name."&".$doc_params."&lang=".$lang."', 'documentation', 480, 550, -2, -2, 'height=550,toolbar=0,menubar=0,dependent=0,resizable=1,alwaysRaised=1');return false;\" alt=\"".$msg["1900"]."\" title=\"".$msg["1900"]."\">";
+    $extra .= '<a class="icon_help" href="./doc/index.php?script_name='.$script_name.'&'.$doc_params.'&lang='.$lang.'" alt="'.$msg['1900'].'" title="'.$msg['1900'].'" target="__blank" >';
     $extra .= "<img src='./images/aide.gif' align='middle' hspace='3' alt='' /></a>";
-	}
+}
 if (SESSrights & PREF_AUTH)	
 	$extra .="<a class=\"icon_param\" href='./account.php' accesskey='$msg[2006]' alt=\"${msg[934]} ".SESSlogin."\" title=\"${msg[934]} ".SESSlogin."\"><img src='./images/parametres.gif' align='middle' hspace='3' alt='' /></a>";
 

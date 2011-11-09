@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 //  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: alter_v4.inc.php,v 1.537 2011-01-21 09:29:32 touraine37 Exp $
+// $Id: alter_v4.inc.php,v 1.561.2.5 2011-09-15 21:52:00 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -469,6 +469,21 @@ switch ($action) {
 				echo form_relance ($maj_a_faire);
 				break;				
 			case "v4.92":
+				$maj_a_faire = "v4.93";			
+				echo "<strong><font color='#FF0000'>".$msg[1804]."$maj_a_faire !</font></strong><br />";
+				echo form_relance ($maj_a_faire);
+				break;				
+			case "v4.93":
+				$maj_a_faire = "v4.94";			
+				echo "<strong><font color='#FF0000'>".$msg[1804]."$maj_a_faire !</font></strong><br />";
+				echo form_relance ($maj_a_faire);
+				break;				
+			case "v4.94":
+				$maj_a_faire = "v4.95";			
+				echo "<strong><font color='#FF0000'>".$msg[1804]."$maj_a_faire !</font></strong><br />";
+				echo form_relance ($maj_a_faire);
+				break;				
+			case "v4.95":
 				echo "<strong><font color='#FF0000'>".$msg[1805].$version_pmb_bdd." !</font></strong><br />";
 				break;
 			
@@ -7247,22 +7262,215 @@ switch ($action) {
 		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
 		$res = mysql_query($rqt, $dbh) ;
 		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
+		echo form_relance ("v4.93");
+		break;
+
+
+	case "v4.93":
+		echo "<table ><tr><th>".$msg['admin_misc_action']."</th><th>".$msg['admin_misc_resultat']."</th></tr>";
+		// +-------------------------------------------------+
+		// modification de l'explication de pmb_hide_retdoc_loc_error
+		$rqt = "update parametres set comment_param='Gestion du retour de prêt d\'un document issu d\'une autre localisation:\n 0 : Rendu, sans message d\'erreur\n 1 : Non rendu, avec message d\'erreur\n 2 : Rendu, avec message d\'erreur' where type_param='pmb' and sstype_param='hide_retdoc_loc_error' ";
+		echo traite_rqt($rqt,"update parametre pmb_hide_retdoc_loc_error");	 
+		
+		//Modification commentaire parametre pmb_numero_exemplaire_auto 
+		$rqt = "update parametres set comment_param='Autorise la numérotation automatique d\'exemplaire ? \n 0 : non\n 1 : Oui, pour monographies et bulletins\n 2 : Oui, pour monographies seules\n 3 : Oui, pour bulletins seuls' where type_param='pmb' and sstype_param='numero_exemplaire_auto' ";
+		echo traite_rqt($rqt,"update parametre pmb_numero_exemplaire_auto ");	 
+		
+		//Augmentation de la taille des libelles de codes statistiques de lecteurs
+		$rqt = "ALTER TABLE empr_codestat CHANGE libelle libelle VARCHAR(255) NOT NULL DEFAULT 'DEFAULT' ";
+		echo traite_rqt($rqt,"alter table empr_codestat resize field libelle");	 
+		
+		//script de vérification de saisie d'une notice perso
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='catalog_verif_js' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'pmb', 'catalog_verif_js', '', 'Script de vérification de saisie de notice','', 0)";
+			echo traite_rqt($rqt,"insert catalog_verif_js into parametres");
+		}		
+		//restrictions des recherches prédéfinies par catégories de lecteurs		
+		$rqt = "create table if not exists search_persopac_empr_categ(
+			id_categ_empr int not null default 0,
+			id_search_persopac int not null default 0, 	
+			index i_id_s_persopac(id_search_persopac),
+			index i_id_categ_empr(id_categ_empr)
+		)" ;
+		echo traite_rqt($rqt,"create table search_persopac_empr_categ");	
+				
+		//tri sur une étagère...
+		$rqt = "ALTER TABLE etagere ADD id_tri INT NOT NULL, ADD INDEX i_id_tri (id_tri )";
+		echo traite_rqt($rqt,"alter table etagere add id_tri");
+
+		// +-------------------------------------------------+
+		echo "</table>";
+		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
+		$res = mysql_query($rqt, $dbh) ;
+		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
+		echo form_relance ("v4.94");
+		break;
+
+	case "v4.94":
+		echo "<table ><tr><th>".$msg['admin_misc_action']."</th><th>".$msg['admin_misc_resultat']."</th></tr>";
+		// +-------------------------------------------------+
+		// CSS add on
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='default_style_addon' "))==0){
+			$rqt = "INSERT INTO parametres ( type_param, sstype_param, valeur_param, comment_param,section_param,gestion) 
+					VALUES ( 'opac', 'default_style_addon', '', 'Ajout de styles CSS aux feuilles déjà incluses ?\n Ne mettre que le code CSS, exemple:  body {background-color: #FF0000;}','a_general', 0)";
+			echo traite_rqt($rqt,"insert opac_default_style_addon into parametres");
+		}	
+		
+		//assocation d'un répertoire d'upload à une source dans les connecteurs
+		$rqt = "ALTER TABLE connectors_sources ADD rep_upload INT NOT NULL default 0";
+		echo traite_rqt($rqt,"alter table connectors_sources add rep_upload");
+		
+		//ajout de l'indicateur dans les entrepots...
+		$rqt = "select source_id from connectors_sources";
+		$res = mysql_query($rqt);
+		$rqt= array();
+		if(mysql_num_rows($res)){
+			while ($r= mysql_fetch_object($res)){
+				mysql_query("alter table entrepot_source_".$r->source_id." add field_ind char(2) not null default '  ' after ufield");
+			}
+		}
+		echo traite_rqt("select 1 ","alter table entrepot_source add field_ind");
+			
+		// rfid
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='rfid_gates_server_url' "))==0){
+			$rqt = "INSERT INTO parametres (type_param, sstype_param,valeur_param,comment_param, section_param, gestion) VALUES ('pmb','rfid_gates_server_url', '', 'URL du serveur des portiques RFID', '', '0')" ;
+			echo traite_rqt($rqt,"insert pmb_rfid_gates_server_url='' into parametres");
+		}
+		// Upload des documents numériques lors de l'intégration de notice
+		$rqt = "ALTER TABLE connectors_sources ADD upload_doc_num INT NOT NULL default 1";
+		echo traite_rqt($rqt,"alter table connectors_sources add upload_doc_num");
+		
+		//Separateur de valeurs de champs perso 
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='perso_sep' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param) VALUES (0, 'pmb', 'perso_sep', '/', 'Séparateur des valeurs de champ perso, espace ou ; ou , ou ...')";
+			echo traite_rqt($rqt,"insert pmb_perso_sep='/' into parametres");
+		}
+	
+		//Modification du commentaire du paramètre opac_notice_reduit_format
+		$rqt = "update parametres set comment_param = 'Format d\'affichage des réduits de notices :\n 0 = titre+auteur principal\n 1 = titre+auteur principal+date édition\n 2 = titre+auteur principal+date édition + ISBN\n P 1,2,3 = tit+aut+champs persos id 1 2 3\n E 1,2,3 = tit+aut+édit+champs persos id 1 2 3\n T = tit1+tit4' where type_param='opac' and sstype_param='notice_reduit_format'";
+		echo traite_rqt($rqt,"update parametre opac_notice_reduit_format");
+		
+		$rqt = "update parametres set comment_param = 'Possibilité pour les lecteurs de créer ou modifier leurs bannettes privées\n 0: Non\n 1: Oui\n 2: Oui et le bouton de création s\'affiche en permanence en recherche multicritères' where type_param='opac' and sstype_param='allow_bannette_priv'";
+		echo traite_rqt($rqt,"update parametre opac_allow_bannette_priv");
+		
+		//Modification du commentaire du paramètre pmb_notice_reduit_format
+		$rqt = "update parametres set comment_param = 'Format d\'affichage des réduits de notices :\n 0 = titre+auteur principal\n 1 = titre+auteur principal+date édition\n 2 = titre+auteur principal+date édition + ISBN' where type_param='pmb' and sstype_param='notice_reduit_format'";
+		echo traite_rqt($rqt,"update parametre pmb_notice_reduit_format");
+		
+		//on conserve la référence de la source d'origine
+		$rqt = "create table if not exists notices_externes(
+			num_notice int not null default 0,
+			recid varchar(255) not null default '',
+			primary key(num_notice),
+			index i_recid(recid),
+			index i_notice_recid (num_notice, recid))" ;
+		echo traite_rqt($rqt,"create table notices_externes");	
+		
+		$rqt="ALTER TABLE explnum drop INDEX i_f_explnumwew" ;
+		echo traite_rqt($rqt,"ALTER TABLE explnum drop INDEX i_f_explnumwew") ;
+		$rqt="ALTER TABLE explnum ADD FULLTEXT i_f_explnumwew (explnum_index_wew)" ;
+		echo traite_rqt($rqt,"ALTER TABLE explnum ADD FULLTEXT i_f_explnumwew ") ;
+	
+		// Type de recherche sur documents numériques 
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='search_full_text' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param) VALUES (0, 'pmb', 'search_full_text', '0', 'Utiliser un index MySQL FULLTEXT pour la recherche sur les documents numériques \n 0: Non \n 1: Oui')";
+			echo traite_rqt($rqt,"insert pmb_search_full_text='0' into parametres");
+		}
+		
+		// Restriction d'une infopage aux abonnés uniquement 
+		$rqt = "alter table infopages add restrict_infopage int not null default 0";
+		echo traite_rqt($rqt,"alter table infopages add restrict_infopage");
+		
+		// Parser HTML OPAC
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='parse_html' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, section_param) VALUES (0, 'opac', 'parse_html', '0', 'Activer le parse HTML des pages OPAC \n 0: Non \n 1: Oui','a_general')";
+			echo traite_rqt($rqt,"insert opac_parse_html='0' into parametres");
+		}
+
+		//on précise si une source peut enrichir ou non des notices
+		$rqt = "ALTER TABLE connectors_sources ADD enrichment INT NOT NULL default 0";
+		echo traite_rqt($rqt,"alter table connectors_sources add enrichment");
+		
+		//stockage des enrichissements de notices
+		$rqt = "create table if not exists sources_enrichment(
+			source_enrichment_num int not null default 0,
+			source_enrichment_typnotice varchar(2) not null default '',
+			source_enrichment_typdoc varchar(2) not null default '',
+			source_enrichment_params text not null default '',
+			primary key (source_enrichment_num, source_enrichment_typnotice, source_enrichment_typdoc),
+			index i_s_enrichment_typnoti(source_enrichment_typnotice),
+			index i_s_enrichment_typdoc(source_enrichment_typdoc))" ;
+		echo traite_rqt($rqt,"create table sources_enrichment");	
+		
+		// Enrichissement OPAC
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='notice_enrichment' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, section_param) VALUES (0, 'opac', 'notice_enrichment', '0', 'Activer l\'enrichissement des notices\n 0: Non \n 1: Oui','e_aff_notice')";
+			echo traite_rqt($rqt,"insert opac_notice_enrichment='0' into parametres");
+		}	
+		
+		// Social Network
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='show_social_network' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, section_param) VALUES (0, 'opac', 'show_social_network', '0', 'Activer les partages sur les réseaux sociaux \n 0: Non \n 1: Oui','e_aff_notice')";
+			echo traite_rqt($rqt,"insert show_social_network='0' into parametres");
+		}
+
+		// Favicon
+		if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'opac' and sstype_param='faviconurl' "))==0){
+			$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, section_param) VALUES (0, 'opac', 'faviconurl', '', 'URL du favicon, si vide favicon=celui de PMB','a_general')";
+			echo traite_rqt($rqt,"insert opac_faviconurl='' into parametres");
+		}
+		
+		// valeur par défaut restrict infopages
+		$rqt = "ALTER TABLE infopages CHANGE restrict_infopage restrict_infopage INT( 11 ) NOT NULL DEFAULT 0";
+		echo traite_rqt($rqt,"ALTER TABLE infopages CHANGE restrict_infopage DEFAULT 0");
+		
+		// +-------------------------------------------------+
+		echo "</table>";
+		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
+		$res = mysql_query($rqt, $dbh) ;
+		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
+		echo form_relance ("v4.95");
+		break;
+
+	case "v4.95":
+		echo "<table ><tr><th>".$msg['admin_misc_action']."</th><th>".$msg['admin_misc_resultat']."</th></tr>";
+		// +-------------------------------------------------+
+		
+		// ajout dans les bannettes la possibilité de ne pas tenir compte du statut des notices
+		$rqt = "ALTER TABLE bannettes ADD statut_not_account INT( 1 ) UNSIGNED NOT NULL default 0";
+		echo traite_rqt($rqt,"ALTER TABLE bannettes ADD statut_not_account INT( 1 ) UNSIGNED NOT NULL default 0");
+		
+$action="v4.94";		
+		// FUTUR : echo form_relance ("v5.00");
+
+		// +-------------------------------------------------+
+		echo "</table>";
+		$rqt = "update parametres set valeur_param='".$action."' where type_param='pmb' and sstype_param='bdd_version' " ;
+		$res = mysql_query($rqt, $dbh) ;
+		echo "<strong><font color='#FF0000'>".$msg[1807].$action." !</font></strong><br />";
 		break;
 				
 	default:
 		include("$include_path/messages/help/$lang/alter.txt");
 		break;
 	}
-		
-	
 	
 /*	
-		A mettre en 4.93
-		// modification de l'explication de pmb_hide_retdoc_loc_error
-		$rqt = "update parametres set comment_param='Gestion du retour de prêt d\'un document issu d\'une autre localisation:\n 0 : Rendu, sans message d\'erreur\n 1 : Non rendu, avec message d\'erreur\n 2 : Rendu, avec message d\'erreur' where type_param='pmb' and sstype_param='hide_retdoc_loc_error' ";
-		echo traite_rqt($rqt,"update parametre pmb_hide_retdoc_loc_error");	 
-		
-		
-		
+	A mettre en 5.00
+	
 
+	//Précision affichage amendes
+	if (mysql_num_rows(mysql_query("select 1 from parametres where type_param= 'pmb' and sstype_param='precision' "))==0){
+		$rqt = "INSERT INTO parametres (id_param, type_param, sstype_param, valeur_param, comment_param, gestion) VALUES (0, 'pmb', 'precision', '2', 'Nombre de décimales pour l\'affichage des amendes',1)";
+		echo traite_rqt($rqt,"insert precision=2 into parametres");
+	}
+
+	//maj valeurs possibles pour empr_filter_rows
+	$rqt = "update parametres set comment_param='Colonnes disponibles pour filtrer la liste des emprunteurs : \n v: ville\n l: localisation\n c: catégorie\n s: statut\n g: groupe\n y: année de naissance\n cp: code postal\n cs : code statistique\n #n : id des champs personnalisés' where type_param= 'empr' and sstype_param='filter_rows' ";
+	echo traite_rqt($rqt,"update empr_filter_rows into parametres");
+
+	
+			
 **/

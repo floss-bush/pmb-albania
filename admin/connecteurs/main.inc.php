@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: main.inc.php,v 1.5 2009-07-15 07:48:17 erwanmartin Exp $
+// $Id: main.inc.php,v 1.6 2011-04-15 15:16:02 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -44,6 +44,12 @@ switch($sub) {
 		print $admin_layout;
 		echo window_title($database_window_title.$msg["admin_connecteurs_outauth"].$msg[1003].$msg[1001]);
 		include('./admin/connecteurs/out_auth.inc.php');
+		break;
+	case 'enrichment' :
+		$admin_layout = str_replace('!!menu_sous_rub!!', $msg["admin_connecteurs_enrichment"], $admin_layout);
+		print $admin_layout;
+		echo window_title($database_window_title.$msg["admin_connecteurs_enrichment"].$msg[1003].$msg[1001]);
+		include('./admin/connecteurs/enrichment.inc.php');
 		break;
 	default:
 		$admin_layout = str_replace('!!menu_sous_rub!!', "", $admin_layout);

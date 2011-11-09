@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.inc.php,v 1.16 2009-05-04 15:09:04 kantin Exp $
+// $Id: export.inc.php,v 1.16.4.1 2011-07-20 14:23:31 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -32,7 +32,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 		if ($rn->code) $notice_prix_code_temp.="    <s c='a'>".htmlspecialchars($rn->code)."</s>\n";
 		if ($rn->prix) $notice_prix_code_temp.="    <s c='d'>".htmlspecialchars($rn->prix)."</s>\n";
 		if ($notice_prix_code_temp)
-			$notice.="  <f c='010'>\n".$notice_prix_code_temp."  </f>\n";
+			$notice.="  <f c='010' ind='  '>\n".$notice_prix_code_temp."  </f>\n";
 	}
 	
 	//Langues
@@ -47,7 +47,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	while ($tmp_lang = mysql_fetch_object($restmp_lang)) $notice_org_langue_temp.="    <s c='c'>".htmlspecialchars($tmp_lang->code_langue)."</s>\n";
 
 	if ($notice_langue_temp || $notice_org_langue_temp) {
-		$notice.="  <f c='101'>\n";
+		$notice.="  <f c='101' ind='  '>\n";
 		$notice.=$notice_langue_temp ;
 		$notice.=$notice_org_langue_temp ;
 		$notice.="  </f>\n";
@@ -55,7 +55,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	
 	//Titres
 	if ($rn->tit1) {
-		$notice.="  <f c='200'>\n";
+		$notice.="  <f c='200' ind='1 '>\n";
 	    $notice.="    <s c='a'>".htmlspecialchars($rn->tit1)."</s>\n";
 		if ($rn->tit2) {
 		    $notice.="    <s c='c'>".htmlspecialchars($rn->tit2)."</s>\n";
@@ -102,7 +102,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 		
 	//Collation
 	if ($rn->npages || $rn->ill || $rn->size || $rn->accomp) {
-	    $notice.="  <f c='215'>\n";
+	    $notice.="  <f c='215' ind='  '>\n";
 	    if ($rn->npages) $notice.="    <s c='a'>".htmlspecialchars($rn->npages)."</s>\n";
 		if ($rn->ill)    $notice.="    <s c='c'>".htmlspecialchars($rn->ill)."</s>\n";
 		if ($rn->size)   $notice.="    <s c='d'>".htmlspecialchars($rn->size)."</s>\n";
@@ -114,7 +114,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	if ($rn->coll_id) {
 		$requete="select collection_name from collections where collection_id=".$rn->coll_id;
 		$resultat=mysql_query($requete);
-		$notice.="  <f c='225'>\n";
+		$notice.="  <f c='225' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,0,0))."</s>\n";	
 		//sous-collection
 		if ($rn->subcoll_id){
@@ -130,19 +130,19 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	//Notes
 	//Générale
 	if ($rn->n_gen) {
-	    $notice.="  <f c='300'>\n";
+	    $notice.="  <f c='300' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars($rn->n_gen)."</s>\n";
 		$notice.="  </f>\n";
 	}
 	//de contenu
 	if ($rn->n_contenu) {
-	    $notice.="  <f c='327'>\n";
+	    $notice.="  <f c='327' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars($rn->n_contenu)."</s>\n";
 		$notice.="  </f>\n";
 	}
 	//Résumé
 	if ($rn->n_resume) {
-	    $notice.="  <f c='330'>\n";
+	    $notice.="  <f c='330' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars($rn->n_resume)."</s>\n";
 		$notice.="  </f>\n";
 	}
@@ -152,7 +152,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 		$requete = "select * from indexint where indexint_id=".$rn -> indexint;
 		$resultat = mysql_query($requete);
 		if ($code_dewey=mysql_fetch_object($resultat)) {
-			$notice.="  <f c='676'>\n";
+			$notice.="  <f c='676' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars( $code_dewey -> indexint_name)."</s>\n";
 			$notice.="    <s c='l'>".htmlspecialchars( $code_dewey -> indexint_comment)."</s>\n";
 			$notice.="  </f>\n";
@@ -225,7 +225,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	
 	//Lien
 	if ($rn->lien) {
-	    $notice.="  <f c='856'>\n";
+	    $notice.="  <f c='856' ind='  '>\n";
 		$notice.="    <s c='u'>".htmlspecialchars($rn->lien)."</s>\n";
 		if ($rn->eformat) $notice.="    <s c='q'>".htmlspecialchars($rn->eformat)."</s>\n";
 		$notice.="  </f>\n";
@@ -247,12 +247,12 @@ function _export_($id,$keep_expl=0,$params=array()) {
 			if ($r_bull->date_date) $data_bull.="    <s c='e'>".htmlspecialchars($r_bull->date_date)."</s>\n";
 			if ($rn->npages) $data_bull.="    <s c='p'>".htmlspecialchars($rn->npages)."</s>\n";
 		}
-		if ($data_bull) $notice.="  <f c='464'>\n".$data_bull."  </f>\n";
+		if ($data_bull) $notice.="  <f c='464' ind='  '>\n".$data_bull."  </f>\n";
 	}
 	
 	//Mots_clés
 	if ($rn->index_l) {
-	    $notice.="  <f c='610'>\n";
+	    $notice.="  <f c='610' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars($rn->index_l)."</s>\n";
 		$notice.="  </f>\n";
 	}
@@ -265,7 +265,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	//Descripteurs
 	if (mysql_num_rows($resultat)) {
 	    for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-			$notice.="  <f c='606'>\n";
+			$notice.="  <f c='606' ind='  '>\n";
 			$notice.="     <s c='a'>".htmlspecialchars(mysql_result($resultat,$i))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -276,7 +276,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
 	    for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-			$notice.="  <f c='900'>\n";
+			$notice.="  <f c='900' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,$i))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -286,7 +286,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
 	    for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-			$notice.="  <f c='901'>\n";
+			$notice.="  <f c='901' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,$i))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -296,7 +296,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
 	    for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-			$notice.="  <f c='906'>\n";
+			$notice.="  <f c='906' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,$i))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -306,7 +306,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
 	    for ($i=0; $i<mysql_num_rows($resultat); $i++) {
-			$notice.="  <f c='902'>\n";
+			$notice.="  <f c='902' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,$i))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -315,7 +315,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$requete="select ncv.notices_custom_integer from notices_custom_values ncv, notices_custom nc where ncv.notices_custom_origine=$id and ncv.notices_custom_champ=nc.idchamp and name='annee_peremption'";
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
-	    $notice.="  <f c='903'>\n";
+	    $notice.="  <f c='903' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,0))."</s>\n";
 		$notice.="  </f>\n";
 	}
@@ -323,7 +323,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$requete="select ncv.notices_custom_date from notices_custom_values ncv, notices_custom nc where ncv.notices_custom_origine=$id and ncv.notices_custom_champ=nc.idchamp and name='date_creation'";
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
-			$notice.="  <f c='904'>\n";
+			$notice.="  <f c='904' ind='  '>\n";
 			$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,0))."</s>\n";
 			$notice.="  </f>\n";
 		}
@@ -331,7 +331,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$requete="select ncl.notices_custom_list_lib from notices_custom_lists ncl, notices_custom_values ncv, notices_custom nc where ncv.notices_custom_origine=$id and ncv.notices_custom_champ=nc.idchamp and name='type_nature' and ncv.notices_custom_champ=ncl.notices_custom_champ and ncv.notices_custom_integer=ncl.notices_custom_list_value";
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
-	    $notice.="  <f c='905'>\n";
+	    $notice.="  <f c='905' ind='  '>\n";
 		$notice.="    <s c='a'>".htmlspecialchars(mysql_result($resultat,0))."</s>\n";
 		$notice.="  </f>\n";
 	}
@@ -339,7 +339,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 	$requete="select orinot_nom from notices, origine_notice where notice_id=$id and origine_catalogage=orinot_id";
 	$resultat=mysql_query($requete);
 	if (mysql_num_rows($resultat)) {
-	    $notice.="  <f c='801'>\n";
+	    $notice.="  <f c='801' ind='  '>\n";
 		$notice.="    <s c='b'>".htmlspecialchars(mysql_result($resultat,0))."</s>\n";
 		$notice.="  </f>\n";
 	}	
@@ -351,7 +351,7 @@ function _export_($id,$keep_expl=0,$params=array()) {
 		$nb = mysql_num_rows($resultat);
 		for($i=0; $i < $nb ; $i++) {
 			$expl =@mysql_fetch_object($resultat);
-			$notice.="  <f c='995'>\n";
+			$notice.="  <f c='995' ind='  '>\n";
 			if($expl->expl_cb && $expl->expl_cb != "") {
 				$notice.="    <s c='f'>".htmlspecialchars($expl->expl_cb)."</s>\n";
 			}

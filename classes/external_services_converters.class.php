@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: external_services_converters.class.php,v 1.13 2010-09-28 13:33:27 gueluneau Exp $
+// $Id: external_services_converters.class.php,v 1.13.2.1 2011-08-30 08:29:50 arenou Exp $
 
 //
 //Convertisseurs et cacheur de formats des résultats des services externes
@@ -641,6 +641,7 @@ class external_services_converter_external_notices extends external_services_con
 		$myQuery = mysql_query($requete, $dbh);
 		$unimarc = array('f' => array());
 		if(mysql_num_rows($myQuery)) {
+			$field_order = $subfield_order = 0;
 			while ($l=mysql_fetch_object($myQuery)) {
 				if (in_array($l->ufield, array('bl', 'rs', 'dt', 'el', 'hl', 'ru'))) {
 					$unimarc[$l->ufield]['value'] = $l->value;
@@ -650,6 +651,21 @@ class external_services_converter_external_notices extends external_services_con
 				$unimarc['f'][$l->field_order]['ind'] = '';
 				$unimarc['f'][$l->field_order]['id'] = '';
 				$unimarc['f'][$l->field_order]['s'][$l->subfield_order] = array('c' => $l->usubfield, 'value' => $l->value);
+				if($l->field_order > $field_order)
+				$field_order = $l->field_order;
+				if($l->ufield == "801"){
+					if($l->subfield_order > $subfield_order)
+						$subfield_order= $l->subfield_order;
+				}
+			}
+			//on ajoute le nom de source en 801$9
+			$rqt = "select name from connectors_sources where source_id ='".$source_id."'";
+			$res = mysql_query($rqt);
+			if(mysql_num_rows($res)){
+				$unimarc['f'][$field_order+1]['c'] = "801";
+				$unimarc['f'][$field_order+1]['ind'] = '';
+				$unimarc['f'][$field_order+1]['id'] = '';
+				$unimarc['f'][$field_order+1]['s'][$subfield_order+1] = array('c' => "9", 'value' => mysql_result($res,0,0));				
 			}
 		}
 		$unimarc['f'] = array_values($unimarc['f']);

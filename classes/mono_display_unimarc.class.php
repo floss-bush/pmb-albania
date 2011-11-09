@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: mono_display_unimarc.class.php,v 1.24 2009-11-18 15:18:08 kantin Exp $
+// $Id: mono_display_unimarc.class.php,v 1.25.2.2 2011-09-06 09:11:22 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -321,6 +321,7 @@ function init_javascript() {
 	// propri�t�s pour le selecteur de panier 
 	//$selector_prop = "toolbar=no, dependent=yes, width=500, height=400, resizable=yes, scrollbars=yes";
 	$cart_click = "onClick=\"document.search_form.action='catalog.php?categ=search&mode=7&sub=integre".$notice_id_info."&item=!!id!!'; document.search_form.submit()\"";
+	$suppr_click = "onClick=\"if(confirm('".$msg['confirm_suppr_notice']."')){;document.search_form.action='catalog.php?categ=search&mode=7&sub=suppr".$notice_id_info."&item=!!id!!'; document.search_form.submit()}\"";
 	
 	$javascript_template ="
 		<div id=\"el!!id!!Parent\" class=\"notice-parent\">
@@ -330,6 +331,7 @@ function init_javascript() {
 		</div>
 		<div id=\"el!!id!!Child\" class=\"notice-child\" style=\"margin-bottom:6px;display:none;\">
         <img src='./images/sauv.gif' align='middle' alt='basket' title=\"".$msg["connecteurs_integre"]."\" alt=\"".$msg["connecteurs_integre"]."\" $cart_click>
+		&nbsp;&nbsp;<img src='./images/trash.png' align='middle' alt='basket' title=\"".$msg["connecteurs_suppr"]."\" alt=\"".$msg["connecteurs_suppr"]."\" $suppr_click>
 			 !!ISBD!!
  		</div>";
  		
@@ -519,19 +521,37 @@ function do_isbd() {
 	if ($this->docnums) {
 		$this->isbd .= "<br /><br />";
 		$this->isbd .= "<b>".$msg["entrepot_notice_docnum"]."</b>";
-		$this->isbd .= "<ul>";
+		$nb_doc = 0;
+		$display .= "<table>
+						<tbody>";
+		$i=0;
 		foreach($this->docnums as $docnum) {
 			if (!$docnum["a"])
 				continue;
-			$this->isbd .= "<li>";
-			if ($docnum["b"])
-				$this->isbd .= $docnum["b"].": ";
-			$this->isbd .= "<i><a href=\"".htmlentities($docnum["a"])."\">".$docnum["a"]."</a></i>";			
-			$this->isbd .= "</li>";
-		}		
-		$this->isbd .= "</ul>";
+			$i++;
+			$nb_doc++;
+			if($nb_doc == 1) $display .= "<tr>";
+			//$alt = htmlentities($docnum_tab[$i]['explnum_doc_nomfichier'],ENT_QUOTES,$charset).' - '.htmlentities($docnum_tab[$i]['explnum_doc_mimetype'],ENT_QUOTES,$charset);
+			$display .= 
+				"<td class='docnum' style='width:25%;border:0px solid #CCCCCC;padding : 5px 5px'>
+					<a target='_blank' alt='$alt' title='$alt' href=\"".htmlentities($docnum["a"],ENT_QUOTES,$charset)."\">
+						<img src='./images/mimetype/unknown.gif' alt='$alt' title='$alt' >
+					</a>
+					<br />";
+			if($docnum["b"]){			
+				$display .= 
+					"<a href=\"".htmlentities($docnum["a"],ENT_QUOTES,$charset)."\">".htmlentities($docnum["b"],ENT_QUOTES,$charset)."</a>					
+				</td>";
+			}	
+			if($nb_doc == 4) {
+				$display .= "</tr>";
+				$nb_doc=0;
+			}
+		}
+		$display .= "</tbody></table>";
+		$this->isbd .=$display;
 	}
-	
+
 	$this->do_image($this->isbd) ;
 	if($this->expl) {
 		$expl_aff = $this->show_expl_per_notice();

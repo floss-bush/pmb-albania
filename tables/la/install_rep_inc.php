@@ -76,7 +76,7 @@ $msg_crea_26 = "<br /><br />Echec du remplissage avec la cote style Dewey";
 
 $msg_crea_27 = "<br /><br />Remplissage avec l'indexation Dewey 100 cases du savoir";
 $msg_crea_28 = "<br /><br />Echec du remplissage avec l'indexation Dewey 100 cases du savoir";
-$msg_crea_29 = "<br /><br />Aucun remplissage d\'indexation.";
+$msg_crea_29 = "<br /><br />Aucun remplissage d'indexation.";
 $msg_crea_30 = "<p>les scripts d'installation ont &eacute;t&eacute; renomm&eacute;s afin de ne plus pouvoir &ecirc;tre ex&eacute;cut&eacute;s directement</p>";
 $msg_crea_31 = "<p><a href=\"../\">Allez &agrave; la page d'accueil</a></p>";
 $msg_crea_32 = "Pb de donn&eacute;es de cr&eacute;ation ";

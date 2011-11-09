@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<manifest>
+	<name>babelio</name>
+	<repository>no</repository>
+	<comment>Babélio</comment>
+	<author>Arnaud RENOU</author>
+	<org>PMB Services</org>
+	<date>2011-05-28</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+	<enrichment>yes</enrichment>
+</manifest>

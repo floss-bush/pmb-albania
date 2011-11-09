@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: install_inc.php,v 1.15 2009-05-16 11:04:15 dbellamy Exp $
+// $Id: install_inc.php,v 1.15.4.1 2011-05-09 13:03:15 dbellamy Exp $
 
 // plus rien ici : reprise d'un script d'une autre install
 if(preg_match('/install_inc\.php/', $_SERVER['REQUEST_URI'])) {
@@ -148,7 +148,7 @@ $body="
     </div>
     <ul>
       <li> 
-        <div align=\"left\">Style Dewey : indexation d&eacute;cimale similaire à une cotation Dewey.</div>
+        <div align=\"left\">Style Dewey : indexation d&eacute;cimale similaire &agrave; une cotation Dewey.</div>
       </li>
       <li> 
         <div align=\"left\">BM de Chamb&eacute;ry : indexation d&eacute;cimale utilis&eacute;e &agrave; la BM de Chamb&eacute;ry, compl&egrave;te et bien document&eacute;e.</div>

@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la rï¿½utilisation du code est cadrï¿½e            |
 // +--------------------------------------------------------------------------+
-// $Id: vert.css,v 1.48 2010-12-24 08:51:15 trenon Exp $                 */
+// $Id: vert.css,v 1.49.2.6 2011-09-06 14:34:07 trenon Exp $                 */
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
@@ -11,11 +11,17 @@
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
-BODY  
-	{ 	font-size: 11pt;
-		font-family: Georgia, Garamond, "Times New Roman" ;
-		background-color: #DDF0A7;
-		margin: 0em 0em 0em }
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+BODY {
+	font-size: 11pt;
+	font-family: Georgia, Garamond, "Times New Roman" ;
+	background-color: #DDF0A7;
+}
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
@@ -679,6 +685,7 @@ ul#onglets_isbd_public {
     border-bottom: 1px solid #6c6;
     margin: 0;
 	padding-left:0px;
+	clear: both;
 }
 
 ul#onglets_isbd_public li {
@@ -728,17 +735,14 @@ ul#onglets_isbd_public li.isbd_public_active {
 	margin-bottom: 5px;
 	}
 
-#etagere-container {
-	}
-
-#etagere {
+.etagere {
 	background: transparent;
 	margin-top:5px;
 	padding-bottom: 5px;
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-bottom: 5px;
-	}
+}
 
 #etagere-titre h1 {
 	width:99%;
@@ -746,13 +750,10 @@ ul#onglets_isbd_public li.isbd_public_active {
 	padding:5px;
 	font-size:1.3em;
 	font-weight:bold;
-	}
+}
 
 #etagere-titre h1 a {
 	color: #A75204 ;
-	}
-
-#etagere-titre a {
 }
 
 #etagere-comment h2 {
@@ -762,15 +763,11 @@ ul#onglets_isbd_public li.isbd_public_active {
 	color:#6B7B3B;
 	margin:0px;
 	padding:5px;
-	}
+}
+
 #etagere-notice-list {
 	padding-left:5px;
-
-	}
-#etagere-notice-list A {
-	}
-#etagere-notice-list A:hover {
-	}
+}
 
 #navigator {
 	border:2px solid #6B7B3B;
@@ -895,5 +892,121 @@ table{
 
 .authorities{
 	background : #A8A8A8;
+}
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+#search_onglet ul.search_tabs {
+	margin-bottom: 10px;
+}
+
+#search_onglet ul.search_tabs li.current {
+	background: #DDF0A7;
+    border-bottom: 1px solid #DDF0A7;
+}
+
+#search_onglet ul.search_tabs li.current  a{
+	color: #0023A4;
+}
+
+#resultatrech_see h3 {
+	color: #6B7B3B;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-top: 20px;
+	padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 2px solid #6B7B3B;
+}
+
+#perio_a2z ul#onglets_isbd_public {
+	margin-top: 10px;
+}
+   
+table.a2z_contens {
+	margin-top: 10px; 
+}
+
+table.a2z_contens td {
+	vertical-align: top;
+}
+
+table.a2z_perio_list {
+	width: 275px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+table.a2z_perio_list tr td a {
+    text-decoration: none;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio h3 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#form_search_bull form {
+	margin-top: 10px;
+}
+
+#form_search_bull form table td {
+	vertical-align: middle;
 }
 

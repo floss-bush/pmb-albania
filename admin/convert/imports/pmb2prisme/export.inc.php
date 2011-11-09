@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.inc.php,v 1.9 2008-11-21 13:20:47 gautier Exp $
+// $Id: export.inc.php,v 1.9.6.1 2011-09-27 15:39:46 gueluneau Exp $
 
 require_once("$class_path/marc_table.class.php");
 require_once("$class_path/category.class.php");
@@ -124,7 +124,7 @@ function _export_($id,$keep_expl) {
 						"AND notices_custom_origine=$id";
 		$resultat=mysql_query($requete);
 		if (mysql_num_rows($resultat)) {
-			$notice.="<GEN>".htmlspecialchars(strtoupper(mysql_result($resultat,0,0)))."</GEN>\n";
+			$notice.="<GEN>".htmlspecialchars(mysql_result($resultat,0,0))."</GEN>\n";
 		}
 	}
 		
@@ -140,7 +140,7 @@ function _export_($id,$keep_expl) {
 		$as=array();
 	
 		while ($ra=mysql_fetch_object($resultat)) {
-			$a=$ra->author_name;
+			$a=$ra->author_type=='70'?strtoupper($ra->author_name):$ra->author_name;
 			if ($ra->author_rejete) $a.=" (".$ra->author_rejete.")";
 			if ($ra->author_type=='70') {
 				//C'est une personne, est-ce un auteur principal ou secondaire ?
@@ -158,17 +158,17 @@ function _export_($id,$keep_expl) {
 		//Auteurs / Réalisateurs (AU)
 		$au_=implode(", ",$au);
 		if ($au_) {
-			$notice.="<AU>".htmlspecialchars(strtoupper($au_))."</AU>\n";
+			$notice.="<AU>".htmlspecialchars($au_)."</AU>\n";
 		}
 		//Auteurs collectifs (AUCO)
 		$auco_=implode(", ",$auco);
 		if ($auco_) {
-			$notice.="<AUCO>".htmlspecialchars(strtoupper($auco_))."</AUCO>\n";
+			$notice.="<AUCO>".htmlspecialchars($auco_)."</AUCO>\n";
 		}
 		//Auteurs secondaires (AS)
 		$as_=implode(", ",$as);
 		if ($as_) {
-			$notice.="<AS>".htmlspecialchars(strtoupper($as_))."</AS>\n";
+			$notice.="<AS>".htmlspecialchars($as_)."</AS>\n";
 		}
 	}
 	
@@ -181,7 +181,7 @@ function _export_($id,$keep_expl) {
 			$ed="";
 			if ($re->ed_ville) $ed=$re->ed_ville.":";
 			$ed.=$re->ed_name;
-			$notice.="<DIST>".htmlspecialchars(strtoupper($ed))."</DIST>\n";
+			$notice.="<DIST>".htmlspecialchars($ed)."</DIST>\n";
 		}
 	}
 	
@@ -199,7 +199,7 @@ function _export_($id,$keep_expl) {
 	// fin ajout GM
 	// modif GM 15/12/2006 ajout du sous-titre pour l'export
 	// $notice.="  <TI>".htmlspecialchars(strtoupper($serie.$rn->tit1))."</TI>\n";
-	$notice.="  <TI>".htmlspecialchars(strtoupper($serie.$rn->tit1.$soustitre))."</TI>\n";
+	$notice.="  <TI>".htmlspecialchars($serie.$rn->tit1.$soustitre)."</TI>\n";
 		
 	//Si c'est un article
 	if ($rn->niveau_biblio=='a') {
@@ -211,19 +211,19 @@ function _export_($id,$keep_expl) {
 	
 	//Titre du numéro (TN)
 	if (($rb->bulletin_titre)&&(substr($rb->bulletin_titre,0,9)!="Bulletin ")) {
-		$notice.="<TN>".htmlspecialchars(strtoupper($rb->bulletin_titre))."</TN>\n";
+		$notice.="<TN>".htmlspecialchars($rb->bulletin_titre)."</TN>\n";
 	}
 	
 	//Colloques (COL)
 	if ($tyd!="MEMOIRE") {
-		if ($rn->tit3) $notice.="<COL>".htmlspecialchars(strtoupper($rn->tit3))."</COL>\n";
+		if ($rn->tit3) $notice.="<COL>".htmlspecialchars($rn->tit3)."</COL>\n";
 	}
 	
 	//Titre de revue (TP)
 	if ($rb) {
 		$requete="SELECT tit1 FROM notices WHERE notice_id=".$rb->bulletin_notice;
 		$resultat=mysql_query($requete);
-		$notice.="<TP>".htmlspecialchars(strtoupper(mysql_result($resultat,0,0)))."</TP>\n";
+		$notice.="<TP>".htmlspecialchars(mysql_result($resultat,0,0))."</TP>\n";
 	}
 	
 	//Souces (SO)
@@ -236,7 +236,7 @@ function _export_($id,$keep_expl) {
 		}
 	} else
 		$so = $rn->n_gen; 
-	$notice.="<SO>".htmlspecialchars(strtoupper($so))."</SO>";
+	$notice.="<SO>".htmlspecialchars($so)."</SO>";
 	
 	//Editeur / Collection (ED)
 	if ($rn->ed1_id) {
@@ -257,7 +257,7 @@ function _export_($id,$keep_expl) {
 				$ed.=" (".$coll_name.")";
 			}
 		}
-		$notice.="<ED>".htmlspecialchars(strtoupper($ed))."</ED>\n";
+		$notice.="<ED>".htmlspecialchars($ed)."</ED>\n";
 	}
 	
 	//Date de publication (DP)
@@ -282,12 +282,12 @@ function _export_($id,$keep_expl) {
 		$annee = str_replace("-","",$annee);
 		$annee = str_replace(",","",$annee);
 		$annee = substr($annee,0,4);
-		$notice.="<DP>".htmlspecialchars(strtoupper(trim($annee)))."</DP>\n";
+		$notice.="<DP>".htmlspecialchars(trim($annee))."</DP>\n";
 	}
 	
 	//Diplome (ND)
 	if (($tyd=="MEMOIRE")&&($rn->tit3)) {
-		$notice.="<ND>".htmlspecialchars(strtoupper($rn->tit3))."</ND>\n";
+		$notice.="<ND>".htmlspecialchars($rn->tit3)."</ND>\n";
 	}
 	//Notes (NO)
 	if ($tyd=="REVUE")
@@ -296,7 +296,7 @@ function _export_($id,$keep_expl) {
 		$no=$rn->n_contenu;
 
 	if ($no)
-		$notice.="<NO>".htmlspecialchars(strtoupper($no))."</NO>\n";
+		$notice.="<NO>".htmlspecialchars($no)."</NO>\n";
 	
 	$requete="SELECT num_noeud FROM notices_categories WHERE notcateg_notice=$id ORDER BY ordre_categorie";
 	$resultat=mysql_query($requete);

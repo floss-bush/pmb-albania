@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: aut_pass2.inc.php,v 1.13 2009-05-16 11:11:53 dbellamy Exp $
+// $Id: aut_pass2.inc.php,v 1.14 2011-03-15 17:14:24 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,7 +20,7 @@ $v_state=urldecode($v_state);
 print "<br /><br /><h2 align='center'>".htmlentities($msg["nettoyage_renvoi_auteurs"], ENT_QUOTES, $charset)."</h2>";
 
 $query = mysql_query("update authors A1 left join authors A2 on A1.author_see=A2.author_id set A1.author_see=0 where A2.author_id is null");
-$affected = mysql_affected_rows();
+$affected += mysql_affected_rows();
 
 $v_state .= "<br /><img src=../../images/d.gif hspace=3>".htmlentities($msg["nettoyage_suppr_auteurs"], ENT_QUOTES, $charset)." : ";
 $v_state .= $affected." ".htmlentities($msg["nettoyage_res_suppr_auteurs"], ENT_QUOTES, $charset);
@@ -33,6 +33,7 @@ print "
 	<form class='form-$current_module' name='process_state' action='./clean.php' method='post'>
 		<input type='hidden' name='v_state' value=\"".urlencode($v_state)."\">
 		<input type='hidden' name='spec' value=\"$spec\">
+		<input type='hidden' name='affected' value=\"$affected\">
 		<input type='hidden' name='pass2' value=\"2\">			
 	</form>
 	<script type=\"text/javascript\"><!--

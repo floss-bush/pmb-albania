@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: connecteurs.class.php,v 1.7 2008-09-06 13:43:18 gueluneau Exp $
+// $Id: connecteurs.class.php,v 1.8.2.1 2011-09-05 09:30:35 arenou Exp $
 
 //if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -75,7 +75,7 @@ class connector {
 	//Récupération des paramètres d'une source
 	function get_source_params($source_id) {
 		if ($source_id) {
-			$requete="select * from connectors_sources where id_connector='".addslashes($this->get_id())."' and source_id=".$source_id."  and opac_allowed=1";
+			$requete="select * from connectors_sources where id_connector='".addslashes($this->get_id())."' and source_id=".$source_id;
 			$resultat=mysql_query($requete);
 			if (mysql_num_rows($resultat)) {
 				$r=mysql_fetch_object($resultat);
@@ -88,6 +88,9 @@ class connector {
 				$s["TTL"]=$r->ttl;
 				$s["TIMEOUT"]=$r->timeout;
 				$s["OPAC_ALLOWED"]=$r->opac_allowed;
+				$s["UPLOAD_DOC_NUM"]=$r->upload_doc_num;
+				$s["REP_UPLOAD"] = $r->rep_upload;
+				$s["ENRICHMENT"] = $r->enrichment;
 			} 
 		} else {
 			$s["SOURCE_ID"]="";
@@ -99,6 +102,9 @@ class connector {
 			$s["TTL"]=$this->ttl;
 			$s["TIMEOUT"]=$this->timeout;
 			$s["OPAC_ALLOWED"]=0;
+			$s["UPLOAD_DOC_NUM"]=1;
+			$s["REP_UPLOAD"] = 0;
+			$s["ENRICHMENT"] = 0;
 		}
 		return $s;
 	}

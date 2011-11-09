@@ -1,5 +1,5 @@
 // gestion des listes "collapsibles" en Javascript
-// $Id: tablist.js,v 1.11 2008-08-05 14:16:07 touraine37 Exp $
+// $Id: tablist.js,v 1.11.6.2 2011-04-22 07:06:10 jpermanne Exp $
 
 var imgOpened = new Image();
 imgOpened.src = './images/minus.gif';

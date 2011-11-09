@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bulletin_display.inc.php,v 1.41 2010-11-04 15:19:06 arenou Exp $
+// $Id: bulletin_display.inc.php,v 1.43 2011-04-15 05:13:45 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -34,19 +34,24 @@ while(($obj=mysql_fetch_array($res))) {
 			}
 		</script>";
 	}
-	$requete3 = "SELECT notice_id FROM notices WHERE notice_id='".$obj["bulletin_notice"]."' ";
+	$typdocchapeau="a";
+	$icon="";
+	$requete3 = "SELECT notice_id,typdoc FROM notices WHERE notice_id='".$obj["bulletin_notice"]."' ";
 	$res3 = @mysql_query($requete3, $dbh);
 	while(($obj3=mysql_fetch_object($res3))) {
-		$notice3 = new notice($obj3->notice_id);		
+		$notice3 = new notice($obj3->notice_id);
+		$typdocchapeau=$obj3->typdoc;
 	}
 	$notice3->fetch_visibilite();
+	if (!$icon) $icon="icon_per.gif";
+	$icon = $icon_doc["b".$typdocchapeau];
 	
 	//carrousel pour la navigation
 	if($opac_show_bulletin_nav)
 		$res_print = do_carroussel($obj);
 	else $res_print="";
 	
-	$res_print .= "<h3><img src=./images/icon_per.gif> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b>".($nb_ex ? "&nbsp;<a href='#docnum'>".($nb_ex > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />")."</a>" : "")."</h3>\n";
+	$res_print .= "<h3><img src=./images/$icon /> ".$notice3->print_resume(1,$css)."."." <b>".$obj["bulletin_numero"]."</b>".($nb_ex ? "&nbsp;<a href='#docnum'>".($nb_ex > 1 ? "<img src='./images/globe_rouge.png' />" : "<img src='./images/globe_orange.png' />")."</a>" : "")."</h3>\n";
 	
 	$num_notice=$obj['num_notice'];
 	if ($obj['bulletin_titre']) {

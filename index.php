@@ -1,47 +1,47 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 /* 
 
-Ce logiciel est un programme informatique servant ï¿½ gï¿½rer une bibliothï¿½que
+Ce logiciel est un programme informatique servant à gérer une bibliothèque
 ou un centre de documentation et notamment le catalogue des ouvrages et le
-fichier des lecteurs. PMB est conforme ï¿½ la dï¿½claration simplifiï¿½e de la CNIL
-en ce qui concerne le respect de la Loi Informatique et Libertï¿½s applicable
+fichier des lecteurs. PMB est conforme à la déclaration simplifiée de la CNIL
+en ce qui concerne le respect de la Loi Informatique et Libertés applicable
 en France.
 
-Ce logiciel est rï¿½gi par la licence CeCILL soumise au droit franï¿½ais et
+Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
-de la licence CeCILL telle que diffusï¿½e par le CEA, le CNRS et l'INRIA 
+de la licence CeCILL telle que diffusée par le CEA, le CNRS et l'INRIA 
 sur le site "http://www.cecill.info".
 
-En contrepartie de l'accessibilitï¿½ au code source et des droits de copie,
-de modification et de redistribution accordï¿½s par cette licence, il n'est
-offert aux utilisateurs qu'une garantie limitï¿½e.  Pour les mï¿½mes raisons,
-seule une responsabilitï¿½ restreinte pï¿½se sur l'auteur du programme,  le
-titulaire des droits patrimoniaux et les concï¿½dants successifs.
+En contrepartie de l'accessibilité au code source et des droits de copie,
+de modification et de redistribution accordés par cette licence, il n'est
+offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
+seule une responsabilité restreinte pèse sur l'auteur du programme,  le
+titulaire des droits patrimoniaux et les concédants successifs.
 
-A cet ï¿½gard  l'attention de l'utilisateur est attirï¿½e sur les risques
-associï¿½s au chargement,  ï¿½ l'utilisation,  ï¿½ la modification et/ou au
-dï¿½veloppement et ï¿½ la reproduction du logiciel par l'utilisateur ï¿½tant 
-donnï¿½ sa spï¿½cificitï¿½ de logiciel libre, qui peut le rendre complexe ï¿½ 
-manipuler et qui le rï¿½serve donc ï¿½ des dï¿½veloppeurs et des professionnels
-avertis possï¿½dant  des  connaissances  informatiques approfondies.  Les
-utilisateurs sont donc invitï¿½s ï¿½ charger  et  tester  l'adï¿½quation  du
-logiciel ï¿½ leurs besoins dans des conditions permettant d'assurer la
-sï¿½curitï¿½ de leurs systï¿½mes et ou de leurs donnï¿½es et, plus gï¿½nï¿½ralement, 
-ï¿½ l'utiliser et l'exploiter dans les mï¿½mes conditions de sï¿½curitï¿½. 
+A cet égard  l'attention de l'utilisateur est attirée sur les risques
+associés au chargement,  à l'utilisation,  à la modification et/ou au
+développement et à la reproduction du logiciel par l'utilisateur étant 
+donné sa spécificité de logiciel libre, qui peut le rendre complexe à 
+manipuler et qui le réserve donc à des développeurs et des professionnels
+avertis possédant  des  connaissances  informatiques approfondies.  Les
+utilisateurs sont donc invités à charger  et  tester  l'adéquation  du
+logiciel à leurs besoins dans des conditions permettant d'assurer la
+sécurité de leurs systèmes et ou de leurs données et, plus généralement, 
+à l'utiliser et l'exploiter dans les mêmes conditions de sécurité. 
 
-Le fait que vous puissiez accï¿½der ï¿½ cet en-tï¿½te signifie que vous avez 
-pris connaissance de la licence CeCILL, et que vous en avez acceptï¿½ les
+Le fait que vous puissiez accéder à cet en-tête signifie que vous avez 
+pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 
  */
 // +-------------------------------------------------+
-// $Id: index.php,v 1.16 2009-05-16 11:17:04 dbellamy Exp $
+// $Id: index.php,v 1.16.4.2 2011-07-18 12:58:40 gueluneau Exp $
 
-// dï¿½finition du minimum nï¿½cï¿½ssaire 
+// définition du minimum nécéssaire 
 $base_path=".";
 
 include_once ("./includes/error_report.inc.php") ;
@@ -58,7 +58,8 @@ require_once("$include_path/misc.inc.php");
 include_once("$javascript_path/misc.inc.php");
 
 
-// rï¿½cupï¿½ration des messages avec localisation
+// récupération des messages avec localisation
+
 // localisation (fichier XML)
 include_once("$class_path/XMLlist.class.php");
 
@@ -77,7 +78,7 @@ if (!$dbh) {
 	print $index_header;
 	print $extra_version;
 	print "<br /><br /><div class='erreur'> $__erreur_cnx_base__ </div><br /><br />" ;
-	print $msg["cnx_base_err1"]." <a href='./tables".$inst_language."/install.php'>./tables/install.php</a> ? \<br\>\<br\>.".$msg["cnx_base_err2"];
+	print $msg["cnx_base_err1"]." <a href='./tables".$inst_language."/install.php'>./tables/install.php</a> ? <br /><br />.".$msg["cnx_base_err2"];
 	print $index_footer;
 	exit ;
 	}
@@ -87,7 +88,7 @@ if ($demo=="") $demo = 0;
 header ("Content-Type: text/html; charset=$charset");
 
 if (!$login_error) {
-	//Est-on dï¿½jï¿½ authentifiï¿½ ?
+	//Est-on déjà authentifié ?
 	if (checkUser('PhpMyBibli')) {
 		header("Location: ./main.php");
 		exit();
@@ -95,23 +96,26 @@ if (!$login_error) {
 }
 
 print $index_layout;
+
 if ($demo) {
 	if (!$login_error) {
 		$login_form_demo = str_replace("!!erreur!!", "&nbsp;", $login_form_demo);
 		print $login_form_demo;
-		} else {
-			$login_form_demo = str_replace("!!erreur!!", $login_form_error, $login_form_demo);
-			print $login_form_demo;
-			}
 	} else {
-		if (!$login_error) {
-			$login_form = str_replace("!!erreur!!", "&nbsp;", $login_form);
-			print $login_form;
-			} else {
-				$login_form = str_replace("!!erreur!!", $login_form_error, $login_form);
-				print $login_form;
-				}
-		}
+		$login_form_demo = str_replace("!!erreur!!", $login_form_error, $login_form_demo);
+		print $login_form_demo;
+	}
+} else { 
+	if (!$login_error) {
+		$login_form = str_replace("!!erreur!!", "&nbsp;", $login_form);
+	} else {
+		$login_form = str_replace("!!erreur!!", $login_form_error, $login_form);
+	}
+	if ($login_message) { 
+		$login_form = str_replace("!!login_message!!", $login_message, $login_form); 
+	}
+	print $login_form;
+}
 
 print form_focus('login', 'user');
 print $index_footer;

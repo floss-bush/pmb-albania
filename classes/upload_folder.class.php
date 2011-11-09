@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: upload_folder.class.php,v 1.5 2010-07-02 08:15:13 arenou Exp $
+// $Id: upload_folder.class.php,v 1.6 2011-02-17 14:31:30 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -372,6 +372,13 @@ class upload_folder {
 		
 		return $chaine;
 	}
+	
+	function get_path($filename){
+		$path = "";
+		if($this->isHashing()) $path = $this-> hachage($filename);
+		else $path = $this->repertoire_path;
+		return $path;
+	}	
 	
 	
 }

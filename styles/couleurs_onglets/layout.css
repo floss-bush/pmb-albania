@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: layout.css,v 1.135 2010-07-02 08:15:17 arenou Exp $
+// $Id: layout.css,v 1.137.2.3 2011-10-03 14:56:32 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -220,6 +220,8 @@ a:hover {
 	}
 
 .acquisition,
+.receptions_frame,
+.acquisition,	
 .acquisition #contenu table  {
 	background: #C0F1C3;
 }
@@ -576,8 +578,9 @@ iframe#alerte {
 	position: absolute;
 	top: 5%;
 	right: 0;
+	right: 20px;
 	left: 13em;
-	width: 80%;
+/*	width: 80%;*/
 	}
 }	
 
@@ -606,7 +609,7 @@ iframe#alerte {
 	{
 	text-decoration: none;
 	}
-/* utilis� pour les paniers : c'est un tag img avec un javascript onmousedown (pas un tag a) */
+/* utilise pour les paniers : c'est un tag img avec un javascript onmousedown (pas un tag a) */
 #contenu .hidelink img
 	{
 	cursor: pointer;
@@ -721,7 +724,7 @@ iframe#alerte {
       
       #extra a:hover { text-decoration: none; }
       
-      /*	/D�connexion	*/
+      /*	/Deconnexion	*/
 
 /* footer */
 #footer
@@ -829,8 +832,9 @@ table {
    	width: 100%;
    	}
    
-   tr
-   { }
+   tr {
+   font-style: normal;
+   }
    
    th { 
    	background: #EEEEEE;
@@ -1204,6 +1208,21 @@ h3
     border-right-style: none;
     border-top-style: none;
 }
+
+.notice-child table td img.img_notice {
+    max-width: 140px;
+	max-height: 200px;
+	width: expression(this.width > 140 ? "140px" : true);
+	height: expression(this.height > 200 ? "200px" : true);
+}
+
+table td .img_notice {
+    max-width: 140px;
+	max-height: 200px;
+	width: expression(this.width > 140 ? "140px" : true);
+	height: expression(this.height > 200 ? "200px" : true);
+}
+
 .notice-bu {
 	margin-top: 0px;
 	background-color: transparent;
@@ -1534,6 +1553,19 @@ border-radius:5px 5px;
 	width:95%;
 	border:1px solid;
 }
+.in_cell_rd,
+.in_cell_ld {
+	width:100%;	
+	background-color:transparent;
+	border-color:transparent;
+	border-width:0;
+}
+.in_cell_rd {
+	text-align:right;	
+}
+.in_cell_ld {
+	text-align:left;
+}
 
 .req_ajax_div {
 	border:1px #000 solid;
@@ -1601,6 +1633,31 @@ border-radius:5px 5px;
 .act_cell_chkbox {
 	width:25px;
 } 
+.act_cell_img_plus {
+	background:#8cc6ff;
+	margin-left:-20px;
+}
+.act_cell_chkbox2 {
+	margin-right:-20px;
+}
+.act_cell_comments table,
+.act_cell_reminders table
+{
+	margin-top:0px;
+	margin-bottom:0px;
+}
+
+.act_cell_comments tr,
+.act_cell_reminders tr {
+	background : #A6D1A9;
+}
+.act_cell_comments td,
+.act_cell_reminders td
+{
+	margin-top:0px;
+	margin-bottom:0px;
+	border:none;
+}
 
 /**
  *  Couleur de fond et de liens du calendrier
@@ -1639,7 +1696,7 @@ border-radius:5px 5px;
 }
 .pbar_frame {
 	border:#000000 1px solid;
-	padding:4px';
+	padding:4px;
 }
 .pbar_gauge {
 	text-align:left;
@@ -1675,7 +1732,7 @@ table{
 }
 .tab_sug th, .tab_sug td{
 	border:1px solid #CCCCCC;	
-	vertical-align:center;
+	/*vertical-align:center;*/
 	text-align: center;
 	overflow:scroll;
 	width:100%;
@@ -1694,3 +1751,25 @@ table{
 .erreur_saisie {
 	background-color: #ff0000;
 }
+
+table.sortable tr td {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	padding-right: 5px;	
+}
+
+#recept_frame {
+	border:2px solid #777799;
+	border-radius:5px 5px;
+	-moz-border-radius:10px;
+	padding:5px;
+	z-Index:1000;
+	position:absolute;
+	background: #C0F1C3;
+	display:none;
+}
+
+#f_ex_note, #f_ex_comment {
+	width: 90%;
+} 

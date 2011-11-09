@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: infopages.inc.php,v 1.1 2008-08-29 09:58:37 touraine37 Exp $
+// $Id: infopages.inc.php,v 1.3 2011-04-15 12:36:19 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -48,7 +48,7 @@ function show_infopages($dbh) {
 		<input class='bouton' type='button' value=\" ".$msg['infopages_bt_ajout']." \" onClick=\"document.location='./admin.php?categ=infopages&sub=infopages&action=add'\" />";
 	}
 
-function infopage_form($id=0, $title_infopage="", $content_infopage="", $valid_infopage=1) {
+function infopage_form($id=0, $title_infopage="", $content_infopage="", $valid_infopage=1, $restrict_infopage=0) {
 	global $msg, $pmb_javascript_office_editor;
 	global $admin_infopages_form;
 	global $charset;
@@ -73,6 +73,12 @@ function infopage_form($id=0, $title_infopage="", $content_infopage="", $valid_i
 		$checkbox="";
 	$admin_infopages_form = str_replace('!!checkbox!!', $checkbox, $admin_infopages_form);
 
+	if ($restrict_infopage) 
+		$restrict_checkbox="checked"; 
+	else 
+		$restrict_checkbox="";
+	$admin_infopages_form = str_replace('!!restrict_checkbox!!', $restrict_checkbox, $admin_infopages_form);
+
 	print confirmation_delete("./admin.php?categ=infopages&sub=infopages&action=del&id=");
 	print "<script type=\"text/javascript\">
 		function test_form(form) {
@@ -91,7 +97,7 @@ print $admin_layout;
 
 switch($action) {
 	case 'update':
-		$set_values = "SET title_infopage='$form_title_infopage', content_infopage='$form_content_infopage', valid_infopage='$form_valid_infopage' " ;
+		$set_values = "SET title_infopage='$form_title_infopage', content_infopage='$form_content_infopage', valid_infopage='$form_valid_infopage', restrict_infopage='$form_restrict_infopage' " ;
 		if($id) {
 			$requete = "UPDATE infopages $set_values WHERE id_infopage='$id' ";
 			$res = mysql_query($requete, $dbh);
@@ -102,16 +108,16 @@ switch($action) {
 		show_infopages($dbh);
 		break;
 	case 'add':
-		if (empty($form_title_infopage)) infopage_form(0, $form_title_infopage, $form_content_infopage, $form_valid_infopage);
+		if (empty($form_title_infopage)) infopage_form(0, $form_title_infopage, $form_content_infopage, $form_valid_infopage,$form_restrict_infopage);
 		else show_infopages($dbh);
 		break;
 	case 'modif':
 		if($id){
-			$requete = "select id_infopage, title_infopage, content_infopage, valid_infopage from infopages WHERE id_infopage='$id' ";
+			$requete = "select id_infopage, title_infopage, content_infopage, valid_infopage, restrict_infopage from infopages WHERE id_infopage='$id' ";
 			$res = mysql_query($requete, $dbh);
 			if(mysql_num_rows($res)) {
 				$row=mysql_fetch_object($res);
-				infopage_form($row->id_infopage, $row->title_infopage, $row->content_infopage, $row->valid_infopage);
+				infopage_form($row->id_infopage, $row->title_infopage, $row->content_infopage, $row->valid_infopage, $row->restrict_infopage);
 			} else {
 				show_infopages($dbh);
 			}

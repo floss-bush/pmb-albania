@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: transferts.tpl.php,v 1.9 2010-02-22 13:40:49 ngantier Exp $
+// $Id: transferts.tpl.php,v 1.9.2.2 2011-05-27 10:26:01 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -695,6 +695,12 @@ $transferts_retour_acceptation_erreur = "
 $transferts_retour_acceptation_OK = "
 		<div align='center'>
 			<b>".$msg["transferts_circ_retour_accepte"]."</b>
+		</div>
+		";
+
+$transferts_reset_OK = "
+		<div align='center'>
+			<b>".$msg["transferts_circ_reset"]."</b>
 		</div>
 		";
 

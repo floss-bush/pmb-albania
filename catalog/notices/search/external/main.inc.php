@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: main.inc.php,v 1.7 2009-03-13 16:36:16 dbellamy Exp $
+// $Id: main.inc.php,v 1.7.6.1 2011-09-15 12:46:11 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -44,6 +44,10 @@ if ($acces_m==0) {
 			break;
 		case "integre":
 			include_once($base_path."/catalog/notices/search/external/integre.inc.php");
+			break;
+		case "suppr":
+			if($item) suppr_item_to_entrepot($item);
+			include_once($base_path."/catalog/notices/search/external/launch_search.inc.php");
 			break;
 		default:
 			include_once($base_path."/catalog/notices/search/external/show_form.inc.php");

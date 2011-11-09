@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: analyse_query.class.php,v 1.46 2010-04-23 10:08:51 ngantier Exp $
+// $Id: analyse_query.class.php,v 1.47 2011-03-29 13:20:20 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -380,11 +380,21 @@ class analyse_query {
 		return $res;
 	}
 	
-	function get_query_members($table,$field_l,$field_i,$id_field,$restrict="",$offset=0,$n=0) {
-		$select="";
-		$pcount=0;
-		$q=$this->get_query_r($this->tree,&$select,&$pcount,$table,$field_l,$field_i,$id_field,0,1);
+	function get_query_members($table,$field_l,$field_i,$id_field,$restrict="",$offset=0,$n=0,$is_fulltext=false) {
+		global $pmb_search_full_text;
+		if (($is_fulltext)&&($pmb_search_full_text)) $q=$this->get_query_full_text($table,$field_l,$field_i,$id_field); else {
+			$select="";
+			$pcount=0;
+			$q=$this->get_query_r($this->tree,&$select,&$pcount,$table,$field_l,$field_i,$id_field,0,1);
+		}
 		if ($restrict) $q["restrict"]=$restrict;
+		return $q;
+	}
+	
+	function get_query_full_text($table,$field_l,$field_i,$id_field) {
+		$q["select"]="(match($field_l) against ('".addslashes($this->input)."' in boolean mode))";
+		$q["where"]="(match($field_l) against ('".addslashes($this->input)."' in boolean mode))";
+		$q["post"]=" group by ".$id_field." order by pert desc,".$field_i." asc";
 		return $q;
 	}
 	

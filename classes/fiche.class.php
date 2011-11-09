@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fiche.class.php,v 1.6 2011-01-18 09:00:31 ngantier Exp $
+// $Id: fiche.class.php,v 1.6.2.1 2011-07-01 13:29:03 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -298,7 +298,7 @@ class fiche{
 				".$this->p_perso->prefix."_custom_float, titre 
 				from ".$this->p_perso->prefix."_custom_values 
 				join ".$this->p_perso->prefix."_custom on (idchamp=".$this->p_perso->prefix."_custom_champ $clause)
-				where ".$this->p_perso->prefix."_custom_origine=".$id_fiche." order by idchamp";
+				where ".$this->p_perso->prefix."_custom_origine=".$id_fiche." order by ordre";
 			$resultat=mysql_query($requete,$dbh);
 			while ($r=mysql_fetch_array($resultat)) {
 				if(($this->p_perso->t_fields[$r[$this->p_perso->prefix."_custom_champ"]]["TYPE"]) == "list"){

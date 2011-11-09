@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parser.inc.php,v 1.13 2008-08-05 09:31:10 touraine37 Exp $
+// $Id: parser.inc.php,v 1.15 2011-02-02 08:54:06 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -63,7 +63,7 @@ function _parser_($nom_fichier, $fonction, $rootelement) {
 		$p = xml_parser_create($encoding);
 		xml_parser_set_option($p, XML_OPTION_TARGET_ENCODING, $charset);		
 		xml_parser_set_option($p, XML_OPTION_SKIP_WHITE, 1);
-		if (xml_parse_into_struct($p, $simple, & $vals, & $index) == 1) {
+			if (xml_parse_into_struct($p, $simple, & $vals, & $index) == 1) {
 			xml_parser_free($p);
 			$param = array();
 			$tag_count = array();
@@ -140,6 +140,7 @@ function _parser_text_no_function_($xml, $rootelement="") {
 		$p = xml_parser_create($encoding);
 		xml_parser_set_option($p, XML_OPTION_TARGET_ENCODING, $charset);		
 		xml_parser_set_option($p, XML_OPTION_SKIP_WHITE, 1);
+		
 		if (xml_parse_into_struct($p, $simple, & $vals, & $index) == 1) {
 			xml_parser_free($p);
 			$param = array();
@@ -177,7 +178,7 @@ function recurse_xml($param, $level,$tagname,$lowercase=false) {
 		} else {
 			if ($key!="value") {	
 				if ($lowercase) $key1=strtolower($key); else $key1=$key;
-				$ret.=" ".$key1."=\"".$val."\"";
+				$ret.=" ".$key1."=\"$val\"";
 			}
 			else
 				$value=$val;	

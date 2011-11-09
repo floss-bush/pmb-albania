@@ -11,6 +11,6 @@ $Id: languages_csv.xml,v 1.2 2004-06-10 06:52:27 touraine37 Exp $
 -->
 
 <XMLlist>
-	<entry code="en_US">iso-8859-1</entry>
-	<entry code="sq_AL">utf-8</entry>
+	<entry code="fr_FR">iso-8859-1</entry>
+	<entry code="ar">utf-8</entry>
 </XMLlist>

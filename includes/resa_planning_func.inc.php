@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa_planning_func.inc.php,v 1.14 2009-11-28 19:30:10 touraine37 Exp $
+// $Id: resa_planning_func.inc.php,v 1.15 2011-04-18 10:30:19 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -13,7 +13,7 @@ function planning_list () {
 
 global $dbh ;
 global $msg, $charset;
-global $montrerquoi ;
+global $montrerquoi, $f_loc ;
 global $current_module ;
 global $pdflettreresa_priorite_email_manuel;
 
@@ -45,7 +45,30 @@ if ($montrerquoi=='valid_noconf') {
 	$aff_final .= "checked" ;
 	$clause = "and resa_validee='1' and resa_confirmee='0' ";
 }
-$aff_final .= "><label for='valid_noconf'>".htmlentities($msg['resa_show_non_confirmees'], ENT_QUOTES, $charset)."</label></span></div><div class='row'>&nbsp;</div>" ;
+$aff_final .= "><label for='valid_noconf'>".htmlentities($msg['resa_show_non_confirmees'], ENT_QUOTES, $charset)."</label></span></div>";
+
+//la liste de sélection de la localisation
+$aff_final .= "<div class='row'>".$msg["transferts_circ_resa_lib_localisation"];
+$aff_final .= "<select name='f_loc' onchange='document.check_resa_planning.submit();'>";
+$res = mysql_query("SELECT idlocation, location_libelle, count(*) as nb FROM docs_location join empr on empr_location=idlocation join resa_planning on resa_idempr = id_empr group by idlocation, location_libelle order by location_libelle ");
+$aff_final .= "<option value='0'>".$msg["all_location"]."</option>";
+//on parcours la liste des options
+while ($value = mysql_fetch_array($res)) {
+	//debut de l'option
+	$aff_final .= "<option value='".$value[0]."'";
+	if ($value[0]==$f_loc)
+		//c'est l'option par défaut
+		$aff_final .= " selected";
+	
+	//fin de l'option
+	$aff_final .= ">".$value[1]." (".$value[2].")</option>";
+}
+$aff_final .= "</select>";
+if ($f_loc) {
+	$clause .= " AND empr_location='".$f_loc."' ";
+}
+
+$aff_final .= "</div><div class='row'>&nbsp;</div>" ;
 
 
 $q = "select id_resa, resa_idnotice, resa_date, resa_date_debut, resa_date_fin, resa_validee, resa_confirmee, resa_idempr, ";

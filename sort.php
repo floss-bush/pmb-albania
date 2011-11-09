@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.php,v 1.9 2009-05-16 11:17:04 dbellamy Exp $
+// $Id: sort.php,v 1.10 2011-02-02 09:02:21 arenou Exp $
 
 $base_path = ".";
 $base_auth = "CATALOGAGE_AUTH";
@@ -34,7 +34,7 @@ if ($_REQUEST["action_tri"]) {
 
 //déclaration de la classe
 $sort = new sort($triType,'base');
-
+$sort->caller = $_REQUEST['caller'];
 switch ($actionTri) {
 	
 	

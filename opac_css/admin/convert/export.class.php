@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.class.php,v 1.16 2010-10-06 07:20:14 mbertin Exp $
+// $Id: export.class.php,v 1.16.2.1 2011-05-13 10:25:52 arenou Exp $
 
 //Export d'une notice PMB en XML PMB MARC
 
@@ -175,6 +175,17 @@ class export {
 				$subfields[$labels[$i -1]] = $v;
 			}
 			
+			//Titres Uniformes
+			$rqt_tu = "select tu_name from notices_titres_uniformes,titres_uniformes where tu_id =ntu_num_tu and ntu_num_notice = '".$this->notice_list[$this->current_notice]."' order by ntu_ordre";
+			$result_tu = mysql_query($rqt_tu);
+			if(mysql_num_rows($result_tu)){		
+				while($row_tu = mysql_fetch_object($result_tu)){
+					$subfields = array();
+					$subfields["a"] = $row_tu->tu_name;
+					$this->add_field("500", "10", $subfields);
+				}
+			}	
+				
 			if($res->niveau_biblio == 'b' && $res->niveau_hierar == '2'){
 				$req_bulletin = "SELECT bulletin_id, bulletin_numero, date_date, mention_date, bulletin_titre, bulletin_numero from bulletins WHERE num_notice=".$res->notice_id;
 				$result_bull = mysql_query($req_bulletin);

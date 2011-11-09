@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: remote_procs.inc.php,v 1.4 2010-09-12 17:04:37 erwanmartin Exp $
+// $Id: remote_procs.inc.php,v 1.4.2.1 2011-09-06 09:46:12 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -96,7 +96,7 @@ function display_remote_proc($id) {
 	global $charset;
 	
 	$empr_proc_view_remote = str_replace('!!id!!', $id, $empr_proc_view_remote);
-	$empr_proc_view_remote = str_replace('!!form_title!!', "Détails d'une procédure distante", $empr_proc_view_remote);
+	$empr_proc_view_remote = str_replace('!!form_title!!', htmlentities($msg["remote_procedures_detail_procedure_distante"],ENT_QUOTES, $charset), $empr_proc_view_remote);
 
 	$additional_information = $the_procedure->untested ? $msg["remote_procedures_procedure_non_validated_additional_information"] : "";
 	$empr_proc_view_remote = str_replace('!!additional_information!!', htmlentities($additional_information,ENT_QUOTES, $charset), $empr_proc_view_remote);

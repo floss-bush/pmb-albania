@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: simple_search.inc.php,v 1.95 2010-06-18 15:27:41 touraine37 Exp $
+// $Id: simple_search.inc.php,v 1.97.2.2 2011-06-16 14:38:20 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -42,6 +42,7 @@ function simple_search_content($value='',$css) {
 	global $search_form_perso,$search_form,$search_form_perso_limitsearch,$limitsearch;
 	global $opac_show_onglet_help;
 	global $search_in_perio;
+	global $get_query;
 	
 	include($include_path."/templates/simple_search.tpl.php");
 	if ($opac_search_other_function) require_once($include_path."/".$opac_search_other_function);
@@ -168,11 +169,11 @@ function simple_search_content($value='',$css) {
 							
 						break;
 						case 'section_see':
-							$resultat=mysql_query("select location_libelle from docs_location where idlocation=".$_SESSION["last_module_search"]["search_location"]);
+							$resultat=mysql_query("select location_libelle from docs_location where idlocation='".addslashes($_SESSION["last_module_search"]["search_location"])."'");
 							$j=mysql_fetch_array($resultat);
 							$localisation_=$j["location_libelle"];
 							mysql_free_result($resultat);
-							$resultat=mysql_query("select section_libelle from docs_section where idsection=".$_SESSION["last_module_search"]["search_id"]);
+							$resultat=mysql_query("select section_libelle from docs_section where idsection='".addslashes($_SESSION["last_module_search"]["search_id"])."'");
 							$j=mysql_fetch_array($resultat);
 							$section_=$j["section_libelle"];
 							mysql_free_result($resultat);
@@ -239,14 +240,25 @@ function simple_search_content($value='',$css) {
 	    		global $$op;
 	    		$op_ ="BOOLEAN";
 	    		$$op=$op_;	    		    				    		
+			} else {
+				if ($get_query) {
+					get_history($get_query);
+				}
 			}
+			
 			$es=new search();
 			if($onglet_persopac){				
 				$search_form=$search_form_perso;
-			}
+				global $search;
+				if (!$search) {
+					$search_p_direct= new search_persopac($onglet_persopac);
+					$es->unserialize_search($search_p_direct->query);	
+				}
+			} 
 			if($limitsearch){				
 				$search_form=$search_form_perso_limitsearch;
 			}
+			if (($onglet_persopac)&&($lvl=="search_result")) $es->reduct_search();
 			$result=$es->show_form("./index.php?lvl=$lvl&search_type_asked=extended_search","./index.php?lvl=search_result&search_type_asked=extended_search");
 			$others="<li><a href=\"./index.php?search_type_asked=simple_search\">".$msg["simple_search"]."</a></li>\n";
 			if ($opac_allow_personal_search) $others.="<li><a href=\"./index.php?search_type_asked=search_perso\">".$msg["search_perso_menu"]."</a></li>";
@@ -299,11 +311,11 @@ function simple_search_content($value='',$css) {
 							
 						break;
 						case 'section_see':
-							$resultat=mysql_query("select location_libelle from docs_location where idlocation=".$_SESSION["last_module_search"]["search_location"]);
+							$resultat=mysql_query("select location_libelle from docs_location where idlocation='".addslashes($_SESSION["last_module_search"]["search_location"])."'");
 							$j=mysql_fetch_array($resultat);
 							$localisation_=$j["location_libelle"];
 							mysql_free_result($resultat);
-							$resultat=mysql_query("select section_libelle from docs_section where idsection=".$_SESSION["last_module_search"]["search_id"]);
+							$resultat=mysql_query("select section_libelle from docs_section where idsection='".addslashes($_SESSION["last_module_search"]["search_id"])."'");
 							$j=mysql_fetch_array($resultat);
 							$section_=$j["section_libelle"];
 							mysql_free_result($resultat);
@@ -764,7 +776,7 @@ function get_field_text($n) {
 		case 'author_see':
 			//Recherche de l'auteur
 			$author_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select concat(author_name,', ',author_rejete) from authors where author_id=".$author_id;
+			$requete="select concat(author_name,', ',author_rejete) from authors where author_id='".addslashes($author_id)."'";
 			$r_author=mysql_query($requete);
 			if (@mysql_num_rows($r_author)) {
 				$valeur_champ=mysql_result($r_author,0,0);
@@ -774,7 +786,7 @@ function get_field_text($n) {
 		case 'categ_see':
 			//Recherche de la categorie
 			$categ_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select libelle_categorie from categories where num_noeud=".$categ_id;
+			$requete="select libelle_categorie from categories where num_noeud='".addslashes($categ_id)."'";
 			$r_cat=mysql_query($requete);
 			if (@mysql_num_rows($r_cat)) {
 				$valeur_champ=mysql_result($r_cat,0,0);
@@ -784,7 +796,7 @@ function get_field_text($n) {
 		case 'indexint_see':	
 			//Recherche de l'indexation
 			$indexint_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select indexint_name from indexint where indexint_id=".$indexint_id;
+			$requete="select indexint_name from indexint where indexint_id='".addslashes($indexint_id)."'";
 			$r_indexint=mysql_query($requete);
 			if (@mysql_num_rows($r_indexint)) {
 				$valeur_champ=mysql_result($r_indexint,0,0);
@@ -794,7 +806,7 @@ function get_field_text($n) {
 		case 'coll_see':	
 			//Recherche de l'indexation
 			$coll_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select collection_name from collections where collection_id=".$coll_id;
+			$requete="select collection_name from collections where collection_id='".addslashes($coll_id)."'";
 			$r_coll=mysql_query($requete);
 			if (@mysql_num_rows($r_coll)) {
 				$valeur_champ=mysql_result($r_coll,0,0);
@@ -804,7 +816,7 @@ function get_field_text($n) {
 		case 'publisher_see':	
 			//Recherche de l'editeur
 			$publisher_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select ed_name from publishers where ed_id=".$publisher_id;
+			$requete="select ed_name from publishers where ed_id='".addslashes($publisher_id)."'";
 			$r_pub=mysql_query($requete);
 			if (@mysql_num_rows($r_pub)) {
 				$valeur_champ=mysql_result($r_pub,0,0);
@@ -814,7 +826,7 @@ function get_field_text($n) {
 		case 'titre_uniforme_see':	
 			//Recherche de titre uniforme
 			$tu_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select tu_name from titres_uniformes where ed_id=".$tu_id;
+			$requete="select tu_name from titres_uniformes where ed_id='".addslashes($tu_id)."'";
 			$r_tu=mysql_query($requete);
 			if (@mysql_num_rows($r_tu)) {
 				$valeur_champ=mysql_result($r_tu,0,0);
@@ -824,7 +836,7 @@ function get_field_text($n) {
 		case 'subcoll_see':	
 			//Recherche de l'editeur
 			$subcoll_id=$_SESSION["notice_view".$n]["search_id"];
-			$requete="select sub_coll_name from sub_collections where sub_coll_id=".$subcoll_id;
+			$requete="select sub_coll_name from sub_collections where sub_coll_id='".addslashes($subcoll_id)."'";
 			$r_subcoll=mysql_query($requete);
 			if (@mysql_num_rows($r_subcoll)) {
 				$valeur_champ=mysql_result($r_subcoll,0,0);

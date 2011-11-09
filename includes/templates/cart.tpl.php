@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cart.tpl.php,v 1.41 2010-08-11 10:08:22 ngantier Exp $
+// $Id: cart.tpl.php,v 1.42 2011-03-15 16:53:00 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -419,6 +419,9 @@ $notice_linked_suppr_form="
 <div class='row'>&nbsp;</div>
 <div class='row'>
 	<input type='checkbox' name='supp_notice_linked' value='1'>".$msg["caddie_supp_notice_linked"]."
+</div>
+<div class='row'>
+	<input type='checkbox' name='supp_notice_linked_expl_num' value='1'>".$msg["caddie_supp_notice_linked_expl_num"]."
 </div>
 <div class='row'>
 	<input type='checkbox' name='supp_notice_linked_cascade' value='1'>".$msg["caddie_supp_notice_linked_cascade"]."

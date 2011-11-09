@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<!-- Declaration d'un connecteur
+****************************************************************************************
+© 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1 2011-03-18 09:35:15 ngantier Exp $ -->
+
+<manifest>
+	<name>nasa_ads</name>
+	<repository>no</repository>
+	<comment>Interrogation du serveur NASA ADS</comment>
+	<author>Nicolas Gantier</author>
+	<org>PMB Services</org>
+	<date>2011-03-14</date>
+	<status>open</status>
+	<url>http://www.sigb.net</url>
+</manifest>

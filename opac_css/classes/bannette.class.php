@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bannette.class.php,v 1.30 2009-12-29 16:54:04 kantin Exp $
+// $Id: bannette.class.php,v 1.31.2.2 2011-09-29 09:18:23 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -210,7 +210,7 @@ function remplir() {
 		$search = new search() ;
 		$search->unserialize_search($equ->requete) ;
 		$table = $search->make_search() ;
-		$temp_requete = "insert into bannette_contenu (num_bannette, num_notice) (select ".$this->id_bannette." , notices.notice_id from $table , notices where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id limit 300) " ;
+		$temp_requete = "insert into bannette_contenu (num_bannette, num_notice) (select ".$this->id_bannette." , notices.notice_id from $table , notices, notice_statut where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0) or (notice_visible_opac_abon=1 and notice_visible_opac=1)) limit 300) " ;
 		$res = @mysql_query($temp_requete, $dbh);
 		$res_affichage .= "<li>".$equ->human_query."</li>" ;
 	    $temp_requete = "drop table $table " ;

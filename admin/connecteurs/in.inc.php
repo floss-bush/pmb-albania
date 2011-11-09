@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: in.inc.php,v 1.16 2009-11-03 09:25:52 mbertin Exp $
+// $Id: in.inc.php,v 1.19 2011-04-15 15:16:02 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -130,6 +130,8 @@ switch ($act)  {
 				$conn->retry=$retry;
 				$conn->ttl=$ttl;
 				$conn->repository=$repository;
+				$conn->rep_upload=$rep_upload;
+				$conn->upload_doc_num=$upload_doc_num;
 				$conn->save_property_form();
 			}
 		}
@@ -163,6 +165,9 @@ switch ($act)  {
 				$conn->sources[$source_id]["NAME"]=stripslashes($name);
 				$conn->sources[$source_id]["COMMENT"]=stripslashes($comment);
 				$conn->sources[$source_id]["OPAC_ALLOWED"]=stripslashes($opac_allowed);
+				$conn->sources[$source_id]["REP_UPLOAD"]=stripslashes($rep_upload);
+				$conn->sources[$source_id]["ENRICHMENT"]=stripslashes($enrichment);
+				$conn->sources[$source_id]["UPLOAD_DOC_NUM"]=stripslashes($upload_doc_num);
 				//Vérification du nom
 				$requete="select count(*) from connectors_sources where name='".$name."' and source_id!=$source_id and id_connector='".addslashes($contrs->catalog[$id]["NAME"])."'";
 				$resultat=mysql_query($requete);

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: func_abo.inc.php,v 1.27 2009-05-16 11:08:24 dbellamy Exp $
+// $Id: func_abo.inc.php,v 1.27.4.2 2011-09-29 09:18:23 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -166,7 +166,7 @@ $clause = "WHERE proprio_bannette='$id_empr' " ;
 			$equations = "" ;
 			while ($equa=mysql_fetch_object($resequ)) {
 				$eq_form= new equation($equa->id_equation) ;
-				$equations .= "<li>$equa->nom_equation".$eq_form->make_hidden_search_form("","PRI", $id_empr)."</li>";
+				$equations .= "<li>".$equa->nom_equation.$eq_form->make_hidden_search_form("","PRI", $id_empr)."</li>";
 			}
 			$td_javascript=" onmousedown= \"document.modif_requete_form_$eq_form->id_equation.submit();\" ";
 			$bann_list .= "<td valign='top' $td_javascript><ul>$equations</ul></td>";

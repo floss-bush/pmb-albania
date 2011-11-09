@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: func.inc.php,v 1.17 2009-05-16 10:52:45 dbellamy Exp $
+// $Id: func.inc.php,v 1.18 2011-01-25 08:22:22 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -72,6 +72,7 @@ $afunc=$s_func->table;
 
 $special = false;
 $favorite = false;
+$alphabet=array();
 asort($afunc);
 foreach($afunc as $key => $val) {
 	if ($key>=900) $special=true;

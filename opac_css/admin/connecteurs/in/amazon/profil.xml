@@ -319,7 +319,8 @@
 			<criteria name='Orchestra' unimarcField='7XX'/>
 			<criteria name='Actor' unimarcField='7XX'/>
 			<criteria name='Director' unimarcField='7XX'/>
-			<criteria name='Keywords' unimarcField='ALLOTHERS'/>
+			<criteria name='Keywords' unimarcField='ALLOTHERS'/>
+			<criteria name='Code' unimarcField='010$a'/>
 		</match>
 		<match type="power">
 			<criteria name='author' unimarcField='7XX' excludeOperators="EXACT,STARTWITH"/>

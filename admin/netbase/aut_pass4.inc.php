@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: aut_pass4.inc.php,v 1.8 2009-05-16 11:11:53 dbellamy Exp $
+// $Id: aut_pass4.inc.php,v 1.9 2011-03-15 17:14:24 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -25,7 +25,7 @@ if(!$count) {
 print "<br /><br /><h2 align='center'>".htmlentities($msg["nettoyage_responsabilites"], ENT_QUOTES, $charset)." : 2</h2>";
 
 $query = mysql_query("delete responsability from responsability left join authors on responsability_author=author_id where author_id is null ");
-$affected = mysql_affected_rows();
+$affected += mysql_affected_rows();
 
 $v_state .= "<br /><img src=../../images/d.gif hspace=3>".htmlentities($msg["nettoyage_responsabilites"], ENT_QUOTES, $charset)." : ";
 $v_state .= $affected." ".htmlentities($msg["nettoyage_res_responsabilites"], ENT_QUOTES, $charset);

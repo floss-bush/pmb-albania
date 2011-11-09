@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: list_transactions.php,v 1.4 2005-10-25 14:30:22 anedelec Exp $
+// $Id: list_transactions.php,v 1.4.12.1 2011-09-06 09:11:23 jpermanne Exp $
 
 //Liste des trabsactions d'un compte
 $base_path="..";
@@ -55,7 +55,7 @@ if (!count($t)) print $msg["finance_list_tr_no_tr"]; else {
 		print pmb_bidi("<td>".($t[$i]->encaissement?"*":"")."</td>");
 		print pmb_bidi("<td>".$t[$i]->commentaire."</td>");
 		print pmb_bidi("<td  style='text-align:right'>".($t[$i]->sens==-1? "<span class='erreur'>":"").comptes::format($t[$i]->montant).($t[$i]->sens==-1? "</span>":"")."</td>");
-		print pmb_bidi("<td style='text-align:right'>".($t[$i]->sens==1 ? "crédit":"débit")."</td>");
+		print pmb_bidi("<td style='text-align:right'>".($t[$i]->sens==1 ? $msg["finance_form_empr_libelle_credit"]:$msg["finance_form_empr_libelle_debit"])."</td>");
 		print pmb_bidi("<td style='text-align:center'>".($t[$i]->realisee ? "X":"")."</td>");
 		print pmb_bidi("<td>".formatdate($t[$i]->date_effective)."</td>");
 		print "<td>";

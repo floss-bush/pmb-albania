@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abo.inc.php,v 1.22 2010-01-27 09:30:33 ngantier Exp $
+// $Id: abo.inc.php,v 1.22.2.1 2011-06-16 10:18:52 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -70,6 +70,7 @@ switch($suite) {
 		$temp->bannette_auto=        $bannette_auto;	
 		$temp->periodicite=          $periodicite;	
 		$temp->diffusion_email=	     $diffusion_email;
+		$temp->statut_not_account=	 $statut_not_account;
 		$temp->nb_notices_diff=	     $nb_notices_diff;
 		$temp->categorie_lecteurs=   $categorie_lecteurs;	
 		$temp->update_type=			$update_type;

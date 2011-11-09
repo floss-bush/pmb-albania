@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: view_bulletins.inc.php,v 1.13 2009-05-16 11:12:04 dbellamy Exp $
+// $Id: view_bulletins.inc.php,v 1.13.4.1 2011-09-08 09:48:16 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -25,7 +25,7 @@ $myQuery = mysql_query("SELECT distinct bulletin_id FROM bulletins ".($location?
 if((mysql_num_rows($myQuery))) {
 	$parity=1;
 	while(($bul = mysql_fetch_object($myQuery))) {
-		$bulletin = new bulletinage($bul->bulletin_id,0,'',$location);
+		$bulletin = new bulletinage($bul->bulletin_id,0,'',$location,false);
 		if ($parity % 2) $pair_impair = "even";
 		else $pair_impair = "odd";
 		$parity += 1;

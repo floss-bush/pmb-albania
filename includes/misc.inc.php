@@ -1,12 +1,12 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: misc.inc.php,v 1.91 2010-12-20 11:33:47 arenou Exp $
+// $Id: misc.inc.php,v 1.93.2.3 2011-07-21 08:51:35 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-//Fonction de rï¿½cupï¿½ration d'une URL vignette
+//Fonction de récupération d'une URL vignette
 function get_vignette($notice_id) {
 	global $opac_book_pics_url;
 	global $opac_url_base;
@@ -37,7 +37,7 @@ function get_vignette($notice_id) {
 // ----------------------------------------------------------------------------
 // reg_diacrit : fonction pour traiter les caracteres accentues en recherche avec regex
 
-// choix de la classe ï¿½ utiliser pour envoi en pdf
+// choix de la classe à utiliser pour envoi en pdf
 if (!$fpdf) {
 	if ($charset != 'utf-8') $fpdf = 'FPDF'; else $fpdf = 'UFPDF';
 }
@@ -99,13 +99,13 @@ function strip_empty_chars($string) {
 	$string = convert_diacrit($string);
 
 	// Mis en commentaire : qu'en est-il des caracteres non latins ???
-	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ï¿½a fait tout merder...
+	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ça fait tout merder...
 	// RECH_14 : Attention : ici suppression des eventuels "
 	//          les " ne sont plus supprimes 
 	$string = stripslashes($string) ;
 	$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));
 	
-	// remplacement espace  insï¿½cable 0xA0:	&nbsp;  	Non-breaking space
+	// remplacement espace  insécable 0xA0:	&nbsp;  	Non-breaking space
 	$string = clean_nbsp($string);
 	
 	// espaces en debut et fin
@@ -141,13 +141,13 @@ function strip_empty_words($string, $lg = 0) {
 	$string = convert_diacrit($string);
 
 	// Mis en commentaire : qu'en est-il des caracteres non latins ???
-	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ï¿½a fait tout merder...
+	// SUPPRIME DU COMMENTAIRE : ER : 12/05/2004 : ça fait tout merder...
 	// RECH_14 : Attention : ici suppression des eventuels "
 	//          les " ne sont plus supprimes 
 	$string = stripslashes($string) ;
 	$string = pmb_alphabetic('^a-z0-9\s', ' ',pmb_strtolower($string));
 	
-	// remplacement espace  insï¿½cable 0xA0:	&nbsp;  	Non-breaking space
+	// remplacement espace  insécable 0xA0:	&nbsp;  	Non-breaking space
 	$string = clean_nbsp($string);
 		
 	// espaces en debut et fin
@@ -162,7 +162,7 @@ function strip_empty_words($string, $lg = 0) {
 		foreach($empty_word as $dummykey=>$word) {
 			$word = convert_diacrit($word);
 			$string = pmb_preg_replace("/^${word}$|^${word}\s|\s${word}\s|\s${word}\$/i", ' ', $string);
-			// RECH_14 : suppression des mots vides colles ï¿½ des guillemets
+			// RECH_14 : suppression des mots vides colles à des guillemets
 			if (pmb_preg_match("/\"${word}\s/i",$string)) $string = pmb_preg_replace("/\"${word}\s/i", '"', $string);
 			if (pmb_preg_match("/\s${word}\"/i",$string)) $string = pmb_preg_replace("/\s${word}\"/i", '"', $string);
 		}
@@ -187,19 +187,19 @@ function strip_empty_words($string, $lg = 0) {
 	return $string;
 }
 
-// clean_string() : fonction de nettoyage d'une chaï¿½ne
+// clean_string() : fonction de nettoyage d'une chaÓne
 function clean_string($string) {
 
-	// on supprime les caractï¿½res non-imprimables
+	// on supprime les caractËres non-imprimables
 	$string = pmb_preg_replace("/\\x0|[\x01-\x1f]/U","",$string);
 
-	// suppression des caractï¿½res de ponctuation indesirables
+	// suppression des caractËres de ponctuation indesirables
 	// $string = pmb_preg_replace('/[\{\}\"]/', '', $string);
 
 	// supression du point et des espaces de fin
 	$string = pmb_preg_replace('/\s+\.$|\s+$/', '', $string);
 
-	// nettoyage des espaces autour des parenthï¿½ses
+	// nettoyage des espaces autour des parenthËses
 	$string = pmb_preg_replace('/\(\s+/', '(', $string);
 	$string = pmb_preg_replace('/\s+\)/', ')', $string);
 
@@ -219,6 +219,41 @@ function clean_string($string) {
 	return $string;
 }
 
+//Corrections des caractères bizarres (voir pourris) de M$
+function cp1252Toiso88591($str){
+	$cp1252_map = array(
+		"\x80" => "EUR", /* EURO SIGN */
+		"\x82" => "\xab", /* SINGLE LOW-9 QUOTATION MARK */
+		"\x83" => "\x66",     /* LATIN SMALL LETTER F WITH HOOK */
+		"\x84" => "\xab", /* DOUBLE LOW-9 QUOTATION MARK */
+		"\x85" => "...", /* HORIZONTAL ELLIPSIS */
+		"\x86" => "?", /* DAGGER */
+		"\x87" => "?", /* DOUBLE DAGGER */
+		"\x88" => "?",     /* MODIFIER LETTER CIRCUMFLEX ACCENT */
+		"\x89" => "?", /* PER MILLE SIGN */
+		"\x8a" => "S",   /* LATIN CAPITAL LETTER S WITH CARON */
+		"\x8b" => "\x3c", /* SINGLE LEFT-POINTING ANGLE QUOTATION */
+		"\x8c" => "OE",   /* LATIN CAPITAL LIGATURE OE */
+		"\x8e" => "Z",   /* LATIN CAPITAL LETTER Z WITH CARON */
+		"\x91" => "\x27", /* LEFT SINGLE QUOTATION MARK */
+		"\x92" => "\x27", /* RIGHT SINGLE QUOTATION MARK */
+		"\x93" => "\x22", /* LEFT DOUBLE QUOTATION MARK */
+		"\x94" => "\x22", /* RIGHT DOUBLE QUOTATION MARK */
+		"\x95" => "\b7", /* BULLET */
+		"\x96" => "\x20", /* EN DASH */
+		"\x97" => "\x20\x20", /* EM DASH */
+		"\x98" => "\x7e",   /* SMALL TILDE */
+		"\x99" => "?", /* TRADE MARK SIGN */
+		"\x9a" => "S",   /* LATIN SMALL LETTER S WITH CARON */
+		"\x9b" => "\x3e;", /* SINGLE RIGHT-POINTING ANGLE QUOTATION*/
+		"\x9c" => "oe",   /* LATIN SMALL LIGATURE OE */
+		"\x9e" => "Z",   /* LATIN SMALL LETTER Z WITH CARON */
+		"\x9f" => "Y"    /* LATIN CAPITAL LETTER Y WITH DIAERESIS*/
+	);
+	$str = strtr($str, $cp1252_map);
+	return $str;
+}
+
 // ----------------------------------------------------------------------------
 //	fonctions sur les dates
 // ----------------------------------------------------------------------------
@@ -236,7 +271,6 @@ function formatdate($date_a_convertir, $with_hour=0) {
 	if ($with_hour) $resultatdate=mysql_query("select date_format('".$date_a_convertir."', '".$msg["format_date_heure"]."') as date_conv ");
 		else $resultatdate=mysql_query("select date_format('".$date_a_convertir."', '".$msg["format_date"]."') as date_conv ");
 	$date_conv=mysql_result($resultatdate,0,0);
-
 	return $date_conv ;
 }
 
@@ -260,7 +294,67 @@ function extraitdate($date_a_convertir) {
 	return $date_a_convertir ;
 }
 
-// construitdateheuremysql($date) : retourne une date formatee MySQL ï¿½ partir de "YYYYmmddHHMMSS"
+function detectFormatDate($date_a_convertir,$compl="01"){
+	global $msg;
+	if(preg_match(getDatePattern(),$date_a_convertir)){
+		$date = extraitdate($date_a_convertir);
+	}elseif(preg_match(getDatePattern("short"),$date_a_convertir)){
+		$format = str_replace ("%","",$msg["format_date_short"]);
+		$format = str_replace ("-","",$format);
+		$format = str_replace ("/","",$format);
+		$format = str_replace ("\\","",$format);
+		$format = str_replace (".","",$format);
+		$format = str_replace (" ","",$format);
+		$format = str_replace ($msg["format_date_input_separator"],"",$format);
+		list($date[substr($format,0,1)],$date[substr($format,1,1)],$date[substr($format,2,1)]) = sscanf($date_a_convertir,$msg["format_date_short_input"]);
+		if ($date['Y'] && $date['m']){
+		 $date = sprintf("%04d-%02d-%02s",$date['Y'],$date['m'],$compl);		
+		}else{
+			$date = "0000-00-00";
+		}
+	}elseif(preg_match(getDatePattern("year"),$date_a_convertir,$matches)){
+		$date = $matches[0]."-".$compl."-".$compl;
+	}else{
+		$date = "0000-00-00";
+	}
+
+	return $date;
+}
+
+function getDatePattern($format="long"){
+	global $msg;
+	switch($format){
+		case "long" :
+			$format_date = str_replace ("%","",$msg["format_date"]);
+			break;
+		case "short" :
+			$format_date = str_replace ("%","",$msg["format_date_short"]);
+			break;
+		case "year":
+			$format_date = "Y"; 
+			break;
+	}
+	$format_date = str_replace ("-"," ",$format_date);
+	$format_date = str_replace ("/"," ",$format_date);
+	$format_date = str_replace ("\\"," ",$format_date);
+	$format_date = str_replace ("."," ",$format_date);	
+	$format_date=explode(" ",$format_date);
+	$pattern = array();
+	for($i=0;$i<count($format_date);$i++){
+		switch($format_date[$i]){
+			case "m" :
+			case "d" :
+				$pattern[$i] =  '\d{1,2}';
+			break;
+			case "Y" :
+				$pattern[$i] =  '\d{4}';
+			break;
+		}
+	}	
+	return "#".implode($pattern,".")."#";
+}
+
+// construitdateheuremysql($date) : retourne une date formatee MySQL à partir de "YYYYmmddHHMMSS"
 function construitdateheuremysql($date_a_convertir) {
 	global $msg;
 	$date_a_convertir = str_replace('-', '', $date_a_convertir);
@@ -780,7 +874,7 @@ function pmb_sql_value($rqt) {
 }
 
 // ------------------------------------------------------------------
-//  mail_bloc_adresse() : renvoie un code HTML contenant le bloc d'adresse ï¿½ mettre en bas 
+//  mail_bloc_adresse() : renvoie un code HTML contenant le bloc d'adresse à mettre en bas 
 //  des mails envoyes par PMB (resa, prets) 
 // ------------------------------------------------------------------
 function mail_bloc_adresse() {
@@ -911,14 +1005,14 @@ function configurer_proxy_curl(&$curl){
 
 }
 
-//remplacement espace insï¿½cable 0xA0: &nbsp; Non-breaking space => problï¿½me liï¿½ ï¿½ certaine version de navigateur
+//remplacement espace insécable 0xA0: &nbsp; Non-breaking space => problème lié à certaine version de navigateur
 function clean_nbsp($input) {	
 	global $charset;
     if($charset=="iso-8859-1")$input = str_replace(chr(0xa0), ' ', $input);
     return $input;
 }
 
-// permet d'ï¿½viter une dï¿½connection mysql
+// permet d'éviter une déconnection mysql
 function mysql_set_wait_timeout($val_second=120) {
 	$sql = "set wait_timeout = $val_second";
 	mysql_query($sql);	
@@ -962,7 +1056,7 @@ function alert_sound_script(){
 	if (!$param_sounds) return;
 	if (!count($alert_sound_list)) return;
 	
-	// Parfois ceci bloque le focus sur Firefox 3.5. pb de temps rï¿½el dans la gestion des evenements.
+	// Parfois ceci bloque le focus sur Firefox 3.5. pb de temps réel dans la gestion des evenements.
 	//$script="<embed src='!!sound_file!!' height='0' width='0' autostart='true' loop='false' BORDER='0'>";
  
 	

@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: en_UK.xml,v 1.5 2009-10-07 12:07:57 kantin Exp $ -->
+$Id: en_UK.xml,v 1.6 2011-04-15 15:16:03 arenou Exp $ -->
 
 <XMLlist>
 	<entry code="amazon_key">AWSAccessKeyID Key</entry>
@@ -28,4 +28,6 @@ $Id: en_UK.xml,v 1.5 2009-10-07 12:07:57 kantin Exp $ -->
 	<entry code="amazon_foreignbooks">Foreign literature</entry>
 	<entry code="amazon_magazines">Magazines</entry>
 	<entry code="amazon_secret_key">Secret Key</entry>
+	<entry code="amazon_enrichment_source">(source Amazon)</entry>
+	<entry code="amazon_enrichment_no_similarities">Aucune information disponible.</entry>	
 </XMLlist>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: z3950_form.tpl.php,v 1.70 2010-09-21 12:35:52 touraine37 Exp $
+// $Id: z3950_form.tpl.php,v 1.72 2011-03-28 09:16:51 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -550,7 +550,7 @@ $ptab[12] = "<br />
 				<select name='f_author_type_2!!iaut!!' id='f_author_type_2!!iaut!!' onChange='changeAuthorType(2!!iaut!!);'>
 					<option value='70' !!author_type_70_2!!>$msg[203]</option>
 					<option value='71' !!author_type_71_2!!>$msg[204]</option>
-					<option value='72' !!author_type_73_2!!>".$msg['congres_libelle']."</option>
+					<option value='72' !!author_type_72_2!!>".$msg['congres_libelle']."</option>
 					</select>
 				</div>
 			<!--	dates	-->
@@ -1406,11 +1406,12 @@ $ptab[1110] = "
 
 $ptab[1111] = "
 	<div class='row'>
+	
 	    <input type=\"checkbox\" checked id=\"include_doc_num!!docnumid!!\" name=\"include_doc_num!!docnumid!!\"><label for=\"include_doc_num!!docnumid!!\">".$msg["noticeintegre_docnum_integre"]."</label>
 	</div>
 	<blockquote>
 		<div class='row'>
-		    <input name=\"doc_num_nodownload!!docnumid!!\" id=\"doc_num_nodownload!!docnumid!!\" type=\"checkbox\"><label for=\"doc_num_nodownload!!docnumid!!\">".$msg["noticeintegre_docnum_integre_nodownload"]."</label>
+		    <input name=\"doc_num_nodownload!!docnumid!!\" id=\"doc_num_nodownload!!docnumid!!\" type=\"checkbox\" !!upload_doc_num!!><label for=\"doc_num_nodownload!!docnumid!!\">".$msg["noticeintegre_docnum_integre_nodownload"]."</label>
 		</div>
 		<div class='row'>
 		    <label for=\"doc_num_caption!!docnumid!!\">".$msg["noticeintegre_docnum_integre_caption"]."</label>
@@ -1422,6 +1423,7 @@ $ptab[1111] = "
 		    <label for=\"doc_num_url!!docnumid!!\">".$msg["noticeintegre_docnum_integre_url"]."</label>
 		</div>
 		<div class='row'>
+			<input type='hidden' name='doc_num_filename!!docnumid!!' id='doc_num_filename!!docnumid!!' value='!!docnum_filename!!' />
 		    <input type=\"text\" class='saisie-80em' id=\"doc_num_url!!docnumid!!\" name=\"doc_num_url!!docnumid!!\" value=\"!!docnum_url!!\">
 		</div>
 	</blockquote>

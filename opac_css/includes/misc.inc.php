@@ -2,11 +2,12 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: misc.inc.php,v 1.40 2010-08-11 10:08:52 ngantier Exp $
+// $Id: misc.inc.php,v 1.43.2.2 2011-07-21 08:51:35 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 require_once("$class_path/semantique.class.php");
+require_once($class_path."/parse_format.class.php");
 
 //ajout des mots vides calculés
 $add_empty_words=semantique::add_empty_words();
@@ -177,6 +178,41 @@ function clean_string($string) {
 	return $string;
 	}
 
+//Corrections des caractères bizarres (voir pourris) de M$
+function cp1252Toiso88591($str){
+	$cp1252_map = array(
+		"\x80" => "EUR", /* EURO SIGN */
+		"\x82" => "\xab", /* SINGLE LOW-9 QUOTATION MARK */
+		"\x83" => "\x66",     /* LATIN SMALL LETTER F WITH HOOK */
+		"\x84" => "\xab", /* DOUBLE LOW-9 QUOTATION MARK */
+		"\x85" => "...", /* HORIZONTAL ELLIPSIS */
+		"\x86" => "?", /* DAGGER */
+		"\x87" => "?", /* DOUBLE DAGGER */
+		"\x88" => "?",     /* MODIFIER LETTER CIRCUMFLEX ACCENT */
+		"\x89" => "?", /* PER MILLE SIGN */
+		"\x8a" => "S",   /* LATIN CAPITAL LETTER S WITH CARON */
+		"\x8b" => "\x3c", /* SINGLE LEFT-POINTING ANGLE QUOTATION */
+		"\x8c" => "OE",   /* LATIN CAPITAL LIGATURE OE */
+		"\x8e" => "Z",   /* LATIN CAPITAL LETTER Z WITH CARON */
+		"\x91" => "\x27", /* LEFT SINGLE QUOTATION MARK */
+		"\x92" => "\x27", /* RIGHT SINGLE QUOTATION MARK */
+		"\x93" => "\x22", /* LEFT DOUBLE QUOTATION MARK */
+		"\x94" => "\x22", /* RIGHT DOUBLE QUOTATION MARK */
+		"\x95" => "\b7", /* BULLET */
+		"\x96" => "\x20", /* EN DASH */
+		"\x97" => "\x20\x20", /* EM DASH */
+		"\x98" => "\x7e",   /* SMALL TILDE */
+		"\x99" => "?", /* TRADE MARK SIGN */
+		"\x9a" => "S",   /* LATIN SMALL LETTER S WITH CARON */
+		"\x9b" => "\x3e;", /* SINGLE RIGHT-POINTING ANGLE QUOTATION*/
+		"\x9c" => "oe",   /* LATIN SMALL LIGATURE OE */
+		"\x9e" => "Z",   /* LATIN SMALL LETTER Z WITH CARON */
+		"\x9f" => "Y"    /* LATIN CAPITAL LETTER Y WITH DIAERESIS*/
+	);
+	$str = strtr($str, $cp1252_map);
+	return $str;
+}
+	
 // ----------------------------------------------------------------------------
 //	test_title_query() : nouvelle version analyse d'une rech. sur titre
 // ----------------------------------------------------------------------------
@@ -366,8 +402,8 @@ function gen_liste ($requete, $champ_code, $champ_info, $nom, $on_change, $selec
 // ----------------------------------------------------------------------------
 function inslink($texte="", $lien="",$param="") {
 	if ($lien) return "<a href='$lien' $param>$texte</a>" ;
-		else return "$texte" ;
-	}
+	else return "$texte" ;
+}
 
 // ----------------------------------------------------------------------------
 //	fonction qui insère l'entrée $entree dans un table si image possible avec le $code
@@ -584,7 +620,7 @@ function gen_plus_form($id, $titre, $contenu,$startopen=false) {
 	return "	
 		<div class='row'></div>
 		<div id='$id' class='notice-parent'>
-			<img src='./images/plus.gif' name='imEx' id='$id" . "Img' title='détail' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
+			<img src='./images/plus.gif' name='imEx' id='$id" . "Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
 			<span class='notice-heada'>
 				$titre
 			</span>
@@ -677,4 +713,10 @@ function stripslashes_array($input_arr){
 
 function console_log($msg_to_log){
 	print "<script type='text/javascript'>console.log('".addslashes($msg_to_log)."');</script>";
+}
+
+function parseHTML($buffer){
+	$htmlparser=new parse_format("inhtml.inc.php");		
+	$htmlparser->cmd = $buffer;
+	return $htmlparser->exec_cmd(true);
 }

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: title.inc.php,v 1.43 2010-07-02 08:15:13 arenou Exp $
+// $Id: title.inc.php,v 1.43.2.1 2011-10-07 12:52:35 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -21,7 +21,7 @@ print "	<div id=\"resultatrech\"><h3>$msg[resultat_recherche]</h3>\n
 ";
 
 // requête de recherche sur les titres
-print pmb_bidi("<h3><span>$count $msg[titles_found] '".stripslashes($user_query)."'");
+print pmb_bidi("<h3><span>$count $msg[titles_found] '".htmlentities(stripslashes($user_query),ENT_QUOTES,$charset)."'");
 if ($opac_search_other_function) {
 	require_once($include_path."/".$opac_search_other_function);
 	print pmb_bidi(" ".search_other_function_human_query($_SESSION["last_query"]));

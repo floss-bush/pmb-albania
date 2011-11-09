@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: term_search.class.php,v 1.22 2009-05-16 11:21:58 dbellamy Exp $
+// $Id: term_search.class.php,v 1.22.4.1 2011-09-15 08:19:51 ngantier Exp $
 //
 // Gestion de la recherche des termes dans le thésaurus
 
@@ -271,14 +271,17 @@ class term_search {
 
 		$resultat=mysql_query($requete, $dbh);
 
-
-		$res='<b>';
+		$res="<div class='title_term_search'>";
+		$res.='<b>';
 		if ($this->search_term!='') $res.=$msg['term_search_found_term'].'<i>'.htmlentities($this->search_term_origin,ENT_QUOTES,$charset); else $res.='<i>'.$msg['term_search_all_terms'];
 		$res.="</i></b>\n";
 
 		//Navigateur de page
 		$res.=$this->page_navigator();
 
+		$res.="</div>";
+		$res.="<div class='row'>";
+		$res.="</div>";
 		//Affichage des termes trouvés
 		$class='colonne2';
 		while ($r=mysql_fetch_object($resultat)) {

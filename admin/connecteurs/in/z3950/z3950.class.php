@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: z3950.class.php,v 1.12 2008-09-24 19:01:49 touraine37 Exp $
+// $Id: z3950.class.php,v 1.15.2.1 2011-05-12 11:56:50 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -23,6 +23,7 @@ function _item_z3950_($param) {
 	if ($param["IMPORT"]=="yes") {
 		$t["NAME"]=$param["NAME"];
 		$t["INDEX"]=$n_typ_total;
+		$t["PATH"]=$param["PATH"];
 		$catalog[]=$t;
 	}
 	$n_typ_total++;
@@ -36,6 +37,8 @@ class z3950 extends connector {
 	//Résultat de la synchro
 	var $error;					//Y-a-t-il eu une erreur	
 	var $error_message;			//Si oui, message correspondant
+	
+	var $convert_path_order=array();	//Table de correspondance entre le chemin d'une conversion et son suméro d'ordre
 	
     function z3950($connector_path="") {
     	parent::connector($connector_path);
@@ -81,6 +84,20 @@ class z3950 extends connector {
     	}
     }
     
+    function parse_convert_catalog() {
+    	global $catalog,$base_path;
+    	//Liste des transformations possibles avant import
+		$catalog=array();
+		$n_typ_total=0;
+		if (file_exists("$base_path/admin/convert/imports/catalog_subst.xml"))
+			$fic_catal = "$base_path/admin/convert/imports/catalog_subst.xml";
+		else
+			$fic_catal = "$base_path/admin/convert/imports/catalog.xml";
+		
+		_parser_($fic_catal, array("ITEM" => "_item_z3950_"), "CATALOG");
+    	$this->convert_path_order=$catalog;
+    }
+    
     function source_get_property_form($source_id) {
     	global $charset,$base_path,$catalog,$reload;
     	
@@ -97,24 +114,17 @@ class z3950 extends connector {
     	} else {
     		global $z3950_profil,$url,$z3950_base,$z3950_login,$z3950_password,$z3950_format,$z3950_port,$z3950_convert,$z3950_max_notices;
     	}
-    	
+    			
     	if (!($z3950_max_notices*1)) $z3950_max_notices=100;
     	
 		//Liste des transformations possibles avant import
-		$catalog=array();
-		$n_typ_total=0;
-		if (file_exists("$base_path/admin/convert/imports/catalog_subst.xml"))
-			$fic_catal = "$base_path/admin/convert/imports/catalog_subst.xml";
-		else
-			$fic_catal = "$base_path/admin/convert/imports/catalog.xml";
+		$this->parse_convert_catalog();
 		
-		_parser_($fic_catal, array("ITEM" => "_item_z3950_"), "CATALOG");
-
 		//Création de la liste des types d'import
 		$export_type="<select name=\"z3950_convert\" id=\"z3950_convert\">\n";
 		$export_type.="<option value=\"0\">".$this->msg["z3950_no_convert"]."</option>\n";
-		for ($i=0; $i<count($catalog); $i++) {
-			$export_type.="<option value=\"".$catalog[$i][INDEX]."\"".($z3950_convert==$catalog[$i][INDEX]?" selected":"").">".$catalog[$i][NAME]."</option>\n";
+		for ($i=0; $i<count($this->convert_path_order); $i++) {
+			$export_type.="<option value=\"".$this->convert_path_order[$i]["PATH"]."\"".($z3950_convert==$this->convert_path_order[$i]["PATH"]?" selected":"").">".$this->convert_path_order[$i]["NAME"]."</option>\n";
 		}
 		$export_type.="</select>";
 		
@@ -545,6 +555,16 @@ class z3950 extends connector {
 		return $result;		
 	}
 	
+	function get_convert_order($path) {
+		if (count($this->convert_path_order)==0) {
+			$this->parse_convert_catalog();
+		}
+		foreach ($this->convert_path_order as $c) {
+			if ($c["PATH"]==$path) return $c["INDEX"];
+		}
+		return 0;
+	}
+	
 	//Fonction de recherche
 	function search($source_id,$query,$search_id) {
 		global $base_path, $charset, $include_path;
@@ -553,7 +573,6 @@ class z3950 extends connector {
 		$this->error=false;
 		$this->error_message="";
 		$params=$this->get_source_params($source_id);
-//		highlight_string(print_r($params, true));
 		$this->fetch_global_properties();
 		if ($params["PARAMETERS"]) {
 			//Affichage du formulaire avec $params["PARAMETERS"]
@@ -576,8 +595,8 @@ class z3950 extends connector {
 		$yaz_id=yaz_connect($zurl,$opts);
 		yaz_element($yaz_id,"F");
 		yaz_range($yaz_id,1,$z3950_max_notices);
-		yaz_search($yaz_id,"rpn",$rpn);
 		yaz_syntax($yaz_id,strtolower($z3950_format));
+		yaz_search($yaz_id,"rpn",$rpn." ");
 		$opts_wait=array("timeout"=>$params["TIMEOUT"]);
 		yaz_wait($opts_wait);
 		if (yaz_error($yaz_id)) {
@@ -585,25 +604,26 @@ class z3950 extends connector {
 			$this->error_message=yaz_error($yaz_id);
 		} else {
 			$n_results=yaz_hits($yaz_id);
-			if ($n_results>$z3950_max_notices) $n_results=100;
-			for ($i=1; $i<=$n_results; $i++) {
-				$notice = yaz_record($yaz_id, $i,"raw");
+			if ($n_results>$z3950_max_notices) $n_results=$z3950_max_notices;
+			$convert_order=$this->get_convert_order($z3950_convert);
+			for ($k=1; $k<=$n_results; $k++) {
+				$notice = yaz_record($yaz_id, $k,"raw");
 				//Conversion de la notice
 				if ($z3950_convert) {
-					$export= new convert($notice,$z3950_convert) ;
+					$export= new convert($notice,$convert_order) ;
 					if (!$export->error) $cnotice=$export->output_notice; else $cnotice="";
 				} else $cnotice=$notice;
 				if ($cnotice) {
 					//Conversion de la notice en XML
 					$xmlunimarc=new xml_unimarc();
 					$nxml=$xmlunimarc->iso2709toXML_notice($cnotice);
-					$xmlunimarc->notices_xml_[0] = '<?xml version="1.0" encoding="'.$charset.'"?>'.$xmlunimarc->notices_xml_[0];
+					if ($xmlunimarc->is_utf8) $rcharset="utf-8"; else $rcharset=$charset;
+					$xmlunimarc->notices_xml_[0] = '<?xml version="1.0" encoding="'.$rcharset.'"?>'.$xmlunimarc->notices_xml_[0];
 					if ($xslt_exemplaire) {
 						$xmlunimarc->notices_xml_[0] = $this->apply_xsl_to_xml($xmlunimarc->notices_xml_[0], $xslt_exemplaire["content"]);
 					}
-//					highlight_string(print_r($xmlunimarc->notices_xml_[0], true));
 //					print_r($xmlunimarc->notices_xml_[0]);
-					if ($nxml==1) {
+					if ($nxml>=1) {
 						$params=_parser_text_no_function_($xmlunimarc->notices_xml_[0] ,"NOTICE");
 						$this->rec_record($params,$source_id,$search_id);
 					}

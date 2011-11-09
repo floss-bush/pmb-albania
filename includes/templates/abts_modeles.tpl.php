@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_modeles.tpl.php,v 1.19 2009-05-16 11:19:54 dbellamy Exp $
+// $Id: abts_modeles.tpl.php,v 1.19.4.1 2011-07-07 14:27:38 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -10,7 +10,7 @@ global $modele_view,$modele_list,$modele_form;
 
 $modele_view = "
 <div id='abts_modele!!id_modele!!' class='notice-parent'>
-	<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_modele!!id_modele!!Img' title='détail' border='0' onClick=\"expandBase('abts_modele!!id_modele!!', true); return false;\" hspace='3'>
+	<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_modele!!id_modele!!Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_modele!!id_modele!!', true); return false;\" hspace='3'>
 	<span class='notice-heada'>
     	<small>
     		<span  class='statutnot1'  style='margin-right: 3px;'>
@@ -238,7 +238,7 @@ $script1
 		</div>
 		<div class='row'>&nbsp;</div>
 		<div id='abts_exclusion' class='notice-parent'>
-			<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_exclusionImg' title='détail' border='0' onClick=\"expandBase('abts_exclusion', true); return false;\" hspace='3'>
+			<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_exclusionImg' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_exclusion', true); return false;\" hspace='3'>
 			<span class='notice-heada'>
 					".$msg["abonnements_titre_exclusion_date"]."
     		</span>
@@ -277,7 +277,7 @@ $script1
 			<div class='row'></div>
 		</div>
 		<div id='abts_numerotation' class=.'notice-parent'>
-			<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_numerotationImg' title='détail' border='0' onClick=\"expandBase('abts_numerotation', true); return false;\" hspace='3'>
+			<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_numerotationImg' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_numerotation', true); return false;\" hspace='3'>
 			<span class='notice-heada'>
 					".$msg["abonnements_titre_numerotation"]."
     		</span>

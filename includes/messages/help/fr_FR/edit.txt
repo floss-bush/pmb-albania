@@ -1,4 +1,4 @@
-<h1><img src="./images/icone_editions.gif" hspace="6" vspace="6" align="middle"> module d'éditions</h1>
-<p>Vous venez d'accéder au module d'édition de l'application PMB.</p>
-<div align="right">L'équipe des développeurs du projet</div>
+<h1><img src="./images/icone_editions.gif" hspace="6" vspace="6" align="middle"> module d'&eacute;ditions</h1>
+<p>Vous venez d'acc&eacute;der au module d'&eacute;dition de l'application PMB.</p>
+<div align="right">L'&eacute;quipe des d&eacute;veloppeurs du projet</div>
  

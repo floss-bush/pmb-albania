@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categories.class.php,v 1.13 2008-07-24 12:56:08 ohennequin Exp $
+// $Id: categories.class.php,v 1.13.6.1 2011-05-12 09:21:51 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -31,7 +31,7 @@ class categories{
 		$r = mysql_query($q, $dbh);
 		if (mysql_result($r, 0, 0) != 0) {
 			$this->load();
-		} else {
+		} else{
 			$q = "insert into categories set num_noeud = '".$this->num_noeud."', langue = '".$langue."', ";
 			$q.= "libelle_categorie = '', note_application = '', comment_public = '', ";
 			$q.= "comment_voir = '', index_categorie = '' ";
@@ -204,6 +204,26 @@ class categories{
 		$r = mysql_query($q, $dbh);
 
 		return $r;
+	}
+	
+	function getlibelle($num_noeud=0, $langue=""){
+		global $dbh;
+		$lib="";
+		if(!$num_noeud) {
+			$num_noeud = $this->num_noeud;
+			$langue = $this->langue;
+		}
+		$thes = thesaurus::getByEltId($num_noeud);
+		if (categories::exists($num_noeud, $langue)) $lg=$langue; 
+		else $lg=$thes->langue_defaut; 
+		$q = "select libelle_categorie from categories where num_noeud = '".$num_noeud."' ";
+		$q.= "and langue = '".$lg."' limit 1";
+		$r = mysql_query($q, $dbh);
+		if (mysql_num_rows($r))	{
+			$lib= mysql_result($r, 0, 0); 
+		}
+		
+		return $lib;
 	}
 
 }

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pointage_exemplarise.php,v 1.32 2010-11-10 10:03:38 ngantier Exp $
+// $Id: pointage_exemplarise.php,v 1.32.2.1 2011-06-28 13:43:57 ngantier Exp $
 
 // définition du minimum nécéssaire
 $base_path="./../../..";
@@ -293,13 +293,11 @@ if(($act=='update') ) {
 	// Dépiéger le dernier bulletin
 	if($num_statut) {
 		$requete="SELECT bulletin_id  FROM bulletins where date_date<'$date_date' and bulletin_notice='$serial_id' ORDER BY date_date DESC LIMIT 1";
-		print $requete."<br />";
 		$result_dernier = mysql_query($requete);
 		if ($r_dernier = mysql_fetch_object($result_dernier)) {
 			$dernier_bul_id	=$r_dernier->bulletin_id;
-			$requete = "update exemplaires set expl_statut=$num_statut where expl_bulletin=$dernier_bul_id";
+			$requete = "update exemplaires set expl_statut=$num_statut where expl_bulletin=$dernier_bul_id and expl_location='$expl_location'";
 			mysql_query($requete, $dbh);
-			print $requete."<br />";
 		}
 	}
 	// on prépare la date de création ou modification

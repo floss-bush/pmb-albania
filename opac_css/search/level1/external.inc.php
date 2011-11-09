@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: external.inc.php,v 1.8 2010-01-19 11:04:47 kantin Exp $
+// $Id: external.inc.php,v 1.9 2011-04-18 08:16:53 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 $nb_result_external=0;
@@ -77,11 +77,11 @@ if ($_SESSION["ext_type"]=="multi") {
 		$external_env=serialize($ex_env);
 			
 		$nb_result_external =0;
-		for ($i=0; $i<count($look_array); $i++) {			
-			$look="look_".$look_array[$i];
+		for ($k=0; $k<count($look_array); $k++) {		
+			$look="look_".$look_array[$k];
 			if ($$look) {
 				//Construction de la multi-critère		
-				$search[1]="f_".$look_id[$i];
+				$search[1]="f_".$look_id[$k];
 				
 				//opérateur
 				$op_="BOOLEAN";
@@ -108,14 +108,14 @@ if ($_SESSION["ext_type"]=="multi") {
 	    		$fieldvar=$$fieldvar_;
 	    		
 	    		$es=new search("search_simple_fields_unimarc");
-	    		$table=$es->make_search("f_".$look_id[$i]);
+	    		$table=$es->make_search("f_".$look_id[$k]);
 	    		
 	    		$requete="select count(1) from $table";
 				$resultat=mysql_query($requete);
 				$nb_result_partial=@mysql_result($resultat,0,0);
 				if ($nb_result_partial) {
 					$nb_result_external+=$nb_result_partial;
-					print "<form name='form_".$look_id[$i]."' action='./index.php?lvl=more_results&mode=external' method='post'>\n";
+					print "<form name='form_".$look_id[$k]."' action='./index.php?lvl=more_results&mode=external' method='post'>\n";
 					print "<input type='hidden' name='external_env' value='".htmlentities($external_env,ENT_QUOTES,$charset)."'/>
 					<input type='hidden' name='search[0]' value='".htmlentities("s_2",ENT_QUOTES,$charset)."'/>
 					<input type='hidden' name='op_0_s_2' value='".htmlentities("EQ",ENT_QUOTES,$charset)."'/>\n";
@@ -128,8 +128,8 @@ if ($_SESSION["ext_type"]=="multi") {
 					<input type='hidden' name='".$field."[0]' value='".htmlentities($field_[0],ENT_QUOTES,$charset)."'/>
 					<input type='hidden' name='".$inter."' value='".htmlentities("and",ENT_QUOTES,$charset)."'/>
 					";
-					print pmb_bidi("<strong>".$msg[$look_msg[$i]]."</strong> ".$nb_result_partial." $msg[results] ");
-					print "<a href=\"javascript:document.form_".$look_id[$i].".submit()\">$msg[suite]&nbsp;<img src='./images/search.gif' border='0' align='absmiddle'/></a><br />";
+					print pmb_bidi("<strong>".$msg[$look_msg[$k]]."</strong> ".$nb_result_partial." $msg[results] ");
+					print "<a href=\"javascript:document.form_".$look_id[$k].".submit()\">$msg[suite]&nbsp;<img src='./images/search.gif' border='0' align='absmiddle'/></a><br />";
 					print "</form>\n";
 				}
 			}

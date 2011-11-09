@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: amendes_relances.inc.php,v 1.7 2010-10-29 09:04:54 ngantier Exp $
+// $Id: amendes_relances.inc.php,v 1.7.2.1 2011-07-11 23:15:37 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -39,8 +39,7 @@ function show_amende_parameters() {
 }
 
 function show_lost_status_form() {
-	global $dbh;
-	global $msg;
+	global $dbh,$msg,$charset;
 	global $finance_statut_perdu,$finance_recouvrement_lecteur_statut;
 	$result ="
 	<form method='POST' action='admin.php?categ=finance&sub=amendes_relance&action=updateloststatus'>

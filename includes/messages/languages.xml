@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd">
 
-<!--
+<!-- 
 PMB
 table des langues supportées
 PMB est sous licence GPL, la réutilisation du code est cadrée
@@ -9,7 +9,6 @@ $Id: languages.xml,v 1.14 2010-12-01 20:06:37 touraine37 Exp $
 -->
 
 <XMLlist>
-  <entry code="sq_AL">Shqip</entry>
 	<entry code="fr_FR">Français</entry>
 	<entry code="es_ES">Español</entry>
 <!-- pas suffisamment traduit
@@ -20,8 +19,7 @@ $Id: languages.xml,v 1.14 2010-12-01 20:06:37 touraine37 Exp $
 	<entry code="nl_NL">Nederlands</entry>
 	<entry code="pt_PT">Português</entry>
 	<entry code="pt_BR">Brasilian português</entry>
-	<entry code="ca_ES">Català</entry>
-	<entry code="la_LA">Laos</entry>
-	<entry code="ar">Arabic</entry>
+	<entry code="ca_ES">Català</entry> 
+	<entry code="la_LA">Laos</entry> 
+	<entry code="ar">Arabic</entry> 
 </XMLlist>
-

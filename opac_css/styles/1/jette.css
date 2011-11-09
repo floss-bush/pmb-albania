@@ -1,7 +1,7 @@
 /* +---------------------------------------------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +---------------------------------------------------------------------------------------+
-// $Id: jette.css,v 1.25 2010-12-20 10:05:06 arenou Exp $
+// $Id: jette.css,v 1.26.2.6 2011-09-06 14:34:08 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -11,6 +11,12 @@
 /*  attributs gï¿½nï¿½raux de la page                                             */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
+
+
+* {
+	margin: 0px;
+	padding: 0px;	
+}
 
 BODY  { 	
 		font-size: 10pt;
@@ -141,6 +147,15 @@ td{
       border-bottom:none;  
 		  background:#DFD087;
 		  color:#0023A4;}
+		  
+	#main #search_onglet ul.search_tabs li{
+		  margin-bottom:0px;
+	}
+	
+	#main #search_onglet ul.search_tabs li.current {
+		   background: none repeat scroll 0 0 #FFF0A7;
+           border-bottom: 1px solid #FFF0A7;
+	}
 
 	#main ul.search_tabs li a{
 		text-decoration:none;
@@ -574,6 +589,8 @@ input.numero_page
 /*                       ONGLETS DE L'AFFICHAGE PUBLIC/ISBD                   */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
+
+
 ul#onglets_isbd_public {
     font: bold 11px verdana, arial, sans-serif;
     list-style-type: none;
@@ -581,6 +598,7 @@ ul#onglets_isbd_public {
     border-bottom: 1px solid #6c6;
     margin: 0;
     padding-left:2px;
+    clear: both;
 }
 
 ul#onglets_isbd_public li {
@@ -631,7 +649,7 @@ ul#onglets_isbd_public li.onglet_tags a {
 	}
 
 /* Etageres */
-#etagere {
+.etagere {
 	border: 1px solid #0023A4;
 	padding-bottom:1em;
 	margin-bottom:1em;
@@ -843,7 +861,88 @@ ul.empr_subtabs li{
 	margin-left: -41px;
 }
 
-
 .authorities{
 	background : #A8A8A8;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-bottom: 30px;	
+}
+
+#perio_a2z #onglets_isbd_public {
+	margin-bottom: 0px;	
+}
+
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_perio_list {
+	width: 200px;
+	margin-right: 20px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #66CC66;
+	padding-bottom: 3px;
+}
+
+#a2z_perio h3 {
+	margin-top: 20px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .notice-child h3 span {
+    padding-left: 0px;
+    background-color: inherit;
+    color: #451414;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+

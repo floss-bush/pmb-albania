@@ -1,17 +1,17 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: calendrier.inc.php,v 1.16 2009-02-25 11:17:47 ngantier Exp $
 
 
-// deux parametres ajoutï¿½s avec initialisation de faï¿½on ï¿½ ne pas perturber la prolongation du prï¿½t
+// deux parametres ajoutés avec initialisation de façon à ne pas perturber la prolongation du prêt
 // ajouter un param auto_submit Oui ou non automatique...
 if ($auto_submit=="") $auto_submit="YES"; 
-// ajouter un param date_anterieure Oui ou non pour prï¿½ciser si les dates antï¿½rieures ï¿½ celle fournie ($date) sont autorisï¿½es
+// ajouter un param date_anterieure Oui ou non pour préciser si les dates antérieures à celle fournie ($date) sont autorisées
 if ($date_anterieure=="") $date_anterieure="NO"; 
 
-// la variable $caller, passï¿½e par l'URL, contient le nom du form appelant
+// la variable $caller, passée par l'URL, contient le nom du form appelant
 $base_url = "./select.php?what=calendrier&caller=$caller&date_caller=$date_caller&param1=$param1&param2=$param2&after=$after&auto_submit=$auto_submit&date_anterieure=$date_anterieure";
 $date_caller=str_replace('-','',$date_caller);
 if (($date_caller=="")||($date_caller=="00000000")||($date_caller=="00000000 00:00:00")) $date_caller = date ("Ymd", time());
@@ -38,7 +38,7 @@ function set_parent(f_caller, id_value, libelle_value)
 
 // issu de la saisie directe de la date.
 if($act == "calc_date"){
-	// Mettre le parent appelant ï¿½ jour, et sortir.
+	// Mettre le parent appelant à jour, et sortir.
 	$mysql_date= extraitdate($date);
 	print"<script type='text/javascript'>set_parent('$caller','$mysql_date','".$date."')</script>";
 }else {		
@@ -106,9 +106,9 @@ ENDOFTEXT;
 	return $calend;
 }
 
-/* ce sï¿½lecteur est basï¿½ sur le calendrier dont la description et 
-   l'auteur initial sont mentionnï¿½s ci-dessous.
-   Il a ï¿½tï¿½ modifiï¿½ afin d'ï¿½tre utilisable dans notre application */
+/* ce sélecteur est basé sur le calendrier dont la description et 
+   l'auteur initial sont mentionnés ci-dessous.
+   Il a été modifié afin d'être utilisable dans notre application */
 /***************************************************************************
              ____  _   _ ____  _              _     _  _   _   _
             |  _ \| | | |  _ \| |_ ___   ___ | |___| || | | | | |
@@ -133,24 +133,24 @@ ENDOFTEXT;
  *
  ***************************************************************************/
 /* 
-- $params['calendar_id'] :  Par dï¿½faut ï¿½ 1, incrï¿½menter cette valeur pour utiliser plusieurs calendriers sur la mï¿½me page.  
-- $params['calendar_columns'] :  Par dï¿½faut ï¿½ 7, modifier ce nombre pour diminuer / augmenter le nombres de colonnes. 
-- $params['show_day'] :  Par dï¿½faut ï¿½ 1, permet d'afficher les jours (L M M J V S D) 
-- $params['show_month'] :  Par dï¿½faut ï¿½ 1, permet d'afficher le nom du mois et l'annï¿½e en haut 
-- $params['nav_link'] :  Par dï¿½faut ï¿½ 1, affiche les liens pour les jours et mois prï¿½cï¿½dents / suivants 
-- $params['link_after_date'] :  Par dï¿½faut ï¿½ 0, si activï¿½, affiche les liens de la navigation (cf ci-dessus) pour les dates supï¿½rieures au jour en cours 
-- $params['link_on_day'] :  Lien ï¿½ attribuer sur les jours du calendrier. A chaque lien est rajoutï¿½ la date en argument. Prï¿½voir de mettre '?argument=' en fin de lien 
-- $params['font_face'] :  Police a utiliser (par dï¿½faut : 'Verdana, Arial, Helvetica') 
-- $params['font_size'] :  Taille de la police moyenne en pixels (10 par dï¿½faut) 
-- $params['bg_color'] :  Couleur du fond des cases des jours (blanc - #FFFFFF par dï¿½faut) 
+- $params['calendar_id'] :  Par défaut à 1, incrémenter cette valeur pour utiliser plusieurs calendriers sur la même page.  
+- $params['calendar_columns'] :  Par défaut à 7, modifier ce nombre pour diminuer / augmenter le nombres de colonnes. 
+- $params['show_day'] :  Par défaut à 1, permet d'afficher les jours (L M M J V S D) 
+- $params['show_month'] :  Par défaut à 1, permet d'afficher le nom du mois et l'année en haut 
+- $params['nav_link'] :  Par défaut à 1, affiche les liens pour les jours et mois précédents / suivants 
+- $params['link_after_date'] :  Par défaut à 0, si activé, affiche les liens de la navigation (cf ci-dessus) pour les dates supérieures au jour en cours 
+- $params['link_on_day'] :  Lien à attribuer sur les jours du calendrier. A chaque lien est rajouté la date en argument. Prévoir de mettre '?argument=' en fin de lien 
+- $params['font_face'] :  Police a utiliser (par défaut : 'Verdana, Arial, Helvetica') 
+- $params['font_size'] :  Taille de la police moyenne en pixels (10 par défaut) 
+- $params['bg_color'] :  Couleur du fond des cases des jours (blanc - #FFFFFF par défaut) 
 - $params['today_bg_color'] :  Couleur de fond de la case du jour en cours 
 - $params['font_today_color'] :  Couleur de la police pour le jour en cours 
 - $params['font_color'] :  Couleur de la police 
 - $params['font_nav_bg_color'] :  Couleur de fond pour la barre des jours (L M M J V S D) 
 - $params['font_nav_color'] :  Couleur de la police pour la barre des jours (L M M J V S D) 
 - $params['font_header_color'] :  Couleur de la police pour le nom du mois 
-- $params['border_color'] :  Couleur pour les sï¿½paration des cases et des bordures 
-- $params['use_img'] :  Utilise des fichiers gif ï¿½ cï¿½tï¿½ du nom du mois et pour la barre de navigation en bas. Si dï¿½fini ï¿½ '0', affiche les liens textes. 
+- $params['border_color'] :  Couleur pour les séparation des cases et des bordures 
+- $params['use_img'] :  Utilise des fichiers gif à côté du nom du mois et pour la barre de navigation en bas. Si défini à '0', affiche les liens textes. 
 */
 
 function calendar($date = '') {
@@ -218,8 +218,8 @@ function calendar($date = '') {
 	
 	$current_month_name = $monthes_name[$current_month];
 	
-	/* Ajout ER : dï¿½tection si date en cours du calendrier correspond ou pas ï¿½ la date de l'appelant 
-		Sans ce test, le lien sur tous les jours identiques d'un autre mois n'ï¿½taient pas affichï¿½s, exemple :
+	/* Ajout ER : détection si date en cours du calendrier correspond ou pas à la date de l'appelant 
+		Sans ce test, le lien sur tous les jours identiques d'un autre mois n'étaient pas affichés, exemple :
 			appelant avec date au 04/10/2003 >> lien du 04/11/2003 absent */
 	$date_MySQL_caller = "'".substr($date_caller, 0 ,4)."-".substr($date_caller, 4 ,2)."-".substr($date_caller, 6 ,2)."'";
 	$rqt_date = "select date_format(".$date_MySQL_caller.", '%d') as current_day, date_format(".$date_MySQL_caller.", '%c') as current_month, date_format(".$date_MySQL_caller.", '%Y') as current_year ";

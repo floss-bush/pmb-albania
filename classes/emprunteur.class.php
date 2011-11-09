@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: emprunteur.class.php,v 1.116 2010-12-02 17:02:11 dbellamy Exp $
+// $Id: emprunteur.class.php,v 1.117.2.1 2011-06-14 15:30:12 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -23,54 +23,54 @@ $selector_prop_ajout_caddie_empr = "toolbar=no, dependent=yes, resizable=yes, sc
 class emprunteur {
 
 //---------------------------------------------------------
-//            Propriï¿½tï¿½s
+//            Propriétés
 //---------------------------------------------------------
 
 var $id		= 0		;    // id MySQL emprunteur
 var $cb     = ''    ;    // code barre emprunteur
 var $nom    = ''    ;    // nom emprunteur
-var $prenom = ''    ;    // prï¿½nom emprunteur
+var $prenom = ''    ;    // prénom emprunteur
 var $adr1   = ''    ;    // adresse ligne 1
 var $adr2   = ''    ;    // adresse ligne 2
 var $cp     = ''    ;    // code postal
 var $ville  = ''    ;    // ville
 var $pays   = ''    ;    // pays
 var $mail   = ''    ;    // adresse email
-var $tel1   = ''    ;    // tï¿½lï¿½phone 1
+var $tel1   = ''    ;    // téléphone 1
 var $sms   = ''    ;    // sms activation
-var $tel2   = ''    ;    // tï¿½lï¿½phone 2
+var $tel2   = ''    ;    // téléphone 2
 var $prof   = ''    ;    // profession
-var $birth  = ''    ;    // annï¿½e de naissance
-var $categ  = 0    	;    // catï¿½gorie emprunteur
-var $cat_l  = ''    ;    // libellï¿½ catï¿½gorie emprunteur
+var $birth  = ''    ;    // année de naissance
+var $categ  = 0    	;    // catégorie emprunteur
+var $cat_l  = ''    ;    // libellé catégorie emprunteur
 var $cstat  = 0    	;    // code statistique
-var $cstat_l= 0     ;    // libellï¿½ code statistique
-var $cdate  = ''    ;    // date de crï¿½ation
+var $cstat_l= 0     ;    // libellé code statistique
+var $cdate  = ''    ;    // date de création
 var $mdate  = ''    ;    // date de modification
 var $adate  = ''    ;    // date d'abonnement
-var $rdate  = ''    ;    // date de rï¿½abonnement
+var $rdate  = ''    ;    // date de réabonnement
 var $sexe   = 0    	;    // sexe de l'emprunteur
 var $login  = ''    ;    // login pour services OPAC
 var $pwd    = ''    ;    // mot de passe OPAC
 var $ldap   = ''   	;  	 // flag pour AuthLdap
-var $date_adhesion   = '';    // dï¿½but adhï¿½sion
-var $date_expiration = '';    // fin adhï¿½sion
-var $aff_date_adhesion   = '';    // dï¿½but adhï¿½sion formatï¿½e
-var $aff_date_expiration = '';    // fin adhï¿½sion formatï¿½e
+var $date_adhesion   = '';    // début adhésion
+var $date_expiration = '';    // fin adhésion
+var $aff_date_adhesion   = '';    // début adhésion formatée
+var $aff_date_expiration = '';    // fin adhésion formatée
 var $empr_msg     = ''    ;    // Message emprunteur
-var $prets        ;    // array contenant les prï¿½ts de l'emprunteur
-// var $reservations    ;    // array contenant les rï¿½servations pour l'emprunteur
-// supprimï¿½ par ER le 29/12 : ne semble jamais utilisï¿½
+var $prets        ;    // array contenant les prêts de l'emprunteur
+// var $reservations    ;    // array contenant les réservations pour l'emprunteur
+// supprimé par ER le 29/12 : ne semble jamais utilisé
 var $nb_reservations ;
-var $message = ''    ;    // chaï¿½ne contenant les messages emprunteurs
+var $message = ''    ;    // chaîne contenant les messages emprunteurs
 var $fiche = ''        ;    // code HTML de la fiche lecteur
-var $fiche_affichage = ''        ;    // code HTML de la fiche lecteur, lecture seule, allï¿½gï¿½e, pas de bouton
-var $lien_nom_prenom = '' ; 		// NOM, Prï¿½nom avec lien vers ficher lecteur
-var $img_ajout_empr_caddie = '' ;	// Icï¿½ne ajout panier si activï¿½.
-var $serious_message=FALSE;    // niveau du message (sï¿½rieux si TRUE)
+var $fiche_affichage = ''        ;    // code HTML de la fiche lecteur, lecture seule, allégée, pas de bouton
+var $lien_nom_prenom = '' ; 		// NOM, Prénom avec lien vers ficher lecteur
+var $img_ajout_empr_caddie = '' ;	// Icône ajout panier si activé.
+var $serious_message=FALSE;    // niveau du message (sérieux si TRUE)
 var $retard = 0        ;     // le lecteur a-t-il du retard
-var $perso = ""        ;     // Champs personalisï¿½s
-var $header_format = "" ;	// Champs personnalisï¿½s en entï¿½te
+var $perso = ""        ;     // Champs personalisés
+var $header_format = "" ;	// Champs personnalisés en entête
 var $compte = ""		;	//Comptes financiers
 var $fiche_compte="";	// code HTML d'un compte
 var $fiche_consultation=""; 	// code HTML d'un compte en visu
@@ -84,24 +84,24 @@ var $blocage_active=false; //Le blocage est-il actif ?
 var $empr_statut=1; // Statut de l'emprunteur
 var $empr_statut_libelle=""; // Statut de l'emprunteur
 
-var $allow_loan=1;     // Pret autorisï¿½
-var $allow_book=1;     // Reservation autorisï¿½e
-var $allow_opac=1;     // OPAC autorisï¿½
-var $allow_dsi=1;      // DSI autorisï¿½e
-var $allow_dsi_priv=1; // DSI privï¿½e autorisï¿½e
-var $allow_sugg=1;     // Suggestions autorisï¿½es
-var $allow_prol=1;     // Demande de prolongation autorisï¿½e
+var $allow_loan=1;     // Pret autorisé
+var $allow_book=1;     // Reservation autorisée
+var $allow_opac=1;     // OPAC autorisé
+var $allow_dsi=1;      // DSI autorisée
+var $allow_dsi_priv=1; // DSI privée autorisée
+var $allow_sugg=1;     // Suggestions autorisées
+var $allow_prol=1;     // Demande de prolongation autorisée
 
-var $blocage_abt=0;			//Le compte est bloquï¿½ ï¿½ cause de l'abonnement nï¿½gatif
-var $compte_abt=0;			//Montant dï¿½ en abonnements
-var $blocage_tarifs=0;		//Le compte est bloquï¿½ ï¿½ cause d'un dï¿½ de prets payants
-var $compte_tarifs=0;		//Montant dï¿½ en prets payants
-var $blocage_amendes=0;		//Le compte est bloquï¿½ ï¿½ cause d'amendes en cours ou dï¿½es
-var $compte_amendes=0;		//Montant dï¿½ en amendes
+var $blocage_abt=0;			//Le compte est bloqué à cause de l'abonnement négatif
+var $compte_abt=0;			//Montant dû en abonnements
+var $blocage_tarifs=0;		//Le compte est bloqué à cause d'un dû de prets payants
+var $compte_tarifs=0;		//Montant dû en prets payants
+var $blocage_amendes=0;		//Le compte est bloqué à cause d'amendes en cours ou dûes
+var $compte_amendes=0;		//Montant dû en amendes
 var $amendes_en_cours=0;	//Montant des amendes en cours
 var $blocage_retard=0;		//Blocage du compte pour retard
 var $nb_amendes=0;			//Nombre d'exempalires avec amende en cours
-var $nb_pret=0;			//Nombre de prï¿½ts
+var $nb_pret=0;			//Nombre de prêts
 var $total_loans=0; // Nb total de ses emprunts
 var $type_fiche=0;  // Type de fiche
 var $last_loan_date='';//Date du dernier emprunt
@@ -112,7 +112,7 @@ var $fiche_retard = "";
 // <----------------- constructeur ------------------>
 function emprunteur ($id=0, $message='', $niveau_message=FALSE, $type_fiche=0) {
 
-	// initialisation des proprï¿½tï¿½s si l'id est dï¿½fini
+	// initialisation des proprétés si l'id est défini
 	if($id) {
 		$this->id = $id;
 		$this->type_fiche = $type_fiche;
@@ -129,7 +129,7 @@ function emprunteur ($id=0, $message='', $niveau_message=FALSE, $type_fiche=0) {
 	}
 }
 
-//   renseignement des propriï¿½tï¿½s avec requï¿½te MySQL
+//   renseignement des propriétés avec requête MySQL
 function fetch_info() {
 
 	global $dbh;
@@ -154,24 +154,24 @@ function fetch_info() {
 
 	$empr = mysql_fetch_object($result);
 
-	// affectation des propriï¿½tï¿½s
+	// affectation des propriétés
 	$this->cb        = $empr->empr_cb           ;    // code barre emprunteur
 	$this->nom       = $empr->empr_nom          ;    // nom emprunteur
-	$this->prenom    = $empr->empr_prenom       ;    // prï¿½nom mprunteur
+	$this->prenom    = $empr->empr_prenom       ;    // prénom mprunteur
 	$this->adr1      = $empr->empr_adr1         ;    // adresse ligne 1
 	$this->adr2      = $empr->empr_adr2         ;    // adresse ligne 2
 	$this->cp        = $empr->empr_cp           ;    // code postal
 	$this->ville     = $empr->empr_ville        ;    // ville
 	$this->pays      = $empr->empr_pays         ;    // ville
 	$this->mail      = $empr->empr_mail         ;    // adresse email
-	$this->tel1      = $empr->empr_tel1         ;    // tï¿½lï¿½phone 1
+	$this->tel1      = $empr->empr_tel1         ;    // téléphone 1
 	$this->sms       = $empr->empr_sms         ;    // sms activation
-	$this->tel2      = $empr->empr_tel2         ;    // tï¿½lï¿½phone 2
+	$this->tel2      = $empr->empr_tel2         ;    // téléphone 2
 	$this->prof      = $empr->empr_prof         ;    // profession
-	$this->birth     = $empr->empr_year         ;    // annï¿½e de naissance
-	$this->categ     = $empr->empr_categ        ;    // catï¿½gorie emprunteur
+	$this->birth     = $empr->empr_year         ;    // année de naissance
+	$this->categ     = $empr->empr_categ        ;    // catégorie emprunteur
 	$this->cstat     = $empr->empr_codestat     ;    // code statistique
-	$this->cdate     = $empr->empr_creation     ;    // date de crï¿½ation
+	$this->cdate     = $empr->empr_creation     ;    // date de création
 	$this->mdate     = $empr->empr_modif        ;    // date de modification
 	$this->sexe      = $empr->empr_sexe         ;    // sexe de l'emprunteur
 	$this->login     = $empr->empr_login        ;    // login pour services OPAC
@@ -223,15 +223,15 @@ function fetch_info() {
 		$this->ldap='MYSQL';
 	}
 
-	$this->date_adhesion     	= $empr->empr_date_adhesion        ;    // dï¿½but adhï¿½sion
-	$this->date_expiration     	= $empr->empr_date_expiration      ;    // fin adhï¿½sion
-	$this->aff_date_adhesion    = $empr->aff_empr_date_adhesion    ;    // dï¿½but adhï¿½sion
-	$this->aff_date_expiration	= $empr->aff_empr_date_expiration  ;    // fin adhï¿½sion
+	$this->date_adhesion     	= $empr->empr_date_adhesion        ;    // début adhésion
+	$this->date_expiration     	= $empr->empr_date_expiration      ;    // fin adhésion
+	$this->aff_date_adhesion    = $empr->aff_empr_date_adhesion    ;    // début adhésion
+	$this->aff_date_expiration	= $empr->aff_empr_date_expiration  ;    // fin adhésion
 	$this->empr_msg     		= $empr->empr_msg            ;    // message emprunteur
-	$this->cat_l        		= $empr->code1               ;    // libellï¿½ catï¿½gorie emprunteur
-	$this->cstat_l      		= $empr->code2               ;    // libellï¿½ code statistique. voir ce bug avec Eric
+	$this->cat_l        		= $empr->code1               ;    // libellé catégorie emprunteur
+	$this->cstat_l      		= $empr->code2               ;    // libellé code statistique. voir ce bug avec Eric
 
-	//Paramï¿½tres perso
+	//Paramètres perso
 	//Liste des champs
 	$p_perso = new parametres_perso("empr");
 	$perso_ = $p_perso->show_fields($this->id);
@@ -353,24 +353,24 @@ function fetch_info_suite() {
 	}
 
 	$this->compte=$compte;	
-	$this->relance.= $this->do_tablo_relance();
-	// ces propriï¿½tï¿½s sont absentes de la table emprunteurs pour le moment
+	if($pmb_gestion_amende && $pmb_gestion_financiere) $this->relance.= $this->do_tablo_relance();
+	// ces propriétés sont absentes de la table emprunteurs pour le moment
 	//    $this->adate    = $empr->empr_???    ;    // date d'abonnement
-	//    $this->rdate    = $empr->empr_???    ;    // date de rï¿½abonnement
+	//    $this->rdate    = $empr->empr_???    ;    // date de réabonnement
 	if($this->message) 
 		$this->message = $empr->message.'<hr />'.$this->message;
 	else 
 		$this->message = $empr->message;
 
 	// Gestion de limoitation de la visualisation de la liste de pret.
-	// traitement de l'ordre d'affichage en mode visualisation limitï¿½e		
+	// traitement de l'ordre d'affichage en mode visualisation limitée		
 	global $pmb_pret_aff_limitation;	
 	global $see_all_pret;
 	global $pmb_pret_aff_nombre;	
 	$order = " order by p.pret_retour, p.pret_date, e.expl_cb";
 	if(	$pmb_pret_aff_limitation==1) {
 		if (!$see_all_pret) {
-			// le bouton 'Voir tous les prets' n'a pas ï¿½tï¿½ postï¿½
+			// le bouton 'Voir tous les prets' n'a pas été posté
 			$order = " order by p.pret_date desc, e.expl_cb limit ".$pmb_pret_aff_nombre;
 		}	
 	}		
@@ -379,7 +379,7 @@ function fetch_info_suite() {
 	$r_nb_pret = mysql_fetch_object($result_nb_pret);
 	$this->nb_pret = $r_nb_pret->nb_pret ;
 	
-	// rï¿½cupï¿½ration du tableau des exemplaires empruntï¿½s
+	// récupération du tableau des exemplaires empruntés
 	// il nous faut : code barre exemplaire, titre/auteur, type doc, date de prï¿½t, date de retour
 	$requete = "select e.expl_cb, e.expl_id, e.expl_notice, docs_location.location_libelle, docs_section.section_libelle, e.expl_bulletin, p.pret_date, p.pret_retour, t.tdoc_libelle, date_format(pret_date, '".$msg["format_date"]."') as aff_pret_date, date_format(pret_retour, '".$msg["format_date"]."') as aff_pret_retour, if (pret_retour< CURDATE(),1 ,0 ) as retard , date_format(retour_initial, '".$msg["format_date"]."') as aff_retour_initial, cpt_prolongation";
 	$requete .= " from pret p, exemplaires e, docs_type t, docs_location, docs_section";
@@ -521,7 +521,7 @@ function do_fiche() {
 		$this->fiche = str_replace('!!groupes!!',"&nbsp;",$this->fiche);
 	}
 	
-	// Ajout d'infos complï¿½mentaires lorsque la fiche lecteur est repliï¿½e par dï¿½faut
+	// Ajout d'infos complémentaires lorsque la fiche lecteur est repliée par défaut
 	$empr_resume='';
 	if ($empr_fiche_depliee=="0") { 
 		//localisation
@@ -533,12 +533,12 @@ function do_fiche() {
 	}	
 	$this->fiche = str_replace('!!empr_resume!!',$empr_resume,$this->fiche);
 	
-	//Pret autorisï¿½ ou non ?
+	//Pret autorisé ou non ?
 	$pret_ok=0;
 	if (($pmb_gestion_financiere)&&($force_finance==0)) {
 		$message_pret="";
 		if ($pmb_gestion_abonnement) {
-			//Vï¿½rification du compte
+			//Vérification du compte
 			$cpte_abt_id=comptes::get_compte_id_from_empr($this->id,1);
 			if ($cpte_abt_id) {
 				$cpte_abt=new comptes($cpte_abt_id);
@@ -553,7 +553,7 @@ function do_fiche() {
 		}
 		
 		if ($pmb_gestion_tarif_prets) {
-			//Vï¿½rification du compte
+			//Vérification du compte
 			$cpte_pret_id=comptes::get_compte_id_from_empr($this->id,3);
 			if ($cpte_pret_id) {
 				$cpte_pret=new comptes($cpte_pret_id);
@@ -569,7 +569,7 @@ function do_fiche() {
 		}
 		
 		if ($pmb_gestion_amende) {
-			//Vï¿½rification du compte
+			//Vérification du compte
 			$cpte_amende_id=comptes::get_compte_id_from_empr($this->id,2);
 			if ($cpte_amende_id) {
 				$cpte_amende=new comptes($cpte_amende_id);
@@ -598,8 +598,8 @@ function do_fiche() {
 	}
 
 	
-	// Ajout de l'impossibilitï¿½ d'effectuer un prï¿½t si un document n'est pas rendu
-	// alors qu'il a dï¿½passï¿½ le dï¿½lai de blocage (NG72) .   
+	// Ajout de l'impossibilité d'effectuer un prêt si un document n'est pas rendu
+	// alors qu'il a dépassé le délai de blocage (NG72) .   
 	//if ($pmb_blocage_retard){
 	if (($pmb_blocage_retard)&&($force_finance==0)) {
 		// Recherche la date de retour du document la plus petite, soit le plus gros retard potentiel
@@ -672,7 +672,7 @@ function do_fiche() {
 	} else 
 		$this->fiche = str_replace('!!empr_msg!!', "", $this->fiche);
 	
-	// on distingue les messages de prï¿½ts du message sur l'emprunteur
+	// on distingue les messages de prêts du message sur l'emprunteur
 	$this->fiche = str_replace('!!pret_msg!!'    , $this->message    , $this->fiche);
 
 	if ($this->adhesion_renouv_proche()) {
@@ -697,10 +697,10 @@ function do_fiche() {
 
 	$this->fiche = str_replace('!!sexe!!'    , $fsexe[$this->sexe], $this->fiche);
 	
-	// valeur pour les champ hidden du prï¿½t. L'id empr est pris en charge plus haut (voir Eric)
+	// valeur pour les champ hidden du prêt. L'id empr est pris en charge plus haut (voir Eric)
 	$this->fiche = str_replace('!!cb!!'    , $this->cb    , $this->fiche);
 
-	// traitement liste exemplaires en prï¿½t
+	// traitement liste exemplaires en prêt
 	$this->fiche = str_replace('!!nb_prets_encours!!'    , $this->nb_pret    , $this->fiche);
 
 	//Si retard sur un document, proposer la lettre de retard ou l'email de retard
@@ -721,7 +721,7 @@ function do_fiche() {
 	$this->fiche=str_replace("!!mail_retard!!",$bouton_mail_retard,$this->fiche);
 	$voir_tout_pret="";
 	if(!count($this->prets))
-		// dans ce cas, le lecteur n'a rien en prï¿½t
+		// dans ce cas, le lecteur n'a rien en prêt
 		$prets_list = "<tr><td colspan='9'>$msg[650]</td></tr>";
 	else {
 		// constitution du code HTML
@@ -752,14 +752,14 @@ function do_fiche() {
 				// Limitation du pret par les quotas
 				//Initialisation des quotas pour nombre de prolongations
 				$qt = new quota("PROLONG_NMBR_QUOTA");
-				//Tableau de passage des paramï¿½tres
+				//Tableau de passage des paramètres
 				$struct["READER"] = $this->id;
 				$struct["EXPL"] = $valeur['id'];			
 				$pret_nombre_prolongation=$qt -> get_quota_value($struct);		
 				$forcage_prolongation=$qt -> get_force_value($struct);				
 			
 			
-				//Initialisation des quotas la durï¿½e de prolongations
+				//Initialisation des quotas la durée de prolongations
 				$qt = new quota("PROLONG_TIME_QUOTA");
 				$struct["READER"] = $this->id;
 				$struct["EXPL"] = $valeur['id'];	
@@ -767,7 +767,7 @@ function do_fiche() {
 			
 			}
 			//$forcage_prolongation=FALSE;
-			/* on prï¿½pare la date de dï¿½but*/
+			/* on prépare la date de début*/
 			$pret_date = $valeur['sql_date_retour'];
 			$rqt_date = "select date_add('".$pret_date."', INTERVAL '$duree_prolongation' DAY) as date_prolongation ";
 			$resultatdate = mysql_query($rqt_date);
@@ -848,7 +848,7 @@ function do_fiche() {
 		if(	$pmb_pret_aff_limitation==1) {
 			if($pmb_pret_aff_nombre) {
 				if (!$see_all_pret && $this->nb_pret > $pmb_pret_aff_nombre) {
-					// le bouton 'Voir tous les prets' n'a pas ï¿½tï¿½ postï¿½ et on arrive ï¿½ la limite imposï¿½e
+					// le bouton 'Voir tous les prets' n'a pas été posté et on arrive à la limite imposée
 					//Affichage du bouton 'Voir tous les prets' 
 					$tout_voir_click = "onclick=\"document.location='circ.php?categ=pret&see_all_pret=1&form_cb=".$this->cb."'\"";
 					$voir_tout_pret="<input type='button' name='see_all_pret' class='bouton' value='".$msg['pret_liste_voir_tout']."'  $tout_voir_click/>";
@@ -897,11 +897,11 @@ function do_fiche() {
 	if($this->relance)	$bt_histo_relance="&nbsp;<input type='button' class='bouton' id='see_late' name='see_late' value=\"".$msg['empr_see_late']."\" onclick=\"document.location='./circ.php?categ=pret&sub=show_late&id=$this->id' \" />";
 	$this->fiche = str_replace('!!bt_histo_relance!!',$bt_histo_relance, $this->fiche);
 	
-	// mise ï¿½ jour de la liste des rï¿½servations
+	// mise à jour de la liste des réservations
 	$this->fiche = str_replace('!!resa_list!!', $this->fetch_resa(), $this->fiche);
 
 	if($pmb_resa_planning) {
-		// mise ï¿½ jour de la liste des rï¿½servations plannifiï¿½es
+		// mise à jour de la liste des réservations plannifiées
 		$this->fiche = str_replace('!!resa_planning_list!!', $this->fetch_resa_planning(), $this->fiche);
 	} else {
 		$this->fiche = str_replace('!!resa_planning_list!!', '', $this->fiche);
@@ -956,7 +956,7 @@ function do_fiche_compte($typ_compte) {
 	$this->fiche_compte=$empr_comptes_tmpl;
 }
 
-// fabrication de la fiche lecteur pour affichage uniquement, pas de bouton, allï¿½gï¿½
+// fabrication de la fiche lecteur pour affichage uniquement, pas de bouton, allégé
 function do_fiche_affichage() {
 
 	global $empr_tmpl_fiche_affichage;
@@ -992,7 +992,7 @@ function do_fiche_affichage() {
 	} else 
 		$this->fiche_affichage = str_replace('!!empr_msg!!', "", $this->fiche_affichage);
 	
-	// on distingue les messages de prï¿½ts du message sur l'emprunteur
+	// on distingue les messages de prêts du message sur l'emprunteur
 	$this->fiche_affichage = str_replace('!!pret_msg!!'    , $this->message    , $this->fiche_affichage);
 
 	if ($this->adhesion_renouv_proche()) {
@@ -1011,14 +1011,14 @@ function do_fiche_affichage() {
 
 	$this->fiche_affichage = str_replace('!!sexe!!'    , $fsexe[$this->sexe], $this->fiche_affichage);
 
-	// valeur pour les champ hidden du prï¿½t. L'id empr est pris en charge plus haut 
+	// valeur pour les champ hidden du prêt. L'id empr est pris en charge plus haut 
 	$this->fiche_affichage = str_replace('!!cb!!'    , $this->cb    , $this->fiche_affichage);
 
-	// traitement liste exemplaires en prï¿½t
+	// traitement liste exemplaires en prêt
 	$this->fiche_affichage = str_replace('!!nb_prets_encours!!'    , $this->nb_pret    , $this->fiche_affichage);
 
 	if(!count($this->prets))
-		// dans ce cas, le lecteur n'a rien en prï¿½t
+		// dans ce cas, le lecteur n'a rien en prêt
 		$prets_list = "<tr><td class='ex-strip' colspan='7'>$msg[650]</td></tr>";
 	else {
 		// constitution du code HTML
@@ -1096,7 +1096,7 @@ function do_fiche_affichage() {
 		if(	$pmb_pret_aff_limitation==1) {				
 			if($pmb_pret_aff_nombre) {
 				if (!$see_all_pret && ($this->nb_pret > $pmb_pret_aff_nombre)) {
-					// le bouton 'Voir tous les prets' n'a pas ï¿½tï¿½ postï¿½ et on arrive ï¿½ la limite imposï¿½e
+					// le bouton 'Voir tous les prets' n'a pas été posté et on arrive à la limite imposée
 					//Affichage du bouton 'Voir tous les prets' 
 					$tout_voir_click = "onclick=\"document.location='circ.php?categ=pret&see_all_pret=1&form_cb=".$this->cb."'\"";
 					$prets_list .= "
@@ -1109,26 +1109,26 @@ function do_fiche_affichage() {
 		}			
 	} //else
 	$this->fiche_affichage = str_replace('!!pret_list!!'    , $prets_list    , $this->fiche_affichage);
-	// mise ï¿½ jour de la liste des rï¿½servations
+	// mise à jour de la liste des réservations
 	$this->fiche_affichage = str_replace('!!resa_list!!', $this->fetch_resa(), $this->fiche_affichage);
 } // fin do_fiche_affichage
 
 
-//   rï¿½cupï¿½ration de la liste des rï¿½servations pour l'emprunteur
+//   récupération de la liste des réservations pour l'emprunteur
 function fetch_resa() {
 	return resa_list (0, 0, $this->id,"","",LECTEUR_INFO_GESTION,"") ;
 	// resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order, $where = "", $info_gestion=0, $url_gestion="")
 }
 
 
-//   rï¿½cupï¿½ration de la liste des rï¿½servations planifiï¿½es pour l'emprunteur
+//   récupération de la liste des réservations planifiées pour l'emprunteur
 function fetch_resa_planning() {
 	return empr_planning_list ($this->id) ;
 }
 
 
 
-// fonction de vï¿½rification que la date d'adhï¿½sion est dï¿½passï¿½e ou pas
+// fonction de vérification que la date d'adhésion est dépassée ou pas
 function adhesion_depassee() {
 	global $dbh ;
 
@@ -1140,7 +1140,7 @@ function adhesion_depassee() {
 	return $resdate->test_date;
 }
 
-// fonction de vï¿½rification que la date d'adhï¿½sion est proche ou pas
+// fonction de vérification que la date d'adhésion est proche ou pas
 function adhesion_renouv_proche() {
 	global $pmb_relance_adhesion ;
 	global $dbh ;
@@ -1216,7 +1216,7 @@ function del_empr($id=0) {
 		$query = mysql_query("DELETE bannette_abon FROM bannette_abon LEFT JOIN empr on num_empr=id_empr WHERE id_empr is null");
 		$query = mysql_query("DELETE bannette_abon FROM bannette_abon LEFT JOIN bannettes ON num_bannette=id_bannette WHERE id_bannette IS NULL ");
 		
-		//listes de lecture partagï¿½es
+		//listes de lecture partagées
 		$rqt_del = "delete opac_liste_lecture where num_empr=$id ";
 		$resultat_del=mysql_query($rqt_del);		
 		$rqt_del = "delete abo_liste_lecture where num_empr=$id ";
@@ -1233,7 +1233,7 @@ function del_empr($id=0) {
 	}
 }
 
-// mï¿½thode qui retourne un objet <img> avec l'url de la photo de l'emprunteur
+// méthode qui retourne un objet <img> avec l'url de la photo de l'emprunteur
 function picture_empr($empr_cb) {
 	global $charset;
 	global $empr_pics_url, $empr_pics_max_size ;
@@ -1366,7 +1366,7 @@ function import($data){
 	
 		global $dbh, $lang;
 	
-		// check sur le type de  la variable passï¿½e en paramï¿½tre
+		// check sur le type de  la variable passée en paramètre
 		if(!sizeof($data) || !is_array($data)) {
 			// si ce n'est pas un tableau ou un tableau vide, on retourne 0
 			return 0;
@@ -1375,13 +1375,13 @@ function import($data){
 		if(!$data['nom'])
 			return 0;
 		
-		//Check si le code barre n'est pas dï¿½ja utilisï¿½
+		//Check si le code barre n'est pas déja utilisé
 		$this->cb=addslashes($data['cb']);
 		
 		$query = "SELECT id_empr FROM empr WHERE empr_cb='".$this->cb."' LIMIT 1 ";
 		$result = @mysql_query($query, $dbh);
 		if(!$result) die("can't SELECT in database");
-		//On prepare les paramï¿½tres
+		//On prepare les paramètres
 		$this->empr_location=0;
 		if(!$data['location'] and !$data['location_libelle'] and $data['location_libelle_create'] != ''){
 			//Dans la cas ou l'on veut creer la location
@@ -1614,7 +1614,7 @@ function do_fiche_retard(){
 	}
 	$empr_retard_tpl = str_replace("!!id!!",$this->id,$empr_retard_tpl);	
 	$empr_retard_tpl = str_replace("!!liste_retard!!",$result,$empr_retard_tpl);	
-	$empr_retard_tpl = str_replace("!!nivo_relance!!",0,$empr_retard_tpl);// si aucun imprimï¿½
+	$empr_retard_tpl = str_replace("!!nivo_relance!!",0,$empr_retard_tpl);// si aucun imprimé
 	$this->fiche_retard = $empr_retard_tpl;
 }
 
@@ -1633,7 +1633,7 @@ function do_tablo_relance(){
 	
 	if($niveau_min || $niveau_normal){
 		$requete ="select count(pret_idexpl) as empr_nb from empr, pret, exemplaires where 
-		pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id and id_empr='".$this->id."'";
+		pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id and id_empr='".$this->id."'";
 		$res = mysql_query($requete,$dbh);
 		$empr =mysql_fetch_object($res);
 		
@@ -1652,6 +1652,6 @@ function do_tablo_relance(){
 	return $tableau;
 }
 
-} # fin de dï¿½claration classe emprunteur
+} # fin de déclaration classe emprunteur
 
 

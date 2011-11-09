@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: extended.inc.php,v 1.46 2010-12-06 14:39:57 arenou Exp $
+// $Id: extended.inc.php,v 1.47.2.1 2011-06-16 14:39:02 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -72,7 +72,7 @@ print "	<div id=\"resultatrech\"><h3>$msg[resultat_recherche]</h3>\n
 print pmb_bidi("<h3>$count $msg[titles_found] ".$es->make_human_query()."</h3>");
 
 // pour la DSI
-if ($opac_allow_bannette_priv && $_SESSION['abon_cree_bannette_priv']==1) {
+if ($opac_allow_bannette_priv && $allow_dsi_priv && ($_SESSION['abon_cree_bannette_priv']==1 || $opac_allow_bannette_priv==2)) {
 	print "<input type='button' class='bouton' name='dsi_priv' value=\"$msg[dsi_bt_bannette_priv]\" onClick=\"document.form_values.action='./empr.php?lvl=bannette_creer'; document.form_values.submit();\">&nbsp;";
 }
 
@@ -165,7 +165,7 @@ $_SESSION["notice_view".$n]["search_mod"]="extended";
 $_SESSION["notice_view".$n]["search_page"]=$page;
 
 //affichage
-print "&nbsp;&nbsp;<a href='$base_path/index.php?search_type_asked=extended_search&mode_aff=aff_extended_search'>".$msg["affiner_recherche"]."</a>";
+print "&nbsp;&nbsp;<a href='$base_path/index.php?search_type_asked=extended_search&get_query=$n'>".$msg["affiner_recherche"]."</a>";
 //fin affinage
 
 //Etendre

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titre_uniforme.class.php,v 1.4 2009-02-11 10:48:04 touraine37 Exp $
+// $Id: titre_uniforme.class.php,v 1.6 2011-02-02 20:08:44 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -50,7 +50,7 @@ class titre_uniforme {
 		$this->ref=array();
 		$this->subdiv=array();
 		if($this->id) {
-			$requete = "SELECT * FROM titres_uniformes WHERE tu_id=$this->id LIMIT 1 ";
+			$requete = "SELECT * FROM titres_uniformes WHERE tu_id='".addslashes($this->id)."' LIMIT 1 ";
 			$result = @mysql_query($requete, $dbh);
 			if(mysql_num_rows($result)) {
 				$temp = mysql_fetch_object($result);				

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: interpreter.inc.php,v 1.11 2008-08-25 12:55:06 ngantier Exp $
+// $Id: interpreter.inc.php,v 1.12 2011-03-04 11:27:58 ngantier Exp $
 require_once ($include_path . "/misc.inc.php");
 
 $func_format['romain']= aff_romain;
@@ -44,7 +44,8 @@ $func_format['1ucase']=aff_ucase_firstletter;
 $func_format['ucase']=aff_ucase;
 //    passer les premières lettres de chaque mot en majuscule.
 $func_format['1ucasew']=aff_ucase_firstletter_word;
-
+// Convertie un nombre en lettre (1=>a, 26=>z) param 1: le chiffre, param2 optionnel: >0:en Majuscule
+$func_format['i2char']= aff_i2char;
 //$func_format['']= ;
 
 $var_format = array();
@@ -308,4 +309,10 @@ function aff_ucase($param) {
 }
 function aff_ucase_firstletter_word($param) {
 	return ucwords($param);
+}
+
+function aff_i2char($param) {
+	if($param[0]<1 || $param[0]>26)return '';
+	if($param[1]) return chr($param[0]+64);
+	return chr($param[0]+96);
 }

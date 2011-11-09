@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: collection.class.php,v 1.9 2010-11-02 16:20:29 ngantier Exp $
+// $Id: collection.class.php,v 1.11.2.1 2011-09-23 09:50:12 ngantier Exp $
 
 // définition de la classe de gestion des collections
 // inclure :
@@ -51,7 +51,7 @@ function collection($id) {
 // ---------------------------------------------------------------
 function get_primaldata() {
 	global $dbh;
-	$requete = "SELECT * FROM collections WHERE collection_id=$this->id LIMIT 1 ";
+	$requete = "SELECT * FROM collections WHERE collection_id='".addslashes($this->id)."' LIMIT 1 ";
 	$result = @mysql_query($requete, $dbh);
 	if(mysql_num_rows($result)) {
 		$obj = mysql_fetch_object($result);
@@ -148,7 +148,7 @@ function print_resume($level = 2,$css) {
 			while ($obj = mysql_fetch_object($result)) 
 				$remplacement .= "<li><a href='index.php?lvl=subcoll_see&id=".$obj->sub_coll_id."'>".$obj->sub_coll_name."</a></li>\n";
 			mysql_free_result($result);
-			$remplacement .= "</ul>\n";
+			$remplacement .= "</ul><div class='row'></div>\n";
 			} else $remplacement = "";
 		$print = str_replace("!!subcolls!!", $remplacement, $print);
 		}

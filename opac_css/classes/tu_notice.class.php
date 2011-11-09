@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: tu_notice.class.php,v 1.2 2009-05-16 10:52:43 dbellamy Exp $
+// $Id: tu_notice.class.php,v 1.4 2011-02-02 20:08:44 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -41,7 +41,7 @@ class tu_notice {
 
 		$this->ntu_data=array();
 		if($this->id) {				
-			$requete = "SELECT * FROM notices_titres_uniformes WHERE ntu_num_notice=$this->id order by ntu_ordre";
+			$requete = "SELECT * FROM notices_titres_uniformes WHERE ntu_num_notice='".addslashes($this->id)."' order by ntu_ordre";
 		
 			$result = mysql_query($requete, $dbh);
 			$nb_result=0;

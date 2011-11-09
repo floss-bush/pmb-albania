@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: searcher.class.php,v 1.104 2010-11-08 14:10:06 ngantier Exp $
+// $Id: searcher.class.php,v 1.106 2011-03-29 13:52:31 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -436,20 +436,20 @@ class searcher_title extends searcher {
 				if($docnum_query && $all_query!='*'){
 					//Si on a activé la recherche dans les docs num
 					//On traite les notices
-					$members_num_noti = $aq2->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice");
-					$members_num_bull = $aq2->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin");
+					$members_num_noti = $aq2->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice","",0,0,true);
+					$members_num_bull = $aq2->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin","",0,0,true);
 					
 					$join = "(
 					select tc.notice_id, sum(tc.pert) as pert, tc.typdoc from (
 					(
 					select notice_id, ".$members["select"]."+".$members1["select"]." as pert,typdoc 
-					from notices left join notices_global_index on num_notice=notice_id $acces_j 
+					from notices join notices_global_index on num_notice=notice_id $acces_j 
 					where ".$members["where"]." $restrict 
 					) 
 					union 
 					(
 					select notice_id, ".$members_num_noti["select"]." as pert,typdoc 
-					from notices left join explnum on explnum_notice=notice_id $acces_j 
+					from notices join explnum on explnum_notice=notice_id $acces_j 
 					where  ".$members_num_noti["where"]." $restrict 
 					)
 					union 

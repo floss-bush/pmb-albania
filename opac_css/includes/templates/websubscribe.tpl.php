@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: websubscribe.tpl.php,v 1.3 2009-05-16 10:52:55 dbellamy Exp $
+// $Id: websubscribe.tpl.php,v 1.3.4.1 2011-06-22 15:16:43 trenon Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -42,7 +42,7 @@ function test_inscription(form) {
 		</tr>
 		<tr><td align=right><span>".$msg['subs_f_adr2']."</span></td><td><input type='text' class='subsform' name='f_adr2' value='!!f_adr2!!' /></td><td>&nbsp;</td><td></td>
 		</tr>
-		<tr><td align=right><span>".$msg['subs_f_cp']." ".$msg['subs_f_ville']."</span></td><td><input type='text' class='subsform' name='f_cp' value='!!f_cp!!' style='width:50px;'/> <input type='text' class='subsform' name='f_ville' value='!!f_ville!!' style='width:140px;'/></td><td>&nbsp;</td><td></td>
+		<tr><td align=right><span>".$msg['subs_f_cp']." ".$msg['subs_f_ville']."</span></td><td><input type='text' class='subsform' name='f_cp' value='!!f_cp!!' style='width:50px;'/> <input type='text' class='subsform' name='f_ville' value='!!f_ville!!' style='width:136px;'/></td><td>&nbsp;</td><td></td>
 		</tr>
 		<tr><td align=right><span>".$msg['subs_f_pays']."</span></td><td><input type='text' class='subsform' name='f_pays' value='!!f_pays!!' /></td><td>&nbsp;</td><td></td>
 		</tr>

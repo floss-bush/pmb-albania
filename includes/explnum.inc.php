@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum.inc.php,v 1.53 2010-03-22 09:37:03 kantin Exp $
+// $Id: explnum.inc.php,v 1.54.2.2 2011-09-15 12:47:34 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -112,99 +112,123 @@ function reduire_image ($userfile_name) {
 	
 	if(file_exists("./temp/$userfile_name")){
 		$bidon = "./temp/$userfile_name";
-	} else $bidon = $userfile_name;
-	
-	$size = @getimagesize($bidon);
-	/*   ".gif"=>"1",
-         ".jpg"=>"2",
-         ".jpeg"=>"2",
-         ".png"=>"3",
-         ".swf"=>"4",
-         ".psd"=>"5",
-         ".bmp"=>"6");
-	*/
-	switch ($size[2]) {
-		case 1:
-			$src_img = imagecreatefromgif($bidon);
-		 	break;
-		case 2:
-			$src_img = imagecreatefromjpeg($bidon);
-			break;
-		case 3:
-			$src_img = imagecreatefrompng($bidon);
-			break;
-		case 6:
-			$src_img = imagecreatefromwbmp($bidon);
-			break;
-		default:
-			echo "Impossible de créer une vignette avec le fichier $userfile_name ! <!-- ".$size[2]." -->";
-			break;
-	}
-	$erreur_vignette = 0 ;
-	if ($src_img) {
-		$rs=$pmb_vignette_x/$pmb_vignette_y;
-		$taillex=imagesx($src_img);
-		$tailley=imagesy($src_img);
-		if (!$taillex || !$tailley) return "" ;
-		if (($taillex>$pmb_vignette_x)||($tailley>$pmb_vignette_y)) {
-			$r=$taillex/$tailley;
-			if (($r<1)&&($rs<1)) {
-				//Si x plus petit que y et taille finale portrait 
-				//Si le format final est plus large en proportion
-				if ($rs>$r) {
-					$new_h=$pmb_vignette_y; 
-					$new_w=$new_h*$r; 
-				} else {
-					$new_w=$pmb_vignette_x;
-					$new_h=$new_w/$r;
-				}
-			} else if (($r<1)&&($rs>=1)){ 
-				//Si x plus petit que y et taille finale paysage
-				$new_h=$pmb_vignette_y;
-				$new_w=$new_h*$r;  
-			} else if (($r>1)&&($rs<1)) {
-				//Si x plus grand que y et taille finale portrait
-				$new_w=$pmb_vignette_x;
-				$new_h=$new_w/$r;
-			} else {
-				//Si x plus grand que y et taille finale paysage
-				if ($rs<$r) {
-					$new_w=$pmb_vignette_x;
-					$new_h=$new_w/$r;
-				} else {
-					$new_h=$pmb_vignette_y;
-					$new_w=$new_h*$r;
-				}
-			}
-		} else {
-			$new_h = $tailley ;
-			$new_w = $taillex ;
-		}
-		$dst_img=imagecreatetruecolor($pmb_vignette_x,$pmb_vignette_y);
-		ImageSaveAlpha($dst_img, true);
-		ImageAlphaBlending($dst_img, false);
-		imagefilledrectangle($dst_img,0,0,$pmb_vignette_x,$pmb_vignette_y,imagecolorallocatealpha($dst_img, 0, 0, 0, 127));
-		imagecopyresized($dst_img,$src_img,round(($pmb_vignette_x-$new_w)/2),round(($pmb_vignette_y-$new_h)/2),0,0,$new_w,$new_h,ImageSX($src_img),ImageSY($src_img));
-		imagepng($dst_img, "./temp/".SESSid);
-		$fp = fopen("./temp/".SESSid , "r" ) ;
-		$contenu_vignette = fread ($fp, filesize("./temp/".SESSid));
-		if (!$fp || $contenu_vignette=="") $erreur_vignette++ ;
-		fclose ($fp) ;
-		unlink("./temp/".SESSid);
 	} else {
-		$contenu_vignette = "" ;
+		$bidon = $userfile_name;
+	}
+
+	$error = true;
+	if(extension_loaded('imagick')) {
+		$error=false;
+		try {
+			$img = new Imagick($bidon);
+			$img->setIteratorIndex(0);
+			$img->thumbnailimage($pmb_vignette_x,0);
+			$img->setImageFormat( "png" );
+			$img->setCompression(Imagick::COMPRESSION_LZW);
+			$img->setCompressionQuality(90);
+			$contenu_vignette = $img->getImageBlob();			
+		} catch(Exception $ex) {
+			echo $ex->getMessage();
+			$error=true;
+		}		
+	}
+	
+	if ($error) {
+		$size =@getimagesize($bidon);
+		/*   ".gif"=>"1",
+	         ".jpg"=>"2",
+	         ".jpeg"=>"2",
+	         ".png"=>"3",
+	         ".swf"=>"4",
+	         ".psd"=>"5",
+	         ".bmp"=>"6");
+		*/
+		switch ($size[2]) {
+			case 1:
+				$src_img = imagecreatefromgif($bidon);
+			 	break;
+			case 2:
+				$src_img = imagecreatefromjpeg($bidon);
+				break;
+			case 3:
+				$src_img = imagecreatefrompng($bidon);
+				break;
+			case 6:
+				$src_img = imagecreatefromwbmp($bidon);
+				break;
+			default:
+				echo "Impossible de créer une vignette avec le fichier $userfile_name ! <!-- ".$size[2]." -->";
+				break;
+		}
+		$erreur_vignette = 0 ;
+		if ($src_img) {
+			$rs=$pmb_vignette_x/$pmb_vignette_y;
+			$taillex=imagesx($src_img);
+			$tailley=imagesy($src_img);
+			if (!$taillex || !$tailley) return "" ;
+			if (($taillex>$pmb_vignette_x)||($tailley>$pmb_vignette_y)) {
+				$r=$taillex/$tailley;
+				if (($r<1)&&($rs<1)) {
+					//Si x plus petit que y et taille finale portrait 
+					//Si le format final est plus large en proportion
+					if ($rs>$r) {
+						$new_h=$pmb_vignette_y; 
+						$new_w=$new_h*$r; 
+					} else {
+						$new_w=$pmb_vignette_x;
+						$new_h=$new_w/$r;
+					}
+				} else if (($r<1)&&($rs>=1)){ 
+					//Si x plus petit que y et taille finale paysage
+					$new_h=$pmb_vignette_y;
+					$new_w=$new_h*$r;  
+				} else if (($r>1)&&($rs<1)) {
+					//Si x plus grand que y et taille finale portrait
+					$new_w=$pmb_vignette_x;
+					$new_h=$new_w/$r;
+				} else {
+					//Si x plus grand que y et taille finale paysage
+					if ($rs<$r) {
+						$new_w=$pmb_vignette_x;
+						$new_h=$new_w/$r;
+					} else {
+						$new_h=$pmb_vignette_y;
+						$new_w=$new_h*$r;
+					}
+				}
+			} else {
+				$new_h = $tailley ;
+				$new_w = $taillex ;
+			}
+			$dst_img=imagecreatetruecolor($pmb_vignette_x,$pmb_vignette_y);
+			ImageSaveAlpha($dst_img, true);
+			ImageAlphaBlending($dst_img, false);
+			imagefilledrectangle($dst_img,0,0,$pmb_vignette_x,$pmb_vignette_y,imagecolorallocatealpha($dst_img, 0, 0, 0, 127));
+			imagecopyresized($dst_img,$src_img,round(($pmb_vignette_x-$new_w)/2),round(($pmb_vignette_y-$new_h)/2),0,0,$new_w,$new_h,ImageSX($src_img),ImageSY($src_img));
+			imagepng($dst_img, "./temp/".SESSid);
+			$fp = fopen("./temp/".SESSid , "r" ) ;
+			$contenu_vignette = fread ($fp, filesize("./temp/".SESSid));
+			if (!$fp || $contenu_vignette=="") $erreur_vignette++ ;
+			fclose ($fp) ;
+			unlink("./temp/".SESSid);
+		} else {
+			$contenu_vignette = "" ;
+		}
 	}
 	return $contenu_vignette ;
 }
 
 
-function construire_vignette($vignette_name, $userfile_name) {
-	
+function construire_vignette($vignette_name='', $userfile_name='', $url='') {
 	if ($vignette_name) {
 		$contenu_vignette = reduire_image($vignette_name);
 	} elseif ($userfile_name) {
 		$contenu_vignette = reduire_image($userfile_name);
-	} else $contenu_vignette = "";
+	} elseif ($url) {
+		$contenu_vignette = reduire_image($url);
+	} else {
+		$contenu_vignette = "";
+	}
 	return $contenu_vignette ;
 }
 
@@ -474,7 +498,7 @@ function explnum_update($f_explnum_id, $f_notice, $f_bulletin, $f_nom, $f_url, $
 }
 
 
-function explnum_add_from_url($f_notice_id, $f_nom, $f_url, $overwrite=true) {
+function explnum_add_from_url($f_notice_id, $f_nom, $f_url, $overwrite=true, $source_id=0, $filename= "") {
 	
 	global $dbh;
 	
@@ -495,7 +519,8 @@ function explnum_add_from_url($f_notice_id, $f_nom, $f_url, $overwrite=true) {
 	$origine=str_replace(" ","",microtime());
 	$origine=str_replace("0.","",$origine);
 	$original_filename = basename($f_url);
-	$afilename = $origine.$original_filename;
+	if( $filename != "") $afilename = $filename;
+	else $afilename = $origine.$original_filename;
 	if (!$original_filename)
 		$original_filename = $afilename;
 		
@@ -508,15 +533,41 @@ function explnum_add_from_url($f_notice_id, $f_nom, $f_url, $overwrite=true) {
 	$mimetype = trouve_mimetype("temp/".$afilename, $afilename_ext);
 	$extension = strrchr($afilename, '.');
 	
-	$insert_sql = "INSERT INTO explnum (explnum_notice, explnum_nom, explnum_nomfichier, explnum_mimetype, explnum_extfichier, explnum_data, explnum_vignette) VALUES (";
-	$insert_sql .= $f_notice_id.",";
-	$insert_sql .= "'".addslashes($f_nom)."',";
-	$insert_sql .= "'".addslashes($afilename)."',";
-	$insert_sql .= "'".addslashes($mimetype)."',";
-	$insert_sql .= "'".addslashes($extension)."',";
-	$insert_sql .= "'".addslashes($content)."',";
-	$insert_sql .= "'".addslashes($vignette)."'";
-	$insert_sql .= ")";
+	//si la source du connecteur est précisé, on regarde si on a pas un répertoire associé
+	if ($source_id){
+		$check_rep = "select rep_upload from connectors_sources where source_id = ".$source_id;
+		$res = mysql_query($check_rep);
+		if(mysql_num_rows($res)){
+			$rep_upload = mysql_result($res,0,0);
+		}
+	}
+	if($rep_upload != 0){
+		$upload_folder = new upload_folder($rep_upload);
+		$rep_path = $upload_folder->get_path($afilename);
+		copy("temp/".$afilename,$rep_path.$afilename);
+		
+		$path =$upload_folder->formate_path_to_save($upload_folder->formate_path_to_nom($rep_path));
+		$insert_sql = "INSERT INTO explnum (explnum_notice, explnum_nom, explnum_nomfichier, explnum_mimetype, explnum_extfichier, explnum_vignette, explnum_repertoire, explnum_path) VALUES (";
+		$insert_sql .= $f_notice_id.",";
+		$insert_sql .= "'".addslashes($f_nom)."',";
+		$insert_sql .= "'".addslashes($afilename)."',";
+		$insert_sql .= "'".addslashes($mimetype)."',";
+		$insert_sql .= "'".addslashes($extension)."',";
+		$insert_sql .= "'".addslashes($vignette)."',";
+		$insert_sql .= "'".addslashes($rep_upload)."',";
+		$insert_sql .= "'".addslashes($path)."'";
+		$insert_sql .= ")";		
+	}else{
+		$insert_sql = "INSERT INTO explnum (explnum_notice, explnum_nom, explnum_nomfichier, explnum_mimetype, explnum_extfichier, explnum_data, explnum_vignette) VALUES (";
+		$insert_sql .= $f_notice_id.",";
+		$insert_sql .= "'".addslashes($f_nom)."',";
+		$insert_sql .= "'".addslashes($afilename)."',";
+		$insert_sql .= "'".addslashes($mimetype)."',";
+		$insert_sql .= "'".addslashes($extension)."',";
+		$insert_sql .= "'".addslashes($content)."',";
+		$insert_sql .= "'".addslashes($vignette)."'";
+		$insert_sql .= ")";
+	}
 	mysql_query($insert_sql, $dbh);
 	
 	unlink("temp/".$afilename);

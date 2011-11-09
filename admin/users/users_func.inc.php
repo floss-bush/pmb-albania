@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: users_func.inc.php,v 1.29 2009-10-01 13:29:25 kantin Exp $
+// $Id: users_func.inc.php,v 1.29.4.1 2011-09-13 09:57:48 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -53,6 +53,7 @@ function user_form($login="", $nom="", $prenom="", $flag=3, $id=0, $lang="", $nb
 	$flag & TRANSFERTS_AUTH ? $transferts_flg_form = "checked " : $transferts_flg_form = "";
 	$flag & EXTENSIONS_AUTH ? $extensions_flg_form = "checked " : $extensions_flg_form = "";
 	$flag & DEMANDES_AUTH ? $demandes_flg_form = "checked " : $extensions_flg_form = "";
+	$flag & FICHES_AUTH ? $fiches_flg_form = "checked " : $fiches_flg_form = "";
 	
 	$admin_user_form = str_replace('!!admin_flg!!', $admin_flg_form, $admin_user_form);
 	$admin_user_form = str_replace('!!catal_flg!!', $catal_flg_form, $admin_user_form);
@@ -68,6 +69,7 @@ function user_form($login="", $nom="", $prenom="", $flag=3, $id=0, $lang="", $nb
 	$admin_user_form = str_replace('!!transferts_flg!!', $transferts_flg_form, $admin_user_form);
 	$admin_user_form = str_replace('!!extensions_flg!!', $extensions_flg_form, $admin_user_form);
 	$admin_user_form = str_replace('!!demandes_flg!!', $demandes_flg_form, $admin_user_form);
+	$admin_user_form = str_replace('!!fiches_flg!!', $fiches_flg_form, $admin_user_form);
 	
 	if ($form_user_alert_resamail==1) $alert_resa_mail=" checked"; 
 	else $alert_resa_mail="";
@@ -201,7 +203,11 @@ function show_users($dbh) {
 			$dummy =str_replace('!!nuserdemandes!!', '<img src=./images/coche.gif align=top hspace=3>', $dummy);
 		else 
 			$dummy =str_replace('!!nuserdemandes!!', '<img src=./images/uncoche.gif align=top hspace=3>', $dummy);
-				
+		if($row->rights & FICHES_AUTH)
+			$dummy =str_replace('!!nuserfiches!!', '<img src=./images/coche.gif align=top hspace=3>', $dummy);	
+		else 
+			$dummy =str_replace('!!nuserfiches!!', '<img src=./images/uncoche.gif align=top hspace=3>', $dummy);		
+						
 		$dummy = str_replace('!!lang_flag!!', $flag, $dummy);
 		$dummy = str_replace('!!nuserlogin!!', $row->username, $dummy);
 		$dummy = str_replace('!!nuserid!!', $row->userid, $dummy);

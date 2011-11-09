@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: mono_display.class.php,v 1.193 2010-12-02 11:09:07 arenou Exp $
+// $Id: mono_display.class.php,v 1.193.2.3 2011-09-06 09:11:22 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -864,7 +864,7 @@ function do_header() {
 	global $icon_doc;
 	global $tdoc,$biblio_doc;
 	global $use_opac_url_base, $opac_url_base, $use_dsi_diff_mode;
-
+	global $no_aff_doc_num_image;
 	$aut1_libelle = array() ;
 
 	//Icone type de Document
@@ -986,7 +986,7 @@ function do_header() {
 	if ($this->drag) $this->header.=$drag;
 
 	
-	if($this->notice->lien) {
+	if($this->notice->lien && !$no_aff_doc_num_image) {
 		// ajout du lien pour les ressource notice_parent_useds électroniques				
 		if (!$this->print_mode || $use_dsi_diff_mode) {
 			$this->header .= "<a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
@@ -1003,7 +1003,7 @@ function do_header() {
 			$this->header .= '<font size="-1">'.$this->notice->lien.'</font>';		
 		}		
 	}
-	if(!$this->print_mode)	{
+	if(!$this->print_mode && !$no_aff_doc_num_image)	{
 		if ($this->notice->niveau_biblio=='b')
 			$sql_explnum = "SELECT explnum_id, explnum_nom FROM explnum, bulletins WHERE bulletins.num_notice = ".$this->notice_id." AND bulletins.bulletin_id = explnum.explnum_bulletin order by explnum_id";
 		else 
@@ -1018,9 +1018,9 @@ function do_header() {
 			if (!$use_opac_url_base) $this->header .= "<img src=\"./images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			else $this->header .= "<img src=\"".$opac_url_base."images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			$this->header .= " alt=\"";
-			$this->header .= htmlentities($explnumrow->explnum_nom);
+			$this->header .= htmlentities($explnumrow->explnum_nom,ENT_QUOTES,$charset);
 			$this->header .= "\" title=\"";
-			$this->header .= htmlentities($explnumrow->explnum_nom);
+			$this->header .= htmlentities($explnumrow->explnum_nom,ENT_QUOTES,$charset);
 			$this->header .= "\">";
 			$this->header .='</a>';
 		}
@@ -1231,12 +1231,12 @@ function do_image(&$entree) {
 		if ($pmb_book_pics_show=='1' && ($pmb_book_pics_url || $this->notice->thumbnail_url)) {
 			$code_chiffre = pmb_preg_replace('/-|\.| /', '', $this->notice->code);
 			$url_image = $pmb_book_pics_url ;
-			$url_image = $prefix_url_image."getimage.php?url_image=".urlencode($url_image)."&noticecode=!!noticecode!!&vigurl=".urlencode($this->notice->thumbnail_url) ;
-			if ($depliable) $image = "<img id='PMBimagecover".$this->notice_id."' src='".$prefix_url_image."images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."' vigurl=\"".$this->notice->thumbnail_url."\">";
+			$url_image = $prefix_url_image."getimage.php?url_image=".urlencode($url_image)."&amp;noticecode=!!noticecode!!&amp;vigurl=".urlencode($this->notice->thumbnail_url) ;
+			if ($depliable) $image = "<img class='img_notice' id='PMBimagecover".$this->notice_id."' src='".$prefix_url_image."images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."' vigurl=\"".$this->notice->thumbnail_url."\">";
 			else {
 				if ($this->notice->thumbnail_url) $url_image_ok=$this->notice->thumbnail_url;
 				else $url_image_ok = str_replace("!!noticecode!!", $code_chiffre, $url_image) ;
-				$image = "<img src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
+				$image = "<img class='img_notice' src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
 			}
 		} else $image="" ;
 		if ($image) {

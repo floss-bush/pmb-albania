@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: dsi.tpl.php,v 1.51 2010-01-21 16:22:36 ngantier Exp $
+// $Id: dsi.tpl.php,v 1.51.2.1 2011-06-16 10:18:52 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -277,7 +277,10 @@ function confirm_delete() {
 		<label for='update_type' class='etiquette'>$msg[dsi_ban_update_type]</label>
 		!!update_type!!
 		</div>
-
+<div class='row'>
+		<label for='statut_not_account' class='etiquette'>".$msg["dsi_ban_statut_not_account"]."</label>
+		<input type='checkbox' name='statut_not_account' !!statut_not_account!! value=\"1\" />
+</div>
 <div class='row'><hr /></div>
 
 <div class='row'>
@@ -682,10 +685,10 @@ $dsi_bannette_lecteurs_assoce = "
 		}
 		if (check == true) {
 			check = false;
-			document.getElementById('bt_chk').value = '$msg[acquisition_sug_uncheckAll]';
+			document.getElementById('bt_chk').value = '".$msg['acquisition_sug_uncheckAll']."';
 		} else {
 			check = true;
-			document.getElementById('bt_chk').value = '$msg[acquisition_sug_checkAll]';	
+			document.getElementById('bt_chk').value = '".$msg['acquisition_sug_checkAll']."';	
 		}
 		return true;
 	}
@@ -714,7 +717,7 @@ $dsi_bannette_lecteurs_assoce = "
 	</div>
 <div class='row'>
 	<div class='left'>
-		<input type='button' id='bt_chk' class='bouton' value='$msg[acquisition_sug_checkAll]' onClick=\"checkAll('bannette_lecteurs_assoce', 'bannette_abon', check); return false;\" />
+		<input type='button' id='bt_chk' class='bouton' value='".$msg['acquisition_sug_checkAll']."' onClick=\"checkAll('bannette_lecteurs_assoce', 'bannette_abon', check); return false;\" />
 		<input type='submit' class='bouton' value='$msg[77]' />
 		<input type='hidden' name='id_bannette' value='!!id_bannette!!' />
 		<input type='hidden' name='faire' value='enregistrer' />

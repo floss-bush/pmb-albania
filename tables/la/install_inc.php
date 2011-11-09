@@ -148,7 +148,7 @@ $body="
     </div>
     <ul>
       <li> 
-        <div align=\"left\">Style Dewey : indexation d&eacute;cimale similaire à une cotation Dewey.</div>
+        <div align=\"left\">Style Dewey : indexation d&eacute;cimale similaire &agrave; une cotation Dewey.</div>
       </li>
       <li> 
         <div align=\"left\">BM de Chamb&eacute;ry : indexation d&eacute;cimale utilis&eacute;e &agrave; la BM de Chamb&eacute;ry, compl&egrave;te et bien document&eacute;e.</div>

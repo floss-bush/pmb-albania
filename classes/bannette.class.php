@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bannette.class.php,v 1.100 2010-12-02 16:24:51 ngantier Exp $
+// $Id: bannette.class.php,v 1.102.2.2 2011-07-08 14:13:42 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -59,7 +59,10 @@ class bannette {
 	var $prefixe_fichier = "prefix_";
 	var $param_export = array();
 	var	$group_pperso=0;
-	
+	var	$statut_not_account=0;
+	var $field_type='';						
+	var $field_id=0;
+	var $group_pperso_order=array();
 // ---------------------------------------------------------------
 //		constructeur
 // ---------------------------------------------------------------
@@ -112,9 +115,10 @@ function getData() {
 		$this->limite_nombre = 0 ;
 		$this->typeexport = ''; 
 		$this->group_pperso = 0; 
+		$this->statut_not_account = 0; 
 		$this->prefixe_fichier = "prefix_";
 	} else {
-		$requete = "SELECT id_bannette, num_classement, nom_bannette,comment_gestion,comment_public, ";
+		$requete = "SELECT id_bannette, num_classement, nom_bannette,comment_gestion,comment_public,statut_not_account, ";
 		$requete .= "date_last_remplissage, date_format(date_last_remplissage, '".$msg["format_date_heure"]."') as aff_date_last_remplissage, ";
 		$requete .= "date_last_envoi, date_format(date_last_envoi, '".$msg["format_date_heure"]."') as aff_date_last_envoi, ";
 		$requete .= "proprio_bannette,bannette_auto,periodicite,diffusion_email, nb_notices_diff, categorie_lecteurs, update_type, entete_mail, piedpage_mail, notice_tpl, num_panier, ";
@@ -148,6 +152,7 @@ function getData() {
 			$this->typeexport 			= $temp->typeexport ;
 			$this->prefixe_fichier 		= $temp->prefixe_fichier ;
 			$this->group_pperso 		= $temp->group_pperso ; 
+			$this->statut_not_account 	= $temp->statut_not_account ; 
 			$this->param_export			= unserialize($temp->param_export) ;
 			$this->compte_elements();			
 			$requete = "SELECt nom_classement FROM classements WHERE id_classement='".$this->num_classement."'" ;
@@ -185,6 +190,7 @@ function getData() {
 			$this->typeexport = '' ;
 			$this->prefixe_fichier = "prefix_";
 			$this->group_pperso = 0; 
+			$this->statut_not_account = 0; 
 		}
 	}
 }
@@ -244,12 +250,15 @@ function show_form($type="pro") {
 	if ($this->bannette_auto) $dsi_bannette_form = str_replace('!!bannette_auto!!', "checked", $dsi_bannette_form);
 	else $dsi_bannette_form = str_replace('!!bannette_auto!!', "", $dsi_bannette_form);
 	$dsi_bannette_form = str_replace('!!periodicite!!', htmlentities($this->periodicite,ENT_QUOTES, $charset), $dsi_bannette_form);
-	if ($this->diffusion_email) $dsi_bannette_form = str_replace('!!diffusion_email!!', "checked", $dsi_bannette_form);
+	if ($this->diffusion_email) $dsi_bannette_form = str_replace('!!diffusion_email!!', "checked='checked'", $dsi_bannette_form);
 	else $dsi_bannette_form = str_replace('!!diffusion_email!!', "", $dsi_bannette_form);
 	$dsi_bannette_form = str_replace('!!nb_notices_diff!!', htmlentities($this->nb_notices_diff,ENT_QUOTES, $charset), $dsi_bannette_form);
 
 	$dsi_bannette_form = str_replace('!!notice_tpl!!', notice_tpl_gen::gen_tpl_select("notice_tpl",$this->notice_tpl), $dsi_bannette_form);
-	
+
+	if ($this->statut_not_account) $dsi_bannette_form = str_replace('!!statut_not_account!!', "checked", $dsi_bannette_form);
+	else $dsi_bannette_form = str_replace('!!statut_not_account!!', "", $dsi_bannette_form);	
+
 	$liste_p_perso = $this->p_perso->gen_liste_field("group_pperso",$this->group_pperso,$msg["dsi_ban_form_regroupe_pperso_no"]);				
 	$dsi_bannette_form = str_replace('!!pperso_group!!', $liste_p_perso, $dsi_bannette_form);
 	
@@ -403,6 +412,7 @@ function update($temp) {
 	$req.="bannette_auto='$temp->bannette_auto',";
 	$req.="periodicite='$temp->periodicite',";
 	$req.="diffusion_email='$temp->diffusion_email',";	
+	$req.="statut_not_account='$temp->statut_not_account',";	
 	$req.="nb_notices_diff='$temp->nb_notices_diff',";	
 	$req.="categorie_lecteurs='$temp->categorie_lecteurs',";
 	$req.="update_type='$temp->update_type',";
@@ -526,20 +536,27 @@ function remplir() {
 		$equ = new equation ($equations[$i]) ;
 		$search = new search() ;
 		$search->unserialize_search($equ->requete) ;
+		
 		$table = $search->make_search() ;
-		$temp_requete = "insert ignore into bannette_contenu (num_bannette, num_notice) (select ".$this->id_bannette." , notices.notice_id from $table , notices where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id ) " ;
+		if($this->statut_not_account) 
+			$temp_requete = "insert ignore into bannette_contenu (num_bannette, num_notice) (select ".$this->id_bannette." , notices.notice_id from $table , notices where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id )" ;
+		else 
+			$temp_requete = "insert ignore into bannette_contenu (num_bannette, num_notice) (select ".$this->id_bannette." , notices.notice_id from $table , notices, notice_statut where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id and statut=id_notice_statut and ((notice_visible_opac=1 and notice_visible_opac_abon=0) or (notice_visible_opac_abon=1 and notice_visible_opac=1))) " ;
 		@mysql_query($temp_requete, $dbh);
 
-		if ($this->num_panier) {
-			$temp_requete = "insert ignore into caddie_content (caddie_id, object_id) (select ".$this->num_panier." , notices.notice_id from $table , notices where notices.$colonne_update_create>='".$this->date_last_envoi."' and $table.notice_id=notices.notice_id ) " ;
-			@mysql_query($temp_requete, $dbh);
-		}
-		
 		$res_affichage .= "<li>".$equ->human_query."</li>" ;
 		
 	    $temp_requete = "drop table $table " ;
 		@mysql_query($temp_requete, $dbh);
 	}
+	// remplissage du panier avec le contenu de la bannette
+	if ($this->num_panier) {
+		$temp_requete = "delete from caddie_content where caddie_id='".$this->num_panier."'" ;
+		mysql_query($temp_requete, $dbh);
+		$temp_requete = "insert into caddie_content (caddie_id, object_id) (select ".$this->num_panier.", num_notice from bannette_contenu where num_bannette=".$this->id_bannette.")" ;
+		mysql_query($temp_requete, $dbh) or die (mysql_error().$temp_requete);
+	}
+	
 	$res_affichage .= "</ul>" ;
 	$this->compte_elements() ;
 	$temp_requete = "update bannettes set date_last_remplissage=sysdate() where id_bannette='".$this->id_bannette."' " ;
@@ -841,6 +858,8 @@ function construit_contenu_HTML ($use_limit=1) {
 				foreach ( $values as $field_id => $vals ) {
 					if ($this->group_pperso==$field_id) {		
 						$notice_group[$temp->num_notice] = $this->p_perso->get_formatted_output(array($vals[0]),$field_id);
+						$this->field_type = $this->p_perso->t_fields[$field_id]["TYPE"];
+						$this->field_id = $field_id;
 						break;
 					}
 				}
@@ -858,42 +877,43 @@ function construit_contenu_HTML ($use_limit=1) {
 	}
 	$group_printed=$tri_tpl=array();
 	$memo_resultat_aff=$resultat_aff;
-	foreach($liste as $r) {
-	//while ($r=mysql_fetch_object($resultat)) {
-		$tpl="";
-		if($this->notice_tpl) {
-			$tpl=$noti_tpl->build_notice($r->num_notice,$deflt2docs_location);
-			if($notice_group[$r->num_notice] && !in_array($notice_group[$r->num_notice], $group_printed)) {
-				$group_printed[]=$notice_group[$r->num_notice];	
-				$resultat_aff .= "<hr />
-				<h1>".$notice_group[$r->num_notice]."</h1>" ;
-			} //else $resultat_aff .= "<hr>";
-		} 
-		if ($tpl) {
-			$tri_tpl[$notice_group[$r->num_notice]][]= $tpl;
-			$resultat_aff.= $tpl;
-		} else {
-			$n=mysql_fetch_object(@mysql_query("select * from notices where notice_id=".$r->num_notice));
-			if ($n->niveau_biblio == 'm'|| $n->niveau_biblio == 'b') {
-				global $use_opac_url_base; $use_opac_url_base=1;  
-				global $use_dsi_diff_mode; $use_dsi_diff_mode=1;  
-				//function mono_display($id, $level=1,      $action='', $expl=1,    $expl_link='', $lien_suppr_cart="", $explnum_link='', $show_resa=0, $print=0, $show_explnum=1, $show_statut=0, $anti_loop='', $draggable=0, $no_link=false, $show_opac_hidden_fields=true )
-				$mono=new mono_display($n,$environement["short"],"",$environement["ex"],"","","",0,1,$environement["exnum"],0,"",0,true,false);
-				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$mono->header."</b></a><br /><br />\r\n";
-				$resultat_aff .= $mono->isbd;
-			} elseif ($n->niveau_biblio == 's' || $n->niveau_biblio == 'a') {
-				// level=2 pour ne pas rajouter le "in ..." sur le titre de la notice de dépouillement
-				// function serial_display ($id, $level='1', $action_serial='', $action_analysis='', $action_bulletin='', $lien_suppr_cart="", $lien_explnum="", $bouton_explnum=1,$print=0,$show_explnum=1, $show_statut=0, $show_opac_hidden_fields=true ) {
-				$serial = new serial_display($n, 6, "", "", "", "", "", 0,1,$environement["exnum"],0, false );
-				$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$serial->header."</b></a><br /><br />\r\n";
-				$resultat_aff .= $serial->isbd;
-			}
-		}			
-		if($this->notice_tpl) 
-			$resultat_aff .= "\r\n";
-		else $resultat_aff .= "<hr />\r\n";
-	}	
-	
+	if ($liste) {
+		foreach($liste as $r) {
+		//while ($r=mysql_fetch_object($resultat)) {
+			$tpl="";
+			if($this->notice_tpl) {
+				$tpl=$noti_tpl->build_notice($r->num_notice,$deflt2docs_location);
+				if($notice_group[$r->num_notice] && !in_array($notice_group[$r->num_notice], $group_printed)) {
+					$group_printed[]=$notice_group[$r->num_notice];	
+					$resultat_aff .= "<hr />
+					<h1>".$notice_group[$r->num_notice]."</h1>" ;
+				} //else $resultat_aff .= "<hr>";
+			} 
+			if ($tpl) {
+				$tri_tpl[$notice_group[$r->num_notice]][]= $tpl;
+				$resultat_aff.= $tpl;
+			} else {
+				$n=mysql_fetch_object(@mysql_query("select * from notices where notice_id=".$r->num_notice));
+				if ($n->niveau_biblio == 'm'|| $n->niveau_biblio == 'b') {
+					global $use_opac_url_base; $use_opac_url_base=1;  
+					global $use_dsi_diff_mode; $use_dsi_diff_mode=1;  
+					//function mono_display($id, $level=1,      $action='', $expl=1,    $expl_link='', $lien_suppr_cart="", $explnum_link='', $show_resa=0, $print=0, $show_explnum=1, $show_statut=0, $anti_loop='', $draggable=0, $no_link=false, $show_opac_hidden_fields=true )
+					$mono=new mono_display($n,$environement["short"],"",$environement["ex"],"","","",0,1,$environement["exnum"],0,"",0,true,false);
+					$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$mono->header."</b></a><br /><br />\r\n";
+					$resultat_aff .= $mono->isbd;
+				} elseif ($n->niveau_biblio == 's' || $n->niveau_biblio == 'a') {
+					// level=2 pour ne pas rajouter le "in ..." sur le titre de la notice de dépouillement
+					// function serial_display ($id, $level='1', $action_serial='', $action_analysis='', $action_bulletin='', $lien_suppr_cart="", $lien_explnum="", $bouton_explnum=1,$print=0,$show_explnum=1, $show_statut=0, $show_opac_hidden_fields=true ) {
+					$serial = new serial_display($n, 6, "", "", "", "", "", 0,1,$environement["exnum"],0, false );
+					$resultat_aff .= "<a href='".$url_base_opac.$n->notice_id."&code=!!code!!&emprlogin=!!login!!&date_conex=!!date_conex!!'><b>".$serial->header."</b></a><br /><br />\r\n";
+					$resultat_aff .= $serial->isbd;
+				}
+			}			
+			if($this->notice_tpl) 
+				$resultat_aff .= "\r\n";
+			else $resultat_aff .= "<hr />\r\n";
+		}	
+	}
 	// il faut trier les regroupements par ordre alphabétique
 	if($this->notice_tpl){
 		$resultat_aff=$memo_resultat_aff;
@@ -932,22 +952,42 @@ function construit_contenu_HTML ($use_limit=1) {
 	}
 
 function pmb_ksort(&$table){
-	if (is_array($table)) {
-		reset($table);
-		$tmp=array();
-		foreach ($table as $key => $value ) {
-       		$tmp[]=strtoupper(convert_diacrit($key));
-       		$tmp_key[]=$key;
-       		$tmp_contens[]=$value;
-		}	
-		asort($tmp);	
-		foreach ($tmp as $key=>$value ) {
-       		$table_final[$tmp_key[$key]]=$tmp_contens[$key];
+	if ($this->field_type == 'list') {
+		if (is_array($table)) {
+			reset($table);
+			$tmp=array();
+			$requete = "select ordre, notices_custom_list_lib from notices_custom_lists";
+			$requete .= " where notices_custom_champ=".$this->field_id;
+			$res = mysql_query($requete);
+			while ($row = mysql_fetch_object($res)) {
+				$this->group_pperso_order[$row->notices_custom_list_lib] = $row->ordre;
+			}
+			uksort($table, array(&$this,"cmp_pperso"));
 		}
-		$table=$table_final;
+	} else {
+		if (is_array($table)) {
+			reset($table);
+			$tmp=array();
+			foreach ($table as $key => $value ) {
+	       		$tmp[]=strtoupper(convert_diacrit($key));
+	       		$tmp_key[]=$key;
+	       		$tmp_contens[]=$value;
+			}	
+			asort($tmp);	
+			foreach ($tmp as $key=>$value ) {
+	       		$table_final[$tmp_key[$key]]=$tmp_contens[$key];
+			}
+			$table=$table_final;
+		}
 	}		
 }
+
+function cmp_pperso($a,$b) {
+	if ($this->group_pperso_order[$a]>$this->group_pperso_order[$b]) return 1;
+	if ($this->group_pperso_order[$a]<$this->group_pperso_order[$b]) return -1;
+	return 0;
 	
+}
 // ---------------------------------------------------------------
 //		construit_contenu_HTML() : Préparation du contenu du mail ou du bulletin
 // ---------------------------------------------------------------

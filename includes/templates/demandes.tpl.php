@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: demandes.tpl.php,v 1.7 2010-02-23 16:27:22 kantin Exp $
+// $Id: demandes.tpl.php,v 1.8 2011-03-24 18:34:19 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -306,7 +306,7 @@ $form_modif_demande = "
 			<div class='colonne3'>
 				<input type='hidden' id='idempr' name='idempr' value='!!idempr!!' />
 				<input type='text' id='empr_txt' name='empr_txt' class='saisie-20emr' value='!!empr_txt!!'/>
-				<input type='button' class='bouton_small' value='X'	onclick=\"this.form.id_empr.value='0';this.form.empr_txt.value='';\"		
+				<input type='button' class='bouton_small' value='X'	onclick=\"this.form.id_empr.value='0';this.form.empr_txt.value='';\"/>	
 				<input type='button' class='bouton_small' value='...' onclick=\"openPopUp('./select.php?what=origine&caller=modif_dmde&param1=idempr&param2=empr_txt&deb_rech='+escape(this.form.empr_txt.value)+'&filtre=ONLY_EMPR', 'select_user', 400, 400, -2, -2, 'scrollbars=yes, toolbar=no, dependent=yes, resizable=yes')\" />
 			</div>
 			<div class='colonne3'>

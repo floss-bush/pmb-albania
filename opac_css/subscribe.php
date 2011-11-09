@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subscribe.php,v 1.8 2009-11-12 10:47:44 gueluneau Exp $
+// $Id: subscribe.php,v 1.9.2.2 2011-06-08 10:34:06 arenou Exp $
 
 $base_path=".";
 require_once($base_path."/includes/init.inc.php");
@@ -96,6 +96,12 @@ $std_header= str_replace("!!liens_rss!!",genere_link_rss(),$std_header);
 // l'image $logo_rss_si_rss est calculée par genere_link_rss() en global
 $liens_bas = str_replace("<!-- rss -->",$logo_rss_si_rss,$liens_bas);
 
+$std_header = str_replace("!!enrichment_headers!!","",$std_header);
+
+if($opac_parse_html){
+	ob_start();
+}
+
 print $std_header;
 
 if ($time_expired) echo "<script>alert(\"".sprintf($msg["session_expired"],round($opac_duration_session_auth/60))."\");</script>";
@@ -165,7 +171,7 @@ if ($opac_show_bandeaugauche==0) {
 			$loginform__ = genere_form_connexion_empr();
 			} else {
 				$loginform__.="<b>".$empr_prenom." ".$empr_nom."</b><br />\n";
-				$loginform__.="<a href=\"empr.php\">".$msg["empr_my_account"]."</a><br />
+				$loginform__.="<a href=\"empr.php\" id=\"empr_my_account\">".$msg["empr_my_account"]."</a><br />
 					<a href=\"index.php?logout=1\" id=\"empr_logout_lnk\">".$msg["empr_logout"]."</a>";
 				}
 		$loginform = str_replace("!!login_form!!",$loginform__,$loginform);
@@ -174,3 +180,9 @@ if ($opac_show_bandeaugauche==0) {
 
 mysql_close($dbh);
 
+if($opac_parse_html){
+	$htmltoparse = ob_get_contents();
+	ob_end_clean();
+	$res = parseHTML($htmltoparse);
+	print $res;
+}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: liste_expl_dispo.php,v 1.6 2010-05-21 07:10:19 ngantier Exp $
+// $Id: liste_expl_dispo.php,v 1.7 2011-02-28 09:54:14 ngantier Exp $
 
 $base_path="./../..";
 $base_auth = "CIRCULATION_AUTH";
@@ -27,6 +27,7 @@ $rqt = "SELECT ".
 			"INNER JOIN lenders ON idlender=expl_owner " .
 		"WHERE ".
 			"pret_flag=1 ".
+			"and transfert_flag=1 ".
 			"AND expl_notice=".$idnotice." ".
 			"AND expl_bulletin=".$idbulletin." ".
 			"AND expl_location<>".$loc." ".

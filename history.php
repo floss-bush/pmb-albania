@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: history.php,v 1.26 2009-05-16 11:17:05 dbellamy Exp $
+// $Id: history.php,v 1.26.4.2 2011-09-06 09:11:22 jpermanne Exp $
 
 //Transmission ensuite du fichier converti
 $base_path = ".";
@@ -128,7 +128,7 @@ if ($act) {
 			$save=serialize($_SESSION['session_history']);
 			$requete="replace into admin_session values(".SESSuserid.",'".addslashes($save)."')";
 			$r=mysql_query($requete);
-			if (!$r) $alert="La sauvegarde a échouée !"; else $alert=$msg["histo_save_done"];
+			if (!$r) $alert=$msg["histo_save_fail"]; else $alert=$msg["histo_save_done"];
 			break;
 	}
 }
@@ -148,7 +148,7 @@ if (count($_SESSION["session_history"])) {
 	for ($i=count($_SESSION["session_history"])-1; $i>=0; $i--) {
 		$javascript_template ="
 		<div id=\"el!!id!!Parent\" class=\"notice-parent\">
-    		<input type='checkbox' name='sel[]' value='".($i+1)."'/><img src=\"./images/plus.gif\" class=\"img_plus\" name=\"imEx\" id=\"el!!id!!Img\" title=\"détail\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">
+    		<input type='checkbox' name='sel[]' value='".($i+1)."'/><img src=\"./images/plus.gif\" class=\"img_plus\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".addslashes($msg['plus_detail'])."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">
     		<span class=\"notice-heada\">!!query!!</span>
     		<br />
 		</div>

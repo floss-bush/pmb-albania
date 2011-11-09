@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum.inc.php,v 1.27 2010-12-08 15:40:06 arenou Exp $
+// $Id: explnum.inc.php,v 1.29 2011-04-14 13:01:34 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -123,7 +123,7 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 	$res = mysql_query($requete, $dbh);
 	$nb_ex = mysql_num_rows($res);
 	
-	if($nb_ex) {
+	if ($nb_ex) {
 		// on récupère les données des exemplaires
 		$i = 1 ;
 		global $search_terms;
@@ -137,20 +137,20 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 				} 
 			$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset) ;
 			
-			if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+			if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 				else // trouver l'icone correspondant au mime_type
-					$obj="<img src='".$opac_url_base."/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
+					$obj="<img src='".$opac_url_base."images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
 			$expl_liste_obj = "<center>";
 			
 			$words_to_find="";
-			if(($expl->explnum_mimetype=='application/pdf') ||($expl->explnum_mimetype=='URL' && (strpos($expl->explnum_nom,'.pdf')!==false))){
+			if (($expl->explnum_mimetype=='application/pdf') ||($expl->explnum_mimetype=='URL' && (strpos($expl->explnum_nom,'.pdf')!==false))){
 				$words_to_find = "#search=\"".trim(str_replace('*','',implode(' ',$search_terms)))."\"";
 			}
-			if($opac_visionneuse_allow)
+			if ($opac_visionneuse_allow)
 				$allowed_mimetype = explode(",",str_replace("'","",$opac_photo_filtre_mimetype));
 			if ($allowed_mimetype && in_array($expl->explnum_mimetype,$allowed_mimetype)){
 				$link="
-					<script type='text/javascript' src='$opac_url_base/visionneuse/javascript/visionneuse.js'></script>
+					<script type='text/javascript' src='".$opac_url_base."visionneuse/javascript/visionneuse.js'></script>
 					<script type='text/javascript'>
 						if(typeof(sendToVisionneuse) == 'undefined'){
 							function sendToVisionneuse(explnum_id){
@@ -160,14 +160,14 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 					</script>
 					<a href='#' onclick=\"open_visionneuse(sendToVisionneuse,".$expl->explnum_id.");return false;\" alt='$alt' title='$alt'>".$obj."</a><br />";
 				$expl_liste_obj .=$link;
-			}else{
-				$suite_url_explnum ="doc_num.php?explnum_id=$expl->explnum_id$words_to_find";
-				$expl_liste_obj .= "<a href='$opac_url_base$suite_url_explnum' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+			} else {
+				$suite_url_explnum ="doc_num.php?explnum_id=$expl->explnum_id";
+				$expl_liste_obj .= "<a href='".$opac_url_base.$suite_url_explnum."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 			}
 
 			if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
-				elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;
-					else $explmime_nom = $expl->explnum_mimetype ;
+			elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;
+			else $explmime_nom = $expl->explnum_mimetype ;
 			
 			
 			if ($tlink) {
@@ -185,7 +185,7 @@ function show_explnum_per_notice($no_notice, $no_bulletin, $link_expl='') {
 				}
 			}
 		if (!$ligne_finale) $ligne_finale = $ligne ;
-			elseif ($i!=1) $ligne_finale .= $ligne ;
+		elseif ($i!=1) $ligne_finale .= $ligne ;
 		$ligne_finale = str_replace('!!2!!', "&nbsp;", $ligne_finale);
 		$ligne_finale = str_replace('!!3!!', "&nbsp;", $ligne_finale);
 		
@@ -217,14 +217,14 @@ function &reduire_image_middle(&$data) {
 	
 	if ($opac_photo_watermark) {
 		$size = @getimagesize("images/".$opac_photo_watermark);
-	/*   ".gif"=>"1",
-	                   ".jpg"=>"2",
-	                   ".jpeg"=>"2",
-	                   ".png"=>"3",
-	                   ".swf"=>"4",
-	                   ".psd"=>"5",
-	                   ".bmp"=>"6");
-	*/
+		/*   ".gif"=>"1",
+		                   ".jpg"=>"2",
+		                   ".jpeg"=>"2",
+		                   ".png"=>"3",
+		                   ".swf"=>"4",
+		                   ".psd"=>"5",
+		                   ".bmp"=>"6");
+		*/
 		switch ($size[2]) {
 			case 1:
 				$wat_img = imagecreatefromgif("images/".$opac_photo_watermark);

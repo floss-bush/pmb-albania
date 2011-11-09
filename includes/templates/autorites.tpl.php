@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: autorites.tpl.php,v 1.28 2009-12-29 16:52:27 kantin Exp $
+// $Id: autorites.tpl.php,v 1.28.4.2 2011-05-10 07:38:36 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -23,7 +23,7 @@ $autorites_menu .= "<li><a href='./autorites.php?categ=indexint&sub=&id='>$msg[i
 if (SESSrights & THESAURUS_AUTH) $autorites_menu .= "
 <h3 onclick='menuHide(this,event)'>$msg[semantique]</h3>
 <ul>
-	<li><a title='".$msg["word_syn"]."' href='./autorites.php?categ=semantique&sub=synonyms'>".$msg["word_syn"]."</a></li>
+	<li><a title='".$msg["word_syn_menu"]."' href='./autorites.php?categ=semantique&sub=synonyms'>".$msg["word_syn_menu"]."</a></li>
 	<li><a title='".$msg["empty_words_libelle"]."' href='./autorites.php?categ=semantique&sub=empty_words'>".$msg["empty_words_libelle"]."</a></li>
 </ul>";
 $autorites_menu .= "</div>

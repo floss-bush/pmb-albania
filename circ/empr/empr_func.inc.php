@@ -142,7 +142,7 @@ function show_empr_form($form_action, $form_cancel, $link, $id, $cb,$duplicate_e
 				}
 
 		} else {
-			// crï¿½ation
+			// création
 			$entete=$msg[15];
 			$empr_form = str_replace("!!questionrfid!!",  '' , $empr_form);
 			}
@@ -197,7 +197,7 @@ function show_empr_form($form_action, $form_cancel, $link, $id, $cb,$duplicate_e
 			$nouv_date_debut_formatee = formatdate($nouv_date_debut) ;
 			$nouv_date_fin_formatee = formatdate($nouv_date_fin) ;
 
-			// on conserve la date d'adhï¿½sion initiale
+			// on conserve la date d'adhésion initiale
 			$action_prolonger = "this.form.form_expiration.value = '$nouv_date_fin';
 				this.form.form_expiration_lib.value = '$nouv_date_fin_formatee';
 				";
@@ -328,10 +328,10 @@ function show_empr_form($form_action, $form_cancel, $link, $id, $cb,$duplicate_e
 	}
 	$empr_form = str_replace("!!categ!!",      $categ_content,   $empr_form);
 
-	// on rï¿½cupï¿½re le select statut
+	// on récupère le select statut
 	$requete = "SELECT idstatut, statut_libelle FROM empr_statut ORDER BY statut_libelle ";
 	
-	//Si il n'y a pas de statut on prend celui dï¿½finit pour l'utilisateur
+	//Si il n'y a pas de statut on prend celui définit pour l'utilisateur
 	if(!$empr->empr_statut){
 		global $deflt_empr_statut;
 		$empr->empr_statut=$deflt_empr_statut;

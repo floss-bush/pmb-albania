@@ -4,7 +4,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.8 2011-01-07 13:45:46 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.9.2.1 2011-09-28 14:36:21 gueluneau Exp $ -->
 
 <!DOCTYPE XMLlist SYSTEM "../../../includes/XMLlist.dtd" >
 <XMLlist>
@@ -42,6 +42,7 @@ reader
 	<entry code="reader_personal_information_phone_number2">le numéro de téléphone 2</entry>
 	<entry code="reader_personal_information_email">l'email</entry>
 	<entry code="reader_personal_information_birthyear">l'année de naissance</entry>
+	<entry code="reader_personal_information_sex">le sexe</entry>
 	<entry code="reader_location_id">l'id de la localisation</entry>
 	<entry code="reader_location_caption">le libellé de la location</entry>
 	<entry code="reader_adhesion_date">la date de création de l'abonnement</entry>
@@ -137,8 +138,12 @@ explNum
 	<entry code="explNum_description">Décrit un exemplaire numérique</entry>
 	<entry code="explNum_id">L'id de l'exemplaire numérique</entry>
 	<entry code="explNum_noticeId">La notice de l'exemplaire numérique</entry>
+	<entry code="explNum_bulletinId">La bulletin de l'exemplaire numérique</entry>
 	<entry code="explNum_name">Le nom de l'exemplaire numérique</entry>
 	<entry code="explNum_mimetype">Le mimetype de l'exemplaire numérique</entry>
+	<entry code="explNum_extention">L'extention de l'exemplaire numérique</entry>
+	<entry code="explNum_filename">Le nom du fichier de l'exemplaire numérique</entry>
+	<entry code="explNum_filesize">La taille de l'exemplaire numérique</entry>			
 	<entry code="explNum_url">L'url de l'exemplaire numérique, si applicable</entry>
 	<entry code="explNum_downloadUrl">L'url de téléchargement de l'exemplaire numérique</entry>
 <!--

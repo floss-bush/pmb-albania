@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.class.php,v 1.23 2010-10-07 07:42:28 arenou Exp $
+// $Id: author.class.php,v 1.25 2011-02-02 20:08:44 gueluneau Exp $
 
 // définition de la classe de gestion des 'auteurs'
 
@@ -49,7 +49,7 @@ function auteur($id)
 // ---------------------------------------------------------------
 function get_primaldata() {
 	global $dbh;
-	$requete = "SELECT * FROM authors WHERE author_id=$this->id LIMIT 1 ";
+	$requete = "SELECT * FROM authors WHERE author_id='".addslashes($this->id)."' LIMIT 1 ";
 	$result = @mysql_query($requete, $dbh);
 	if(mysql_num_rows($result)) {
 		$obj = mysql_fetch_object($result);

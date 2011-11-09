@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: install_rep_inc.php,v 1.12 2009-05-16 11:04:15 dbellamy Exp $
+// $Id: install_rep_inc.php,v 1.12.4.1 2011-05-09 13:03:14 dbellamy Exp $
 
 // plus rien ici : reprise d'un script d'une autre install
 if(preg_match('/install_rep_inc\.php/', $_SERVER['REQUEST_URI'])) {
@@ -73,7 +73,7 @@ $msg_crea_26 = "<br /><br />Echec du remplissage avec la cote style Dewey";
 
 $msg_crea_27 = "<br /><br />Remplissage avec l'indexation Dewey 100 cases du savoir";
 $msg_crea_28 = "<br /><br />Echec du remplissage avec l'indexation Dewey 100 cases du savoir";
-$msg_crea_29 = "<br /><br />Aucun remplissage d\'indexation.";
+$msg_crea_29 = "<br /><br />Aucun remplissage d'indexation.";
 $msg_crea_30 = "<p>les scripts d'installation ont &eacute;t&eacute; renomm&eacute;s afin de ne plus pouvoir &ecirc;tre ex&eacute;cut&eacute;s directement</p>";
 $msg_crea_31 = "<p><a href=\"../\">Allez &agrave; la page d'accueil</a></p>";
 $msg_crea_32 = "Pb de donn&eacute;es de cr&eacute;ation ";

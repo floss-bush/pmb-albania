@@ -1,0 +1,37 @@
+<?PHP
+// $Id: empty_words,v 1.4 2007-06-06 22:16:38 touraine37 Exp $
+
+// tableau contenant les mots vides
+$empty_word[] = 'a';
+$empty_word[] = 'about';
+$empty_word[] = 'an';
+$empty_word[] = 'and';
+$empty_word[] = 'are';
+$empty_word[] = 'as';
+$empty_word[] = 'at';
+$empty_word[] = 'be';
+$empty_word[] = 'by';
+$empty_word[] = 'com';
+$empty_word[] = 'de';
+$empty_word[] = 'en';
+$empty_word[] = 'for';
+$empty_word[] = 'from';
+$empty_word[] = 'how';
+$empty_word[] = 'I';
+$empty_word[] = 'if';
+$empty_word[] = 'in';
+$empty_word[] = 'is';
+$empty_word[] = 'of';
+$empty_word[] = 'on';
+$empty_word[] = 'that';
+$empty_word[] = 'the';
+$empty_word[] = 'this';
+$empty_word[] = 'to';
+$empty_word[] = 'was';
+$empty_word[] = 'what';
+$empty_word[] = 'when';
+$empty_word[] = 'where';
+$empty_word[] = 'who';
+$empty_word[] = 'with';
+$empty_word[] = 'www';
+?>

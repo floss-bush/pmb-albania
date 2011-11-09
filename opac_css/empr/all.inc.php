@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: all.inc.php,v 1.32 2010-08-19 07:35:07 touraine37 Exp $
+// $Id: all.inc.php,v 1.32.2.1 2011-05-11 16:05:13 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -202,16 +202,13 @@ if ($nb_elements) {
 				$prolongation=FALSE;
 			}
 			
-			$req_date_calendrier = "select date_ouverture from ouvertures where ouvert=1 and num_location='".$data_expl['expl_location']."' order by date_ouverture asc";
+			$req_date_calendrier = "select date_ouverture from ouvertures where ouvert=1 and num_location='".$data_expl['expl_location']."' and DATEDIFF(date_ouverture,'$date_prolongation')>=0 order by date_ouverture asc limit 1";
 			$res_date_calendrier = mysql_query($req_date_calendrier);
-			while(($date_calendrier = mysql_fetch_object($res_date_calendrier))){
-				$ecart = sql_value("SELECT DATEDIFF('$date_calendrier->date_ouverture','$date_prolongation')");
-				if($ecart >= 0 ){
-					$date_prolongation = $date_calendrier->date_ouverture;
-					break; 
-				}
+
+			if (mysql_num_rows($res_date_calendrier)) {
+				$date_prolongation=mysql_result($res_date_calendrier,0,0);
 			}
-				
+							
 			// Verif s'il y a des résa et plus d'exemplaire dispo
 			if ($prolongation==TRUE) {		
 				if($data['num_notice_mono'])	$data['bulletin_id']=0; 

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: supprbase.inc.php,v 1.14 2009-05-16 11:11:51 dbellamy Exp $
+// $Id: supprbase.inc.php,v 1.15 2011-03-15 16:52:58 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -32,7 +32,8 @@ if($idcaddie) {
 			$liste= array_merge($liste_0,$liste_1);
 			if($liste) {
 				// le formulaire demande de suprimmer les notices meme avec liens
-				if($supp_notice_linked) $forcage['notice_linked']=1;			
+				if($supp_notice_linked) $forcage['notice_linked']=1;
+				if($supp_notice_linked_expl_num) $forcage['notice_linked_expl_num']=1;				
 				while(list($cle, $object) = each($liste)) {
 					// le formulaire demande de suprimmer toutes les notices liées à celle-ci
 					if($supp_notice_linked_cascade) {

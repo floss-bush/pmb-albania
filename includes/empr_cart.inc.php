@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_cart.inc.php,v 1.18 2009-12-07 15:33:58 kantin Exp $
+// $Id: empr_cart.inc.php,v 1.18.4.1 2011-06-16 08:01:42 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -62,7 +62,7 @@ function aff_paniers_empr($item=0, $lien_origine="./circ.php?", $action_click = 
 		        $tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" ";
 				if($item) {
 		            $print_cart[$myCart->type]["cart_list"].= pmb_bidi("<tr class='$pair_impair' $tr_javascript ><td>");
-		            if($action != "transfert" && $action != "del_cart") {
+		            if($action != "transfert" && $action != "del_cart" && $action!="save_cart") {
 		            	$print_cart[$myCart->type]["cart_list"].= pmb_bidi("<input type='checkbox' id='id_".$valeur['idemprcaddie']."' name='caddie[".$valeur['idemprcaddie']."]' value='".$valeur['idemprcaddie']."'>&nbsp;");
 		            	$print_cart[$myCart->type]["cart_list"].= pmb_bidi("<a href='#' onClick='javascript:document.getElementById(\"id_".$valeur['idemprcaddie']."\").checked=true; document.forms[\"print_options\"].submit();' /><strong>".$valeur['name']."</strong>");
 		            	// form_filters_cart
@@ -77,7 +77,7 @@ function aff_paniers_empr($item=0, $lien_origine="./circ.php?", $action_click = 
 						</tr>");						
 				} else {		        
 		            $print_cart[$myCart->type]["cart_list"].= "<tr class='$pair_impair' $tr_javascript ><td>";
-		            if($sub!='gestion' && $sub!='action' ) {
+		            if($sub!='gestion' && $sub!='action'  && $action!="save_cart") {
 						$print_cart[$myCart->type]["cart_list"].= "<input type='checkbox' id='id_".$valeur['idemprcaddie']."' name='caddie[".$valeur['idemprcaddie']."]' value='".$valeur['idemprcaddie']."'>&nbsp;";		            	
 						$print_cart[$myCart->type]["cart_list"].= "<a href='#' onClick='javascript:document.getElementById(\"id_".$valeur['idemprcaddie']."\").checked=true; document.forms[\"print_options\"].submit();' /><strong>".$valeur['name']."</strong>";
 		            }		                

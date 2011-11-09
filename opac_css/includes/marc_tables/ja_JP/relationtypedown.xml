@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes et libellés type de relation parent>enfants 
+$Id: relationtypedown.xml,v 1.1.2.5 2011-07-04 14:25:57 dbellamy Exp $ -->
+
+<XMLlist>
+	<!-- Analytic part of a serial (the component part is dependent upon the physical identification and location of the containing item)-->
+	<entry code="a">Content</entry>
+
+	<!-- Issue of a serial-->
+	<entry code="b">Issues</entry>
+
+	<!-- multivolume monograph: like an encylopedia -->
+	<entry code="c">シリーズ詳細情報</entry>
+
+	<!-- is in a box (bibliographic item that is a made-up collection)-->
+	<entry code="d">Contains:</entry>
+	
+	<entry code="e">Supplements</entry>
+	<entry code="f">次のタイトル</entry>
+	<entry code="g">前のタイトル</entry>
+	<entry code="h">翻訳</entry>
+	<entry code="i">翻訳　原題：</entry>
+	<entry code="j">Comes with</entry>
+</XMLlist>

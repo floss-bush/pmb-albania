@@ -46,15 +46,15 @@ if (isset($_GET['modif_sort'])) {
 		$affichage = $sort->sauvegarder('','',$temp);
 		print $affichage;
 		if (substr($affichage,0,8)=="<script>") {
-			$tmpStr = $sort->show_sel_form();
-    		$tmpStr = str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
-			$tmpStr = str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
-			echo $tmpStr;
-			
 			$tmpStr = $sort->show_tris_form();
 	    	$tmpStr = str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
 	    	$tmpStr = str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
 	    	echo $tmpStr;
+
+			$tmpStr = $sort->show_sel_form();
+    		$tmpStr = str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
+			$tmpStr = str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
+			echo $tmpStr;
 		} else {
 			$temp_tri=$_SESSION["nb_sortnotices"]-1;
 			print "<script> document.location='./index.php?".$page_en_cours."&get_last_query=".$_SESSION["last_query"]."&sort=".$temp_tri."';</script>";	
@@ -63,14 +63,14 @@ if (isset($_GET['modif_sort'])) {
 		print "<script> document.location='./index.php?".$page_en_cours."&get_last_query=".$_SESSION["last_query"]."';</script>";	
 	}
 } else {
-	$tmpStr = $sort->show_sel_form();
-	$tmpStr = str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
-	$tmpStr = str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
-	echo $tmpStr;
-
 	$tmpStr = $sort->show_tris_form();
 	$tmpStr=str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
 	$tmpStr=str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
+	echo $tmpStr;
+
+	$tmpStr = $sort->show_sel_form();
+	$tmpStr = str_replace("!!page_en_cours!!",urlencode($page_en_cours),$tmpStr);
+	$tmpStr = str_replace("!!page_en_cours1!!",$page_en_cours,$tmpStr);
 	echo $tmpStr;
 }
 

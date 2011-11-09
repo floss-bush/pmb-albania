@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: remote_procedure_client.class.php,v 1.2 2010-04-15 14:02:41 erwanmartin Exp $
+// $Id: remote_procedure_client.class.php,v 1.2.4.1 2011-05-02 10:26:16 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -122,10 +122,10 @@ class remote_procedure_client {
 		return $result;
 	}
 	
-	function get_proc($proc_id) {
+	function get_proc($proc_id,$type="") {
 		global $msg;
 		$result = array("error_message" => "", "procedure" => NULL);
-		$procedures = $this->get_procs();
+		$procedures = $this->get_procs($type);
 		$the_procedure = "";
 			
 		if ($procedures) {

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: entrez.class.php,v 1.2 2009-10-14 11:43:29 touraine37 Exp $
+// $Id: entrez.class.php,v 1.3 2011-04-15 09:38:24 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -15,7 +15,7 @@ if (version_compare(PHP_VERSION,'5','>=') && extension_loaded('xsl')) {
 
 require_once($class_path."/connecteurs.class.php");
 require_once($class_path."/nusoap/nusoap.php");
-
+require_once("pubmed_analyse_query.class.php");
 /**There be komodo dragons**/
 
 class entrez extends connector {
@@ -35,7 +35,7 @@ class entrez extends connector {
 	}
     
     function source_get_property_form($source_id) {
-    	global $charset;
+    	global $charset,$pmb_default_operator;
     	
     	$params=$this->get_source_params($source_id);
 		if ($params["PARAMETERS"]) {
@@ -52,6 +52,10 @@ class entrez extends connector {
 		if (!isset($entrez_maxresults))
 			$entrez_maxresults = 100;
 		$entrez_maxresults += 0;
+
+		if (!isset($entrez_operator))
+			$entrez_operator = 2;
+		$entrez_operator += 0;
 		
 		$options = "";
 		foreach ($this->available_entrezdatabases as $code => $caption)
@@ -67,7 +71,18 @@ class entrez extends connector {
 				</select>
 			</div>
 		</div>";
-		
+		$form="<div class='row'>
+			<div class='colonne3'>
+				<label for='operator'>".$this->msg["entrez_operator"]."</label>
+			</div>
+			<div class='colonne_suite'>
+				<select name=\"entrez_operator\">
+					<option value='2' ".($entrez_operator == 2 ? "selected" : "").">".$this->msg["entrez_operator_default"]."</option>
+					<option value='0' ".($entrez_operator == 0 ? "selected" : "").">".$this->msg["entrez_operator_or"]."</option>
+					<option value='1' ".($entrez_operator == 1 ? "selected" : "").">".$this->msg["entrez_operator_and"]."</option> 
+				</select>
+			</div>
+		</div>";		
 		$form.="<div class='row'>
 			<div class='colonne3'>
 				<label for='url'>".$this->msg["entrez_maxresults"]."</label>
@@ -75,18 +90,38 @@ class entrez extends connector {
 			<div class='colonne_suite'>
 				<input name=\"entrez_maxresults\" type=\"text\" value=\"".$entrez_maxresults."\">
 			</div>
-		</div>";
-
-		$form.="
-	<div class='row'></div>
+		</div>
+		<div class='row'>
+			<div class='colonne3'>
+				<label for='xslt_file'>".$this->msg["entrez_xslt_file"]."</label>
+			</div>
+			<div class='colonne_suite'>
+				<input name='xslt_file' type='file'/>";
+		if ($xsl_transform) $form.="<br /><i>".sprintf($this->msg["entrez_xslt_file_linked"],$xsl_transform["name"])."</i> : ".$this->msg["entrez_del_xslt_file"]." <input type='checkbox' name='del_xsl_transform' value='1'/>";
+		 $form.="	</div>
+		</div>
+		<div class='row'></div>
 ";
 		return $form;
     }
 	
     function make_serialized_source_properties($source_id) {
-    	global $entrez_database, $entrez_maxresults;
+    	global $entrez_database, $entrez_maxresults, $entrez_operator;
+    	global $del_xsl_transform;
+    	
     	$t["entrez_database"]=stripslashes($entrez_database);
     	$t["entrez_maxresults"]=$entrez_maxresults+0;
+    	$t["entrez_operator"]=$entrez_operator+0;
+    	
+    	//Vérification du fichier
+    	if (($_FILES["xslt_file"])&&(!$_FILES["xslt_file"]["error"])) {
+    		$xslt_file_content=array();
+    		$xslt_file_content["name"]=$_FILES["xslt_file"]["name"];
+    		$xslt_file_content["code"]=file_get_contents($_FILES["xslt_file"]["tmp_name"]);
+    		$t["xsl_transform"]=$xslt_file_content;
+    	} else if ($del_xsl_transform) {
+			$t["xsl_transform"]="";
+    	}
 
 		$this->sources[$source_id]["PARAMETERS"]=serialize($t);
 	}
@@ -126,6 +161,7 @@ class entrez extends connector {
 	//Fonction de recherche
 	function search($source_id,$query,$search_id) {
 		global $base_path;
+		global $pmb_default_operator;
 		
 		$params=$this->get_source_params($source_id);
 		$this->fetch_global_properties();
@@ -140,40 +176,57 @@ class entrez extends connector {
 		if (!isset($entrez_database)) {
 			$this->error_message = $this->msg["entrez_unconfigured"];
 			$this->error = 1;
-			$return;
+			return;
 		}
-
+		$entrez_operator = $entrez_operator+0;
+		$entrez_maxresults= $entrez_maxresults+0;
+		
 		$unimarc_pubmed_mapping = array (
 			'XXX' => '',
 			'200$a' => '[Title]',
 			'7XX' => '[Author]',
-			'210$c' => '[Journal]',
-			'010$a' => '[uid]'
+			'210$c' => '[Publisher]',
+			'210$d' => '[Publication Date]',
+			'461$t' => '[Journal]'
+		);
+		
+		$pubmed_stopword = array(
+			"a","about","again", "all", "almost", "also", "although", "always", "among", "an", "and", "another", "any", "are", "as", "at",
+			"be", "because", "been", "before", "being", "between", "both","but", "by",
+			"can", "could",
+			"did", "do", "does", "done", "due", "during",
+			"each", "either", "enough", "especially", "etc",
+			"for", "found", "from", "further",
+			"had", "has", "have", "having", "here", "how", "however",
+			"i", "if", "in", "into", "is", "it", "its", "itself",
+			"just",
+			"kg", "km",
+			"made", "mainly", "make", "may", "mg", "might", "ml", "mm", "most", "mostly", "must",
+			"nearly", "neither", "no", "nor",
+			"obtained", "of", "often", "on", "our", "overall",
+			"perhaps", "pmid",
+			"quite",
+			"rather", "really", "regarding",
+			"seem", "seen", "several", "should", "show", "showed", "shown", "shows", "significantly", "since", "so", "some", "such",
+			"than", "that", "the", "their", "theirs", "them", "then", "there", "therefore", "these", "they", "this", "those", "through", "thus", "to",
+			"upon", "use", "used", "using",
+			"various", "very",
+			"was", "we", "were", "what", "when", "which", "while", "with", "within", "without", "would"
 		);
 		
 		$search_query = "";
-
-		if (count($query) == 1) {
-			$aquery_words = explode(" ", $query[0]->values[0]);
-			$search_querys=array();
-			foreach($aquery_words as $aquery_word) {
-				$search_querys[] = $aquery_word.(isset($unimarc_pubmed_mapping[$query[0]->ufield]) ? $unimarc_pubmed_mapping[$query[0]->ufield] : '');
+		foreach($query as $aquery){
+			$search_querys = array();
+			if($entrez_operator != 2){
+				$operator = $pmb_default_operator;
+				$pmb_default_operator = $entrez_operator;
 			}
-			$search_query=implode(" AND ", $search_querys);
-		}
-		else {
-			foreach($query as $aquery) {
-				$aquery_words = explode(" ", $aquery->values[0]);
-				$search_querys=array();
-				foreach($aquery_words as $aquery_word) {
-					$search_querys[] = '"'.$aquery_word.'"'. (isset($unimarc_pubmed_mapping[$aquery->ufield]) ? $unimarc_pubmed_mapping[$aquery->ufield] : '');
-				}
-				$sub_search_query = implode(' AND ', $search_querys);
-				if ($search_query)
-					$search_query = $search_query . " " . $aquery->inter . " " . $sub_search_query;
-				else 
-					$search_query = $sub_search_query;
-			}			
+			$field= (isset($unimarc_pubmed_mapping[$aquery->ufield]) ? $unimarc_pubmed_mapping[$aquery->ufield] : '');
+			$a=new pubmed_analyse_query($aquery->values[0],0,0,1,0,$field,$pubmed_stopword);
+			$sub_search_query =$a->show_analyse();
+			if($entrez_operator != 2) $pmb_default_operator=$operator;
+			if ($search_query) $search_query = $search_query . " " . strtoupper($aquery->inter) . " " . $sub_search_query;
+			else $search_query = $sub_search_query;
 		}
 
 		require_once 'entrez_protocol.class.php';
@@ -182,10 +235,18 @@ class entrez extends connector {
 		$entrez_client->retrieve_currentidlist_notices();
 		$responses = $entrez_client->get_current_responses();
 		
-		$xsl_transform = file_get_contents($base_path."/admin/connecteurs/in/entrez/xslt/pubmed_to_unimarc.xsl");
+		if($xsl_transform){
+			if($xsl_transform['code'])
+				$xsl_transform_content = $xsl_transform['code'];
+			else $xsl_transform_content = "";
+		}	
+		if($xsl_transform_content == "")
+			$xsl_transform_content = file_get_contents($base_path."/admin/connecteurs/in/entrez/xslt/pubmed_to_unimarc.xsl");
+
+
 		$notices_pmbunimarc = array();
 		foreach ($responses as $aresponse) {
-			$anotice = $this->apply_xsl_to_xml($aresponse, $xsl_transform);
+			$anotice = $this->apply_xsl_to_xml($aresponse, $xsl_transform_content);
 			$notices_pmbunimarc[] = $anotice;
 		}
 		foreach($notices_pmbunimarc as $anotice)

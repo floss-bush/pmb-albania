@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: curl.class.php,v 1.8 2011-01-20 14:36:25 arenou Exp $
+// $Id: curl.class.php,v 1.8.2.2 2011-06-14 06:07:36 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -151,7 +151,10 @@ class Curl {
 		$this->handle = curl_init();
 		
 		# Set some default CURL options
-		curl_setopt($this->handle, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+		if ($this->timeout) {
+			curl_setopt($this->handle, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+			curl_setopt($this->handle, CURLOPT_TIMEOUT, $this->timeout);
+		}
 		curl_setopt($this->handle, CURLOPT_COOKIEFILE, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_COOKIEJAR, $this->cookie_file);
 		curl_setopt($this->handle, CURLOPT_FOLLOWLOCATION, true);

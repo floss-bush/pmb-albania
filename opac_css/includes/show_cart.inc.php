@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: show_cart.inc.php,v 1.37 2010-01-18 21:21:52 kantin Exp $
+// $Id: show_cart.inc.php,v 1.37.2.1 2011-07-08 13:19:37 trenon Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -57,6 +57,8 @@ function setCheckboxes(the_form, the_objet, do_check) {
 	 return true;
 } </script>
 ";
+
+print "<div id='cart_action'>";
 
 if ($page=="") $page=1;
 if (count($cart_)) {
@@ -229,6 +231,8 @@ if (count($cart_)) {
 		print "</form>";
 		}
 	}
+
+print "</div>";
 
 if (count($cart_)) {
 	print "<h3><span>".$msg["show_cart_content"]."</span> : <b>".sprintf($msg["show_cart_n_notices"],count($cart_))."</b></h3>";

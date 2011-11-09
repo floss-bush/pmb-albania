@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: tous.inc.php,v 1.41 2010-12-08 14:58:13 gueluneau Exp $
+// $Id: tous.inc.php,v 1.42 2011-03-29 13:20:21 gueluneau Exp $
 // premier niveau de recherche OPAC sur tous
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
@@ -54,17 +54,17 @@ unset($search_terms[count($search_terms)-1]);
 if($opac_indexation_docnum_allfields){
 	
 	if($acces_j){
-		$members_num_noti = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice");
+		$members_num_noti = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice","",0,0,true);
 		$restrict_noti="";
-		$members_num_bull = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin");
+		$members_num_bull = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin","",0,0,true);
 		$restrict_bull="";
 	} else {
 		$members_num_noti = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice"," statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) ) "
-					.($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) ) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) )":"").")");
+					.($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) ) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) )":"").")",0,0,true);
 		$restrict_noti=" and (".$members_num_noti["restrict"].")";
 		$members_num_bull = $aq1->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin",
 					" bulletin_notice=notice_id and statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) ) "
-					.($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) )":"").")");
+					.($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) )":"").")",0,0,true);
 		$restrict_bull=" and (".$members_num_bull["restrict"].")";	
 	}	
 	if ($typdoc) {

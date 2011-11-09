@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: main.inc.php,v 1.3 2008-06-04 14:54:18 ohennequin Exp $
+// $Id: main.inc.php,v 1.3.6.1 2011-05-23 12:46:25 ngantier Exp $
 
 
 if (stristr ( $_SERVER ['REQUEST_URI'], ".inc.php" ))
@@ -37,6 +37,10 @@ switch ($sub) {
 	case 'refus' :
 		//gestion d'un refus
 		include ("./circ/transferts/refuse.inc.php");
+	break;
+	case 'reset' :
+		//gestion du retour d'un transfert
+		include ("./circ/transferts/reset.inc.php");
 	break;
 
 }

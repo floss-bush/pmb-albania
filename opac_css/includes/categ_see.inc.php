@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categ_see.inc.php,v 1.68 2010-11-17 17:15:23 arenou Exp $
+// $Id: categ_see.inc.php,v 1.68.2.3 2011-10-07 07:22:50 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -29,9 +29,10 @@ if ($id) {
 	// instanciation de la catégorie
 	$ourCateg = new categorie($id);
 	// affichage du path de la catégorie
-	print "	<div id='aut_see'>\n
-			<a href=\"./index.php?lvl=categ_see&id=".$ourCateg->thes->num_noeud_racine."\"><img src='./images/home.gif' border='0'></a>\n"; 
-
+	if ($opac_thesaurus) $thes_lib_to_print = "<a href=\"./index.php?lvl=categ_see&id=".$ourCateg->thes->num_noeud_racine."\">".$ourCateg->thes->libelle_thesaurus."</a>";
+	else $thes_lib_to_print = "<a href=\"./index.php?lvl=categ_see&id=".$ourCateg->thes->num_noeud_racine."\"><img src='./images/home.gif' border='0'></a>";
+	print "<div id='aut_see'>\n".$thes_lib_to_print."\n"; 
+	
 	print pmb_bidi($ourCateg->categ_path($opac_categories_categ_path_sep,$css));
 
 	// si la catégorie à des enfants, on les affiche
@@ -153,7 +154,7 @@ if ($id) {
 		// cas normal d'avant		
 		//$suite_req=" FROM notices_categories, notices, notice_statut WHERE (notices_categories.num_noeud = '".$id."' and notices_categories.notcateg_notice = notices.notice_id) and (notices.statut = notice_statut.id_notice_statut and ((notice_statut.notice_visible_opac = 1 and notice_statut.notice_visible_opac_abon=0)".($_SESSION["user_code"]?" or (notice_statut.notice_visible_opac_abon=1 and notice_statut.notice_visible_opac = 1)":"").")) ";
 		$suite_req = " FROM notices_categories join notices on notcateg_notice=notice_id $acces_j $statut_j ";
-		$suite_req.= "WHERE num_noeud=".$id." $statut_r ";
+		$suite_req.= "WHERE num_noeud='".$id."' $statut_r ";
 	}
 	if ($path) {
 		if ($opac_auto_postage_etendre_recherche == 1 || ($opac_auto_postage_etendre_recherche == 2 && !$nb_pere)) {
@@ -199,7 +200,7 @@ if ($id) {
 			}else {
 				$suite_req_type_doc_noti = "FROM notices_categories join notices on notcateg_notice=notice_id left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_notice = notice_id $acces_j $statut_j ";
 				$suite_req_type_doc_bull = "FROM notices_categories join notices on notcateg_notice=notice_id left join bulletins on bulletins.num_notice = notice_id and bulletins.num_notice != 0 left join explnum on explnum_mimetype in ($opac_photo_filtre_mimetype) and explnum_bulletin != 0 and explnum_bulletin = bulletin_id $acces_j $statut_j ";
-				$suite_req_type_doc= "WHERE num_noeud=".$id." $statut_r  group by typdoc";				
+				$suite_req_type_doc= "WHERE num_noeud='".$id."' $statut_r  group by typdoc";				
 			}
 			
 			$requete_noti = $requete.$suite_req_type_doc_noti.$suite_req_type_doc;

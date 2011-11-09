@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des type de documents en UNIMARC (japonais)
+$Id: doctype.xml,v 1.1.2.5 2011-07-04 14:25:57 dbellamy Exp $ -->
+
+<XMLlist>
+	<entry code="a">印刷資料</entry>
+	<entry code="b">稀少資料</entry>
+	<entry code="c">楽譜 - 印刷</entry>
+	<entry code="d">楽譜 - オリジナル</entry>
+	<entry code="e">地図 - 印刷</entry>
+	<entry code="f">地図 - オリジナル</entry>
+	<entry code="g">ビデオ,映像資料</entry>
+	<entry code="i">音声資料</entry>
+	<entry code="j">音楽資料</entry>
+	<entry code="k">グラフィック資料</entry>
+	<entry code="l">電子資料</entry>
+	<entry code="m">マルチメディア資料</entry>
+	<entry code="r">オブジェ,遺物, ...</entry>
+</XMLlist>

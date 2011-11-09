@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: rss_see.inc.php,v 1.3 2009-03-13 16:36:07 dbellamy Exp $
+// $Id: rss_see.inc.php,v 1.3.6.1 2011-10-07 07:41:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -14,6 +14,7 @@ print "<div id='aut_details'>\n";
 print pmb_bidi("<h3>$logo_rss_si_rss &nbsp;<span>".$msg[show_rss_dispo]."</span></h3>\n");
 
 if ($id) {
+	$id+=0;
 	//Récupération des infos du RSS
 	$r = new rss_flux($id);
 	

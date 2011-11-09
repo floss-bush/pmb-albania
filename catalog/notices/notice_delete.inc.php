@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_delete.inc.php,v 1.33 2010-12-08 08:16:26 touraine37 Exp $
+// $Id: notice_delete.inc.php,v 1.34 2011-03-29 08:08:26 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -89,7 +89,10 @@ if ($acces_m==0) {
 							} elseif ($n->niveau_biblio == 's' || $n->niveau_biblio == 'a') {
 								$ret_param= "?categ=serials&sub=view&serial_id=$not_mere";
 							}							
-						}						
+						}
+						//si intégré depuis une source externe, on suprrime aussi la référence
+						$query="delete from notices_externes where num_notice=".$id;
+						@mysql_query($query, $dbh);
 						notice::del_notice($id);							
 						// affichage du message suppression en cours puis redirect vers page de catalogage
 						print "<div class=\"row\"><div class='msg-perio'>".$msg['suppression_en_cours']."</div></div>

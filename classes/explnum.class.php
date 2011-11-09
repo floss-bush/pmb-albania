@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: explnum.class.php,v 1.36 2010-12-20 14:18:41 gueluneau Exp $
+// $Id: explnum.class.php,v 1.36.2.2 2011-09-15 12:47:33 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -590,7 +590,6 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 			if ($userfile_name) {
 				$userfile_ext = extension_fichier($userfile_name);
 			}
-			
 			if ($this->explnum_id) {
 				// modification
 				// si $userfile_name est vide on ne fera pas la maj du data
@@ -630,11 +629,11 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 							$erreur++;
 						}
 					}
-					$contenu_vignette = construire_vignette($vignette_moved, $userfile_moved) ;
-					$maj_vignette = 1 ;
 					$mimetype = trouve_mimetype($userfile_moved, $userfile_ext) ;
 					if (!$mimetype) $mimetype="application/data";
 					$maj_mimetype = 1 ;
+					$contenu_vignette = construire_vignette($vignette_moved, $userfile_moved);
+					$maj_vignette = 1 ;
 				} else {
 					if ($vignette_name) {
 						move_uploaded_file($vignette_temp,'./temp/'.$vignette_moved) ;
@@ -642,11 +641,11 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 						$maj_vignette = 1 ;
 					}
 					if ($f_url) {
+						$mimetype="URL";
+						$maj_mimetype = 1 ;
 						move_uploaded_file($vignette_temp,'./temp/'.$vignette_moved) ;
 						$contenu_vignette = construire_vignette($vignette_moved, $userfile_moved) ;
 						$maj_vignette = 1 ;
-						$mimetype="URL";
-						$maj_mimetype = 1 ;
 						$contenu="";
 						$maj_data=1 ;
 					}
@@ -683,10 +682,6 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 					$maj_data = 1;
 				} elseif (!$f_url) $erreur++;
 			
-				move_uploaded_file($vignette_temp,'./temp/'.$vignette_moved) ;
-				$contenu_vignette = construire_vignette($vignette_moved, $userfile_moved);
-				$maj_vignette = 1 ;
-				
 				if (!$f_url && !$fic) $erreur++ ; 
 				if ($f_url) {
 					$mimetype = "URL" ;
@@ -695,6 +690,10 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 					if (!$mimetype) $mimetype="application/data";
 				}
 				$maj_mimetype = 1 ;
+				
+				move_uploaded_file($vignette_temp,'./temp/'.$vignette_moved) ;
+				$contenu_vignette = construire_vignette($vignette_moved, $userfile_moved);
+				$maj_vignette = 1 ;
 			}
 			
 			//Initialisation des tableaux d'infos
@@ -718,7 +717,6 @@ if ( ! defined( 'EXPLNUM_CLASS' ) ) {
 			$this->params["retour"] = $retour;
 			$this->params["conserver_vignette"] = $conservervignette;
 			$this->params["statut"] = $f_statut_chk;					
-			
 			
 		}
 		

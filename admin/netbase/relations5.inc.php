@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: relations5.inc.php,v 1.11 2010-09-25 05:42:27 touraine37 Exp $
+// $Id: relations5.inc.php,v 1.12 2011-03-17 16:50:41 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -26,9 +26,10 @@ $affected = mysql_affected_rows();
 $query = mysql_query("delete explnum from explnum left join bulletins on bulletin_id=explnum_bulletin where bulletin_id is null and explnum_notice=0 ");
 $affected = mysql_affected_rows();
 $query = mysql_query("delete acces_res_1 from acces_res_1 left join notices on res_num=notice_id where notice_id is null ");
-$affected = mysql_affected_rows();
+if($query) $affected = mysql_affected_rows();
+
 $query = mysql_query("delete acces_res_2 from acces_res_2 left join notices on res_num=notice_id where notice_id is null ");
-$affected = mysql_affected_rows();
+if($query) $affected = mysql_affected_rows();
 
 $v_state .= "<br /><img src=../../images/d.gif hspace=3>".htmlentities($msg["nettoyage_suppr_relations"], ENT_QUOTES, $charset)." : ";
 $v_state .= $affected." ".htmlentities($msg["nettoyage_res_suppr_relations_pan2"], ENT_QUOTES, $charset);

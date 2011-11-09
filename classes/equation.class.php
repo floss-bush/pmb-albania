@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: equation.class.php,v 1.15 2009-05-16 11:22:55 dbellamy Exp $
+// $Id: equation.class.php,v 1.15.4.2 2011-09-29 09:18:23 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -21,7 +21,7 @@ var	$comment_equation="";
 var	$requete="";
 var	$proprio_equation=0;
 var $search_class;
-var $uman_query = "" ;
+var $human_query = "" ;
 
 // ---------------------------------------------------------------
 //		constructeur

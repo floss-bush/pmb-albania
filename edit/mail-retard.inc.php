@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: mail-retard.inc.php,v 1.29 2010-07-27 10:20:47 mbertin Exp $
+// $Id: mail-retard.inc.php,v 1.29.2.1 2011-09-16 09:04:49 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -52,7 +52,7 @@ while ($data = mysql_fetch_array($req)) {
 	$requete.= " date_format(pret_retour, '".$msg["format_date"]."') as aff_pret_retour, ";
 	$requete.= " IF(pret_retour>sysdate(),0,1) as retard, notices_m.tparent_id, notices_m.tnvol " ; 
 	$requete.= "FROM (((exemplaires LEFT JOIN notices AS notices_m ON expl_notice = notices_m.notice_id ) LEFT JOIN bulletins ON expl_bulletin = bulletins.bulletin_id) LEFT JOIN notices AS notices_s ON bulletin_notice = notices_s.notice_id), docs_type, docs_section, docs_location, pret ";
-	$requete.= "WHERE expl_cb='".$data['expl_cb']."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation and pret_idexpl = expl_id  ";
+	$requete.= "WHERE expl_cb='".addslashes($data['expl_cb'])."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation and pret_idexpl = expl_id  ";
 	
 	$res = mysql_query($requete);
 	$expl = mysql_fetch_object($res);

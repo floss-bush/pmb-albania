@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: custom_cote_pnrp.inc.php,v 1.2 2007-03-10 09:03:17 touraine37 Exp $
+// $Id: custom_cote_pnrp.inc.php,v 1.3 2011-01-26 10:03:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -43,8 +43,7 @@ function prefill_cote($id_notice=0,$cote="") {
 		
 		// fetch the editor
 		$requete = "SELECT ed_name, index_publisher FROM publishers, notices WHERE ed1_id=ed_id and notice_id = '$id_notice'";
-		print $requete;
-    $result = @mysql_query($requete, $dbh);
+    	$result = @mysql_query($requete, $dbh);
 		$nbr_lignes = mysql_num_rows($result);
 		
 		// build the code using also the author name

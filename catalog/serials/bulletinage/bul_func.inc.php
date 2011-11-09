@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bul_func.inc.php,v 1.44 2010-02-15 10:05:45 kantin Exp $
+// $Id: bul_func.inc.php,v 1.45 2011-01-25 16:35:19 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -95,7 +95,8 @@ function show_bulletinage_info_catalogage($bul_id) {
 						</div>";
 			$btn_ajouter_expl="<input type='submit' class='bouton' value=' $msg[expl_ajouter] ' onClick=\"return test_form(this.form)\">";
 			global $pmb_numero_exemplaire_auto;
-			if($pmb_numero_exemplaire_auto>0) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
+			//if($pmb_numero_exemplaire_auto>0) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
+			if($pmb_numero_exemplaire_auto==1 || $pmb_numero_exemplaire_auto==3) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
 			$saisie_num_expl="<input type='text' class='saisie-20em' name='noex' value=''>".$num_exemplaire_auto;				
 		}
 		$bul_cb_form = str_replace('!!bul_id!!', $bul_id, $bul_cb_form);

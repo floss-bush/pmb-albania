@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: edit_expl.inc.php,v 1.33 2010-12-14 13:43:21 ngantier Exp $
+// $Id: edit_expl.inc.php,v 1.34 2011-03-14 08:27:24 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -14,13 +14,18 @@ print pmb_bidi("<div class='row'><b>".$notice->header."</b><br />");
 print pmb_bidi($notice->isbd."</div>");
 $nex = new exemplaire($cb, $expl_id,$id);
 
-//on compte de nombre de prets pour cet exemplaire
-$req = "select count(arc_expl_id) as nb_prets from pret_archive where arc_expl_id = ".$nex->expl_id;
+//on compte de nombre de prets pour cet exemplaire 
+$req = "select count(arc_expl_id) as nb_prets , date_format(max(arc_fin), '".$msg["format_date"]."') as date_last from pret_archive where arc_expl_id = ".$nex->expl_id;
 $res = mysql_query($req);
-if(mysql_num_rows($res)){
-	$nb_prets = mysql_result($res,0,0);
+if(mysql_num_rows($res)){	
+	$arch_pret = mysql_fetch_object($res);
+	$nb_prets = $arch_pret->nb_prets ;
+	$date_last = $arch_pret->date_last ;
 }else $nb_prets = 0;
-if($nb_prets)print str_replace("!!nb_prets!!",$nb_prets,$msg['expl_nbprets']);
+if($nb_prets){
+	$info=str_replace("!!nb_prets!!",$nb_prets,$msg['expl_nbprets']);
+	print str_replace("!!date_last!!",$date_last,$info);
+}
 
 
 // visibilité des exemplaires

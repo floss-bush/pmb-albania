@@ -2,12 +2,13 @@
 // +-------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: connecteurs.class.php,v 1.19 2009-06-16 12:52:28 erwanmartin Exp $
+// $Id: connecteurs.class.php,v 1.23 2011-04-15 15:16:03 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 require_once($include_path."/parser.inc.php");
 require_once($include_path."/templates/connecteurs.tpl.php");
+require_once($class_path."/upload_folder.class.php");
 
 class connector {
 	var $repository;				//Est-ce un entrepot ?
@@ -50,7 +51,7 @@ class connector {
 		}
 	}
 	
-	//Rï¿½cupï¿½ration de la liste des sources
+	//Récupération de la liste des sources
 	function get_sources() {
 		$sources=array();
 		$requete="SELECT connectors_sources.*, source_sync.cancel, source_sync.percent, source_sync.date_sync FROM connectors_sources LEFT JOIN source_sync ON ( connectors_sources.source_id = source_sync.source_id ) where id_connector='".addslashes($this->get_id())."'";
@@ -66,6 +67,9 @@ class connector {
 				$s["TTL"]=$r->ttl;
 				$s["TIMEOUT"]=$r->timeout;
 				$s["OPAC_ALLOWED"]=$r->opac_allowed;
+				$s["UPLOAD_DOC_NUM"]=$r->upload_doc_num;
+				$s["REP_UPLOAD"] = $r->rep_upload;
+				$s["ENRICHMENT"] = $r->enrichment;
 				$s["CANCELLED"]=$r->cancel;
 				$s["PERCENT"]=$r->percent;
 				$s["DATESYNC"]=$r->date_sync;
@@ -77,7 +81,7 @@ class connector {
 		return $sources;
 	}
 	
-	//Rï¿½cupï¿½ration des paramï¿½tres d'une source
+	//Récupération des paramètres d'une source
 	function get_source_params($source_id) {
 		if ($source_id) {
 			$requete="select * from connectors_sources where id_connector='".addslashes($this->get_id())."' and source_id=".$source_id."";
@@ -93,6 +97,9 @@ class connector {
 				$s["TTL"]=$r->ttl;
 				$s["TIMEOUT"]=$r->timeout;
 				$s["OPAC_ALLOWED"]=$r->opac_allowed;
+				$s["UPLOAD_DOC_NUM"]=$r->upload_doc_num;
+				$s["REP_UPLOAD"] = $r->rep_upload;
+				$s["ENRICHMENT"] = $r->enrichment;
 			} 
 		} else {
 			$s["SOURCE_ID"]="";
@@ -104,11 +111,14 @@ class connector {
 			$s["TTL"]=$this->ttl;
 			$s["TIMEOUT"]=$this->timeout;
 			$s["OPAC_ALLOWED"]=0;
+			$s["UPLOAD_DOC_NUM"]=1;
+			$s["REP_UPLOAD"] = 0;
+			$s["ENRICHMENT"] = 0;
 		}
 		return $s;
 	}
 	
-	//Formulaire des propriï¿½tï¿½s d'une source
+	//Formulaire des propriétés d'une source
 	function source_get_property_form($source_id) {
 		$params=$this->get_source_params($source_id);
 		if ($params["PARAMETERS"]) {
@@ -122,13 +132,14 @@ class connector {
 		$this->sources[$source_id]["PARAMETERS"]="";
 	}
 	
-	//Formulaire de sauvegarde des propriï¿½tï¿½s d'une source
+	//Formulaire de sauvegarde des propriétés d'une source
 	function source_save_property_form($source_id) {
 		global $source_categories;
 		$this->make_serialized_source_properties($source_id);
-
 		$this->sources[$source_id]["OPAC_ALLOWED"] = $this->sources[$source_id]["OPAC_ALLOWED"] ? 1 : 0;
-		$requete="replace into connectors_sources (source_id,id_connector,parameters,comment,name,repository,retry,ttl,timeout,opac_allowed) values('".$source_id."','".addslashes($this->get_id())."','".addslashes($this->sources[$source_id]["PARAMETERS"])."','".addslashes($this->sources[$source_id]["COMMENT"])."','".addslashes($this->sources[$source_id]["NAME"])."','".addslashes($this->sources[$source_id]["REPOSITORY"])."','".addslashes($this->sources[$source_id]["RETRY"])."','".addslashes($this->sources[$source_id]["TTL"])."','".addslashes($this->sources[$source_id]["TIMEOUT"])."','".addslashes($this->sources[$source_id]["OPAC_ALLOWED"])."')";
+		$this->sources[$source_id]["UPLOAD_DOC_NUM"] = $this->sources[$source_id]["UPLOAD_DOC_NUM"] ? 1 : 0;
+		$this->sources[$source_id]["ENRICHMENT"] = $this->sources[$source_id]["ENRICHMENT"] ? 1 : 0;
+		$requete="replace into connectors_sources (source_id,id_connector,parameters,comment,name,repository,retry,ttl,timeout,opac_allowed,upload_doc_num,rep_upload,enrichment) values('".$source_id."','".addslashes($this->get_id())."','".addslashes($this->sources[$source_id]["PARAMETERS"])."','".addslashes($this->sources[$source_id]["COMMENT"])."','".addslashes($this->sources[$source_id]["NAME"])."','".addslashes($this->sources[$source_id]["REPOSITORY"])."','".addslashes($this->sources[$source_id]["RETRY"])."','".addslashes($this->sources[$source_id]["TTL"])."','".addslashes($this->sources[$source_id]["TIMEOUT"])."','".addslashes($this->sources[$source_id]["OPAC_ALLOWED"])."','".addslashes($this->sources[$source_id]["UPLOAD_DOC_NUM"])."','".addslashes($this->sources[$source_id]["REP_UPLOAD"])."','".addslashes($this->sources[$source_id]["ENRICHMENT"])."')";
 		$result = mysql_query($requete);
 		if (!$source_id) $source_id = mysql_insert_id(); 
 
@@ -138,6 +149,7 @@ class connector {
 							  `ref` varchar(220) NOT NULL default '',
 							  `date_import` datetime NOT NULL default '0000-00-00 00:00:00',
 							  `ufield` char(3) NOT NULL default '',
+							  `field_ind` char(2) NOT NULL default '  ',
 							  `usubfield` char(1) NOT NULL default '',
 							  `field_order` int(10) unsigned NOT NULL default '0',
 							  `subfield_order` int(10) unsigned NOT NULL default '0',
@@ -154,7 +166,7 @@ class connector {
 							) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 		mysql_query($table_entrepot_sql);
 		
-		//Mise ï¿½ jour des catï¿½gories
+		//Mise à jour des catégories
 		$sql = "DELETE FROM connectors_categ_sources WHERE num_source = ".$source_id;
 		mysql_query($sql);
 		if ($source_categories) {
@@ -189,6 +201,8 @@ class connector {
 		$this->retry=3;
 		$this->ttl=1800;
 		$this->parameters="";
+		$this->rep_upload = 0;
+		$this->enrichment = 0;
 	}
 	
 	//Rï¿½cupï¿½ration  des proriï¿½tï¿½s globales du connecteur (timeout, retry, repository, parameters)
@@ -207,7 +221,7 @@ class connector {
 		}
 	}
 	
-	//Formulaire des propriï¿½tï¿½s gï¿½nï¿½rales
+	//Formulaire des propriétés générales
 	function get_property_form() {
 		$this->fetch_global_properties();
 		//Affichage du formulaire en fonction de $this->parameters
@@ -218,10 +232,10 @@ class connector {
 	}
 	
 	function make_serialized_properties() {
-		//Mise en forme des paramï¿½tres ï¿½ partir de variables globales (mettre le rï¿½sultat dans $this->parameters)
+		//Mise en forme des paramètres à partir de variables globales (mettre le résultat dans $this->parameters)
 	}
 	
-	//Sauvegarde des propriï¿½tï¿½s gï¿½nï¿½rales
+	//Sauvegarde des propriétés générales
 	function save_property_form() {
 		$this->make_serialized_properties();
 		$requete="replace into connectors (connector_id,parameters, retry, timeout, ttl, repository) values('".addslashes($this->get_id())."',
@@ -378,6 +392,10 @@ class connector {
 		}
 		return $fields;
     }
+    
+    function enrichment_is_allow(){
+		return false;
+	}
 } 
 
 class connecteurs {
@@ -423,6 +441,7 @@ class connecteurs {
 			$t["STATUS"]=$manifest["STATUS"][0]["value"];
 			$t["URL"]=$manifest["URL"][0]["value"];
 			$t["REPOSITORY"]=$manifest["REPOSITORY"][0]["value"];
+			$t["ENRICHMENT"]=$manifest["ENRICHMENT"][0]["value"];
 			//Commentaires
 			$comment=array();
 			for ($j=0; $j<count($manifest["COMMENT"]); $j++) {
@@ -435,6 +454,15 @@ class connecteurs {
 			}
 			if ($j==count($manifest["COMMENT"])) $comment=$c_default;
 			$t["COMMENT"]=$comment;
+			
+			//enrichissement
+			if($manifest["ENRICHMENTS"]){
+				$t["ENRICHMENTS"]=array();
+				foreach($manifest["ENRICHMENTS"][0]["TYPE"] as $type){
+					$t["ENRICHMENTS"][$type["NAME"]] = $type["value"];
+				}
+			}
+			
 			$this->catalog[$item["ID"]]=$t;
 		}
 	}	
@@ -477,6 +505,7 @@ class connecteurs {
 		eval("\$conn=new ".$this->catalog[$id]["NAME"]."(\"".$base_path."/admin/connecteurs/in/".$this->catalog[$id]["PATH"]."\");");
 		$connector_form=$conn->source_get_property_form($source_id);
 		$s=$conn->get_source_params($source_id);
+
 		$connector_form=str_replace("!!special_form!!",$connector_form,$admin_connecteur_source_global_params);
 		//Remplacement des valeurs par defaut
 		$connector_form=str_replace("!!id!!",$id,$connector_form);
@@ -499,6 +528,10 @@ class connecteurs {
 				
 		if ($s["OPAC_ALLOWED"]) $connector_form=str_replace("!!opac_allowed_checked!!","checked",$connector_form);
 		else $connector_form=str_replace("!!opac_allowed_checked!!","",$connector_form);
+
+		if ($s["UPLOAD_DOC_NUM"]) $connector_form=str_replace("!!upload_doc_num!!","checked",$connector_form);
+		else $connector_form=str_replace("!!upload_doc_num!!","",$connector_form);
+		
 		switch ($conn->is_repository()) {
 			//Oui
 			case 1:
@@ -513,9 +546,44 @@ class connecteurs {
 				$connector_form=str_replace("!!repository!!","<select name='repository' id='repositiory'><option value='1' ".($s["REPOSITORY"]==1?"selected":"").">".$msg["connecteurs_yes"]."</option><option value='2' ".($s["REPOSITORY"]==2?"selected":"").">".$msg["connecteurs_no"]."</option></select>",$connector_form);
 				break;
 		}
+		
+		if($conn->enrichment_is_allow()){
+			$enrichment = "
+		<div class='row'>	
+			<div class='colonne3'>
+				<label for='search_index'>".$msg['connecteurs_source_enrichment']."</label>
+			</div>
+			<div class='colonne_suite'>
+				<input type='checkbox' name='enrichment' value='1' ".($s["ENRICHMENT"] ? "checked":"")." />
+			</div>
+		</div>";
+			$connector_form=str_replace("!!enrichment!!",$enrichment,$connector_form);
+		}else{
+			$connector_form=str_replace("!!enrichment!!","",$connector_form);
+		}
 		$connector_form=str_replace("!!timeout!!",$s["TIMEOUT"],$connector_form);
 		$connector_form=str_replace("!!ttl!!",$s["TTL"],$connector_form);
 		$connector_form=str_replace("!!retry!!",$s["RETRY"],$connector_form);
+		
+		//rep upload    
+		$rep_upload_form="
+				<select name='rep_upload'>
+					<option value=''>".$msg["connecteurs_no_upload_rep"]."</option>";
+		//on récup la liste des répertoires d'upload...
+		$upload_folders = array();
+		$res = mysql_query("select repertoire_id from upload_repertoire");
+		if(mysql_num_rows($res)){
+			while ($r = mysql_fetch_object($res)){
+				$rep = new upload_folder($r->repertoire_id);
+				$rep_upload_form.="
+					<option value='".$rep->repertoire_id."' ".($s['REP_UPLOAD']==$rep->repertoire_id ? "selected" : "").">".$rep->repertoire_nom."</option>";
+			}
+		}			
+		$rep_upload_form.="
+				</select>";	
+		$connector_form=str_replace("!!rep_upload!!",$rep_upload_form,$connector_form);
+		
+		
 		if (!$source_id) {
 			$bt_suppr="";
 		} else {
@@ -525,5 +593,4 @@ class connecteurs {
 		return $connector_form;
 	}
 }
-
 ?>

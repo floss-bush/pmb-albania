@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: filter_list.class.php,v 1.27 2010-12-02 11:07:25 dbellamy Exp $
+// $Id: filter_list.class.php,v 1.27.2.1 2011-05-31 14:42:56 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -64,13 +64,18 @@ class filter_list {
     				if ($this->original_query) $requete.=",table_filter_tempo";
     			}
     		}
-    		if (!$this->filtered_query)		
+    		if (!$this->filtered_query){
     			$where=$this->filters_query();
-    		else
+    		}else{
     			$where=$this->filtered_query;
+    		}	
     				
-    		if ($where) $requete.=$where;
-    			else $this->no_filter=1;
+    		if ($where){
+    			$requete.=$where;
+    		}else{
+    			$this->no_filter=1;
+    			$requete.=" where 1 ";
+    		}
     	}
     	if (($this->original_query)&&(!$this->error)) {
     		//création d'une table temporaire
@@ -117,32 +122,34 @@ class filter_list {
     				global $$valeurs_post;
     				$v=array();
     				if ($$valeurs_post) $v=$$valeurs_post;
-    				//Récupération du champ
-    				$field=array();
-					$field[ID]=$id;
-					$field[NAME]=$cp->t_fields[$id][NAME];
-					$field[MANDATORY]=$cp->t_fields[$id][MANDATORY];
-					$field[ALIAS]=$cp->t_fields[$id][TITRE];
-					$field[DATATYPE]=$cp->t_fields[$id][DATATYPE];
-					$field[OPTIONS][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$cp->t_fields[$id][OPTIONS], "OPTIONS");
-					$field[VALUES]=$v;
-					$field[PREFIX]=$this->params["REFERENCE"][0]["PREFIXNAME"];
-					if (($cp->t_fields[$id][TYPE]!="list")&&($cp->t_fields[$id][TYPE]!="query_list")) {
-						$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE]="-1";
-						$field[OPTIONS][0][UNSELECT_ITEM][0][value]=$msg["empr_perso_all_values"];
-					}
-					$human_filters.=strtolower($cp->t_fields[$id]["TITRE"])." \"";
-					$temp=array();
-					foreach($v as $dummykey) {
-						if ($dummykey!=$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE]) {
-    						if (($field[DATATYPE]=="text")||($field[DATATYPE]=="comment")) $temp[]=$dummykey;
-    							else $temp[]=$cp->get_formatted_output($dummykey,$id);
+    				if(count($v) > 1 || (is_array($v) && $v[0] != "-1" && $v[0] != "")){
+    					//Récupération du champ
+	    				$field=array();
+						$field[ID]=$id;
+						$field[NAME]=$cp->t_fields[$id][NAME];
+						$field[MANDATORY]=$cp->t_fields[$id][MANDATORY];
+						$field[ALIAS]=$cp->t_fields[$id][TITRE];
+						$field[DATATYPE]=$cp->t_fields[$id][DATATYPE];
+						$field[OPTIONS][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$cp->t_fields[$id][OPTIONS], "OPTIONS");
+						$field[VALUES]=$v;
+						$field[PREFIX]=$this->params["REFERENCE"][0]["PREFIXNAME"];
+						if (($cp->t_fields[$id][TYPE]!="list")&&($cp->t_fields[$id][TYPE]!="query_list")) {
+							$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE]="-1";
+							$field[OPTIONS][0][UNSELECT_ITEM][0][value]=$msg["empr_perso_all_values"];
 						}
-					}
-					if (count($temp)) {
-						$human_filters.=implode(",",$temp);
-					}
-					$human_filters.="\" ".htmlentities($msg["filters_sort_next"],ENT_QUOTES,$charset)." ";	
+						$human_filters.=strtolower($cp->t_fields[$id]["TITRE"])." \"";
+						$temp=array();
+						foreach($v as $dummykey) {
+							if ($dummykey!=$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE]) {
+	    						if (($field[DATATYPE]=="text")||($field[DATATYPE]=="comment")) $temp[]=$dummykey;
+	    							else $temp[]=$cp->get_formatted_output(array($dummykey),$id);
+							}
+						}
+						if (count($temp)) {
+							$human_filters.=implode(",",$temp);
+						}
+						$human_filters.="\" ".htmlentities($msg["filters_sort_next"],ENT_QUOTES,$charset)." ";	
+    				}	
     			}
     		} elseif (array_key_exists($s[$i],$this->fixedfields)) {
     	 		//champs fixes
@@ -256,54 +263,53 @@ class filter_list {
     	$bool_perso_exist=false;
     	$bool_ref_exist=false;
 
-    	$s=explode(",",$this->displaycolumns);	
-    	//parcours des champs 
-    	for ($i=0;$i<count($s);$i++) {
-    		if ((substr($s[$i],0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
+    	$affiche=explode(",",$this->displaycolumns);
+    	$filter=explode(",",$this->filtercolumns);
+    	$sort=explode(",",$this->sortablecolumns);
+    	$tmp=array_merge($affiche,array_diff($filter,$affiche));
+    	$total=array_merge($tmp,array_diff($sort,$tmp));
+    	
+    	for ($i=0;$i<count($total);$i++) {
+    		if ((substr($total[$i],0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
     			//champs personnalisés
     			require_once($class_path."/parametres_perso.class.php");
     			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
     			if (!$cp->no_special_fields) {
-    				$id=substr($s[$i],1,strlen($s[$i])-1);
-    				print("<br />");
+    				$id=substr($total[$i],1,strlen($total[$i])-1);
+    				$afrom = " left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id." on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id."".".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_origine"." = ".$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]." AND ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_champ = ".$id.")";
+    				$dependant_left_joins[] = $afrom;
+    				$select.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE]." AS ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE].$id.",";
     				if ($cp->t_fields[$id][TYPE]=="list") {
-    					$afrom=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id."";
-    					$afrom.=" left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists".$id." on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id]["DATATYPE"]."=".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_value AND ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_champ = ".$id.")";
-    					$froms[] = $afrom;
-    					$select.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE]." ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE].$id.",";
-    				} else {
-    					$afrom = " left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id." on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id."".".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_origine"." = ".$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]." AND ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_champ = ".$id.")";
-    					$dependant_left_joins[] = $afrom;
-    					$select.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE]." ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE].$id.",";
+    					$dependant_left_joins[] ="left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists".$id." on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id]["DATATYPE"]."=".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_value)";
     				}
     				$bool_perso_exist=true;
     			}
-    		} elseif (array_key_exists($s[$i],$this->fixedfields)) {
+    		} elseif (array_key_exists($total[$i],$this->fixedfields)) {
     			//champs fixes
     			//est-ce que le champ est affichable
-    			if ($this->fixedfields[$s[$i]]["DISPLAYABLE"]=="yes") {
-    				if ($this->fixedfields[$s[$i]]["TABLE"][0][value]) {
-    	 				if ($this->fixedfields[$s[$i]]["LINK"]) {
-    	 					for ($x=0;$x<count($this->fixedfields[$s[$i]]["LINK"]);$x++) {
+    			if ($this->fixedfields[$total[$i]]["DISPLAYABLE"]=="yes") {
+    				if ($this->fixedfields[$total[$i]]["TABLE"][0][value]) {
+    	 				if ($this->fixedfields[$total[$i]]["LINK"]) {
+    	 					for ($x=0;$x<count($this->fixedfields[$total[$i]]["LINK"]);$x++) {
     	 						//de quelle type est la relation
-    	 						if ($this->fixedfields[$s[$i]]["LINK"][$x]["TYPE"]=="nn") {
-    	 							$afrom=$this->params["REFERENCE"][0][value]." left join ".$this->fixedfields[$s[$i]]["LINK"][$x]["TABLE"][0][value]." on (";
+    	 						if ($this->fixedfields[$total[$i]]["LINK"][$x]["TYPE"]=="nn") {
+    	 							$afrom="left join ".$this->fixedfields[$total[$i]]["LINK"][$x]["TABLE"][0][value]." on (";
     	 							$afrom.=$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]."=";
-    	 							$afrom.=$this->fixedfields[$s[$i]]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$s[$i]]["LINK"][$x]["REFERENCEFIELD"][0][value].")";
-    	 							$afrom.=" left join ".$this->fixedfields[$s[$i]]["TABLE"][0][value]." on (".$this->fixedfields[$s[$i]]["TABLE"][0][value].".".$this->fixedfields[$s[$i]]["TABLEKEY"][0][value]."=";
-    	 							$afrom.=$this->fixedfields[$s[$i]]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$s[$i]]["LINK"][$x]["EXTERNALFIELD"][0][value].")";
-    	 							$froms[] = $afrom;
-    	 							$bool_ref_exist=true;
-    	 							$select.="GROUP_CONCAT(distinct ".$this->fixedfields[$s[$i]]["TABLEFIELD"][0][value].") as ".$this->fixedfields[$s[$i]]["TABLEFIELD"][0]["NAME"].",";
+    	 							$afrom.=$this->fixedfields[$total[$i]]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$total[$i]]["LINK"][$x]["REFERENCEFIELD"][0][value].")";
+    	 							$afrom.=" left join ".$this->fixedfields[$total[$i]]["TABLE"][0][value]." on (".$this->fixedfields[$total[$i]]["TABLE"][0][value].".".$this->fixedfields[$total[$i]]["TABLEKEY"][0][value]."=";
+    	 							$afrom.=$this->fixedfields[$total[$i]]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$total[$i]]["LINK"][$x]["EXTERNALFIELD"][0][value].")";
+    	 							$dependant_left_joins[] = $afrom;
+    	 							//$bool_ref_exist=true;
+    	 							$select.="GROUP_CONCAT(distinct ".$this->fixedfields[$total[$i]]["TABLEFIELD"][0][value].") as ".$this->fixedfields[$total[$i]]["TABLEFIELD"][0]["NAME"].",";
     	 						} else {
-    	 							$select.=$this->fixedfields[$s[$i]]["TABLE"][0][value].".";
-    	 							$select.=$this->fixedfields[$s[$i]]["TABLEFIELD"][0][value].",";
-    	 							$froms[]=$this->fixedfields[$s[$i]]["TABLE"][0][value];
+    	 							$select.=$this->fixedfields[$total[$i]]["TABLE"][0][value].".";
+    	 							$select.=$this->fixedfields[$total[$i]]["TABLEFIELD"][0][value].",";
+    	 							$froms[]=$this->fixedfields[$total[$i]]["TABLE"][0][value];
     	 						}
     	 					}	
-    	 				} else $from.=$this->fixedfields[$s[$i]]["TABLE"][0][value].",";
+    	 				} else $from.=$this->fixedfields[$total[$i]]["TABLE"][0][value].",";
     	 			} else {
-    	 				$fields=explode(",",$this->fixedfields[$s[$i]]["TABLEFIELD"][0][value]);
+    	 				$fields=explode(",",$this->fixedfields[$total[$i]]["TABLEFIELD"][0][value]);
     	 				for ($g=0;$g<count($fields);$g++) {
     	 					$select.=$this->params["REFERENCE"][0][value].".".$fields[$g].",";
     	 				}
@@ -311,103 +317,16 @@ class filter_list {
     	 		}		 
     	 	}   					
     	}
-
-    	$u=explode(",",$this->filtercolumns);
-    	$w=array_diff($u,$s);
-    	//parcours des champs 
-    	foreach ($w as $dummykey) {
-    		if ((substr($dummykey,0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
-    			//champs personnalisés
-    			require_once($class_path."/parametres_perso.class.php");
-    			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
-    			if (!$cp->no_special_fields) {
-    				$id=substr($dummykey,1,strlen($dummykey)-1);
-    				if ($bool_perso_exist==false) {	
-    					$afrom=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values";
-    					$afrom.=" left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id]["DATATYPE"]."=".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_value)";
-    					$froms[] = $afrom;
-    					$bool_perso_exist=true;
-    				}
-    			}
-    	 	} elseif (array_key_exists($dummykey,$this->fixedfields)) {
-    	 		//champs fixes
-    			//est-ce que le champ est filtrable	
-    			if ($this->fixedfields[$dummykey]["FILTERABLE"]=="yes") {
-    				if ($this->fixedfields[$dummykey]["TABLE"][0][value]) {
-    	 				if ($this->fixedfields[$dummykey]["LINK"]) {
-    						for ($x=0;$x<count($this->fixedfields[$dummykey]["LINK"]);$x++) {
-    	 						//de quelle type est la relation
-    	 						if ($this->fixedfields[$dummykey]["LINK"][$x]["TYPE"]=="nn") {
-    	 							$afrom=$this->params["REFERENCE"][0][value]." left join ".$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value]." on (";
-    	 							$afrom.=$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]."=";
-    	 							$bool_ref_exist=true;
-    	 							$afrom.=$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["LINK"][$x]["REFERENCEFIELD"][0][value].")";
-    	 							$afrom.=" left join ".$this->fixedfields[$dummykey]["TABLE"][0][value]." on (".$this->fixedfields[$dummykey]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["TABLEKEY"][0][value]."=";
-    	 							$afrom.=$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["LINK"][$x]["EXTERNALFIELD"][0][value].")";
-    	 							$froms[] = $afrom;
-    	 						} else {
-    	 							$froms[]=$this->fixedfields[$dummykey]["TABLE"][0][value]."";
-    	 						}
-    	 					}
-    	 				} else $froms[]=$this->fixedfields[$dummykey]["TABLE"][0][value]."";		
-    	 			}
-    	 		}		 
-    	 	}  					
-    	}
-    	    	
-    	$v=explode(",",$this->sortablecolumns);
-    	$k=array_diff($v,$s);
-    	$t=array_diff($k,$w);
-    	 	
-    	//parcours des champs 
-    	foreach ($t as $dummykey) {
-    		if ((substr($dummykey,0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
-    			//champs personnalisés
-    			require_once($class_path."/parametres_perso.class.php");
-    			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
-    			if (!$cp->no_special_fields) {
-    				$id=substr($dummykey,1,strlen($dummykey)-1);
-    				if ($bool_perso_exist==false) {	
-    					$afrom=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values";
-    					$afrom.=" left join ".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists on (".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id]["DATATYPE"]."=".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_value)";
-    					$froms[]=$afrom;
-    				}
-    			}
-    		} elseif (array_key_exists($dummykey,$this->fixedfields)) {
-    			//champs fixes
-    			//est-ce que le champ est triable	
-    			if ($this->fixedfields[$dummykey]["SORTABLE"]=="yes") {
-    				if ($this->fixedfields[$dummykey]["TABLE"][0][value]) {		
-    					if ($this->fixedfields[$dummykey]["LINK"]) {
-    						for ($x=0;$x<count($this->fixedfields[$dummykey]["LINK"]);$x++) {
-    	 						//de quelle type est la relation
-    							if ($this->fixedfields[$dummykey]["LINK"][$x]["TYPE"]=="nn") {
-    	 							$afrom=$this->params["REFERENCE"][0][value]." left join ".$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value]." on (";
-    	 							$afrom.=$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]."=";
-    	 							$bool_ref_exist=true;
-    	 							$afrom.=$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["LINK"][$x]["REFERENCEFIELD"][0][value].")";
-    	 							$afrom.=" left join ".$this->fixedfields[$dummykey]["TABLE"][0][value]." on (".$this->fixedfields[$dummykey]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["TABLEKEY"][0][value]."=";
-    	 							$afrom.=$this->fixedfields[$dummykey]["LINK"][$x]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["LINK"][$x]["EXTERNALFIELD"][0][value].")";
-    	 							$froms[]=$afrom;
-    	 						} else {
-    	 							$froms[]=$this->fixedfields[$dummykey]["TABLE"][0][value]."";
-    	 						}
-    	 					}
-    	 				} else $froms[].=$this->fixedfields[$dummykey]["TABLE"][0][value]."";
-    	 			}
-    	 		}		 
-    	 	}    					
-    	}
     	if ($bool_ref_exist==false) {
     	 	$froms[]=$this->params["REFERENCE"][0][value];
     	 	$bool_ref_exist=true;
-   		 }	   	 	
+   		}
     	
     	if ($this->select_original) $select.=$this->select_original.",";
     	if ($this->from_original) $from.=$this->from_original.",";
     	$select=substr($select,0,strlen($select)-1);
-		$froms[0] .= " ".implode(" ", $dependant_left_joins);
 		$from = implode(",",$froms);
+		$from.= " ".implode(" ", $dependant_left_joins);
     	$ret="select ".$select." from ".$from;
     	return $ret; 	
     }
@@ -436,9 +355,9 @@ class filter_list {
     						if (!$cp->no_special_fields) {
     							$id=substr($s[$i],1,strlen($s[$i])-1);
     							if ($cp->t_fields[$id][TYPE]=="list") {
-    								$orderby.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_lib,";
+    								$orderby.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_lists".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_list_lib,";
     							} else {
-    								$orderby.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE].",";
+    								$orderby.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$cp->t_fields[$id][DATATYPE].",";
     							}
     						}
     	 				} elseif (array_key_exists($s[$i],$this->fixedfields)) {
@@ -491,17 +410,23 @@ class filter_list {
     	global $msg, $charset;
     	$ret="";
     	$where="";
-    	if ($this->where_original) $where.=$this->where_original." and ";
+    	if ($this->where_original){
+    		$where.=$this->where_original." and ";
+    	}
     	
-    	$s=explode(",",$this->filtercolumns);	
-    	//parcours des champs 
-    	for ($i=0;$i<count($s);$i++) {
-    		if ((substr($s[$i],0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
+    	$affiche=explode(",",$this->displaycolumns);
+    	$filter=explode(",",$this->filtercolumns);
+    	$sort=explode(",",$this->sortablecolumns);
+    	$tmp=array_merge($affiche,array_diff($filter,$affiche));
+    	$total=array_merge($tmp,array_diff($sort,$tmp));
+    	
+    	for ($i=0;$i<count($total);$i++) {
+    		if ((substr($total[$i],0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
     			//champs personnalisés
     			require_once($class_path."/parametres_perso.class.php");
     			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
     			if (!$cp->no_special_fields) {
-    				$id=substr($s[$i],1,strlen($s[$i])-1);
+    				$id=substr($total[$i],1,strlen($total[$i])-1);
     				$valeurs_post="f".$cp->t_fields[$id]["NAME"];
     				$v=array();
     				global $$valeurs_post;
@@ -525,16 +450,14 @@ class filter_list {
 					$t[0]=$field[OPTIONS][0][UNSELECT_ITEM][0][VALUE];
     				$w=array_diff($v,$t);
     				if (count($w)) {
-    					$where.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$field[DATATYPE]." in ('".implode("','",$v)."') and ";
+    					$where.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values".$id.".".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_".$field[DATATYPE]." in ('".implode("','",$v)."') and ";
 					}
-					$where.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_champ=".$id." and ";
-					$where.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_origine=".$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]." and ";
-    			}
-    		} elseif (array_key_exists($s[$i],$this->fixedfields)) {
+				}
+    		} elseif (array_key_exists($total[$i],$this->fixedfields)) {
     			//champs fixes
     			//est-ce que le champ est filtrable	
-    			if ($this->fixedfields[$s[$i]]["FILTERABLE"]=="yes") {
-    				$nom_valeurs_post="f".$this->fixedfields[$s[$i]]["ID"];
+    			if ($this->fixedfields[$total[$i]]["FILTERABLE"]=="yes") {
+    				$nom_valeurs_post="f".$this->fixedfields[$total[$i]]["ID"];
     				$valeurs_post=array();
     				global $$nom_valeurs_post;
     				$valeurs_post=$$nom_valeurs_post;
@@ -542,16 +465,16 @@ class filter_list {
     					$t[0]=-1;
     					$v=array_diff($valeurs_post,$t);
     					if (count($v)) {
-    						if ($this->fixedfields[$s[$i]]["TABLE"][0][value]) $where.=$this->fixedfields[$s[$i]]["TABLE"][0][value].".".$this->fixedfields[$s[$i]]["TABLEKEY"][0][value]." in (".implode(",",$v).") and ";
-    							else $where.=$this->params["REFERENCE"][0][value].".".$this->fixedfields[$s[$i]]["TABLEFIELD"][0][value]." in ('".implode("','",$v)."') and ";
+    						if ($this->fixedfields[$total[$i]]["TABLE"][0][value]) $where.=$this->fixedfields[$total[$i]]["TABLE"][0][value].".".$this->fixedfields[$total[$i]]["TABLEKEY"][0][value]." in (".implode(",",$v).") and ";
+    							else $where.=$this->params["REFERENCE"][0][value].".".$this->fixedfields[$total[$i]]["TABLEFIELD"][0][value]." in ('".implode("','",$v)."') and ";
     					}
     				} 	
-    				if ($this->fixedfields[$s[$i]]["TABLE"][0][value]) {	
-    					for ($x=0;$x<count($this->fixedfields[$s[$i]]["LINK"]);$x++) {
+    				if ($this->fixedfields[$total[$i]]["TABLE"][0][value]) {	
+    					for ($x=0;$x<count($this->fixedfields[$total[$i]]["LINK"]);$x++) {
     						//de quelle type est la relation
-    						if ($this->fixedfields[$s[$i]]["LINK"][$x]["TYPE"]=="1n") {
-    							$where.=$this->params["REFERENCE"][0][value].".".$this->fixedfields[$s[$i]]["LINK"][$x]["REFERENCEFIELD"][0][value]."=";
-    							$where.=$this->fixedfields[$s[$i]]["TABLE"][0][value].".".$this->fixedfields[$s[$i]]["TABLEKEY"][0][value]." and ";
+    						if ($this->fixedfields[$total[$i]]["LINK"][$x]["TYPE"]=="1n") {
+    							$where.=$this->params["REFERENCE"][0][value].".".$this->fixedfields[$total[$i]]["LINK"][$x]["REFERENCEFIELD"][0][value]."=";
+    							$where.=$this->fixedfields[$total[$i]]["TABLE"][0][value].".".$this->fixedfields[$total[$i]]["TABLEKEY"][0][value]." and ";
     						}
     					}
     				}
@@ -559,38 +482,7 @@ class filter_list {
     		} else {
     			$this->no_filter=1;
     		}    					
-    	}	   	 	
-    	
-    	$u=explode(",",$this->sortablecolumns);
-    	$t=array_diff($u,$s);
-    	//parcours des champs 
-    	foreach ($t as $dummykey) {
-    		if ((substr($dummykey,0,1)=="#")&&($this->params["REFERENCE"][0]["DYNAMICFIELDS"]=="yes")) {
-    			//champs personnalisés
-    			require_once($class_path."/parametres_perso.class.php");
-    			$cp=new parametres_perso($this->params["REFERENCE"][0]["PREFIXNAME"]);
-    			if (!$cp->no_special_fields) {
-    				$id=substr($dummykey,1,strlen($dummykey)-1);
-    				$where.=$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_values.".$this->params["REFERENCE"][0]["PREFIXNAME"]."_custom_origine=".$this->params["REFERENCE"][0][value].".".$this->params["REFERENCEKEY"][0][value]." and ";
-    			}
-    		} elseif (array_key_exists($dummykey,$this->fixedfields)) {
-    			//champs fixes
-    			//est-ce que le champ est filtrable	
-    			if ($this->fixedfields[$dummykey]["SORTABLE"]=="yes") {
-    				if ($this->fixedfields[$dummykey]["TABLE"][0][value]) {	
-    	 				for ($x=0;$x<count($this->fixedfields[$dummykey]["LINK"]);$x++) {
-    	 					//de quelle type est la relation
-    	 					if ($this->fixedfields[$dummykey]["LINK"][$x]["TYPE"]=="1n") {
-    	 						$where.=$this->params["REFERENCE"][0][value].".".$this->fixedfields[$dummykey]["LINK"][$x]["REFERENCEFIELD"][0][value]."=";
-    	 						$where.=$this->fixedfields[$dummykey]["TABLE"][0][value].".".$this->fixedfields[$dummykey]["TABLEKEY"][0][value]." and ";
-    	 					}
-    	 				}
-    				}
-    	 		} 
-    	 	} else {
-    			$this->no_filter=1;
-    		}    					
-    	}	   	 	
+    	}  	 	
     	
     	if ($where) $where=substr($where,0,strlen($where)-4);
     	if ($where) $ret=" where ".$where;
@@ -615,13 +507,16 @@ class filter_list {
     	global $msg;
     	
     	$ret="";
-    	$nb_lignes=$this->nb_lines_query();
+    	//On calcul les page en fonction du résultat de la requte total et pas de la recherche de départ
+    	$requete=preg_replace("/limit [0-9]*,[0-9]*/i","",$this->query);
+    	$res=mysql_query($requete);
+    	$nb_lignes=mysql_num_rows($res);
     	if ($nb_lignes!=0) {
     		$ret = "<div align='center'>";
     		$nbepages = ceil($nb_lignes/$this->nb_per_page);
 			$suivante = $this->page+1;
 			$precedente = $this->page-1;
-			if ($nbepages!=1) {
+			if ($nbepages!=1 && $this->page != 1) {
 				$ret .= "<a id='premiere' href='#' onClick='document.forms[\"form_filters\"].page.value=1;document.forms[\"form_filters\"].submit();'><img src='./images/first.gif' border='0' alt='".$msg['first_page']."' hspace='6' align='middle' title='".$msg['first_page']."' /></a>";
 				$ret .= "<a id='precedente' href='#' onClick='document.forms[\"form_filters\"].page.value=".$precedente.";document.forms[\"form_filters\"].submit();'><img src='./images/left.gif' border='0' alt='".$msg[48]."' hspace='6' align='middle' title='".$msg[48]."' /></a>";
 			}

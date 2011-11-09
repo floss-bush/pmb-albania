@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: relance_export.php,v 1.1 2010-09-09 14:21:28 ngantier Exp $
+// $Id: relance_export.php,v 1.1.2.1 2011-06-14 15:30:12 ngantier Exp $
 
 //Affichage des recouvrements pour un lecteur, format Excel HTML
 
@@ -61,7 +61,7 @@ $export_relance_tpl="
 </html>";
 
 $req ="select id_empr  from empr, pret, exemplaires, empr_categ where 1 ";
-$req.= "and pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr";
+$req.= "and pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr";
 $res=mysql_query($req);
 while ($r=mysql_fetch_object($res)) {
 	$relance_liste.=get_relance($r->id_empr);
@@ -105,7 +105,7 @@ function get_relance($id_empr){
 	<td>".$frais_relance."</td>
 	";
 	
-	$reqexpl = "select pret_idexpl as expl from pret where pret_retour<now() and pret_idempr=$id_empr";
+	$reqexpl = "select pret_idexpl as expl from pret where pret_retour<CURDATE() and pret_idempr=$id_empr";
 	
 	$resexple=mysql_query($reqexpl,$dbh);
 	while(($liste = mysql_fetch_object($resexple))){			

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: proc.inc.php,v 1.16 2010-09-14 14:57:09 ngantier Exp $
+// $Id: proc.inc.php,v 1.16.2.2 2011-09-06 09:11:22 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -215,7 +215,7 @@ function display_remote_proc($id) {
 	$the_procedure = 0;
 	if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 		$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-		$procedure = $aremote_procedure_client->get_proc($id);
+		$procedure = $aremote_procedure_client->get_proc($id,"AP");
 		if ($procedure["error_message"]) {
 			$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 			print $buf_contenu;
@@ -234,7 +234,7 @@ function display_remote_proc($id) {
 	global $charset;
 	
 	$admin_proc_view_remote = str_replace('!!id!!', $id, $admin_proc_view_remote);
-	$admin_proc_view_remote = str_replace('!!form_title!!', "Détails d'une procédure distante", $admin_proc_view_remote);
+	$admin_proc_view_remote = str_replace('!!form_title!!', htmlentities($msg["remote_procedures_detail_procedure_distante"],ENT_QUOTES, $charset), $admin_proc_view_remote);
 
 	$additional_information = $the_procedure->untested ? $msg["remote_procedures_procedure_non_validated_additional_information"] : "";
 	$admin_proc_view_remote = str_replace('!!additional_information!!', htmlentities($additional_information,ENT_QUOTES, $charset), $admin_proc_view_remote);
@@ -438,7 +438,7 @@ switch($action) {
 				$the_procedure = 0;
 				if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 					$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-					$procedure = $aremote_procedure_client->get_proc($id);
+					$procedure = $aremote_procedure_client->get_proc($id,"AP");
 					if ($procedure["error_message"]) {
 						$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 						print $buf_contenu;
@@ -477,7 +477,7 @@ switch($action) {
 				$the_procedure = 0;
 				if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 					$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-					$procedure = $aremote_procedure_client->get_proc($id);
+					$procedure = $aremote_procedure_client->get_proc($id,"AP");
 					if ($procedure["error_message"]) {
 						$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 						print $buf_contenu;
@@ -536,7 +536,7 @@ switch($action) {
 		$the_procedure = 0;
 		if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 			$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-			$procedure = $aremote_procedure_client->get_proc($id);
+			$procedure = $aremote_procedure_client->get_proc($id,"AP");
 			if ($procedure["error_message"]) {
 				$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 				print $buf_contenu;
@@ -577,7 +577,7 @@ switch($action) {
 		$the_procedure = 0;
 		if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 			$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-			$procedure = $aremote_procedure_client->get_proc($id);
+			$procedure = $aremote_procedure_client->get_proc($id,"AP");
 			if ($procedure["error_message"]) {
 				$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 				print $buf_contenu;

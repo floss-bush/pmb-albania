@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: category.class.php,v 1.30 2009-04-02 17:43:39 touraine37 Exp $
+// $Id: category.class.php,v 1.31 2011-02-23 15:06:37 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -10,6 +10,7 @@ if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 if ( ! defined( 'CATEGORY_CLASS' ) ) {
   define( 'CATEGORY_CLASS', 1 );
 require_once("$class_path/thesaurus.class.php");
+require_once("$base_path/javascript/misc.inc.php");
 
 //Renvoi récursivement la liste des notices référançant un noeuds et ses enfants
 function get_category_notice_count($node_id, &$listcontent) {

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: isbd.inc.php,v 1.41 2009-12-10 14:37:17 kantin Exp $
+// $Id: isbd.inc.php,v 1.42 2011-01-25 16:35:19 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 	
@@ -110,8 +110,8 @@ if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 		$saisie_num_expl.= "<div class='colonne-suite'><span class='erreur'>".$msg["err_add_invis_expl"]."</span></div>";
 	} else {
 		global $pmb_numero_exemplaire_auto;
-		if($pmb_numero_exemplaire_auto>0) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
-		
+		//if($pmb_numero_exemplaire_auto>0) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
+		if($pmb_numero_exemplaire_auto==1 || $pmb_numero_exemplaire_auto==2) $num_exemplaire_auto=" $msg[option_num_auto] <INPUT type=checkbox name='option_num_auto' value='num_auto' checked >";
 		$etiquette_expl="<label class='etiquette' for='form_cb'>$msg[291]</label>";
 		$btn_ajouter_expl="<input type='submit' class='bouton' value=' $msg[expl_ajouter] ' onClick=\"return test_form(this.form)\">";
 		$saisie_num_expl="<input type='text' class='saisie-20em' name='noex' value=''>".$num_exemplaire_auto;

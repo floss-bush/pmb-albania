@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: rfid_pret.js,v 1.14 2010-06-16 12:19:04 ngantier Exp $
+// $Id: rfid_pret.js,v 1.16.2.1 2011-05-20 08:59:46 ngantier Exp $
 var count = 0;
 var this_param=new Array();	
 var key_this_param=new Array();	
@@ -880,7 +880,7 @@ var mode1_flag_rfid_activite=0;
 var mode1_flag_pmb_activite=0;
 var mode1_flag_pmb_erreur=0; 
 var mode1_flag_rfid_erreur=0;
-var mode1_activité_level=0;
+var mode1_activite_level=0;
 var mode1_tableau_expl_count=0;
 var mode1_tab_cb_antivol=new Array();
 var mode1_timeout_antivol;
@@ -981,7 +981,7 @@ function mode1_f_read_expl(cb,index,indexcount,antivol,uid) {
 	// Si liste pmb à interroger non vide
 	if(tab_cb_pmb_request.length){
 		// Alerte activité pmb
-		mode1_activité_level++;
+		mode1_activite_level++;
 		flag_pmb_activite =1;
 		mode1_flag_pmb_erreur = 0;
 		// Requête serveur PMB pour lire infos expl et effectuer prêts temporaires de cette liste	
@@ -991,7 +991,7 @@ function mode1_f_read_expl(cb,index,indexcount,antivol,uid) {
 	// Si  liste antivol à désactiver non vide			
 	if(mode1_tab_cb_antivol.length){					
 		// Alerte activité rfid		
-		mode1_activité_level++;
+		mode1_activite_level++;
 		mode1_flag_rfid_activite = 1;
 		mode1_flag_rfid_erreur = 0;
 		// désactiver les antivols de cette liste

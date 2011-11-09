@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localisŽs en franais pour l'OPAC de PMB
-$Id: br_FR.xml,v 1.144 2010-12-20 10:05:05 arenou Exp $ -->
+$Id: br_FR.xml,v 1.151.2.6 2011-09-21 12:30:28 dbellamy Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">N'oc'h ket aotreet d'ober an dra-se</entry>
@@ -1004,7 +1004,7 @@ $Id: br_FR.xml,v 1.144 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="info_docs_num_notice">Des documents numériques sont associés</entry>
 <entry code="aq_start_with_error">L'opérateur 'commence par' a déjà été utilisé avant l'opérateur booléen</entry>
 
-<entry code="cart_notice_expired">La durée de vie de la notice es%s a expirée.</entry>
+<entry code="cart_notice_expired">La validité de la notice es%s a expiré.</entry>
 <entry code="confirm_resa">Voulez-vous vraiment réserver ce document ?</entry>
 
 <entry code="sugg_no_field_fill">Veuillez ajouter une ligne pour pouvoir enregistrer votre suggestion</entry>
@@ -1068,4 +1068,31 @@ $Id: br_FR.xml,v 1.144 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="subcoll_sort">Titre de la sous-collection</entry>
 <entry code="num_in_coll_sort">Numéro dans la collection</entry>
 <entry code="authority_query">Sélection d'autorité</entry>
+
+<entry code="etagere_suite">Voir la suite...</entry>
+<entry code="in_serial">in</entry>
+
+<entry code="date_parution">Date de parution</entry>
+<entry code="biblio_send_by">Cette bibliographie vous est envoyé par :</entry>
+
+<entry code="autre_auteur_sort">Autre(s) auteur(s)</entry>
+<entry code="auteur_secondaire_sort">Auteur(s) secondaire(s)</entry>
+<entry code="perio_title_sort">Titre de Périodique</entry>
+<entry code="bullnum_sort">Numéro du bulletin</entry>
+<entry code="section_sort">Section</entry>
+<entry code="id_notice_sort">Identifiant de la notice</entry>
+<entry code="auteur_principal_sort">Auteur principal</entry>
+
+<entry code="source_enrichment_resume">Résumé</entry>
+<entry code="source_enrichment_sommaire">Sommaire</entry>
+<entry code="source_enrichment_books">Feuilletage</entry>
+<entry code="source_enrichment_bio">Biographie</entry>
+<entry code="source_enrichment_similarities">Similarités</entry>
+<entry code="common_tpl_motto_pmb"><![CDATA[pmb]]></entry>
+<entry code="serial_name_sort">Titre de Périodique</entry>
+<entry code="dsi_bannette_gerer_periodicite">Périodicité (en jours)</entry>
+<entry code="format_date_short">%m/%Y</entry>
+<entry code="format_date_short_input">%d/%d</entry>
+
+<entry code="opac_keywords">OPAC, web, library, opensource, catalog, catalogue, bibliothèque, médiathèque, pmb, phpmybibli</entry>
 </XMLlist>

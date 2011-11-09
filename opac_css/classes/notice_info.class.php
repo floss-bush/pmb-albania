@@ -2,11 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_info.class.php,v 1.6 2010-12-29 11:21:36 ngantier Exp $
+// $Id: notice_info.class.php,v 1.7.2.2 2011-10-07 14:13:05 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
-// Récupératiuon des info de notices
+// Récupération des info de notices
 require_once($class_path."/parametres_perso.class.php");
 require_once($include_path."/notice_authors.inc.php");
 require_once("$class_path/author.class.php");
@@ -15,10 +15,14 @@ require_once("$class_path/subcollection.class.php");
 require_once($include_path."/notice_categories.inc.php");
 require_once($include_path."/explnum.inc.php");
 
+if (!count($fonction_auteur)) {
+	$fonction_auteur = new marc_list('function');
+	$fonction_auteur = $fonction_auteur->table;
+}
+
 class notice_info {
 	var $notice;	
 	
-	//Initialisation avec une liste de numeros de notices (si liste vide alors on prend toute la base)
 	function notice_info($id,$environement=array()) {			
 		$this->notice_id=$id;
 		$this->environement=$environement;
@@ -49,7 +53,6 @@ class notice_info {
 		}
 	}
 	
-	//Generation XML de la prochaine notice (renvoi true si prochaine notice, false si plus de notices disponibles)
 	function fetch_data() {
 		global $opac_show_book_pics ;
 		global $opac_book_pics_url ;
@@ -61,22 +64,12 @@ class notice_info {
 		$res = mysql_fetch_object($resultat);
 		$this->notice=$res;
 		
-/*		$this->langues	= get_notice_langues($this->notice_id, 0) ;	// langues de la publication
-		$this->languesorg	= get_notice_langues($this->notice_id, 1) ; // langues originales
-	*/
 		$this->memo_isbn = $this->notice->code ; 
 		$this->niveau_biblio=$this->notice->niveau_biblio;
 		$this->niveau_hierar=$this->notice->niveau_hierar;
 		
 		//Recherche des infos du périodique
 		$this->fetch_analysis_info();
-		if($res->niveau_biblio != 's' && $res->niveau_biblio != 'a') {
-//			$display = new mono_display($this->notice_id, $this->environement["short"], $this->environement["link"], 1, $this->environement["link_expl"], '', $this->environement["link_explnum"],1);
-		} else {
-			// on a affaire à un périodique
-//			$display = new serial_display($this->notice_id, $this->environement["short"], $this->environement["link_serial"], $this->environement["link_analysis"], $this->environement["link_bulletin"], "", $this->environement["link_explnum"], 0, 0, 1, 1, true, 1);
-		}
-//		$this->memo_notice_display= $display;
 		
 		//Titres
 		//Titre de serie et composition du titre
@@ -86,13 +79,14 @@ class notice_info {
 			$resultat = mysql_query($requete);
 			if (($serie = mysql_fetch_object($resultat))) {
 				$this->memo_series[]=$serie;
-				$this->memo_titre .=$serie;
+				$this->memo_titre_serie=$serie->serie_name;
 				if($this->notice->tnvol) {					
-					$this->memo_titre .= ', '.$res->tnvol;	
-				}		
+					$this->memo_titre_serie.= ', '.$res->tnvol;	
+				}				
+				$this->memo_titre=$serie->serie_name;
 			}
 		} elseif($this->notice->tnvol){
-			$this->memo_titre .= $res->tnvol;
+			$this->memo_titre.= $res->tnvol;
 		}
 		
 		$this->memo_titre ? $this->memo_titre .= '. '.$res->tit1 : $this->memo_titre = $res->tit1;	
@@ -118,6 +112,9 @@ class notice_info {
 			}
 		}
 		
+		//mention d'édition
+		$this->memo_mention_edition=$res->mention_edition;
+		
 		//Titre du pério pour les notices de bulletin		
 		$this->memo_notice_bulletin=array();
 		if($res->niveau_biblio == 'b' && $res->niveau_hierar == '2'){				
@@ -134,6 +131,7 @@ class notice_info {
 			
 				
 		//Auteurs
+		$this->authors = array();
 		//Recherche des auteurs;
 		$this->responsabilites = get_notice_authors($this->notice_id);	
 		$mention_resp = $mention_resp_1 = $mention_resp_2 = array() ;	
@@ -142,21 +140,22 @@ class notice_info {
 		if ($as!== FALSE && $as!== NULL) {
 			$auteur_0 = $this->responsabilites["auteurs"][$as] ;
 			$auteur = new auteur($auteur_0["id"]);
+			$auteur->fonction = $fonction_auteur[$auteur_0["fonction"]];
+			$this->authors[]=$auteur;
 			if ($this->print_mode) $mention_resp_lib = $auteur->isbd_entry; 
 			else $mention_resp_lib = $auteur->isbd_entry_lien_gestion;
 			if (!$this->print_mode) $mention_resp_lib .= $auteur->author_web_link ;
 			if ($auteur_0["fonction"]) $mention_resp_lib .= ", ".$fonction_auteur[$auteur_0["fonction"]];
 			$mention_resp[] = $mention_resp_lib;
 			$this->memo_auteur_principal=$auteur->isbd_entry;
-			if ($auteur->isbd_entry){
-//				$this->memo_titre.= ' / '. $auteur->isbd_entry;
-			}	
 		}		
 		$as = array_keys ($this->responsabilites["responsabilites"], "1" ) ;
 		for ($i = 0 ; $i < count($as) ; $i++) {
 			$indice = $as[$i] ;
 			$auteur_1 = $this->responsabilites["auteurs"][$indice] ;
 			$auteur = new auteur($auteur_1["id"]);
+			$auteur->fonction = $fonction_auteur[$auteur_1["fonction"]];
+			$this->authors[]=$auteur;
 			if ($this->print_mode) $mention_resp_lib = $auteur->isbd_entry; 
 			else $mention_resp_lib = $auteur->isbd_entry_lien_gestion;
 			if (!$this->print_mode) $mention_resp_lib .= $auteur->author_web_link ;
@@ -165,14 +164,17 @@ class notice_info {
 			$mention_resp_1[] = $mention_resp_lib;
 			$isbd_entry_1[]= $auteur->isbd_entry;
 		}	
-		$this->memo_mention_resp_1 = implode ("; ",$mention_resp_1);	
-		$this->memo_auteur_autre = implode ("; ",$isbd_entry_2);
+		$this->memo_mention_resp_1 = implode ("; ",$mention_resp_1);
+		$this->memo_auteur_autre_tab = $isbd_entry_1;
+		$this->memo_auteur_autre = implode ("; ",$isbd_entry_1);
 			
 		$as = array_keys ($this->responsabilites["responsabilites"], "2" ) ;
 		for ($i = 0 ; $i < count($as) ; $i++) {
 			$indice = $as[$i] ;
 			$auteur_2 = $this->responsabilites["auteurs"][$indice] ;
 			$auteur = new auteur($auteur_2["id"]);
+			$auteur->fonction = $fonction_auteur[$auteur_2["fonction"]];
+			$this->authors[]=$auteur;
 			if ($this->print_mode) $mention_resp_lib = $auteur->isbd_entry; 
 			else $mention_resp_lib = $auteur->isbd_entry_lien_gestion;
 			if (!$this->print_mode) $mention_resp_lib .= $auteur->author_web_link ;
@@ -181,7 +183,8 @@ class notice_info {
 			$mention_resp_2[]= $mention_resp_lib;
 			$isbd_entry_2[]= $auteur->isbd_entry;
 		}	
-		$this->memo_mention_resp_2 = implode ("; ",$mention_resp_2);		
+		$this->memo_mention_resp_2 = implode ("; ",$mention_resp_2);
+		$this->memo_auteur_secondaire_tab = $isbd_entry_2;		
 		$this->memo_auteur_secondaire = implode ("; ",$isbd_entry_2);
 				
 		$this->memo_libelle_mention_resp = implode ("; ",$mention_resp);	
@@ -191,17 +194,23 @@ class notice_info {
 			$collection = new subcollection($this->notice->subcoll_id);
 			$info=$this->get_info_editeur($collection->editeur);			
 			$this->memo_collection=$collection->isbd_entry;
-			$this->memo_ed1=$info["isbd_entry"];		
+			$this->memo_ed1=$info["isbd_entry"];
+			$this->memo_ed1_name=$info["name"];
+			$this->memo_ed1_place=$info["place"];
 			$editeurs=$info["isbd_entry"];				
 		} elseif ($this->notice->coll_id) {
 			$collection = new collection($this->notice->coll_id);
 			$info=$this->get_info_editeur($collection->parent);			
 			$this->memo_collection=$collection->isbd_entry;
-			$this->memo_ed1=$info["isbd_entry"];	
+			$this->memo_ed1=$info["isbd_entry"];
+			$this->memo_ed1_name=$info["name"];
+			$this->memo_ed1_place=$info["place"];
 			$editeurs=$info["isbd_entry"];		
 		} elseif ($this->notice->ed1_id) {
-			$info=$this->get_info_editeur($this->notice->ed1_id);			
+			$info=$this->get_info_editeur($this->notice->ed1_id);
 			$this->memo_ed1=$info["isbd_entry"];	
+			$this->memo_ed1_name=$info["name"];
+			$this->memo_ed1_place=$info["place"];
 			$editeurs=$info["isbd_entry"];		
 		}		
 		if($this->notice->ed2_id) {
@@ -212,7 +221,6 @@ class notice_info {
 	
 		if($this->notice->year) {
 			$editeurs ? $editeurs .= ', '.$this->notice->year : $editeurs = $this->notice->year;
-//			$this->memo_titre.=' ('.$this->notice->year.')';
 		} elseif ($this->notice->niveau_biblio!='b') $editeurs ? $editeurs .= ', [s.d.]' : $editeurs = "[s.d.]";
 		$this->memo_year=$this->notice->year;
 	
@@ -331,7 +339,7 @@ class notice_info {
 				if ($this->notice->thumbnail_url) $url_image_ok=$this->notice->thumbnail_url;
 				else $url_image_ok = str_replace("!!noticecode!!", $code_chiffre, $url_image) ;
 				$this->memo_image = "<img src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
-				$this->memo_url_image=$url_image;
+				$this->memo_url_image=$url_image_ok;
 				
 			} else{
 				$this->memo_image="" ;
@@ -339,8 +347,14 @@ class notice_info {
 			}
 		}	
 		
-		return true;
+		//calcul du permalink...
+		if($this->notice->niveau_biblio != "b"){
+			$this->permalink = $opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id;
+		}else {
+			$this->permalink = $opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id;
+		}	
 		
+		return true;
 	}
 	
 	function get_info_editeur($id) {
@@ -376,8 +390,24 @@ class notice_info {
 			if ($l == '[S.l.]' AND $n == '[S.n.]') $isbd_entry = '[S.l.&nbsp;: s.n.]';
 			else $isbd_entry = $l.'&nbsp;: '.$n;
 			$info['isbd_entry']=$isbd_entry;
+			$info['name'] = $name;
+			$info['place'] = $l;
 		}	
 		return($info);
+	}
+	
+	function fetch_notices_parents(){
+		$this->notices_parents = array();
+		foreach($this->memo_notice_mere as $parent){
+			$this->notices_parents[] = new notice_info($parent);
+		}
+	}
+
+	function fetch_notices_childs(){
+		$this->notices_childs = array();
+		foreach($this->memo_notice_fille as $parent){
+			$this->notices_childs[] = new notice_info($parent);
+		}		
 	}
 }
 ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Mimetypes supportés par la classe
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: manifest.xml,v 1.1.2.3 2011-10-04 14:22:17 dbellamy Exp $ -->
+
+<manifest name="flexpdf">
+	<desc msg="Affichage des PDF en visionneuse Flash. N'oubliez pas d'installer flexpaper (http://flexpaper.devaldi.com) et pdf2swf (http://www.swftools.org)"/>
+	<screenshoot url="images/flexpdf.class.png"></screenshoot>
+	<mimetypes>
+		<mimetype name="application/pdf"/>
+	</mimetypes>
+</manifest>

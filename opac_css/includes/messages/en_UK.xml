@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localises en anglais pour l'OPAC de PMB
-$Id: en_UK.xml,v 1.201 2010-12-20 10:05:05 arenou Exp $ -->
+$Id: en_UK.xml,v 1.209.2.5 2011-09-06 10:24:15 jpermanne Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Operation not allowed</entry>
@@ -1042,10 +1042,10 @@ $Id: en_UK.xml,v 1.201 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="navigopac_aut_com_par">Author starting with</entry>
 <entry code="navigopac_aut_com_par_chiffre">Author starting with a number</entry>
 	
-<entry code="expl_header_codestat_libelle">Code statistique</entry>
-<entry code="expl_header_lender_libelle">Propriétaire</entry>
-<entry code="expl_header_statut_libelle">Statut</entry>
-<entry code="notice_tpl_list_default">Template par défaut</entry>
+<entry code="expl_header_codestat_libelle">Statistical code</entry>
+<entry code="expl_header_lender_libelle">Owner</entry>
+<entry code="expl_header_statut_libelle">Status</entry>
+<entry code="notice_tpl_list_default">Default template</entry>
 <entry code="empr_bt_checkout">Borrow</entry>
 <entry code="empr_bt_checkin">Bring back</entry>
 <entry code="empr_checkout_title">Record a loan</entry>
@@ -1059,11 +1059,38 @@ $Id: en_UK.xml,v 1.201 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="empr_do_checkout_ok">The loan of !!expl_cb!! is recorded. Bring it back before !!due_date!!.</entry>
 <entry code="empr_do_checkout_nok">The loan is refused!</entry>
 	
-<entry code="search_custom_notices">Champs personnalisés des notices</entry>
-<entry code="search_autopostage_multicritere">Catégories et sous-catégories</entry>
-<entry code="codebarre_sort">Codebarre</entry>
-<entry code="coll_sort">Titre de la collection</entry>
-<entry code="subcoll_sort">Titre de la sous-collection</entry>
-<entry code="num_in_coll_sort">Numéro dans la collection</entry>
-<entry code="authority_query">Sélection d'autorité</entry>
+<entry code="search_custom_notices">Item Custom fields</entry>
+<entry code="search_autopostage_multicritere">Categories and sub-categories</entry>
+<entry code="codebarre_sort">Barcode</entry>
+<entry code="coll_sort">Collection name</entry>
+<entry code="subcoll_sort">Subcollection name</entry>
+<entry code="num_in_coll_sort">No. in collection</entry>
+<entry code="authority_query">Authority selection</entry>
+
+<entry code="etagere_suite">Browse next...</entry>
+<entry code="in_serial">in</entry>
+
+<entry code="date_parution">Issue date</entry>
+<entry code="biblio_send_by">This bibliography is sent by :</entry>
+
+<entry code="autre_auteur_sort">Alternative author(s)</entry>
+<entry code="auteur_secondaire_sort">Secondary author(s)</entry>
+<entry code="perio_title_sort">Serial title</entry>
+<entry code="bullnum_sort">Issue Number</entry>
+<entry code="section_sort">Section</entry>
+<entry code="id_notice_sort">Item Id</entry>
+<entry code="auteur_principal_sort">Primary author</entry>
+
+<entry code="source_enrichment_resume">Résumé</entry>
+<entry code="source_enrichment_sommaire">Sommaire</entry>
+<entry code="source_enrichment_books">Feuilletage</entry>
+<entry code="source_enrichment_bio">Biographie</entry>
+<entry code="source_enrichment_similarities">Similarités</entry>
+<entry code="common_tpl_motto_pmb"><![CDATA[pmb]]></entry>
+<entry code="serial_name_sort">Titre de Périodique</entry>
+<entry code="dsi_bannette_gerer_periodicite">Periodicity (days)</entry>
+<entry code="format_date_short">%m/%Y</entry>
+<entry code="format_date_short_input">%d/%d</entry>
+
+<entry code="opac_keywords">OPAC, web, library, opensource, catalog, catalogue, bibliothèque, médiathèque, pmb, phpmybibli</entry>
 </XMLlist>

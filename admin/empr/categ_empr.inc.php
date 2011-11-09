@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categ_empr.inc.php,v 1.11 2007-03-10 08:32:24 touraine37 Exp $
+// $Id: categ_empr.inc.php,v 1.12 2011-01-27 10:26:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -149,15 +149,22 @@ switch($action) {
 			$total = 0;
 			$total = mysql_result(mysql_query("select count(1) from empr where empr_categ ='".$id."' ", $dbh), 0, 0);
 			if ($total==0) {
-				$requete = "DELETE FROM empr_categ WHERE id_categ_empr='$id' ";
-				$res = mysql_query($requete, $dbh);
-				$requete = "OPTIMIZE TABLE empr_categ ";
-				$res = mysql_query($requete, $dbh);
-				show_section($dbh);
-				} else {
-					error_message(	$msg[294], $msg[1708], 1, 'admin.php?categ=empr&sub=categ&action=');
-					}
-			} else show_section($dbh);
+				$test = mysql_result(mysql_query("select count(1) from search_persopac_empr_categ where id_categ_empr ='".$id."' ", $dbh), 0, 0);
+				if($test == 0){
+					$requete = "DELETE FROM empr_categ WHERE id_categ_empr='$id' ";
+					$res = mysql_query($requete, $dbh);
+					$requete = "OPTIMIZE TABLE empr_categ ";
+					$res = mysql_query($requete, $dbh);
+					$requete = "delete from search_persopac_empr_categ where id_categ_empr = $id";
+					$res = mysql_query($requete, $dbh);
+					show_section($dbh);
+				}else{
+					error_message(	$msg[294], $msg['empr_categ_cant_delete_search_perso'], 1, 'admin.php?categ=empr&sub=categ&action=');
+				}
+			} else {
+				error_message(	$msg[294], $msg[1708], 1, 'admin.php?categ=empr&sub=categ&action=');
+				}
+		} else show_section($dbh);
 		break;
 	default:
 		show_section($dbh);

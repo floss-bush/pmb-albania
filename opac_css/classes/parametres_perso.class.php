@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parametres_perso.class.php,v 1.16 2011-01-20 14:36:26 arenou Exp $
+// $Id: parametres_perso.class.php,v 1.17.2.1 2011-09-12 10:16:37 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -82,7 +82,7 @@ class parametres_perso {
 			reset($this->t_fields);
 			while (list($key,$val)=each($this->t_fields)) {
 				$t=array();
-				$t["TITRE"]="<b>".htmlentities($val["TITRE"],ENT_QUOTES,$charset)." : </b>";
+				$t["TITRE"]="<b>".htmlentities($val["TITRE"],ENT_QUOTES,$charset)."&nbsp;: </b>";
 				$t["TITRE_CLEAN"]=htmlentities($val["TITRE"],ENT_QUOTES,$charset);
 				$t["OPAC_SHOW"]=$val["OPAC_SHOW"];
 				$field=array();
@@ -117,8 +117,9 @@ class parametres_perso {
 		$field["OPTIONS"][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$this->t_fields[$field_id]["OPTIONS"], "OPTIONS");
 		$field["VALUES"]=$values;
 		$field["PREFIX"]=$this->prefix;
-		eval("\$aff=".$val_list_empr[$this->t_fields[$field_id]["TYPE"]]."(\$field,\$values);");
-		return $aff;
+		$aff=$val_list_empr[$this->t_fields[$field_id]["TYPE"]]($field,$values);
+		if(is_array($aff)) return $aff['withoutHTML']; 
+		else return $aff;
 	}
 
 	function get_fields_recherche($id) {

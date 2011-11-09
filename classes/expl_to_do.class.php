@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expl_to_do.class.php,v 1.36 2011-01-17 09:44:01 ngantier Exp $
+// $Id: expl_to_do.class.php,v 1.39.2.1 2011-06-16 15:09:55 ngantier Exp $
 
 if (stristr ( $_SERVER ['REQUEST_URI'], ".class.php" ))
 	die ( "no access" );
@@ -94,6 +94,12 @@ function fetch_data() {
 		$this->expl_owner_name =$expl_owner->lender_libelle;
 	}
 	
+	$rqt = "SELECT transfert_flag 	FROM exemplaires INNER JOIN docs_statut ON expl_statut=idstatut 
+			WHERE expl_id=".$this->expl_id;
+	$res = mysql_query ($rqt) or die (mysql_error()."<br /><br />".$rqt);
+	$value = mysql_fetch_array ($res);
+	$this->trans_aut = $value[0];
+		
 	$this->expl = check_pret($this->expl);
 	$this->expl = check_resa($this->expl);
 	
@@ -132,10 +138,18 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 	if(!$this->expl_id) {
 		// l'exemplaire est inconnu
 		$this->expl_form="<div class='erreur'>".$this->expl_cb."&nbsp;: ${msg[367]}</div>";
+		// Ajouter ici la recherche empr
+		if ($this->expl_cb) { // on a un code-barres, est-ce un cb empr ?
+			$query_empr = "select id_empr, empr_cb from empr where empr_cb='".$this->expl_cb."' ";
+			$result_empr = mysql_query($query_empr, $dbh);
+			if(mysql_num_rows($result_empr)) {
+				$this->expl_form.="<script type=\"text/javascript\">document.location='./circ.php?categ=pret&form_cb=$this->expl_cb'</script>";
+				}
+		}
 		$alert_sound_list[]="critique";
 		return false;
 	}	
-	if($pmb_lecteurs_localises) {
+//	if($pmb_lecteurs_localises) {
 		if ($this->expl->expl_location != $deflt_docs_location && !$piege_resa && $deflt_docs_location) {
 			// l'exemplaire n'appartient pas à cette localisation
 			if ($pmb_transferts_actif=="1" && !$action_piege) {
@@ -152,7 +166,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 					//formulaire de Quoi faire? 
 					$selected[$transferts_retour_action_defaut]=" checked ";		
 					$question_form="
-					<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode(stripslashes($this->expl_cb))."' 
+					<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode(stripslashes($this->expl_cb))."' >
 					<div class='message_important'>".
 						str_replace("!!lib_localisation!!",$this->info_doc->location,$msg["transferts_circ_retour_emprunt_erreur_localisation"])."<br />
 					</div>
@@ -183,7 +197,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 			}
 		}
 	//fin si lecteur localisé
-	}
+//	}
 	//affichage de l'erreur de site et eventuellement du formulaire de forcage  	
 	$form_retour_tpl_temp=str_replace('!!html_erreur_site_tpl!!',$question_form, $form_retour_tpl_temp);	
 
@@ -317,7 +331,7 @@ function do_form_retour($action_piege=0,$piege_resa=0){
 			</div>";
 			if($categ=="ret_todo"|| $pmb_resa_retour_action_defaut==1) $checked[1]="checked";else $checked[2]="checked";
 			$question_resa="
-				<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode($this->expl_cb)."' 
+				<form name='piege' method='post' action='".$this->url."&form_cb_expl=".rawurlencode($this->expl_cb)."' >
 				$info_resa
 				<div class='erreur'>
 					<input type=\"radio\" name=\"piege_resa\" value=\"1\" $checked[1] >&nbsp;".$msg["circ_retour_piege_resa_affecter"]."<br />
@@ -523,6 +537,10 @@ function calcul_resa() {
 			$this->flag_resa_origine=1;						
 		}else {
 			// résa sur autre site que l'origine et qu'ici
+			if(!$this->trans_aut){ // Si statut pas tranférable
+				$this->flag_resa=0;
+				return 0 ;
+			}
 			$this->flag_resa_autre_site=1;							
 		}
 		$this->resa_loc_trans=$res_trans;

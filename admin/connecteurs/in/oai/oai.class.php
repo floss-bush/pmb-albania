@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: oai.class.php,v 1.17 2010-06-08 19:36:41 gueluneau Exp $
+// $Id: oai.class.php,v 1.17.2.1 2011-07-18 19:03:41 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -92,84 +92,86 @@ class oai extends connector {
 				$form.="<h3 style='text-align:center'>".sprintf($this->msg["error_contact_server"],$oai_p->error_message)."</h3>";
 			} else {
 				$form.="<h3 style='text-align:center'>".$oai_p->repositoryName."</h3>";
-				if ($oai_p->has_feature("SETS")) {
-					if ($oai_p->description)
-						$form.="
-						<div class='row'>
-							<div class='colonne3'>
-								<label>".$this->msg["oai_desc"]."</label>
-							</div>
-							<div class='colonne_suite'>
-								".htmlentities($oai_p->description,ENT_QUOTES,$charset)."
-							</div>
-						</div>
-						";
+				if ($oai_p->description)
 					$form.="
 					<div class='row'>
 						<div class='colonne3'>
-							<label>".$this->msg["oai_older_metatdatas"]."</label>
+							<label>".$this->msg["oai_desc"]."</label>
 						</div>
 						<div class='colonne_suite'>
-							".formatdate($oai_p->earliestDatestamp)."
+							".htmlentities($oai_p->description,ENT_QUOTES,$charset)."
 						</div>
 					</div>
-					<div class='row'>
-						<div class='colonne3'>
-							<label>".$this->msg["oai_email_admin"]."</label>
-						</div>
-						<div class='colonne_suite'>
-							".$oai_p->adminEmail."
-						</div>
+					";
+				$form.="
+				<div class='row'>
+					<div class='colonne3'>
+						<label>".$this->msg["oai_older_metatdatas"]."</label>
 					</div>
-					<div class='row'>
-						<div class='colonne3'>
-							<label>".$this->msg["oai_granularity"]."</label>
-						</div>
-						<div class='colonne_suite'>
-							".($oai_p->granularity=="YYYY-MM-DD"?$this->msg["oai_one_day"]:$this->msg["oai_minute"])."
-						</div>
+					<div class='colonne_suite'>
+						".formatdate($oai_p->earliestDatestamp)."
 					</div>
-					<div class='row'>
-						<div class='colonne3'>
-							<label for='sets'>".$this->msg["oai_sets_to_sync"]."</label>
-						</div>
-						<div class='colonne_suite'>";
-						if (count($oai_p->sets)<80) $combien = count($oai_p->sets);
-						else $combien=80; 
-						$form.="<select id='sets' name='sets[]' class='saisie-80em' multiple='yes' size='".$combien."'>";
-						foreach ($oai_p->sets as $set=>$setname) {
-							$form.="<option value='".htmlentities($set,ENT_QUOTES,$charset)."' alt='".htmlentities($setname,ENT_QUOTES,$charset)."' title='".htmlentities($setname,ENT_QUOTES,$charset)."' ".(@array_search($set,$sets)!==false?"selected":"").">".htmlentities($setname,ENT_QUOTES,$charset)."</option>\n";
-						}
-						$form.="	</select>
-						</div>
+				</div>
+				<div class='row'>
+					<div class='colonne3'>
+						<label>".$this->msg["oai_email_admin"]."</label>
 					</div>
-					<div class='row'>
-						<div class='colonne3'>
-							<label for='formats'>".$this->msg["oai_preference_format"]."</label>
-						</div>
-						<div class='colonne_suite'>
-							<select name='formats' id='formats'>";
-						if (!is_array($formats))
-							$formats = array($formats);
-						for ($i=0; $i<count($oai_p->metadatas) ;$i++) {
-							$form.="<option value='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' alt='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' title='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' ".(@array_search($oai_p->metadatas[$i]["PREFIX"],$formats)!==false?"selected":"").">".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."</option>\n";
-						}
-						$form.="	</select> ".$this->msg["oai_xslt_file"]." <input type='file' name='xslt_file' />";
-						if ($xsl_transform) $form.="<br /><i>".sprintf($this->msg["oai_xslt_file_linked"],$xsl_transform["name"])."</i> : ".$this->msg["oai_del_xslt_file"]." <input type='checkbox' name='del_xsl_transform' value='1'/>";
-						$form.="						</div>
-					</div>";
-					if (($oai_p->deletedRecord=="persistent")||($oai_p->deletedRecord=="transient")) {
-						$form.="
-					<div class='row'>
-						<div class='colonne3'>
-							<label>".sprintf($this->msg["oai_del_marked_elts"],($oai_p->deletedRecord=="persistent"?$this->msg["oai_del_marked_persistent"]:$this->msg["oai_del_marked_temp"])).")</label>
-						</div>
-						<div class='colonne_suite'>
-							<label for='del_yes'>".$this->msg["oai_yes"]."</label><input type='radio' name='del_deleted' id='del_yes' value='1' ".($del_deleted==1?"checked":"").">
-							<label for='del_no'>".$this->msg["oai_no"]."</label><input type='radio' name='del_deleted' id='del_no' value='0' ".($del_deleted==0?"checked":"").">
-						</div>
-					</div>";
+					<div class='colonne_suite'>
+						".$oai_p->adminEmail."
+					</div>
+				</div>
+				<div class='row'>
+					<div class='colonne3'>
+						<label>".$this->msg["oai_granularity"]."</label>
+					</div>
+					<div class='colonne_suite'>
+						".($oai_p->granularity=="YYYY-MM-DD"?$this->msg["oai_one_day"]:$this->msg["oai_minute"])."
+					</div>
+				</div>";
+				if ($oai_p->has_feature("SETS")) {
+					$form.="
+				<div class='row'>
+					<div class='colonne3'>
+						<label for='sets'>".$this->msg["oai_sets_to_sync"]."</label>
+					</div>
+					<div class='colonne_suite'>";
+					if (count($oai_p->sets)<80) $combien = count($oai_p->sets);
+					else $combien=80; 
+					$form.="<select id='sets' name='sets[]' class='saisie-80em' multiple='yes' size='".$combien."'>";
+					foreach ($oai_p->sets as $set=>$setname) {
+						$form.="<option value='".htmlentities($set,ENT_QUOTES,$charset)."' alt='".htmlentities($setname,ENT_QUOTES,$charset)."' title='".htmlentities($setname,ENT_QUOTES,$charset)."' ".(@array_search($set,$sets)!==false?"selected":"").">".htmlentities($setname,ENT_QUOTES,$charset)."</option>\n";
 					}
+					$form.="	</select>
+					</div>
+				</div>";
+				}
+				$form.="
+				<div class='row'>
+					<div class='colonne3'>
+						<label for='formats'>".$this->msg["oai_preference_format"]."</label>
+					</div>
+					<div class='colonne_suite'>
+						<select name='formats' id='formats'>";
+					if (!is_array($formats))
+						$formats = array($formats);
+					for ($i=0; $i<count($oai_p->metadatas) ;$i++) {
+						$form.="<option value='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' alt='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' title='".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."' ".(@array_search($oai_p->metadatas[$i]["PREFIX"],$formats)!==false?"selected":"").">".htmlentities($oai_p->metadatas[$i]["PREFIX"],ENT_QUOTES,$charset)."</option>\n";
+					}
+					$form.="	</select> ".$this->msg["oai_xslt_file"]." <input type='file' name='xslt_file' />";
+					if ($xsl_transform) $form.="<br /><i>".sprintf($this->msg["oai_xslt_file_linked"],$xsl_transform["name"])."</i> : ".$this->msg["oai_del_xslt_file"]." <input type='checkbox' name='del_xsl_transform' value='1'/>";
+					$form.="						</div>
+				</div>";
+				if (($oai_p->deletedRecord=="persistent")||($oai_p->deletedRecord=="transient")) {
+					$form.="
+				<div class='row'>
+					<div class='colonne3'>
+						<label>".sprintf($this->msg["oai_del_marked_elts"],($oai_p->deletedRecord=="persistent"?$this->msg["oai_del_marked_persistent"]:$this->msg["oai_del_marked_temp"])).")</label>
+					</div>
+					<div class='colonne_suite'>
+						<label for='del_yes'>".$this->msg["oai_yes"]."</label><input type='radio' name='del_deleted' id='del_yes' value='1' ".($del_deleted==1?"checked":"").">
+						<label for='del_no'>".$this->msg["oai_no"]."</label><input type='radio' name='del_deleted' id='del_no' value='0' ".($del_deleted==0?"checked":"").">
+					</div>
+				</div>";
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bueil.css,v 1.57 2011-01-20 09:57:43 trenon Exp $
+// $Id: bueil.css,v 1.59.2.8 2011-09-06 14:34:04 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -12,6 +12,11 @@
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
 
 body { 
 	font-family : Verdana, Arial, Helvetica, sans-serif;
@@ -34,35 +39,21 @@ body {
 /* partie d'affichage principale a droite de l'ecran */
 #container 	{}
 #intro {
-	width:165px;
-	padding:2px;
-	padding-top:15px;
+	width:175px;
 	padding-bottom:10px;
-	padding-left:5px;
 	margin-left:10px;
 }
-#intro_pmb {}
-	#intro_pmb h1{}
-	#intro_pmb h2 {}
-	#intro_pmb h3 {}
-
-#intro_message {}
-	#intro_message .p1,	
-	#intro_message .p2 {}
-		
-#intro_bibli {
-	width:155px;
+	
+#intro_bibli h3 {font-size:11px;}
+	
+#intro_bibli img {
+	max-width: 170px;
+	width: expression(this.width > 170 ? "170px" : true);
 }
 	
-	#intro_bibli h3 {font-size:11px;}
-	
-	#intro_bibli h3{}
-	
-	#intro_bibli .p1,
-	#intro_bibli .p2{
-		text-indent:15px;
-		margin-bottom:10px;
-	}
+#intro_bibli .p1, #intro_bibli .p2{
+	margin-bottom:10px;
+}
 		
 #all_footer {
 	position:absolute;
@@ -89,12 +80,10 @@ body {
 #main_hors_footer {}
 #main #search {
 		border:1px solid #bbbbbb;
-    	margin-top:26px;
-    	margin-top:35px\9;
-    	margin-bottom:10px;
+    	margin-bottom: 10px;
+    	margin-top: 30px;
     	padding:0 5px 15px 5px;
     	background:#eeeeee;
-    	min-height:100px;
     	
 		-moz-border-radius-bottomright:10px;
 	 	-webkit-border-radius-bottom-right:10px;
@@ -105,9 +94,9 @@ body {
 	}
 	
 	#main ul.search_tabs, #onglets_list ul.list_tabs{
-	      position:relative\9;
-	      top:-24px\9;
-	      padding:0;
+	      margin-top: -24px;
+	      padding-left: 0px;
+	      margin-left: 0px;
           list-style:none;
           font-size:13px;
 	}
@@ -157,6 +146,7 @@ body {
 
 	#location {
 		clear:both;
+		margin-top: 15px;
 	}
 
 	#aut_see {
@@ -212,7 +202,6 @@ div.row_categ {
 	background:#eee;
 	border: 1px solid #bbbbbb;
 	padding-left:10px;
-	display:block;
 	padding-bottom:15px;
 	padding-top:10px;
 	-moz-border-radius:10px;
@@ -243,7 +232,12 @@ div.category 	{
 #categories-container h2 A {
 		color:#666;
 		}
-#categories-container UL {margin:2px;}
+#categories-container UL {
+	margin-left: 0px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding-left: 0px;
+	}
 
 #categories-container LI  {
 	display: inline;
@@ -262,11 +256,7 @@ div.category 	{
 	}
 	
 #categories ul.search_tabs {
-	border:none;
-	margin-left:20px;
-	display:block;
-	position:relative;
-	top:13px;
+	margin-top: 0px;
 }	
 
 #categorie ul.search_tabs li{
@@ -289,14 +279,13 @@ div.category 	{
 }
           
 #categories ul.search_tabs li#current{
-  	background:#5ab9f9;
-   	color:#ffffff;
    	border:none;
    	height:20px;
    	padding-left:5px;
-   	border-top:1px solid #5ab9f9;
-   	-moz-border-radius-topleft:5px;
-   	-moz-border-radius-topright:5px;
+   	background: #EEEEEE;
+    border-color: #BBBBBB #BBBBBB #EEEEEE;
+    border-style: solid;
+    border-width: 1px;
 }          	
 
 /* Mise en page des colonnes d'affichage des recherches 
@@ -308,9 +297,15 @@ div.category 	{
 /* reset des largeurs de #categories */
 /* apres un float:left; l'element bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
 
-#last_entries { clear:both; }
+#last_entries {
+	clear:both;
+	margin-top: 15px;
+}
 
-.etageres { clear:both; }
+#etageres {
+	margin-top: 15px;
+	clear:both;
+}
 
 #pageHeader 
 	{ }
@@ -531,7 +526,9 @@ tr.odd
 		margin-bottom: -10px;
 		margin-top: -10px; }
 
-.p1 {	}
+.p1 {
+	margin: 0px;
+}
 	
 .text_query 
 	{  }
@@ -567,7 +564,7 @@ ul#onglets_isbd_public {
     list-style-type: none;
     padding-bottom: 24px;
     border-bottom: 1px solid #aaaaaa;
-    margin: 0;
+    clear: both;
     padding-left:2px;
 }
 
@@ -637,7 +634,7 @@ ul#onglets_isbd_public li.onglet_tags a {
 }
 
 /* Etageres */
-#etagere {
+.etagere {
 	background:#fff;
 	border:#cccccc 1px solid;
 }
@@ -870,7 +867,6 @@ iframe#iframe_resume_panier {
 
 table{
 	border-collapse:collapse;
-	margin: 10px 0;
 	width:100%;
 }
 .tab_sug th, .tab_sug td{
@@ -919,15 +915,15 @@ table{
  * 		      Mise en forme de la fiche emprunteur				 *
  *---------------------------------------------------------------*
  *---------------------------------------------------------------*/
-  
-#empr_onglet {
- 	    margin-left: -27px;
-}
+ 
 
 #empr_onglet ul.empr_tabs {
 	list-style:none;
 	font-size:11px;
-	position:absolute;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #empr_onglet ul.empr_tabs li {
@@ -970,14 +966,13 @@ table{
     padding: 3px 8px 0 15px;
 }
 
-#empr_onglet ul.empr_tabs li#current a {
-    float: left;
-}
-
 ul.empr_subtabs{
 	list-style:none;
-    clear:right;
-    padding-top: 50px;
+    padding-top: 30px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 ul.empr_subtabs li{
@@ -1016,3 +1011,113 @@ ul.empr_subtabs li{
 .authorities{
 	background : #A8A8A8;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+#search_onglet ul#search_tabs {
+	padding-left: 0px;
+	margin-left: 0px;
+	margin-top: -15px;	
+}
+
+#search_onglet ul#search_tabs {
+	padding-left: 0px;
+	margin-left: 0px;
+	margin-top: -15px;	
+}
+
+#search_onglet ul#search_tabs li {
+	display:inline;
+	float: none;
+}
+
+#search_onglet ul#search_tabs li.current {
+	background: #EEEEEE;
+    border-color: #BBBBBB #BBBBBB #EEEEEE;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#resultatrech_see h3 {
+	color: #008CC6;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#perio_a2z #perio_a2z_search {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#perio_a2z ul#onglets_isbd_public {
+	margin-top: 5px;
+}
+
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_perio_list {
+	width: 200px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #aaaaaa;
+	padding-bottom: 3px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .notice-child h3 span {
+    padding-left: 0px;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+

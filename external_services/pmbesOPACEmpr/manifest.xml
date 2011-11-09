@@ -3,7 +3,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
+$Id: manifest.xml,v 1.31.2.1 2011-08-24 08:50:14 arenou Exp $ -->
 
 <manifest>
 	<name>pmbesOPACEmpr</name>
@@ -448,6 +448,9 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 		</method>
 		
 		<method name="list_shelves" rights="" version="1.0" comment="msg:list_shelves_description" language_independant="true">
+			<requirements>
+		  		<requirement group="pmbesOPACGeneric" name="list_shelves" version="1.0"/>
+			</requirements>
 			<inputs>
 				<description>msg:list_shelves_input_description</description>
 				<param name="session_id" type="scalar" dataType="string" description="msg:list_shelves_session_id"/>
@@ -790,13 +793,13 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
 					<result name="noticeBulletins" type="array" >
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
 					</result>
-					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeDocNums">
+					<result name="noticeCollstates" type="array" description="msg:fetchNoticeListFull_results_noticeCollstates">
 						<result name="aCollstate" type="scalar" dataType="collstate"/>	
 					</result>   			
 				</result>
@@ -1120,8 +1123,8 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
                     <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
                     	<result name="bulletinId" type="scalar" dataType="integer"/>                 
@@ -1170,8 +1173,8 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
 					<result name="noticeBulletins" type="array" >
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
@@ -1202,8 +1205,8 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
 					<result name="noticeBulletins" type="array" >
 						<result name="aBulletin" type="scalar" dataType="bulletin"/>	
@@ -1233,8 +1236,8 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
                     <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
                     	<result name="bulletinId" type="scalar" dataType="integer"/>                 
@@ -1265,8 +1268,8 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 					<result name="noticeItems" type="array">
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
-					<result name="noticeDocNums" type="array">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+					<result name="noticeExplNums" type="array">
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
                     <result name="noticeBulletinIds" type="array" description="msg:fetchNoticeListFull_results_noticeBulletins">                                                                                                        
                     	<result name="bulletinId" type="scalar" dataType="integer"/>                 
@@ -1303,7 +1306,7 @@ $Id: manifest.xml,v 1.30 2010-12-23 12:27:26 erwanmartin Exp $ -->
 						<result name="aItem" type="scalar" dataType="item"/>	
 					</result>
 					<result name="bulletin_doc_nums" type="array" description="msg:fetchBulletinListFull_results_bulletin_doc_nums">
-						<result name="aDocNum" type="scalar" dataType="explNum"/>	
+						<result name="aExplNum" type="scalar" dataType="explNum"/>	
 					</result>
 	                <result name="bulletin_analysis_notice_ids" type="array">
 	                    <result name="anotice_id" type="scalar" dataType="integer"/>

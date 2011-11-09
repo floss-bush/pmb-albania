@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: emprunteur.class.php,v 1.16 2009-05-16 10:52:43 dbellamy Exp $
+// $Id: emprunteur.class.php,v 1.18 2011-02-02 20:08:44 gueluneau Exp $
 
 // classe emprunteur
 //	inclure :
@@ -74,8 +74,8 @@ function fetch_info() {
 		return FALSE;
 
 	$requete = "SELECT e.*, c.libelle AS code1, s.libelle AS code2, date_format(empr_date_adhesion, '".$msg["format_date_sql"]."') as aff_empr_date_adhesion, date_format(empr_date_expiration, '".$msg["format_date_sql"]."') as aff_empr_date_expiration  FROM empr e, empr_categ c, empr_codestat s";
-	$requete .= " WHERE e.id_empr=".$this->id;
-	$requete .= " AND c.id_categ_empr=e.empr_categ";
+	$requete .= " WHERE e.id_empr='".addslashes($this->id);
+	$requete .= "' AND c.id_categ_empr=e.empr_categ";
 	$requete .= " AND s.idcode=e.empr_codestat";
 	$requete .= " LIMIT 1";
 	$result = mysql_query($requete, $dbh);

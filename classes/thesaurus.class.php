@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: thesaurus.class.php,v 1.15 2009-06-24 12:17:40 ngantier Exp $
+// $Id: thesaurus.class.php,v 1.16 2011-04-06 09:39:12 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -144,10 +144,12 @@ class thesaurus {
   		$q = "select id_noeud from noeuds where num_thesaurus = '".$id_thes."' ";
   		$r = mysql_query($q, $dbh);
   		while ($row = mysql_fetch_row($r)){
-  			$q1 = "delete from categories where num_noeud = '".$row[0]."' ";
+  			noeuds::delete($row[0]);
+  			/*$q1 = "delete from categories where num_noeud = '".$row[0]."' ";
   			$r1 = mysql_query($q1, $dbh);
   			$q2 = "delete from noeuds where id_noeud = '".$row[0]."' ";
-  			$r2 = mysql_query($q2, $dbh); 
+  			$r2 = mysql_query($q2, $dbh);
+  			*/
   		}
   		$q = "delete from thesaurus where id_thesaurus = '".$id_thes."' ";
   		$r = mysql_query($q, $dbh);

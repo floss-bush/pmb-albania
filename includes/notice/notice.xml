@@ -3,168 +3,208 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: notice.xml,v 1.3 2008-12-03 10:42:57 dbellamy Exp $ -->
+$Id: notice.xml,v 1.4 2011-03-29 08:08:26 arenou Exp $ -->
 
 
 <fields>
 	<field name="typdoc" label="type de doc" size_max="1">
-		<html>typdoc</html>	
+		<html>typdoc</html>
+		<html_ext>typdoc</html_ext>	
 		<sql>select typdoc from notices where notice_id ='!!id!!'</sql>	
 	</field>
 	<field name="tit1" label="Titre propre" size_max="1">
 		<html>f_tit1</html>	
+		<html_ext>f_title_0</html_ext>
 		<sql>select tit1 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="tit2" label="f_tit2" size_max="1">
 		<html>f_tit2</html>	
+		<html_ext>f_title_1</html_ext>
 		<sql>select tit2 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="tit3" label="Titre parallèle" size_max="1">
 		<html>f_tit3</html>	
+		<html_ext>f_title_2</html_ext>
 		<sql>select tit3 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="tit4" label="Complément du titre" size_max="1">
-		<html>f_tit4</html>	
+		<html>f_tit4</html>
+		<html_ext>f_title_3</html_ext>
 		<sql>select tit4 from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="f_tparent_id" label="Partie de" size_max="1">
-		<html>f_tparent_id</html>	
+		<html>f_tparent_id</html>
+		<html_ext>f_serie_id</html_ext>
 		<sql>select tparent_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="tnvol" label="No. de partie" size_max="1">
 		<html>tnvol</html>	
+		<html_ext>f_nbr_in_serie</html_ext>
 		<sql>select tnvol from notices where notice_id ='!!id!!' </sql>	
 	</field>	
 	<field name="aut0_id" label="Auteur principal" size_max="1">
 		<html>f_aut0_id</html>	
+		<html_ext>f_aut0_existing_id</html_ext>		
 		<sql>select author_id from authors,responsability where responsability_author = author_id and responsability_type = '0' and responsability_notice = '!!id!!'</sql>	
 	</field>	
 	<field name="f0_code" label="Fonction" size_max="1">
-		<html>f_f0_code</html>	
+		<html>f_f0_code</html>
+		<html_ext></html_ext>
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '0' and responsability_notice = '!!id!!'</sql>	
 	</field>	
 	<field name="aut1_id0" label="Autre(s) auteur(s)" size_max="10">
 		<html>f_aut1_id0</html>	
+		<html_ext>f_aut1_id0</html_ext>
 		<sql>select author_id from authors,responsability where responsability_author = author_id and responsability_type = '1' and responsability_notice = '!!id!!'</sql>	
 	</field>	
 	<field name="f1_code" label="Fonction" size_max="1">
 		<html>f_f1_code0</html>	
+		<html_ext>f_f1_code0</html_ext>
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '1' and responsability_notice = '!!id!!'</sql>	
 	</field>	
 	<field name="aut2_id0" label="Auteur(s) secondaires(s)" size_max="1">
 		<html>f_aut2_id0</html>	
+		<html_ext>f_aut2_id0</html_ext>
 		<sql>select  author_id from authors,responsability where responsability_author = author_id and responsability_type = '2' and responsability_notice = '!!id!!'</sql>	
 	</field>
 	<field name="f2_code" label="Fonction" size_max="1">
 		<html>f_f2_code0</html>	
+		<html_ext>f_f2_code0</html_ext>
 		<sql>select responsability_fonction from authors,responsability where responsability_author = author_id and responsability_type = '2' and responsability_notice = '!!id!!' </sql>	
 	</field>
 	<field name="ed1_id" label="Éditeur" size_max="1">
 		<html>f_ed1_id</html>	
+		<html_ext>f_ed1_id</html_ext>
 		<sql>select ed1_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="coll_id" label="Collection" size_max="1">
 		<html>f_coll_id</html>	
+		<html_ext>f_coll_existing_id</html_ext>
 		<sql>select coll_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="nocoll" label="No. dans la collection" size_max="1">
 		<html>f_nocoll</html>	
+		<html_ext>f_nbr_in_collection</html_ext>
 		<sql>select nocoll from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="subcoll_id" label="Sous collection" size_max="1">
 		<html>f_subcoll_id</html>	
+		<html_ext>f_subcoll_existing_id</html_ext>
 		<sql>select subcoll_id from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="year" label="Année" size_max="1">
 		<html>f_year</html>	
+		<html_ext>f_year</html_ext>
 		<sql>select year from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="mention_edition" label="Mention d'édition" size_max="1">
-		<html>f_mention_edition</html>	
+		<html>f_mention_edition</html>
+		<html_ext>f_mention_edition</html_ext>	
 		<sql>select mention_edition from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="ed2_id" label="Autre éditeur" size_max="1">
 		<html>f_ed2_id</html>	
+		<html_ext>f_ed11_id</html_ext>
 		<sql>select ed2_id from notices where notice_id ='!!id!!'</sql>	
 	</field>		
 	<field name="cb" label="ISBN, EAN ou no. commercial (facultatif)" size_max="1">
 		<html>f_cb</html>	
+		<html_ext>f_cb</html_ext>
 		<sql>select code from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="npages" label="Importance matérielle (nombre de pages, d'éléments...)" size_max="1">
 		<html>f_npages</html>	
+		<html_ext>f_page_nbr</html_ext>
 		<sql>select npages from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="ill" label="Autres caractéristiques matérielles (ill., ...)" size_max="1">
 		<html>f_ill</html>	
+		<html_ext>f_illustration</html_ext>
 		<sql>select ill from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="size" label="Format" size_max="1">
 		<html>f_size</html>	
+		<html_ext>f_size</html_ext>
 		<sql>select size from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="prix" label="Prix" size_max="1">
 		<html>f_prix</html>	
+		<html_ext>f_prix</html_ext>
 		<sql>select prix from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="accomp" label="Matériel d'accompagnement" size_max="1">
 		<html>f_accomp</html>	
+		<html_ext>f_accompagnement</html_ext>
 		<sql>select accomp from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="n_gen" label="Note générale" size_max="1">
 		<html>f_n_gen</html>	
+		<html_ext>f_general_note</html_ext>
 		<sql>select n_gen from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="n_contenu" label="Note de contenu" size_max="1">
-		<html>f_n_contenu</html>	
+		<html>f_n_contenu</html>
+		<html_ext>f_content_note</html_ext>	
 		<sql>select n_contenu from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="n_resume" label="Résumé" size_max="1">
 		<html>f_n_resume</html>	
+		<html_ext>f_abstract_note</html_ext>
 		<sql>select n_resume from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="num_noeud" label="Catégories" size_max="10">
 		<html>f_categ_id0</html>	
+		<html_ext>f_categ_id0</html_ext>
 		<sql>select num_noeud from notices_categories where notcateg_notice ='!!id!!'</sql>	
 	</field>					
 	<field name="indexint" label="Indexation décimale" size_max="1">
 		<html>f_indexint_id</html>	
+		<html_ext>f_indexint_id</html_ext>
 		<sql>select indexint from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="index_l" label="Mots-clés" size_max="1">
 		<html>f_indexation</html>	
+		<html_ext>f_free_index</html_ext>
 		<sql>select index_l from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="lang_code" label="Langues de la publication" size_max="1">
 		<html>f_lang_code0</html>	
+		<html_ext>f_lang_code0</html_ext>
 		<sql>select code_langue from notices_langues  where type_langue='0' and num_notice='!!id!!'</sql>	
 	</field>	
 	<field name="langorg_code" label="Langues originales" size_max="1">
-		<html>f_langorg_code0</html>	
+		<html>f_langorg_code0</html>
+		<html_ext>f_langorg_code0</html_ext>	
 		<sql>select code_langue from notices_langues  where type_langue='0' and num_notice='!!id!!'</sql>	
 	</field>			
 	<field name="lien" label="URL associée" size_max="1">
 		<html>f_lien</html>	
+		<html_ext>f_link_url</html_ext>
 		<sql>select lien from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="eformat" label="Format électronique de la ressource" size_max="1">
 		<html>f_eformat</html>	
+		<html_ext>f_link_format</html_ext>
 		<sql>select eformat from notices where notice_id ='!!id!!'</sql>	
 	</field>			
 	<field name="relation_type" label="Type de relation" size_max="10">
 		<html>f_rel_type_0</html>	
+		<html_ext></html_ext>
 		<sql>select relation_type from notices_relations where num_notice ='!!id!!'</sql>	
 	</field>	
 	<field name="linked_notice" label="Notice mère" size_max="10">
-		<html>f_rel_id_0</html>	
+		<html>f_rel_id_0</html>
+		<html_ext></html_ext>
 		<sql>select linked_notice from notices_relations where num_notice ='!!id!!'</sql>	
 	</field>			
 	<field name="status" label="Statut de la notice" size_max="1">
-		<html>form_notice_statut</html>	
+		<html>form_notice_statut</html>
+		<html_ext>form_notice_statut</html_ext>
 		<sql>select status from notices where notice_id ='!!id!!'</sql>	
 	</field>	
 	<field name="commentaire_gestion" label="Commentaire" size_max="1">
-		<html>f_commentaire_gestion</html>	
+		<html>f_commentaire_gestion</html>
+		<html_ext>f_commentaire_gestion</html_ext>
 		<sql>select commentaire_gestion from notices where notice_id ='!!id!!'</sql>	
 	</field>			
 				

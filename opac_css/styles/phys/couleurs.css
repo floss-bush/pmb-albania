@@ -74,7 +74,7 @@ scrollbar-arrow-color: #FFCC00;
 
 	#search_result {
 	color:#000000;
-	font-size: 19px;
+	font-size: 22px;
 	}
 	
 	#search_result .row{
@@ -83,6 +83,7 @@ scrollbar-arrow-color: #FFCC00;
 
 #search_result h3 {
 	margin-top:-10px;
+	font-size: 30px;
 	}
 
 #search {
@@ -168,16 +169,7 @@ div.category 	{
 #categorie ul.search_tabs li{
 		background:#990100;
 		color:#5ab9f9;
-}
-
-#categories ul.search_tabs li a{
-		color:#000000;
-		}
-          
-#categories ul.search_tabs li#current{
-	  	background:#E99180;
-}          	
-
+}		       	
 
 #bandeau { 
 	 border:#768187 0px solid;

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: connecteurs_out_common.inc.php,v 1.5 2010-04-13 07:28:48 erwanmartin Exp $
+// $Id: connecteurs_out_common.inc.php,v 1.6 2011-02-17 14:31:30 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -34,6 +34,21 @@ function utf8_normalize($chaine) {
 	global $charset;
 	
 	if ($charset!="utf-8") return utf8_encode($chaine); else return $chaine;
+}
+
+function charset_pmb_normalize($mixed){
+	global $charset;
+	$is_array = is_array($mixed);
+	$is_object = is_object($mixed);
+	if($is_array || $is_object){
+		foreach($mixed as $key => $value){
+			 if($is_array) $mixed[$key]=charset_pmb_normalize($value);
+			 else $mixed->$key=charset_pmb_normalize($value);
+		}
+	}elseif ($charset!="utf-8") {
+		$mixed =utf8_decode($mixed);	
+	} 
+	return $mixed;
 }
 
 function object_to_array(&$mixed) {

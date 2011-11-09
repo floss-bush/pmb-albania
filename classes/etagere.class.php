@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: etagere.class.php,v 1.13 2008-09-06 13:40:49 gueluneau Exp $
+// $Id: etagere.class.php,v 1.14 2011-02-02 09:02:20 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -10,6 +10,8 @@ if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 if ( ! defined( 'ETAGERE_CLASS' ) ) {
   define( 'ETAGERE_CLASS', 1 );
+  
+require_once($class_path."/sort.class.php");
 
 
 class etagere {
@@ -53,11 +55,12 @@ function getData() {
 		$this->validite_date_deb_f = "";
 		$this->validite_date_fin_f = "";
 		$this->visible_accueil = "";
+		$this->id_tri = 0;
 		} else {
 			$requete = "SELECT idetagere, name, comment, validite, ";
 			$requete .= "validite_date_deb, date_format(validite_date_deb, '".$msg["format_date"]."') as validite_date_deb_f,  ";
 			$requete .= "validite_date_fin, date_format(validite_date_fin, '".$msg["format_date"]."') as validite_date_fin_f,  ";
-			$requete .= "visible_accueil, autorisations FROM etagere WHERE idetagere='$this->idetagere' ";
+			$requete .= "visible_accueil, autorisations, id_tri FROM etagere WHERE idetagere='$this->idetagere' ";
 			$result = @mysql_query($requete, $dbh);
 			if(mysql_num_rows($result)) {
 				$temp = mysql_fetch_object($result);
@@ -72,6 +75,7 @@ function getData() {
 				$this->validite_date_fin_f = $temp->validite_date_fin_f;
 				$this->visible_accueil = $temp->visible_accueil;
 				$this->autorisations = $temp->autorisations;
+				$this->id_tri = $temp->id_tri;
 				} else {
 					// pas de caddie avec cet id
 					$this->idetagere = 0;
@@ -84,6 +88,7 @@ function getData() {
 					$this->validite_date_fin_f = "";
 					$this->visible_accueil = "";
 					$this->autorisations = "";
+					$this->id_tri = $temp->id_tri;
 					}
 			}
 	}
@@ -126,7 +131,7 @@ function get_etagere_list() {
 // création d'une etagere vide
 function create_etagere() {
 	global $dbh;
-	$requete = "insert into etagere set name='".$this->name."', comment='".$this->comment."', validite='".$his->validite."', validite_date_deb='".$this->validite_date_deb."', validite_date_fin='".$this->validite_date_fin."', visible_accueil='".$this->visible_accueil."', autorisations='".$this->autorisations."' ";
+	$requete = "insert into etagere set name='".$this->name."', comment='".$this->comment."', validite='".$his->validite."', validite_date_deb='".$this->validite_date_deb."', validite_date_fin='".$this->validite_date_fin."', visible_accueil='".$this->visible_accueil."', autorisations='".$this->autorisations."'";
 	$result = @mysql_query($requete, $dbh);
 	$this->idetagere = mysql_insert_id($dbh);
 	}
@@ -164,7 +169,7 @@ function delete() {
 // sauvegarde de l'etagere
 function save_etagere() {
 	global $dbh;
-	$requete = "update etagere set name='".$this->name."', comment='".$this->comment."', validite='".$this->validite."', validite_date_deb='".$this->validite_date_deb."', validite_date_fin='".$this->validite_date_fin."', visible_accueil='".$this->visible_accueil."', autorisations='".$this->autorisations."' where idetagere='".$this->idetagere."'";
+	$requete = "update etagere set name='".$this->name."', comment='".$this->comment."', validite='".$this->validite."', validite_date_deb='".$this->validite_date_deb."', validite_date_fin='".$this->validite_date_fin."', visible_accueil='".$this->visible_accueil."', autorisations='".$this->autorisations."',id_tri='".$this->tri."' where idetagere='".$this->idetagere."'";
 	$result = @mysql_query($requete, $dbh);
 	}
 

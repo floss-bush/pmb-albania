@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------------------------+
 // © 2002-2006 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +----------------------------------------------------------------------------------------+
-// $Id: index.php,v 1.7 2006-12-04 16:24:31 touraine37 Exp $
+// $Id: index.php,v 1.7.10.1 2011-06-14 06:09:17 dbellamy Exp $
 
 //enregistrement des variables get et post en variables globales
 error_reporting(E_ERROR);
@@ -19,14 +19,15 @@ if ($lang=="fr_FR") {
 		<FRAMESET ROWS='0%,*' border=0 frameborder=0 framespacing=0>
 			<FRAME>
 		";
-	//il n'y a qu'un répertoire pour la doc (uniquement francais)
 	$doc_directory="documentation/fr_FR";
 } else {
-	//il n'y a qu'un répertoire pour la doc
-	//$doc_directory="documentation/fr_FR";
-	if ($lang=="en_UK") $lang="en_US";
+	if ($lang=="en_US") $lang="en_UK";
 	$doc_directory="documentation/".$lang;
-	if (!is_dir($doc_directory)) $lang="fr_FR";
+	if (!is_dir($doc_directory)) {
+		//il n'y a qu'un répertoire pour la doc
+		$lang="fr_FR";
+		$doc_directory="documentation/fr_FR";
+	}
 	echo "<HTML>
 			<HEAD>
 			<TITLE>Documentation PMB</TITLE>

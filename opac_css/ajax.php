@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax.php,v 1.3 2009-02-11 21:41:55 touraine37 Exp $
+// $Id: ajax.php,v 1.4 2011-04-15 15:16:02 arenou Exp $
 
 $base_path = ".";
 $base_noheader = 1;
@@ -32,7 +32,7 @@ require_once($base_path.'/includes/localisation.inc.php');
 
 require_once($base_path.'/includes/divers.inc.php');
 require_once($base_path."/includes/misc.inc.php");
-
+require_once($base_path."/includes/templates/common.tpl.php");
 // inclusion des fonctions utiles pour renvoyer la réponse à la requette recu 
 require_once ($base_path . "/includes/ajax.inc.php");
 require_once ($base_path . "/includes/divers.inc.php");

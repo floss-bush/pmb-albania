@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement (japonais)
+$Id: nivbiblio.xml,v 1.1.2.5 2011-07-04 14:25:57 dbellamy Exp $ -->
+
+<XMLlist>
+	<entry code="m">本</entry>
+	<entry code="a">論文</entry>
+	<entry code="s">シリーズ</entry>
+	<entry code="b">シリーズ check-in</entry>
+</XMLlist>

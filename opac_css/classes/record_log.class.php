@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: record_log.class.php,v 1.9 2010-12-07 16:36:06 gueluneau Exp $
+// $Id: record_log.class.php,v 1.9.2.1 2011-07-08 14:21:13 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -79,7 +79,7 @@ class record_log{
 		
 		if ($internal_emptylogstatopac) {
 			$date_internal=explode(" ",$internal_emptylogstatopac);
-			if ((time()-$date_internal)>86400) {
+			if ((time()-$date_internal[1])>86400) {
 				mysql_query("update parametres set valeur_param=0 where type_param='internal' and sstype_param='emptylogstatopac'");
 				$internal_emptylogstatopac=0;
 			}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesRepositories.class.php,v 1.1 2010-06-23 00:41:04 erwanmartin Exp $
+// $Id: pmbesRepositories.class.php,v 1.2 2011-02-17 14:31:30 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -46,6 +46,7 @@ class pmbesRepositories extends external_services_api_class {
 	function rec_record($source_id, $record) {
 		global $charset,$base_path;
 		
+		$record = charset_pmb_normalize($record);
 		$n_header = array();
 		foreach($record["header"] as $aheader_field) {
 			switch($aheader_field["name"]) {
@@ -103,6 +104,7 @@ class pmbesRepositories extends external_services_api_class {
 		
 		for ($i=0; $i<count($record["f"]); $i++) {
 			$ufield=$record['f'][$i]["c"];
+			$field_ind = $record['f'][$i]['ind'];
 			$field_order=$i;
 			$ss=$record['f'][$i]['s'];
 			if (is_array($ss)) {
@@ -110,17 +112,15 @@ class pmbesRepositories extends external_services_api_class {
 					$usubfield=$ss[$j]["c"];
 					$value=$ss[$j]["value"];
 					$subfield_order=$j;
-					$requete="insert into entrepot_source_".$source_id." (connector_id,source_id,ref,date_import,ufield,usubfield,field_order,subfield_order,value,i_value,recid) values(
+					$requete="insert into entrepot_source_".$source_id." (connector_id,source_id,ref,date_import,ufield,field_ind,usubfield,field_order,subfield_order,value,i_value,recid) values(
 					'".addslashes('agnostic')."',".$source_id.",'".addslashes($ref)."','".addslashes($date_import)."',
-					'".addslashes($ufield)."','".addslashes($usubfield)."',".$field_order.",".$subfield_order.",'".addslashes($value)."',
+					'".addslashes($ufield)."','".addslashes($field_ind)."','".addslashes($usubfield)."',".$field_order.",".$subfield_order.",'".addslashes($value)."',
 					' ".addslashes(strip_empty_words($value))." ',$recid)";
 					mysql_query($requete);
 				}
 			}
-		}		
-		
-	}	
-	
+		}
+	}
 	
 	function add_unimarc_notice_to_repository($source_id, $notice) {
 		$source_id += 0;
@@ -128,7 +128,7 @@ class pmbesRepositories extends external_services_api_class {
 		if(!mysql_num_rows(mysql_query($sql)))
 			throw new Exception('Source not found.');
 		$this->rec_record($source_id, $notice);
-		return "pouletm";
+		return array("notice" => $notice);
 	}
 }
 

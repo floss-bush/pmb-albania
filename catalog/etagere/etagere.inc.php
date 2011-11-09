@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: etagere.inc.php,v 1.12 2008-03-23 11:29:50 touraine37 Exp $
+// $Id: etagere.inc.php,v 1.15 2011-03-30 14:54:21 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -18,6 +18,7 @@ switch ($action) {
 		$etagere_form = str_replace('!!form_visible_deb!!', "", $etagere_form);
 		$etagere_form = str_replace('!!form_visible_fin!!', "", $etagere_form);
 		$etagere_form = str_replace('!!checkbox_accueil!!', "", $etagere_form);
+		$etagere_form = str_replace('!!tri_name!!', $msg['etagere_form_no_active_tri'], $etagere_form);	
 		print pmb_bidi($etagere_form) ;
 		break;
 	case 'edit_etagere':
@@ -31,6 +32,14 @@ switch ($action) {
 		$etagere_form = str_replace('<!--!!bouton_suppr!!-->', $bouton_suppr, $etagere_form);
 		$etagere_form = str_replace('!!comment!!', $myEtagere->comment, $etagere_form);
 		$etagere_form = str_replace('!!autorisations_users!!', aff_form_autorisations_etagere($myEtagere->autorisations,0), $etagere_form);
+		if($myEtagere->id_tri>0){
+			$sort = new sort("notices","base");
+			$etagere_form = str_replace('!!tri!!', $myEtagere->id_tri, $etagere_form);
+			$etagere_form = str_replace('!!tri_name!!', $sort->descriptionTriParId($myEtagere->id_tri), $etagere_form);
+		}else{
+			$etagere_form = str_replace('!!tri!!', "", $etagere_form);
+			$etagere_form = str_replace('!!tri_name!!', $msg['etagere_form_no_active_tri'], $etagere_form);	
+		}
 		if ($myEtagere->validite) {
 			$etagere_form = str_replace('!!checkbox_all!!', "checked", $etagere_form);
 			$etagere_form = str_replace('!!form_visible_deb!!', "", $etagere_form);
@@ -64,6 +73,7 @@ switch ($action) {
 		$myEtagere->validite_date_deb = extraitdate($form_visible_deb);
 		$myEtagere->validite_date_fin = extraitdate($form_visible_fin);
 		$myEtagere->visible_accueil = $form_visible_accueil;
+		$myEtagere->tri = $tri;
 		$myEtagere->save_etagere();
 		aff_etagere("edit_etagere",1);
 		break;
@@ -81,6 +91,7 @@ switch ($action) {
 		$myEtagere->validite_date_deb = extraitdate($form_visible_deb);
 		$myEtagere->validite_date_fin = extraitdate($form_visible_fin);
 		$myEtagere->visible_accueil = $form_visible_accueil;
+		$myEtagere->tri = $tri;
 		$myEtagere->save_etagere();
 		aff_etagere("edit_etagere",1);
 		break;

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titre_uniforme.inc.php,v 1.4 2010-12-15 13:37:03 arenou Exp $
+// $Id: titre_uniforme.inc.php,v 1.5 2011-01-26 10:18:35 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "inc.php")) die("no access");
 
@@ -84,7 +84,6 @@ function show_results($dbh, $user_input, $nbr_lignes=0, $page=0, $id = 0) {
 				exit;
 			}
 			$requete=$aq->get_query_count("titres_uniformes","tu_name,","index_tu","tu_id","tu_id!='$no_display'");
-			print $requete;
 		}
 		$res = mysql_query($requete, $dbh);
 		$nbr_lignes = @mysql_result($res, 0, 0);

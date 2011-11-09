@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export_param.class.php,v 1.2 2009-07-31 14:37:10 kantin Exp $
+// $Id: export_param.class.php,v 1.2.4.2 2011-05-26 08:15:10 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -251,19 +251,52 @@ class export_param {
  	 ***/	
 	function update(){
 		global $dbh;		
-		
-		if(!$this->tab_params)
-			return;
-		
-		//construction de la requete			
-		foreach($this->tab_params as $cle=>$valeur){
-			$requete="UPDATE parametres SET ";		
-			$affectation='';
-			$affectation .= " valeur_param='".$valeur."' WHERE sstype_param='$cle'";		
-			$requete .= $affectation;
-			mysql_query($requete,$dbh);
-		}	
 
+	//n'importe quoi !		
+	//		if(!$this->tab_params)
+	//			return;
+	//		
+	//		//construction de la requete			
+	//		foreach($this->tab_params as $cle=>$valeur){
+	//			$requete="UPDATE parametres SET ";		
+	//			$affectation='';
+	//			$affectation .= " valeur_param='".$valeur."' WHERE sstype_param='$cle'";		
+	//			mysql_query($requete,$dbh);
+	//		}
+
+	
+		$requetes = array();
+		switch ($this->context){
+			case EXP_DEFAULT_GESTION :
+				$requetes[] = "update parametres set valeur_param='".$this->generer_liens."' WHERE type_param = 'exportparam' and sstype_param='generer_liens'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_mere."' WHERE type_param = 'exportparam' and sstype_param='export_mere'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_fille."' WHERE type_param = 'exportparam' and sstype_param='export_fille'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_art_link."' WHERE type_param = 'exportparam' and sstype_param='export_notice_art_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_perio_link."' WHERE type_param = 'exportparam' and sstype_param='export_notice_perio_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_bulletinage."' WHERE type_param = 'exportparam' and sstype_param='export_bulletinage'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_bull_link."' WHERE type_param = 'exportparam' and sstype_param='export_bull_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_perio_link."' WHERE type_param = 'exportparam' and sstype_param='export_perio_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_art_link."' WHERE type_param = 'exportparam' and sstype_param='export_art_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_mere_link."' WHERE type_param = 'exportparam' and sstype_param='export_notice_mere_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_fille_link."' WHERE type_param = 'exportparam' and sstype_param='export_notice_fille_link'";				
+			break;
+			case EXP_DEFAULT_OPAC :
+				$requetes[] = "update parametres set valeur_param='".$this->generer_liens."' WHERE type_param = 'opac' and sstype_param='exp_generer_liens'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_mere."' WHERE type_param = 'opac' and sstype_param='exp_export_mere'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_fille."' WHERE type_param = 'opac' and sstype_param='exp_export_fille'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_art_link."' WHERE type_param = 'opac' and sstype_param='exp_export_notice_art_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_perio_link."' WHERE type_param = 'opac' and sstype_param='exp_export_notice_perio_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_bulletinage."' WHERE type_param = 'opac' and sstype_param='exp_export_bulletinage'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_bull_link."' WHERE type_param = 'opac' and sstype_param='exp_export_bull_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_perio_link."' WHERE type_param = 'opac' and sstype_param='exp_export_perio_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_art_link."' WHERE type_param = 'opac' and sstype_param='exp_export_art_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_mere_link."' WHERE type_param = 'opac' and sstype_param='exp_export_notice_mere_link'";
+				$requetes[] = "update parametres set valeur_param='".$this->export_notice_fille_link."' WHERE type_param = 'opac' and sstype_param='exp_export_notice_fille_link'";
+			break;
+		}
+		foreach($requetes as $rqt){
+			mysql_query($rqt,$dbh);
+		}
 		return;
 	}
 	
@@ -272,6 +305,7 @@ class export_param {
  	 ***/
 	function get_parametres($context){
 		
+		$this->context = $context;
 		switch ($context){
 			case EXP_DEFAULT_GESTION :
 				$parametres["genere_lien"]=$this->generer_liens*1;

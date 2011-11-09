@@ -1,2 +1,2 @@
 <h1>Gestion de la Visionneuse</h1>
-<p>Permet de gérer le comportement de la Visionneuse</p>
+<p>Permet de g&eacute;rer le comportement de la Visionneuse</p>

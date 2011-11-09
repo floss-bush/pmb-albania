@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: tablist.js,v 1.9 2008-11-10 13:26:06 touraine37 Exp $
+// $Id: tablist.js,v 1.10.2.2 2011-04-29 13:01:01 arenou Exp $
 
 // gestion des listes "collapsibles" en Javascript
 
@@ -46,8 +46,12 @@ function expandAll() {
   var tempColl    = document.getElementsByTagName('DIV');
   var tempCollCnt = tempColl.length;
   for (var i = 0; i < tempCollCnt; i++) {
-     if(tempColl[i].className == 'notice-child')
-     tempColl[i].style.display = 'block';
+     if(tempColl[i].className == 'notice-child'){
+    	tempColl[i].style.display = 'block';
+    	if (tempColl[i].getAttribute("enrichment")){
+	  		getEnrichment(tempColl[i].getAttribute("id").replace("el","").replace("Child",""));
+	  	}    	 
+     }
      changeCoverImage(tempColl[i]);
   }
   tempColl    = document.getElementsByTagName('IMG');
@@ -96,10 +100,12 @@ function expandBase(el, unexpand)
 {
   if (!isDOM)
     return;
-
   var whichEl = document.getElementById(el + 'Child');
   var whichIm = document.getElementById(el + 'Img');
   if (whichEl.style.display == 'none' && whichIm) {
+	if(whichEl.getAttribute("enrichment")){
+		getEnrichment(el.replace("el",""));
+	} 
     whichEl.style.display  = 'block';
     whichIm.src            = imgOpened.src;
     changeCoverImage(whichEl);

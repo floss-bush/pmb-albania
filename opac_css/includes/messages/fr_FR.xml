@@ -2,7 +2,7 @@
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
 <!-- messages localisés en français pour l'OPAC de PMB
-$Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.273.2.8 2011-09-21 12:30:28 dbellamy Exp $ -->
 
 <XMLlist>
 <entry code="not_allowed">Opération non autorisée</entry>
@@ -293,7 +293,7 @@ $Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="term_search_history"><![CDATA[Recherche par terme : terme recherché <b>%s</b> <i>page %s</i>, dernier terme consulté <b>%s</b>]]></entry>
 <entry code="history_empty">Vider l'historique</entry>
 <entry code="history_title">Historique des recherches</entry>
-<entry code="simple_search_all_doc_type">tout type de document</entry>
+<entry code="simple_search_all_doc_type">Tout type de document</entry>
 <entry code="term_search_search_for">Rechercher les termes</entry>
 <entry code="100_cases_table">Tableau des 100 cases du savoir</entry>
 <entry code="colors_marguerite">Marguerite des couleurs</entry>
@@ -680,7 +680,7 @@ $Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="subs_f_email">Email : </entry>
 <entry code="subs_f_login">Identifiant : </entry>
 <entry code="subs_f_password">Mot de passe : </entry>
-<entry code="subs_f_passwordv">Mot de passe (vérification) : </entry>
+<entry code="subs_f_passwordv"><![CDATA[Mot de passe (vérification)&nbsp;: ]]></entry>
 <entry code="subs_f_image">Code d'enregistrement : </entry>
 <entry code="subs_f_verifcode">Code de vérification : </entry>
 <entry code="subs_f_adr1">Adresse 1 : </entry>
@@ -1005,7 +1005,7 @@ $Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="info_docs_num_notice">Des documents numériques sont associés</entry>
 <entry code="aq_start_with_error">L'opérateur 'commence par' a déjà été utilisé avant l'opérateur booléen</entry>
 
-<entry code="cart_notice_expired">La durée de vie de la notice es%s a expirée.</entry>
+<entry code="cart_notice_expired">La validité de la notice es%s a expiré.</entry>
 <entry code="confirm_resa">Voulez-vous vraiment réserver ce document ?</entry>
 
 <entry code="sugg_no_field_fill">Veuillez ajouter une ligne pour pouvoir enregistrer votre suggestion</entry>
@@ -1070,4 +1070,34 @@ $Id: fr_FR.xml,v 1.263 2010-12-20 10:05:05 arenou Exp $ -->
 <entry code="subcoll_sort">Titre de la sous-collection</entry>
 <entry code="num_in_coll_sort">Numéro dans la collection</entry>
 <entry code="authority_query">Sélection d'autorité</entry>
+
+<entry code="etagere_suite">Voir la suite...</entry>
+<entry code="in_serial">in</entry>
+
+<entry code="date_parution">Date de parution</entry>
+<entry code="biblio_send_by">Cette bibliographie vous est envoyé par :</entry>
+
+<entry code="autre_auteur_sort">Autre(s) auteur(s)</entry>
+<entry code="auteur_secondaire_sort">Auteur(s) secondaire(s)</entry>
+<entry code="perio_title_sort">Titre de Périodique</entry>
+<entry code="bullnum_sort">Numéro du bulletin</entry>
+<entry code="section_sort">Section</entry>
+<entry code="id_notice_sort">Identifiant de la notice</entry>
+<entry code="auteur_principal_sort">Auteur principal</entry>
+
+<entry code="source_enrichment_resume">Résumé</entry>
+<entry code="source_enrichment_sommaire">Sommaire</entry>
+<entry code="source_enrichment_books">Feuilletage</entry>
+<entry code="source_enrichment_bio">Biographie</entry>
+<entry code="source_enrichment_similarities">Similarités</entry>
+<entry code="common_tpl_motto_pmb"><![CDATA[pmb]]></entry>
+<entry code="serial_name_sort">Titre de Périodique</entry>
+<entry code="dsi_bannette_gerer_periodicite">Périodicité (en jours)</entry>
+<entry code="format_date_short">%m/%Y</entry>
+<entry code="format_date_short_input">%d/%d</entry>
+
+<entry code="source_enrichment_critique">Critiques</entry>
+<entry code="source_enrichment_citation">Citations</entry>
+
+<entry code="opac_keywords">OPAC, web, library, opensource, catalog, catalogue, bibliothèque, médiathèque, pmb, phpmybibli</entry>
 </XMLlist>

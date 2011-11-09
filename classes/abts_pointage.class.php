@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_pointage.class.php,v 1.34 2010-11-10 10:03:38 ngantier Exp $
+// $Id: abts_pointage.class.php,v 1.34.2.2 2011-07-07 16:02:27 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -29,7 +29,7 @@ class abts_pointage {
 
 			else {
 				$this->error = true;
-				$this->error_message = "La notice liï¿½e n'existe pas ou n'est pas un pï¿½riodique";
+				$this->error_message = "La notice liée n'existe pas ou n'est pas un périodique";
 			}
 
 		}
@@ -143,7 +143,7 @@ class abts_pointage {
 						$numero_modele[$r->modele_id][$r->num_abt]['start_vol'] = $r_abt->vol;
 						$numero_modele[$r->modele_id][$r->num_abt]['start_tom'] = $r_abt->tome;
 					}							
-					//Calculer ï¿½ partir du numero de debut du modï¿½le 
+					//Calculer à partir du numero de debut du modèle 
 					/*
 					$number = $numero_modele[$r->modele_id][$r->num_abt]['num'];
 					//$numero_modele[$r->modele_id][$r->num_abt]['num'] = $r_n->num_depart;
@@ -154,7 +154,7 @@ class abts_pointage {
 					$numero_modele[$r->modele_id][$r->num_abt]['date_parution'] = $r->date_parution;
 					$numero_modele[$r->modele_id][$r->num_abt]['num']--;
 					increment_bulletin($r->modele_id, $numero_modele[$r->modele_id],$r->num_abt);	
-					//permet de dï¿½terminer s'im	
+					//permet de déterminer s'im	
 					$numero_modele[$r->modele_id][$r->num_abt]['ordre'] = $r->ordre;
 					
 				} elseif (($numero_modele[$r->modele_id][$r->num_abt]['date_parution'] != $r->date_parution) || ($numero_modele[$r->modele_id][$r->num_abt]['ordre'] != $r->ordre)) {
@@ -190,9 +190,9 @@ class abts_pointage {
 				}	
 				else {
 					$libelle_numero="";
-					if($tome)$libelle_numero.="Tome $tome ";
-					if($volume)$libelle_numero.="Vol $volume ";
-					if($numero)$libelle_numero.="Nï¿½$numero";					
+					if($tome)$libelle_numero.= sprintf($msg['abts_tome'],$tome).' ';
+					if($volume)$libelle_numero.= sprintf($msg['abts_vol'],$volume).' ';
+					if($numero)$libelle_numero.= sprintf($msg['abts_no'],$numero);					
 				}
 			}
 			else if ($r->type == 2) {				
@@ -218,9 +218,9 @@ class abts_pointage {
 				}	
 				else {
 					$libelle_numero="";
-					if($tome)$libelle_numero.="Tome $tome ";
-					if($volume)$libelle_numero.="Vol $volume ";
-					if($numero)$libelle_numero.="HS Nï¿½$numero";					
+					if($tome)$libelle_numero.= sprintf($msg['abts_tome'],$tome).' ';
+					if($volume)$libelle_numero.= sprintf($msg['abts_vol'],$volume).' ';
+					if($numero)$libelle_numero.= sprintf($msg['abts_hsno'],$numero);					
 				}
 			}
 			
@@ -372,7 +372,7 @@ ENDOFTEXT;
 
 
 		// select "localisation"
-		$form_localisation = gen_liste("select distinct idlocation, location_libelle from docs_location order by location_libelle ", "idlocation", "location_libelle", 'location_id', "localisation_change(this);", $location_view, "", "", "", "", 0);
+		$form_localisation = gen_liste("select distinct idlocation, location_libelle from docs_location, docsloc_section where num_location=idlocation order by 2 ", "idlocation", "location_libelle", 'location_id', "localisation_change(this);", $location_view, "", "", "", "", 0);
 		$link_bulletinage="";
 		if ($serial_id) {
 			$requete = "SELECT tit1 from notices WHERE notice_id= $serial_id";
@@ -470,7 +470,7 @@ ENDOFTEXT;
 		if($cpt){
 			$fin_abonnement = gen_plus_form("fin_abonnement", $msg["pointage_alerte_fin_abonnement"] . " ($cpt)", $contenu);			
 		}	
-		// Gestion des abonnements dont la date est dï¿½passï¿½e
+		// Gestion des abonnements dont la date est dépassée
 		$requete = "SELECT abt_id,abt_name,tit1,num_notice, date_fin
 					FROM abts_abts,notices
 					WHERE date_fin < CURDATE()
@@ -553,12 +553,12 @@ function increment_bulletin($modele_id, &$num,$num_abt) {
 			$num[$num_abt]['vol']++;
 			$num['inc_vol'] = 0;
 		}
-		if (!$num['vol_increment']) { //volume s'incrï¿½mente selon un nombre de bulletin
+		if (!$num['vol_increment']) { //volume s'incrémente selon un nombre de bulletin
 			$modulo = ($num[$num_abt]['num']) % ($num['vol_increment_numero']);
 			if ($modulo == 0) {
 				$num['inc_vol'] = 1;
 			}
-		} else { // volume s'incrï¿½mente selon la date 			
+		} else { // volume s'incrémente selon la date 			
 			if (sql_value("SELECT DATEDIFF('" . $num['vol_date_fin_cycle'] . "','" . $num[$num_abt]['date_parution'] . "')") <= 0) {
 				$num[$num_abt]['vol']++;
 				$num['vol_date_fin_cycle'] = sql_value("SELECT DATE_ADD('" . $num['vol_date_fin_cycle'] . "', INTERVAL " . $num['vol_date_sql'] . ")");
@@ -577,7 +577,7 @@ function increment_bulletin($modele_id, &$num,$num_abt) {
 			$num[$num_abt]['tom']++;
 			$num['inc_tom'] = 0;
 		}
-		if (!$num['tom_increment']) { //tome s'incrï¿½mente selon un nombre de volume
+		if (!$num['tom_increment']) { //tome s'incrémente selon un nombre de volume
 			if ($num['val_vol'] != $num[$num_abt]['vol']) {
 				$num['val_vol'] = $num[$num_abt]['vol'];
 				$modulo = ($num[$num_abt]['vol']) % ($num['tom_increment_numero']);
@@ -585,7 +585,7 @@ function increment_bulletin($modele_id, &$num,$num_abt) {
 					$num['inc_tom'] = 1;
 				}
 			}
-		} else { // tome s'incrï¿½mente selon la date
+		} else { // tome s'incrémente selon la date
 			if (sql_value("SELECT DATEDIFF('" . $num['tom_date_fin_cycle'] . "','" . $num[$num_abt]['date_parution'] . "')") <= 0) {
 				$num[$num_abt]['tom']++;
 				$num['tom_date_fin_cycle'] = sql_value("SELECT DATE_ADD('" . $num['tom_date_fin_cycle'] . "', INTERVAL " . $num['tom_date_sql'] . ")");
@@ -622,7 +622,7 @@ function gen_plus_form($id, $titre, $contenu) {
 	return "	
 		<div class='row'></div>
 		<div id='$id' class='notice-parent'>
-			<img src='./images/plus.gif' class='img_plus' name='imEx' id='$id" . "Img' title='dï¿½tail' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
+			<img src='./images/plus.gif' class='img_plus' name='imEx' id='$id" . "Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('$id', true); return false;\" hspace='3'>
 			<span class='notice-heada'>
 				$titre
 			</span>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr.tpl.php,v 1.127 2010-09-21 15:22:48 ngantier Exp $
+// $Id: empr.tpl.php,v 1.128.2.3 2011-05-12 13:45:23 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -390,7 +390,9 @@ $printer_ticket_script
    		</div>
 	<div class='row'><div class='right'>!!empr_picture!!</div></div>
 <div id=\"el!!id!!Child\" class=\"notice-child\" style=\"margin-left:7px;display:none;\"!!depliee!!>
-
+<script type='text/javascript'>
+	initIt();
+</script>
 <div id='bloc_adresse_empr'>
 	<div class='colonne3'>
 		<div class='row'>
@@ -550,6 +552,7 @@ if (document.forms['pret_doc'].elements['cb_doc']!=undefined)
 			<h3>$msg[349] &nbsp;(!!nb_prets_encours!!)&nbsp;&nbsp;
 			<input type='button' name='imprimerlistedocs' class='bouton' value='$msg[imprimer]' onClick=\"openPopUp('./pdf.php?pdfdoc=ticket_pret&id_empr=!!id!!', 'print_PDF', 600, 500, -2, -2, '$PDF_win_prop');\" />
 			&nbsp;<input type='button' name='imprimerlistedocs' class='bouton' value='$msg[imprimer_liste_pret]' onClick=\"openPopUp('./pdf.php?pdfdoc=liste_pret&id_empr=!!id!!', 'print_PDF', 600, 500, -2, -2, '$PDF_win_prop');\" />
+			&nbsp;<input type='button' name='maillistedocs' class='bouton' value='$msg[email]' onClick=\"openPopUp('./pdf.php?pdfdoc=mail_liste_pret&id_empr=!!id!!', 'print_PDF', 600, 500, -2, -2, '$PDF_win_prop');\" />
 			$printer_ticket_link
 			&nbsp;!!lettre_retard!!&nbsp;!!mail_retard!!&nbsp;
 			!!bt_histo_relance!!
@@ -907,7 +910,7 @@ $rfid_script_empr
 			<div class='row'>
 				<input type='text' class='saisie-15em' id='form_tel1' name='form_tel1' value='!!tel1!!' />
 				<label for='form_sms' class='etiquette'>".$msg['send_sms']."</label>
-				<input type='checkbox' id='form_sms' name='form_sms' value=1 '!!sms!!' />				
+				<input type='checkbox' id='form_sms' name='form_sms' value='1' !!sms!! />				
 			</div>
 		</div>
 		<!--   T�l�phone 2   -->

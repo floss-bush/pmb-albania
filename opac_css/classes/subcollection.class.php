@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcollection.class.php,v 1.7 2010-11-02 16:20:29 ngantier Exp $
+// $Id: subcollection.class.php,v 1.9 2011-02-02 20:08:44 gueluneau Exp $
 
 // définition de la classe de gestion des 'sous-collections'
 
@@ -35,15 +35,11 @@ class subcollection {
 	//  subcollection($id) : constructeur
 	// ---------------------------------------------------------------
 
-	function subcollection($id=0)
-	{
+	function subcollection($id=0) {
 		// on regarde si on a une subcollection-objet ou un id de subcollection
-		if (is_object($id))
-		{
+		if (is_object($id)) {
 			$this->get_primaldatafrom($id);
-		}
-		else
-		{
+		} else {
 			$this->id = $id;
 			$this->get_primaldata();
 		}
@@ -56,10 +52,9 @@ class subcollection {
 	//  get_primaldata() : récupération infos subcollection à partir de l'id
 	// ---------------------------------------------------------------
 
-	function get_primaldata()
-	{
+	function get_primaldata() {
 		global $dbh;
-		$requete = "SELECT * FROM sub_collections WHERE sub_coll_id=$this->id ";
+		$requete = "SELECT * FROM sub_collections WHERE sub_coll_id='".addslashes($this->id)."' ";
 		$result = mysql_query($requete, $dbh);
 		if(mysql_num_rows($result)) {
 			$obj = mysql_fetch_object($result);

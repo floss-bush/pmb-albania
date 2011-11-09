@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
+
+<!-- messages localisés en français pour le connecteur OAI
+****************************************************************************************
+© 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: fr_FR.xml,v 1.2.2.1 2011-07-11 08:52:32 arenou Exp $ -->
+
+<XMLlist>
+	<entry code="gbook_no_preview">Aucune visualisation disponible</entry>
+	<entry code="gbooks_enrichment_source">(source Google Books)</entry>
+	<entry code="gbooks_width">Largeur</entry>
+	<entry code="gbooks_height">Hauteur</entry>
+</XMLlist>

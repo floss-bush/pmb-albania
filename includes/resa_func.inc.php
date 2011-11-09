@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: resa_func.inc.php,v 1.98 2010-12-08 14:14:32 ngantier Exp $
+// $Id: resa_func.inc.php,v 1.100.2.2 2011-06-14 14:33:49 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -138,7 +138,7 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 				//la liste de sélection de la localisation
 				$aff_final .= "<br />".$msg["transferts_circ_resa_lib_localisation"];
 				$aff_final .= "<select name='f_loc' onchange='document.check_resa.submit();'>";
-				$res = mysql_query("SELECT idlocation, location_libelle FROM docs_location");
+				$res = mysql_query("SELECT idlocation, location_libelle FROM docs_location order by location_libelle");
 				$aff_final .= "<option value='0'>".$msg["all_location"]."</option>";
 				//on parcours la liste des options
 				while ($value = mysql_fetch_array($res)) {
@@ -506,19 +506,19 @@ function resa_list ($idnotice=0, $idbulletin=0, $idempr=0, $order="", $where = "
 
 // cette fonction va retourner un tableau des résa pas traitées
 function resa_list_resa_a_traiter () {
-	
 	/* Traitement :
 		chercher toutes les réservations non traitées (resa_cb ="")
 		construire le tableau avec le titre de l'ouvrage, le nom du réservataire et son rang
 	*/
 	global $dbh ;
 	global $msg;
+	global $pmb_lecteurs_localises;
 	
-	$tableau_final=array();
+	$tableau_final=array();	
 	
 	$order="tit, resa_idnotice, resa_idbulletin, resa_date" ;
 	
-	$sql="SELECT resa_idnotice, resa_idbulletin, resa_date, resa_date_fin, resa_cb, resa_idempr, empr_nom, empr_prenom, empr_cb, ";
+	$sql="SELECT resa_idnotice, resa_idbulletin, resa_date, resa_date_fin, resa_cb, resa_idempr, empr_nom, empr_prenom, empr_cb, empr_location, ";
 	$sql.=" trim(concat(ifnull(notices_m.tit1,''),ifnull(notices_s.tit1,''),' ',ifnull(bulletin_numero,''), if (mention_date, concat(' (',mention_date,')') ,''))) as tit, id_resa, ";
 	$sql.=" IF(resa_date_fin>=sysdate() or resa_date_fin='0000-00-00',0,1) as perimee, date_format(resa_date_debut, '".$msg["format_date"]."') as aff_resa_date_debut, if(resa_date_fin='0000-00-00', '', date_format(resa_date_fin, '".$msg["format_date"]."')) as aff_resa_date_fin, date_format(resa_date, '".$msg["format_date"]."') as aff_resa_date " ;
 	$sql.=" FROM (((resa LEFT JOIN notices AS notices_m ON resa_idnotice = notices_m.notice_id ) ";
@@ -533,6 +533,13 @@ function resa_list_resa_a_traiter () {
 	if (!mysql_num_rows($req)) return $tableau_final;
 	
 	while ($data = mysql_fetch_array($req)) {
+		if($pmb_lecteurs_localises){
+			$requete = "SELECT location_libelle as empr_loc_libelle FROM docs_location WHERE idlocation= '".$data['empr_location']."' "; 
+			$result = @mysql_query($requete, $dbh);
+			$res_empr = mysql_fetch_object($result);
+			
+		}
+		
 		$rank = recupere_rang($data['resa_idempr'], $data['resa_idnotice'], $data['resa_idbulletin']) ;
 		$tableau_final[] = array(
 					'resa_tit' => $data['tit'],
@@ -540,6 +547,7 @@ function resa_list_resa_a_traiter () {
 					'resa_idbulletin' => $data['resa_idbulletin'],
 					'resa_idempr' => $data['resa_idempr'],
 					'resa_empr' => $data['empr_nom']." ".$data['empr_prenom'],
+					'resa_empr_loc_libelle' => $res_empr->empr_loc_libelle,
 					'rank' => $rank ) ;
 	} // fin while
 	
@@ -680,7 +688,7 @@ function affecte_cb ($cb,$id_resa=0) {
 				break;	
 				default:
 					//retrait de la resa sur lieu lecteur
-					$from= " ,empr ";
+					if(!$pmb_location_reservation)$from= " ,empr ";
 					$where= " AND resa_idempr=id_empr and empr_location=" . $deflt_docs_location;
 				break;						
 			} //switch $transferts_choix_lieu_opac			
@@ -985,8 +993,12 @@ function check_quota_resa($id_empr,$id_notice,$id_bulletin) {
 			$error["ERROR"]=true;
 			//Erreur
 			$error["MESSAGE"]=$qt_pret->error_message."<br />".$msg["resa_quota_pret_error"];
-			//Peut-on forcer ou pas la résa
-			$error["FORCE"] = 0;
+			//Peut-on forcer ou pas la résa		
+			$r_force=$qt->check_quota($struct);
+			if($r_force){
+				$error["FORCE"] = $qt->force;				
+			}
+			else $error["FORCE"] = 0;			
 			return $error;
 		}
 		return $error;
@@ -1021,6 +1033,7 @@ function expl_dispo ($no_notice=0, $no_bulletin=0) {
 
 	while($expl = mysql_fetch_object($result)) {
 		if(!$expl->pret_retour && !verif_cb_utilise($expl->expl_cb))  
+			if (!$pmb_lecteurs_localises) $expl->loc_ici =1;
 			$tableau[] = array (
 				'expl_id' => $expl->expl_id,
 				'expl_cb' => $expl->expl_cb,

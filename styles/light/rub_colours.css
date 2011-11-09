@@ -5,7 +5,7 @@
 
 /*
  *	Couleurs de niveau 1 
- *	Satuation élevée
+ *	Saturation élevée
  *  --------------------------
  *	gris : #dddddd;
  *	ciel : #3594bb;
@@ -53,7 +53,7 @@
 #conteneur.edit #contenu h1,
 #conteneur.edit #contenu h2,
 #conteneur.edit #contenu h3{
-	color:#solid #3840;
+	color:#bb3a84;
 }
 #conteneur.dsi #contenu h1,
 #conteneur.dsi #contenu h2,

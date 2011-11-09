@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: bul_expl_form.inc.php,v 1.43 2010-02-17 13:53:45 ngantier Exp $
 
@@ -8,7 +8,7 @@ if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 
 if (!$expl_id) {
-	echo str_replace('!!page_title!!', $msg[4000].$msg[1003].$msg[4007], $serial_header); // pas d'id, c'est une crï¿½ation
+	echo str_replace('!!page_title!!', $msg[4000].$msg[1003].$msg[4007], $serial_header); // pas d'id, c'est une création
 } else {
 	echo str_replace('!!page_title!!', $msg[4000].$msg[1003].$msg[4008], $serial_header);
 }
@@ -66,7 +66,7 @@ function do_selector_bul_section($section_id, $location_id) {
 }                                                 
 
 function bul_do_form($obj, $bul_id=0) {
-	// $obj = objet contenant les propriï¿½tï¿½s de l'exemplaire associï¿½
+	// $obj = objet contenant les propriétés de l'exemplaire associé
 	global $bul_expl_form;
 	global $msg; // pour texte du bouton supprimer
 	global $dbh;
@@ -79,7 +79,7 @@ function bul_do_form($obj, $bul_id=0) {
 	if (isset($option_num_auto)) {
   		$requete="DELETE from exemplaires_temp where sess not in (select SESSID from sessions)";
    		$res = mysql_query($requete,$dbh);
-    	//Appel ï¿½ la fonction de gï¿½nï¿½ration automatique de cb
+    	//Appel à la fonction de génération automatique de cb
     	$code_exemplaire =init_gen_code_exemplaire(0,$obj->expl_bulletin);	
     	do {
     		$code_exemplaire = gen_code_exemplaire(0,$obj->expl_bulletin,$code_exemplaire);
@@ -95,11 +95,11 @@ function bul_do_form($obj, $bul_id=0) {
    		$res = mysql_query($requete,$dbh);
 	}
 	
-	// l'annulation du form renvoit ï¿½ :
+	// l'annulation du form renvoit à :
 	$annuler = "./catalog.php?categ=serials&sub=bulletinage&action=view&bul_id=".$obj->expl_bulletin;
 	$action = "./catalog.php?categ=serials&sub=bulletinage&action=expl_update";
 
-	// mise ï¿½ jour des champs de gestion
+	// mise à jour des champs de gestion
 	$bul_expl_form = str_replace('!!bul_id!!', $obj->expl_bulletin, $bul_expl_form);
 	$bul_expl_form = str_replace('!!id_form!!', md5(microtime()), $bul_expl_form);
 	$bul_expl_form = str_replace('!!org_cb!!', htmlentities($obj->expl_cb,ENT_QUOTES, $charset), $bul_expl_form);	
@@ -130,13 +130,14 @@ function bul_do_form($obj, $bul_id=0) {
 				$bul_expl_form);
 
 	// select "localisation"
-	//visibilitï¿½ des exemplaires
+	//visibilité des exemplaires
 	global $explr_visible_mod, $pmb_droits_explr_localises ;
-	if ($pmb_droits_explr_localises) $where_clause_explr = "where idlocation in (".$explr_visible_mod.") and";
+	if ($pmb_droits_explr_localises) $where_clause_explr = "idlocation in (".$explr_visible_mod.") and";
 	else $where_clause_explr="";
 	$bul_expl_form = str_replace('!!localisation!!',
-				gen_liste ("select distinct idlocation, location_libelle from docs_location $where_clause_explrorder order by location_libelle", "idlocation", "location_libelle", 'expl_location', "calcule_section(this);", $obj->expl_location, "", "","","",0),
+				gen_liste ("select distinct idlocation, location_libelle from docs_location, docsloc_section where $where_clause_explr num_location=idlocation order by 2", "idlocation", "location_libelle", 'expl_location', "calcule_section(this);", $obj->expl_location, "", "","","",0),
 				$bul_expl_form);
+
 	// select "code statistique"
 	$bul_expl_form = str_replace('!!codestat!!',
 				do_selector('docs_codestat', 'expl_codestat', $obj->expl_codestat),
@@ -239,7 +240,7 @@ function bul_do_form($obj, $bul_id=0) {
 	// action du bouton annuler
 	$bul_expl_form = str_replace('!!annuler_action!!', $annuler, $bul_expl_form);
 
-	// rafraichissement de la liste des sections par rapport ï¿½ la localisation sï¿½lectionnï¿½e
+	// rafraichissement de la liste des sections par rapport à la localisation sélectionnée
 //	$bul_expl_form .= "<script> calcule_section(document.forms['expl'].expl_location.options[document.forms['expl'].expl_location.selectedIndex].value); </script>";
 
 	// zone du dernier emrunteur
@@ -315,11 +316,11 @@ if ($acces_m==0) {
 			}
 			print bul_do_form($expl);
 		} else {
-			print "impossible d'accï¿½der ï¿½ cet exemplaire.";
+			print "impossible d'accéder à cet exemplaire.";
 		}
 	} else {
-		// crï¿½ation d'un exemplaire
-		// avant toute chose, on regarde si ce cb n'existe pas dï¿½jï¿½
+		// création d'un exemplaire
+		// avant toute chose, on regarde si ce cb n'existe pas déjà
 		$requete = "SELECT count(1) FROM exemplaires WHERE expl_cb='".$noex."' ";
 		$myQuery = mysql_query($requete, $dbh);
 		if(!mysql_result($myQuery, 0, 0)) {
@@ -340,10 +341,10 @@ if ($acces_m==0) {
 			
 			print bul_do_form($expl);
 		} else {
-			print "<div class=\"row\"><div class=\"msg-perio\" size=\"+2\">Ky barcode eshte tashme ne perdorim!</div></div>";
+			print "<div class=\"row\"><div class=\"msg-perio\" size=\"+2\">Ce code barre est déjà utilisé.</div></div>";
 			print "<div class=\"row\"><a href=\"./catalog.php?categ=serials&sub=bulletinage&action=view&bul_id=";
 			print $bulletinage->bul_id;
-			print "\">Kthehu</a></div>";
+			print "\">Retour</a></div>";
 		}
 	}
 }

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmb.class.php,v 1.18 2010-12-08 15:40:06 arenou Exp $
+// $Id: pmb.class.php,v 1.19 2011-02-28 10:13:39 arenou Exp $
 require_once("$include_path/notice_affichage.inc.php");
 require_once("$include_path/bulletin_affichage.inc.php");
 require_once("$class_path/upload_folder.class.php");
@@ -394,7 +394,8 @@ class pmb extends base_params implements params {
 		}elseif($this->listeDocs[$this->current]->explnum_repertoire != 0){
 			//le document est stocké dans un répertoire d'upload
 			$rep = new upload_folder($this->listeDocs[$this->current]->explnum_repertoire);
-			$document = file_get_contents($rep->repertoire_path."/".$this->listeDocs[$this->current]->explnum_nomfichier);	
+			$filepath = str_replace("//","/",$rep->repertoire_path.$this->listeDocs[$this->current]->explnum_path."/".$this->listeDocs[$this->current]->explnum_nomfichier);
+			$document = file_get_contents($filepath);	
 		}else{
 			$requete ="SELECT explnum_data FROM explnum WHERE explnum_id = ".$this->listeDocs[$this->current]->explnum_id;
 			$res = mysql_query($requete,$dbh);

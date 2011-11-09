@@ -3,25 +3,26 @@
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // | creator : Emmanuel PACAUD < emmanuel.pacaud@univ-poitiers.fr>            |
 // +-------------------------------------------------+
-// $Id: z3950_notice.class.php,v 1.110 2010-09-21 12:33:54 touraine37 Exp $
+// $Id: z3950_notice.class.php,v 1.117.2.1 2011-07-08 09:59:15 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 require_once($class_path."/parametres_perso.class.php");
 require_once($class_path."/notice.class.php");
 require_once($base_path."/catalog/z3950/manual_categorisation.inc.php");
-include("$include_path/marc_tables/$lang/empty_words");
-include("$class_path/iso2709.class.php");
-include("$class_path/author.class.php");
-include("$class_path/serie.class.php");
-include("$class_path/editor.class.php");
-include("$class_path/collection.class.php");
-include("$class_path/subcollection.class.php");
-include("$class_path/origine_notice.class.php");
-include("$class_path/audit.class.php");
-include("$class_path/expl.class.php");
-include("$include_path/templates/expl.tpl.php");
+require_once("$include_path/marc_tables/$lang/empty_words");
+require_once("$class_path/iso2709.class.php");
+require_once("$class_path/author.class.php");
+require_once("$class_path/serie.class.php");
+require_once("$class_path/editor.class.php");
+require_once("$class_path/collection.class.php");
+require_once("$class_path/subcollection.class.php");
+require_once("$class_path/origine_notice.class.php");
+require_once("$class_path/audit.class.php");
+require_once("$class_path/expl.class.php");
+require_once("$include_path/templates/expl.tpl.php");
 require_once("$class_path/acces.class.php");
+require_once("$class_path/upload_folder.class.php");
 
 class z3950_notice {
 	var $bibliographic_level;
@@ -189,7 +190,7 @@ class z3950_notice {
 	var $message_retour="";
 	var $notice="";
 	
-	function z3950_notice ($type, $marc = NULL) {
+	function z3950_notice ($type, $marc = NULL, $source_id=0) {
 		$type = strtolower ($type);
 		if ($type == 'form') {
 			$this->from_form ();
@@ -198,6 +199,7 @@ class z3950_notice {
 				if ($type == 'sutrs') $type= 'unimarc';
 				$this->notice_type=$type;
 				$this->notice=$marc;
+				$this->source_id = $source_id;
 				$record = new iso2709_record ($marc, AUTO_UPDATE);
 				if ($type == 'unimarc') $this->from_unimarc ($record);
 					else $this->from_usmarc ($record);
@@ -329,6 +331,7 @@ class z3950_notice {
 			index_wew,
 			statut,
 			commentaire_gestion,
+			signature,
 			thumbnail_url,
 			index_l,
 			index_matieres,
@@ -372,6 +375,7 @@ class z3950_notice {
 			'".$title_indexes_wew."',
 			'".$this->statut."',
 			'".$this->commentaire_gestion."',
+			'".$this->signature."',
 			'".$this->thumbnail_url."',
 			'".clean_tags($this->free_index)."',
 			'".$this->matieres_index."',
@@ -419,8 +423,13 @@ class z3950_notice {
 			$aut['rejete']=clean_string($this->aut_array[$i]['rejete']);
 			$aut['date']=clean_string($this->aut_array[$i]['date']);
 			$aut['type']=$this->aut_array[$i]['type_auteur'];
+			$aut['subdivision']=clean_string($this->aut_array[$i]['subdivision']);
+			$aut['numero']=clean_string($this->aut_array[$i]['numero']);
 			$aut['lieu']=clean_string($this->aut_array[$i]['lieu']);
+			$aut['ville']=clean_string($this->aut_array[$i]['ville']);
 			$aut['pays']=clean_string($this->aut_array[$i]['pays']);
+			$aut['web']=clean_string($this->aut_array[$i]['web']);
+			$aut['author_comment']=clean_string($this->aut_array[$i]['author_comment']);
 			if (!$this->aut_array[$i]["id"])
 				$this->aut_array[$i]["id"] = auteur::import($aut);
 			if ($this->aut_array[$i]["id"]) {
@@ -524,7 +533,7 @@ class z3950_notice {
 			if ($doc_num["__nodownload__"]) {
 				explnum_add_url($notice_retour, $doc_num["b"], $doc_num["a"]);
 			} else {
-				explnum_add_from_url($notice_retour, $doc_num["b"], $doc_num["a"]);
+				explnum_add_from_url($notice_retour, $doc_num["b"], $doc_num["a"], true, $this->source_id, $doc_num["f"]);
 			}
 		}
 		
@@ -702,13 +711,20 @@ class z3950_notice {
 			$aut['rejete']=clean_string($this->aut_array[$i]['rejete']);
 			$aut['date']=clean_string($this->aut_array[$i]['date']);
 			$aut['type']=$this->aut_array[$i]['type_auteur'];
+			$aut['subdivision']=clean_string($this->aut_array[$i]['subdivision']);
+			$aut['numero']=clean_string($this->aut_array[$i]['numero']);
+			$aut['lieu']=clean_string($this->aut_array[$i]['lieu']);
+			$aut['ville']=clean_string($this->aut_array[$i]['ville']);
+			$aut['pays']=clean_string($this->aut_array[$i]['pays']);
+			$aut['web']=clean_string($this->aut_array[$i]['web']);
+			$aut['author_comment']=clean_string($this->aut_array[$i]['author_comment']);
 			if (!$this->aut_array[$i]["id"])
 				$this->aut_array[$i]["id"] = auteur::import($aut);
 			if ($this->aut_array[$i]["id"]) {
 				$rqt = $rqt_ins . " (".$this->aut_array[$i]["id"].",".$notice_retour.",'".$this->aut_array[$i]['fonction']."',".$this->aut_array[$i]['responsabilite'].",".$i.") " ; 
 				$res_ins = mysql_query($rqt, $dbh);
-				}
 			}
+		}
 		
 		// traitement des categories
 		if ($this->categorisation_type == "categorisation_auto") {
@@ -788,7 +804,7 @@ class z3950_notice {
 		foreach($this->doc_nums as $doc_num) {
 			if (!$doc_num["a"])
 				continue;
-			explnum_add_from_url($notice_retour, $doc_num["b"], $doc_num["a"], false);
+			explnum_add_from_url($notice_retour, $doc_num["b"], $doc_num["a"], false,$this->source_id, $doc_num["f"]);
 		}
 		
 		$retour = array ($new_notice, $notice_retour);	
@@ -1473,7 +1489,7 @@ class z3950_notice {
 		else $form_notice = str_replace("!!display_zone_article!!","none",$form_notice);
 		
 		if($item){
-			$form_notice = str_replace('!!notice_entrepot!!', "<input type='hidden' name='item' value='$item'", $form_notice);
+			$form_notice = str_replace('!!notice_entrepot!!', "<input type='hidden' name='item' value='$item' />", $form_notice);
 		} else $form_notice = str_replace('!!notice_entrepot!!', "", $form_notice);
 		
 		$form_notice = str_replace('!!orinot_nom!!', $this->origine_notice[nom], $form_notice);
@@ -1599,6 +1615,28 @@ class z3950_notice {
 		if(function_exists("param_perso_form")) {
 			param_perso_form($p_perso);			
 		}
+		
+		//pour Pubmed et DOI, on regarde si on peut remplier un champ résolveur...
+		if(count($this->others_ids)>0){
+			foreach($p_perso->t_fields as $key => $t_field){
+				if($t_field['TYPE']  =="resolve"){
+					$field_options = _parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$t_field['OPTIONS'], "OPTIONS");
+					foreach($field_options['RESOLVE'] as $resolve){
+						//pubmed = 1 | DOI = 2
+						foreach($this->others_ids as $other_id){
+							if($other_id['b'] == "PMID" && $resolve['ID']=="1"){
+								//on a le champ perso résolveur PubMed
+								$p_perso->values[$key][]=$other_id['a']."|1";
+							}else if($other_id['b'] == "DOI" && $resolve['ID']=="2"){
+								//on a le champ perso résolveur DOI
+								$p_perso->values[$key][]=$other_id['a']."|2";
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		if (!$p_perso->no_special_fields) {
 			$perso_=$p_perso->show_editable_fields($id_notice,true);
 			$perso="";
@@ -1634,12 +1672,23 @@ class z3950_notice {
 		// Documents Numériques
 		$docnum_infos = "";
 		$count = 0;
+		$upload_doc_num="";
+		if($this->source_id){
+			$requete="select * from connectors_sources where source_id=".$this->source_id."";
+			$resultat=mysql_query($requete);
+			if (mysql_num_rows($resultat)) {
+				$r=mysql_fetch_object($resultat);
+				if(!$r->upload_doc_num) $upload_doc_num = "checked";
+			}	
+		}		
 		foreach ($this->doc_nums as $doc_num) {
 			$docnum_info = $ptab[1111];
 //			$alink = '<a target="_blank" href="'.htmlspecialchars($doc_num["a"]).'">'.htmlspecialchars($doc_num["a"]).'</a>';
 			$docnum_info = str_replace('!!docnum_url!!', htmlspecialchars($doc_num["a"]), $docnum_info);
 			$docnum_info = str_replace('!!docnum_caption!!', htmlspecialchars($doc_num["b"]), $docnum_info);
+			$docnum_info = str_replace('!!docnum_filename!!', htmlspecialchars($doc_num["f"]), $docnum_info);
 			$docnum_info = str_replace('!!docnumid!!', $count, $docnum_info);
+			$docnum_info = str_replace('!!upload_doc_num!!', $upload_doc_num, $docnum_info);
 			$docnum_infos .= $docnum_info;
 			$count++;
 		}
@@ -1653,13 +1702,19 @@ class z3950_notice {
 		// maxman: le bouton "retour resultats de la recherche" devient en liens 
 		$aac=explode('&',$action);
 		$retact='&'.$aac[2].'&'.$aac[5].'&'.$aac[6];
+		global $force;
 		if (!$retour)
 			$retares="<a href='./catalog.php?categ=z3950&action=display".$retact."'>".$msg[z3950_retour_a_resultats]."</a>";
 		else {
 			if($this->message_retour)
 				$retares="<input type='button' class='bouton' onclick='history.go(-1);' value='".$this->message_retour."' />";
-			else 
-				$retares="<a href='javascript:history.go(-1);'>".$msg[z3950_retour_a_resultats]."</a>";
+			else{
+				if($force == 1 ){
+					$retares="<a href='javascript:history.go(-2);'>".$msg[z3950_retour_a_resultats]."</a>";	
+				}else{
+					$retares="<a href='javascript:history.go(-1);'>".$msg[z3950_retour_a_resultats]."</a>";	
+				}
+			} 
 		}
 		$form_notice = str_replace('!!retour_a_resultats!!', $retares, $form_notice);
 		
@@ -1968,7 +2023,8 @@ class z3950_notice {
 			$include_cb_name = "include_doc_num".$i;
 			global $$include_cb_name;
 			if ($$include_cb_name) {
-				
+				$docnum_filename_name = "doc_num_filename".$i;
+				global $$docnum_filename_name;
 				$docnum_caption_name = "doc_num_caption".$i;
 				global $$docnum_caption_name;
 				$docnum_url_name = "doc_num_url".$i;
@@ -1980,7 +2036,7 @@ class z3950_notice {
 				else
 					$nodownload = 0;
 									
-				$this->doc_nums[] = array("a" => $$docnum_url_name, "b" => $$docnum_caption_name, "__nodownload__" => $nodownload);
+				$this->doc_nums[] = array("a" => $$docnum_url_name, "b" => $$docnum_caption_name, "f" => $$docnum_filename_name, "__nodownload__" => $nodownload);
 			}
 		}
 		
@@ -2332,13 +2388,18 @@ class z3950_notice {
 			if ($this->bibliographic_level=="m") $this->hierarchic_level="0";
 		}
 		if(function_exists("param_perso_prepare"))  param_perso_prepare($record);
+		$indicateur = array();
 		for ($i=0;$i<count($record->inner_directory);$i++) {
 			$cle=$record->inner_directory[$i]['label'];
+			$indicateur[$cle][]=substr($record->inner_data[$i]['content'],0,2);
 			switch($cle) {
 				case "010": /* isbn */
 					$isbn = $record->get_subfield($cle,'a');
 					$subfield = $record->get_subfield($cle,"d");
 					$this->prix = $subfield[0];
+					break;
+				case "014": /* isbn */
+					$this->others_ids = $record->get_subfield($cle,'a','b');
 					break;
 				case "071": /* barcode */
 					$cb = $record->get_subfield($cle,"a");
@@ -2536,22 +2597,22 @@ class z3950_notice {
 						$this->dewey=$record->get_subfield($cle,"a");
 					break;
 				case "700":
-					$aut_700=$record->get_subfield($cle,"a","b","4","f");
+					$aut_700=$record->get_subfield($cle,"a","b","c","d","4","f","N");
 					break;
 				case "701":
-					$aut_701=$record->get_subfield($cle,"a","b","4","f");
+					$aut_701=$record->get_subfield($cle,"a","b","c","d","4","f","N");
 					break;
 				case "702":
-					$aut_702=$record->get_subfield($cle,"a","b","4","f");
+					$aut_702=$record->get_subfield($cle,"a","b","c","d","4","f","N");
 					break;
 				case "710":
-					$aut_710=$record->get_subfield($cle,"a","b","4","f","e","m");
+					$aut_710=$record->get_subfield($cle,"a","b","c","g","d","4","f","e","k","l","m","n");
 					break;
 				case "711":
-					$aut_711=$record->get_subfield($cle,"a","b","4","f","e","m");
+					$aut_711=$record->get_subfield($cle,"a","b","c","g","d","4","f","e","k","l","m","n");
 					break;
 				case "712":
-					$aut_712=$record->get_subfield($cle,"a","b","4","f","e","m");
+					$aut_712=$record->get_subfield($cle,"a","b","c","g","d","4","f","e","k","l","m","n");
 					break;
 				case "801": /* origine du catalogage */
 					$origine_notice=$record->get_subfield($cle,"a","b");
@@ -2568,7 +2629,7 @@ class z3950_notice {
 					break;
 				//Documents numériques
 				case "897":
-					$this->doc_nums = $record->get_subfield($cle,"a", "b");
+					$this->doc_nums = $record->get_subfield($cle,"a", "b","f");
 					break;
 				default:
 					break;
@@ -2599,69 +2660,108 @@ class z3950_notice {
 			$this->aut_array[] = array(
 				"entree" => $aut_700[0]['a'],
 				"rejete" => $aut_700[0]['b'],
+				"author_comment" => $aut_700[0]['c']." ".$aut_700[0]['d'],
 				"date" => $aut_700[0]['f'],
 				"type_auteur" => "70",
 				"fonction" => $aut_700[0][4],
 				"id" => 0,
-				"responsabilite" => 0 ) ;
-			} elseif ($aut_710[0]['a']!="") { /* auteur principal en 710 ? */
-				$this->aut_array[] = array(
-					"entree" => $aut_710[0]['a'],
-					"rejete" => $aut_710[0]['b'],
-					"date" => $aut_710[0]['f'],
-					"type_auteur" => "71",
-					"fonction" => $aut_710[0][4],
-					"id" => 0,
-					"responsabilite" => 0,
-					"lieu" => $aut_710[0]['e'],
-					"pays" => $aut_710[0]['m'] ) ;
-				} 
+				"responsabilite" => 0 ,
+				"ordre" => 0 ) ;
+		} elseif ($aut_710[0]['a']!="") { /* auteur principal en 710 ? */
+			if(substr($indicateur["710"][0],0,1)=="1")	$type_auteur="72";
+			else $type_auteur="71";
+			
+			$lieu=$aut_710[0]['e'];
+			if(!$lieu)$lieu=$aut_710[0]['k'];	
+			$this->aut_array[] = array(
+				"entree" => $aut_710[0]['a'],
+				"rejete" => $aut_710[0]['g'],
+				"subdivision" => $aut_710[0]['b'],
+				"author_comment" => $aut_710[0]['c'],
+				"numero" => $aut_710[0]['d'],
+				"ville" => $aut_710[0]['l'],
+				"web" => $aut_710[0]['n'],
+				"date" => $aut_710[0]['f'],
+				"type_auteur" => $type_auteur*1,
+				"fonction" => $aut_710[0][4],
+				"id" => 0,
+				"responsabilite" => 0,
+				"ordre" => 0 ,
+				"lieu" => $lieu,
+				"pays" => $aut_710[0]['m'] ) ;
+		} 
 	
 		/* renseignement de aut1 */
 		for ($i=0 ; $i < $nb_repet_701 ; $i++) {
 			$this->aut_array[] = array(
 				"entree" => $aut_701[$i]['a'],
 				"rejete" => $aut_701[$i]['b'],
+				"author_comment" => $aut_701[$i]['c']." ".$aut_701[$i]['d'],
 				"date" => $aut_701[$i]['f'],
 				"type_auteur" => "70",
 				"fonction" => $aut_701[$i][4],
 				"id" => 0,
-				"responsabilite" => 1 ) ;
+				"responsabilite" => 1,
+				"ordre" => ($i+1) ) ;
 			}
 		for ($i=0 ; $i < $nb_repet_711 ; $i++) {
+			if(substr($indicateur["711"][$i],0,1)=="1")	$type_auteur="72";
+			else $type_auteur="71";	
+			
+			$lieu=$aut_711[$i]['e'];
+			if(!$lieu)$lieu=$aut_711[$i]['k'];	
 			$this->aut_array[] = array(
 				"entree" => $aut_711[$i]['a'],
-				"rejete" => $aut_711[$i]['b'],
+				"rejete" => $aut_711[$i]['g'],
+				"subdivision" => $aut_711[$i]['b'],
+				"author_comment" => $aut_711[$i]['c'],
+				"numero" => $aut_711[$i]['d'],
+				"ville" => $aut_711[$i]['l'],
+				"web" => $aut_711[$i]['n'],
 				"date" => $aut_711[$i]['f'],
-				"type_auteur" => "71",
+				"type_auteur" => $type_auteur*1,
 				"fonction" => $aut_711[$i][4],
 				"id" => 0,
 				"responsabilite" => 1,
-				"lieu" => $aut_711[$i]['e'],
-				"pays" => $aut_711[$i]['m'] ) ;
+				"lieu" => $lieu,
+				"pays" => $aut_711[$i]['m'],
+				"ordre" => ($i+1) ) ;
 			}
 		/* renseignement de aut2 */
 		for ($i=0 ; $i < $nb_repet_702 ; $i++) {
 			$this->aut_array[] = array(
 				"entree" => $aut_702[$i]['a'],
 				"rejete" => $aut_702[$i]['b'],
+				"author_comment" => $aut_702[$i]['c']." ".$aut_702[$i]['d'],
 				"date" => $aut_702[$i]['f'],
 				"type_auteur" => "70",
 				"fonction" => $aut_702[$i][4],
 				"id" => 0,
-				"responsabilite" => 2 ) ;
+				"responsabilite" => 2,
+				"ordre" => ($i+1) ) ;
 			}
 		for ($i=0 ; $i < $nb_repet_712 ; $i++) {
+			if(substr($indicateur["712"][$i],0,1)=="1")	$type_auteur="72";
+			else $type_auteur="71";	
+			$lieu=$aut_712[$i]['e'];
+			if(!$lieu)$lieu=$aut_712[$i]['k'];
+						
 			$this->aut_array[] = array(
 				"entree" => $aut_712[$i]['a'],
-				"rejete" => $aut_712[$i]['b'],
+				"rejete" => $aut_712[$i]['g'],
+				"subdivision" => $aut_712[$i]['b'],
+				"author_comment" => $aut_712[$i]['c'],
+				"numero" => $aut_712[$i]['d'],
+				"ville" => $aut_712[$i]['l'],
+				"web" => $aut_712[$i]['n'],
 				"date" => $aut_712[$i]['f'],
-				"type_auteur" => "71",
+				"type_auteur" => $type_auteur*1,
 				"fonction" => $aut_712[$i][4],
 				"id" => 0,
 				"responsabilite" => 2,
-				"lieu" => $aut_712[$i]['e'],
-				"pays" => $aut_712[$i]['m'] ) ;
+				"lieu" => $lieu,
+				"pays" => $aut_712[$i]['m'],
+				"ordre" => ($i+1) ) ;
 			}
 		/*  Added for some italian z39.50 server 
 		Some adjustment to clean the values from symbol like << and others */

@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: mono_display_expl.class.php,v 1.5 2009-05-16 11:22:56 dbellamy Exp $
 
@@ -35,28 +35,28 @@ if (!count($langue_doc)) {
 	$langue_doc = new marc_list('lang');
 	$langue_doc = $langue_doc->table;
 }
-// propriï¿½tï¿½s pour le selecteur de panier 
+// propriétés pour le selecteur de panier 
 $selector_prop = "toolbar=no, dependent=yes, resizable=yes, scrollbars=yes";
 $cart_click = "onClick=\"openPopUp('./cart.php?object_type=NOTI&item=!!id!!&unq=!!unique!!', 'cart', 600, 700, -2, -2, '$selector_prop')\"";
 
 
-// dï¿½finition de la classe d'affichage des monographies en liste
+// définition de la classe d'affichage des monographies en liste
 class mono_display_expl {
-	var $notice_id		= 0;	// id de la notice ï¿½ afficher
-	var $isbn		= 0;	// isbn ou code EAN de la notice ï¿½ afficher
-  	var $notice;			// objet notice (tel que fetchï¿½ dans la table 'notices'
+	var $notice_id		= 0;	// id de la notice à afficher
+	var $isbn		= 0;	// isbn ou code EAN de la notice à afficher
+  	var $notice;			// objet notice (tel que fetché dans la table 'notices'
 	var $langues = array();
 	var $languesorg = array();
-  	var $action		= '';	// URL ï¿½ associer au header
-	var $header		= '';	// chaine accueillant le chapeau de notice (peut-ï¿½tre cliquable)
-	var $tit_serie		= '';	// titre de sï¿½rie si applicable
+  	var $action		= '';	// URL à associer au header
+	var $header		= '';	// chaine accueillant le chapeau de notice (peut-être cliquable)
+	var $tit_serie		= '';	// titre de série si applicable
 	var $tit1		= '';	// valeur du titre 1
 	var $result		= '';	// affichage final
 	var $level		= 1;	// niveau d'affichage
-	var $isbd		= '';	// isbd de la notice en fonction du level dï¿½fini
+	var $isbd		= '';	// isbd de la notice en fonction du level défini
 	var $expl		= 0;	// flag indiquant si on affiche les infos d'exemplaire
 	var $nb_expl	= 0;	//nombre d'exemplaires
-	var $link_expl		= '';	// lien associï¿½ ï¿½ un exemplaire
+	var $link_expl		= '';	// lien associé à un exemplaire
 	var $responsabilites =	array("responsabilites" => array(),"auteurs" => array());  // les auteurs
 	var $categories =	array();// les categories
 	var $show_resa		= 0;	// flag indiquant si on affiche les infos de resa
@@ -64,7 +64,7 @@ class mono_display_expl {
 	var $print_mode=0;
 	var $show_explnum=1;
 	var $show_statut=0;
-	var $aff_statut = '' ; // carrï¿½ de couleur pour signaler le statut de la notice
+	var $aff_statut = '' ; // carré de couleur pour signaler le statut de la notice
 	var $tit_serie_lien_gestion ;
 	var $childs=array(); //Filles de la notice
 	var $anti_loop="";
@@ -73,15 +73,15 @@ class mono_display_expl {
 	var $show_opac_hidden_fields=true;
 // constructeur------------------------------------------------------------
 function mono_display_expl($cb,$expl_id, $level=1, $action='', $expl=1, $expl_link='', $lien_suppr_cart="", $explnum_link='', $show_resa=0, $print=0, $show_explnum=1, $no_link=true,$ajax_mode=0 ) {
-  	// $id = id de la notice ï¿½ afficher
-  	// $action	 = URL associï¿½e au header
+  	// $id = id de la notice à afficher
+  	// $action	 = URL associée au header
 	// $level :
 	//		0 : juste le header (titre  / auteur principal avec le lien si applicable) 
 	// 			suppression des niveaux entre 1 et 6, seul reste level
-	//		1 : ISBD seul, pas de note, bouton modif, expl, explnum et rï¿½sas
-	// 		6 : cas gï¿½nï¿½ral dï¿½taillï¿½ avec notes, categ, langues, indexation... + boutons
-	// $expl -> affiche ou non les exemplaires associï¿½s
-	// $expl_link -> lien associï¿½ ï¿½ l'exemplaire avec !!expl_id!!, !!notice_id!! et !!expl_cb!! ï¿½ mettre ï¿½ jour
+	//		1 : ISBD seul, pas de note, bouton modif, expl, explnum et résas
+	// 		6 : cas général détaillé avec notes, categ, langues, indexation... + boutons
+	// $expl -> affiche ou non les exemplaires associés
+	// $expl_link -> lien associé à l'exemplaire avec !!expl_id!!, !!notice_id!! et !!expl_cb!! à mettre à jour
   	// $lien_suppr_cart -> lien de suppression de la notice d'un caddie
   	//
   	// $show_resa = affichage des resa ou pas
@@ -128,11 +128,11 @@ function mono_display_expl($cb,$expl_id, $level=1, $action='', $expl=1, $expl_li
 
 	switch($level) {
 	case 0:
-		// lï¿½, c'est le niveau 0 : juste le header
+		// là, c'est le niveau 0 : juste le header
 		$this->result = $this->header;
 		break;
 	default:
-		// niveau 1 et plus : header + isbd ï¿½ gï¿½nï¿½rer
+		// niveau 1 et plus : header + isbd à générer
 		$this->init_javascript();
 		$this->finalize();
 		break;
@@ -196,7 +196,7 @@ function expl_titre_diplay() {
 	return implode(", ", $liste_aff);	
 }
 	
-// rï¿½cupï¿½ration des infos exemplaires
+// récupération des infos exemplaires
 function get_expl_info($cb, $id, $lien_notice=1) {
 	global $dbh;
 	global $cart_link_non;
@@ -232,7 +232,7 @@ function get_expl_info($cb, $id, $lien_notice=1) {
 function expl_info_display($affichage_emprunteurs=1,$affichage_zone_notes=1) {
 global $msg,$expl_view_form;
 	$expl_aff=$expl_view_form;
-		
+
 	$expl_aff=str_replace('!!cote!!', $this->expl_data->expl_cote, $expl_aff);
 	$expl_aff=str_replace('!!type_doc!!', $this->expl_data->tdoc_libelle, $expl_aff);
 	$expl_aff=str_replace('!!localisation!!', $this->expl_data->location_libelle, $expl_aff);
@@ -267,16 +267,16 @@ global $msg,$expl_view_form;
 
 }
 
-// finalisation du rï¿½sultat (ï¿½criture de l'isbd)
+// finalisation du résultat (écriture de l'isbd)
 function finalize() {
 	$this->result = str_replace('!!ISBD!!', $this->isbd, $this->result);
 }
 
-// gï¿½nï¿½ration du template javascript---------------------------------------
+// génération du template javascript---------------------------------------
 function init_javascript() {
 	global $msg,$pmb_recherche_ajax_mode;
 	
-	// propriï¿½tï¿½s pour le selecteur de panier 
+	// propriétés pour le selecteur de panier 
 	$selector_prop = "toolbar=no, dependent=yes, width=500, height=400, resizable=yes, scrollbars=yes";
 	$cart_click = "onClick=\"openPopUp('./cart.php?object_type=EXPL&item=!!id!!', 'cart', 600, 700, -2, -2, '$selector_prop')\"";
 	if($pmb_recherche_ajax_mode && $this->ajax_mode){

@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: expl.class.php,v 1.57 2010-05-05 12:28:39 ngantier Exp $
 
@@ -48,7 +48,7 @@ class exemplaire {
 	var $update_date = '';
 	var $ajax_cote_fields = '';
 	
-	var $explr_acces_autorise="MODIF" ; // sera ï¿½gal ï¿½ INVIS, MODIF ou UNMOD en fonction des droits de l'utilisateur sur la localisation
+	var $explr_acces_autorise="MODIF" ; // sera égal à INVIS, MODIF ou UNMOD en fonction des droits de l'utilisateur sur la localisation
 
 // constructeur
 function exemplaire($cb='', $id=0, $id_notice=0) {
@@ -115,7 +115,7 @@ function exemplaire($cb='', $id=0, $id_notice=0) {
 				else $this->explr_acces_autorise="MODIF" ;
 			} else $this->explr_acces_autorise="MODIF" ;
 			
-			} else { // rien trouvï¿½ en base
+			} else { // rien trouvé en base
 				$this->cb = $cb;
 				$this->id_notice = $id_notice;
 				global $explr_invisible, $explr_visible_unmod, $explr_visible_mod, $pmb_droits_explr_localises ;
@@ -148,7 +148,7 @@ function fill_form (&$form, $action) {
   		$requete="DELETE from exemplaires_temp where sess not in (select SESSID from sessions)";
    		mysql_query($requete,$dbh);
   	
-    	//Appel ï¿½ la fonction de gï¿½nï¿½ration automatique de cb
+    	//Appel à la fonction de génération automatique de cb
     	$code_exemplaire =init_gen_code_exemplaire($this->id_notice,0);
     	do {
     		$code_exemplaire = gen_code_exemplaire($this->id_notice,0,$code_exemplaire);
@@ -190,12 +190,13 @@ function fill_form (&$form, $action) {
 
 	// select "localisation"
 
-	//visibilitï¿½ des exemplaires
+	//visibilité des exemplaires
 	global $explr_visible_mod, $pmb_droits_explr_localises ;
 	if ($pmb_droits_explr_localises) $where_clause_explr = "idlocation in (".$explr_visible_mod.") and";
 	$form = str_replace('!!localisation!!',
 			gen_liste ("select distinct idlocation, location_libelle from docs_location, docsloc_section where $where_clause_explr num_location=idlocation order by 2 ", "idlocation", "location_libelle", 'f_ex_location', "calcule_section(this);", $this->location_id, "", "","","",0),
 			$form);
+	
 	// select "code statistique"
 	$form = str_replace('!!codestat!!',
 			do_selector('docs_codestat', 'f_ex_cstat', $this->codestat_id),
@@ -280,7 +281,7 @@ function expl_form ($action, $annuler='') {
 
 	// action du bouton annuler
 	if(!$annuler)
-		// default : retour ï¿½ la liste des exemplaires
+		// default : retour à la liste des exemplaires
 		$annuler = './catalog.php?categ=expl&id='.$this->id_notice;
 
 	$expl_form = str_replace('!!annuler_action!!', $annuler, $expl_form);
@@ -303,7 +304,7 @@ function zexpl_form($action) {
 }
 
 // ----------------------------------------------------------------------------
-//	fonction do_selector qui gï¿½nï¿½re des combo_box avec tout ce qu'il faut
+//	fonction do_selector qui génère des combo_box avec tout ce qu'il faut
 // ----------------------------------------------------------------------------
 function do_selector() {
 
@@ -346,7 +347,7 @@ function do_selector() {
 function import($data) {                          
 	global $msg;                              
                                                   
-	// cette mï¿½thode prend en entrï¿½e un tableau constituï¿½ des informations exemplaires suivantes :
+	// cette méthode prend en entrée un tableau constitué des informations exemplaires suivantes :
 	//	$data['cb'] 	                  
 	//	$data['notice']
 	//  $data['bulletin']                   
@@ -363,11 +364,11 @@ function import($data) {
 	//	$data['expl_owner']               
 	//	$data['cote_mandatory'] cote obligatoire = 1, non obligatoire = 0
 	//	$data['quoi_faire'] que faire de cet exemplaire :
-	//		0 : supprimer, 1 ou vide : Mettre ï¿½ jour ou ajouter, 2 : ajouter si possible, sinon rien.
+	//		0 : supprimer, 1 ou vide : Mettre à jour ou ajouter, 2 : ajouter si possible, sinon rien.
                                                   
 	global $dbh;                              
                                                   
-	// check sur le type de  la variable passï¿½e en paramï¿½tre
+	// check sur le type de  la variable passée en paramètre
 	if(!sizeof($data) || !is_array($data)) {  
 		// si ce n'est pas un tableau ou un tableau vide, on retourne 0
 		$sql_log = mysql_query("insert into error_log (error_origin, error_text) values ('expl_".addslashes(SESSid).".class', '".$msg[544]."') ") ;
@@ -381,7 +382,7 @@ function import($data) {
 		return -1 ;
 		}
 		                                  		                                  
-	// check sur les ï¿½lï¿½ments du tableau (cb, cote, notice, typdoc, section, statut, location, codestat, owner sont requis).
+	// check sur les éléments du tableau (cb, cote, notice, typdoc, section, statut, location, codestat, owner sont requis).
 	$long_maxi = mysql_field_len(mysql_query("SELECT expl_cb FROM exemplaires limit 1"),0);
 	$data['cb'] = rtrim(substr(preg_replace('/\[|\]/', '', rtrim(ltrim($data['cb']))),0,$long_maxi));
 	$long_maxi = mysql_field_len(mysql_query("SELECT expl_cote FROM exemplaires limit 1"),0);
@@ -438,11 +439,11 @@ function import($data) {
 	if($data['type_antivol']=="") {                
 		$data['type_antivol']="1";
 		} 
-	// prï¿½paration de la requï¿½te              
+	// préparation de la requête              
 	$key0 = addslashes($data['cb']);          
 	$key1 = addslashes($data['cote']);        
 	                                          
-	/* vï¿½rification que l'exemplaire existe ou pas */
+	/* vérification que l'exemplaire existe ou pas */
 	$query = "SELECT expl_id FROM exemplaires WHERE expl_cb='${key0}' LIMIT 1 ";
 	$result = @mysql_query($query, $dbh);     
 	if(!$result) die("can't SELECT exemplaires ".$query);
@@ -457,13 +458,13 @@ function import($data) {
 		return $exe->expl_id;
 		}                                 
 	
-	// l'exemplaire existe et on doit le mettre ï¿½ jour
+	// l'exemplaire existe et on doit le mettre à jour
 	if ($exe->expl_id!="" && $data['quoi_faire']=="1") {
 		$sql_a_faire = "update exemplaires SET " ;
 		$sql_a_faire_suite = " where expl_cb='".addslashes($data['cb'])."' " ;
 		}
 	
-	// l'exemplaire n'existe pas : on doit le crï¿½er
+	// l'exemplaire n'existe pas : on doit le créer
 	if ($exe->expl_id=="") {
 		$sql_a_faire = "insert into exemplaires SET " ;
 		$sql_a_faire_suite = "" ;
@@ -506,7 +507,7 @@ function import($data) {
 		return $exe->expl_id;
 	}       
    
-} /* fin mï¿½thode import */                
+} /* fin méthode import */                
 
 // Suppression
 function del_expl($id=0) {
@@ -537,4 +538,4 @@ function del_expl($id=0) {
                                                  
 } # fin de la classe exemplaire                   
                                                   
-} # fin de dï¿½finition                             
+} # fin de définition                             

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pret_func.inc.php,v 1.48 2010-12-02 14:16:07 ngantier Exp $
+// $Id: pret_func.inc.php,v 1.48.2.1 2011-09-16 09:04:50 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -673,7 +673,7 @@ function electronic_loan_ticket_expl_info($cb_doc) {
 	$requete.= " date_format(pret_retour, '".$msg["format_date"]."') as aff_pret_retour, "; 
 	$requete.= " IF(pret_retour>sysdate(),0,1) as retard, notices_m.tparent_id, notices_m.tnvol " ; 
 	$requete.= " FROM (((exemplaires LEFT JOIN notices AS notices_m ON expl_notice = notices_m.notice_id ) LEFT JOIN bulletins ON expl_bulletin = bulletins.bulletin_id) LEFT JOIN notices AS notices_s ON bulletin_notice = notices_s.notice_id), docs_type, docs_section, docs_location, pret ";
-	$requete.= " WHERE expl_cb='".$cb_doc."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation and pret_idexpl = expl_id  ";
+	$requete.= " WHERE expl_cb='".addslashes($cb_doc)."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation and pret_idexpl = expl_id  ";
 
 	$res = mysql_query($requete, $dbh) or die ("<br />".mysql_error());
 	$expl = mysql_fetch_object($res);
@@ -761,7 +761,7 @@ function electronic_loan_ticket_not_bull_info_resa ($id_empr, $notice, $bulletin
 				$tmpmsg_res = $msg['fpdf_reserve_du']." ".$resa->aff_resa_date_debut." ".$msg['fpdf_adherent_au']." ".$resa->aff_resa_date_fin;
 				$requete_expl = "SELECT expl_cb, tdoc_libelle, section_libelle, location_libelle " ; 
 				$requete_expl.= " FROM exemplaires, docs_type, docs_section, docs_location ";
-				$requete_expl.= " WHERE expl_cb='".$resa->resa_cb."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation ";
+				$requete_expl.= " WHERE expl_cb='".addslashes($resa->resa_cb)."' and expl_typdoc = idtyp_doc and expl_section = idsection and expl_location = idlocation ";
 				$res_expl = mysql_query($requete_expl, $dbh) or die ("<br />".mysql_error());
 				$expl = mysql_fetch_object($res_expl);
 				$tmpmsg_res .= "<br /><em>".$expl->location_libelle."</em>: ".$expl->section_libelle;

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pret.inc.php,v 1.80 2010-12-02 14:16:07 ngantier Exp $
+// $Id: pret.inc.php,v 1.81.2.2 2011-07-13 14:11:50 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -307,6 +307,11 @@ function magnetise(commande){
 										// archivage resa
 										$rqt_arch = "UPDATE resa_archive, resa SET resarc_pretee = 1 WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";	
 										mysql_query($rqt_arch, $dbh);
+										$rqt_arch = "select resarc_id from resa_archive, resa WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";	
+										$resarc_res=mysql_query($rqt_arch, $dbh);
+										$resarc = mysql_fetch_object($resarc_res);
+										$resarc_id = $resarc->resarc_id;	
+										
 										// suppression de la resa pour ce lecteur
 										del_resa($id_empr, $statut -> idnotice, $statut -> idbulletin, $statut -> expl_cb);
 									}
@@ -319,11 +324,15 @@ function magnetise(commande){
 										} // sinon rien à faire, la résa était validée avec autre chose, elle le reste
 										// archivage resa
 										$rqt_arch = "UPDATE resa_archive, resa SET resarc_pretee = 2 WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";	
-										mysql_query($rqt_arch, $dbh);										
+										mysql_query($rqt_arch, $dbh);	
+										$rqt_arch = "select resarc_id from resa_archive, resa WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";	
+										$resarc_res=mysql_query($rqt_arch, $dbh);
+										$resarc = mysql_fetch_object($resarc_res);
+										$resarc_id = $resarc->resarc_id;										
 										del_resa($id_empr, $statut -> idnotice, $statut -> idbulletin, $statut -> expl_cb);
 									}
 									del_resa($id_empr, $statut -> idnotice, $statut -> idbulletin, $statut -> expl_cb);
-									add_pret($id_empr, $id_expl, $cb_doc);
+									add_pret($id_empr, $id_expl, $cb_doc, $resarc_id);
 									// mise à jour de l'affichage
 									// ER ici ajout du bouton d'annulation violente 
 									/*
@@ -397,13 +406,17 @@ function magnetise(commande){
 									if ($statut -> flag && ($statut -> flag & HAS_RESA_GOOD)) {
 										// archivage resa
 										$rqt_arch = "UPDATE resa_archive, resa SET resarc_pretee = 1 WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";		
-										mysql_query($rqt_arch, $dbh);								
+										mysql_query($rqt_arch, $dbh);	
+										$rqt_arch = "select resarc_id from resa_archive, resa WHERE id_resa = '".$statut->id_resa."' AND resa_arc = resarc_id ";	
+										$resarc_res=mysql_query($rqt_arch, $dbh);
+										$resarc = mysql_fetch_object($resarc_res);
+										$resarc_id = $resarc->resarc_id;								
 										// suppression de la resa pour ce lecteur
 										del_resa($id_empr, $statut -> idnotice, $statut -> idbulletin, $statut -> expl_cb);
 										}
 									// ajout du prêt
 									del_resa($id_empr, $statut -> idnotice, $statut -> idbulletin, $statut -> expl_cb);
-									add_pret($id_empr, $id_expl, $cb_doc);
+									add_pret($id_empr, $id_expl, $cb_doc,$resarc_id);
 									// mise à jour de l'affichage
 									// ajout du bouton d'annulation violente
 									$erreur_affichage = "<hr />
@@ -440,6 +453,12 @@ function magnetise(commande){
 						<div class='colonne10'><img src='./images/error.png' /></div>
 						<div class='colonne-suite'><b>$cb_doc</b> : <span class='erreur'>$msg[367]</span></div>
 						</div><br />";
+						// on a un code-barres, est-ce un cb empr ?
+						$query_empr = "select id_empr, empr_cb from empr where empr_cb='".$cb_doc."' ";
+						$result_empr = mysql_query($query_empr, $dbh);
+						if(mysql_num_rows($result_empr)) {
+							$erreur_affichage.="<script type=\"text/javascript\">document.location='./circ.php?categ=pret&form_cb=$cb_doc'</script>";
+							}
 						$alert_sound_list[]="critique";
 
 						$empr = new emprunteur($id_empr, $erreur_affichage, FALSE, 1);
@@ -731,7 +750,7 @@ function check_document($id_expl, $id_empr) {
 
 
 // ajoute le prêt en table
-function add_pret($id_empr, $id_expl, $cb_doc) {
+function add_pret($id_empr, $id_expl, $cb_doc,$resarc_id=0) {
 	// le lien MySQL
 	global $dbh;
 	global $msg;
@@ -820,6 +839,10 @@ function add_pret($id_empr, $id_expl, $cb_doc) {
 	$result = @ mysql_query($query, $dbh) or die("can't update pret for stats ".$query);
 	audit::insert_creation (AUDIT_PRET, $stat_id) ;
 	
+	if($resarc_id){
+		$rqt_arch = "UPDATE resa_archive SET resarc_arcpretid = $stat_id WHERE resarc_id = '".$resarc_id."' ";	
+		@ mysql_query($rqt_arch, $dbh);
+	}	
 	$query = "update exemplaires SET ";
 	$query.= "last_loan_date = sysdate() ";
 	$query.= "where expl_id= '".$id_expl."' ";

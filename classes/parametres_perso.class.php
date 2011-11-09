@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parametres_perso.class.php,v 1.44 2011-01-20 14:36:25 arenou Exp $
+// $Id: parametres_perso.class.php,v 1.45 2011-01-24 14:18:58 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -541,8 +541,9 @@ class parametres_perso {
 		$field["OPTIONS"][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$this->t_fields[$field_id]["OPTIONS"], "OPTIONS");
 		$field["VALUES"]=$values;
 		$field["PREFIX"]=$this->prefix;
-		eval("\$aff=".$val_list_empr[$this->t_fields[$field_id]["TYPE"]]."(\$field,\$values);");
-		return $aff;
+		$aff=$val_list_empr[$this->t_fields[$field_id]["TYPE"]]($field,$values);
+		if(is_array($aff)) return $aff['withoutHTML']; 
+		else return $aff;
 	}
 
 	//Suppression de la base des valeurs d'un emprunteur ou autre...

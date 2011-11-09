@@ -2,11 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: expdocnum.inc.php,v 1.2 2009-05-16 11:11:51 dbellamy Exp $
-
-require_once ("$include_path/explnum.inc.php");  
+// $Id: expdocnum.inc.php,v 1.2.4.1 2011-05-09 08:19:15 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
+
+require_once ("$include_path/explnum.inc.php");  
 
 if($idcaddie) {
 	$myCart= new caddie($idcaddie);

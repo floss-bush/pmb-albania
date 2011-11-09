@@ -175,6 +175,7 @@
 						<index_l>explnum_index_wew</index_l>
 						<index_i>explnum_index_sew</index_i>
 						<id_field>explnum_notice</id_field>
+						<fulltext>yes</fulltext>
 					</boolean>
 				</var>
 			</query>
@@ -261,6 +262,7 @@
 				<index_l>explnum_index_wew</index_l>
 				<index_i>explnum_index_sew</index_i>
 				<id_field>explnum_notice</id_field>
+				<fulltext>yes</fulltext>
 			</query>
 		</field>	
 		<!-- **** RECHERCHE POUR L'API **** -->
@@ -417,6 +419,7 @@
 						<index_l>explnum_index_wew</index_l>
 						<index_i>explnum_index_sew</index_i>
 						<id_field>explnum_notice</id_field>
+						<fulltext>yes</fulltext>
 					</boolean>
 				</var>
 			</query>
@@ -597,6 +600,7 @@
 						<index_l>explnum_index_wew</index_l>
 						<index_i>explnum_index_sew</index_i>
 						<id_field>explnum_notice</id_field>
+						<fulltext>yes</fulltext>
 					</boolean>
 				</var>
 			</query>

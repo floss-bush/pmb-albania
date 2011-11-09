@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search.class.php,v 1.131 2010-12-23 10:36:35 arenou Exp $
+// $Id: search.class.php,v 1.132.2.9 2011-07-21 07:45:15 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 //Classe de gestion des recherches avancees
@@ -173,6 +173,70 @@ class search {
     		}
     		
     		switch ($ff["INPUT_TYPE"]) {
+    			case "authoritie_external":
+    				$r="";
+    				$op = "op_".$n."_".$search;
+					global $$op;
+					global $lang;
+					$libelle = "";
+    				if ($$op == "AUTHORITY"){
+						if($v[0]!= 0){
+							switch ($ff['INPUT_OPTIONS']['SELECTOR']){
+								case "auteur":
+									$aut=new auteur($v[0]);
+									if($aut->rejete) $libelle = $aut->name.', '.$aut->rejete;
+									else $libelle = $aut->name;
+									if($aut->date) $libelle .= " ($aut->author_date)";
+									break;
+								case "categorie":
+									$libelle = categories::getlibelle($v[0],$lang);
+									break;
+								case "editeur":
+									$ed = new editeur($v[0]);
+									$libelle=$ed->name;
+									if ($ed->ville) 
+										if ($ed->pays) $libelle.=" ($ed->ville - $ed->pays)";
+										else $libelle.=" ($ed->ville)";
+									break;
+								case "collection" :
+									$coll = new collection($v[0]);
+									$libelle = $coll->name;
+									break;
+								case "subcollection" :
+									$coll = new subcollection($v[0]);
+									$libelle = $coll->name;
+									break;
+								case "serie" :
+									$serie = new serie($v[0]);
+									$libelle = $serie->name;
+									break;
+								case "indexint" :
+									$indexint = new indexint($v[0]);
+									if ($indexint->comment) $libelle = $indexint->name." - ".$indexint->comment;
+									else $libelle = $indexint->name ;
+									if ($thesaurus_classement_mode_pmb != 0) {
+										$libelle="[".$indexint->name_pclass."] ".$libelle;
+									}
+									break;
+								case "titre_uniforme" :
+									$tu = new titre_uniforme($v[0]);
+									$libelle = $tu->name;
+									break;	
+								default :
+									$libelle = $v[0];
+									break;
+							}
+						}
+						$$op == "BOOLEAN";
+    					$r="<script>document.forms['search_form'].".$op.".options[0].selected=true;</script>";
+    				}
+    				
+    				if($libelle){
+    					$r.="<input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($libelle,ENT_QUOTES,$charset)."'/>";
+    				}else{
+    					$r.="<input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."'/>";
+    				}
+    				break;
      			case "authoritie":
 						$fnamesans="field_".$n."_".$search;
 						$fname="field_".$n."_".$search."[]";
@@ -204,14 +268,12 @@ class search {
 								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
 									case "auteur":
 										$aut=new auteur($v[0]);
-										if($aut->author_rejete) $libelle = $aut->author_name.', '.$aut->author_rejete;
-										else $libelle = $aut->author_name;
-										if($aut->author_date) $libelle .= " ($aut->author_date)";
-										$libelle = $aut->name.", ".$aut->rejete;
+										if($aut->rejete) $libelle = $aut->name.', '.$aut->rejete;
+										else $libelle = $aut->name;
+										if($aut->date) $libelle .= " ($aut->author_date)";
 										break;
 									case "categorie":
-										$categ=new categories($v[0],$lang);
-										$libelle = $categ->libelle_categorie;
+										$libelle = categories::getlibelle($v[0],$lang);
 										break;
 									case "editeur":
 										$ed = new editeur($v[0]);
@@ -242,7 +304,7 @@ class search {
 										break;
 									case "titre_uniforme" :
 										$tu = new titre_uniforme($v[0]);
-										$field[$j] = $tu->name;
+										$libelle = $tu->name;
 										break;	
 									default :
 										$libelle = $v[0];
@@ -260,7 +322,7 @@ class search {
 						<input class='bouton' value='...' id='$fnamesans"."_authority_selector' onclick=\"openPopUp('./select.php?what=$selector&caller=search_form&mode=un&$p1=$fname_id&$p2=$fnamelib&deb_rech='+escape(document.getElementById('$fnamesanslib').value)+'&callback=authoritySelected&infield=$fnamesans', 'select_author0', 400, 400, -2, -2, 'scrollbars=yes, toolbar=no, dependent=yes, resizable=yes')\" type=\"button\">";
     				break;
     			case "text":
-    				$r="<input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."'/>";
+    				$r="<input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' ".($ff['INPUT_OPTIONS']["PLACEHOLDER"]?"placeholder='".htmlentities($ff['INPUT_OPTIONS']["PLACEHOLDER"],ENT_QUOTES,$charset)."'":"")."/>";
     				break;
     			case "query_list":
     				$requete=$ff["INPUT_OPTIONS"]["QUERY"][0]["value"];
@@ -421,7 +483,7 @@ class search {
    	 	} elseif ($s[0]=="s") {
     		//appel de la fonction get_input_box de la classe du champ special
     		$type=$this->specialfields[$s[1]]["TYPE"];
-    		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 				if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 					$sf=$this->specialfields[$s[1]];
 					if ($this->full_path && file_exists($this->full_path."/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php"))
@@ -443,7 +505,6 @@ class search {
     	global $msg;
     	global $include_path;
     	global $pmb_multi_search_operator;
-    	 	
     	$this->error_message="";
 	   	$last_table="";
 	   	$field_keyName=$this->keyName;
@@ -529,6 +590,13 @@ class search {
 				}	
 							
 				$last_main_table="";
+				
+				// pour les listes, si un opérateur permet une valeur vide, il en faut une...
+				if($this->op_empty[$$op] && !is_array($field) ){
+					$field = array();
+					$field[0] = "";
+				}
+				
 				//Pour chaque valeur du champ
 				for ($j=0; $j<count($field); $j++) {
 					//Pour chaque requete
@@ -537,6 +605,9 @@ class search {
 	   					//Si le nettoyage de la saisie est demande
 	   					if($q[$z]["KEEP_EMPTYWORD"])	$field[$j]=strip_empty_chars($field_origine);
 						elseif ($q[$z]["REGDIACRIT"]) $field[$j]=strip_empty_words($field_origine);
+						elseif ($q[$z]["DETECTDATE"])  {
+							$field[$j]=detectFormatDate($field_origine,$q[$z]["DETECTDATE"]);
+						}
 						$main=$q[$z]["MAIN"];
 						//Si il y a plusieurs termes possibles on construit la requete avec le terme !!multiple_term!!
 						if ($q[$z]["MULTIPLE_WORDS"]) {
@@ -586,16 +657,20 @@ class search {
 							if (!$err) {
 								if (is_array($q[$z]["TABLE"])) {
 									for ($z1=0; $z1<count($q[$z]["TABLE"]); $z1++) {
+										$is_fulltext=false;
+										if ($q[$z]["FULLTEXT"][$z1]) $is_fulltext=true;
 										if (!$q[$z]["KEEP_EMPTY_WORDS"][$z1]) 
-											$members=$aq->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1]);
-										else $members=$aq1->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1]);
+											$members=$aq->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1],0,0,$is_fulltext);
+										else $members=$aq1->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1],0,0,$is_fulltext);
 										$main=str_replace("!!pert_term_".($z1+1)."!!",$members["select"],$main);
 										$main=str_replace("!!where_term_".($z1+1)."!!",$members["where"],$main);
 									}
 								} else {
+									$is_fulltext=false;
+									if ($q[$z]["FULLTEXT"]) $is_fulltext=true;
 									if ($q[$z]["KEEP_EMPTY_WORDS"])
-										$members=$aq1->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"]);
-									else $members=$aq->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"]);
+										$members=$aq1->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"],0,0,$is_fulltext);
+									else $members=$aq->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"],0,0,$is_fulltext);
 									$main=str_replace("!!pert_term!!",$members["select"],$main);
 									$main=str_replace("!!where_term!!",$members["where"],$main);
 								}
@@ -821,7 +896,7 @@ class search {
 			} elseif ($s[0]=="s") {
 				//instancier la classe de traitement du champ special
     			$type=$this->specialfields[$s[1]]["TYPE"];
-  		  		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+  		  		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -830,30 +905,30 @@ class search {
 						break;
 					}
     			}
+    			if ($last_main_table)
+    				$main="select * from ".$last_main_table;
     		}
-			if (!$last_main_table) {
-    			if ($prefixe) {
-    				$table=$prefixe."t_".$i."_".$search[$i];
-    				$requete="create temporary table ".$prefixe."t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
-    				mysql_query($requete,$dbh);
-					$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add idiot int(1)";
-					@mysql_query($requete);
-					$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add unique($field_keyName)";
-					mysql_query($requete);
-    			} else {
-    				$table="t_".$i."_".$search[$i];
-	 				$requete="create temporary table t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
-    				mysql_query($requete,$dbh);
-					$requete="alter table t_".$i."_".$search[$i]." add idiot int(1)";
-					@mysql_query($requete);
-					$requete="alter table t_".$i."_".$search[$i]." add unique($field_keyName)";
-					mysql_query($requete);
-    			}
-			} else {
-				$table=$last_main_table;
+    		if ($prefixe) {
+    			$table=$prefixe."t_".$i."_".$search[$i];
+    			$requete="create temporary table ".$prefixe."t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
+    			mysql_query($requete,$dbh);
+				$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add idiot int(1)";
+				@mysql_query($requete);
+				$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add unique($field_keyName)";
+				mysql_query($requete);
+    		} else {
+    			$table="t_".$i."_".$search[$i];
+ 				$requete="create temporary table t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
+    			mysql_query($requete,$dbh);
+				$requete="alter table t_".$i."_".$search[$i]." add idiot int(1)";
+				@mysql_query($requete);
+				$requete="alter table t_".$i."_".$search[$i]." add unique($field_keyName)";
+				mysql_query($requete);
+    		}
+			if ($last_main_table) { 
+				$requete="drop table ".$last_main_table;
+				mysql_query($requete);
 			}
-			//$requete="drop table ".$last_main_table;
-			//mysql_query($requete);
 			if ($prefixe) {
 				$requete="create temporary table ".$prefixe."t".$i." ENGINE=MyISAM ";
 			} else {
@@ -868,7 +943,7 @@ class search {
 				case "or":
 					//Si la table précédente est vide, c'est comme au premier jour !
 					$requete_c="select count(*) from ".$last_table;
-					if (!mysql_result(mysql_query($requete_c),0,0)) {
+					if (!@mysql_result(mysql_query($requete_c),0,0)) {
 						$isfirst_criteria=true;
 					} else {
 						$requete.="select * from ".$table;
@@ -1078,15 +1153,13 @@ class search {
     						if(is_numeric($field[$j])){
 								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
 									case "categorie":
-										$categ=new categories($field[$j],$lang);
-										$field[$j] = $categ->libelle_categorie;
+										$field[$j] = categories::getlibelle($field[$j],$lang);
 										break;
 									case "auteur":
-										$aut=new auteur($field[$j],$lang);
-										if($aut->author_rejete) $field[$j] = $aut->author_name.', '.$aut->author_rejete;
-										else $field[$j] = $aut->author_name;
-										if($aut->author_date) $field[$j] .= " ($aut->author_date)";
-										$field[$j] = $aut->name.", ".$aut->rejete;
+										$aut=new auteur($field[$j]);
+										if($aut->rejete) $field[$j] = $aut->name.', '.$aut->rejete;
+										else $field[$j] = $aut->name;
+										if($aut->date) $field[$j] .= " ($aut->author_date)";
 										break;
 									case "editeur":
 										$ed = new editeur($field[$j]);
@@ -1198,7 +1271,7 @@ class search {
     			//appel de la fonction make_human_query de la classe du champ special
     			//Recherche du type
     			$type=$this->specialfields[$s[1]]["TYPE"];
-    			for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    			for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -1385,7 +1458,7 @@ class search {
     			//appel de la fonction make_unimarc_query de la classe du champ special
     			//Recherche du type
     			$type=$this->specialfields[$s[1]]["TYPE"];
-    			for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    			for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -1450,7 +1523,7 @@ class search {
     		} elseif($s[0]=="s") {
     			$champ=$this->specialfields[$s[1]]["TITLE"];
     			$type=$this->specialfields[$s[1]]["TYPE"];
-		 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+		 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						global $include_path;
@@ -1522,7 +1595,7 @@ class search {
     			$recherche_externe=false;
     			$champ=$this->specialfields[$s[1]]["TITLE"];
 		 		$type=$this->specialfields[$s[1]]["TYPE"];
-		 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+		 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						global $include_path;
@@ -1780,7 +1853,7 @@ class search {
     		} elseif($s[0]=="s") {
     			$champ=$this->specialfields[$s[1]]["TITLE"];
     			$type=$this->specialfields[$s[1]]["TYPE"];
-		 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+		 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						global $include_path;
@@ -2155,7 +2228,7 @@ class search {
     			} elseif ($f[0]=="s") {
 					//appel de la fonction get_input_box de la classe du champ special
 					$type=$this->specialfields[$f[1]]["TYPE"];
-   			 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+   			 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 						if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 							$sf=$this->specialfields[$f[1]];
 							require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -2439,6 +2512,9 @@ class search {
 										$q[$k]["KEEP_EMPTY_WORDS"][$z]=1;
 										$q[$k]["KEEP_EMPTY_WORDS_FOR_CHECK"]=1;
 									}
+									if ($pquery["BOOLEAN"][$z]["FULLTEXT"][0]["value"]=="yes") {
+										$q[$k]["FULLTEXT"][$z]=1;
+									}
 								}
 							} else {
 								$q[$k]["TABLE"]=$pquery["TABLE"][0]["value"];
@@ -2449,11 +2525,17 @@ class search {
 									$q[$k]["KEEP_EMPTY_WORDS"]=1;
 									$q[$k]["KEEP_EMPTY_WORDS_FOR_CHECK"]=1;
 								}
+								if ($pquery["FULLTEXT"][0]["value"]=="yes") {
+									$q[$k]["FULLTEXT"]=1;
+								}
 							}
 						} else $q[$k]["BOOLEAN"]=false;
 						if ($pquery["ISBNSEARCH"]=="yes") {
 							$q[$k]["ISBN"]=true;
 						} else $q[$k]["ISBN"]=false;
+						if ($pquery["DETECTDATE"]) {
+							$q[$k]["DETECTDATE"]=$pquery["DETECTDATE"];
+						} else $q[$k]["DETECTDATE"]=false;
 						$q[$k]["MAIN"]=$pquery["MAIN"][0]["value"];
 						$q[$k]["MULTIPLE_TERM"]=$pquery["MULTIPLETERM"][0]["value"];
 						$q[$k]["MULTIPLE_OPERATOR"]=$pquery["MULTIPLEOPERATOR"][0]["value"];
@@ -2507,6 +2589,9 @@ class search {
 					if ($ff["QUERY"][$j]["ISBNSEARCH"]=="yes") {
 						$q[0]["ISBN"]=true;
 					} else $q[0]["ISBN"]=false;
+					if ($ff["QUERY"][$j]["DETECTDATE"]) {
+						$q[0]["DETECTDATE"]=$ff["QUERY"][$j]["DETECTDATE"];
+					} else $q[0]["DETECTDATE"]=false;
 					$q[0]["MAIN"]=$ff["QUERY"][$j]["MAIN"][0]["value"];
 					$q[0]["MULTIPLE_TERM"]=$ff["QUERY"][$j]["MULTIPLETERM"][0]["value"];
 					$q[0]["MULTIPLE_OPERATOR"]=$ff["QUERY"][$j]["MULTIPLEOPERATOR"][0]["value"];
@@ -2911,7 +2996,7 @@ class search {
     		} elseif($s[0]=="s") {
     			$champ=$this->specialfields[$s[1]]["TITLE"];
     			$type=$this->specialfields[$s[1]]["TYPE"];
-		 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+		 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						global $include_path;
@@ -3017,5 +3102,77 @@ class search {
     	}  	
     }
 	
+function destroy_global_env(){
+    	global $search;
+    	for ($i=0; $i<count($search); $i++) {
+    		$op="op_".$i."_".$search[$i];
+    		$field_="field_".$i."_".$search[$i];
+    		$inter="inter_".$i."_".$search[$i];
+    		$fieldvar="fieldvar_".$i."_".$search[$i];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		unset($GLOBALS[$op]);
+    		unset($GLOBALS[$field_]);
+    		unset($GLOBALS[$inter]);
+    		unset($GLOBALS[$fieldvar]);
+    	}
+    	 unset($search);
+	}
+	
+	function reduct_search() {
+		global $search;
+		$tt=array();
+		$it=0;
+		for ($i=0; $i<count($search); $i++) {
+  		  	$op="op_".$i."_".$search[$i];
+   	 		global $$op;
+    		$field_="field_".$i."_".$search[$i];
+    		global $$field_;
+    		$field=$$field_;
+    		if (((string)$field[0]!="")||($this->op_empty[$$op])) {
+    			$tt[$it]=$i;
+    			$it++;
+    		}
+		}
+		
+		//Décalage des critères
+    	//1) copie des critères valides
+    	for ($i=0; $i<count($tt); $i++) {
+    		$it=$tt[$i];
+    		$op="op_".$it."_".$search[$it];
+    		$field_="field_".$it."_".$search[$it];
+    		$fieldvar="fieldvar_".$it."_".$search[$it];
+    		$inter="inter_".$it."_".$search[$it];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		$fieldt[$i]["op"]=$$op;
+    		$fieldt[$i]["field"]=$$field_;
+    		$fieldt[$i]["fieldvar"]=$$fieldvar;
+    		$fieldt[$i]["inter"]=$$inter;
+    		$fieldt[$i]["search"]=$search[$it];
+    	}
+    	//On nettoie et on recontruit
+    	$this->destroy_global_env();
+    	$search=array();
+    	for ($i=0; $i<count($tt); $i++) {
+    		$search[$i]=$fieldt[$i]["search"];
+    		$op="op_".$i."_".$search[$i];
+    		$field_="field_".$i."_".$search[$i];
+    		$fieldvar_="fieldvar_".$i."_".$search[$i];
+    		$inter="inter_".$i."_".$search[$i];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		$$op=$fieldt[$i]["op"];
+    		$$field_=$fieldt[$i]["field"];
+    		$$fieldvar=$fieldt[$i]["fieldvar"];
+    		$$inter=$fieldt[$i]["inter"];
+    	}
+	}
 }
 ?>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: comptes.class.php,v 1.8 2007-03-10 09:25:48 touraine37 Exp $
+// $Id: comptes.class.php,v 1.8.10.1 2011-09-15 21:12:54 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -254,16 +254,18 @@ class comptes {
     }
     
     function format($f) {
-    	global $pmb_gestion_devise;
+    	global $pmb_gestion_devise, $pmb_precision;
+    	if (!isset($pmb_precision)) $pmb_precision=2;
     	$neg="<span class='erreur'>%s %s</span>";
 		$pos="%s %s";
-    	return sprintf($f<0?$neg:$pos,sprintf("%01.2f",$f),$pmb_gestion_devise);
+    	return sprintf($f<0?$neg:$pos,sprintf('%01.'.$pmb_precision.'f',$f),$pmb_gestion_devise);
     }
     
     function format_simple($f) {
-    	global $pmb_gestion_devise;
- 		$pos="%s %s";
-    	return sprintf($pos,sprintf("%01.2f",$f),$pmb_gestion_devise);
+    	global $pmb_gestion_devise,$pmb_precision;
+    	if (!isset($pmb_precision)) $pmb_precision=2;
+    	$pos="%s %s";
+    	return sprintf($pos,sprintf('%01.'.$pmb_precision.'f',$f),$pmb_gestion_devise);
     }
     
     function get_typ_compte_lib($id_typ_compte) {

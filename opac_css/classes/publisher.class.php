@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: publisher.class.php,v 1.18 2010-08-17 13:21:26 mbertin Exp $
+// $Id: publisher.class.php,v 1.18.2.1 2011-09-23 09:48:29 ngantier Exp $
 
 // définition de la classe de gestion des 'editeurs'
 
@@ -178,7 +178,7 @@ class publisher {
 					$remplacement .= "<li><a href='index.php?lvl=coll_see&id=".$obj->collection_id."'>".$obj->collection_name."</a></li>\n";
 				}
 				mysql_free_result($result);
-				$remplacement .= "</ul>\n";
+				$remplacement .= "</ul><div class='row'></div>\n";
 			} else {
 				$remplacement = "";
 			}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: etagere_see.inc.php,v 1.28 2009-07-02 13:50:18 mhalm Exp $
+// $Id: etagere_see.inc.php,v 1.29 2011-02-02 09:02:20 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -13,7 +13,7 @@ print "<div id='aut_details'>\n";
 if ($id) {
 	//Récupération des infos de l'étagère
 	$id+=0;
-	$requete="select idetagere,name,comment from etagere where idetagere=$id";
+	$requete="select idetagere,name,comment,id_tri from etagere where idetagere=$id";
 	$resultat=mysql_query($requete);
 	$r=mysql_fetch_object($resultat);
 	
@@ -72,25 +72,30 @@ if ($id) {
 		if ($opac_notices_depliable) print $begin_result_liste;
 				
 		//gestion du tri
-		if (isset($_GET["sort"])) {	
-			$_SESSION["last_sortnotices"]=$_GET["sort"];
-		}
-		if ($nbr_lignes>$opac_nb_max_tri) {
-			$_SESSION["last_sortnotices"]="";
-			print "&nbsp;";
-		} else {
-			$pos=strpos($_SERVER['REQUEST_URI'],"?");
-			$pos1=strpos($_SERVER['REQUEST_URI'],"get");
-			if ($pos1==0) $pos1=strlen($_SERVER['REQUEST_URI']);
-			else $pos1=$pos1-3;
-			$para=urlencode(substr($_SERVER['REQUEST_URI'],$pos+1,$pos1-$pos+1));
-			$affich_tris_result_liste=str_replace("!!page_en_cours!!",$para,$affich_tris_result_liste); 
-			print $affich_tris_result_liste;
-			if ($_SESSION["last_sortnotices"]!="") {
-				$sort = new sort('notices','session');
-				print " ".$msg['tri_par']." ".$sort->descriptionTriParId($_SESSION["last_sortnotices"])."&nbsp;"; 
+		if($r->id_tri){
+			$_SESSION["last_sortnotices"]=$r->id_tri;
+			$sort = new sort('notices','base');
+		}else{
+			if (isset($_GET["sort"])) {	
+				$_SESSION["last_sortnotices"]=$_GET["sort"];
 			}
-		} 
+			if ($nbr_lignes>$opac_nb_max_tri) {
+				$_SESSION["last_sortnotices"]="";
+				print "&nbsp;";
+			} else {
+				$pos=strpos($_SERVER['REQUEST_URI'],"?");
+				$pos1=strpos($_SERVER['REQUEST_URI'],"get");
+				if ($pos1==0) $pos1=strlen($_SERVER['REQUEST_URI']);
+				else $pos1=$pos1-3;
+				$para=urlencode(substr($_SERVER['REQUEST_URI'],$pos+1,$pos1-$pos+1));
+				$affich_tris_result_liste=str_replace("!!page_en_cours!!",$para,$affich_tris_result_liste); 
+				print $affich_tris_result_liste;
+				if ($_SESSION["last_sortnotices"]!="") {
+					if(!$sort) $sort = new sort('notices','session');
+					print " ".$msg['tri_par']." ".$sort->descriptionTriParId($_SESSION["last_sortnotices"])."&nbsp;"; 
+				} 
+			}
+		}
 		//fin gestion du tri
 		
 		print $add_cart_link;

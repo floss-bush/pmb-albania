@@ -2,7 +2,7 @@
 // +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la réutilisation du code est cadrée            |
 // +--------------------------------------------------------------------------+
-// $Id: print.php,v 1.28 2010-08-11 10:08:23 ngantier Exp $
+// $Id: print.php,v 1.28.2.4 2011-07-21 08:51:35 gueluneau Exp $
 
 //Impression
 
@@ -116,9 +116,8 @@ if ($action_print=="print") {
 		$_SESSION["PRINT"]["permalink"]=$permalink;
 		$_SESSION["PRINT"]["header"]=$header;
 		$_SESSION["PRINT"]["notice_tpl"]=$notice_tpl;
-	//	if ($sort_id)
-			//$_SESSION["PRINT"]["sort_id"]=$sort_id;
-			$_SESSION["PRINT"]["sort_id"]=$_SESSION['tri'];
+		if ($sort_id) $_SESSION["PRINT"]["sort_id"]=$sort_id;
+		else $_SESSION["PRINT"]["sort_id"]=$_SESSION['tri'];
 		echo "<script>document.location='./print.php'</script>";
 	} elseif ($notice_id) {
 		$_SESSION["PRINT"]["short"]=$short;
@@ -136,10 +135,9 @@ if ($action_print=="print") {
 		echo "<script>alert(\"".$msg["print_no_search"]."\"); self.close();</script>";
 	}
 }
-
+$use_opac_url_base=1;
 $prefix_url_image=$opac_url_base;
-
-
+$no_aff_doc_num_image=1;
 
 if (($action_print=="")&&($_SESSION["PRINT"])) {
 
@@ -158,18 +156,24 @@ if (($action_print=="")&&($_SESSION["PRINT"])) {
 				$requete="select notice_id from $table";
 				break;
 			case "cart":
-				$requete="select object_id as notice_id from caddie_content where caddie_id=".$idcaddie;
+				$requete="select object_id as notice_id from caddie_content join notices where caddie_id=".$idcaddie." and object_id=notice_id order by index_sew";
 				break;
 		}
 	}
 	if ($environement["pager"]) {
-		$limit="limit ".($nb_per_page_search*($environement["PAGE"]-1)).",$nb_per_page_search";
-		$requete.=" $limit";
+		$start= $nb_per_page_search*($environement["PAGE"]-1);
+		$nbLimit = $nb_per_page_search;
+		$limit="limit ".$start.",$nb_per_page_search";
+	}else{
+		$start = 0;
+		$nbLimit = -1;
 	}
 	
 	if ($environement["sort_id"]) {
 		$sort = new sort('notices','base');
-		$requete = $sort->appliquer_tri($environement["sort_id"] , $requete, "notice_id", 0, -1);
+		$requete = $sort->appliquer_tri($environement["sort_id"] , $requete, "notice_id", $start, $nbLimit);
+	}else{
+		$requete.=" $limit";
 	}
 	$resultat=@mysql_query($requete);
 
@@ -232,6 +236,7 @@ if (($action_print=="")&&($_SESSION["PRINT"])) {
 			$output_final.="<hr />";
 		}	
 	}
+	if ($charset!='utf-8') $output_final=cp1252Toiso88591($output_final);
 	switch($environement['output']) {
 		
 		case 'email':

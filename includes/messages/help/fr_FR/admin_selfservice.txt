@@ -1,2 +1,2 @@
-<h1>Gestion de la borne de prêt</h1>
-<p>Permet de gérer le comportement d'une borne de prêt et de définir les messages à afficher selon ces comportements. </p>
+<h1>Gestion de la borne de pr&ecirc;t</h1>
+<p>Permet de g&eacute;rer le comportement d'une borne de pr&ecirc;t et de d&eacute;finir les messages &agrave; afficher selon ce comportement. </p>

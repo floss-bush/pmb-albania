@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: user_update.inc.php,v 1.28 2010-01-21 16:22:36 ngantier Exp $
+// $Id: user_update.inc.php,v 1.28.2.2 2011-09-13 15:56:27 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -15,7 +15,7 @@ if($form_admin) $droits = $droits + ADMINISTRATION_AUTH;
 if($form_catal) $droits = $droits + CATALOGAGE_AUTH;
 if($form_circ) 	$droits = $droits + CIRCULATION_AUTH;
 if($form_auth) 	$droits = $droits + AUTORITES_AUTH;
-if($form_edit) 	$droits = $droits + EDIT_AUTH;
+if($form_edition) 	$droits = $droits + EDIT_AUTH;
 if($form_sauv) 	$droits = $droits + SAUV_AUTH;
 if($form_pref) 	$droits = $droits + PREF_AUTH;
 if($form_dsi) 	$droits = $droits + DSI_AUTH;
@@ -25,6 +25,7 @@ if($form_thesaurus)	$droits = $droits + THESAURUS_AUTH;
 if($form_transferts) $droits = $droits + TRANSFERTS_AUTH;
 if($form_extensions) $droits = $droits + EXTENSIONS_AUTH;
 if($form_demandes) $droits = $droits + DEMANDES_AUTH;
+if($form_fiches) $droits = $droits + FICHES_AUTH;
 
 // no duplication
 $requete = " SELECT count(1) FROM users WHERE (username='$form_login' AND userid!='$id' )  LIMIT 1 ";

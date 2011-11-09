@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_abonnements.tpl.php,v 1.14 2010-10-18 10:27:39 ngantier Exp $
+// $Id: abts_abonnements.tpl.php,v 1.14.2.1 2011-07-07 14:27:38 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -10,7 +10,7 @@ global $abonnement_view,$abonnement_list,$abonnement_form;
 
 $abonnement_view = "
 <div id='abts_abonnement!!id_abonnement!!' class='notice-parent'>
-	<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_abonnement!!id_abonnement!!Img' title='détail' border='0' onClick=\"expandBase('abts_abonnement!!id_abonnement!!', true); return false;\" hspace='3'>
+	<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_abonnement!!id_abonnement!!Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_abonnement!!id_abonnement!!', true); return false;\" hspace='3'>
 	<span class='notice-heada'>
     	<small>
     		<span  class='statutnot1'  style='margin-right: 3px;'>

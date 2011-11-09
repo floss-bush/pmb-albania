@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: vign_middle.php,v 1.6 2010-07-02 08:15:17 arenou Exp $
+// $Id: vign_middle.php,v 1.7 2011-01-28 15:09:35 arenou Exp $
 
 $base_path=".";
 require_once($base_path."/includes/init.inc.php");
@@ -32,9 +32,12 @@ require_once($base_path.'/includes/opac_version.inc.php');
 
 //Fonctions exemplaires numériques
 require_once($include_path."/explnum.inc.php");
+require_once($class_path."/upload_folder.class.php");
+//gestion des droits
+require_once($class_path."/acces.class.php");
 
 
-$resultat = mysql_query("SELECT explnum_id, explnum_mimetype, explnum_data, explnum_nom as nom, explnum_repertoire, explnum_path, explnum_nomfichier FROM explnum WHERE explnum_id = '$explnum_id' ", $dbh);
+$resultat = mysql_query("SELECT explnum_id,explnum_notice,explnum_bulletin , explnum_mimetype, explnum_data, explnum_nom as nom, explnum_repertoire, explnum_path, explnum_nomfichier FROM explnum WHERE explnum_id = '$explnum_id' ", $dbh);
 $nb_res = mysql_num_rows($resultat) ;
 
 if (!$nb_res) {
@@ -42,46 +45,58 @@ if (!$nb_res) {
 } 
 
 $ligne = mysql_fetch_object($resultat);
-if ($ligne->explnum_data) {
-	if($ligne->explnum_mimetype == 'application/pdf'){
-		$contenu_vignette = $ligne->explnum_data;
-		header('Content-type: application/pdf');
-		print $contenu_vignette;
-	} else $contenu_vignette=reduire_image_middle($ligne->explnum_data);
-	if ($contenu_vignette) {
-		header('Content-type: image/png');		
-		print $contenu_vignette;
-	} else {
-			$fp = fopen("./images/mimetype/unknown.gif" , "r" ) ;
-			$contenu_vignette = fread ($fp, filesize("./images/mimetype/unknown.gif"));
-			fclose ($fp) ;
-			header('Content-type: image/gif');
-			print $contenu_vignette ;
+
+if($ligne->explnum_bulletin != 0){
+	//si bulletin, les droits sont rattachés à la notice du pério...
+	$req = "select bulletin_notice from bulletins where bulletin_id =".$ligne->explnum_bulletin;
+	$res = mysql_query($req);
+	if(mysql_num_rows($res)){
+		$perio_id = mysql_result($res,0,0);
 	}
-} elseif($ligne->explnum_repertoire != 0){
-	$req="select repertoire_path from upload_repertoire where repertoire_id='".$ligne->explnum_repertoire."'";
-	$res=mysql_query($req,$dbh);
-	if(mysql_num_rows($res))
-		$rep_upload_path =mysql_result($res,0,0);
-	
-	if($ligne->explnum_mimetype == 'application/pdf'){
-		$fp = fopen($rep_upload_path.$ligne->explnum_nomfichier , "r" ) ;
-		$contenu_vignette = fread($fp, filesize($rep_upload_path.$ligne->explnum_nomfichier));
-		header('Content-type: application/pdf');
-		print $contenu_vignette;
-	}else{
-		$fp = fopen($rep_upload_path.$ligne->explnum_nomfichier, "r" ) ;
-		$contenu_vignette =fread($fp,filesize($rep_upload_path.$ligne->explnum_nomfichier));
-		fclose ($fp) ;
-		header('Content-type: image/gif');
-		print $contenu_vignette ;		
-	}
-} else{
-	$fp = fopen("./images/mimetype/unknown.gif" , "r" ) ;
-	$contenu_vignette = fread ($fp, filesize("./images/mimetype/unknown.gif"));
-	fclose ($fp) ;
-	header('Content-type: image/gif');
-	print $contenu_vignette ;
+}else $perio_id = 0;
+//droits d'acces emprunteur/notice
+if ($gestion_acces_active==1 && $gestion_acces_empr_notice==1) {
+	$ac= new acces();
+	$dom_2= $ac->setDomain(2);
+	$rights= $dom_2->getRights($_SESSION['id_empr_session'],($perio_id != 0 ? $perio_id : $ligne->explnum_notice));
 }
 
+//Accessibilité des documents numériques aux abonnés en opac
+if ($ligne->explnum_notice) {
+	$req_restriction_abo = "SELECT explnum_visible_opac, explnum_visible_opac_abon FROM notices,notice_statut WHERE notice_id='".$ligne->explnum_notice."' AND statut=id_notice_statut ";
+} else {
+	$req_restriction_abo = "SELECT explnum_visible_opac, explnum_visible_opac_abon FROM bulletins,notices,notice_statut WHERE bulletin_id='".$ligne->explnum_bulletin."' and bulletin_notice=notice_id AND statut=id_notice_statut ";
+}
+$result=mysql_query($req_restriction_abo,$dbh) or die(mysql_error()." <br />".$req_restriction_abo);
+$expl_num=mysql_fetch_object($result);
+
+if( $rights & 16 || (is_null($dom_2) && $expl_num->explnum_visible_opac && (!$expl_num->explnum_visible_opac_abon || ($expl_num->explnum_visible_opac_abon && $_SESSION["user_code"])))){
+	if ($ligne->explnum_data) {
+			if($ligne->explnum_mimetype == 'application/pdf'){
+				$contenu_vignette = $ligne->explnum_data;
+				header('Content-type: application/pdf');
+			}else $contenu_vignette=reduire_image_middle($ligne->explnum_data);	
+			if ($contenu_vignette) {
+				header('Content-type: image/png');		
+			}else {
+				$contenu_vignette = file_get_contents("./images/mimetype/unknown.gif");
+				header('Content-type: image/gif');
+			}
+		} elseif($ligne->explnum_repertoire != 0){
+			$rep = new upload_folder($ligne->explnum_repertoire);
+			$filepath =  $rep->repertoire_path.$ligne->explnum_path.$ligne->explnum_nomfichier;
+			$filepath = str_replace("//","/",$filepath);
+			$contenu_vignette = file_get_contents($filepath);
+			if($ligne->explnum_mimetype == 'application/pdf'){
+				header('Content-type: application/pdf');
+			}else{
+				$contenu_vignette=reduire_image_middle($contenu_vignette);
+				header('Content-type: image/png');		
+			}
+		} else{
+			$contenu_vignette = file_get_contents("./images/mimetype/unknown.gif");
+			header('Content-type: image/gif');
+		}
+		print $contenu_vignette ;
+	}
 ?>

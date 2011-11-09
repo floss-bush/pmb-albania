@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.tpl.php,v 1.9 2008-03-20 15:58:27 ohennequin Exp $
+// $Id: sort.tpl.php,v 1.11 2011-03-15 08:29:56 arenou Exp $
 
 // les templates pour l'écran d'affichage de la liste des tris
 $show_tris_form="<body class='catalog'><div id='contenu-frame'>
@@ -34,12 +34,13 @@ $show_tris_form="<body class='catalog'><div id='contenu-frame'>
 						&nbsp;
 					</td>
 					<td valign='top'><SPAN class='right'>
-						<input type='button' class='bouton' name='".$msg['tri_inactif']."' value='".$msg['tri_inactif']."' onClick=\"parent.document.getElementById('history').style.display='none';parent.location.href='./recall.php?current=".$_SESSION["CURRENT"]."&t=NOTI'; return false;\">
+						<input type='button' class='bouton' name='".$msg['tri_inactif']."' value='".$msg['tri_inactif']."' onClick=\"!!callback!!\">
 						<input type='button' class='bouton' name='".$msg['definir_tri']."' value='".$msg['definir_tri']."' onClick=\"agitTri('modif','');\">
 					</SPAN></td>
 				</tr>
 			</table>
 			<input type='hidden' name='action_tri' value=''>
+			<input type='hidden' name='caller' value='!!caller!!'>
 			<input type='hidden' name='id_tri' value=''>
 			<input type='hidden' name='type_tri' value='!!sortname!!'>
 		</form>
@@ -60,6 +61,21 @@ $ligne_tableau_tris = "
 							</td>
 						</tr>
 ";
+$ligne_tableau_tris_etagere = "
+						<tr class='!!pair_impair!!' onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='!!pair_impair!!'\" style='cursor: pointer'>
+							<td width='90%' alt='".$msg['appliq_tri']."' title='".$msg['appliq_tri']."' onClick=\"parent.document.getElementById('history').style.display='none';parent.window.getSort('!!id_tri!!','!!descname_tri!!'); return false;\">
+									!!nom_tri!!
+							</td>
+							<td width='5%'>
+									<a href='#' onClick='agitTri(\"modif\",!!id_tri!!);'>
+									<img src='images/b_edit.png' alt='" . $msg['modif_tri'] . "' title='" . $msg['modif_tri'] . "' border=0></a>
+							</td>
+							<td width='5%'>
+									<a href='#' onClick='suppr(!!id_tri!!);'><img src='images/cross.png' alt='" . $msg['suppr_tri'] . "' title='" . $msg['suppr_tri'] . "'></a>
+							</td>
+						</tr>
+";
+
 
 
 
@@ -277,6 +293,7 @@ $show_sel_form="
 				</tr>
 			</table>
 			<input type='hidden' name='action_tri' value='affliste'>
+			<input type='hidden' name='caller' value='!!caller!!'>
 			<input type='hidden' name='id_tri' value='!!id_tri!!'>
 			<input type='hidden' name='type_tri' value='!!sortname!!'>
 		</form>

@@ -2,9 +2,8 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: index_includes.inc.php,v 1.25 2010-12-08 15:46:42 gueluneau Exp $
+// $Id: index_includes.inc.php,v 1.28.2.1 2011-05-12 14:42:27 gueluneau Exp $
 
-error_reporting(E_ALL);
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 require_once($base_path."/includes/init.inc.php");
@@ -52,10 +51,9 @@ require_once($base_path.'/classes/indexint.class.php');
 
 // classe d'affichage des tags
 require_once($base_path.'/classes/tags.class.php');
+
 require_once($base_path."/includes/marc_tables/".$lang."/empty_words");
-
 require_once($base_path."/includes/misc.inc.php");
-
 // pour l'affichage correct des notices
 require_once($base_path."/includes/templates/common.tpl.php");
 require_once($base_path."/includes/templates/notice.tpl.php");
@@ -189,6 +187,13 @@ require_once($base_path."/includes/templates/etagere.tpl.php");
 // RSS
 require_once($base_path."/includes/includes_rss.inc.php");
 
+//Enrichissement OPAC
+if($opac_notice_enrichment){
+	require_once($base_path."/classes/enrichment.class.php");
+		$enrichment = new enrichment();
+	$std_header = str_replace("!!enrichment_headers!!",$enrichment->getHeaders(),$std_header);
+}else $std_header = str_replace("!!enrichment_headers!!","",$std_header);
+
 if ($is_opac_included) {
 	$std_header = $inclus_header ;
 	$footer = $inclus_footer ;
@@ -206,6 +211,10 @@ $std_header= str_replace("!!liens_rss!!",genere_link_rss(),$std_header);
 // l'image $logo_rss_si_rss est calculée par genere_link_rss() en global
 $liens_bas = str_replace("<!-- rss -->",$logo_rss_si_rss,$liens_bas);
 
+if($opac_parse_html){
+	ob_start();
+}
+
 print $std_header;
 
 if ($time_expired) echo "<script>alert(\"".sprintf($msg["session_expired"],round($opac_duration_session_auth/60))."\");</script>";
@@ -218,8 +227,9 @@ if ((($opac_cart_allow)&&(!$opac_cart_only_for_subscriber))||(($opac_cart_allow)
 }
 
 $link_to_visionneuse = "
+<script>var oldAction;</script>
 <script type='text/javascript' src='$base_path/visionneuse/javascript/visionneuse.js'></script>
-<a href='#' onclick=\"open_visionneuse(sendToVisionneuse);return false;\">".$msg["result_to_phototeque"]."</a>";
+<a href='#' onclick=\"oldAction=document.form_values.action; open_visionneuse(sendToVisionneuse);return false;\">".$msg["result_to_phototeque"]."</a>";
 
 //cas général
 $sendToVisionneuseByPost ="
@@ -445,7 +455,7 @@ if ($opac_show_bandeaugauche==0) {
 		$loginform__ = genere_form_connexion_empr();
 	} else {
 		$loginform__.="<b>".$empr_prenom." ".$empr_nom."</b><br />\n";
-		$loginform__.="<a href=\"empr.php\">".$msg["empr_my_account"]."</a><br />
+		$loginform__.="<a href=\"empr.php\" id=\"empr_my_account\">".$msg["empr_my_account"]."</a><br />
 			<a href=\"index.php?logout=1\" id=\"empr_logout_lnk\">".$msg["empr_logout"]."</a>";
 	}
 	$loginform = str_replace("!!login_form!!",$loginform__,$loginform);
@@ -453,4 +463,9 @@ if ($opac_show_bandeaugauche==0) {
 } 
 
 mysql_close($dbh);
+if($opac_parse_html){
+	$htmltoparse = ob_get_contents();
+	ob_end_clean();
+	print parseHTML($htmltoparse);
+}
 ?>

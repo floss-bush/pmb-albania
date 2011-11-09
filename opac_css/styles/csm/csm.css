@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: csm.css,v 1.23 2010-12-21 15:43:36 trenon Exp $
+// $Id: csm.css,v 1.24.2.6 2011-09-06 14:34:06 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -11,6 +11,8 @@
 /*  attrbitus gï¿½nï¿½raux de la page                                             */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
+
+
 * {
 	margin:0;
 	padding:0;
@@ -398,40 +400,41 @@ div.category {
 #categories-container li:after  {
 	content: " - "; 
 }
-	
+
 #categories ul.search_tabs {
-	display:block;
-	width:100%;
-	margin:10px 0 30px 0;
-	list-style-type:none;
-	font-size:12px;
-}
-#categories ul.search_tabs li{	
-	float:left;
-}
-#categories ul.search_tabs li a{
-	float:left;
-	margin-top:2px;
-	padding:1px 15px;
-	height:10px;
-	background:#eee;
-	color:#555;
-	border:1px solid #aaa;
-	display:table;
-	margin-right:-1px; /* Pour ne pas doubler les bordures */
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-bottom: 20px;
+	padding-left: 0px;
+	list-style-type: none;
 }
 
-#categories ul.search_tabs #current{
-	border:1px solid #aaa;
-	background:#c3ceda url('images/fond_bleu.jpg') repeat-x;
-	float:left;
-	padding:2px 15px;
-	height:10px;
-	display:table;
-	margin-right:-1px; /* Pour ne pas doubler les bordures */
-	font-weight:bold;
-	color:#222;
-}          	
+#categories ul.search_tabs li {	
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-image: url("images/fond_brun.jpg");
+	background-color: #D6C28D;
+	background-repeat: repeat-x;
+}
+
+#categories ul.search_tabs li a {
+	background-image: url("images/puce_brun.jpg");
+    background-position: 0 2px;
+    background-repeat: no-repeat;
+    color: #71674B;
+    padding-left: 15px;
+    text-decoration: none;
+}
+
+#categories ul.search_tabs li#current {
+	background-color: #D6C28D;
+	background-image: url("images/fond_vert.jpg");
+	background-repeat: repeat-x;
+	color: #444444;
+}         	
 
 
 /* Mise en page des colonnes d'affichage des recherches 
@@ -447,13 +450,6 @@ div.category {
 	clear:both;
 	/*margin-left:18%;*/
 }
-
-.etageres { 
-	clear:both;	
-}
-
-#pageHeader 
-	{ }
 
 #bandeau {
 	float:left;
@@ -706,7 +702,7 @@ ul#onglets_isbd_public {
     list-style-type: none;
     padding-bottom: 24px;
     border-bottom: 1px solid #aaaaaa;
-    margin: 0;
+    clear: both;
     padding-left:2px;
 }
 
@@ -773,10 +769,9 @@ ul#onglets_isbd_public li.onglet_tags a {
 	background-image: url('images/fond_rouge_sub.jpg');
 	background-repeat:repeat-x;
 	background-position:bottom;
+	clear:both;	
 }
-#etagere { 
-	
-}
+
 #etageres h3{ 
 	background:white url('images/fond_rouge.jpg') no-repeat;
 	border:none;
@@ -1193,3 +1188,164 @@ ul.empr_subtabs li a{
 	margin-bottom: 5px;
 	margin-left: 5px;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		               Onglets de recherche  	     			 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+ 
+
+#search_onglet ul.search_tabs {
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-bottom: 20px;
+	padding-left: 0px;
+	list-style-type: none;
+}
+
+#search_onglet ul.search_tabs li {	
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-image: url("images/fond_brun.jpg");
+	background-color: #D6C28D;
+	background-repeat: repeat-x;
+}
+
+#search_onglet ul.search_tabs li a {
+	background-image: url("images/puce_brun.jpg");
+    background-position: 0 2px;
+    background-repeat: no-repeat;
+    color: #71674B;
+    padding-left: 15px;
+    text-decoration: none;
+}
+
+#search_onglet ul.search_tabs li.current {
+	background-color: #D6C28D;
+	background-image: url("images/fond_vert.jpg");
+	background-repeat: repeat-x;
+}
+
+#search_onglet ul.search_tabs li.current a {
+	background-image: none;
+    padding-left: 0px;
+	color: #444444;
+}
+
+#resultatrech_see {
+	margin-bottom: 10px;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-top: 20px;
+}
+
+#perio_a2z h3 {
+	background-image: url("images/puce_h3.jpg");
+    background-position: 0 -1px;
+    background-repeat: no-repeat;
+    border-bottom: 3px dotted #CCCCCC;
+    border-top: 3px dotted #CCCCCC;
+    color: #FDA700;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    padding: 3px 2%;
+    width: 96%;
+}
+
+#perio_a2z #perio_a2z_search {
+	margin-top: 10px;
+}
+
+#perio_a2z ul#onglets_isbd_public {
+	margin-top: 10px;
+}
+   
+table.a2z_contens {
+	margin-top: 10px; 
+}
+
+table.a2z_contens td {
+	vertical-align: top;
+}
+
+table.a2z_perio_list {
+	width: 220px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio h3 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#form_search_bull form {
+	margin-top: 10px;
+}
+
+#form_search_bull form table td {
+	vertical-align: middle;
+}
+

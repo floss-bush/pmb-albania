@@ -1,7 +1,7 @@
 <br />
 <b>ATTENTION, cette mise &agrave; jour peut-&ecirc;tre longue et risqu&eacute;e...
 <br />Il est imp&eacute;ratif de faire une sauvegarde avant tout lancement.</b>
-<br /><br />Ignorez les messages d'erreurs qui pourraient apparaître, ils sont sans aucun doute dus &agrave; votre version de base de donn&eacute;es qui n'est pas &agrave; jour.
+<br /><br />Ignorez les messages d'erreurs qui pourraient appara&icirc;tre, ils sont sans aucun doute dus &agrave; votre version de base de donn&eacute;es qui n'est pas &agrave; jour.
 <br />Si des messages persistent &agrave; la fin de la mise &agrave; jour, il faudra regarder de pr&egrave;s la cause de ceux-ci.
 <br /><br /><a href="alter.php?categ=alter&sub=&action=lancement">Cliquer ici pour commencer la mise &agrave; jour.</a>
 			

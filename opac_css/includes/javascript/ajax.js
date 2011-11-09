@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax.js,v 1.11 2010-12-23 09:13:00 arenou Exp $
+// $Id: ajax.js,v 1.12 2011-03-14 09:46:56 arenou Exp $
 
 requete=new Array();
 line=new Array();
@@ -97,6 +97,8 @@ function ajax_pack_element(inputs) {
 				input.attachEvent("onpress",function() { ajax_update_info(window.event,'press',id); });
 				input.attachEvent("onblur",function() { ajax_hide_list(window.event); });
 			}
+			//on retire l'autocomplete du navigateur...
+			input.setAttribute("autocomplete","off");
 		}
 	}
 	requete[id]="";

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2005 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categories.class.php,v 1.24 2010-10-12 12:33:20 ngantier Exp $
+// $Id: categories.class.php,v 1.24.2.1 2011-05-12 09:21:51 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -340,6 +340,26 @@ class categories{
 			notice::majNoticesGlobalIndex($notice_id);
 			notice::majNoticesMotsGlobalIndex($notice_id,'subject');
 	   	}
+	}
+	
+	function getlibelle($num_noeud=0, $langue=""){
+		global $dbh;
+		$lib="";
+		if(!$num_noeud) {
+			$num_noeud = $this->num_noeud;
+			$langue = $this->langue;
+		}
+		$thes = thesaurus::getByEltId($num_noeud);
+		if (categories::exists($num_noeud, $langue)) $lg=$langue; 
+		else $lg=$thes->langue_defaut; 
+		$q = "select libelle_categorie from categories where num_noeud = '".$num_noeud."' ";
+		$q.= "and langue = '".$lg."' limit 1";
+		$r = mysql_query($q, $dbh);
+		if (mysql_num_rows($r))	{
+			$lib= mysql_result($r, 0, 0); 
+		}
+		
+		return $lib;
 	}
 
 }

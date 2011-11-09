@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bannette_func.inc.php,v 1.25 2009-11-10 14:54:42 kantin Exp $
+// $Id: bannette_func.inc.php,v 1.25.4.1 2011-06-14 13:55:40 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -157,11 +157,11 @@ function tableau_gerer_bannette($priv_pub="PUB") {
 	
 	//Récupération des infos des bannettes
 	if ($priv_pub=="PUB") {
-		$requete = "select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs  from bannettes join bannette_abon on num_bannette=id_bannette where num_empr='$id_empr' and proprio_bannette=0 ";
-		$requete .=" union select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs from bannettes where categorie_lecteurs ='$empr_categ' and proprio_bannette=0 ";
+		$requete = "select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs, periodicite  from bannettes join bannette_abon on num_bannette=id_bannette where num_empr='$id_empr' and proprio_bannette=0 ";
+		$requete .=" union select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs, periodicite from bannettes where categorie_lecteurs ='$empr_categ' and proprio_bannette=0 ";
 		$requete .=" order by comment_public ";
 	} else {
-		$requete .="select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs from bannettes where proprio_bannette='$id_empr' ";
+		$requete .="select distinct id_bannette,comment_public, date_format(date_last_envoi, '".$msg["format_date"]."') as aff_date_last_envoi, categorie_lecteurs, periodicite from bannettes where proprio_bannette='$id_empr' ";
 		$requete .=" order by comment_public ";
 	}
 
@@ -181,7 +181,8 @@ function tableau_gerer_bannette($priv_pub="PUB") {
 				'aff_date_last_envoi' => $r->aff_date_last_envoi,
 				'nb_contenu' => $nb->compte,
 				'abonn' => $abonn->abonn,
-				'categorie_lecteurs' => $r->categorie_lecteurs  
+				'categorie_lecteurs' => $r->categorie_lecteurs,
+				'periodicite' => $r->periodicite  
 				);
 	}
 	return $tableau_bannette ; 
@@ -219,6 +220,7 @@ function gerer_abon_bannette( $priv_pub="PUB", $link_to_bannette="", $htmldiv_id
 							<th align='left' valign='bottom'>".$msg[dsi_bannette_gerer_nom_liste]."</th>
 							<th align='center' valign='bottom'>".$msg[dsi_bannette_gerer_date]."</th>
 							<th align='center' valign='bottom'>".$msg[dsi_bannette_gerer_nb_notices]."</th>
+							<th align='center' valign='bottom'>".$msg[dsi_bannette_gerer_periodicite]."</th>
 							</tr>";
 	for ($i=0; $i<sizeof($tableau_bannettes); $i++ ) {
 		$id_bannette=$tableau_bannettes[$i]['id_bannette'] ;
@@ -259,6 +261,8 @@ function gerer_abon_bannette( $priv_pub="PUB", $link_to_bannette="", $htmldiv_id
 		$retour_aff.= htmlentities($aff_date_last_envoi,ENT_QUOTES, $charset);
 		$retour_aff.="\n</td><td align='center' valign='top'>";
 		$retour_aff.= htmlentities($tableau_bannettes[$i]['nb_contenu'],ENT_QUOTES, $charset);
+		$retour_aff.="\n</td><td align='center' valign='top'>";
+		$retour_aff.= htmlentities($tableau_bannettes[$i]['periodicite'],ENT_QUOTES, $charset);
 		$retour_aff.= "</td></tr>";
 	}
 	

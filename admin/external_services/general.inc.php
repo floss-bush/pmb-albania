@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: general.inc.php,v 1.2 2010-01-30 14:34:18 erwanmartin Exp $
+// $Id: general.inc.php,v 1.2.2.2 2011-09-07 07:38:26 jpermanne Exp $
 
 //Administration générale des droits des services externes
 
@@ -44,7 +44,7 @@ function users_list($group, $method, $users, $parent_users) {
 }
 
 $table_rights="<table style='width:100%'>
-<thead><th colspan='3'>Groupe</th><th colspan='3'>Utilisateurs autorisés</th></thead>
+<thead><th colspan='3'>Groupe</th><th colspan='3'>".htmlentities($msg["external_services_general_utilisateurs_autorises"],ENT_QUOTES,$charset)."</th></thead>
 ";
 
 //pour chaque groupe
@@ -62,7 +62,7 @@ for ($i=0; $i<count($group_list); $i++) {
 	
 	</tr>";
 	
-	$table_rights.= "<thead><td></td><th colspan='2'>Méthode</th><th colspan='3'>Utilisateurs autorisés</th></thead>";
+	$table_rights.= "<thead><td></td><th colspan='2'>".htmlentities($msg["external_services_general_methode"],ENT_QUOTES,$charset)."</th><th colspan='3'>".htmlentities($msg["external_services_general_utilisateurs_autorises"],ENT_QUOTES,$charset)."</th></thead>";
 	
 	//Pour chaque méthode
 	for ($j=0; $j<count($group["methods"]); $j++) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!-- Messages localisés en anglais
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: en_UK.xml,v 1.1.2.2 2011-05-12 09:06:07 gueluneau Exp $ -->
+<messages>
+	<entry code="close">Close</entry>
+	<entry code="fullscreen">Fullscreen</entry>
+	<entry code="normal">Normal</entry>
+</messages>

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: remote_procs.inc.php,v 1.4 2010-09-12 17:04:29 erwanmartin Exp $
+// $Id: remote_procs.inc.php,v 1.4.2.2 2011-09-06 09:46:12 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -56,16 +56,16 @@ function show_remote_procs($type) {
 					if ($parity % 2) {$pair_impair = "even"; } else {$pair_impair = "odd";}
 					$parity += 1;
 					
-					$tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" onmousedown=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=view_remote&id=$aprocedure->id';\" ";
+					$tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" onmousedown=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=view_remote&id=$aprocedure->id&remote_type=$type';\" ";
 				        $buf_contenu.="\n<tr class='$pair_impair' $tr_javascript style='cursor: pointer'>
 							<td width='80'>
-								".($testable_types[$type] ? "<input class='bouton' type='button' value=' ".$msg[procs_options_tester_requete]." ' onClick=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=execute_remote&id=$aprocedure->id'\" />" : "")."
+								".($testable_types[$type] ? "<input class='bouton' type='button' value=' ".$msg[procs_options_tester_requete]." ' onClick=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=execute_remote&id=$aprocedure->id&remote_type=$type'\" />" : "")."
 								</td>
 							<td>
 								".($aprocedure->untested ? "[<i>".$msg["remote_procedures_procedure_non_validated"]."</i>]&nbsp;&nbsp;" : '')."<strong>$aprocedure->name</strong><br/>
 								<small>$aprocedure->comment&nbsp;</small>
 								</td>";
-					$buf_contenu.="<td><input class='bouton' type='button' value=\"".$msg[remote_procedures_import]."\" onClick=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=import_remote&id=$aprocedure->id'\" /></td>
+					$buf_contenu.="<td><input class='bouton' type='button' value=\"".$msg[remote_procedures_import]."\" onClick=\"document.location='./catalog.php?categ=caddie&sub=gestion&quoi=remote_procs&action=import_remote&id=$aprocedure->id&remote_type=$type'\" /></td>
 								</tr>";
 								
 								
@@ -97,12 +97,13 @@ function display_remote_proc($id) {
 	global $cart_proc_view_remote;
 	global $type_list;
 	global $msg;
+	global $remote_type;
 	
 	$pmb_procedure_server_credentials_exploded = explode("\n", $pmb_procedure_server_credentials);
 	$the_procedure = 0;
 	if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 		$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-		$procedure = $aremote_procedure_client->get_proc($id);
+		$procedure = $aremote_procedure_client->get_proc($id,$remote_type);
 		if ($procedure["error_message"]) {
 			$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 			print $buf_contenu;
@@ -127,7 +128,7 @@ function display_remote_proc($id) {
 	}
 	
 	$cart_proc_view_remote = str_replace('!!id!!', $id, $cart_proc_view_remote);
-	$cart_proc_view_remote = str_replace('!!form_title!!', "Détails d'une procédure distante", $cart_proc_view_remote);
+	$cart_proc_view_remote = str_replace('!!form_title!!', htmlentities($msg["remote_procedures_details"],ENT_QUOTES, $charset), $cart_proc_view_remote);
 
 	$additional_information = $the_procedure->untested ? $msg["remote_procedures_procedure_non_validated_additional_information"] : "";
 	$cart_proc_view_remote = str_replace('!!additional_information!!', htmlentities($additional_information,ENT_QUOTES, $charset), $cart_proc_view_remote);
@@ -216,7 +217,7 @@ switch($action) {
 				$the_procedure = 0;
 				if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 					$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-					$procedure = $aremote_procedure_client->get_proc($id);
+					$procedure = $aremote_procedure_client->get_proc($id,$remote_type);
 					if ($procedure["error_message"]) {
 						$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 						print $buf_contenu;
@@ -261,7 +262,7 @@ switch($action) {
 				$the_procedure = 0;
 				if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 					$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-					$procedure = $aremote_procedure_client->get_proc($id);
+					$procedure = $aremote_procedure_client->get_proc($id,$remote_type);
 					if ($procedure["error_message"]) {
 						$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 						print $buf_contenu;
@@ -344,7 +345,7 @@ switch($action) {
 		$the_procedure = 0;
 		if ($pmb_procedure_server_address && (count($pmb_procedure_server_credentials_exploded) == 2)) {
 			$aremote_procedure_client = new remote_procedure_client($pmb_procedure_server_address, trim($pmb_procedure_server_credentials_exploded[0]), trim($pmb_procedure_server_credentials_exploded[1]));
-			$procedure = $aremote_procedure_client->get_proc($id);
+			$procedure = $aremote_procedure_client->get_proc($id,$remote_type);
 			if ($procedure["error_message"]) {
 				$buf_contenu=htmlentities($msg["remote_procedures_error_server"], ENT_QUOTES, $charset).":<br><i>".$procedure["error_message"]."</i>";
 				print $buf_contenu;

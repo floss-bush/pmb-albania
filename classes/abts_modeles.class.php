@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: abts_modeles.class.php,v 1.31 2010-11-10 10:03:38 ngantier Exp $
+// $Id: abts_modeles.class.php,v 1.31.2.2 2011-07-07 16:02:27 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -199,7 +199,7 @@ class abts_modele {
 			$this->tom_cycle = 0;
 			$this->tom_combien = 1;
 			$this->tom_depart = 1;
-			$this->format_aff = "N°\$NUM;";
+			$this->format_aff = sprintf($msg['abts_no'],"\$NUM;");
 			$this->format_periode = "#date(\$DATE;);";
 		} else {
 			$r=str_replace('!!page_title!!', $msg[4000].$msg[1003].$msg["abts_modeles_modify_title"], $r);
@@ -579,7 +579,7 @@ ENDOFTEXT;
 			$calend.="
 			<div class='row'>&nbsp;</div>
 			<div id='abts_year_$year' class='notice-parent'>
-				<img src='./images/minus.gif' class='img_plus' name='imEx' id='abts_year_$year"."Img' title='détail' border='0' onClick=\"expandBase('abts_year_$year', true); return false;\" hspace='3'>
+				<img src='./images/minus.gif' class='img_plus' name='imEx' id='abts_year_$year"."Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_year_$year', true); return false;\" hspace='3'>
 				<span class='notice-heada'>
 					$year
 	    		</span>
@@ -604,7 +604,7 @@ ENDOFTEXT;
 					$calend.="
 					<div class='row'></div>
 					<div id='abts_year_$year' class='notice-parent'>
-						<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_year_$year"."Img' title='détail' border='0' onClick=\"expandBase('abts_year_$year', true); return false;\" hspace='3'>
+						<img src='./images/plus.gif' class='img_plus' name='imEx' id='abts_year_$year"."Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('abts_year_$year', true); return false;\" hspace='3'>
 						<span class='notice-heada'>
 							$year
 			    		</span>

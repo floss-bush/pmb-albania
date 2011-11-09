@@ -2,17 +2,17 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: fields_empr.inc.php,v 1.52 2011-01-20 16:14:55 arenou Exp $
+// $Id: fields_empr.inc.php,v 1.60.2.2 2011-09-30 07:21:06 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr","url"=>"aff_url_empr");
-$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search","url"=>"aff_url_empr_search");
-$aff_filter_list_empr=array("text"=>"aff_filter_text_empr","list"=>"aff_filter_list_empr","query_list"=>"aff_filter_query_list_empr","date_box"=>"aff_filter_date_box_empr","comment"=>"aff_filter_comment_empr","external"=>"aff_filter_external_empr","url"=>"aff_filter_url_empr");
-$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr","url"=>"chk_url_empr");
-$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr","url"=>"val_url_empr");
-$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"],"url"=>$msg["parperso_url"]);
-$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php","url"=>"options_url.php");
+$aff_list_empr=array("text"=>"aff_text_empr","list"=>"aff_list_empr","query_list"=>"aff_query_list_empr","date_box"=>"aff_date_box_empr","comment"=>"aff_comment_empr","external"=>"aff_external_empr","url"=>"aff_url_empr","resolve"=>"aff_resolve_empr");
+$aff_list_empr_search=array("text"=>"aff_text_empr_search","list"=>"aff_list_empr_search","query_list"=>"aff_query_list_empr_search","date_box"=>"aff_date_box_empr_search","comment"=>"aff_comment_empr_search","external"=>"aff_external_empr_search","url"=>"aff_url_empr_search","resolve"=>"aff_resolve_empr_search");
+$aff_filter_list_empr=array("text"=>"aff_filter_text_empr","list"=>"aff_filter_list_empr","query_list"=>"aff_filter_query_list_empr","date_box"=>"aff_filter_date_box_empr","comment"=>"aff_filter_comment_empr","external"=>"aff_filter_external_empr","url"=>"aff_filter_resolve_empr","resolve"=>"aff_filter_resolve_empr");
+$chk_list_empr=array("text"=>"chk_text_empr","list"=>"chk_list_empr","query_list"=>"chk_query_list_empr","date_box"=>"chk_date_box_empr","comment"=>"chk_comment_empr","external"=>"chk_external_empr","url"=>"chk_url_empr","resolve"=>"chk_resolve_empr");
+$val_list_empr=array("text"=>"val_text_empr","list"=>"val_list_empr","query_list"=>"val_query_list_empr","date_box"=>"val_date_box_empr","comment"=>"val_comment_empr","external"=>"val_external_empr","url"=>"val_url_empr","resolve"=>"val_resolve_empr");
+$type_list_empr=array("text"=>$msg["parperso_text"],"list"=>$msg["parperso_choice_list"],"query_list"=>$msg["parperso_query_choice_list"],"date_box"=>$msg["parperso_date"],"comment"=>$msg["parperso_comment"],"external"=>$msg["parperso_external"],"url"=>$msg["parperso_url"],"resolve"=>$msg["parperso_resolve"]);
+$options_list_empr=array("text"=>"options_text.php","list"=>"options_list.php","query_list"=>"options_query_list.php","date_box"=>"options_date_box.php","comment"=>"options_comment.php","external"=>"options_external.php","url"=>"options_url.php","resolve"=>"options_resolve.php");
 
 function chk_datatype($field,$values,&$check_datatype_message) {
 	global $chk_type_list;
@@ -191,11 +191,11 @@ function chk_text_empr($field,&$check_message) {
 }
 
 function val_text_empr($field,$value) {
-	global $charset;
+	global $charset,$pmb_perso_sep;
 
 	$value=format_output($field,$value);
 	if (!$value) $value=array();
-	return implode("/",$value);
+	return implode($pmb_perso_sep,$value);
 }
 
 function aff_comment_empr($field,&$check_scripts) {
@@ -518,29 +518,28 @@ function chk_list_empr($field,&$check_message) {
 }
 
 function val_list_empr($field,$val) {
-	global $charset;
+	global $charset,$pmb_perso_sep;
 	global $options_;
 	$_custom_prefixe_=$field["PREFIX"];
 
 	if ($val=="") return "";
 	
-	if (!$options_[$field[ID]]) {
+	if (!$options_[$_custom_prefixe_][$field[ID]]) {
 		$requete="select ".$_custom_prefixe_."_custom_list_value, ".$_custom_prefixe_."_custom_list_lib from ".$_custom_prefixe_."_custom_lists where ".$_custom_prefixe_."_custom_champ=".$field[ID]." order by ordre";
 		$resultat=mysql_query($requete);
 		if ($resultat) {
 			$i=0;
 			while ($r=mysql_fetch_array($resultat)) {
-				$options_[$field[ID]][$r[$_custom_prefixe_."_custom_list_value"]]=$r[$_custom_prefixe_."_custom_list_lib"];
+				$options_[$_custom_prefixe_][$field[ID]][$r[$_custom_prefixe_."_custom_list_value"]]=$r[$_custom_prefixe_."_custom_list_lib"];
 				$i++;
 			}
 		}
 	}
-
-	for ($i=0; $i<count($val); $i++) {
-		$val_c[$i]=$options_[$field[ID]][$val[$i]];
-	}
+	if (!is_array($options_[$_custom_prefixe_][$field[ID]])) return ""; 
+	$val_r=array_flip($val);
+	$val_c=array_intersect_key($options_[$_custom_prefixe_][$field[ID]],$val_r);
 	if ($val_c=="") $val_c=array();
-	$val_=implode("/",$val_c);
+	$val_=implode($pmb_perso_sep,$val_c);
 	return $val_;
 }
 
@@ -795,7 +794,7 @@ function chk_query_list_empr($field,&$check_message) {
 }
 
 function val_query_list_empr($field,$val) {
-	global $charset;
+	global $charset,$pmb_perso_sep;
 
 	if ($val=="") return "";
 	$val_c="";
@@ -820,7 +819,7 @@ function val_query_list_empr($field,$val) {
 	}
 	
 	if ($val_c=="") $val_c=array();
-	$val_=implode("/",$val_c);
+	$val_=implode($pmb_perso_sep,$val_c);
 	return $val_;
 }
 
@@ -1079,26 +1078,25 @@ function aff_url_empr($field,&$check_scripts){
 		//$ret.="<br />";
 		$ret.="&nbsp;".$msg['persofield_url_linklabel']."<input id='".$field[NAME]."_linkname' type='text' class='saisie-15em' size='".$options[SIZE][0][value]."' name='".$field[NAME]."[linkname][]' value='".htmlentities($avalues[1],ENT_QUOTES,$charset)."'>";
 		if ($options[REPEATABLE][0][value] && !$count)
-			$ret.="<input class='bouton' type='button' value='+' onclick=\"add_custom_url_('.$afield_name.', '".addslashes($field[NAME])."', '".addslashes($options[SIZE][0][value])."')\">";
+			$ret.="<input class='bouton' type='button' value='+' onclick=\"add_custom_url_('$afield_name', '".addslashes($field[NAME])."', '".addslashes($options[SIZE][0][value])."')\">";
 		$ret.="<br />";
 		$count++;
 	}
 	$ret.= "
 	<script type='text/javascript'>
 		function cp_chklnk(indice){
-			var wait = document.createElement('img');
-			wait.setAttribute('src','images/patience.gif');
-			wait.setAttribute('align','top');
-			while(document.getElementById('check_'+indice).firstChild){
-				document.getElementById('check_'+indice).removeChild(document.getElementById('check_'+indice).firstChild);
-			}
-			document.getElementById('check_'+indice).appendChild(wait);
-
-			var links = document.forms.notice['url[link][]'];
-			if(typeof(links.length)) var link = links[indice].value;
-			else var link = links.value;
-			if(link != ''){
-				var testlink = encodeURIComponent(link);
+			var links = document.forms.notice['".$field[NAME]."[link][]'];
+			if(links.length) var link = links[indice];
+			else var link = links;
+			if(link.value != ''){
+				var wait = document.createElement('img');
+				wait.setAttribute('src','images/patience.gif');
+				wait.setAttribute('align','top');
+				while(document.getElementById('check_'+indice).firstChild){
+					document.getElementById('check_'+indice).removeChild(document.getElementById('check_'+indice).firstChild);
+				}
+				document.getElementById('check_'+indice).appendChild(wait);
+				var testlink = encodeURIComponent(link.value);
 	 			var check = new http_request();
 				if(check.request('./ajax.php?module=ajax&categ=chklnk',true,'&timeout=".$options[TIMEOUT][0][value]."&link='+testlink)){
 					alert(check.get_text());
@@ -1107,7 +1105,7 @@ function aff_url_empr($field,&$check_scripts){
 					var img = document.createElement('img');
 					var src='';
 					if(result == '200') {
-						if(link.substr(0,7) != 'http://') document.forms.notice['url[link][]'][indice].value = 'http://'+link;
+						if(link.value.substr(0,7) != 'http://') link.value = 'http://'+link.value;
 						//impec, on print un petit message de confirmation
 						src = 'images/tick.gif';
 					}else{
@@ -1206,12 +1204,141 @@ function val_url_empr($field,$value) {
 	$cut = $field[OPTIONS][0][MAXSIZE][0][value];
 	$values=format_output($field,$value);
 	$ret = "";
+	$without = "";
 	for ($i=0;$i<count($values);$i++){
 		$val = explode("|",$values[$i]);
 		if ($val[1])$lib = $val[1];
 		else $lib = ($cut && strlen($val[0]) > $cut ? substr($val[0],0,$cut)."[...]" : $val[0] );
-		if( $ret != "") $ret.= " / ";
-		$ret .= "<a href='".$val[0]."' />".htmlentities($lib,ENT_QUOTES,$charset)."</a>";
+		if( $ret != "") $ret.= " / ";	
+		$ret .= "<a href='".$val[0]."' target='_blank'>".htmlentities($lib,ENT_QUOTES,$charset)."</a>";
+		if( $without != "") $without.= " / ";
+		$without .= $lib;
 	}
-	return array("ishtml" => true, "value"=>$ret);
+	return array("ishtml" => true, "value"=>$ret, "withoutHTML" =>$without);
+}
+
+function aff_resolve_empr($field,&$check_scripts){
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$afield_name = $field["ID"];
+	$ret = "";
+	$count = 0;
+	if (!$values) {
+		$values = array("");
+	}
+	foreach ($values as $avalues) {
+		$avalues = explode("|",$avalues);
+		$ret.="<input id='".$field[NAME]."' type='text' size='".$options[SIZE][0][value]."' name='".$field[NAME]."[id][]' value='".htmlentities($avalues[0],ENT_QUOTES,$charset)."'>";
+		$ret.="&nbsp;<select name='".$field[NAME]."[resolve][]'>";
+		foreach($options[RESOLVE] as $elem){
+			$ret.= "
+			<option value='".$elem[ID]."' ".($avalues[1] == $elem[ID] ? "selected=selected":"").">".htmlentities($elem[LABEL],ENT_QUOTES,$charset)."</option>";
+		}
+		$ret.="
+		</select>";
+		if ($options[REPEATABLE][0][value] && !$count)
+			$ret.='<input class="bouton" type="button" value="+" onclick="add_custom_text_(\''.$afield_name.'\', \''.addslashes($field[NAME]).'\', \''.addslashes($options[SIZE][0][value]).'\', \''.addslashes($options[MAXSIZE][0][value]).'\')">';
+		$ret.="<br />";
+		$count++;
+	}
+	if ($options[REPEATABLE][0][value]) {
+		$ret.='<input id="customfield_text_'.$afield_name.'" type="hidden" name="customfield_text_'.$afield_name.'" value="'.(count($values)).'">';
+		//$ret.='<input class="bouton" type="button" value="+" onclick="add_custom_text_(\''.$afield_name.'\', \''.addslashes($field[NAME]).'\', \''.addslashes($options[SIZE][0][value]).'\', \''.addslashes($options[MAXSIZE][0][value]).'\')">';
+		$ret .= '<div id="spaceformorecustomfieldtext_'.$afield_name.'"></div>';
+		$ret.="<script>
+			function add_custom_text_(field_id, field_name, field_size, field_maxlen) {
+				document.getElementById('customfield_text_'+field_id).value = document.getElementById('customfield_text_'+field_id).value * 1 + 1;
+		        count = document.getElementById('customfield_text_'+field_id).value;
+				f_aut0 = document.createElement('input');
+		        f_aut0.setAttribute('name',field_name+'[id][]');
+		        f_aut0.setAttribute('type','text');
+		        f_aut0.setAttribute('size',field_size);
+		        f_aut0.setAttribute('maxlen',field_size);
+		        f_aut0.setAttribute('value','');
+		        space=document.createElement('br');
+				var select = document.createElement('select');
+				select.setAttribute('name',field_name+'[resolve][]');
+				";
+				foreach($options[RESOLVE] as $elem){
+					$ret.="
+				var option = document.createElement('option');
+				option.setAttribute('value','".$elem[ID]."');
+				var text = document.createTextNode('".htmlentities($elem[LABEL],ENT_QUOTES,$charset)."');
+				option.appendChild(text);
+				select.appendChild(option);
+";
+				}
+				$ret.="
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(f_aut0);
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(document.createTextNode(' '));
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(select);				
+				document.getElementById('spaceformorecustomfieldtext_'+field_id).appendChild(space);
+
+			}
+		</script>";
+	}
+	if ($field[MANDATORY]==1) $check_scripts.="if (document.forms[0].elements[\"".$field[NAME]."[]\"].value==\"\") return cancel_submit(\"".sprintf($msg["parperso_field_is_needed"],$field[ALIAS])."\");\n";
+	return $ret;
+}
+
+function chk_resolve_empr($field,&$check_message) {
+	$name=$field[NAME];
+	global $$name;
+	$val=$$name;
+	$value = array();
+	for($i=0;$i<sizeof($val['id']);$i++){
+		if($val['id'][$i] != "")
+			$value[] = $val['id'][$i]."|".$val['resolve'][$i];
+	}
+	$val = $value;
+
+	$check_datatype_message="";
+	$val_1=chk_datatype($field,$val,$check_datatype_message);
+	if ($check_datatype_message) {
+		$check_message=$check_datatype_message;
+		return 0;
+	}
+	$$name=$val_1;
+	return 1;
+}
+
+function val_resolve_empr($field,$value) {
+	global $charset,$pmb_perso_sep;
+	
+	$options=$field[OPTIONS][0];
+	$values=format_output($field,$value);
+	$ret = "";
+	for ($i=0;$i<count($values);$i++){
+		$val = explode("|",$values[$i]);
+		if(count($val)>1){
+			$id =$val[0];
+			foreach ($options[RESOLVE] as $res){
+				if($res[ID] == $val[1]){
+					$label = $res[LABEL];
+					$url= $res[value];
+					break;
+				}
+			}
+			$link = str_replace("!!id!!",$id,$url);
+			if( $ret != "") $ret.= " / ";
+			//$ret.= "<a href='$link' target='_blank'>".htmlentities($link,ENT_QUOTES,$charset)."</a>";
+			$ret.= htmlentities($label,ENT_QUOTES,$charset)." : $id <a href='$link' target='_blank'><img align='center' src='images/globe.gif' alt='$link' title='link'/></a>";
+		}else{
+			$without=implode($pmb_perso_sep,$value);
+		}
+	}
+	return array("ishtml" => true, "value"=>$ret,"withoutHTML"=> $without);
+}
+
+function aff_resolve_empr_search($field,&$check_scripts,$varname){
+	global $charset;
+	global $msg;
+	
+	$options=$field[OPTIONS][0];
+	$values=$field[VALUES];
+	$ret="<input id='".$varname."' type='text' size='".$options[SIZE][0][value]."' name='".$varname."[]' value='".htmlentities($values[0],ENT_QUOTES,$charset)."'>";
+	return $ret;
 }

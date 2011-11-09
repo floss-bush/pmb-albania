@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.class.php,v 1.61 2010-12-06 15:53:22 ngantier Exp $
+// $Id: author.class.php,v 1.61.2.1 2011-05-16 12:35:59 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -519,7 +519,9 @@ class auteur {
 		$requete .= "author_web='$value[author_web]', ";
 		$requete .= "author_see='$value[voir_id]', ";
 		$requete .= "author_comment='$value[author_comment]', ";
-		$requete .= "index_author=' ".strip_empty_chars($value["name"]." ".$value["rejete"]." ".$value["lieu"]." ".$value["ville"]." ".$value["pays"]." ".$value["numero"]." ".$value["subdivision"])." '";
+		$word_to_index = $value["name"]." ".$value["rejete"]." ".$value["lieu"]." ".$value["ville"]." ".$value["pays"]." ".$value["numero"]." ".$value["subdivision"];
+		if($value['type'] == 72) $word_to_index.= " ".$value["date"];
+		$requete .= "index_author=' ".strip_empty_chars($word_to_index)." '";
 	
 		if($this->id) {
 			// update
@@ -648,7 +650,9 @@ class auteur {
 		$query .= "author_numero='".$data['numero']."', ";		
 		$query .= "author_web='".$data['web']."', ";		
 		$query .= "author_comment='".$data['author_comment']."', ";
-		$query .= "index_author=' ".strip_empty_chars($key1." ".$key2." ".$data['lieu']." ".$data['ville']." ".$data['pays']." ".$data['numero']." ".$data["subdivision"])." ' ";
+		$word_to_index = $key1." ".$key2." ".$data['lieu']." ".$data['ville']." ".$data['pays']." ".$data['numero']." ".$data["subdivision"];
+		if($key0 == "72") $word_to_index.= " ".$key3;
+		$query .= "index_author=' ".strip_empty_chars($word_to_index)." ' ";
 		
 		$result = @mysql_query($query, $dbh);
 		if(!$result) die("can't INSERT into table authors :<br /><b>$query</b> ");

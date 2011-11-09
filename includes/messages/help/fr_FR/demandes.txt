@@ -3,6 +3,6 @@
 des informations afin d&rsquo;aboutir &agrave; une notice r&eacute;sultat compl&egrave;te correspondant le plus au besoin du lecteur.</p>
 
 <h2>Listes</h2>
-Permet de voir les demandes de recherche selon différents types de filtres.<br />
+Permet de voir les demandes de recherche selon diff&eacute;rents types de filtres.<br />
 <h2>Actions</h2>
 Permet de voir toutes les actions actives de l'utilisateur en cours (Fil de discussion, Rendez-vous,...).<br />

@@ -1,0 +1,1 @@
+Décompresser dans ce répertoire la visionneuse FlexPaper (http://flexpaper.devaldi.com)

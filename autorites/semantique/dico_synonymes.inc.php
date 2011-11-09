@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // ï¿? 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: dico_synonymes.inc.php,v 1.4 2010-02-23 10:29:24 ngantier Exp $action $mot
+// $Id: dico_synonymes.inc.php,v 1.4.2.1 2011-05-10 07:38:36 touraine37 Exp $action $mot
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -256,7 +256,7 @@ if ($action!='view') {
 					if ($valeur_syn!="") {
 						if ($compt>=(($page-1)*$nb_per_page)&&($compt<($page*$nb_per_page))) {
 							if ($bool==false&&(($compt % 30)==0)) {
-								$affichage_mots.="<div class='colonne5'>";
+								$affichage_mots.="<div class='row'>";
 							}
 						}
 						if ($letter!='My') {

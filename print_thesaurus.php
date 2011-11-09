@@ -2,11 +2,11 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: print_thesaurus.php,v 1.9 2009-05-16 11:17:05 dbellamy Exp $
+// $Id: print_thesaurus.php,v 1.10.2.1 2011-09-06 09:11:23 jpermanne Exp $
 
 $base_path = ".";
 $base_auth = "AUTORITES_AUTH";
-$base_title = "Impression thésaurus";
+$base_title = $msg[print_thes_title];
 $base_nobody=1;
 $base_noheader=1;
 
@@ -205,7 +205,7 @@ function infos_noeud($idnoeud, $niveau, $profondeurmax) {
 	global $id_noeud_origine;
 	
 	// récupération info du noeud
-	$rqt = "select num_noeud, libelle_categorie, note_application, comment_public, case when langue='$aff_langue' then '' else langue end as trad, langue from categories where num_noeud='$idnoeud' order by trad ";
+	$rqt = "select num_noeud, libelle_categorie, num_parent, note_application, comment_public, case when langue='$aff_langue' then '' else langue end as trad, langue from categories,noeuds where num_noeud = id_noeud and num_noeud='$idnoeud' order by trad ";
 	$ressql = mysql_query($rqt) or die ($rqt."<br /><br />".mysql_error());
 	while ($data=mysql_fetch_object($ressql)) {
 		$res.= "\n<tr>";
@@ -233,8 +233,12 @@ function infos_noeud($idnoeud, $niveau, $profondeurmax) {
 				$res.="<td width=10% bgcolor='".$color[$niveau]."'> </td>";
 		}
 
+		$printingBranche = false;
 		// afin d'avoir les bons colspan sur la branche en cas d'impression d'une branche
-		if ($id_noeud_origine==$idnoeud) $niveau=$niveau+1 ;
+		if ($id_noeud_origine==$idnoeud){
+			$niveau=$niveau+1 ;
+			$printingBranche = true;
+		} 
 
 		if (($data->note_application || $data->comment_public) && ($aff_note_application || $aff_commentaire)) {
 			$style="style='border-top: 1px dotted gray;border-bottom: 1px dotted gray; ";
@@ -244,13 +248,24 @@ function infos_noeud($idnoeud, $niveau, $profondeurmax) {
 			$largeur="70%";
 		}
 		$style.=" ".$fontsize[$niveau]." ".$paddingmargin[$niveau]." '";
-		if ($data->trad) $res.="<td colspan='".($profondeurmax-($niveau-1))."' width=$largeur valign=top $style><font color=blue>".$data->trad."</font> ".$data->libelle_categorie."";
+		if ($data->trad) $res.="<td colspan='".($profondeurmax-($niveau-1))."' width=$largeur valign=top $style><font color='blue'>".$data->trad."</font> ".$data->libelle_categorie."";
 		else $res.="<td colspan='".($profondeurmax-($niveau-1))."' width=$largeur valign=top $style>".$data->libelle_categorie;
+
+		//TERME GÉNÉRAL DANS LE CAS DE L'IMPRESSION D'UNE BRANCHE
+		if ($printingBranche){
+			$rqttg = "select libelle_categorie from categories where num_noeud = '".$data->num_parent."'";
+			$restg = mysql_query($rqttg) or die ($rqttg."<br /><br />".mysql_error());
+			if (mysql_num_rows($restg)) {
+				$datatg=mysql_fetch_object($restg);
+				$res.= "<br /><font color='blue'>TG ".$datatg->libelle_categorie."</font>";
+			}		
+		} 
+			
 		if ($aff_voir_aussi) {
 			$rqtva = "select libelle_categorie from categories, voir_aussi where num_noeud_orig=$idnoeud and num_noeud=num_noeud_dest and categories.langue='".$data->langue."' and voir_aussi.langue='".$data->langue."' order by libelle_categorie " ;
 			$resva = mysql_query($rqtva) or die ($rqtva."<br /><br />".mysql_error());
 			if (mysql_num_rows($resva)) {
-				$res.= "\n<font color=green>";
+				$res.= "\n<font color='green'>";
 				while ($datava=mysql_fetch_object($resva)) $res.= "<br />TA ".$datava->libelle_categorie;
 				$res.= "</font>";
 			}

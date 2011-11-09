@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serie.class.php,v 1.6 2010-06-16 12:13:48 ngantier Exp $
+// $Id: serie.class.php,v 1.8 2011-02-02 20:08:44 gueluneau Exp $
 
 // définition de la classe de gestion des 'titres de séries'
 
@@ -26,15 +26,11 @@ class serie {
 	//  série($id) : constructeur
 	// ---------------------------------------------------------------
 
-	function serie($id)
-	{
+	function serie($id) {
 		// on regarde si on a une série-objet ou un id de série
-		if (is_object($id))
-		{
+		if (is_object($id)) {
 			$this->get_primaldatafrom($id);
-		}
-		else
-		{
+		} else {
 			$this->id = $id;
 			$this->get_primaldata();
 		}
@@ -46,10 +42,9 @@ class serie {
 	//  get_primaldata() : récupération infos subcollection à partir de l'id
 	// ---------------------------------------------------------------
 
-	function get_primaldata()
-	{
+	function get_primaldata() {
 		global $dbh;
-		$requete = "SELECT * FROM series WHERE serie_id=$this->id ";
+		$requete = "SELECT * FROM series WHERE serie_id='".addslashes($this->id)."' ";
 		$result = @mysql_query($requete, $dbh);
 		if(mysql_num_rows($result)) {
 			$obj = mysql_fetch_object($result);
@@ -69,8 +64,7 @@ class serie {
 	//  get_primaldatafrom($obj) : récupération infos collection à partir d'un collection-objet
 	// ---------------------------------------------------------------
 
-	function get_primaldatafrom($obj)
-	{
+	function get_primaldatafrom($obj) {
 		$this->id = $obj->serie_id;
 		$this->name = $obj->serie_name;
 		$this->index = $obj->serie_index;

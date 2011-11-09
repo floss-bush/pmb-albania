@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: catalog.tpl.php,v 1.34 2010-04-15 12:53:18 erwanmartin Exp $
 
@@ -9,8 +9,8 @@ if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
 // Valeurs pour l'affichage de la page par defaut 
 // (selection de l'onglet)
-// note : l'autre solution serait de faire un menu gï¿½nï¿½ral (voir en admin) 
-//plutï¿½t que d'afficher un sous menu par dï¿½faut.
+// note : l'autre solution serait de faire un menu général (voir en admin) 
+//plutôt que d'afficher un sous menu par défaut.
 if(!$categ){
 	$categ="search";
 	$mode=0;
@@ -23,7 +23,7 @@ if(!$categ){
 // ---------------------------------------------------------------------------
 //		$catalog_menu : Menu vertical du catalogage
 // ---------------------------------------------------------------------------
-// ancien dï¿½but de catalog_menu <h3>$msg[129]</h3>
+// ancien début de catalog_menu <h3>$msg[129]</h3>
 $catalog_menu = "
 <div id='menu'>
 <h3 onclick='menuHide(this,event)'>".$msg['recherche']."</h3>
@@ -223,7 +223,7 @@ $catalog_layout_end = '
 </div></div>
 ';
 
-// $biblio_query : form de recherche : semble ne plus ï¿½tre utilisï¿½.....
+// $biblio_query : form de recherche : semble ne plus être utilisé.....
 $biblio_query = "
 <script type='text/javascript'>
 	function aide_regex()
@@ -302,8 +302,8 @@ $saisie_cb_form = "
 <script type='text/javascript'>document.forms['saisie_cb'].elements['saisieISBN'].focus();</script>
 ";
 
-//  $search_bar: code qui fait la barre de ranking en rï¿½sultat recherche
-// si vous changez la taille, il faut mettre ï¿½ jour $lengtha et $lengthb
+//  $search_bar: code qui fait la barre de ranking en résultat recherche
+// si vous changez la taille, il faut mettre à jour $lengtha et $lengthb
 // dans classes/notice_display.class.php
 $search_bar = "
 <table border=\"0\" class=\"result-bar\" cellspacing=\"0\" width=\"25\">

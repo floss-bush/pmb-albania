@@ -2,13 +2,14 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: sort.class.php,v 1.29 2010-12-03 16:24:58 arenou Exp $
+// $Id: sort.class.php,v 1.32.2.4 2011-07-13 13:58:26 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
 
 require_once ($include_path . "/parser.inc.php");
 require_once ($include_path . "/templates/sort.tpl.php");
+require_once ($class_path . "/parametres_perso.class.php");
 
 /**
  * Classe d'abstraction d'acces aux données des tris stockés
@@ -264,6 +265,7 @@ class sort {
 	var $table_select; //table éventuelle à retourner dans la requête
 	var $table_primary_key_select; //clé de la table éventuelle à retourner dans la requête
 	var $dSort; // objet d'acces aux informations 
+	private static $nb_instance = 1;
 
 
 	/**
@@ -276,7 +278,8 @@ class sort {
 		} else {
 			$sname = 'notices';
 		}
-		
+		$this->table_tri_tempo .= "_".self::$nb_instance;
+		self::$nb_instance++;	
 		
 		if ($accesTri) {
 			$this->dSort = new dataSort($sname,$accesTri);
@@ -294,7 +297,8 @@ class sort {
 	function show_tris_form() {
 		global $show_tris_form;
 		global $ligne_tableau_tris;
-		global $msg;
+		global $ligne_tableau_tris_etagere;
+		global $msg,$charset;
 
 		if ($this->dSort->initParcoursTris($this) == 0 ) { 
 			//il n'y a pas de tris enregistrés
@@ -317,17 +321,34 @@ class sort {
 					$pair_impair = "odd";
 				
 				//html d'une ligne
-				$tristemp = str_replace("!!id_tri!!", $result['id_tri'], $ligne_tableau_tris);
+				if($this->caller == "etagere"){
+					$tristemp = str_replace("!!id_tri!!", $result['id_tri'], $ligne_tableau_tris_etagere);	
+					
+				}else {
+					$tristemp = str_replace("!!id_tri!!", $result['id_tri'], $ligne_tableau_tris);
+				}
+				$tristemp = str_replace("!!descname_tri!!",addslashes(html_entity_decode($this->descriptionTriParId($result['id_tri']),ENT_QUOTES,$charset)), $tristemp);
 				$tristemp = str_replace("!!nom_tri!!", $result['nom_tri'], $tristemp);
+				$tristemp = str_replace("!!caller!!", $this->caller, $tristemp);
 				$tristemp = str_replace("!!pair_impair!!", $pair_impair, $tristemp);
 				$tris .= $tristemp;
 				
 				$parity += 1;
 			}
 		}
+		$tris_form = str_replace("!!caller!!", $this->caller, $show_tris_form);
+		switch ($this->caller){
+			case "etagere" :
+				$callback="parent.document.getElementById('history').style.display='none';parent.window.getSort(0,''); return false;";
+				break;
+			default :
+				$callback="parent.document.getElementById('history').style.display='none';parent.location.href='./recall.php?current=".$_SESSION["CURRENT"]."&t=NOTI'; return false;";
+				break;
+		}
+		$tris_form = str_replace("!!callback!!", $callback, $tris_form);
 		
 		//on remplace dans le template les informations issues de la base
-		$tris_form = str_replace("!!sortname!!", $this->dSort->sortName, $show_tris_form);
+		$tris_form = str_replace("!!sortname!!", $this->dSort->sortName, $tris_form);
 		$tris_form = str_replace("!!liste_tris!!", $tris, $tris_form);
 		return $tris_form;
 	}
@@ -407,7 +428,10 @@ class sort {
 
 							//la liste des champs sélectionnés
 							$liste_selectionnes .= "<option value='" . $tri_par1[0] . "_" . $tri_par1[1] . "_" . $tri_par1[2] . "'>";
-							$liste_selectionnes .= $debut . "" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset);
+							//si champ perso, on a déjà le libellé
+							if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+							else $name = $msg[$fields[$j]['NAME']]; 
+							$liste_selectionnes .= $debut . "" . htmlentities($name, ENT_QUOTES, $charset);
 							$liste_selectionnes .= "</option>\n";
 							
 							//ce champ est utilise donc on ne l'affichera pas
@@ -420,20 +444,29 @@ class sort {
 				//on créé la liste des criteres restants
 				for ($j = 0; $j < count($fields); $j++) {
 					// sans les champs déja utilisés
-					if ($fields[$j]["UTILISE"]!=true)
-						$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset) . "</option>\n";
+					if ($fields[$j]["UTILISE"]!=true){
+						//si champ perso, on a déjà le libellé
+						if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+						else $name = $msg[$fields[$j]['NAME']]; 
+						$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($name, ENT_QUOTES, $charset) . "</option>\n"; 
+					}
+						
 				}
 				
 			}
 		} else {
 			//on créé la liste des criteres
 			for ($j = 0; $j < count($fields); $j++) {
-				$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($msg[$fields[$j]["NAME"]], ENT_QUOTES, $charset) . "</option>\n";
+				//si champ perso, on a déjà le libellé
+				if($fields[$j]['SOURCE'] == "cp") $name = $fields[$j]['LABEL'];
+				else $name = $msg[$fields[$j]['NAME']]; 
+				$liste_criteres .= "<option value='c_" . $fields[$j]["TYPE"] . "_" . $fields[$j]["ID"] . "'>" . htmlentities($name, ENT_QUOTES, $charset) . "</option>\n";
 			}
 		}
 
 		//on remplace toutes les variables dans le template
 		$sel_form = str_replace("!!id_tri!!", $id_tri, $show_sel_form);
+		$sel_form = str_replace("!!caller!!", $this->caller, $sel_form);
 		$sel_form = str_replace("!!sortname!!", $this->dSort->sortName, $sel_form);
 		$sel_form = str_replace("!!nom_tri!!", $nom_du_tri, $sel_form);
 		$sel_form = str_replace("!!liste_criteres!!", $liste_criteres, $sel_form);
@@ -442,7 +475,7 @@ class sort {
 		return $sel_form;
 	}
 
-   function show_sel_formOPAC() {
+    function show_sel_formOPAC() {
     	global $show_sel_form;
 		global $liste_criteres_tri;
 		global $charset;
@@ -527,7 +560,7 @@ class sort {
 	 * Retourne le texte de description du tri a partir d'un id
 	 */
 	function descriptionTriParId($id_tri) {
-		global $msg;
+		global $msg,$charset;
 
 		if ($id_tri!="") {
 			
@@ -537,7 +570,7 @@ class sort {
 			$tris_par = explode(",",$result['tri_par']);
 			$nom_tri = $result['nom_tri'];
 			
-			$trier_par_texte = "(" . $this->descriptionTri($result['tri_par']) . ")";
+			$trier_par_texte = "(" . htmlentities($this->descriptionTri($result['tri_par']),ENT_QUOTES,$charset) . ")";
 			
 			//on concatene le message complet
 			$trier_par_texte = $nom_tri." ".$trier_par_texte;
@@ -568,7 +601,8 @@ class sort {
 		//echo $cmd_table."<br />";
 		mysql_query ($cmd_table);
 		$cmd_table = "ALTER TABLE " . $tableEnCours . " PRIMARY KEY " . $nomColonneIndex;
-		mysql_query ($cmd_table);
+		mysql_query ($cmd_table);	
+
 		//récupération de la description du tri
 		if (is_array($idTri_orTri)) {
 			$result = $idTri_orTri;
@@ -577,7 +611,7 @@ class sort {
 			$result = $this->dSort->recupTriParId($idTri_orTri);
 		}
 		$trier_par = explode(",",$result['tri_par']);
-		
+
 		//parcours des champs sur lesquels trier		
 		for ($j = 0; $j < count($trier_par); $j++) {
 			//découpage du champ (ex : c_num_2 (croissance ou décroissance (c ou d),
@@ -619,6 +653,7 @@ class sort {
 							
 							//on ajoute la colonne au orderby
 							$orderby .= $this->ajoutOrder($nomChamp,$temp[0]) . ",";
+													
 							//on ajoute la colonne à la table temporaire
 							$this->ajoutColonneTableTempo($tableEnCours, $nomChamp, $temp[1]);
 
@@ -631,13 +666,20 @@ class sort {
 								//echo("updateSort:".$requete."<br />");
 								mysql_query ($requete);
 							}
-
+							
+							//on a aussi des champs persos maitenant...
+							if($fields[$i]['SOURCE'] == "cp"){
+								$requete = $this->generateRequeteCPUpdate($fields[$i], $tableEnCours, $nomChamp);
+								mysql_query ($requete);
+							}
+							
 							break;
 
 					} //switch
 				} //if ($fields[$i]["ID"] == $temp[2]) {
 			} //for ($i = 0; $i < count($fields); $i++) {
 		} //for ($j = 0; $j < count($trier_par); $j++) {
+		
 		
 		if ($orderby!="") {
 
@@ -651,16 +693,15 @@ class sort {
 
 		//on retourne la requete sur la table de tri
     	if ($this->table_select!="") {
-    		//c'est une requete avec des informations extérieurs
+    		//c'est une requete avec des informations extérieures
     		$requete = "SELECT " . $nomColonneIndex . "," . $this->champs_select;
     		$requete .= " FROM " . $this->table_tri_tempo . "," . $this->table_select;
     		$requete .= " WHERE " . $this->table_select . "." . $this->table_primary_key_select;
     		$requete .= "=" . $this->table_tri_tempo . "." . $nomColonneIndex;
-    		$requete .= " GROUP BY " . $nomColonneIndex;
+    		$requete .= " GROUP BY " . $nomColonneIndex;	
     		if ($orderby!="") $requete .= " ORDER BY " . $orderby;
-    		$requete .= " LIMIT " . $debLimit . "," . $nbLimit;
+    		if ($nbLimit>0) $requete .= " LIMIT " . $debLimit . "," . $nbLimit;
     	} else {
-
 			if ($nbLimit>0) {
 	    		//requete de base sur la table triée avec limit
 				$requete = "SELECT * FROM " . $tableEnCours . " LIMIT " . $debLimit . "," . $nbLimit; 
@@ -669,7 +710,7 @@ class sort {
 				$requete = "SELECT " . $nomColonneIndex . " FROM " . $tableEnCours;
 			}
     	}
-		return $requete;
+ 		return $requete;
 
 	}
 	
@@ -691,7 +732,7 @@ class sort {
 				$cmd_table .= "text";
 				break;
 		}
-
+		
 		//execution de l'ajout de la colonne
 		mysql_query ($cmd_table);
 		
@@ -731,41 +772,46 @@ class sort {
 		//SELECT de base pour la récupération des informations
 		//
 		$extractinfo_sql = "SELECT ".$this->params["REFERENCE"].'.'.$this->params["REFERENCEKEY"].", ".$this->ajoutIfNull($desTable["TABLEFIELD"][0])." AS ".$nomChp." FROM ".$nomTable.' LEFT JOIN '.$this->params["REFERENCE"].' ON ('.$this->params["REFERENCE"].'.'.$this->params["REFERENCEKEY"].' = '.$nomTable.'.'.$this->params["REFERENCEKEY"].')';
-
+		
 		//
 		//On ajout les éventuelles liaisons
 		//
 		for ($x = 0; $x <= count($desTable["LINK"]); $x++) {
+			if($desTable["LINK"][$x]["TABLE"][0]['ALIAS']){
+				$alias = $desTable["LINK"][$x]["TABLE"][0]['ALIAS'];
+			}else{
+				$alias =$desTable["LINK"][$x]["TABLE"][0]['value'];
+			}
 			switch ($desTable["LINK"][$x]["TYPE"]) {
 				case "n1" :
-					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
-						$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0][value];
-						$extractinfo_sql .= " ON " . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
+					if ($desTable["LINK"][$x]["TABLEKEY"][0]['value']) {
+						$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0]['value'].($desTable["LINK"][$x]["TABLE"][0]['value'] != $alias  ? " AS ".$alias : "");
+						$extractinfo_sql .= " ON " . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
+						$extractinfo_sql .= "=" . $alias . "." . $desTable["LINK"][$x]["TABLEKEY"][0]['value'];
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
 						$extractinfo_sql .= " ON " . $this->params["REFERENCE"] . "." . $this->params["REFERENCEKEY"];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
 					}
 					break;
 				case "1n" :
 					$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-					$extractinfo_sql .= " ON (" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value];
-					$extractinfo_sql .= "=" . $this->params["REFERENCE"] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0][value] . ") ";
+					$extractinfo_sql .= " ON (" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0]['value'];
+					$extractinfo_sql .= "=" . $this->params["REFERENCE"] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0]['value'] . ") ";
 					break;
 				case "nn" :
-					$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0][value];
+					$extractinfo_sql .= " LEFT JOIN " . $desTable["LINK"][$x]["TABLE"][0]['value'].($desTable["LINK"][$x]["TABLE"][0]['value'] != $alias  ? " AS ".$alias : "");
 					$extractinfo_sql .= " ON (" . $nomTable . "." . $this->params["REFERENCEKEY"];
-					$extractinfo_sql .= "=" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0][value] . ") ";
+					$extractinfo_sql .= "=" . $alias . "." . $desTable["LINK"][$x]["REFERENCEFIELD"][0]['value'] . ") ";
 					
-					if ($desTable["LINK"][$x]["TABLEKEY"][0][value]) {
+					if ($desTable["LINK"][$x]["TABLEKEY"][0]['value']) {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["TABLEKEY"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value]. ") ";
+						$extractinfo_sql .= " ON (" . $alias . "." . $desTable["LINK"][$x]["TABLEKEY"][0]['value'];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'] ." ".$desTable["LINK"][$x]["LINKRESTRICT"][0]['value']. ") ";
 					} else {
 						$extractinfo_sql .= " LEFT JOIN " . $desTable["NAME"];
-						$extractinfo_sql .= " ON (" . $desTable["LINK"][$x]["TABLE"][0][value] . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0][value];
-						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0][value] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0][value].") ";
+						$extractinfo_sql .= " ON (" . $alias . "." . $desTable["LINK"][$x]["EXTERNALFIELD"][0]['value'];
+						$extractinfo_sql .= "=" . $desTable["NAME"] . "." . $desTable["TABLEKEY"][0]['value'] . " ".$desTable["LINK"][$x]["LINKRESTRICT"][0]['value'].") ";
 						
 					}
 					
@@ -776,6 +822,9 @@ class sort {
 		//
 		//On applique les restrictions GROUP BY et ORDER BY
 		//
+		if (isset($desTable["GROUPBY"])) {
+			$extractinfo_sql .= " GROUP BY ".$desTable["GROUPBY"][0]["value"];		
+		}		
 		if (isset($desTable["ORDERBY"])) {
 			$extractinfo_sql .= " ORDER BY ".$this->ajoutIfNull($desTable["ORDERBY"][0]);		
 		}
@@ -789,15 +838,13 @@ class sort {
 		//
 		//On met le tout dans une table temporaire
 		//
-		
-		
 		$sql = "DROP TEMPORARY TABLE IF EXISTS ".$nomTable."_update";
 		mysql_query($sql);
 		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$extractinfo_sql.")";
-
+		
 		mysql_query($temporary2_sql);
 		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
-	
+
 		//
 		//Et on rempli la table tri_tempo avec les éléments de la table temporaire
 		//
@@ -807,6 +854,7 @@ class sort {
 		//le lien vers la table de tri temporaire
 		$requete .= " WHERE " . $nomTable.".".$this->params["REFERENCEKEY"];
 		$requete .= "=" . $nomTable."_update.".$this->params["REFERENCEKEY"];
+		$requete .= " AND ".$this->params["REFERENCE"].".".$this->params["REFERENCEKEY"]."=".$nomTable.".".$this->params["REFERENCEKEY"];
 		$requete .= " AND ".$nomTable."_update.".$nomChp." IS NOT NULL";
 		$requete .= " AND ".$nomTable."_update.".$nomChp." != ''";
 		
@@ -817,7 +865,6 @@ class sort {
 		}
 
 		return $requete;
-	
 	}
 
 
@@ -842,7 +889,7 @@ class sort {
 	function parse() {
 		global $include_path;
 		global $$params_name;
-		
+		global $charset;
 		$params_name = $this->dSort->sortName . "_params";
 		$params = $$params_name;
 
@@ -851,7 +898,10 @@ class sort {
 		} else {
 			$nomfichier = $include_path . "/sort/" . $this->dSort->sortName . "/sort.xml";
 
-			if (file_exists($nomfichier)) {
+			if (file_exists($include_path . "/sort/" . $this->dSort->sortName . "/sort_subst.xml")) {
+				$nomfichier=$include_path . "/sort/" . $this->dSort->sortName . "/sort_subst.xml";
+				$fp = fopen($nomfichier, "r");
+			} else if (file_exists($nomfichier)) {
 				$fp = fopen($nomfichier, "r");
 			}
 
@@ -869,6 +919,105 @@ class sort {
 				$this->error_message = "Can't open definition file";
 			}
 		}
+				
+		//tri perso
+		$p_perso = new parametres_perso("notices");
+		if(function_exists("param_perso_form")) {
+			param_perso_form($p_perso);			
+		}
+		
+		foreach($p_perso->t_fields as $key => $t_field){	
+			$param=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$t_field['OPTIONS'], "OPTIONS");
+			switch($t_field['TYPE']){
+				case "comment" :
+				case "text":
+					if($param['REPETABLE'][0]['value']){
+						$tablefield = "group_concat(".$p_perso->prefix."_custom_".$t_field['DATATYPE']." separator ' ')";
+						$groupby = "group by notice_id";
+					}else{
+						$tablefield = $p_perso->prefix."_custom_".$t_field['DATATYPE'];
+						$groupby = "";
+					}
+					$p_tri = array(
+						'SOURCE' => "cp",
+						'TYPEFIELD' => "select",
+						'ID' => "cp".$key,
+						'TYPE' => "text",
+						'NAME' => $t_field['NAME'],
+						'LABEL' => $t_field['TITRE'],
+						'TABLEFIELD' => array('value'=>$tablefield),
+						'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine where ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ = '".$key."' ".$groupby 
+					);
+					break;
+				case "list":
+					if($param['MULTIPLE'][0]['value']){
+						$tablefield = "group_concat(".$p_perso->prefix."_custom_list_lib separator ' ')";
+						$groupby = "group by notice_id";
+					}else{
+						$tablefield = $p_perso->prefix."_custom_list_lib";
+						$groupby = "";
+					}				
+					$p_tri = array(
+						'SOURCE' => "cp",
+						'TYPEFIELD' => "select",
+						'ID' => "cp".$key,
+						'TYPE' => "text",
+						'NAME' => $t_field['NAME'],
+						'LABEL' => $t_field['TITRE'],
+						'TABLEFIELD' => array('value'=>$tablefield),
+						'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine 
+left join ".$p_perso->prefix."_custom_lists on ".$p_perso->prefix."_custom_".$t_field['DATATYPE']." = ".$p_perso->prefix."_custom_list_value 
+where ".$p_perso->prefix."_custom_lists.".$p_perso->prefix."_custom_champ ='".$key."' and ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ ='".$key."'  ".$groupby 
+					);
+					break;
+				case "date_box" :
+					$p_tri = array(
+						'SOURCE' => "cp",
+						'TYPEFIELD' => "select",
+						'ID' => "cp".$key,
+						'TYPE' => "text",
+						'NAME' => $t_field['NAME'],
+						'LABEL' => $t_field['TITRE'],
+						'TABLEFIELD' => array('value'=>$p_perso->prefix."_custom_".$t_field['DATATYPE']),
+						'REQ_SUITE' => "left join ".$p_perso->prefix."_custom_values on notices.notice_id = ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_origine where ".$p_perso->prefix."_custom_values.".$p_perso->prefix."_custom_champ = '".$key."'"
+					);
+					break;
+				default : 
+					$p_tri =array();
+					break;
+			}
+			if($p_tri)$this->params['FIELD'][]=$p_tri;
+		}
+	}
+	
+	function generateRequeteCPUpdate($field, $nomTable, $nomChp){
+		$requete = "
+			SELECT 
+				".$this->params['REFERENCE'].'.'.$this->params['REFERENCEKEY'].", 
+				".$this->ajoutIfNull($field['TABLEFIELD'])." AS ".$nomChp." 
+			FROM ".$nomTable." LEFT JOIN ".$this->params['REFERENCE']." ON (".$this->params['REFERENCE'].".".$this->params['REFERENCEKEY']." = ".$nomTable.".".$this->params['REFERENCEKEY'].") 
+				".$field['REQ_SUITE'];
+
+		//On met le tout dans une table temporaire
+		$sql = "DROP TEMPORARY TABLE IF EXISTS ".$nomTable."_update";
+		mysql_query($sql);
+		$temporary2_sql = "CREATE TEMPORARY TABLE ".$nomTable."_update ENGINE=MyISAM (".$requete.")";
+		mysql_query($temporary2_sql);
+		mysql_query("alter table ".$nomTable."_update add index(notice_id)");
+	
+		//
+		//Et on rempli la table tri_tempo avec les éléments de la table temporaire
+		//
+		$requete = "UPDATE ".$nomTable.", ".$nomTable."_update";
+		$requete .= " SET " . $nomTable.".".$nomChp . " = " . $nomTable."_update.".$nomChp;
+		
+		//le lien vers la table de tri temporaire
+		$requete .= " WHERE " . $nomTable.".".$this->params["REFERENCEKEY"];
+		$requete .= "=" . $nomTable."_update.".$this->params["REFERENCEKEY"];
+		$requete .= " AND ".$nomTable."_update.".$nomChp." IS NOT NULL";
+		$requete .= " AND ".$nomTable."_update.".$nomChp." != ''";
+
+		return $requete;
 	}
 }
 ?>

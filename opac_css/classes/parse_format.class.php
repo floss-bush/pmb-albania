@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: parse_format.class.php,v 1.1 2010-08-11 10:08:23 ngantier Exp $
+// $Id: parse_format.class.php,v 1.5.2.1 2011-06-23 15:46:33 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php"))
 	die("no access");
@@ -15,7 +15,7 @@ class parse_format {
 	var $error_message; //Message d'erreur
 	var $environnement=array();
 
-	function parse_format($filename='interpreter.inc.php') {
+	function parse_format($filename='interpreter.inc.php',$in_relation=false) {
 		global $include_path;
 		global $func_format;
 		global $var_format;
@@ -24,16 +24,21 @@ class parse_format {
 		$this->func_format=$func_format;
 		$this->var_format=$var_format;
 		$this->var_return='';
+		$this->in_relation = $in_relation;
 	}
 
 	
 	function exec_function($function_name, $param_name, $param_number) {
-		if(! $this->func_format[$function_name]) return " $function_name not found ";
-		$ret = $this->func_format[$function_name]( $param_name, $this);
-		return $ret;
+		if($this->in_relation == false || ($this->in_relation== true && $function_name != "get_childs_in_tpl" && $function_name != "get_parents_in_tpl")){
+			if(! $this->func_format[$function_name]) return " $function_name not found ";
+			$ret = $this->func_format[$function_name]( $param_name, $this);
+			return $ret;
+		}else{
+			return "";
+		}
 	}
 	
-	function exec($cmd, & $i) { 
+	function exec($cmd, & $i) {
 		$state = 0;
 		$ret = "";
 		$function_name='';
@@ -55,6 +60,16 @@ class parse_format {
 				case 'get_param_name' : //get param name
 					
 					switch ($cmd[$i]) {
+						case ' ' :
+						case '"' :
+						case "'" :
+						case '<' :
+						case '>' :
+						case "\r" :
+						case "\n" :
+						case "\t" :
+							return "$".$param_name.$cmd[$i];
+							break;
 						case ';' :
 							if($this->var_set){
 								$this->var_set_name=$param_name;
@@ -74,6 +89,17 @@ class parse_format {
 				case 'get_function_name' : //get param name
 	
 					switch ($cmd[$i]) {
+						case ' ' :
+						case '"' :
+						case "'" :
+						case '<' :
+						case '>' :
+						case "\r" :
+						case "\n" :
+						case "\t" :
+						case ";" :
+							return "#".$function_name.$cmd[$i];
+							break;
 						case '(' :
 							$param_number = 0;
 							$param_name[$param_number] = '';
@@ -125,7 +151,7 @@ class parse_format {
 		return $ret;
 	}
 		
-	function exec_cmd() {
+	function exec_cmd($no_escape=false) {
 	
 		$cmd=$this->cmd;
 		
@@ -150,7 +176,7 @@ class parse_format {
 					}
 					break;
 				default :
-					if( ($cmd[$i]=='\\') && ( ($i+1) < strlen($cmd)) )$i++;
+					if (!$no_escape) if( ($cmd[$i]=='\\') && ( ($i+1) < strlen($cmd)) )$i++;
 					$ret .= $cmd[$i];
 					break;
 			}

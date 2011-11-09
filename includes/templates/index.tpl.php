@@ -1,8 +1,8 @@
 <?php
 // +-------------------------------------------------+
-// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: index.tpl.php,v 1.27 2009-05-16 11:19:55 dbellamy Exp $
+// $Id: index.tpl.php,v 1.27.4.1 2011-07-18 12:59:06 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -15,6 +15,7 @@ $login_form = "
     <h1>$msg[1000]</h1>
     <form class='form-$current_module' id='login' method='post' action='./main.php'>
     <div class='form-contenu'>";
+if ($login_message) $login_form .="<div class='colonne2'>";
 if ($ret_url) $login_form .= "<input type=hidden name=ret_url value=\"".addslashes($ret_url)."\">";
 $login_form .= "<div class='row'>
             <label class='etiquette' for='user'>$msg[1]</label>
@@ -39,6 +40,13 @@ if (count($_tableau_databases)>1) {
 	} else {
 		 $login_form .= "<input type='hidden' name='database' value='".$_tableau_databases[0]."'>" ;
 		}
+if ($login_message) {
+	$login_form.="</div>
+	<div class='colonne-suite'>
+		!!login_message!!
+	</div>
+	<div class='row'></div>";
+}
 $login_form .= "
 	</div>
     <!--    Bouton d'envoi    -->
@@ -61,8 +69,8 @@ $login_form_demo = "
             </div>
             <div class='row'>
                 <select class='saisie-20em' name='user' id='user' selected='selected' style='width: 90%;'>
-                    <option value='fr'>franï¿½ais</option>
-                    <option value='es'>espaï¿½ol</option>
+                    <option value='fr'>français</option>
+                    <option value='es'>español</option>
                     <option value='en'>english</option>
                     <option value='it'>italiano</option>
                 </select>
@@ -91,7 +99,7 @@ $login_form_demo = "
 <blockquote>
   <p> La base de d&eacute;montration n'est pas charg&eacute;e 
     avec un th&eacute;saurus mais simplement avec un petit r&eacute;pertoire d'<strong>autorit&eacute;s 
-    mati&egrave;res</strong>, de mots clï¿½s, hi&eacute;rarchis&eacute;es mais pas li&eacute;es. 
+    mati&egrave;res</strong>, de mots clés, hi&eacute;rarchis&eacute;es mais pas li&eacute;es. 
     Vous n'aurez donc ici aucun aper&ccedil;u de la navigation dans les termes 
     associ&eacute;s. De m&ecirc;me, ce r&eacute;pertoire ne comporte pas de termes 
     non descripteurs et vous ne pourrez donc pas voir ces renvois.<br />
@@ -141,13 +149,13 @@ $login_form_demo = "
     peuvent vous apporter toute l'aide n&eacute;cessaire.<br />
   </p>
 </blockquote>
-<p><em>L'ï¿½cran de dï¿½marrage ici correspond ï¿½ la version de dï¿½monstration : la 
-  langue que vous sï¿½lectionnez correspond ï¿½ un utilisateur utilisant l'application 
+<p><em>L'écran de démarrage ici correspond à la version de démonstration : la 
+  langue que vous sélectionnez correspond à un utilisateur utilisant l'application 
   dans cette langue. </em></p>
-<p><i>Ne vous ï¿½tonnez pas si votre thï¿½me change en cours d'utilisation de PMB 
-  dans cette dï¿½monstration, il est possible qu'un autre internaute utilise le 
-  mï¿½me compte utilisateur que vous et change son thï¿½me ! </i> </p>
-<p><i>L'onglet Administration est dï¿½sactivï¿½ de cette version de dï¿½monstration pour une question ï¿½vidente de sï¿½curitï¿½.
+<p><i>Ne vous étonnez pas si votre thème change en cours d'utilisation de PMB 
+  dans cette démonstration, il est possible qu'un autre internaute utilise le 
+  même compte utilisateur que vous et change son thème ! </i> </p>
+<p><i>L'onglet Administration est désactivé de cette version de démonstration pour une question évidente de sécurité.
 </i>
 </p>
 ";
@@ -164,8 +172,8 @@ $index_header = "
       $msg[1001]
     </title>
     <meta name='author' content='PMB Group' />
-    <meta name='description' content='Logiciel libre de gestion de mï¿½diathï¿½que' />
-    <meta name='keywords' content='logiciel, gestion, bibliothï¿½que, mï¿½diathï¿½que, libre, free, software, mysql, php, linux, windows, mac' />
+    <meta name='description' content='Logiciel libre de gestion de médiathèque' />
+    <meta name='keywords' content='logiciel, gestion, bibliothèque, médiathèque, libre, free, software, mysql, php, linux, windows, mac' />
     <meta http-equiv='Pragma' content='no-cache' />
     <meta http-equiv='Cache-Control' content='no-cache' />
     <meta http-equiv='content-type' content='text/html; charset=".$charset."' />
@@ -191,7 +199,7 @@ $login_menu="
     </div>";
 
 // Barre de menu
-//    Par dï¿½faut : l'ï¿½chappatoire de l'appli...   ;-)
+//    Par défaut : l'échappatoire de l'appli...   ;-)
 $nav_bar = $nav_bar."
 	<div id='navbar'>
     		<h3>&nbsp;</h3>
@@ -215,7 +223,7 @@ $extra_version
 $login_menu
     <div id='nocontenu'>
 ";
-/*
+
 $index_footer = "
 </div>
 <div id='footer'>
@@ -227,4 +235,3 @@ $index_footer = "
 </html>
 ";
 
-*/

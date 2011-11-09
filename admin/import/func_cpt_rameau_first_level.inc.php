@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 //  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: func_cpt_rameau_first_level.inc.php,v 1.4 2009-05-16 11:15:42 dbellamy Exp $
+// $Id: func_cpt_rameau_first_level.inc.php,v 1.4.4.1 2011-09-27 14:57:00 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -86,7 +86,7 @@ function import_new_notice_suite() {
 		$resultat = categories::searchLibelle(addslashes($categ_first[$i]), $thesaurus_defaut, 'fr_FR');
 		if (!$resultat){
 			/*vérification de l'existence des categs, sinon création */
-			$resultat = create_categ($thes->num_noeud_racine, $categ_first[$i], ' '.strip_empty_words($categ_first[$i]).' ');
+			$resultat = create_categ_cpt_rameau_first_level($thes->num_noeud_racine, $categ_first[$i], ' '.strip_empty_words($categ_first[$i]).' ');
 		} 
 		/* ajout de l'indexation à la notice dans la table notices_categories*/
 		$rqt_ajout = "insert into notices_categories set notcateg_notice='".$notice_id."', num_noeud='".$resultat."', ordre_categorie=".($i-1) ;
@@ -190,7 +190,7 @@ function traite_exemplaires () {
 		} // fin for
 	} // fin traite_exemplaires	TRAITEMENT DES EXEMPLAIRES JUSQU'ICI
 
-function create_categ($num_parent, $libelle, $index) {
+function create_categ_cpt_rameau_first_level($num_parent, $libelle, $index) {
 	
 	global $thes;
 	$n = new noeuds();

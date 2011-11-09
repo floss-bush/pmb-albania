@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: author.inc.php,v 1.28 2009-12-05 14:10:19 kantin Exp $
+// $Id: author.inc.php,v 1.28.4.1 2011-04-22 09:16:49 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -95,11 +95,11 @@ if ($nb_result_auteurs) {
 		// Le lien validant le formulaire est inséré avant le formulaire, cela évite les blancs à l'écran
 		if($link_type_resume[$i]) $clause_link=$clause." and author_type='".$link_type_resume[$i]."'";
 		else $clause_link=$clause;
-		print "<a href=\"javascript:		
+		print "<a href=\"#\" onClick=\"		
 			document.forms.search_authors.count.value='".$nb_result_resume[$i]."';
 			document.forms.search_authors.clause.value='".htmlentities(addslashes($clause_link),ENT_QUOTES,$charset)."'; 
 			document.forms.search_authors.author_type.value='$link_type_resume[$i]'; 			
-			document.forms['search_authors'].submit();\">
+			document.forms['search_authors'].submit(); return false;\">
 			$msg[suite]&nbsp;<img src=./images/search.gif border='0' align='absmiddle'/></a>";
 		print "<br />";
 	}

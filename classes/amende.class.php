@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: amende.class.php,v 1.14 2010-09-03 07:11:30 ngantier Exp $
+// $Id: amende.class.php,v 1.14.2.1 2011-06-14 15:33:24 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -107,7 +107,7 @@ class amende {
     	//Recherche des livres en retard
     	$t_id_expl=array();
     	
-    	$requete="select pret_idexpl, printed from pret where pret_idempr=".$this->id_empr." and now()>pret_retour";
+    	$requete="select pret_idexpl, printed from pret where pret_idempr=".$this->id_empr." and CURDATE()>pret_retour";
     	$resultat=mysql_query($requete);
     	if (@mysql_num_rows($resultat)) {
     		while ($r=mysql_fetch_object($resultat)) {

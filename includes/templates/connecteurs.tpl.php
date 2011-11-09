@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: connecteurs.tpl.php,v 1.5 2008-08-07 07:53:45 erwanmartin Exp $
+// $Id: connecteurs.tpl.php,v 1.8 2011-04-15 15:16:01 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -69,6 +69,13 @@ $admin_connecteur_source_global_params="
 		<div class='row'>
 			<div class='colonne3'><label for='repository'/>".$msg["connecteurs_repository"]."</label></div><div class='colonne_suite'>!!repository!!</div>
 		</div>
+		<div class='row'>
+			<div class='colonne3'><label for='rep_upload'/>".$msg["connecteurs_rep_upload"]."</label></div><div class='colonne_suite'>!!rep_upload!!</div>
+		</row>
+		<div class='row'>
+			<div class='colonne3'><label for='upload_doc_num'/>".$msg["connecteurs_source_upload_doc_num"]."</label></div><div class='colonne_suite'><input type='checkbox' name='upload_doc_num' id='upload_doc_num' value='1' !!upload_doc_num!! /></div>
+		</div>
+		!!enrichment!!
 		<div class='row'>	
 			!!special_form!!
 		</div>

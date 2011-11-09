@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search_persopac.class.php,v 1.5 2010-06-18 15:27:41 touraine37 Exp $
+// $Id: search_persopac.class.php,v 1.6 2011-01-27 10:26:25 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -35,47 +35,66 @@ function fetch_data() {
 	$this->human=$myreq->search_human;
 	$this->directlink=$myreq->search_directlink;
 	$this->limitsearch=$myreq->search_limitsearch;
+	$this->empr_categ_restrict = array();
+	
+	$req  = "select id_categ_empr from search_persopac_empr_categ where id_search_persopac = ".$this->id;
+	$res = mysql_query($req);
+	if(mysql_num_rows($res)){
+		while ($obj = mysql_fetch_object($res)){
+			$this->empr_categ_restrict[]=$obj->id_categ_empr;
+		}
+	}
 }
 
 function get_link() {
 	global $dbh,$onglet_persopac;	
-	$myQuery = mysql_query("SELECT * FROM search_persopac order by search_name ", $dbh);
+	//$myQuery = mysql_query("SELECT * FROM search_persopac order by search_name ", $dbh);
+	$myQuery = mysql_query("SELECT search_persopac.*, group_concat(id_categ_empr) as categ_restrict FROM search_persopac left join search_persopac_empr_categ on id_search_persopac = search_id group by search_id order by search_name ", $dbh);
 	
 	$this->search_persopac_list=array();
 	$link="";
 	if(mysql_num_rows($myQuery)){
 		$i=0;
+		//on récupère la catégorie du lecteur...
+		$req = "select empr_categ from empr where id_empr = ".$_SESSION['id_empr_session'];
+		$res =mysql_query($req);
+		if(mysql_num_rows($res)){
+			$empr_categ = mysql_result($res,0,0);
+		}else $empr_categ = 0;
 		while(($r=mysql_fetch_object($myQuery))) {	
-			$name=translation::get_text($r->search_id,"search_persopac","search_name",$r->search_name);	
-			$shortname=translation::get_text($r->search_id,"search_persopac","search_shortname",$r->search_shortname);				
-			if($r->search_directlink) {					
-				if($shortname)$libelle=$shortname;
-				else $libelle=$name;
-				$my_search=new search();
-				$backup_search=$my_search->serialize_search();
-				$my_search->unserialize_search($r->search_query);
-				$forms_search.= "\n".$my_search->make_hidden_search_form("./index.php?search_type_asked=extended_search&onglet_persopac=".$r->search_id."&limitsearch=".$r->search_limitsearch,"search_form".$r->search_id)."\n";				
-				$my_search->unserialize_search($backup_search);
-				if($onglet_persopac==$r->search_id) {
-					$li_id=" id='current' ";
-					$lien=$libelle;
-				} else {
-					$li_id="";
-					$lien="<a href=\"javascript:document.forms['search_form".$r->search_id."'].submit();\">".$libelle."</a>";
-				}
-				$link.="
-					<li $li_id >
-						$lien	
-					</li>";
-			}		
-			$this->search_persopac_list[$i]->id=$r->search_id;
-			$this->search_persopac_list[$i]->name=$name;
-			$this->search_persopac_list[$i]->shortname=$shortname;
-			$this->search_persopac_list[$i]->query=$r->search_query;
-			$this->search_persopac_list[$i]->human=$r->search_human;
-			$this->search_persopac_list[$i]->directlink=$r->search_directlink;	
-			$this->search_persopac_list[$i]->limitsearch=$r->search_limitsearch;				
-			$i++;						
+			$empr_categ_restrict = ($r->categ_restrict != '' ? explode(",",$r->categ_restrict) : array());
+			if(count($empr_categ_restrict) == 0 || in_array($empr_categ,$empr_categ_restrict)){
+				$name=translation::get_text($r->search_id,"search_persopac","search_name",$r->search_name);	
+				$shortname=translation::get_text($r->search_id,"search_persopac","search_shortname",$r->search_shortname);				
+				if($r->search_directlink) {					
+					if($shortname)$libelle=$shortname;
+					else $libelle=$name;
+					$my_search=new search();
+					$backup_search=$my_search->serialize_search();
+					$my_search->unserialize_search($r->search_query);
+					$forms_search.= "\n".$my_search->make_hidden_search_form("./index.php?search_type_asked=extended_search&onglet_persopac=".$r->search_id."&limitsearch=".$r->search_limitsearch,"search_form".$r->search_id)."\n";				
+					$my_search->unserialize_search($backup_search);
+					if($onglet_persopac==$r->search_id) {
+						$li_id=" id='current' ";
+						$lien=$libelle;
+					} else {
+						$li_id="";
+						$lien="<a href=\"javascript:document.forms['search_form".$r->search_id."'].submit();\">".$libelle."</a>";
+					}
+					$link.="
+						<li $li_id >
+							$lien	
+						</li>";
+				}		
+				$this->search_persopac_list[$i]->id=$r->search_id;
+				$this->search_persopac_list[$i]->name=$name;
+				$this->search_persopac_list[$i]->shortname=$shortname;
+				$this->search_persopac_list[$i]->query=$r->search_query;
+				$this->search_persopac_list[$i]->human=$r->search_human;
+				$this->search_persopac_list[$i]->directlink=$r->search_directlink;	
+				$this->search_persopac_list[$i]->limitsearch=$r->search_limitsearch;				
+				$i++;			
+			}			
 		}	
 	}
 	$this->directlink_user=$link;

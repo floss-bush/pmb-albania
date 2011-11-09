@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: bretagne2.css,v 1.41 2010-12-20 10:05:06 arenou Exp $
+// $Id: bretagne2.css,v 1.42.2.6 2011-09-06 14:34:00 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -463,7 +463,6 @@ div.category {
 	font-weight:normal;
 	color:#4180b5;
 	padding-right:10px;
-	height:16px;
 	display:block;
 	padding-top:2px;
 	margin-bottom:3px;
@@ -474,9 +473,8 @@ div.category {
 #categories ul.search_tabs li#current{
 	padding-right:10px;
 	padding-top:2px;
-	height:16px;
 	margin-bottom:3px;
-	color:#436f10;
+	color: #56881C;
 	font-weight:bold;
 }         	
 
@@ -495,7 +493,7 @@ div.category {
 	/*margin-left:18%;*/
 }
 
-.etageres { 
+#etageres { 
 	clear:both;	
 }
 
@@ -751,7 +749,7 @@ ul#onglets_isbd_public {
     list-style-type: none;
     padding-bottom: 24px;
     border-bottom: 1px solid #aaaaaa;
-    margin: 0;
+    clear: both;
     padding-left:2px;
 }
 
@@ -806,8 +804,10 @@ ul#onglets_isbd_public li.onglet_tags a {
 }
 
 /* Etageres */
-#etagere {
+.etagere {
 	margin-top:10px;
+	border:1px solid #ccc;
+	background: url(images/p_haut.png) repeat-x;
 }
 
 #etagere-titre h1 {
@@ -825,10 +825,7 @@ ul#onglets_isbd_public li.onglet_tags a {
 }
 #etagere-titre a {
 }
-#etagere{
-	border:1px solid #ccc;
-	background: white url(images/p_haut.png) repeat-x;
-}
+
 #etagere-comment h2 {
 	font-style:italic;
 	font-size:12px;
@@ -1045,7 +1042,6 @@ blockquote ul{
 }
 .notice-child .img_basket{
 	display:block;
-	margin-right:25px;
 	background: transparent url('images/panier_label.gif') no-repeat;
 	width:125px;
 	height:20px;
@@ -1304,3 +1300,136 @@ ul.empr_subtabs li{
 .authorities{
 	background : #A8A8A8;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		               Onglets de recherche  	     			 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+ 
+
+#search_onglet ul.search_tabs {
+	list-style: none;
+	padding-left: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+#search_onglet ul.search_tabs li {
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+#search_onglet ul.search_tabs li a {
+	text-decoration: none;
+	color: #555555;
+}
+
+#search_onglet ul.search_tabs li a:hover {
+	font-style: italic;
+}
+
+#search_onglet ul.search_tabs li.current {
+	border: 1px solid #B9B9BA;
+	border-bottom: none;
+}
+
+#search_onglet ul.search_tabs li.current a {
+    font-weight: bold;
+    color: #56881C;
+}
+
+#search_onglet ul.search_tabs li.current a:hover {
+    font-style: normal;
+}
+
+#resultatrech_see {
+	margin-bottom: 10px;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#perio_a2z #perio_a2z_search {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#perio_a2z ul#onglets_isbd_public {
+	margin-top: 5px;
+}
+
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_perio_list {
+	width: 200px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #aaaaaa;
+	padding-bottom: 3px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .notice-child h3 span {
+    padding-left: 0px;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+

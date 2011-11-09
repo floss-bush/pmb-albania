@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: export.class.php,v 1.50 2010-12-13 10:10:11 mbertin Exp $
+// $Id: export.class.php,v 1.51.2.2 2011-09-27 13:54:41 jpermanne Exp $
 
 //Export d'une notice PMB en XML PMB MARC
 
@@ -191,6 +191,17 @@ class export {
 				}
 			}
 			$this -> add_field("200", "1 ", $subfields);
+			
+			//Titres Uniformes
+			$rqt_tu = "select tu_name from notices_titres_uniformes,titres_uniformes where tu_id =ntu_num_tu and ntu_num_notice = '".$this->notice_list[$this->current_notice]."' order by ntu_ordre";
+			$result_tu = mysql_query($rqt_tu);
+			if(mysql_num_rows($result_tu)){		
+				while($row_tu = mysql_fetch_object($result_tu)){
+					$subfields = array();
+					$subfields["a"] = $row_tu->tu_name;
+					$this->add_field("500", "10", $subfields);
+				}
+			}
 			
 			//Titre du pério pour les notices de bulletin
 			$subfields=array();
@@ -520,10 +531,18 @@ class export {
 						while(($notice_mere=mysql_fetch_object($resultat_mere))) {
 							$subfields = array();	
 							$list_titre = array();
+							$list_auteurs = array();
 							$list_options = array();
 							//On recopie les informations de la notice fille
 							if($params["notice_mere"]) $subfields["0"] = $notice_mere->notice_id;
 							$list_titre[] = ($notice_mere->tit1) ? $notice_mere->tit1 : " ";
+							//auteur
+							$rqt_aut = "select author_name, author_rejete from responsability join authors on author_id = responsability_author and responsability_notice=".$notice_mere->notice_id." where responsability_type != 2 order by responsability_type,responsability_ordre";
+							$res_aut=mysql_query($rqt_aut);
+							$mere_aut = array();
+							while(($mere_aut=mysql_fetch_object($res_aut))) {
+								$list_auteurs[] = $mere_aut->author_name.($mere_aut->author_rejete ? ", ".$mere_aut->author_rejete : "");
+							}
 							$list_options[] = "bl:".$notice_mere->niveau_biblio.$notice_mere->niveau_hierar;
 							$list_options[] = "id:".$notice_mere->notice_id;
 							if($notice_fille->rank) $list_options[] = "rank:".$notice_fille->rank;
@@ -534,6 +553,7 @@ class export {
 							if($notice_mere->niveau_biblio == 'm' && $notice_mere->niveau_hierar == '0'){
 								if($notice_mere->code) $subfields["y"] = $notice_mere->code;
 								$subfields["t"] = $list_titre;
+								$subfields["a"] = $list_auteurs;
 							}
 							//Relation avec pério = ISSN
 							if($notice_mere->niveau_biblio == 's' && $notice_mere->niveau_hierar == '1'){
@@ -873,7 +893,7 @@ class export {
 				$subfields_463["d"] = $notice_art->date_date;
 				$subfields_463["e"] = $notice_art->mention_date;
 				$subfields_463["v"] = $notice_art->bulletin_numero;
-				if($notice_art->code) $subfields["x"] = $notice_art->code;
+				if($notice_art->code) $subfields_463["x"] = $notice_art->code;
 			    $list_titre[] = ($notice_art->bulletin_titre) ? $notice_art->bulletin_titre : " ";
 			    $list_titre[] = ($notice_art->tit1) ? $notice_art->tit1 : " ";
 			    $subfields_463["t"] = $list_titre;
@@ -921,7 +941,7 @@ class export {
 		}
 		
 		if(!count($this->expl_bulletin_a_exporter)){
-			//On vien de traiter le dernier
+			//On vient de traiter le dernier
 			return false;
 		}else{
 			return true;

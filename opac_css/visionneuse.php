@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: visionneuse.php,v 1.7 2010-10-11 08:23:24 arenou Exp $
+// $Id: visionneuse.php,v 1.7.2.1 2011-07-21 08:51:35 gueluneau Exp $
 $base_path = ".";
 $include_path ="$base_path/includes";
 $class_path ="$base_path/classes";
@@ -67,4 +67,5 @@ $params = array(
 );
 
 $visionneuse = new visionneuse("pmb",$visionneuse_path,$lvl,$lang,$params);
+print $short_footer;
 ?>

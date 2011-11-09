@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: param_func.inc.php,v 1.16 2009-05-16 11:12:03 dbellamy Exp $
+// $Id: param_func.inc.php,v 1.17 2011-04-11 09:24:58 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -13,6 +13,7 @@ require_once($include_path."/parser.inc.php");
 function param_form($id_param=0, $type_param="", $sstype_param="", $valeur_param="", $comment_param="") {
 	global $msg;
 	global $admin_param_form;
+	global $charset;
 
 	$title = $msg[1606]; // modification
 
@@ -20,8 +21,8 @@ function param_form($id_param=0, $type_param="", $sstype_param="", $valeur_param
 	$admin_param_form = str_replace('!!id_param!!', $id_param, $admin_param_form);
 	$admin_param_form = str_replace('!!type_param!!', $type_param, $admin_param_form);
 	$admin_param_form = str_replace('!!sstype_param!!', $sstype_param, $admin_param_form);
-	$admin_param_form = str_replace('!!valeur_param!!', $valeur_param, $admin_param_form);
-	$admin_param_form = str_replace('!!comment_param!!', $comment_param, $admin_param_form);
+	$admin_param_form = str_replace('!!valeur_param!!', htmlentities($valeur_param,ENT_QUOTES,$charset), $admin_param_form);
+	$admin_param_form = str_replace('!!comment_param!!', htmlentities($comment_param,ENT_QUOTES,$charset), $admin_param_form);
 
 	print $admin_param_form;
 	

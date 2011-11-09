@@ -1,0 +1,149 @@
+/* +--------------------------------------------------------------------------+
+//  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: bulletinfo.css,v 1.1.2.5 2011-05-25 15:44:43 trenon Exp $
+*/
+/************************************************************************
+	
+	D.S.I. BANNETTE : Informations a renseigner 
+	
+	En tete
+	"""
+	<div id="dsi_entete">
+		<h1>BULLETIN DE VEILLE</h1>
+		<h2>Envoi du !!date!! <br /><em>diffusion : !!public!!</em></h2>
+	</div>
+	"""
+
+	Pied de page
+	"""	
+	Retrouvez également toutes ces informations sur <a href=http://demo.bibli.fr/opac/>l'Espace documentaire de Bib'Doc</a> (après identification) en cliquant sur le bouton « mon compte » puis « accéder à  votre information personnalisée » : Bib'Doc : revue de presse documentaire : !!nb_notice!! notice(s) <br />
+Contact : <a href="mailto:erobert@sigb.net">Eric ROBERT</a>
+	"""
+	
+	Template de notice a utiliser
+	"""
+	<h2>
+		#header_link(#title();,2);
+	</h2>
+	<br />
+	<p class="resume">
+		#resume();
+	</p>
+	<p class="source">
+		#b_empty(#author();#b_empty(#author_1();, - );,<br />);
+		#if(#is_article();,
+		#nom_revue();#a_empty(#numero_bulletin();, - ); - #date_bulletin();,
+		#b_empty(#publisher();, - ); #year_publication(););
+	</p>
+	"""
+	
+****************************************************************************/
+
+body{
+	background-image: url('./dsi/images/fond_dsi.jpg');
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-color: #ffffff;
+	width:800px;
+	padding-top:0px;
+	padding-left:10px;
+	text-align:left;
+	font-family: Arial,Calibri,Verdana,Sans-Serif,Helvetica;
+	font-size:11px;
+	font-style:normal;
+	color:#333333;
+	margin: 0 auto;
+}
+
+a {
+	font-size:15px;
+	color: #00918a;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+hr{
+	height:1px;
+	border-top:1px solid #cfcfcf;
+	border-right:none;
+	border-bottom:1px solid #efefef;
+	border-left:none;
+	margin:10px 5px;
+	margin-left:-5px;
+	width:800px;
+}
+
+div.hr hr {
+	display: none;
+}
+
+h1{
+	color:#8abf52;
+	text-transform:uppercase;	
+	font-size:17px;
+}
+
+#dsi_entete h1{
+	-moz-border-radius:10px;
+	padding:10px 25px;
+	display:table;
+	font-size:15px;
+	margin:0px;
+	margin-left:625px;
+	text-align:right;
+	padding-bottom:20px;
+	border-left:#efefef 1px solid;
+	color:#333;
+	width:180px;
+}
+
+#dsi_entete h2{
+	color:#c00000;
+	text-align:right;
+	font-size:14px;
+	padding-left:15px;
+	margin:0;
+	display:table;
+	line-height:1.4em;
+	padding: 10px 30px 15px 10px;
+	border:none;
+}
+
+#dsi_entete h2 em {
+	font-size:12px;
+	color:#444;
+}
+
+p{
+	text-indent:15px;
+	padding:5px 0px;
+	margin:0;
+}
+
+.resume{
+	font-size:15px;
+	text-indent:0px;
+}
+	
+.source{
+	text-indent:0px;
+}
+
+.notice_dsi_pmb img {
+	max-width: 140px;
+    max-height: 100px;
+    width: expression(this.width > 140 ? "140px" : true);
+    height: expression(this.height > 100 ? "100px" : true);
+}
+
+
+
+
+
+
+
+

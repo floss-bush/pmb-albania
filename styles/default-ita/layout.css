@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // � 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: layout.css,v 1.63 2010-07-02 08:15:15 arenou Exp $
+// $Id: layout.css,v 1.65.2.3 2011-10-03 14:56:31 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -318,9 +318,9 @@ iframe#alerte {
 #contenu {
 		position: absolute;
 		top: 5%;
-		right: 0;
+		right: 20px;
 		left: 14em;
-		width: 80%;
+		/*width: 80%;*/
 		}
 
 }
@@ -689,7 +689,9 @@ table  {
 		border-left: 0px solid #D5A085;
 		width: 100%;
 	}
-	tr { }
+	tr {
+		font-style: normal;
+	}
 
 	th {
 		background: #f0f0f0;
@@ -1290,6 +1292,21 @@ h3 {
 	border-right-style: none;
 	border-top-style: none;
 }
+
+.notice-child table td img.img_notice {
+    max-width: 140px;
+	max-height: 200px;
+	width: expression(this.width > 140 ? "140px" : true);
+	height: expression(this.height > 200 ? "200px" : true);
+}
+
+table td .img_notice {
+    max-width: 140px;
+	max-height: 200px;
+	width: expression(this.width > 140 ? "140px" : true);
+	height: expression(this.height > 200 ? "200px" : true);
+}
+
 .notice-bu {
 	margin-top: 0px;
 	background-color: transparent;
@@ -1615,6 +1632,25 @@ border-radius:5px 5px;
 	background-color: #DFB;
 	border: 1px solid #684;
 }
+
+.in_cell_text {
+	width:95%;
+	border:1px solid;
+}
+.in_cell_rd,
+.in_cell_ld {
+	width:100%;	
+	background-color:transparent;
+	border-color:transparent;
+	border-width:0;
+}
+.in_cell_rd {
+	text-align:right;	
+}
+.in_cell_ld {
+	text-align:left;
+}
+
 .req_ajax_div {
 	border:1px #000 solid;
 	left:0px;
@@ -1666,6 +1702,20 @@ border-radius:5px 5px;
 } 
 .img_plus{background:#8cc6ff;}
 
+.act_cell_img_plus {
+	background:#8cc6ff;
+	margin-left:-20px;
+}
+.act_cell_chkbox2 {
+	margin-right:-20px;
+}
+.act_cell_comments table,
+.act_cell_reminders table
+{
+	margin-top:0px;
+	margin-bottom:0px;
+}
+
 /**
  *  Couleur de fond et de liens du calendrier
  *
@@ -1703,7 +1753,7 @@ border-radius:5px 5px;
 }
 .pbar_frame {
 	border:#000000 1px solid;
-	padding:4px';
+	padding:4px;
 }
 .pbar_gauge {
 	text-align:left;
@@ -1740,7 +1790,7 @@ table{
 .tab_sug th, .tab_sug td{
 	border:1px solid #CCCCCC;	
 	vertical-align:center;
-	text-align: center;
+	/*text-align: center;*/
 	overflow:scroll;
 	width:100%;
 }
@@ -1757,4 +1807,52 @@ table{
 
 .erreur_saisie {
 	background-color: #ff0000;
+}
+
+table.sortable tr td {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	padding-right: 5px;	
+}
+
+#recept_frame {
+	border:2px solid #777799;
+	border-radius:5px 5px;
+	-moz-border-radius:10px;
+	padding:5px;
+	z-Index:1000;
+	position:absolute;
+	background: #FAFFF0;
+	display:none;
+}
+
+#navbar-cms {
+	float:left;
+	margin:0;
+	margin-right:5px;
+	padding:0px 0px 0px 10px;
+	border-top:2px solid #765;
+	border-left:2px solid #765;
+	border-bottom:1px solid #765;
+	background: #FFF0A7;
+	}
+#navbar-cms a {
+	float:left;
+	padding:5px 13px 2px 6px;
+	border-right:2px solid #765;
+	border-bottom:0px solid #765;
+	height: 100%;
+	text-decoration:none;
+	}
+#navbar-cms.current {
+	border-bottom:1px solid #C0F1C3;
+	}
+#navbar-cms.current a {
+	color: #000;
+	border-bottom:0px ;
+	padding-bottom:2px;	}
+
+#f_ex_note, #f_ex_comment {
+	width: 90%;
 }

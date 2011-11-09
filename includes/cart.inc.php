@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: cart.inc.php,v 1.68 2010-10-21 08:59:10 mbertin Exp $
+// $Id: cart.inc.php,v 1.69.2.1 2011-06-16 08:02:37 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -51,7 +51,7 @@ function aff_paniers($item=0, $object_type="NOTI", $lien_origine="./cart.php?", 
 				else $pair_impair = "odd";	        
 		        $tr_javascript=" onmouseover=\"this.className='surbrillance'\" onmouseout=\"this.className='$pair_impair'\" ";
 				
-				if($item) {
+				if($item && $action!="save_cart") {
 					$print_cart[$myCart->type]["cart_list"].= pmb_bidi("<tr class='$pair_impair' $tr_javascript ><td>".(!$nocheck?"<input type='checkbox' id='id_".$valeur['idcaddie']."' name='caddie[".$valeur['idcaddie']."]' value='".$valeur['idcaddie']."'>":"")."&nbsp;"); 
 					$link = "$lien_origine&action=$action_click&object_type=".$object_type."&idcaddie=".$valeur['idcaddie']."&item=$item";	
             		if(!$nocheck)$print_cart[$myCart->type]["cart_list"].= pmb_bidi( "<a href='#' onclick='javascript:document.getElementById(\"id_".$valeur['idcaddie']."\").checked=true;document.forms[\"print_options\"].submit();' /><strong>".$valeur['name']."</strong>")	;
@@ -84,7 +84,7 @@ function aff_paniers($item=0, $object_type="NOTI", $lien_origine="./cart.php?", 
 	}
 
 	if (!$nocheck) {
-		if($item) {
+		if($item && $action!="save_cart") {
 			$boutons_select="<input type='submit' value='".$msg["print_cart_add"]."' class='bouton'/>&nbsp;<input type='button' value='".$msg["print_cancel"]."' class='bouton' onClick='self.close();'/>&nbsp;";
 		}	
 		if ($lien_creation) {
@@ -357,7 +357,7 @@ function aff_cart_objects ($idcaddie=0, $url_base="./catalog.php?categ=caddie&su
 			print $begin_result_liste;
 			while(list($cle, $expl) = each($liste)) {
 				if (!$no_del) $show_del=1; else $show_del=0;
-				if($bull_aff = show_bulletinage_info($expl[object_id], 0 , $show_del)) {
+				if($bull_aff = show_bulletinage_info($expl[object_id], 0 , $show_del, $expl[flag])) {
 					print pmb_bidi($bull_aff);
 				} else {
 					if ($expl[flag]) $marque_flag ="<img src='images/tick.gif'/>" ;
@@ -371,7 +371,6 @@ function aff_cart_objects ($idcaddie=0, $url_base="./catalog.php?categ=caddie&su
 						</div>
 						";
 					print $cb_display;
-					//print "<strong>$form_cb_expl&nbsp;: ${msg[395]}</strong>";
 				}
 			} // fin de liste
 		print $end_result_liste;

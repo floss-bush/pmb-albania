@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax.php,v 1.14 2010-06-21 09:18:17 ngantier Exp $
+// $Id: ajax.php,v 1.14.2.1 2011-09-13 09:46:40 arenou Exp $
 /*
 Mode d'emploi des transactions client - serveur utilisant les requettes Ajax.
 Cette technique permet d'interroger le serveur dynamiquement sans recharger toute la page.
@@ -65,6 +65,31 @@ $base_path = ".";
 $base_noheader = 1;
 $base_nobody = 1;
 $clean_pret_tmp=1;
+
+//avant l'inclusion faudrait peut-être s'occuper de la gestion des droits dans les différentes requetes...
+switch($_GET['module']){
+	case "autorites" :
+		$base_auth = "AUTORITES_AUTH";
+		break;
+	case 'catalog':
+		$base_auth = "CATALOGAGE_AUTH";
+	break;
+	case 'circ':
+		$base_auth = "AUTORITES_AUTH";
+	break;		
+	case 'admin':
+		$base_auth = "ADMINISTRATION_AUTH";
+	break;
+	case 'demandes':
+		$base_auth = "DEMANDES_AUTH";
+	break;	
+	case 'acquisition':
+		$base_auth = "ACQUISITION_AUTH";
+	break;
+	case 'fichier':
+		$base_auth = "FICHES_AUTH";
+	break;
+}
 
 require_once ($base_path . "/includes/init.inc.php");
 

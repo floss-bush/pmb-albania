@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesOPACEmpr.class.php,v 1.30 2010-12-23 12:27:37 erwanmartin Exp $
+// $Id: pmbesOPACEmpr.class.php,v 1.30.2.1 2011-09-28 14:36:21 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -228,6 +228,7 @@ class pmbesOPACEmpr extends external_services_api_class{
 		$result["personal_information"]["phone_number2"] = utf8_normalize($empr->tel2);
 		$result["personal_information"]["email"] = utf8_normalize($empr->mail);
 		$result["personal_information"]["birthyear"] = utf8_normalize($empr->birth);
+		$result["personal_information"]["sex"] = utf8_normalize($empr->sexe);
 		$result["location_caption"] = utf8_normalize($empr->empr_location_l);
 		$result["location_id"] = utf8_normalize($empr->empr_location);
 		$result["adhesion_date"] = utf8_normalize($empr->date_adhesion);

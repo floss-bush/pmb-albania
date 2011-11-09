@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: doc_num.php,v 1.23 2010-03-22 09:37:04 kantin Exp $
+// $Id: doc_num.php,v 1.24 2011-01-28 15:09:35 arenou Exp $
 
 $base_path=".";
 require_once($base_path."/includes/init.inc.php");
@@ -36,6 +36,8 @@ require_once ("./includes/explnum.inc.php");
 
 require_once ($class_path."/upload_folder.class.php"); 
 
+//gestion des droits
+require_once($class_path."/acces.class.php");
 
 $requete = "SELECT explnum_id, explnum_notice, explnum_bulletin, explnum_nom, explnum_nomfichier, explnum_mimetype, explnum_url, 
 			explnum_data, explnum_extfichier, explnum_path, concat(repertoire_path,explnum_path,explnum_nomfichier) as path, repertoire_id
@@ -43,12 +45,28 @@ $requete = "SELECT explnum_id, explnum_notice, explnum_bulletin, explnum_nom, ex
 $resultat = mysql_query($requete,$dbh);
 $nb_res = mysql_num_rows($resultat) ;
 
+
 if (!$nb_res) {
 	header("Location: images/mimetype/unknown.gif");
 	exit ;
 } 
 	
 $ligne = mysql_fetch_object($resultat);
+
+if($ligne->explnum_bulletin != 0){
+	//si bulletin, les droits sont rattachés à la notice du pério...
+	$req = "select bulletin_notice from bulletins where bulletin_id =".$ligne->explnum_bulletin;
+	$res = mysql_query($req);
+	if(mysql_num_rows($res)){
+		$perio_id = mysql_result($res,0,0);
+	}
+}else $perio_id = 0;
+//droits d'acces emprunteur/notice
+if ($gestion_acces_active==1 && $gestion_acces_empr_notice==1) {
+	$ac= new acces();
+	$dom_2= $ac->setDomain(2);
+	$rights= $dom_2->getRights($_SESSION['id_empr_session'],($perio_id != 0 ? $perio_id : $ligne->explnum_notice));
+}
 
 //Accessibilité des documents numériques aux abonnés en opac
 if ($ligne->explnum_notice) {
@@ -59,7 +77,7 @@ if ($ligne->explnum_notice) {
 $result=mysql_query($req_restriction_abo,$dbh) or die(mysql_error()." <br />".$req_restriction_abo);
 $expl_num=mysql_fetch_object($result);
 
-if($expl_num->explnum_visible_opac && (!$expl_num->explnum_visible_opac_abon || ($expl_num->explnum_visible_opac_abon && $_SESSION["user_code"]))){
+if( $rights & 16 || (is_null($dom_2) && $expl_num->explnum_visible_opac && (!$expl_num->explnum_visible_opac_abon || ($expl_num->explnum_visible_opac_abon && $_SESSION["user_code"])))){
 	if (($ligne->explnum_data)||($ligne->explnum_path)) {
 
 		if ($ligne->explnum_path) {
@@ -111,15 +129,4 @@ if($expl_num->explnum_visible_opac && (!$expl_num->explnum_visible_opac_abon || 
 		if ($ligne->explnum_url) header("Location: $ligne->explnum_url");
 		exit ;
 	}
-	
-	//if($ligne->explnum_path){
-	//	$up = new upload_folder($ligne->repertoire_id);
-	//	$path = str_replace("//","/",$ligne->path);
-	//	$path=$up->encoder_chaine($path);
-	//	$fo = fopen($path,'rb');
-	//	header("Content-Type: ".$ligne->explnum_mimetype);
-	//	fpassthru($fo);
-	//	exit;
-	//	
-	//}
 }

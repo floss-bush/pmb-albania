@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serials.class.php,v 1.120 2010-02-15 11:33:18 kantin Exp $
+// $Id: serials.class.php,v 1.121.2.5 2011-09-08 09:48:16 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -868,7 +868,7 @@ class serial {
 		// remplacement des etats de collections
 		$requete = "update collections_state SET id_serial='$by' WHERE id_serial='$this->serial_id' " ;
 		@mysql_query($requete, $dbh);	
-			
+
 		$this->serial_delete();
 		
 		return FALSE;
@@ -978,6 +978,10 @@ class serial {
 		$collstate=new collstate(0,$this->serial_id);
 		$collstate->delete();	
 		
+		//si intégré depuis une source externe, on suprrime aussi la référence
+		$query="delete from notices_externes where num_notice=".$this->serial_id;
+		@mysql_query($query, $dbh);
+		
 		// on supprime la notice
 		$requete = "DELETE FROM notices WHERE notice_id='".$this->serial_id."' ";
 		mysql_query($requete, $dbh);
@@ -1046,7 +1050,7 @@ class bulletinage extends serial {
 	var $nbexplnum;
 	
 	// constructeur
-	function bulletinage($bulletin_id, $serial_id=0, $link_explnum='',$localisation=0) {
+	function bulletinage($bulletin_id, $serial_id=0, $link_explnum='',$localisation=0,$make_display=true) {
 		global $dbh;
 		global $pmb_droits_explr_localises, $explr_invisible;
 			
@@ -1058,9 +1062,10 @@ class bulletinage extends serial {
 		
 		// si le bulletin n'a pas de notice associée, son typedoc par défaut sera celui de la notice chapeau
 		if (!$this->b_typdoc) $this->b_typdoc  = $this->typdoc;
-	
-		$this->make_display();
-		$this->make_short_display();
+		if($make_display){//Je ne crée la partie affichage que quand j'en ai besoin
+			$this->make_display();
+			$this->make_short_display();
+		}
 		
 		// on récupère les données d'exemplaires liés
 		$this->expl = array();
@@ -1115,10 +1120,12 @@ class bulletinage extends serial {
 			$requete = "SELECT explnum.* FROM explnum WHERE explnum_bulletin='".$this->bulletin_id."' ";
 			$myQuery = mysql_query($requete, $dbh);
 			$this->nbexplnum = mysql_num_rows($myQuery) ;
-			if ($this->nbexplnum) $this->explnum = show_explnum_per_notice(0, $this->bulletin_id, $link_explnum);
+			if($make_display && $this->nbexplnum){//Je ne crée la partie affichage que quand j'en ai besoin
+				$this->explnum = show_explnum_per_notice(0, $this->bulletin_id, $link_explnum);
 			}
-		return $this->bulletin_id;
 		}
+		return $this->bulletin_id;
+	}
 	
 	// fabrication de la version affichable
 	function make_display() {
@@ -1827,7 +1834,7 @@ class bulletinage extends serial {
 								
 				if (count($t_u)) {
 	
-					$h_tab = "<div class='dom_div'><table class='dom_tab'>><tr>";
+					$h_tab = "<div class='dom_div'><table class='dom_tab'><tr>";
 					foreach($t_u as $k=>$v) {
 						$h_tab.= "<th class='dom_col'>".htmlentities($v, ENT_QUOTES, $charset)."</th>";			
 					}
@@ -1986,6 +1993,9 @@ class bulletinage extends serial {
 			$num_notice=mysql_result($res_nbul,0,0);
 			if ($num_notice) {
 				notice::del_notice($num_notice);
+				//si intégré depuis une source externe, on suprrime aussi la référence
+				$query="delete from notices_externes where num_notice=".$num_notice;
+				@mysql_query($query, $dbh);
 			}
 		}			
 	
@@ -2054,9 +2064,10 @@ class analysis extends bulletinage {
 				}
 			}
 		// afin d'avoir forcément un typdoc
-		if ($this->b_typdoc) $this->analysis_typdoc = $this->b_typdoc;
+		if(!$this->analysis_typdoc){
+			if ($this->b_typdoc) $this->analysis_typdoc = $this->b_typdoc;
 			else $this->analysis_typdoc = $this->typdoc;
-		
+		}
 		return $this->analysis_id;
 		}
 	
@@ -2138,7 +2149,9 @@ class analysis extends bulletinage {
 		print $style;
 		
 		// mise à jour des flags de niveau hiérarchique
-		$analysis_top_form = str_replace('!!doc_type!!', $this->analysis_typdoc, $analysis_top_form);
+		$select_doc = new marc_select('doctype', 'typdoc', $this->analysis_typdoc, "get_pos(); initIt(); ajax_parse_dom();");
+		$analysis_top_form = str_replace('!!doc_type!!', $select_doc->display, $analysis_top_form);
+		//$analysis_top_form = str_replace('!!doc_type!!', $this->analysis_typdoc, $analysis_top_form);
 		$analysis_top_form = str_replace('!!b_level!!', $this->analysis_biblio_level, $analysis_top_form);
 		$analysis_top_form = str_replace('!!h_level!!', $this->analysis_hierar_level, $analysis_top_form);
 		$analysis_top_form = str_replace('!!id!!', $this->serial_id, $analysis_top_form);
@@ -2742,6 +2755,10 @@ class analysis extends bulletinage {
 		
 		//Suppression de la reference a la notice dans la table suggestions
 		$query = "UPDATE suggestions set num_notice = 0 where num_notice=".$this->analysis_id;
+		@mysql_query($query, $dbh);
+		
+		//Suppression de la référence de la source si exitante..
+		$query="delete from notices_externes where num_notice=".$this->analysis_id;
 		@mysql_query($query, $dbh);
 		
 		return $result;

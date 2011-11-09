@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search_history.inc.php,v 1.16 2009-05-16 10:52:45 dbellamy Exp $
+// $Id: search_history.inc.php,v 1.16.4.2 2011-07-21 13:58:07 trenon Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -55,9 +55,14 @@ if ($_SESSION["nb_queries"]) {
 		return bool;
 	} 
 	</script>";
+
+	print "<div id='history_action'>";
 	print "<input type='button' class='bouton' value=\"".$msg["suppr_elts_coch"]."\" onClick=\"if (verifCheckboxes('cases_a_cocher','cases_suppr')){ document.cases_a_cocher.submit(); return false;}\" />&nbsp;";
 	print "<input type='button' class='bouton' value=\"".$msg["coch_cases"]."\" onClick=\"unSetCheckboxes('cases_a_cocher','cases_suppr'); return false;\" />&nbsp;";
+	print "</div>";
 }
+
+
 print "<h3><span>".$msg["history_title"]."</span></h3>";
 
 print "<form name='cases_a_cocher' method='post' action='./index.php?lvl=search_history&raz_history=1'>";

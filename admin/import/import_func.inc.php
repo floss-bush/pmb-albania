@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: import_func.inc.php,v 1.91 2010-12-13 10:10:11 mbertin Exp $
+// $Id: import_func.inc.php,v 1.91.2.2 2011-09-27 13:57:26 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -252,7 +252,10 @@ function recup_noticeunimarc($notice) {
 	global $tit_200e		;
 	global $tit_200v		;
 	global $serie_200		;
-	global $editor			;
+	global $editeur_lieu  	;
+	global $editeur_adr  	;
+	global $editeur_nom		;
+	global $editeur_date	;
 	global $no_edition		;
 	global $npages			;
 	global $ill				;
@@ -315,12 +318,15 @@ function recup_noticeunimarc($notice) {
 	$tit_200e		= array();
 	$tit_200v		= array();
 	$serie_200		= array();
-	$editor			= array();
-	$npages			= "";
-	$no_edition		= "";
-	$ill			= "";
-	$size			= "";
-	$accomp			= "";
+	$editeur_lieu   = array();
+	$editeur_adr    = array();
+	$editeur_nom	= array();
+	$editeur_date	= array();
+	$npages			= array();
+	$no_edition		= array();
+	$ill			= array();
+	$size			= array();
+	$accomp			= array();
 	$collection_225	= array();
 	$collection_410	= array();
 	$collection_411	= array();
@@ -477,28 +483,31 @@ function recup_noticeunimarc($notice) {
 					$serie_200=$record->get_subfield($cle,"h","i");
 					break;
 				case "205": /* no_edition */
-					$no_edition=$record->get_subfield($cle,"a");
+					$no_edition=$record->get_subfield_array($cle,"a");
 					break;
 				case "210": /* publisher */ // b: adr
-					$editor=$record->get_subfield($cle,"a","b","c","d");
+					$editeur_lieu=$record->get_subfield_array_array($cle, "a");
+					$editeur_adr=$record->get_subfield_array_array($cle, "b");
+					$editeur_nom=$record->get_subfield_array_array($cle, "c");
+					$editeur_date=$record->get_subfield_array($cle, "d");
 					break;
 				case "215": /* description */
-					$npages=$record->get_subfield($cle,"a");
-					$ill=$record->get_subfield($cle,"c");
-					$size=$record->get_subfield($cle,"d");
-					$accomp=$record->get_subfield($cle,"e");
+					$npages=$record->get_subfield_array($cle,"a");
+					$ill=$record->get_subfield_array($cle,"c");
+					$size=$record->get_subfield_array($cle,"d");
+					$accomp=$record->get_subfield_array($cle,"e");
 					break;
 				case "225": /* collection */
 					$collection_225=$record->get_subfield($cle,"a","i","v","x");
 					break;
 				case "300": /* inside */
-					$n_gen=$record->get_subfield($cle,"a");
+					$n_gen=$record->get_subfield_array($cle,"a");
 					break;
 				case "327": /* inside */
 					$n_contenu=$record->get_subfield_array($cle,"a");
 					break;
 				case "330": /* abstract */
-					$n_resume=$record->get_subfield($cle,"a");
+					$n_resume=$record->get_subfield_array($cle,"a");
 					break;
 				case "345": /* EAN */
 					$EAN=$record->get_subfield($cle,"b");
@@ -567,11 +576,11 @@ function recup_noticeunimarc($notice) {
 					$info_607_z=$record->get_subfield_array_array($cle,"z");
 					break;
 				case "610": /* mots clé */
-					$index_sujets=$record->get_subfield($cle,"a");
+					$index_sujets=$record->get_subfield_array($cle,"a");
 					break;
 				case "676": /* Dewey */
-					$dewey=$record->get_subfield($cle,"a");
-					$dewey_l=$record->get_subfield($cle,"l");
+					$dewey=$record->get_subfield_array($cle,"a");
+					$dewey_l=$record->get_subfield_array($cle,"l");
 					break;
 				case "686": /* pcdm3 */
 					$info_686=$record->get_subfield($cle,"a","l");
@@ -665,6 +674,10 @@ function import_new_notice() {
 	global $tit_200v		;
 	global $serie_200		;
 	global $editor			;
+	global $editeur_lieu  	;
+	global $editeur_adr  	;
+	global $editeur_nom		;
+	global $editeur_date	;
 	global $no_edition		;
 	global $npages			;
 	global $ill				;
@@ -736,14 +749,32 @@ function import_new_notice() {
 	
 	if($bibliographic_level != "a" && $bibliographic_level != "b"){
 		//Pour les articles et les bulletins on ne garde pas les informations suivantes
-		$year=clean_string($editor[0]['d']);
+		$year=clean_string($editeur_date[0]);
 		$date_parution=notice::get_date_parution($year);
 		
+		//traitement des éditeurs
+		$editor=array();
+		foreach ( $editeur_nom as $key_nom1 => $nom1 ) {
+       		foreach ( $nom1 as $key_nom2 => $nom2 ) {
+       			$mon_ed=array();
+       			$mon_ed["c"]=$nom2;
+       			
+       			if($editeur_adr[$key_nom1][$key_nom2]){
+       				$mon_ed["b"]=$editeur_adr[$key_nom1][$key_nom2];
+       			}
+       			
+       			if($editeur_lieu[$key_nom1][$key_nom2]){
+       				$mon_ed["a"]=$editeur_lieu[$key_nom1][$key_nom2];
+       			}
+       			$editor[]=$mon_ed;
+			}
+		}
+		$ed=array();
 		$ed['name']=clean_string($editor[0]['c']);
 		$ed['adr']=clean_string($editor[0]['b']);
 		$ed['ville']=clean_string($editor[0]['a']);
 		$ed1_id = editeur::import($ed);
-		
+		$ed=array();
 		$ed['name']=clean_string($editor[1]['c']);
 		$ed['adr']=clean_string($editor[1]['b']);
 		$ed['ville']=clean_string($editor[1]['a']);
@@ -887,11 +918,11 @@ function import_new_notice() {
 			$price=$prix_cd[0];
 		}
 		
-		$illustration=$ill[0];
-		$taille=$size[0];
-		$mat_accomp=$accomp[0];
+		$illustration=implode (" : ",$ill);
+		$taille=implode (" ; ",$size);
+		$mat_accomp=implode (" + ",$accomp);
 		if($bibliographic_level != "b"){
-			$mention_edit=$no_edition[0];
+			$mention_edit=implode (", ",$no_edition);
 		}else{
 			$mention_edit="";
 		}
@@ -904,7 +935,7 @@ function import_new_notice() {
 	
 	if($bibliographic_level != "s"){
 		//Pour les periodiques on ne garde pas les informations suivantes
-		$nbpages=$npages[0];
+		$nbpages=implode (" - ",$npages);
 	}else{
 		$nbpages="";
 	}
@@ -1484,7 +1515,7 @@ function creer_liens_pour_bull_notice($titre200=array(), $titre530=array(), $cha
 		if(!$notices_crees[get_valeur_champ9($tab_perio[0]['9'],'id')] && !$tab_perio[0]['0']['0']){
 			//On créé le periodique car il n'est pas créé et n'est pas à créé
 			if(!trim($titre530[0]))$titre530[0]="Sans titre";
-			$id_perio=creer_notice_periodique(0,trim($titre530[0]),"");
+			$id_perio=creer_notice_periodique(0,trim($titre530[0]),$tab_perio[0]['x']['0']);
 			$bulletin=array();
 			$bulletin=array("titre"=>trim($titre200[0]['i']),"date"=>trim($champ210[0]['h']),"mention"=>trim($champ210[0]['d']),"num"=>trim($titre200[0]['h']));
 			$id_bull=creer_bulletin($id_perio,$bulletin);

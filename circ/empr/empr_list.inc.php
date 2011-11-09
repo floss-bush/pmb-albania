@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_list.inc.php,v 1.48 2009-12-07 15:33:58 kantin Exp $
+// $Id: empr_list.inc.php,v 1.48.4.1 2011-05-30 12:51:20 mbertin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -122,7 +122,7 @@ if ($nbr_lignes == 1) {
 		// ER : trouver ici nbr_lignes
 		$nbr_lignes = $filter->nb_lines_query();
 		if (!$filter->error) {
-			$aff_filters="<script type='text/javascript' src='./javascript/tablist.js'></script><form class='form-$current_module' id='form_filters' name='form_filters' method='post' action='".$url_base."&nbr_lignes=$nbr_lignes&nb_per_page=$nb_per_page' onSubmit='this.page.value=\"1\";'><h3>".$msg["filters_tris"]."</h3>";
+			$aff_filters="<script type='text/javascript' src='./javascript/tablist.js'></script><form class='form-$current_module' id='form_filters' name='form_filters' method='post' action='".$url_base."&nb_per_page=$nb_per_page' onSubmit='this.page.value=\"1\";'><h3>".$msg["filters_tris"]."</h3>";
 			$aff_filters.="<div class='form-contenu'><input type='hidden' name='page' value='$page'>
 							<div id=\"el1Parent\" class=\"notice-parent\"><img src=\"./images/plus.gif\" class=\"img_plus\" name=\"imEx\" id=\"el1Img\" title=\"".$msg['admin_param_detail']."\" border=\"0\" onClick=\"expandBase('el1', true); return false;\">
    								<b>".$msg["filters"]."</b></div>

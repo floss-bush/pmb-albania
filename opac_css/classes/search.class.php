@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search.class.php,v 1.93 2011-01-18 09:42:57 arenou Exp $
+// $Id: search.class.php,v 1.97.2.9 2011-07-21 07:45:15 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 //Classe de gestion des recherches avancees
@@ -89,8 +89,10 @@ class search {
     				$ff=$this->fixedfields[$s[1]];
     				switch ($ff["INPUT_TYPE"]) {
     					case "date":
-    						$field_temp=extraitdate($field[0]);
-    						$field[0]=$field_temp;
+    						if(!preg_match("/^\d{4}-\d{2}-\d{2}$/",$field[0])) {
+    							$field_temp=extraitdate($field[0]);
+    							$field[0]=$field_temp;
+    						}
     						break;
     					default:
     					//Rien a faire
@@ -154,6 +156,66 @@ class search {
     		}
     		
     		switch ($ff["INPUT_TYPE"]) {
+    			case "authoritie_external":
+    				$r="";
+    				$op = "op_".$n."_".$search;
+					global $$op;
+					global $lang;
+					$libelle = "";
+    				if ($$op == "AUTHORITY"){
+						if($v[0]!= 0){
+							switch ($ff['INPUT_OPTIONS']['SELECTOR']){
+								case "auteur":
+									$aut=new auteur($v[0]);
+									if($aut->rejete) $libelle = $aut->name.', '.$aut->rejete;
+									else $libelle = $aut->name;
+									if($aut->date) $libelle .= " ($aut->author_date)";
+									break;
+								case "categorie":
+									$libelle = categories::getlibelle($v[0],$lang);
+									break;
+								case "editeur":
+									$ed = new publisher($v[0]);
+									$libelle=$ed->name;
+									if ($ed->ville) 
+										if ($ed->pays) $libelle.=" ($ed->ville - $ed->pays)";
+										else $libelle.=" ($ed->ville)";
+									break;
+								case "collection" :
+									$coll = new collection($v[0]);
+									$libelle = $coll->name;
+									break;
+								case "subcollection" :
+									$coll = new subcollection($v[0]);
+									$libelle = $coll->name;
+									break;
+								case "serie" :
+									$serie = new serie($v[0]);
+									$libelle = $serie->name;
+									break;
+								case "indexint" :
+									$indexint = new indexint($v[0]);
+									$libelle = $indexint->display ;
+									break;
+								case "titres_uniformes" :
+									$tu = new titre_uniforme($v[0]);
+									$libelle = $tu->name;
+									break;	
+								default :
+									$libelle = $v[0];
+									break;
+							}
+						}
+						$$op == "BOOLEAN";
+    					$r="<script>document.forms['search_form'].".$op.".options[0].selected=true;</script>";
+    				}
+    				
+    				if($libelle){
+    					$r="<span class='search_value'><input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($libelle,ENT_QUOTES,$charset)."' class='ext_search_txt'/></span>";
+    				}else{
+    					$r="<span class='search_value'><input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' class='ext_search_txt'/></span>";
+    				}
+    				break;
      			case "authoritie":
 						$fnamesans="field_".$n."_".$search;
 						$fname="field_".$n."_".$search."[]";
@@ -185,14 +247,12 @@ class search {
 								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
 									case "auteur":
 										$aut=new auteur($v[0]);
-										if($aut->author_rejete) $libelle = $aut->author_name.', '.$aut->author_rejete;
-										else $libelle = $aut->author_name;
-										if($aut->author_date) $libelle .= " ($aut->author_date)";
-										$libelle = $aut->name.", ".$aut->rejete;
+										if($aut->rejete) $libelle = $aut->name.', '.$aut->rejete;
+										else $libelle = $aut->name;
+										if($aut->date) $libelle .= " ($aut->author_date)";
 										break;
 									case "categorie":
-										$categ=new categories($v[0],$lang);
-										$libelle = $categ->libelle_categorie;
+										$libelle = categories::getlibelle($v[0],$lang);
 										break;
 									case "editeur":
 										$ed = new publisher($v[0]);
@@ -226,18 +286,18 @@ class search {
 										break;
 								}
 							}else $libelle = "";
-							$r.="<span class='search_value'><input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($libelle,ENT_QUOTES,$charset)."' type='text' class='".($fieldvar['authority_id'][0] ? "authorities " : "")."ext_search_txt'></span>
+							$r.="<span class='search_value'><input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($libelle,ENT_QUOTES,$charset)."' type='text' class='".($fieldvar['authority_id'][0] ? "authorities " : "")."ext_search_txt' /></span>
 							";						
 						}else{
-							$r.="<span class='search_value'><input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' type='text' class='ext_search_txt'></span>
+							$r.="<span class='search_value'><input autfield='$fname_id' onkeydown='keepFieldVal(this.value,this.id);' onkeyup='fieldChanged(\"$fnamesans\",this.value)' callback='authoritySelected' completion='$ajax' $fnamevar_id id='$fnamesanslib' name='$fnamelib' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' type='text' class='ext_search_txt' /></span>
 							";
 						}
-					$r.="<span class='search_dico'><img src='images/dictionnaire.png' align='middle' onClick=\"document.getElementById('$fnamesans').focus(); simulate_event('$fnamesanslib');\"></span>
+					$r.="<span class='search_dico'><img src='images/dictionnaire.png' align='middle' onClick=\"document.getElementById('$fnamesanslib').focus();simulate_event('$fnamesanslib');\"></span>
 					<input type='hidden' value='".($fieldvar['authority_id'][0] ?$fieldvar['authority_id'][0] : "")."' id='$fname_aut_id' name='$fname_name_aut_id' />
-					<input name='$fname_id' id='$fname_id' value='".($fieldvar['id'][0] ?$fieldvar['id'][0] : "")."' type='hidden'>";
+					<input name='$fname_id' id='$fname_id' value='".($fieldvar['id'][0] ?$fieldvar['id'][0] : "")."' type='hidden'/>";
     				break;
     			case "text":
-    				$r="<span class='search_value'><input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' class='ext_search_txt'/></span>";
+    				$r="<span class='search_value'><input type='text' name='field_".$n."_".$search."[]' value='".htmlentities($v[0],ENT_QUOTES,$charset)."' ".($ff['INPUT_OPTIONS']["PLACEHOLDER"]?"placeholder='".htmlentities($ff['INPUT_OPTIONS']["PLACEHOLDER"],ENT_QUOTES,$charset)."'":"")." class='ext_search_txt'/></span>";
     				break;
     			case "query_list":
     				$requete=$ff["INPUT_OPTIONS"]["QUERY"][0]["value"];
@@ -394,11 +454,11 @@ class search {
 			$field[OPTIONS][0]=_parser_text_no_function_("<?xml version='1.0' encoding='".$charset."'?>\n".$this->pp[$s[0]]->t_fields[$s[1]][OPTIONS], "OPTIONS");
 			$field[VALUES]=$v;
 			$field[PREFIX]=$this->pp[$s[0]]->prefix;
-			eval("\$r=".$aff_list_empr_search[$this->pp[$s[0]]->t_fields[$s[1]][TYPE]]."(\$field,\$check_scripts,\"field_".$n."_".$search."\");");
+			$r=$aff_list_empr_search[$this->pp[$s[0]]->t_fields[$s[1]][TYPE]]($field,$check_scripts,"field_".$n."_".$search);
     	} elseif ($s[0]=="s") {
     		//appel de la fonction get_input_box de la classe du champ special
     		$type=$this->specialfields[$s[1]]["TYPE"];
-    		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 				if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 					$sf=$this->specialfields[$s[1]];
 					require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -501,6 +561,13 @@ class search {
    					}
     			}			
     			$last_main_table="";
+    			
+    			// pour les listes, si un opérateur permet une valeur vide, il en faut une...
+				if($this->op_empty[$$op] && !is_array($field) ){
+					$field = array();
+					$field[0] = "";
+				}
+    			
     			//Pour chaque valeur du champ
     			for ($j=0; $j<count($field); $j++) {
 					//Pour chaque requete
@@ -508,7 +575,10 @@ class search {
     				for ($z=0; $z<count($q)-1; $z++) {
  		   				//Si le nettoyage de la saisie est demande
 	   					if($q[$z]["KEEP_EMPTYWORD"])	$field[$j]=strip_empty_chars($field_origine);
-						elseif ($q[$z]["REGDIACRIT"]) $field[$j]=strip_empty_words($field_origine); 
+						elseif ($q[$z]["REGDIACRIT"]) $field[$j]=strip_empty_words($field_origine);
+						elseif ($q[$z]["DETECTDATE"])  {
+							$field[$j]=detectFormatDate($field_origine,$q[$z]["DETECTDATE"]);
+						}
 						else $field[$j]=$field_origine;
     					$main=$q[$z]["MAIN"];
     					//Si il y a plusieurs termes possibles on construit la requete avec le terme !!multiple_term!!
@@ -558,16 +628,20 @@ class search {
     						if (!$err) {
 								if (is_array($q[$z]["TABLE"])) {
 									for ($z1=0; $z1<count($q[$z]["TABLE"]); $z1++) {
+										$is_fulltext=false;
+										if ($q[$z]["FULLTEXT"][$z1]) $is_fulltext=true;
 										if (!$q[$z]["KEEP_EMPTY_WORDS"][$z1]) 
-											$members=$aq->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1]);
-										else $members=$aq1->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1]);
+											$members=$aq->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1],0,0,$is_fulltext);
+										else $members=$aq1->get_query_members($q[$z]["TABLE"][$z1],$q[$z]["INDEX_L"][$z1],$q[$z]["INDEX_I"][$z1],$q[$z]["ID_FIELD"][$z1],$q[$z]["RESTRICT"][$z1],0,0,$is_fulltext);
 										$main=str_replace("!!pert_term_".($z1+1)."!!",$members["select"],$main);
 										$main=str_replace("!!where_term_".($z1+1)."!!",$members["where"],$main);
 									}
 								} else {
+									$is_fulltext=false;
+									if ($q[$z]["FULLTEXT"]) $is_fulltext=true;
 									if ($q[$z]["KEEP_EMPTY_WORDS"])
-										$members=$aq1->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"]);
-									else $members=$aq->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"]);
+										$members=$aq1->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"],0,0,$is_fulltext);
+									else $members=$aq->get_query_members($q[$z]["TABLE"],$q[$z]["INDEX_L"],$q[$z]["INDEX_I"],$q[$z]["ID_FIELD"],$q[$z]["RESTRICT"],0,0,$is_fulltext);
 									$main=str_replace("!!pert_term!!",$members["select"],$main);
 									$main=str_replace("!!where_term!!",$members["where"],$main);
 								}
@@ -794,7 +868,7 @@ class search {
     		} elseif ($s[0]=="s") {
     			//instancier la classe de traitement du champ special
     			$type=$this->specialfields[$s[1]]["TYPE"];
-  		  		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+  		  		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -803,30 +877,30 @@ class search {
 						break;
 					}
     			}
+    			if ($last_main_table)
+    				$main="select * from ".$last_main_table;
 	   		}
-    		if (!$last_main_table) {
-	   			if ($prefixe) {
-	   				$table=$prefixe."t_".$i."_".$search[$i];
-	   				$requete="create temporary table ".$prefixe."t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
-	   				mysql_query($requete,$dbh);
-    				$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add idiot int(1)";
-    				@mysql_query($requete);
-    				$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add unique(notice_id)";
-    				mysql_query($requete);
-	   			} else {
-	   				$table="t_".$i."_".$search[$i];
-   	 				$requete="create temporary table t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
-	   				mysql_query($requete,$dbh);
-    				$requete="alter table t_".$i."_".$search[$i]." add idiot int(1) default 1";
-    				@mysql_query($requete);
-    				$requete="alter table t_".$i."_".$search[$i]." add unique(notice_id)";
-    				mysql_query($requete);
-	   			}
-    		} else {
-    			$table=$last_main_table;
-    		}
-    		//$requete="drop table ".$last_main_table;
-    		//mysql_query($requete);
+   			if ($prefixe) {
+   				$table=$prefixe."t_".$i."_".$search[$i];
+   				$requete="create temporary table ".$prefixe."t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
+   				mysql_query($requete,$dbh);
+    			$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add idiot int(1)";
+    			@mysql_query($requete);
+    			$requete="alter table ".$prefixe."t_".$i."_".$search[$i]." add unique(notice_id)";
+    			mysql_query($requete);
+   			} else {
+   				$table="t_".$i."_".$search[$i];
+    			$requete="create temporary table t_".$i."_".$search[$i]." ENGINE=MyISAM ".$main;
+   				mysql_query($requete,$dbh);
+    			$requete="alter table t_".$i."_".$search[$i]." add idiot int(1) default 1";
+    			@mysql_query($requete);
+    			$requete="alter table t_".$i."_".$search[$i]." add unique(notice_id)";
+    			mysql_query($requete);
+   			}
+     		if ($last_main_table) {
+     			$requete="drop table ".$last_main_table;
+     			mysql_query($requete);
+     		}
     		if ($prefixe) {
     			$requete="create temporary table ".$prefixe."t".$i." ENGINE=MyISAM ";
     		} else {
@@ -1039,15 +1113,13 @@ class search {
     						if(is_numeric($field[$j])){
 								switch ($ff['INPUT_OPTIONS']['SELECTOR']){
 									case "categorie":
-										$categ=new categories($field[$j],$lang);
-										$field[$j] = $categ->libelle_categorie;
+										$field[$j] = categories::getlibelle($field[$j],$lang);
 										break;
 									case "auteur":
-										$aut=new auteur($field[$j],$lang);
-										if($aut->author_rejete) $field[$j] = $aut->author_name.', '.$aut->author_rejete;
-										else $field[$j] = $aut->author_name;
-										if($aut->author_date) $field[$j] .= " ($aut->author_date)";
-										$field[$j] = $aut->name.", ".$aut->rejete;
+										$aut=new auteur($field[$j]);
+										if($aut->rejete) $field[$j] = $aut->name.', '.$aut->rejete;
+										else $field[$j] = $aut->name;
+										if($aut->date) $field[$j] .= " ($aut->author_date)";
 										break;
 									case "editeur":
 										$ed = new publisher($field[$j]);
@@ -1155,7 +1227,7 @@ class search {
     			//appel de la fonction make_human_query de la classe du champ special
     			//Recherche du type
     			$type=$this->specialfields[$s[1]]["TYPE"];
-    			for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    			for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -1333,7 +1405,7 @@ class search {
     			//appel de la fonction make_human_query de la classe du champ special
     			//Recherche du type
     			$type=$this->specialfields[$s[1]]["TYPE"];
-    			for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+    			for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -1395,7 +1467,7 @@ class search {
     		} elseif($s[0]=="s") {
     			$champ=$this->specialfields[$s[1]]["TITLE"];
     			$type=$this->specialfields[$s[1]]["TYPE"];
-		 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+		 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 					if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 						$sf=$this->specialfields[$s[1]];
 						global $include_path;
@@ -1633,13 +1705,15 @@ class search {
     	
     	//Champs speciaux
     	while (list($id,$sf)=each($this->specialfields)) {
-    		if ($sf["SEPARATOR"]) {
-    			if ($open_optgroup) $r.="</optgroup>\n";
-    			// $r.="<option disabled style='border-left:0px;border-right:0px;border-top:0px;border-bottom:1px;border-style:solid;'></option>\n";
-    			$r.="<optgroup label='".htmlentities($sf["SEPARATOR"],ENT_QUOTES,$charset)."' class='erreur'>\n";
-    			$open_optgroup=1;
+    		if ($sf["OPACVISIBILITY"]) {
+    			if ($sf["SEPARATOR"]) {
+    				if ($open_optgroup) $r.="</optgroup>\n";
+    				// $r.="<option disabled style='border-left:0px;border-right:0px;border-top:0px;border-bottom:1px;border-style:solid;'></option>\n";
+    				$r.="<optgroup label='".htmlentities($sf["SEPARATOR"],ENT_QUOTES,$charset)."' class='erreur'>\n";
+    				$open_optgroup=1;
+    			}
+    			$r.="<option value='s_".$id."' style='color:#000000'>".htmlentities($sf["TITLE"],ENT_QUOTES,$charset)."</font></option>\n";
     		}
-    		$r.="<option value='s_".$id."' style='color:#000000'>".htmlentities($sf["TITLE"],ENT_QUOTES,$charset)."</font></option>\n";
     	}
     	$r.="</select>";
     	
@@ -1729,7 +1803,7 @@ class search {
     			} elseif ($f[0]=="s") {
 					//appel de la fonction get_input_box de la classe du champ special
 					$type=$this->specialfields[$f[1]]["TYPE"];
-   			 		for ($is=0; $is<$this->tableau_speciaux["TYPE"]; $is++) {
+   			 		for ($is=0; $is<count($this->tableau_speciaux["TYPE"]); $is++) {
 						if ($this->tableau_speciaux["TYPE"][$is]["NAME"]==$type) {
 							$sf=$this->specialfields[$f[1]];
 							require_once($include_path."/search_queries/specials/".$this->tableau_speciaux["TYPE"][$is]["PATH"]."/search.class.php");
@@ -1832,7 +1906,7 @@ class search {
 				//on passe le champ en selecteur d'autorité !
 				for (var i=0 ; i<op_selector.options.length ; i++){
 					if(op_selector.options[i].value == 'AUTHORITY')
-						op_selector.options[i].selected = true;
+						op_selector.selectedIndex = i;
 				}
 				f_lib.setAttribute('class','authorities ext_search_txt');
 				searchField.value=f_id.value;
@@ -1853,7 +1927,7 @@ class search {
 					f_lib.setAttribute('class','ext_search_txt');
 					for (var i=0 ; i<selector.options.length ; i++){
 						if (selector.options[i].value == 'BOOLEAN')
-							selector.options[i].selected = true;
+							selector.selectedIndex = i;
 					}
 					f.value = f_lib.value;
 					authority_id.value = '';
@@ -1958,19 +2032,16 @@ class search {
 			for ($j=0; $j<count($ff["QUERY"]); $j++) {
 				$q=array();
 				$q["OPERATOR"]=$ff["QUERY"][$j]["FOR"];
-				if ($ff["QUERY"][$j]["MULTIPLE"]=="yes"||($ff["QUERY"][$j]["CONDITIONAL"]=="yes")) {
+				if (($ff["QUERY"][$j]["MULTIPLE"]=="yes")||($ff["QUERY"][$j]["CONDITIONAL"]=="yes")) {
 					if($ff["QUERY"][$j]["MULTIPLE"]=="yes") $element = "PART";
 					else $element = "VAR";
+					
 					for ($k=0; $k<count($ff["QUERY"][$j][$element]); $k++) {
 						$pquery=$ff["QUERY"][$j][$element][$k];						
 						if($element == "VAR"){
 							$q[$k]["CONDITIONAL"]["name"] = $pquery["NAME"];
 							$q[$k]["CONDITIONAL"]["value"] = $pquery["VALUE"][0]["value"];
 						}
-						if ($pquery["MULTIPLEWORDS"]=="yes")
-							$q[$k]["MULTIPLE_WORDS"]=true;
-						else
-							$q[$k]["MULTIPLE_WORDS"]=false;
 						if ($pquery["MULTIPLEWORDS"]=="yes")
 							$q[$k]["MULTIPLE_WORDS"]=true;
 						else
@@ -2002,6 +2073,9 @@ class search {
 										$q[$k]["KEEP_EMPTY_WORDS"][$z]=1;
 										$q[$k]["KEEP_EMPTY_WORDS_FOR_CHECK"]=1;
 									}
+									if ($pquery["BOOLEAN"][$z]["FULLTEXT"][0]["value"]=="yes") {
+										$q[$k]["FULLTEXT"][$z]=1;
+									}
 								}
 							} else {
 								$q[$k]["TABLE"]=$pquery["TABLE"][0]["value"];
@@ -2012,11 +2086,17 @@ class search {
 									$q[$k]["KEEP_EMPTY_WORDS"]=1;
 									$q[$k]["KEEP_EMPTY_WORDS_FOR_CHECK"]=1;
 								}
+								if ($pquery["FULLTEXT"][0]["value"]=="yes") {
+									$q[$k]["FULLTEXT"]=1;
+								}
 							}
 						} else $q[$k]["BOOLEAN"]=false;
 						if ($pquery["ISBNSEARCH"]=="yes") {
 							$q[$k]["ISBN"]=true;
 						} else $q[$k]["ISBN"]=false;
+						if ($pquery["DETECTDATE"]) {
+							$q[$k]["DETECTDATE"]=$pquery["DETECTDATE"];
+						} else $q[$k]["DETECTDATE"]=false;
 						$q[$k]["MAIN"]=$pquery["MAIN"][0]["value"];
 						$q[$k]["MULTIPLE_TERM"]=$pquery["MULTIPLETERM"][0]["value"];
 						$q[$k]["MULTIPLE_OPERATOR"]=$pquery["MULTIPLEOPERATOR"][0]["value"];
@@ -2042,8 +2122,7 @@ class search {
 						$q[0]["REPEAT"]["SEPARATOR"]=$ff["QUERY"][$j]["REPEAT"][0]["SEPARATOR"];
 						$q[0]["REPEAT"]["OPERATOR"]=$ff["QUERY"][$j]["REPEAT"][0]["OPERATOR"];
 						$q[0]["REPEAT"]["ORDERTERM"]=$ff["QUERY"][$j]["REPEAT"][0]["ORDERTERM"];
-					}						
-						
+					}
 					if ($ff["QUERY"][$j]["BOOLEANSEARCH"]=="yes") {
 						$q[0]["BOOLEAN"]=true;
 						if ($ff["QUERY"][$j]["BOOLEAN"]) {
@@ -2071,6 +2150,9 @@ class search {
 					if ($ff["QUERY"][$j]["ISBNSEARCH"]=="yes") {
 						$q[0]["ISBN"]=true;
 					} else $q[0]["ISBN"]=false;
+					if ($ff["QUERY"][$j]["DETECTDATE"]) {
+						$q[0]["DETECTDATE"]=$ff["QUERY"][$j]["DETECTDATE"];
+					} else $q[0]["DETECTDATE"]=false;
 					$q[0]["MAIN"]=$ff["QUERY"][$j]["MAIN"][0]["value"];
 					$q[0]["MULTIPLE_TERM"]=$ff["QUERY"][$j]["MULTIPLETERM"][0]["value"];
 					$q[0]["MULTIPLE_OPERATOR"]=$ff["QUERY"][$j]["MULTIPLEOPERATOR"][0]["value"];
@@ -2078,7 +2160,7 @@ class search {
 					$t["QUERIES_INDEX"][$q["OPERATOR"]]=count($t["QUERIES"])-1;
 				}
 			}
-
+			
 			// recuperation des visibilites parametrees
 			for ($j=0; $j<count($ff["VAR"]); $j++) {
 				$q=array();
@@ -2170,6 +2252,7 @@ class search {
 			}
 			$t["TYPE"]=$sf["TYPE"];
 			$t["DELNOTALLOWED"]=($sf["DELNOTALLOWED"]=="yes"?true:false);
+			$t["OPACVISIBILITY"]=($sf["OPACVISIBILITY"]=="no"?false:true);
 			$this->specialfields[$sf["ID"]]=$t;
 		}
 		
@@ -2434,6 +2517,79 @@ class search {
 			}
 		}
 		return $r;
+	}
+	
+	function destroy_global_env(){
+    	global $search;
+    	for ($i=0; $i<count($search); $i++) {
+    		$op="op_".$i."_".$search[$i];
+    		$field_="field_".$i."_".$search[$i];
+    		$inter="inter_".$i."_".$search[$i];
+    		$fieldvar="fieldvar_".$i."_".$search[$i];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		unset($GLOBALS[$op]);
+    		unset($GLOBALS[$field_]);
+    		unset($GLOBALS[$inter]);
+    		unset($GLOBALS[$fieldvar]);
+    	}
+    	 unset($search);
+	}
+	
+	function reduct_search() {
+		global $search;
+		$tt=array();
+		$it=0;
+		for ($i=0; $i<count($search); $i++) {
+  		  	$op="op_".$i."_".$search[$i];
+   	 		global $$op;
+    		$field_="field_".$i."_".$search[$i];
+    		global $$field_;
+    		$field=$$field_;
+    		if (((string)$field[0]!="")||($this->op_empty[$$op])) {
+    			$tt[$it]=$i;
+    			$it++;
+    		}
+		}
+		
+		//Décalage des critères
+    	//1) copie des critères valides
+    	for ($i=0; $i<count($tt); $i++) {
+    		$it=$tt[$i];
+    		$op="op_".$it."_".$search[$it];
+    		$field_="field_".$it."_".$search[$it];
+    		$fieldvar="fieldvar_".$it."_".$search[$it];
+    		$inter="inter_".$it."_".$search[$it];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		$fieldt[$i]["op"]=$$op;
+    		$fieldt[$i]["field"]=$$field_;
+    		$fieldt[$i]["fieldvar"]=$$fieldvar;
+    		$fieldt[$i]["inter"]=$$inter;
+    		$fieldt[$i]["search"]=$search[$it];
+    	}
+    	//On nettoie et on recontruit
+    	$this->destroy_global_env();
+    	$search=array();
+    	for ($i=0; $i<count($tt); $i++) {
+    		$search[$i]=$fieldt[$i]["search"];
+    		$op="op_".$i."_".$search[$i];
+    		$field_="field_".$i."_".$search[$i];
+    		$fieldvar_="fieldvar_".$i."_".$search[$i];
+    		$inter="inter_".$i."_".$search[$i];
+    		global $$op;
+    		global $$field_;
+    		global $$inter;
+    		global $$fieldvar;
+    		$$op=$fieldt[$i]["op"];
+    		$$field_=$fieldt[$i]["field"];
+    		$$fieldvar=$fieldt[$i]["fieldvar"];
+    		$$inter=$fieldt[$i]["inter"];
+    	}
 	}
 }
 ?>

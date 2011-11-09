@@ -1,0 +1,12 @@
+/* +-------------------------------------------------+
+// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: liste_bulletins.css,v 1.1.2.2 2011-07-22 14:22:39 trenon Exp $
+*/
+
+.liste_bulletins {
+		float:left;
+		width:31%;
+		color:#ffffff;
+		padding:2px;
+}

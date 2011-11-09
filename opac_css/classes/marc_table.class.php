@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: marc_table.class.php,v 1.17 2010-06-16 12:13:48 ngantier Exp $
+// $Id: marc_table.class.php,v 1.17.2.2 2011-08-26 15:50:41 touraine37 Exp $
 
 // classe de gestion des tables MARC en XML
 
@@ -153,7 +153,7 @@ class marc_select {
 				if(!($value == $selected))
 					$tag = "<option value='$value'>";
 				else
-					$tag = "<option value='$value' SELECTED>";
+					$tag = "<option value='$value' selected='selected' >";
 
 				$this->display .= "$tag$libelle</option>";
 			}
@@ -162,7 +162,7 @@ class marc_select {
 
 			// cirque à cause d'un bug d'IE
 			reset($source->table);
-			$this->display .= "<option value='".key($source->table)."' SELECTED>";
+			$this->display .= "<option value='".key($source->table)."' selected='selected' >";
 			$this->display .= pos($source->table).'</option>';
 
 			while(next($source->table)) {

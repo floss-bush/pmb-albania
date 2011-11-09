@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage_unimarc.class.php,v 1.27 2010-08-19 13:14:38 touraine37 Exp $
+// $Id: notice_affichage_unimarc.class.php,v 1.27.2.4 2011-10-07 09:59:08 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -170,6 +170,7 @@ function notice_affichage_unimarc($id, $liens, $cart=0, $to_print=0, $entrepots_
   	if(!$id)
   		return;
 	else {
+		$id+=0;
 		$this->notice_id = $id;
 		$this->fetch_data();
 	}
@@ -237,7 +238,7 @@ function fetch_data() {
 							$notice->tit3.=($notice->tit3?" ":"").$l->value;
 							break;
 						case "e":
-							$notice->tit1.=($notice->tit4?" ":"").$l->value;
+							$notice->tit4.=($notice->tit4?" ":"").$l->value;
 							break;
 					}
 					break;
@@ -1227,7 +1228,7 @@ function do_public($short=0,$ex=1) {
 			$this->notice_public .= "<li>";
 			if ($docnum["b"])
 				$this->notice_public .= $docnum["b"].": ";
-			$this->notice_public .= "<i><a href=\"".htmlentities($docnum["a"])."\">".$docnum["a"]."</a></i>";			
+			$this->notice_public .= "<i><a href=\"".htmlentities($docnum["a"],ENT_QUOTES,$charset)."\">".$docnum["a"]."</a></i>";			
 			$this->notice_public .= "</li>";
 		}		
 		$this->notice_public .= "</ul>";
@@ -1784,10 +1785,10 @@ function do_image(&$entree,$depliable) {
 			$code_chiffre = pmb_preg_replace('/-|\.| /', '', $this->notice->code);
 			$url_image = $opac_book_pics_url ;
 			$url_image = $opac_url_base."getimage.php?url_image=".urlencode($url_image)."&noticecode=!!noticecode!!" ;
-			if ($depliable) $image = "<img src='".$opac_url_base."images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."'>";
+			if ($depliable) $image = "<img class='vignetteimg' src='".$opac_url_base."images/vide.png' align='right' hspace='4' vspace='2' isbn='".$code_chiffre."' url_image='".$url_image."'>";
 				else {
 					$url_image_ok = str_replace("!!noticecode!!", $code_chiffre, $url_image) ;
-					$image = "<img src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
+					$image = "<img class='vignetteimg' src='".$url_image_ok."' align='right' hspace='4' vspace='2'>";
 					}
 			} else $image="" ;
 		if ($image) {

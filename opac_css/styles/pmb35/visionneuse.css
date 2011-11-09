@@ -1,0 +1,91 @@
+/* +--------------------------------------------------------------------------+
+//  2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// +-------------------------------------------------+
+// $Id: visionneuse.css,v 1.1.2.2 2011-07-22 14:22:39 trenon Exp $
+*/
+
+#visio_current_description h3 {
+	font-size: 14px;
+	color: #451414;
+	margin-top: 10px;
+}
+
+#visionneuse #visionneuseIframe {
+	border : 1px solid #BFCE11;
+	overflow : hidden;
+}
+
+#next, #previous {
+	cursor : pointer;
+}
+
+#visionneuseBackground {
+	-moz-opacity : 0.5;
+	opacity : 0.8;
+	filter : alpha(opacity=80);
+	width : 100%;
+	height : 100%;
+	position : absolute;
+	top : 0;
+	left : 0;
+	z-index: 9001;
+	background-color: #9B827D;
+}
+
+.linkFullscreen {
+	position : absolute;
+	right : 2%;
+	bottom : 1%;
+}
+
+.close {
+	position : absolute;
+	right : 2%;
+	top : 0%;
+}
+
+#visio_navigator {
+	height : 40px;
+	width : 100%;
+	margin-top : 0.8em;
+}
+
+#visio_current_description {
+	text-align : left;
+	margin-top : 1em;
+}
+
+#visio_current_description .parent table {
+	margin-top: 10px;
+}
+
+#visio_current_description .parent table.exemplaires {
+	margin-top: 0px;
+}
+
+#visio_current_description .parent table div table td {
+	padding-left: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#visio_current_description .parent img {
+	vertical-align: bottom;
+}
+
+#visio_current_description .parent table tr td img.vignetteimg {
+	margin-top: 27px;
+}
+
+#visio_current_object {
+	padding: 1em;
+	margin-top: 1.4em;
+	text-align: center;
+}
+
+#wait {
+	position : absolute;
+	top : 200px;
+	left : 50%;
+	margin-left : -16px;
+}

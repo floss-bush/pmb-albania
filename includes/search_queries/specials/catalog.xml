@@ -4,4 +4,5 @@
 	<type name="combine_unimarc" class="combine_search_unimarc" path="combine_unimarc"></type>
 	<type name="combine_expl" class="combine_search_expl" path="combine_expl"></type>	
 	<type name="external_sources" class="external_sources" path="external_sources"></type>
+	<type name="periodique" class="periodique_search" path="periodique"></type>
 </specialfields>

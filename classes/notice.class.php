@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 //  2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice.class.php,v 1.117 2010-05-26 07:16:41 arenou Exp $
+// $Id: notice.class.php,v 1.118.2.2 2011-09-22 12:23:26 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -278,16 +278,7 @@ if ( ! defined( 'NOTICE_CLASS' ) ) {
 		
 		//Récupérer une date au format AAAA-MM-JJ
 		function get_date_parution($annee) {
-			
-			if($annee){
-				$pattern='/(\d{4})/';
-				if(preg_match($pattern,$annee,$matches)){
-					$date_tmp = $matches[0].'-01-01';
-					return $date_tmp;
-				} else return '0000-00-00'; 
-			}			
-			return '0000-00-00';
-			
+			return detectFormatDate($annee);
 		}
 		
 		// affichage du form associe
@@ -1018,6 +1009,10 @@ if ( ! defined( 'NOTICE_CLASS' ) ) {
 			//suppression des droits d'acces empr_notice
 			$requete = "delete from acces_res_2 where res_num=".$id;
 			@mysql_query($requete, $dbh);	
+			
+			//suppression des droits d'acces empr_notice
+			$requete = "delete from avis where num_notice=".$id;
+			@mysql_query($requete, $dbh);	
 						
 			// Supression des liens avec les titres uniformes
 			$requete = "DELETE FROM notices_titres_uniformes WHERE ntu_num_notice='$id'" ;			
@@ -1115,7 +1110,7 @@ if ( ! defined( 'NOTICE_CLASS' ) ) {
 			
 			
 		   	// Authors : 
-		   	$auteurs = mysql_query("select author_name, author_rejete, author_lieu,author_ville,author_pays,author_numero,author_subdivision, index_author from authors, responsability WHERE responsability_author = author_id AND responsability_notice = $notice", $dbh);
+		   	$auteurs = mysql_query("select author_type, author_name, author_rejete, author_date, author_lieu,author_ville,author_pays,author_numero,author_subdivision, index_author from authors, responsability WHERE responsability_author = author_id AND responsability_notice = $notice", $dbh);
 		   	$numA = mysql_num_rows($auteurs);
 		   	for($j=0;$j < $numA; $j++) {
 		   		$mesAuteurs = mysql_fetch_assoc($auteurs);
@@ -1127,6 +1122,7 @@ if ( ! defined( 'NOTICE_CLASS' ) ) {
 			   		$mesAuteurs['author_pays'].' '.
 			   		$mesAuteurs['author_numero'].' '.
 			   		$mesAuteurs['author_subdivision'].' ';
+			   	if($mesAuteurs['author_type'] == "72") $infos_global.= ' '.$mesAuteurs['author_date'].' ';
 			   	$infos_global_index.=strip_empty_chars(
 			   		$mesAuteurs['author_name'].' '.
 			   		$mesAuteurs['author_rejete'].' '.
@@ -1134,7 +1130,8 @@ if ( ! defined( 'NOTICE_CLASS' ) ) {
 			   		$mesAuteurs['author_ville'].' '.
 			   		$mesAuteurs['author_pays'].' '.
 			   		$mesAuteurs['author_numero'].' '.
-			   		$mesAuteurs['author_subdivision']).' ';		   		
+			   		$mesAuteurs['author_subdivision']).' ';
+			   	if($mesAuteurs['author_type'] == "72") $infos_global_index.= strip_empty_chars($mesAuteurs['author_date']." ");
 		   	}
 		   	mysql_free_result($auteurs);
 		   	

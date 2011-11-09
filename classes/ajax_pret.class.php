@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: ajax_pret.class.php,v 1.23 2010-06-16 12:19:04 ngantier Exp $
+// $Id: ajax_pret.class.php,v 1.23.2.1 2011-06-09 12:52:46 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -597,7 +597,7 @@ class do_pret {
 	
 	}
 	
-	function resa_pret_gestion($id_empr, $id_expl) {
+	function resa_pret_gestion($id_empr, $id_expl,$stat_id=0) {
 		global $msg;
 		global $dbh;
 		global $pmb_resa_planning;
@@ -624,7 +624,7 @@ class do_pret {
 			//$reservataire = mysql_result($result, 0, 'empr');
 			//$resa_cb = mysql_result($result, 0, 'resa_cb');
 			// archivage resa
-			$rqt_arch = "UPDATE resa_archive, resa SET resarc_pretee = 1 WHERE id_resa = '".mysql_result($result, 0, 'id_resa')."' AND resa_arc = resarc_id ";	
+			$rqt_arch = "UPDATE resa_archive, resa SET resarc_pretee = 1, resarc_arcpretid = $stat_id WHERE id_resa = '".mysql_result($result, 0, 'id_resa')."' AND resa_arc = resarc_id ";	
 			mysql_query($rqt_arch, $dbh);
 			$this->del_resa($id_empr, $expl->notice, $expl->bulletin, $expl->cb);			
 		}
@@ -810,7 +810,7 @@ class do_pret {
 				}
 			}
 		}
-		$this->resa_pret_gestion($id_empr, $id_expl);	
+		$this->resa_pret_gestion($id_empr, $id_expl, $stat_id);	
 		$array[0]['statut']=1;
 		$buf_xml = array2xml($array);				
 		return $buf_xml;

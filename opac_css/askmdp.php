@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: askmdp.php,v 1.19 2009-11-12 10:47:44 gueluneau Exp $
+// $Id: askmdp.php,v 1.20.2.4 2011-09-19 15:55:11 dbellamy Exp $
 
 $base_path=".";
 require_once($base_path."/includes/init.inc.php");
@@ -86,6 +86,13 @@ $std_header= str_replace("!!main_header!!",$opac_biblio_main_header,$std_header)
 // RSS
 $std_header= str_replace("!!liens_rss!!",genere_link_rss(),$std_header);
 
+//Enrichissement OPAC
+$std_header = str_replace("!!enrichment_headers!!","",$std_header);
+
+if($opac_parse_html){
+	ob_start();
+}
+
 print $std_header;
 
 require_once ($base_path.'/includes/navigator.inc.php');
@@ -105,48 +112,56 @@ if ($demande!="ok" || $email=='') {
 
 	// Mettre ici le formulaire de saisie de l'email
 	print $demandeemail ;
+	
+} else {
+	$query = "SELECT empr_login, empr_password, empr_location,empr_mail,concat(empr_prenom,' ',empr_nom) as nom_prenom FROM empr WHERE empr_mail like '%".$email."%'";
+	$result = mysql_query($query) or die ("*** Erreur dans la requ&ecirc;te <br />*** $query<br />\n");
+	if (mysql_num_rows($result)!=0) {
+		while ($row = mysql_fetch_object ($result)) {
+			if (!$opac_biblio_name) {
+				$query_loc = "SELECT name, email FROM docs_location WHERE idlocation='$row->empr_location'";
+				$result_loc = mysql_query($query_loc) or die ("*** Erreur dans la requ&ecirc;te <br />*** $query_loc<br />\n");
+				$info_loc = mysql_fetch_object ($result_loc) ;
+				$biblio_name_temp=$info_loc->name ;
+				$biblio_email_temp=$info_loc->email ;
+			} else {
+				$biblio_name_temp=$opac_biblio_name;
+				$biblio_email_temp=$opac_biblio_email;
+			}
+			$headers  = "MIME-Version: 1.0\n";
+			$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+
+			// Pour faire suite à votre demande, nous vous prions de trouver ci-dessous vos informations de connexion pour <b>!!biblioname!!</b> :<br /> -Identifiant: !!login!! <br /> -Mot de passe: !!password!! <br /><br />Si vous rencontrez des difficultés, adressez un mail à !!biblioemail!!.
+			$messagemail = $msg[mdp_mail_body] ;
+			$messagemail = str_replace("!!login!!",$row->empr_login,$messagemail);
+			$messagemail = str_replace("!!password!!",$row->empr_password,$messagemail);
+			$messagemail = str_replace("!!biblioname!!","<a href=\"$opac_url_base\">".$biblio_name_temp."</a>",$messagemail);
+			$messagemail = str_replace("!!biblioemail!!","<a href=mailto:$opac_biblio_email>$biblio_email_temp</a>",$messagemail);
+
+			$objetemail = str_replace("!!biblioname!!",$biblio_name_temp,$msg[mdp_mail_obj]);
+			print "<hr />";
+			
+			if($opac_parse_html){
+				$objetemail = parseHTML($objetemail);
+				$messagemail = parseHTML($messagemail);
+				$biblio_name_temp = parseHTML($biblio_name_temp);
+				$biblio_email_temp = parseHTML($biblio_email_temp); 
+			}	
+
+			$res_envoi=@mailpmb(trim($row->nom_prenom), $row->empr_mail,$objetemail,$messagemail,$biblio_name_temp, $biblio_email_temp, $headers);
+			if (!$res_envoi) {
+				print "<p class='texte'>Could not send information to $email.</p><br />" ;
+				echo "<br />";
+				print_r($error_send_mail);
+				echo "<br />";
+			}
+			print "<p class='texte'>".$msg[mdp_sent_ok]." $email.</p>" ;
+		}
 	} else {
-		$query = "SELECT empr_login, empr_password, empr_location,empr_mail,concat(empr_prenom,' ',empr_nom) as nom_prenom FROM empr WHERE empr_mail like '%".$email."%'";
-		$result = mysql_query($query) or die ("*** Erreur dans la requ&ecirc;te <br />*** $query<br />\n");
-		if (mysql_num_rows($result)!=0) {
-			while ($row = mysql_fetch_object ($result)) {
-				if (!$opac_biblio_name) {
-					$query_loc = "SELECT name, email FROM docs_location WHERE idlocation='$row->empr_location'";
-					$result_loc = mysql_query($query_loc) or die ("*** Erreur dans la requ&ecirc;te <br />*** $query_loc<br />\n");
-					$info_loc = mysql_fetch_object ($result_loc) ;
-					$biblio_name_temp=$info_loc->name ;
-					$biblio_email_temp=$info_loc->email ;
-					} else {
-						$biblio_name_temp=$opac_biblio_name;
-						$biblio_email_temp=$opac_biblio_email;
-						}
-				$headers  = "MIME-Version: 1.0\n";
-				$headers .= "Content-type: text/html; charset=iso-8859-1\n";
-			
-				// Pour faire suite à votre demande, nous vous prions de trouver ci-dessous vos informations de connexion pour <b>!!biblioname!!</b> :<br /> -Identifiant: !!login!! <br /> -Mot de passe: !!password!! <br /><br />Si vous rencontrez des difficultés, adressez un mail à !!biblioemail!!.
-				$messagemail = $msg[mdp_mail_body] ;
-				$messagemail = str_replace("!!login!!",$row->empr_login,$messagemail);
-				$messagemail = str_replace("!!password!!",$row->empr_password,$messagemail);
-				$messagemail = str_replace("!!biblioname!!","<a href=\"$opac_url_base\">".$biblio_name_temp."</a>",$messagemail);
-				$messagemail = str_replace("!!biblioemail!!","<a href=mailto:$opac_biblio_email>$biblio_email_temp</a>",$messagemail);
-			
-				$objetemail = str_replace("!!biblioname!!",$biblio_name_temp,$msg[mdp_mail_obj]);
-				print "<hr />";
-			
-				$res_envoi=@mailpmb(trim($row->nom_prenom), $row->empr_mail,$objetemail,$messagemail,$biblio_name_temp, $biblio_email_temp, $headers);
-				if (!$res_envoi) {
-					print "<p class='texte'>Could not send information to $email.</p><br />" ;
-					echo "<br />";
-					print_r($error_send_mail);
-					echo "<br />";
-					}
-				print "<p class='texte'>".$msg[mdp_sent_ok]." $email.</p>" ;
-			}
-		} else {
-			print "<hr /><p class='texte'>".str_replace("!!biblioemail!!","<a href=mailto:$opac_biblio_email>$opac_biblio_email</a>",$msg[mdp_no_email])."</p>" ;
-			print $demandeemail ;
-			}
+		print "<hr /><p class='texte'>".str_replace("!!biblioemail!!","<a href=mailto:$opac_biblio_email>$opac_biblio_email</a>",$msg[mdp_no_email])."</p>" ;
+		print $demandeemail ;
 	}
+}
 
 print "</blockquote>";
 
@@ -169,12 +184,10 @@ if ($opac_show_bandeaugauche==0) {
 	$home_on_left = str_replace("!!common_tpl_lang_select!!", show_select_languages("empr.php"), $home_on_left);
 	
 	if (!$_SESSION["user_code"]) {
-		$loginform__ ="<form action=\"empr.php\" method=\"post\" name=\"myform\"><label>$msg[common_tpl_cardnumber_default]</label><br />";
-		$loginform__.="<input type=\"text\" name=\"login\" size=\"14\" border=\"0\" value=\"".$msg[common_tpl_cardnumber]."\" onFocus=\"this.value='';\"><br />
-			<input type=\"password\" name=\"password\" size=\"8\" border=\"0\" value=\"\" onFocus=\"this.value='';\">&nbsp;&nbsp;<input type='submit' name='ok' value='".$msg[11]."' class='bouton'></form>";
+		$loginform__ = genere_form_connexion_empr();
 	} else {
 		$loginform__.="<b>".$empr_prenom." ".$empr_nom."</b><br />\n";
-		$loginform__.="<a href=\"empr.php\">".$msg["empr_my_account"]."</a><br />
+		$loginform__.="<a href=\"empr.php\" id=\"empr_my_account\">".$msg["empr_my_account"]."</a><br />
 			<a href=\"index.php?logout=1\" id=\"empr_logout_lnk\">".$msg["empr_logout"]."</a>";
 	}
 	$loginform = str_replace("!!login_form!!",$loginform__,$loginform);
@@ -193,3 +206,10 @@ print $footer;
 
 /* Fermeture de la connexion */
 mysql_close();
+
+if($opac_parse_html){
+	$htmltoparse = ob_get_contents();
+	ob_end_clean();
+	$res = parseHTML($htmltoparse);
+	print $res;
+}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: titre_uniforme_see.inc.php,v 1.8 2010-11-17 17:15:23 arenou Exp $
+// $Id: titre_uniforme_see.inc.php,v 1.8.2.1 2011-10-07 07:41:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -20,7 +20,7 @@ print "<div id='aut_details_container'>\n";
 
 
 if($id) {
-
+	$id+=0;
 	// affichage des informations sur l'éditeur
 	print "<div id='aut_see'>\n";
 	$ourTu = new titre_uniforme($id);

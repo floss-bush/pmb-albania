@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: entrez.class.php,v 1.4 2010-11-10 14:22:48 arenou Exp $
+// $Id: entrez.class.php,v 1.6 2011-04-15 09:38:23 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -70,7 +70,7 @@ class entrez extends connector {
 		</div>";
 		$form="<div class='row'>
 			<div class='colonne3'>
-				<label for='operator'>Operator".$this->msg["entrez_operator"]."</label>
+				<label for='operator'>".$this->msg["entrez_operator"]."</label>
 			</div>
 			<div class='colonne_suite'>
 				<select name=\"entrez_operator\">
@@ -87,19 +87,38 @@ class entrez extends connector {
 			<div class='colonne_suite'>
 				<input name=\"entrez_maxresults\" type=\"text\" value=\"".$entrez_maxresults."\">
 			</div>
-		</div>";
-
-		$form.="
-	<div class='row'></div>
+		</div>
+		<div class='row'>
+			<div class='colonne3'>
+				<label for='xslt_file'>".$this->msg["entrez_xslt_file"]."</label>
+			</div>
+			<div class='colonne_suite'>
+				<input name='xslt_file' type='file'/>";
+		if ($xsl_transform) $form.="<br /><i>".sprintf($this->msg["entrez_xslt_file_linked"],$xsl_transform["name"])."</i> : ".$this->msg["entrez_del_xslt_file"]." <input type='checkbox' name='del_xsl_transform' value='1'/>";
+		 $form.="	</div>
+		</div>
+		<div class='row'></div>
 ";
 		return $form;
     }
 	
     function make_serialized_source_properties($source_id) {
     	global $entrez_database, $entrez_maxresults, $entrez_operator;
+    	global $del_xsl_transform;
+    	
     	$t["entrez_database"]=stripslashes($entrez_database);
     	$t["entrez_maxresults"]=$entrez_maxresults+0;
     	$t["entrez_operator"]=$entrez_operator+0;
+    	
+    	//Vérification du fichier
+    	if (($_FILES["xslt_file"])&&(!$_FILES["xslt_file"]["error"])) {
+    		$xslt_file_content=array();
+    		$xslt_file_content["name"]=$_FILES["xslt_file"]["name"];
+    		$xslt_file_content["code"]=file_get_contents($_FILES["xslt_file"]["tmp_name"]);
+    		$t["xsl_transform"]=$xslt_file_content;
+    	} else if ($del_xsl_transform) {
+			$t["xsl_transform"]="";
+    	}
 
 		$this->sources[$source_id]["PARAMETERS"]=serialize($t);
 	}
@@ -158,7 +177,7 @@ class entrez extends connector {
 		}
 		$entrez_operator = $entrez_operator+0;
 		$entrez_maxresults= $entrez_maxresults+0;
-
+		
 		$unimarc_pubmed_mapping = array (
 			'XXX' => '',
 			'200$a' => '[Title]',
@@ -213,10 +232,18 @@ class entrez extends connector {
 		$entrez_client->retrieve_currentidlist_notices();
 		$responses = $entrez_client->get_current_responses();
 		
-		$xsl_transform = file_get_contents($base_path."/admin/connecteurs/in/entrez/xslt/pubmed_to_unimarc.xsl");
+		if($xsl_transform){
+			if($xsl_transform['code'])
+				$xsl_transform_content = $xsl_transform['code'];
+			else $xsl_transform_content = "";
+		}	
+		if($xsl_transform_content == "")
+			$xsl_transform_content = file_get_contents($base_path."/admin/connecteurs/in/entrez/xslt/pubmed_to_unimarc.xsl");
+
+
 		$notices_pmbunimarc = array();
 		foreach ($responses as $aresponse) {
-			$anotice = $this->apply_xsl_to_xml($aresponse, $xsl_transform);
+			$anotice = $this->apply_xsl_to_xml($aresponse, $xsl_transform_content);
 			$notices_pmbunimarc[] = $anotice;
 		}
 		foreach($notices_pmbunimarc as $anotice)

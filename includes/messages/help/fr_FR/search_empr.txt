@@ -1,18 +1,18 @@
 <?php
 
-// $Id: search_empr.txt,v 1.3 2009-05-16 11:05:14 dbellamy Exp $
+// $Id: search_empr.txt,v 1.4 2011-01-31 10:42:42 dbellamy Exp $
 
 // howto search a borrower
 
 $content = "
 <div class='row'>
-<h3><center>PMB: Usage des caractères spéciaux dans la recherche des lecteurs</center></h3>
+<h3><center>PMB: Usage des caract&egrave;res sp&eatute;ciaux dans la recherche des lecteurs</center></h3>
 </div>
-<br /><hr /><br /><b>Recherche étendue</b><br />
+<br /><hr /><br /><b>Recherche &eacute;tendue</b><br />
 <p class='pn-normal'>Pour afficher la liste de tous les lecteurs, ne rien saisir et valider directement.</p>
 
-<b>Recherche sélective</b><br />
-<p class='pn-normal'>Pour une recherche plus sélective, il est possible utiliser des caractères spéciaux: <br /> 
+<b>Recherche s&eacute;lective</b><br />
+<p class='pn-normal'>Pour une recherche plus s&eacute;lective, il est possible utiliser des caract&egrave;res sp&eacute;ciaux: <br /> 
 <ul>
 <li>pour rechercher tous les noms qui <b> commencent</b> avec <b>ALE</b>, taper: <b>^ALE</b>, </li>
 <li>pour rechercher tous les noms qui <b>contiennent ALE</b>, taper: <b>ALE</b>, </li>

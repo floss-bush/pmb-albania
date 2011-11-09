@@ -1,7 +1,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: move.js,v 1.9 2010-06-08 08:41:25 mbertin Exp $
+// $Id: move.js,v 1.9.2.1 2011-05-27 08:34:50 arenou Exp $
 
 down=false;
 down_parent=false;
@@ -369,6 +369,22 @@ function move_fields(domXML) {
 	for (i=0; i<etirables.length; i++) {
 		//Onglets flottants
 		id=etirables[i].getAttribute("id");
+		//on regénère le dom des textarea, le navigateur se contente d'affecter la propriété value... 
+		var text_areas = document.getElementById(id).getElementsByTagName('textarea');
+		for(var x=0 ; x<text_areas.length ; x++){
+			if(!text_areas[x].firstChild){
+				text_areas[x].appendChild(document.createTextNode(text_areas[x].value));
+			}
+		}
+		//on regénère le dom des select, le navigateur se contente d'affecter la propriété selected sans recréer l'attribut... 
+		var selects = document.getElementById(id).getElementsByTagName('select');
+		for(var x=0 ; x<selects.length ; x++){
+			for(var y=0 ; y<selects[x].options.length ; y++){
+				if(selects[x].options[y].selected){
+					selects[x].options[y].setAttribute('selected','selected');
+				}
+			}
+		}
 		onglet[i]=document.getElementById(id).cloneNode(true);
 		if (etirables[i].getAttribute("invert")=="yes") onglet[i].setAttribute("invert","yes"); else onglet[i].setAttribute("invert","");
 		var onglet_tit=get_onglet_title(document.getElementById(id));

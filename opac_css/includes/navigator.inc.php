@@ -17,7 +17,7 @@ if (($lvl!="more_results")&&($_SESSION["last_query"]!="")) {
 			$search_name=" ".$msg["actions_last_page_simple_search"]." ";
 		$search_name.=$msg['number'].$_SESSION["last_query"];
 	}
-	$navig.="<td ><a href=\"index.php?lvl=more_results&get_last_query=1\" class='actions_last_page'><span>".sprintf($msg["actions_last_page"],$_SESSION["lq_page"],$_SESSION["list_name"],$search_name);
+	$navig.="<td ><a href=\"index.php?lvl=more_results&get_last_query=1\" class='actions_last_page'><span>".sprintf($msg["actions_last_page"],$_SESSION["lq_page"],$msg[$_SESSION["list_name_msg"]],$search_name);
 	$navig.="</span></a></td>\n";
 }
 if (($_SESSION["nb_queries"])&&($lvl!="search_history")) 

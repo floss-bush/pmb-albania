@@ -11,9 +11,11 @@
 /*  attributs generaux de la page                                             */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
+
 a img{
 	border:none;
 }
+
 body { 
 	font-family : Verdana, Arial, Helvetica, sans-serif;
 	font-size : 11px;
@@ -401,11 +403,6 @@ div.category {
 
 #last_entries { clear:both; }
 
-.etageres { clear:both; }
-
-#pageHeader 
-	{ }
-
 #bandeau { 
 	position:absolute;
 	clear:both;
@@ -752,7 +749,10 @@ ul#onglets_isbd_public li.onglet_tags a {
 }
 
 /* Etageres */
-#etagere {
+
+#etageres { clear:both; }
+
+.etagere {
 	background:white url('images/p_bas.png') repeat-x bottom;
 	padding-bottom:15px;
 	margin-bottom:30px;
@@ -790,20 +790,8 @@ ul#onglets_isbd_public li.onglet_tags a {
 	padding-left:5px;
 	background:white;
 }
-/* pb de saut de ligne apres tous les liens dans des etageres, donc y compris en aff isbd
-#etagere-notice-list a {
-	display:block;
-}
-*/
 
-#etagere-notice-list a:hover {
-}
 /* barre de navigation */
-#navigator table {
-}
-
-#navigator td {
-}
 
 .liste_bulletins {
     padding-left: 3px;
@@ -1004,7 +992,6 @@ iframe#iframe_resume_panier {
 
 table{
 	border-collapse:collapse;
-	margin: 10px 0;
 	width:100%;
 }
 .tab_sug th, .tab_sug td{
@@ -1134,3 +1121,130 @@ table{
 .authorities{
 	background : #A8A8A8;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+#search_onglet ul.search_tabs {
+	list-style: none;
+	padding-left: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 10px;	
+}
+
+#search_onglet ul.search_tabs li {
+	background-image: url("images/papillon2.png");
+    background-repeat: no-repeat;
+    display: inline;
+    margin-bottom: 5px;
+    margin-right: 4px;
+    padding-top: 16px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+}
+
+#search_onglet ul.search_tabs li a {
+	text-decoration: none;
+	background-image: url("images/search_search_tabs.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+    color: #222222;
+    padding: 2px 7px 0 0;
+}
+
+#search_onglet ul.search_tabs li a:hover {
+	font-style: italic;
+}
+
+#search_onglet ul.search_tabs li.current a {
+	background-image: none;
+    color: #000000;
+    font-weight: bold;
+}
+
+#search_onglet ul.search_tabs li.current a:hover {
+	font-style: normal;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-top: 20px
+}
+	
+#perio_a2z #perio_a2z_search {
+	margin-bottom: 5px;
+}
+
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_contens td {
+	vertical-align: top;
+}
+
+table.a2z_perio_list {
+	width: 220px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+    padding-bottom: 3px;
+    padding-top: 2px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#form_search_bull form {
+	margin-top: 10px;
+}
+
+#form_search_bull form table td {
+	vertical-align: middle;
+}
+

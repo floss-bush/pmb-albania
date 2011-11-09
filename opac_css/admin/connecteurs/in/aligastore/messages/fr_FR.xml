@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.1 2008-08-28 09:05:42 erwanmartin Exp $ -->
+$Id: fr_FR.xml,v 1.3 2011-04-15 21:22:32 touraine37 Exp $ -->
 
 <XMLlist>
 	<entry code="aliga_base_url">URL de base du serveur aligastore</entry>
@@ -21,6 +21,10 @@ $Id: fr_FR.xml,v 1.1 2008-08-28 09:05:42 erwanmartin Exp $ -->
 	<entry code="aliga_image_thumburl">URL de la vignette</entry>
 	<entry code="aliga_image_front">URL du Recto</entry>
 	<entry code="aliga_image_back">URL du Verso</entry>
-	<entry code="aliga_cover_front">Recto</entry>>
-	<entry code="aliga_cover_back">Verso</entry>>
+	<entry code="aliga_cover_front">Recto</entry>
+	<entry code="aliga_cover_back">Verso</entry>
+	<entry code="aliga_enrichment_source">(source Aligastore)</entry>
+	<entry code="aliga_enrichment_no_resume">Aucun résumé disponible.</entry>
+	<entry code="aliga_enrichment_no_bio">Aucune biographie disponible.</entry>
+	<entry code="aliga_enrichment_no_sommaire">Aucun sommaire disponible.</entry>
 </XMLlist>

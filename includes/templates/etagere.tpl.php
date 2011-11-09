@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: etagere.tpl.php,v 1.10 2008-07-03 15:44:33 erwanmartin Exp $
+// $Id: etagere.tpl.php,v 1.12 2011-03-30 14:54:21 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -51,6 +51,27 @@ function test_form(form)
 	</div>
 <div class='row'>
 	!!autorisations_users!!
+	</div>
+<div class='row'>
+	<a href=# onClick=\"document.getElementById('history').src='./sort.php?action=0&caller=etagere'; document.getElementById('history').style.display='';return false;\" alt=\"".$msg['tris_dispos']."\" title=\"".$msg['tris_dispos']."\">
+		<img src='./images/orderby_az.gif' align='middle' hspace='3'>
+	</a>
+	<input type='hidden' value='!!tri!!' name='tri'/>
+	<span id='etagere_sort'>
+		!!tri_name!!
+	</span>
+	<script type='text/javascript'>
+		function getSort(id,name){
+			document.forms.etagere_form.tri.value=id;
+			var name = document.createTextNode(name);
+			var span = document.getElementById('etagere_sort');
+			while(span.firstChild){
+				span.removeChild(span.firstChild);
+			}
+			span.appendChild(name);
+			
+		}
+	</script>
 	</div>
 </div>
 <!--	boutons	-->

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_doublon.class.php,v 1.1 2007-09-28 15:53:51 ngantier Exp $
+// $Id: notice_doublon.class.php,v 1.3.2.1 2011-05-09 15:17:06 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -10,18 +10,23 @@ require_once($include_path."/parser.inc.php");
 require_once($class_path."/parametres_perso.class.php");
 
 class notice_doublon {
+	var $external = false;		//booléen qui détermine si l'on est en recherche externe ou non...
 	
 	// constructeur
-	function notice_doublon() {
+	function notice_doublon($external = false) {
 		global $include_path;
 		global $msg;
 				
+		$this->external= $external; 	
 		// lecture des fonctions de pièges à exécuter pour faire un pret
 		$this->parse_xml_fields($include_path."/notice/notice.xml");		
 	}
 
 	function parse_xml_fields($filename) {
-		if (file_exists($filename."_subst")) $filename.="_subst";
+		$f_pos=strrpos($filename,'.');
+		$f_end=substr($filename,$f_pos);
+		$f_deb=substr($filename,0,$f_pos);
+		if (file_exists($f_deb."_subst".$f_end)) $filename=$f_deb."_subst".$f_end;
 		$fp=fopen($filename,"r") or die("Can't find XML file");
 		$xml=fread($fp,filesize($filename));
 		fclose($fp);
@@ -32,17 +37,20 @@ class notice_doublon {
 			$label=$param["FIELD"][$i]["LABEL"];
 			$size_max=$param["FIELD"][$i]["SIZE_MAX"];
 			$html= $param["FIELD"][$i]["HTML"][0]["value"];
+			$html_ext= $param["FIELD"][$i]["HTML_EXT"][0]["value"];
 			$sql=$param["FIELD"][$i]["SQL"][0]["value"];
 			
 			$this->fields[$name]["size_max"]=$size_max;		
 			$this->fields[$name]["html"]= $param["FIELD"][$i]["HTML"][0]["value"];
+			$this->fields[$name]["html_ext"]= $param["FIELD"][$i]["HTML_EXT"][0]["value"];
 			$this->fields[$name]["sql"]= $param["FIELD"][$i]["SQL"][0]["value"];
 		}
 		return 0;
 	}
 	
 	function read_field_form($field) {
-		$html=$this->fields[$field]["html"];
+		if($this->external) $html=$this->fields[$field]["html_ext"];
+		else $html=$this->fields[$field]["html"];
 		$size_max=	$this->fields[$field]["size_max"];
 		
 		if(!$html) {
@@ -52,7 +60,7 @@ class notice_doublon {
 			return $chaine;
 		} else  {
 			for($i=0;$i<$size_max;$i++) {
-				$chaine.=$GLOBALS[$html];
+				$chaine.=stripslashes($GLOBALS[$html]);
 				// incrément du name de l'objet dans le formulaire
 				$html++;				
 			}	
@@ -90,8 +98,7 @@ class notice_doublon {
 				
 		// Pas de control activé en paramétrage: Sortir.
 		if( ($metod = $field_list[0]) < 1 ) return 0;
-		foreach($field_list as  $i => $field)
-		{			
+		foreach($field_list as  $i => $field) {
 			if ($i>0){	
 				if (!$id) {
 					// le formulaire à lire

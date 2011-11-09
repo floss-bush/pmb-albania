@@ -2,12 +2,13 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_tpl_gen.class.php,v 1.3 2010-09-14 14:57:10 ngantier Exp $
+// $Id: notice_tpl_gen.class.php,v 1.3.2.3 2011-06-23 15:46:33 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
 require_once ($class_path . "/parse_format.class.php");
 require_once ($class_path . "/notice_info.class.php");
+
 class notice_tpl_gen {
 	
 	// ---------------------------------------------------------------
@@ -41,7 +42,7 @@ class notice_tpl_gen {
 			if(mysql_num_rows($result)) {
 				$temp = mysql_fetch_object($result);				
 				$this->name	= $temp->notpl_name;
-				$this->comment	= $temp->notpl_comment	;	
+				$this->comment	= $temp->notpl_comment	;
 				// récup code		
 				$requete = "SELECT * FROM notice_tplcode  WHERE num_notpl='".$this->id."' ";
 				$result_code = @mysql_query($requete, $dbh);
@@ -57,10 +58,11 @@ class notice_tpl_gen {
 		}
 	}
 	
-	function build_notice($id_notice,$location=0){
+	function build_notice($id_notice,$location=0,$in_relation=false){
 		global $dbh,$parser_environnement;
 		
-		$parser=new parse_format('notice_tpl.inc.php');			
+		$parser_environnement['id_template'] = $this->id;
+		$parser=new parse_format('notice_tpl.inc.php',$in_relation);			
 		
 		$requete = "SELECT typdoc, niveau_biblio FROM notices WHERE notice_id='".$id_notice."' LIMIT 1 ";
 		$result = @mysql_query($requete, $dbh);
@@ -70,18 +72,20 @@ class notice_tpl_gen {
 			$niveau_biblio	= $temp->niveau_biblio;				
 			//$niveau_hierar	= $temp->niveau_hierar;		
 		} else return "";
-	
+		
 		// Recherche du code à appliquer (du particulier au général)
-		if($this->code[$location][$typdoc][$niveau_biblio]) {
-			$code=$this->code[$location][$typdoc][$niveau_biblio];
-		} elseif ($this->code[$location][$typdoc][0]) {
-			$code=$this->code[$location][$typdoc][0];
-		} elseif ($this->code[$location][0][0]) {
-			$code=$this->code[$location][0][0];
-		} elseif ($this->code[0][$typdoc][$niveau_biblio]) {
-			$code=$this->code[0][$typdoc][$niveau_biblio];
-		} elseif ($this->code[0][$typdoc][0]) {
-			$code=$this->code[0][$typdoc][0];
+		if($this->code[$location][$niveau_biblio][$typdoc]) {
+			$code=$this->code[$location][$niveau_biblio][$typdoc];
+		} elseif ($this->code[$location][$niveau_biblio][0]) {
+			$code=$this->code[$location][$niveau_biblio][0];
+			
+		} elseif ($this->code[0][$niveau_biblio][$typdoc]) {
+			$code=$this->code[0][$niveau_biblio][$typdoc];
+		} elseif ($this->code[0][$niveau_biblio][0]) {
+			$code=$this->code[0][$niveau_biblio][0];
+			
+		} elseif ($this->code[0][0][$typdoc]) {
+			$code=$this->code[0][0][$typdoc];
 		} elseif ($this->code[0][0][0]) {
 			$code=$this->code[0][0][0];
 		} else return "";
@@ -96,7 +100,7 @@ class notice_tpl_gen {
 	function gen_tpl_select($select_name="notice_tpl", $selected_id=0, $onchange="",$no_affempty=0,$no_aff_defaut=0) {		
 		global $msg,$dbh;
 		// 
-		$requete = "SELECT notpl_id, concat(notpl_name,'. ',notpl_comment) as nom FROM notice_tpl ORDER BY notpl_name ";
+		$requete = "SELECT notpl_id, if(notpl_comment!='',concat(notpl_name,'. ',notpl_comment),notpl_name) as nom FROM notice_tpl ORDER BY notpl_name ";
 		$result = mysql_query($requete, $dbh);
 		if(!mysql_num_rows($result) && !$no_affempty) return '';	
 		if(!$no_aff_defaut)
@@ -104,7 +108,6 @@ class notice_tpl_gen {
 		else
 			return gen_liste ($requete, "notpl_id", "nom", $select_name, $onchange, $selected_id, 0, '', 0,'', 0) ;
 				
-		
 		
 	}
 } // fin class 

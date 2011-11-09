@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: docnum.inc.php,v 1.7 2010-10-12 15:49:31 arenou Exp $
+// $Id: docnum.inc.php,v 1.8.2.1 2011-06-22 08:01:20 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -29,17 +29,18 @@ if ($gestion_acces_active==1 && $gestion_acces_empr_notice==1) {
 $aq=new analyse_query(stripslashes($user_query));
 
 if ($acces_j) {
-	$members=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice");
-	$clause="where ".$members["where"];	 
-	
-	$members_bull=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin");
-	$clause_bull="where ".$members_bull["where"];
-	$statut_j='';
-} else {
-	$members=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice" ," explnum_notice=notice_id and statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) and (explnum_visible_opac=1 and explnum_visible_opac_abon=0)) ".($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1))":"").")");
+	$members=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice"," explnum_notice=notice_id and explnum_bulletin=0",0,0,true);
 	$clause="where ".$members["where"]." and (".$members["restrict"].")";
 	
-	$members_bull=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin" ,"explnum_bulletin=bulletin_id and bulletin_notice=notice_id and statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) and (explnum_visible_opac=1 and explnum_visible_opac_abon=0)) ".($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1))":"").")");
+	$members_bull=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin"," explnum_bulletin=bulletin_id and explnum_notice=0 and bulletin_notice=notice_id",0,0,true);
+	$clause_bull="where ".$members_bull["where"]." and (".$members_bull["restrict"].")";
+	$statut_j='';
+
+} else {
+	$members=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_notice" ," explnum_notice=notice_id and statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) and (explnum_visible_opac=1 and explnum_visible_opac_abon=0)) ".($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1))":"").")",0,0,true);
+	$clause="where ".$members["where"]." and (".$members["restrict"].")";
+	
+	$members_bull=$aq->get_query_members("explnum","explnum_index_wew","explnum_index_sew","explnum_bulletin" ," explnum_bulletin=bulletin_id and bulletin_notice=notice_id and statut=id_notice_statut and (((notice_visible_opac=1 and notice_visible_opac_abon=0) and (explnum_visible_opac=1 and explnum_visible_opac_abon=0)) ".($_SESSION["user_code"]?" or ((notice_visible_opac_abon=1 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1)) or ((notice_visible_opac_abon=0 and notice_visible_opac=1) and (explnum_visible_opac=1 and explnum_visible_opac_abon=1))":"").")",0,0,true);
 	$clause_bull="where ".$members_bull["where"]." and (".$members_bull["restrict"].")";
 	
 	$statut_j=',notice_statut';
@@ -64,8 +65,8 @@ if ($restrict) {
 
 if($clause) {
 	// instanciation de la nouvelle requête 
-	$q_docnum_noti = "select explnum_id  from explnum, notices $statut_j $acces_j $clause "; 
-	$q_docnum_bull = "select explnum_id  from bulletins, explnum, notices $statut_j $acces_j $clause_bull ";
+	$q_docnum_noti = "select explnum_id  from explnum, notices $statut_j $acces_j $clause"; 
+	$q_docnum_bull = "select explnum_id  from bulletins, explnum, notices $statut_j $acces_j $clause_bull";
 	$q_docnum = "select count(explnum_id)  from ( $q_docnum_noti UNION $q_docnum_bull) as uni";
 	$docnum = mysql_query($q_docnum, $dbh);
 	$nb_result_docnum = mysql_result($docnum, 0, 0); 

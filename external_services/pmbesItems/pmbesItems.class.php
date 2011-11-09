@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: pmbesItems.class.php,v 1.7 2010-07-29 12:50:54 erwanmartin Exp $
+// $Id: pmbesItems.class.php,v 1.8 2011-03-11 14:11:21 arenou Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -78,7 +78,7 @@ class pmbesItems extends external_services_api_class {
 
 				if ($reserve) $situation = $msg['expl_reserve']; // exemplaire réservé
 				elseif ($row["pret_flag"]) $situation = "${msg[359]}"; // exemplaire disponible
-				else $situation = "";
+				else $situation = "${msg[114]}";	//exemplaire exclu du pret
 			}
 			
 			$expl_return=array();

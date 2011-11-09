@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: subcoll_see.inc.php,v 1.40 2010-11-17 17:15:23 arenou Exp $
+// $Id: subcoll_see.inc.php,v 1.40.2.1 2011-10-07 07:41:16 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -15,7 +15,7 @@ print "<div id='aut_details'>\n
 print "<div id='aut_details_container'>\n";
 
 if($id) {
-
+	$id+=0;
 	// affichage des informations sur la collection
 	print "<div id=\"aut_see\">\n";
 	$ourSubcoll = new subcollection($id);

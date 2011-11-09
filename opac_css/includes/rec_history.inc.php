@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: rec_history.inc.php,v 1.23 2009-06-11 15:35:34 kantin Exp $
+// $Id: rec_history.inc.php,v 1.25.2.2 2011-10-07 12:52:35 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -205,7 +205,7 @@ function get_human_query($n) {
 				$r3=search_other_function_human_query($n);
 				if ($r3) $r2.=", ".$r3;
 			}
-			$r=sprintf($msg["simple_search_history"],stripslashes($_SESSION["user_query".$n]),$r1,$r2);
+			$r=sprintf($msg["simple_search_history"],htmlentities(stripslashes($_SESSION["user_query".$n]),ENT_QUOTES,$charset),$r1,$r2);
 			break;
 		case "extended_search":
 			$r=sprintf($msg["extended_search_history"],stripslashes($_SESSION["human_query".$n]));
@@ -333,11 +333,12 @@ function rec_last_history() {
 		
 	switch ($_SESSION["search_type"]) {
 		case "simple_search":
-			global $user_query,$mode,$count,$clause,$tri,$pert,$page,$l_typdoc, $join;
+			global $user_query,$mode,$count,$clause,$clause_bull,$tri,$pert,$page,$l_typdoc, $join;
 			$_SESSION["lq_user_query"]=$user_query;
 			$_SESSION["lq_mode"]=$mode;
 			$_SESSION["lq_count"]=$count;
 			$_SESSION["lq_clause"]=$clause;
+			$_SESSION["lq_clause_bull"]=$clause_bull;
 			$_SESSION["lq_tri"]=$tri;
 			$_SESSION["lq_pert"]=$pert;
 			$_SESSION["lq_page"]=$page_;
@@ -346,36 +347,47 @@ function rec_last_history() {
 			switch ($mode) {
 				case "tous" :
 					$_SESSION["list_name"]=$msg["list_tous"];
+					$_SESSION["list_name_msg"]="list_tous";
 					break;
 				case "auteur":
 					$_SESSION["list_name"]=$msg["list_authors"];
+					$_SESSION["list_name_msg"]="list_authors";
 					break;
 				case "titre":
 					$_SESSION["list_name"]=$msg["list_titles"];
+					$_SESSION["list_name_msg"]="list_titles";
 					break;
 				case "editeur":
 					$_SESSION["list_name"]=$msg["list_publishers"];
+					$_SESSION["list_name_msg"]="list_publishers";
 					break;
 				case "titre_uniforme":
 					$_SESSION["list_name"]=$msg["list_titres_uniformes"];
+					$_SESSION["list_name_msg"]="list_titres_uniformes";
 					break;
 				case "collection":
 					$_SESSION["list_name"]=$msg["list_collections"];
+					$_SESSION["list_name_msg"]="list_collections";
 					break;
 				case "souscollection":
 					$_SESSION["list_name"]=$msg["list_subcollections"];
+					$_SESSION["list_name_msg"]="list_subcollections";
 					break;
 				case "categorie":
 					$_SESSION["list_name"]=$msg["list_categories"];
+					$_SESSION["list_name_msg"]="list_categories";
 					break;
 				case "indexint":
 					$_SESSION["list_name"]=$msg["list_indexint"];
+					$_SESSION["list_name_msg"]="list_indexint";
 					break;
 				case "keyword":
 					$_SESSION["list_name"]=$msg["list_keywords"];
+					$_SESSION["list_name_msg"]="list_keywords";
 					break;	
 				case "docnum":
 					$_SESSION["list_name"]=$msg["docnum_list"];
+					$_SESSION["list_name_msg"]="docnum_list";
 					break;		
 			}
 			break;
@@ -383,6 +395,7 @@ function rec_last_history() {
 			$_SESSION["lq_page"]=$page_;
 			$_SESSION["lq_mode"]="extended";
 			$_SESSION["list_name"]=$msg["list_titles"];
+			$_SESSION["list_name_msg"]="list_titles";
 			break;
 	}
 }
@@ -392,11 +405,12 @@ function get_last_history() {
 	$search_type=$_SESSION["search_type".$_SESSION["last_query"]];
 	switch ($search_type) {
 		case "simple_search":
-			global $user_query,$mode,$count,$clause,$tri,$pert,$page,$l_typdoc, $join;
+			global $user_query,$mode,$count,$clause,$clause_bull,$tri,$pert,$page,$l_typdoc, $join;
 			$user_query=$_SESSION["lq_user_query"];
 			$mode=$_SESSION["lq_mode"];
 			$count=$_SESSION["lq_count"];
 			$clause=$_SESSION["lq_clause"];
+			$clause_bull=$_SESSION["lq_clause_bull"];
 			$tri=$_SESSION["lq_tri"];
 			$pert=$_SESSION["lq_pert"];
 			$page=$_SESSION["lq_page"];

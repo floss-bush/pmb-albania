@@ -488,7 +488,7 @@ switch($action) {
 				$k=0;
 				if (mysql_num_rows($res)) {
 					while ($row=mysql_fetch_array($res,MYSQL_ASSOC)) {
-						$perso[$k]=$row;
+						$perso[$k++]=$row;
 					}
 				}
 				//printr($perso,'','PERSO');die;

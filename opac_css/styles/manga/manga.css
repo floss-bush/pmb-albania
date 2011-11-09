@@ -1,17 +1,14 @@
 /* +--------------------------------------------------------------------------+
-// | PMB est sous licence GPL, la rï¿½utilisation du code est cadrï¿½e            |
+// | PMB est sous licence GPL, la rï¿½utilisation du code est cadrï¿½e        |
 // +--------------------------------------------------------------------------+
-// $Id: manga.css,v 1.23 2010-12-23 11:21:29 trenon Exp $		                	   */
-
-
-/* J'ai peut-ï¿½tre pas le droit de modifier ï¿½a ? */
+// $Id: manga.css,v 1.24.2.6 2011-09-06 14:34:06 trenon Exp $		              */
 
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
 /*                         ATTRIBUTS GENERAUX                                 */
 /*                                                                            */
-/*  						attributs gï¿½nï¿½raux de la page                            */
+/*  						attributs gï¿½nï¿½raux de la page                 */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
 
@@ -30,11 +27,9 @@ td{
 /* ---------------------------------------------------------------------------*/
 /*                            ID FIXES                                        */
 /*                                                                            */
-/*  				feuilles de styles appliquï¿½es ï¿½ des id fixes                   */
+/*  			feuilles de styles appliquï¿½es ï¿½ des id fixes              */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
-
-
 
 
 /* -------------------------------- */
@@ -242,6 +237,47 @@ td{
 	padding: 0 5px 10px 5px;
 	border: 2px solid #FE9D43;
 	background-color: #FFF8D1;
+}
+
+#categories ul.search_tabs {
+	margin: 0px;
+	padding-left: 0px;
+	padding-bottom: 4px;
+	list-style: none;
+	background-image: url("pointvert.gif");
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+
+#categories ul.search_tabs li {
+	display: inline;
+}
+
+#categories ul.search_tabs li a {
+	background: #C7D1FF;
+    border: 1px solid #7686D2;
+    border-bottom: none;
+    color: #7686D2;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#categories ul.search_tabs li a:hover {
+	background: #FFCEA1;
+    border: 1px solid #7686D2;
+    color: #FE9D43;
+}
+
+#categories ul.search_tabs li#current {
+	background: #FFF1A2;
+    border: 1px solid #7686D2;
+    border-bottom: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 	
 #categories h1 {
@@ -771,10 +807,7 @@ ul#onglets_isbd_public li.isbd_public_active {
 	background-color: #FFF8D1;
 }
 
-#etagere-container {
-}
-
-#etagere {
+.etagere {
 	background: transparent;
 	margin: 0;
 	padding: 0 5px 5px 5px;
@@ -790,9 +823,6 @@ ul#onglets_isbd_public li.isbd_public_active {
 
 #etagere-titre h1 a {
 	color: #A75204
-	}
-
-#etagere-titre a {
 }
 
 #etagere-comment h2 {
@@ -805,8 +835,6 @@ ul#onglets_isbd_public li.isbd_public_active {
 }
 
 #etagere-notice-list { padding-left:5px;}
-#etagere-notice-list a { }
-#etagere-notice-list A:hover { }
 
 
 /* ----------------------------------------------------------------- */
@@ -1047,3 +1075,138 @@ ul.empr_subtabs li{
 #empr-list #onglets_list ul.list_tabs li a {
 	text-decoration: none;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+
+/*---------------------------------------------------------------*
+ *---------------------------------------------------------------* 
+ * 		               Onglets de recherche  	     			 *
+ *---------------------------------------------------------------*
+ *---------------------------------------------------------------*/
+ 
+
+#search_onglet ul.search_tabs {
+	margin: 0px;
+	padding-left: 0px;
+	padding-bottom: 4px;
+	list-style: none;
+	background-image: url("pointvert.gif");
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+
+#search_onglet ul.search_tabs li {
+	display: inline;
+}
+
+#search_onglet ul.search_tabs li a {
+	background: #C7D1FF;
+    border: 1px solid #7686D2;
+    border-bottom: none;
+    color: #7686D2;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-decoration: none;
+}
+
+#search_onglet ul.search_tabs li a:hover {
+	background: #FFCEA1;
+    border: 1px solid #7686D2;
+    color: #FE9D43;
+}
+
+#search_onglet ul.search_tabs li.current a {
+	background: #FFF1A2;
+    border: 1px solid #7686D2;
+    border-bottom: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#search_onglet ul.search_tabs li.current a:hover {
+	color: #7686D2;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-top: 20px
+}
+ 
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_contens td {
+	vertical-align: top;
+}
+
+table.a2z_perio_list {
+	width: 220px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #cccccc;
+    padding-bottom: 3px;
+    padding-top: 2px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#form_search_bull form {
+	margin-top: 10px;
+}
+
+#form_search_bull form table td {
+	vertical-align: middle;
+}
+

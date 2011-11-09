@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes et libellés type de relation entre autorités
+$Id: relationtype_autup.xml,v 1.1.2.5 2011-07-04 14:25:57 dbellamy Exp $ -->
+
+<XMLlist>
+	<entry code="1">参照する</entry>
+	<entry code="2">こちらも参照する</entry>
+	<entry code="3">est associé à</entry>
+	<entry code="4">participant</entry>
+	<entry code="5">a participé à</entry>
+</XMLlist>

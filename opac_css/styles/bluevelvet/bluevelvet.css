@@ -1,7 +1,7 @@
 /* +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la r.utilisation du code est cadr.e            |
 // +--------------------------------------------------------------------------+
-// $Id: bluevelvet.css,v 1.24 2010-12-20 10:05:07 arenou Exp $                 */
+// $Id: bluevelvet.css,v 1.25.2.6 2011-09-06 14:34:06 trenon Exp $                 */
 
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
@@ -157,12 +157,11 @@ td{
 		margin-bottom:-10px; }
 
 #main ul.search_tabs, #onglets_list ul.list_tabs{
-	margin:0;
-	padding:0;
+	    margin:0;
+	    margin-bottom: 10px;
+	    padding:0;
         list-style:none;
-        clear:right;
         height:24px;
-        font-size:11pt; 
        	background : url("pointvert.gif") repeat-x bottom left;
         }
 
@@ -724,7 +723,7 @@ ul#onglets_isbd_public {
     list-style-type: none;
     padding-bottom: 24px;
     border-bottom: 1px solid #6c6;
-    margin: 0;
+    clear: both;
     padding-left:2px;
 }
 
@@ -795,7 +794,7 @@ ul#onglets_isbd_public li.onglet_tags a {
 #etagere-container {
 	}
 
-#etagere {
+.etagere {
 	background: transparent;
 	margin-top:5px;
 	padding-bottom: 5px;
@@ -1041,3 +1040,97 @@ ul.empr_subtabs li{
 .authorities{
 	background : #A8A8A8;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+#resultatrech_see h3 {
+	color: #6B7B7B;
+}
+
+#search_onglet ul.search_tabs li.current {
+	background-color: #C7CAF1;
+    border-bottom: 1px solid #C7CAF1;
+}
+
+#search_onglet ul.search_tabs li.current a {
+	color: #0023A4;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#perio_a2z #perio_a2z_search {
+	margin-bottom: 10px;
+}
+
+#perio_a2z ul#onglets_isbd_public {
+	margin-top: 5px;
+}
+
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_perio_list {
+	width: 200px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #66CC66;
+	padding-bottom: 3px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .notice-child h3 span {
+    padding-left: 0px;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+

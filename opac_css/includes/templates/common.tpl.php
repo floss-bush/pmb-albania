@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: common.tpl.php,v 1.126 2010-11-26 10:15:49 arenou Exp $
+// $Id: common.tpl.php,v 1.130.2.5 2011-09-06 10:24:16 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -88,6 +88,13 @@ $stylescsscodehtml=link_styles($css);
 // pb de resize de page avec IE6 et 7 : on force le rechargement de la page (position absolue qui reste absolue !)
 if ($opac_ie_reload_on_resize) $iecssresizepb="onresize=\"history.go(0);\"";
 
+if ($opac_default_style_addon) $css_addon = "
+	<style type='text/css'>
+	".$opac_default_style_addon."
+		</style>";
+else $css_addon="";
+
+
 $std_header.="
 <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"
     \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
@@ -96,21 +103,40 @@ $std_header.="
 	<meta http-equiv=\"content-type\" content=\"text/html; charset=$charset\" />
 	<meta name=\"author\" content=\"PMB Group\" />
 
-	<meta name=\"keywords\" content=\"OPAC, web, library, opensource, catalog, catalogue, bibliothèque, médiathèque, pmb, phpmybibli\" />
+	<meta name=\"keywords\" content=\"".$msg['opac_keywords']."\" />
 	<meta name=\"description\" content=\"".$msg['opac_title']." $opac_biblio_name.\" />
 
 	<meta name=\"robots\" content=\"all\" />
-
+	<!--IE et son enfer de compatibilité-->
+	<meta http-equiv='X-UA-Compatible' content='IE=8'/>
+	
 	<title>".$msg['opac_title']." $opac_biblio_name.</title>
 	!!liens_rss!!
-	".$stylescsscodehtml."
-	<link rel=\"SHORTCUT ICON\" href=\"images/site/favicon.ico\">
+	".$stylescsscodehtml.$css_addon."
+	<!-- css_authentication -->";
+// FAVICON
+if ($opac_faviconurl) $std_header.="	<link rel='SHORTCUT ICON' href='".$opac_faviconurl."'>";
+else $std_header.="	<link rel='SHORTCUT ICON' href='images/site/favicon.ico'>";
+$std_header.="
 	<script type=\"text/javascript\" src=\"includes/javascript/drag_n_drop.js\"></script>
 	<script type=\"text/javascript\" src=\"includes/javascript/handle_drop.js\"></script>
-	<script type=\"text/javascript\" src=\"includes/javascript/popup.js\"></script>
+	<script type=\"text/javascript\" src=\"includes/javascript/popup.js\"></script>";
+if($opac_show_social_network){
+	$std_header.="
+	<script type='text/javascript'>var addthis_config = {'data_track_clickback':true};</script>
+	<script type='text/javascript' src='http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d9b1e202c30dea1'></script>";
+}
+if($opac_notice_enrichment){
+	$std_header.="
+	<script type='text/javascript' src='$include_path/javascript/http_request.js'></script>";
+}	
+$std_header.="
+	!!enrichment_headers!!
 </head>
 
-<body onload=\"window.defaultStatus='".$msg["page_status"]."';\" $iecssresizepb id=\"pmbopac\">
+<body onload=\"window.defaultStatus='".$msg["page_status"]."';\" $iecssresizepb id=\"pmbopac\">";
+if($opac_notice_enrichment == 0){
+	$std_header.="
 <script type='text/javascript'>
 function show_what(quoi, id) {
 	var whichISBD = document.getElementById('div_isbd' + id);
@@ -145,8 +171,9 @@ function show_what(quoi, id) {
 	}
 	
 }
-</script>
-
+</script>";
+}
+$std_header.="
 <script type='text/javascript' src='./includes/javascript/tablist.js'></script>
 	<div id='att' style='z-Index:1000'></div>
 	<div id=\"container\"><div id=\"main\"><div id='main_header'>!!main_header!!</div><div id=\"main_hors_footer\">!!home_on_top!!
@@ -154,7 +181,7 @@ function show_what(quoi, id) {
 
 $inclus_header = "
 !!liens_rss!!
-".$stylescsscodehtml."	
+".$stylescsscodehtml.$css_addon."	
 <script type='text/javascript'>
 function show_what(quoi, id) {
 	var whichISBD = document.getElementById('div_isbd' + id);
@@ -224,7 +251,7 @@ function show_what(quoi, id) {
 }
 </script>
 !!liens_rss!!
-	".$stylescsscodehtml."
+	".$stylescsscodehtml.$css_addon."
 </head>
 <body>";
 
@@ -237,7 +264,7 @@ $popup_header="
     \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" charset='".$charset."'>
 <head>
-	".$stylescsscodehtml."
+	".$stylescsscodehtml.$css_addon."
 	<title>".$msg['opac_title']." $opac_biblio_name.</title>
 </head>
 <body>
@@ -268,9 +295,9 @@ $popup_footer="</body></html>";
 // liens du bas de la page
 $liens_bas = "</div><!-- fin DIV main_hors_footer --><div id=\"footer\"><!-- rss -->
 		$opac_lien_bas_supplementaire &nbsp;";
-if ($opac_biblio_website)	$liens_bas .= "<a href=\"$opac_biblio_website\" title=\"$opac_biblio_name\">$opac_biblio_name</a> &nbsp;";
+if ($opac_biblio_website)	$liens_bas .= "<a class=\"footer_biblio_name\" href=\"$opac_biblio_website\" title=\"$opac_biblio_name\">$opac_biblio_name</a> &nbsp;";
 $liens_bas .= "$opac_lien_moteur_recherche &nbsp;
-		<a class=\"lien_pmb_footer\" href=\"http://www.sigb.net\" title=\"".$msg[common_tpl_motto]."\" target='_blank'>pmb</a> 
+		<a class=\"lien_pmb_footer\" href=\"http://www.sigb.net\" title=\"".$msg[common_tpl_motto]."\" target='_blank'>".$msg[common_tpl_motto_pmb]."</a> 
 		</div>" ;
 
 

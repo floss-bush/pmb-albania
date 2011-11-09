@@ -2,7 +2,7 @@
 // +--------------------------------------------------------------------------+
 // | PMB est sous licence GPL, la réutilisation du code est cadrée            |
 // +--------------------------------------------------------------------------+
-// $Id: print.php,v 1.42 2010-08-11 10:08:23 ngantier Exp $
+// $Id: print.php,v 1.44.2.2 2011-07-21 08:51:46 gueluneau Exp $
 
 $base_path=".";
 require_once($base_path."/includes/init.inc.php");
@@ -85,7 +85,7 @@ $output_final = "<html><head><title>".$msg["print_title"]."</title>" .
 if ($action!="print_$lvl") {
 	$output_final .= "<link rel=\"stylesheet\" href=\"./styles/".$css."/$css.css\" />";
 	$output_final .= "<h3>".$msg["print_options"]."</h3>";
-	$output_final .= "<form name='print_options' action='print.php?lvl=$lvl&action=print_$lvl' method='post'>";
+	$output_final .= "<form name='print_options' id='print_options' action='print.php?lvl=$lvl&action=print_$lvl' method='post'>";
 	if($id_liste) $output_final .= "<input type='hidden' name='id_liste' value='$id_liste'>";
 	
 	 if(!$id_liste){
@@ -249,6 +249,15 @@ if ($action!="print_$lvl") {
 			$cart_ = explode(",",$select_noti);
 		} else $cart_=$_SESSION["cart"];
 		$date_today = formatdate(today()) ;
+		if ($output=="email") {
+			//on rajoute une mention spécifiant l'origine du mail...
+			$rqt = "select empr_nom, empr_prenom from empr where id_empr ='".$_SESSION['id_empr_session']."'";
+			$res = mysql_query($rqt);
+			if(mysql_num_rows($res)){
+				$info = mysql_fetch_object($res);		
+				$output_final .= "<h3>".$msg['biblio_send_by']." ".$info->empr_nom." ".$info->empr_prenom."</h3>" ;
+			}
+		}
 		$output_final .= "<h3>".$date_today."&nbsp;".sprintf($msg["show_cart_n_notices"],count($cart_))."</h3><hr style='border:none; border-bottom:solid #000000 3px;'/>";
 		//print "<table width='100%'>";
 		for ($i=0; $i<count($cart_); $i++) {
@@ -273,6 +282,7 @@ if ($action!="print_$lvl") {
 				$output_final .= "<hr /> ";
 			}	
 		}
+		if ($charset!='utf-8') $output_final=cp1252Toiso88591($output_final);
 	} elseif($action='print_list'){
 		
 		if($number && $select_noti){
@@ -287,6 +297,15 @@ if ($action!="print_$lvl") {
 		}
 			
 		$date_today = formatdate(today()) ;	
+		if ($output=="email") {
+			//on rajoute une mention spécifiant l'origine du mail...
+			$rqt = "select empr_nom, empr_prenom from empr where id_empr ='".$_SESSION['id_empr_session']."'";
+			$res = mysql_query($rqt);
+			if(mysql_num_rows($res)){
+				$info = mysql_fetch_object($res);		
+				$output_final .= "<h3>".$msg['biblio_send_by']." ".$info->empr_nom." ".$info->empr_prenom."</h3>" ;
+			}
+		}
 		$output_final .= "<h3>".$date_today."&nbsp;".sprintf($msg["show_cart_n_notices"],count($notices))."</h3><hr style='border:none; border-bottom:solid #000000 3px;'/>";
 		for ($i=0; $i<count($notices); $i++) {
 			if($noti_tpl) {
@@ -309,6 +328,7 @@ if ($action!="print_$lvl") {
 				if ($ex) $output_final .= $current->affichage_expl ;
 				$output_final .= "<hr /> ";
 			}	
+			if ($charset!='utf-8') $output_final=cp1252Toiso88591($output_final);
 		}	
 	}
 	//print "</table>";

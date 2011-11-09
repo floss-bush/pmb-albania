@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: getimage.php,v 1.7 2010-12-01 14:16:15 gueluneau Exp $
+// $Id: getimage.php,v 1.7.2.1 2011-06-13 13:43:44 gueluneau Exp $
 
 $noticecode=$_GET['noticecode'];
 $vigurl=$_GET['vigurl'];
@@ -16,6 +16,8 @@ $base_nocheck  = 1;
 $base_nobody   = 1;
 require_once ("$base_path/includes/init.inc.php"); 
 require_once("$class_path/curl.class.php");
+
+session_write_close();
 
 $poids_fichier_max=1024*1024;//Limite la taille de l'image à 1 Mo
 
@@ -43,6 +45,7 @@ if ($pmb_curl_available) {
 	$image="";
 	$aCurl = new Curl();
 	$aCurl->limit=$poids_fichier_max;//Limite la taille de l'image à 1 Mo
+	$aCurl->timeout=15;
 	$content = $aCurl->get($vigurl);
 	$image=$content->body;
 	

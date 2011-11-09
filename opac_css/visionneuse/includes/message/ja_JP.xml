@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!-- Messages localisés en français
+****************************************************************************************
+© 2002-2010 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+****************************************************************************************
+$Id: ja_JP.xml,v 1.1.2.5 2011-07-12 12:31:11 dbellamy Exp $ -->
+<messages>
+	<entry code="close">Fermer</entry>
+	<entry code="fullscreen">Plein Ecran</entry>
+	<entry code="normal">Normal</entry>
+</messages>

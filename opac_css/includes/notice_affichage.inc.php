@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: notice_affichage.inc.php,v 1.31 2010-11-26 10:15:49 arenou Exp $
+// $Id: notice_affichage.inc.php,v 1.33.2.1 2011-10-07 09:59:08 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -67,33 +67,34 @@ function get_aff_function() {
 	return $aff_notice_fonction;
 }
 
-function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="", $depliable="",$nodocnum=0) {
-	
+function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="", $depliable="",$nodocnum=0, $enrichment=0) {
+
 	global $liens_opac;
 	global $opac_notices_format;
 	global $opac_notices_depliable;
 	global $opac_cart_allow;
 	global $opac_cart_only_for_subscriber;
 	global $opac_notice_affichage_class;
+	global $opac_notice_enrichment;
 	
 	if ((($opac_cart_allow)&&(!$opac_cart_only_for_subscriber))||(($opac_cart_allow)&&($_SESSION["user_code"]))) {
 		$cart=1; 
-	}else {
+	} else {
 		$cart=0;
 	}
 	if ($nocart) $cart=0;
-		
+	$id+=0;	
 	//Recherche des fonctions d'affichage
 	$f=get_aff_function();
 	if ($f) return $f($id,$cart);
 	
 	if ($id>0) {
-		$current = new $opac_notice_affichage_class($id,$liens_opac,$cart);
+		$current = new $opac_notice_affichage_class($id,$liens_opac,$cart,0,0,!$gen_header);
 		if($nodocnum) $current->docnum_allowed = 0;
 		
-		if($depliable === "")$depliable=$opac_notices_depliable;
-		if($gen_header)$current->do_header();
-		if($mode_aff_notice !== "")$type_aff=$mode_aff_notice;
+		if ($depliable === "") $depliable=$opac_notices_depliable;
+		if ($gen_header) $current->do_header();
+		if ($mode_aff_notice !== "") $type_aff=$mode_aff_notice;
 		else $type_aff=$opac_notices_format;
 		if(!$current->visu_notice){
 			return "";
@@ -125,8 +126,10 @@ function aff_notice($id,$nocart=0,$gen_header=1,$use_cache=0, $mode_aff_notice="
 				$retour_aff .= $current->result ;
 				break ;
 		}
-	}
-	
+		if(!$depliable && $opac_notice_enrichment && $enrichment=1){
+			$retour_aff.="<script type='text/javascript'>getEnrichment('$id');</script>";
+		}
+	}	
 	return $retour_aff;
 }
 

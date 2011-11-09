@@ -54,7 +54,7 @@ function http_request() {
 			} else {		
 				req.open("GET", url, async_flag);			
 			}
-			req.onreadystatechange = http_callback;	
+			if (async_flag) req.onreadystatechange = http_callback;	
 			req.send(post_param);
 			if(async_flag == false){
 				http_callback();

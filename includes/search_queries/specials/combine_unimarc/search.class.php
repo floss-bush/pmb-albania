@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: search.class.php,v 1.3 2010-08-27 07:48:10 mbertin Exp $
+// $Id: search.class.php,v 1.3.2.1 2011-07-07 14:27:37 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -53,7 +53,7 @@ class combine_search_unimarc {
 	    	//$r="&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td colspan='3'>";
 	    	$r .="<script type='text/javascript' src='./javascript/tablist.js'></script>
 	    	<div id='$get_input_box_id' class='notice-parent'>	    	
-			<img src='./images/plus.gif' class='img_plus' name='imEx' id='$get_input_box_id"."Img' title='détail' border='0' onClick=\"expandBase('$get_input_box_id', true); return false;\" hspace='3'>
+			<img src='./images/plus.gif' class='img_plus' name='imEx' id='$get_input_box_id"."Img' title='".addslashes($msg['plus_detail'])."' border='0' onClick=\"expandBase('$get_input_box_id', true); return false;\" hspace='3'>
 			<span class='notice-heada'>		
 				<input type='hidden' name='field_".$this->n_ligne."_s_".$this->id."[]'  id='".$get_input_box_id."_value' value='!!value_selected!!'/>	
 				<label id='".$get_input_box_id."_label' >!!label_selected!!</label>

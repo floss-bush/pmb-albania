@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: serial_search.inc.php,v 1.24 2009-11-30 10:39:25 kantin Exp $
+// $Id: serial_search.inc.php,v 1.24.4.1 2011-09-06 09:11:22 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -103,9 +103,9 @@ if (!$nbr_lignes) {
 	$recherche_ajax_mode=0;
 	$nb=0;
 	if($user_query && $issn_query){
-		print "<b>${msg[233]}</b>&nbsp;".htmlentities(stripslashes($user_query))." et <b>${msg[165]}</b>&nbsp;".htmlentities(stripslashes($issn_query))." => ".$nbr_lignes." ".$msg["search_resultat"];
+		print "<b>${msg[233]}</b>&nbsp;".htmlentities(stripslashes($user_query),ENT_QUOTES,$charset)." et <b>${msg[165]}</b>&nbsp;".htmlentities(stripslashes($issn_query),ENT_QUOTES,$charset)." => ".$nbr_lignes." ".$msg["search_resultat"];
 	} else {
-		print "<b>${msg[233]}</b>&nbsp;".htmlentities(stripslashes($user_query))." => ".$nbr_lignes." ".$msg["search_resultat"];
+		print "<b>${msg[233]}</b>&nbsp;".htmlentities(stripslashes($user_query),ENT_QUOTES,$charset)." => ".$nbr_lignes." ".$msg["search_resultat"];
 	}
 	
 	while($perio=mysql_fetch_object($myQuery)) {

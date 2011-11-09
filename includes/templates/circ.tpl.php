@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: circ.tpl.php,v 1.37 2010-04-15 12:53:39 erwanmartin Exp $
+// $Id: circ.tpl.php,v 1.37.2.1 2011-05-23 12:46:24 ngantier Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -87,6 +87,7 @@ if ((SESSrights & RESTRICTCIRC_AUTH) && ($categ!="pret") && ($categ!="pretrestri
 					<li><a href='./circ.php?categ=trans&sub=recep'>$msg[transferts_circ_menu_reception]</a></li>
 					<li><a href='./circ.php?categ=trans&sub=retour'>$msg[transferts_circ_menu_retour]</a></li>
 					<li><a href='./circ.php?categ=trans&sub=refus'>$msg[transferts_circ_menu_refuse]</a></li>
+					<li><a href='./circ.php?categ=trans&sub=reset'>$msg[transferts_circ_menu_reset]</a></li>
 				</ul>";
 	}
 	$circ_menu.="

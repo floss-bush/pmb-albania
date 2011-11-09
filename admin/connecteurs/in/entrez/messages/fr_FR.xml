@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.2 2010-11-10 14:22:49 arenou Exp $ -->
+$Id: fr_FR.xml,v 1.3 2011-03-16 15:50:05 arenou Exp $ -->
 
 <XMLlist>
 	<entry code="entrez_database">Base de donnée</entry>
@@ -15,4 +15,7 @@ $Id: fr_FR.xml,v 1.2 2010-11-10 14:22:49 arenou Exp $ -->
 	<entry code="entrez_operator_or">OU</entry>
 	<entry code="entrez_operator_and">ET</entry>
 	<entry code="entrez_operator">Opérateur</entry>
+	<entry code="entrez_xslt_file">Fichier xslt pour la conversion en unimarc (si vide, on utilise la feuille par défault)</entry>
+	<entry code="entrez_xslt_file_linked">Un fichier xslt a été associé : %s</entry>
+	<entry code="entrez_del_xslt_file">Le supprimer</entry>
 </XMLlist>

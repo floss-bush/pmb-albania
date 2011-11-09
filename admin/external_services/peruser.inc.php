@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // | 2002-2007 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: peruser.inc.php,v 1.2 2010-01-30 14:34:36 erwanmartin Exp $
+// $Id: peruser.inc.php,v 1.2.2.2 2011-09-07 07:38:27 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -74,7 +74,7 @@ if ($is_not_first) {
 			update_rights_for_user($es_r,$val);
 			//On enregistre les droits pour ce groupe
 			$es_rights->set_rights($es_r);
-			if ($es_rights->error) print "<script>alert(\"Il y a eu une erreur lors de l'insertion des droits de la méthode ".$method_name." du groupe $group_name : ".$es_rights->error_message."\");</script>";
+			if ($es_rights->error) print "<script>alert(\"Il y a eu une erreur lors de l'insertion des droits de la methode ".$method_name." du groupe $group_name : ".$es_rights->error_message."\");</script>";
 		}
 	}
 }
@@ -111,7 +111,7 @@ for ($i=0; $i<count($group_list); $i++) {
 	</td>
 	</tr>";
 
-	$table_rights.= "<thead><td></td><th colspan='2'>Méthode</th><th colspan='3'>Méthodes Autorisées<br />
+	$table_rights.= "<thead><td></td><th colspan='2'>".htmlentities($msg["external_services_peruser_methode"],ENT_QUOTES,$charset)."</th><th colspan='3'>".htmlentities($msg["external_services_peruser_methode_autorisees"],ENT_QUOTES,$charset)."<br />
 	</th></thead>";
 	
 	//Pour chaque méthode

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE XMLlist SYSTEM "../../XMLlist.dtd">
+
+<!-- liste des codes type enregistrement en UNIMARC (japonais)
+$Id: recordtype.xml,v 1.1.2.5 2011-07-04 14:25:57 dbellamy Exp $ -->
+
+<XMLlist>
+	<entry code="m">単行本</entry>
+	<entry code="a">analytic</entry>
+	<entry code="s">シリーズ・全集・叢書</entry>
+	<entry code="c">短編集</entry>
+</XMLlist>

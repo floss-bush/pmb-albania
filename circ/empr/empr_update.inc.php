@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr_update.inc.php,v 1.48 2010-08-19 07:30:42 ngantier Exp $
+// $Id: empr_update.inc.php,v 1.48.2.1 2011-09-20 10:25:09 dgoron Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -146,10 +146,12 @@ if (!$form_ldap) {
 		}
 	} else {
 		$form_empr_login = pmb_substr($form_prenom,0,1).$form_nom ;
+		$form_empr_login = str_replace(CHR(32),"",$form_empr_login);
 		$form_empr_login = pmb_strtolower($form_empr_login);
 		$form_empr_login = clean_string($form_empr_login) ;
 		$form_empr_login = convert_diacrit(pmb_strtolower($form_empr_login)) ;
 		$form_empr_login = pmb_alphabetic('^a-z0-9\.\_\-\@', '', $form_empr_login);
+		$form_empr_login_original = $form_empr_login;
 		$pb = 1 ;
 		$num_login=1 ;
 		while ($pb==1) {
@@ -157,7 +159,7 @@ if (!$form_ldap) {
 			$res = mysql_query($requete, $dbh);
 			$nbr_lignes = mysql_num_rows($res);
 			if ($nbr_lignes) {
-				$form_empr_login .= $num_login ;
+				$form_empr_login = $form_empr_login_original.$num_login ;
 				$num_login++;
 			} else $pb = 0 ;
 		}
@@ -224,7 +226,7 @@ if ($empr_lecteur_controle_doublons != 0 && !$id && !$forcage) {
 					case "empr_sexe":$requete.= " $field= '$form_sexe' ";break;
 					case "empr_login":$requete.= " $field= '$form_empr_login' ";break;
 					case "empr_msg":$requete.= " $field= '$form_empr_msg' ";break;
-					case "empr_lang":$requete.= " $field= '$form_empr_lang' ";break;								
+					case "empr_lang":$requete.= " $field= '$form_empr_lang' ";break;					
 					default:
 						// Champ perso 
 						$perso = "SELECT idchamp ,datatype FROM empr_custom WHERE name = '$field'";						
@@ -343,7 +345,7 @@ if ($nberrors > 0) {
 
 				} else $requete .= "empr_date_expiration='$form_expiration', ";
 			$requete .= "empr_codestat=$form_codestat, ";
-			$requete .= "empr_creation=CURRENT_DATE(), ";
+			$requete .= "empr_creation=CURRENT_TIMESTAMP(), ";
 			$requete .= "empr_modif=CURRENT_DATE(), ";
 			$requete .= "empr_sexe=$form_sexe, ";
 			$requete .= "empr_msg='$form_empr_msg', ";
@@ -482,7 +484,7 @@ if ($nberrors > 0) {
 			$requete .= "empr_msg='$form_empr_msg', ";
 			$requete .= "empr_login='$form_empr_login' ";
 			$requete .= " WHERE id_empr='$id' ";
-
+				
 			$res = mysql_query($requete, $dbh);
 	
 			if(!mysql_errno($dbh)) {
@@ -494,7 +496,7 @@ if ($nberrors > 0) {
 					if ($debit==2) $rec_caution=true; else $rec_caution=false;
 					rec_abonnement($id,$type_abt,$form_categ,$rec_caution);
 				}		
-				
+
 				$empr = new emprunteur($id, '', FALSE, 1);
 				print pmb_bidi($empr->fiche);
 			} else {

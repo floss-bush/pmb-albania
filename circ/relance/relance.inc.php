@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: relance.inc.php,v 1.63 2010-09-09 14:21:27 ngantier Exp $
+// $Id: relance.inc.php,v 1.63.2.2 2011-09-16 09:04:49 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -266,7 +266,7 @@ function send_mail($id_empr, $relance) {
 		$requete.= " date_format(pret_retour, '".$msg["format_date"]."') as aff_pret_retour, ";
 		$requete.= " IF(pret_retour>sysdate(),0,1) as retard, notices_m.tparent_id, notices_m.tnvol " ; 
 		$requete.= "FROM (((exemplaires LEFT JOIN notices AS notices_m ON expl_notice = notices_m.notice_id ) LEFT JOIN bulletins ON expl_bulletin = bulletins.bulletin_id) LEFT JOIN notices AS notices_s ON bulletin_notice = notices_s.notice_id), docs_type , pret ";
-		$requete.= "WHERE expl_cb='".$data['expl_cb']."' and expl_typdoc = idtyp_doc and pret_idexpl = expl_id  ";
+		$requete.= "WHERE expl_cb='".addslashes($data['expl_cb'])."' and expl_typdoc = idtyp_doc and pret_idexpl = expl_id  ";
 		
 		$res = mysql_query($requete);
 		$expl = mysql_fetch_object($res);
@@ -394,7 +394,7 @@ function print_relance($id_empr,$mail=true) {
 		mysql_query($req,$dbh);		
 		$id_log_ret = mysql_insert_id();
 
-		$reqexpl = "select pret_idexpl as expl from pret where pret_retour<now() and pret_idempr=$id_empr";
+		$reqexpl = "select pret_idexpl as expl from pret where pret_retour<CURDATE() and pret_idempr=$id_empr";
 		$resexple=mysql_query($reqexpl,$dbh);
 		while(($liste = mysql_fetch_object($resexple))){			
 			$dates_resa_sql = " date_format(pret_date, '".$msg["format_date"]."') as aff_pret_date, date_format(pret_retour, '".$msg["format_date"]."') as aff_pret_retour " ;
@@ -424,7 +424,7 @@ function filter_niveau($liste_ids,$champ,$selected="",$sort=false) {
 
 	//Recherche des lecteurs en retard
 	if (!$late_ids) {
-		$requete="select distinct pret_idempr from pret where pret_retour<now() and pret_idempr in (".implode(",",$liste_ids).")";
+		$requete="select distinct pret_idempr from pret where pret_retour<CURDATE() and pret_idempr in (".implode(",",$liste_ids).")";
 		$res_id=mysql_query($requete);
 		if (($res_id)&&(mysql_num_rows($res_id))) {
 			while ($r=mysql_fetch_object($res_id)) {
@@ -495,7 +495,7 @@ switch ($act) {
 		$requete = "select id_empr from empr, pret, exemplaires where 1 ";
 		$requete.=" and id_empr in (".implode(",",$empr).") ";
 		//$requete.= $loc_filter;
-		$requete.= "and pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id group by id_empr";
+		$requete.= "and pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id group by id_empr";
 		$resultat=mysql_query($requete);
 		$not_all_mail=0;
 		while ($r=mysql_fetch_object($resultat)) {
@@ -528,7 +528,7 @@ switch ($act) {
 		$requete = "select id_empr from empr, pret, exemplaires where 1 ";
 		$requete.=" and id_empr in (".implode(",",$empr).") ";
 		//$requete.= $loc_filter;
-		$requete.= "and pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id group by id_empr";
+		$requete.= "and pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id group by id_empr";
 		$resultat=mysql_query($requete);
 		$not_all_mail=0;
 		while ($r=mysql_fetch_object($resultat)) {
@@ -567,7 +567,7 @@ echo "<h1>".$msg["relance_menu"]."&nbsp;:&nbsp;".$msg["relance_to_do"]."</h1>";
 // Juste pour la progress bar , on execute ceci:
 $req ="select id_empr  from empr, pret, exemplaires, empr_categ where 1 ";
 $req.= $loc_filter;
-$req.= "and pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr";
+$req.= "and pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr";
 $res=mysql_query($req);
 
 $nb=mysql_num_rows($res);
@@ -577,7 +577,7 @@ if($nb>2){
 
 $requete ="select id_empr, empr_nom, empr_prenom, empr_cb, count(pret_idexpl) as empr_nb, empr_codestat, empr_mail, libelle from empr, pret, exemplaires, empr_categ where 1 ";
 $requete.= $loc_filter;
-$requete.= "and pret_retour<now() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr order by empr_nom, empr_prenom";
+$requete.= "and pret_retour<CURDATE() and pret_idempr=id_empr and pret_idexpl=expl_id and id_categ_empr=empr_categ group by id_empr order by empr_nom, empr_prenom";
 
 if (($empr_sort_rows)||($empr_show_rows)||($empr_filter_rows)) {
 	require_once($class_path."/filter_list.class.php");
@@ -602,7 +602,7 @@ if (($empr_sort_rows)||($empr_show_rows)||($empr_filter_rows)) {
 	$t["cols"][0]="";
 	$filter->css=$t;
 	$filter->select_original="table_filter_tempo.empr_nb,empr_mail";
-	$filter->original_query="select id_empr,count(pret_idexpl) as empr_nb from empr,pret where pret_retour<now() and pret_idempr=id_empr group by empr.id_empr";
+	$filter->original_query="select id_empr,count(pret_idexpl) as empr_nb from empr,pret where pret_retour<CURDATE() and pret_idempr=id_empr group by empr.id_empr";
 	$filter->from_original="";
 	$filter->activate_filters();
 	if (!$filter->error) {

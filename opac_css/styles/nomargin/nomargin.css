@@ -1,7 +1,7 @@
 /* +---------------------------------------------------------------------------------------+
 // ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +---------------------------------------------------------------------------------------+
-// $Id: nomargin.css,v 1.38 2010-12-23 13:44:54 trenon Exp $
+// $Id: nomargin.css,v 1.39.2.6 2011-09-06 14:34:07 trenon Exp $
 */
 
 /* ---------------------------------------------------------------------------*/
@@ -11,6 +11,11 @@
 /*  attributs gï¿½nï¿½raux de la page                                             */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
 
 BODY  { 	
 		font-size: 10pt;
@@ -149,6 +154,13 @@ td{
           clear:right;
           height:24px;
           font-size:13px;
+	}
+	
+	#categories ul.search_tabs{
+	      margin-top:-5px!important;
+	      margin-left: 0px;
+	      padding:0;
+          list-style:none;
 	}
 
 	#main ul.search_tabs li, #onglets_list ul.list_tabs li{
@@ -290,7 +302,7 @@ div.category
 /* reset des largeurs de #categories */
 /* aprï¿½s un float:left; l'ï¿½lï¿½ment bloc suivant doit avoir l'attribut clear:both s?lectionn? pour ?viter un bug d'affichage */
 #last_entries { clear:both; }
-.etageres { clear:both; }
+#etageres { clear:both; }
 
 #container #all_footer {
 	position:absolute;
@@ -626,7 +638,7 @@ ul#onglets_isbd_public li.isbd_public_active {
 /******************* Etageres ***************/
 
 
-#etagere {
+.etagere {
 	padding:4px 5px;
 	margin-bottom:1em;
 	margin-left:20px;
@@ -920,3 +932,94 @@ ul.empr_subtabs li{
 	border: 1px solid #333333;
     color: #333333;
 }
+
+.vignetteimg {
+  max-width: 140px;
+  max-height: 200px;
+  width: expression(this.width > 140 ? "140px" : true);
+  height: expression(this.height > 200 ? "200px" : true);
+}
+
+#search_onglet ul.search_tabs li.current {
+    background: #F9F3D5;
+    border: 1px solid #CFB898;
+    border-bottom: 1px solid #F9F3D5;
+}
+
+#search_onglet ul.search_tabs li.current a {
+    font-weight: bold;
+}
+
+
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/*                               Liens Sociaux                                */
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+
+
+table td div.addthis_toolbox {
+	margin-bottom: 10px;
+}
+
+a.addthis_button_facebook_like iframe {
+	height: 20px !important;
+    width: 60px !important;
+}
+
+a.addthis_button_tweet iframe {
+    width: 105px !important;
+}
+
+
+/* -----------------------------------------------------*/
+/*                 Liste périodiques                    */
+/* -----------------------------------------------------*/
+
+
+#perio_a2z {
+	margin-top: 20px
+}
+   
+table.a2z_contens {
+	margin-top: 10px;
+}
+
+table.a2z_contens td {
+	vertical-align: top;
+}
+
+table.a2z_perio_list {
+	width: 220px;
+	margin-right: 10px;
+}
+
+table.a2z_perio_list tr td {
+	border-bottom: 1px solid #666666;
+    padding-bottom: 3px;
+    padding-top: 2px;
+}
+
+#a2z_perio b .header_title {
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#a2z_perio .navbar {
+	margin-top: 10px;
+}
+
+input#a2z_abt_actif {
+	vertical-align: middle;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#form_search_bull form {
+	margin-top: 10px;
+}
+
+#form_search_bull form table td {
+	vertical-align: middle;
+}
+

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: import_bretagne_3.inc.php,v 1.11 2009-05-16 11:12:02 dbellamy Exp $
+// $Id: import_bretagne_3.inc.php,v 1.12 2011-01-25 13:34:06 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -462,10 +462,10 @@ function import_profs($separateur, $dbh, $type_import, $mdp_auto, $num_auto){
 		$req=mysql_query("SELECT MAX(empr_cb) AS cbmax FROM empr WHERE empr_categ=2 and empr_codestat=1",$dbh);
 		$cb=mysql_result($req,0,"cbmax");
 		if (!$cb) {
-		    $numeroP="000";
+		    $numeroP="0000";
 		}
 		else {
-			$numeroP= substr($cb,1,3);
+			$numeroP= substr($cb,1,4);
 		}
 		
         while (!feof($fichier)) {
@@ -513,12 +513,15 @@ function import_profs($separateur, $dbh, $type_import, $mdp_auto, $num_auto){
             	//Génération du code-barre	
 				$numeroP=$numeroP+1;
 				if ($numeroP < 10) {
-				    $prof_cb = "P00".$numeroP;
+				    $prof_cb = "P000".$numeroP;
 				}
 				elseif ($numeroP < 100) {
-					$prof_cb = "P0".$numeroP;
+					$prof_cb = "P00".$numeroP;
 				}
 				elseif ($numeroP < 1000) {
+					$prof_cb = "P0".$numeroP;
+				} 
+				elseif ($numeroP < 10000) {
 					$prof_cb = "P".$numeroP;
 				}
             }

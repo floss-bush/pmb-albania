@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: categories.tpl.php,v 1.13 2007-03-14 16:58:01 dbellamy Exp $
+// $Id: categories.tpl.php,v 1.13.10.1 2011-04-29 13:16:04 trenon Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], "tpl.php")) die("no access");
 
@@ -20,7 +20,7 @@ $tpl_div_categories = "
 <div id='categories-container'>
 !!root_categories!!
 </div>
-<div style='clear: both; visibility: hidden; display: none;'>&nbsp;</div>
+<div style='clear: both; visibility: hidden; display: none;' id='category_bloc_sep'>&nbsp;</div>
 </div>
 ";
 

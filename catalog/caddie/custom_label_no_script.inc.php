@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: custom_label_no_script.inc.php,v 1.8 2008-07-07 05:45:23 dbellamy Exp $
+// $Id: custom_label_no_script.inc.php,v 1.8.6.3 2011-05-02 08:57:15 dbellamy Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -78,6 +78,40 @@ $label_con[s1][from_top][1] 		= "7.1";
 $label_con[s1][from_left][1] 		= "7";
 $label_con[s1][rotation][1]			= "90";
 
+$label_fmt[s2][label_name] 				= "Standard - 38.1x21.2mm - Avery L7651";
+$label_fmt[s2][page_format] 				= "A4";
+$label_fmt[s2][page_orientation]			= "P";
+$label_fmt[s2][unit] 						= "mm";
+$label_fmt[s2][label_grid_nb_per_row] 		= "5";
+$label_fmt[s2][label_grid_nb_per_col]		= "13";
+$label_fmt[s2][label_width] 				= "38.1";
+$label_fmt[s2][label_height] 				= "21.2";
+$label_fmt[s2][label_grid_from_top] 		= "17.1";
+$label_fmt[s2][label_grid_from_left] 		= "1";
+$label_fmt[s2][label_grid_h_spacing]		= "40.75";
+$label_fmt[s2][label_grid_v_spacing] 		= "21.2";
+
+$label_con[s2][content_type][0] 	= "cote";
+$label_con[s2][comment][0] 			= htmlentities($msg[296], ENT_QUOTES, $charset);
+$label_con[s2][width][0]			= "22.1";
+$label_con[s2][height][0] 			= "18";
+$label_con[s2][from_top][0] 		= "1.6";
+$label_con[s2][from_left][0] 		= "10";
+$label_con[s2][font][0] 			= "Courier";
+$label_con[s2][font_size][0]	 	= "14";
+$label_con[s2][font_style][0]	 	= "B";
+$label_con[s2][font_color][0]	 	= "000000";
+$label_con[s2][align][0] 			= "C";
+$label_con[s2][rotation][0]			= "0";
+
+$label_con[s2][content_type][1] 	= "image";
+$label_con[s2][comment][1] 			= htmlentities($msg[image], ENT_QUOTES, $charset);
+$label_con[s2][source][1]			= "";
+$label_con[s2][width][1]			= "8";
+$label_con[s2][height][1] 			= "5";
+$label_con[s2][from_top][1] 		= "2";
+$label_con[s2][from_left][1] 		= "2";
+$label_con[s2][rotation][1]			= "0";
 
 function getLabelFormatList() {
 
@@ -170,7 +204,7 @@ function displayLabelFormat($label_id) {
 
 
 	$r.="<div class='row'>
-			<div class='left'>".htmlentities($msg[label_grid_from_left]." (".$label_fmt[$label_id][label_page_unit].")", ENT_QUOTES, $charset)."</div>
+			<div class='left'>".htmlentities($msg[label_grid_from_left]." (".$label_fmt[$label_id][unit].")", ENT_QUOTES, $charset)."</div>
 			<div class='right' >
 				<input type='text' id='label_grid_from_left' name='label_grid_from_left'class='saisie-5em' style='text-align:right;' value='".$label_fmt[$label_id][label_grid_from_left]."' />
 			</div>
@@ -249,7 +283,7 @@ function verifLabelFormat($label_id){
 
 	$r.= "
 		var label_grid_from_top = document.getElementById('label_grid_from_top').value;
-		if ( (label_grid_from_top=='') || (isNaN(label_grid_from_top)) || (parseFloat(label_grid_from_top) <= 0) ) {
+		if ( (label_grid_from_top=='') || (isNaN(label_grid_from_top)) || (parseFloat(label_grid_from_top) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -257,7 +291,7 @@ function verifLabelFormat($label_id){
 
 	$r.= "
 		var label_grid_from_left = document.getElementById('label_grid_from_left').value;
-		if ( (label_grid_from_left=='') || (isNaN(label_grid_from_left)) || (parseFloat(label_grid_from_left) <= 0) ) {
+		if ( (label_grid_from_left=='') || (isNaN(label_grid_from_left)) || (parseFloat(label_grid_from_left) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -265,7 +299,7 @@ function verifLabelFormat($label_id){
 
 	$r.= "
 		var label_grid_h_spacing = document.getElementById('label_grid_h_spacing').value;
-		if ( (label_grid_h_spacing=='') || (isNaN(label_grid_h_spacing)) || (parseFloat(label_grid_h_spacing) <= 0) ) {
+		if ( (label_grid_h_spacing=='') || (isNaN(label_grid_h_spacing)) || (parseFloat(label_grid_h_spacing) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -273,7 +307,7 @@ function verifLabelFormat($label_id){
 
 	$r.= "
 		var label_grid_v_spacing = document.getElementById('label_grid_v_spacing').value;
-		if ( (label_grid_v_spacing=='') || (isNaN(label_grid_v_spacing)) || (parseFloat(label_grid_v_spacing) <= 0) ) {
+		if ( (label_grid_v_spacing=='') || (isNaN(label_grid_v_spacing)) || (parseFloat(label_grid_v_spacing) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -523,7 +557,7 @@ function  verif_cote_content($label_id, $step) {
 
 	$r.= "
 		var from_top = document.getElementById('content_value[".$step."][from_top]').value;	
-		if ( (from_top=='') || (isNaN(from_top)) || (parseFloat(from_top) <= 0) ) {
+		if ( (from_top=='') || (isNaN(from_top)) || (parseFloat(from_top) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -531,7 +565,7 @@ function  verif_cote_content($label_id, $step) {
 
 	$r.= "
 		var from_left = document.getElementById('content_value[".$step."][from_left]').value;	
-		if ( (from_left=='') || (isNaN(from_left)) || (parseFloat(from_left) <= 0) ) {
+		if ( (from_left=='') || (isNaN(from_left)) || (parseFloat(from_left) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -578,7 +612,7 @@ function  verif_image_content($label_id, $step) {
 
 	$r.= "
 		var from_top = document.getElementById('content_value[".$step."][from_top]').value;	
-		if ( (from_top=='') || (isNaN(from_top)) || (parseFloat(from_top) <= 0) ) {
+		if ( (from_top=='') || (isNaN(from_top)) || (parseFloat(from_top) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -586,7 +620,7 @@ function  verif_image_content($label_id, $step) {
 
 	$r.= "
 		var from_left = document.getElementById('content_value[".$step."][from_left]').value;	
-		if ( (from_left=='') || (isNaN(from_left)) || (parseFloat(from_left) <= 0) ) {
+		if ( (from_left=='') || (isNaN(from_left)) || (parseFloat(from_left) < 0) ) {
 			alert(\"".$msg[param_err_impr]."\");
 		return false;
 	}";
@@ -635,7 +669,7 @@ function print_cote(&$target, $content_value, $content_src='') {
 	$target->Rotate($content_value[rotation], $target->GetStickX()+$content_value[from_left],$target->GetStickY()+$content_value[from_top] ) ;
 	$target->MultiCell($content_value[width], ($content_value[font_size]*25.4/72), $str_cote, 0,  $content_value[align]);
 	$target->Rotate(0);
-//	$target->Rect($target->GetStickX(), $target->GetStickY(), 38.1, 21.2 );
+	//$target->Rect($target->GetStickX(), $target->GetStickY(), 38.1, 21.2 ); //Affiche un cadre autour de l'etiquette 
 }
 
 

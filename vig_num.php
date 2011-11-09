@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: vig_num.php,v 1.7 2010-10-25 13:10:34 mbertin Exp $
+// $Id: vig_num.php,v 1.7.2.1 2011-09-06 15:33:57 dbellamy Exp $
 
 // définition du minimum nécéssaire 
 $base_path     = ".";                            
@@ -19,26 +19,25 @@ $nb_res = mysql_num_rows($resultat) ;
 
 if (!$nb_res) {
 	exit ;
-	} 
+} 
 
 $ligne = mysql_fetch_object($resultat);
 if ($ligne->explnum_vignette) {
 	print $ligne->explnum_vignette;
 	exit ;
+} else {
+	if ($pmb_curl_available) {
+		$image_url = 'http';
+ 		if ($_SERVER["HTTPS"] == "on") {$image_url .= "s";}
+ 		$image_url .= "://";
+		$image_url .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].dirname($_SERVER["SCRIPT_NAME"]).'/images/mimetype/unknown.gif';
+		$aCurl = new Curl();
+		$content = $aCurl->get($image_url);
+		$contenu_vignette = $content->body;
 	} else {
-		if ($pmb_curl_available) {
-			$image_url = 'http';
- 			if ($_SERVER["HTTPS"] == "on") {$image_url .= "s";}
- 			$image_url .= "://";
-			$image_url .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].dirname($_SERVER["SCRIPT_NAME"]).'/images/mimetype/unknown.gif';
-			$aCurl = new Curl();
-			$content = $aCurl->get($image_url);
-			$contenu_vignette = $content->body;
-		}
-		else {
-			$fp = fopen("./images/mimetype/unknown.gif" , "r" ) ;
-			$contenu_vignette = fread ($fp, filesize("./images/mimetype/unknown.gif"));
-			fclose ($fp) ;			
-		}		
-		print $contenu_vignette ;
-		}
+		$fp = fopen("./images/mimetype/unknown.gif" , "r" ) ;
+		$contenu_vignette = fread ($fp, filesize("./images/mimetype/unknown.gif"));
+		fclose ($fp) ;			
+	}		
+	print $contenu_vignette ;
+}

@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: caddie.class.php,v 1.33 2009-05-16 11:22:56 dbellamy Exp $
+// $Id: caddie.class.php,v 1.34 2011-03-15 16:53:00 touraine37 Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".class.php")) die("no access");
 
@@ -646,7 +646,7 @@ function verif_noti_item($noti,$forcage=array()) {
 		
 		$query = "select count(1) from explnum where explnum_notice=".$noti." limit 1 ";
 		$result = mysql_query($query, $dbh);
-		if (mysql_result($result, 0, 0)) return 1 ;
+		if (mysql_result($result, 0, 0)&& !$forcage['notice_linked_expl_num']) return 1 ;
 		
 		return 0 ;
 		

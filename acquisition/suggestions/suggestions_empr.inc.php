@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: suggestions_empr.inc.php,v 1.1 2009-07-31 14:37:09 kantin Exp $
+// $Id: suggestions_empr.inc.php,v 1.1.4.1 2011-09-06 09:11:23 jpermanne Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -41,7 +41,7 @@ $res = mysql_query($req,$dbh);
 				<th>".$msg['acquisition_sugg_nb']."</th>
 			</tr>";
 	if(!mysql_num_rows($res)){
-		$aff .= "<tr><td>".htmlentities($msg['acquisition_sugg_no_state_lecteur'])."</td></tr>";
+		$aff .= "<tr><td>".htmlentities($msg['acquisition_sugg_no_state_lecteur'],ENT_QUOTES,$charset)."</td></tr>";
 	} else {
 		$parity = 1;
 		while(($empr = mysql_fetch_object($res))){

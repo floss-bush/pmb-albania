@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: empr.inc.php,v 1.13 2009-11-10 14:54:42 kantin Exp $
+// $Id: empr.inc.php,v 1.14 2011-02-25 09:34:44 gueluneau Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -25,7 +25,7 @@ function genere_form_connexion_empr(){
 function genere_compte_empr(){
 	global $msg, $empr_prenom, $empr_nom;
 	$loginform ="<b>".$empr_prenom." ".$empr_nom."</b><br />
-				<a href=\"empr.php\">".$msg["empr_my_account"]."</a><br />
+				<a href=\"empr.php\" id=\"empr_my_account\">".$msg["empr_my_account"]."</a><br />
 				<a href=\"index.php?logout=1\" id=\"empr_logout_lnk\">".$msg["empr_logout"]."</a>";
 	return $loginform ; 
 	}

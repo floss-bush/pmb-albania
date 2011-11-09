@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE XMLlist SYSTEM "../XMLlist.dtd" [<!ENTITY nbsp "&amp;nbsp;">]>
 
-<!-- PMB English-language translation for PMB
+<!-- PMB English-language translation for PMB	
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
+$Id: en_US.xml,v 1.496.2.11 2011-09-07 07:38:25 jpermanne Exp $ -->
 
 <XMLlist>
 <entry code="demo">Demo</entry>
@@ -451,7 +451,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="400">Add this record to a cart</entry>
 <entry code="401">Search results :</entry>
 <entry code="402">This author is used in records. Unable to delete him.</entry>
-<entry code="403">Unable to reach this author.</entry>
+<entry code="403">Unable to reach this author.</entry>	
 <entry code="404">This publisher is used in records. Unable to delete it.</entry>
 <entry code="405">This publisher has collections. Unable to delete it.</entry>
 <entry code="406">Unable to reach this collection.</entry>
@@ -654,7 +654,6 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="grp_autre_lecteur">Other borrower of the group</entry>
 <entry code="grp_liste">choisir dans la liste</entry>
 <entry code="905">All the words</entry>
-
 <entry code="906">One of the words</entry>
 <entry code="907">Search for a group</entry>
 <entry code="908">Name of the group (or a part of its name)</entry>
@@ -1406,7 +1405,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="parperso_mandatory">Obligatoire</entry>
 <entry code="parperso_no_field">Il n'y a aucun champ personalisé</entry>
 <entry code="parperso_field_edition">Edition du champ %s </entry>
-<entry code="parperso_delete_field">Attention, la suppression du champ entrainera la supression de toutes les valeurs correspondantes pour chaque lecteur. Etes-vous sur ?</entry>
+<entry code="parperso_delete_field">Attention, la suppression du champ entrainera la suppression de toutes les valeurs correspondantes pour chaque lecteur. Etes-vous sur ?</entry>
 <entry code="parperso_create_new_field">Création d'un nouveau champ personalisé</entry>
 <entry code="parperso_check_field_name">Le nom du champ %s doit commencer par une lettre et ne doit contenir que des lettres non accentuées, des chiffres ou le symbole '_'</entry>
 <entry code="parperso_check_type">Le type de champ n'est pas compatible avec les options ou les options n'ont pas étés paramétrées !</entry>
@@ -1759,7 +1758,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="import_ldap_usr">Marquer les lecteurs qui ne doivent pas être importés</entry>
 <entry code="del_ldap_usr">Supprimer les lecteurs marqués dans cette page</entry>
 <entry code="import_ldap_exe">Importer</entry>
-<entry code="npp_ctrl">Nbr.ligne pour page:</entry>
+<entry code="npp_ctrl">Nbr.ligne pour page:</entry>   
 <entry code="ldap_error">Erreur dans la configuration du serveur LDAP: contactez l'administrateur</entry>
 <entry code="ldap_erro2">Les fonctions dépendant de ldap ne seront pas accessibles</entry>
 <entry code="ldap_noserver">Pas de serveur LDAP</entry>
@@ -2067,12 +2066,12 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="caddie_confirm_supprbase">Etes-vous sûr de vouloir supprimer de la base les éléments sélectionnés ?</entry>
 <entry code="notice_z3950_update_bouton">Z3950</entry>
 <entry code="notice_z3950_remplace_catal">Remplacer dans le catalogue</entry>
-<entry code="z3950_update_not_ok">Notice mise à jour dans le catalogue</entry>
-<entry code="retour_goto_pret">Vai al prestito</entry>
-<entry code="retour_confirm">Confirmer le retour</entry>
-<entry code="retour_ok">Rendu !</entry>
-<entry code="calendrier_annee_prececente">Année précédente</entry>
-<entry code="calendrier_annee_suivante">Année suivante</entry>
+<entry code="z3950_update_not_ok">Notice mise à jour dans le catalogue</entry> 
+<entry code="retour_goto_pret">Vai al prestito</entry> 
+<entry code="retour_confirm">Confirmer le retour</entry> 
+<entry code="retour_ok">Rendu !</entry> 
+<entry code="calendrier_annee_prececente">Année précédente</entry> 
+<entry code="calendrier_annee_suivante">Année suivante</entry> 
 <entry code="finance_type_abt">Type d'abonnement</entry>
 <entry code="finance_pret_solde_abt">Le compte abonnement a un solde de %s</entry>
 <entry code="finance_pret_solde_pret">Le compte prêt a un solde de %s</entry>
@@ -2302,9 +2301,9 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="search_by_panier">Baskets</entry>
 <entry code="cart_ex_selection">Ex selection :</entry>
 <entry code="cart_ex_action">Ex action :</entry>
-<entry code="calendrier_mois_prececent">Previous month</entry>
-<entry code="calendrier_mois_suivant">Next month</entry>
-<entry code="bt_retour">Back</entry>
+<entry code="calendrier_mois_prececent">Previous month</entry> 
+<entry code="calendrier_mois_suivant">Next month</entry> 
+<entry code="bt_retour">Back</entry> 
 <entry code="dsi_no_equation">No equation found...</entry>
 <entry code="panier_num">Cart #</entry>
 <entry code="notices_invalides">notices invalides (autorités, périodiques en import, enregistrements internes de votre export) ont été rejetées.</entry>
@@ -3256,7 +3255,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="empty_words_created">Mots vides saisis</entry>
 <entry code="add_empty_word">Ajouter un mot vide</entry>
 <entry code="empty_words_libelle">Mots vides</entry>
-<entry code="libelle_seuil_notices_calcul">Seuil du nombre de notices dans lesquelles les mots sont présents (en pourcentage)</entry>
+<entry code="libelle_seuil_notices_calcul">Seuil du nombre de notices dans lesquelles les mots sont présents (en pourcentage)</entry> 
 <entry code="no_empty_words">Mots non vides</entry>
 <entry code="no_valid_pourcent">La valeur saisie doit être un chiffre entre 0 et 100.</entry>
 <entry code="all_empty_word">Tous les mots vides</entry>
@@ -3769,7 +3768,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="connecteurs_included_sources">Sources incluses</entry>
 <entry code="connecteurs_categ_add">Ajouter une catégorie</entry>
 <entry code="connecteurs_categ_edit">Modifier une catégorie</entry>
-
+	
 <entry code="extexpl_codebar">Code barre</entry>
 <entry code="extexpl_cote">Cote</entry>
 <entry code="extexpl_location">Localisation</entry>
@@ -3777,7 +3776,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="extexpl_statut">Statut</entry>
 <entry code="extexpl_emprunteur">Emprunteur</entry>
 <entry code="extexpl_doctype">Type de document</entry>
-<entry code="extexpl_note">Note</entry>
+<entry code="extexpl_note">Note</entry>	
 
 <entry code="parperso_options_external_url">Url du sélecteur externe</entry>
 <entry code="parperso_options_external_hide">Cacher la boite de texte ?</entry>
@@ -3798,10 +3797,10 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="search_option_show_notice_fille">Afficher les dépouillements</entry>
 <entry code="search_expl_to_notice_transformation">Transformer en recherche de notices</entry>
 <entry code="value_deflt_relation">Type de relation par défaut entre notices</entry>
-
+	
 <entry code="connecteurs_sync_resume">Reprendre la synchronisation</entry>
 <entry code="connecteurs_sync_cancel">Annuler la synchronisation</entry>
-
+	
 <entry code="notice_integre_author_use_existing">Use an existing author</entry>
 <entry code="notice_integre_author_new">Insert as a new author</entry>
 <entry code="notice_integre_author_add_other">Add another author</entry>
@@ -3812,7 +3811,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="notice_integre_collection_new">Insert a new collection</entry>
 <entry code="notice_integre_subcollection_use_existing">Use an existing subcollection</entry>
 <entry code="notice_integre_subcollection_new">Insert a new subcollection</entry>
-
+	
 <entry code="notice_integre_categorisation_auto">Automatic categorization</entry>
 <entry code="notice_integre_categorisation_manual">Manual categorization</entry>
 <entry code="notice_integre_categorisation_manual_use_from_thesaurus">Use the value found in:</entry>
@@ -4264,7 +4263,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="upload_repertoire_subfolder">Nombre de sous-répertoire</entry>
 <entry code="upload_repertoire_add">Ajouter un répertoire</entry>
 <entry code="upload_repertoire_sql">Enregistrer dans la base</entry>
-<entry code="upload_repertoire_server">Uploader vers</entry>
+<entry code="upload_repertoire_server">Uploader vers</entry> 
 <entry code="upload_repertoire_yes">Oui</entry>
 <entry code="upload_repertoire_no">Non</entry>
 <entry code="upload_repertoire_modify">Modifier le répertoire d'upload</entry>
@@ -4513,7 +4512,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="demandes_modification">Modification de la demande %s</entry>
 <entry code="demandes_gestion">Gestion des demandes</entry>
 <entry code="demandes_create_ko">Tous les champs sont obligatoires à l'exception de la progression et du sujet !</entry>
-<entry code="demandes_progres_ko">La progression doit être un chiffre compris entre 0 et 100</entry>
+<entry code="demandes_progres_ko">La progression doit être un chiffre compris entre 0 et 100</entry> 
 <entry code="demandes_droit">Demandes</entry>
 <entry code="demandes_filtre_periode_lib">Entre le %s et le %s</entry>
 <entry code="demandes_liste_vide">Il n'y a aucune demande correspondant à ce filtre</entry>
@@ -4543,7 +4542,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="demandes_note_privacy">Privée</entry>
 <entry code="demandes_note_contenu">Contenu</entry>
 <entry code="demandes_note_rapport">Inclure dans le rapport documentaire</entry>
-<entry code="demandes_note_date">Date</entry>
+<entry code="demandes_note_date">Date</entry> 
 <entry code="demandes_note_liste">Liste des notes</entry>
 <entry code="demandes_valid_progression">OK</entry>
 <entry code="demandes_action_docnum">Documents Numériques</entry>
@@ -4701,7 +4700,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 
 <entry code="sugg_no_field_fill">Veuillez ajouter une ligne pour pouvoir enregistrer votre suggestion</entry>
 <entry code="circ_doc_a_traiter">Documents à traiter</entry>
-
+	
 <entry code="supp_thes_avec_categ">Attention ce thésaurus a des catégories. Etes-vous sûr de le supprimer ?</entry>
 <entry code="thes_suppr_categ_utilisee">Impossible de supprimer un thésaurus utilisé dans les paramètres</entry>
 <entry code="rfid_programmation_nbpart_error">Le nombre d'étiquettes RFID ne correspond pas au nombre de pièces</entry>
@@ -4760,7 +4759,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="selfservice_admin_pret_prolonge_non">Prolongation refusée:</entry>
 
 <entry code="explnum_mime_label">Forcer l'icône de la vignette en</entry>
-<entry code="explnum_no_mimetype">Mimetype par défaut</entry>
+<entry code="explnum_no_mimetype">Mimetype par défaut</entry> 
 
 <entry code="categ_imposible_remplace_elle_meme">Impossible de remplacer une catégorie par elle-même</entry>
 <entry code="categ_imposible_remplace_avec_fille">Impossible de remplacer cette catégorie car elle a des sous-catégories</entry>
@@ -4803,7 +4802,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="remote_procedures_catalog_caddieexpl_action">Remote procedures of action for item caddies</entry>
 <entry code="remote_procedures_catalog_caddiebull_select">Remote procedures of selection for bulletin caddies</entry>
 <entry code="remote_procedures_catalog_caddiebull_action">Remote procedures of action for bulletin caddies</entry>
-<entry code="remote_procedures_catalog_noSELECT">You can only test procedures of selection</entry>
+<entry code="remote_procedures_catalog_noSELECT">You can only test procedures of selection</entry>  
 
 <entry code="empr_nivo_relance">Niveau de relance</entry>
 <entry code="empr_see_late">Voir l'historique</entry>
@@ -4815,8 +4814,8 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="empr_late_amende">Amende</entry>
 <entry code="empr_late_relance">Relance du</entry>
 <entry code="empr_late_frais">Frais</entry>
-
-<entry code="exemplaire_admin_navigopac">Navigation par localisation et par section</entry>
+ 
+<entry code="exemplaire_admin_navigopac">Navigation par localisation et par section</entry>	
 <entry code="exemplaire_admin_navigopac_entete_form">Attribution du type de navigation par localisation et par section</entry>
 <entry code="exemplaire_admin_navigopac_pclass_utilise">Navigation utilisée</entry>
 <entry code="exemplaire_admin_navigopac_par_aut">Classement par auteurs</entry>
@@ -4875,7 +4874,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="visionneuse_param_class_dispo">Classe d'affichage disponible</entry>
 <entry code="visionneuse_admin_save">Enregistrer</entry>
 <entry code="visionneuse_admin_update">L'enregistrement a été effectué</entry>
-
+	
 <entry code="circ_retour_resa_par">Réservé par</entry>
 <entry code="circ_retour_loc_retrait">Localisation de retrait de l'exemplaire</entry>
 <entry code="admin_proc_select_notice_tpl">Template des notices</entry>
@@ -4887,7 +4886,7 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="empr_allow_self_checkin">Autoriser l'abonné à faire du retour autonome de document</entry>
 <entry code="empr_short_no_allow_self_checkout">Auto prêt</entry>
 <entry code="empr_short_no_allow_self_checkin">Auto retour</entry>
-
+	
 <entry code="search_custom_expl">Personnalisables des exemplaires</entry>
 <entry code="search_custom_gestfic0">Libellé</entry>
 <entry code="search_custom_notices">Personnalisables des notices</entry>
@@ -4994,5 +4993,108 @@ $Id: en_US.xml,v 1.481 2011-01-20 16:14:54 arenou Exp $ -->
 <entry code="pprocs_options_liste_checkbox">Affichage sous forme de cases à cocher ou boutons radio</entry>
 <entry code="pprocs_options_liste_optimize_req">Optimiser la requête à l'affichage (vous devez la tester pour que cela fonctionne) ?</entry>
 <entry code="pprocs_options_liste_checkbox_nb_on_line">Nombre de choix par ligne : </entry>
-</XMLlist>
 
+<entry code="parperso_resolve">Résolveur de lien</entry>
+<entry code="procs_options_resolve_options">Résolveurs : </entry>
+<entry code="procs_options_resolve_options_id">Identifiant</entry>
+<entry code="procs_options_resolve_options_label">Libellé</entry>
+<entry code="procs_options_resolve_options_link">Lien</entry>
+
+<entry code="search_perso_form_user_restrict">Visibilité restreinte aux catégories de lecteurs : </entry>
+<entry code="empr_categ_cant_delete_search_perso">Impossible de supprimer cette catégorie car elle est utilisée dans les recherches prédéfinies en OPAC.</entry>
+
+<entry code="format_date_short">%m/%Y</entry>
+<entry code="format_date_short_input">%d/%d</entry>
+<entry code="etagere_form_no_active_tri">Aucun tri défini pour cette étagère</entry>
+
+<entry code="noticeintegre_docnum_rep_upload_integre">Intégrer ce document</entry>
+<entry code="connecteurs_rep_upload">Associer à un répertoire d'upload</entry>
+<entry code="connecteurs_no_upload_rep">Aucun</entry>
+<entry code="resa_no_expl_in_location_transferable">Réservation: Ce document n'est pas réservable car non transférable </entry>
+<entry code="caddie_supp_notice_linked_expl_num">Supprimer les notices, même si elles ont des documents numériques</entry>
+<entry code="circ_menu_rfid_portique">Portiques</entry>
+<entry code="circ_menu_rfid_lecteur">Platines</entry>
+<entry code="rfid_gates_titre">Portiques RFID</entry>
+<entry code="rfid_gates_server_titre">Gestion des portiques RFID</entry>
+<entry code="rfid_gates_server_state">Etat du serveur</entry>
+<entry code="rfid_gates_list">Liste des portiques</entry>
+<entry code="rfid_gates_server_url">Url</entry>
+<entry code="rfid_gates_server_ping">Ping</entry>
+<entry code="rfid_gates_server_service">Service</entry>
+<entry code="rfid_gate_id">Id</entry>
+<entry code="rfid_gate_name">Nom</entry>
+<entry code="rfid_gate_url">Url</entry>
+<entry code="rfid_gate_port">Port</entry>
+<entry code="rfid_gate_service">Service</entry>
+<entry code="rfid_gate_alarm">Alarme</entry>
+<entry code="rfid_gates_actualiser">Actualiser</entry>
+<entry code="rfid_gates_statistique">Statistique</entry>
+<entry code="rfid_gates_info_ping_error">Le serveur n'est pas accéssible par un ping</entry>
+<entry code="rfid_gates_info_service_error">Le service sur le serveur ne répond pas</entry>
+<entry code="rfid_gates_memo_data_gates">Mémoriser les données de comptage</entry>
+<entry code="rfid_gates_memo_data_gates_error">Erreur de récupération des données</entry>
+<entry code="rfid_gates_memo_data_gates_ok">Le transfert de données s'est effectué avec succès</entry>
+
+<entry code="rfid_readers_titre">Platines RFID</entry>
+<entry code="rfid_form_readers_titre">Visualisation de l'état des platines et des automates de pêts RFID</entry>
+<entry code="rfid_readers_list">Liste des platines RFID</entry>
+<entry code="rfid_reader_url">Url du service</entry>
+<entry code="rfid_reader_service_state">Etat du service</entry>
+<entry code="rfid_reader_name">Nom de la platine</entry>
+<entry code="rfid_reader_port">Port de connection</entry>
+<entry code="rfid_reader_state">Etat de la platine</entry>
+<entry code="rfid_reader_actualiser">Actualiser</entry>
+<entry code="rfid_reader_ajouter">Ajouter</entry>
+<entry code="rfid_reader_supprimer">Supprimer</entry>
+
+<entry code="connecteurs_source_upload_doc_num">Upload des documents numériques lors de l'intégration de notice</entry>
+
+<entry code="id_notice_sort">Identifiant de notice</entry>
+<entry code="autre_auteur_sort">Autre(s) auteur(s)</entry>
+<entry code="auteur_secondaire_sort">Auteur(s) secondaire(s)</entry>
+<entry code="perio_title_sort">Titre de Périodique</entry>
+<entry code="bullnum_sort">Numéro du bulletin</entry>
+<entry code="section_sort">Section</entry>
+<entry code="auteur_principal_sort">Auteur principal</entry>
+
+<entry code="infopage_restrict_infopage">Restreindre aux abonnés uniquement ?</entry>
+
+<entry code="connecteurs_source_enrichment">Proposer l'enrichissement des notices en OPAC ?</entry>
+<entry code="admin_connecteurs_enrichment">Enrichissement</entry>
+<entry code="admin_connecteurs_enrichment_def">Définition des enrichissements de notices</entry>
+<entry code="admin_connecteurs_enrichment_type_form">Pour chaque type de document</entry>
+<entry code="admin_connecteurs_enrichment_enhancer_form">Sources disponibles</entry>
+<entry code="admin_connecteurs_enrichment_default_value_form">Sources à utiliser par défaut</entry>
+<entry code="admin_connecteurs_enrichment_no_sources">Aucune source ne vous permet d'enrichir une notice OPAC</entry>
+<entry code="admin_connecteurs_enrichment_active_param">Activer d'abord l'enrichissement des notices dans l'OPAC</entry>
+<entry code="type_mono">Monographie</entry>
+<entry code="type_serial">Périodique</entry>
+<entry code="type_art">Article</entry>
+<entry code="type_bull">Bulletin</entry>
+<entry code="word_syn_menu">Synonymes</entry>
+<entry code="transferts_circ_menu_reset">Reset</entry>
+<entry code="transferts_circ_reset_exemplaire">Reset des transferts de l'exemplaire</entry>
+<entry code="transferts_circ_reset">Les transferts en cours de l'exemplaire no !!cb_expl!! sont annulés.</entry>
+<entry code="serial_name_sort">Titre de Périodique</entry>
+<entry code="dsi_ban_statut_not_account">Ne pas tenir compte du statut des notices</entry>
+<entry code="abts_no">N°%s</entry>
+<entry code="abts_vol">Vol %s</entry>
+<entry code="abts_tom">Tome %s</entry>
+<entry code="abts_hsno">HS N°%s</entry>
+<entry code="bull_no_item">Pas de dépouillement</entry>
+<entry code="finance_form_empr_libelle_credit">Crédit</entry>
+<entry code="finance_form_empr_libelle_debit">Débit</entry>
+<entry code="chklnk_verifurl_docnum">Vérification des URL des documents numériques</entry>
+<entry code="chklnk_verifurl_editeur">Vérification des URL des éditeurs</entry>
+<entry code="chklnk_verif_notice">"Vérification des notices"</entry>
+<entry code="chklnk_verifurl_bull">Vérification des URL des bulletins</entry>
+<entry code="chklnk_verifurl_auteur">Vérification des URL des auteurs</entry>
+<entry code="chklnk_verifurl_coll">Vérification des URL des collections</entry>
+<entry code="chklnk_verifurl_ss_coll">Vérification des URL des sous-collections</entry>
+<entry code="remote_procedures_detail_procedure_distante">Détails d'une procédure distante</entry>
+<entry code="histo_save_fail">La sauvegarde a échouée !</entry>
+<entry code="external_services_general_utilisateurs_autorises">Utilisateurs autorisés</entry>
+<entry code="external_services_general_methode">Méthode</entry>
+<entry code="external_services_peruser_methode">Méthode</entry>
+<entry code="external_services_peruser_methode_autorisees">Méthode Autorisées</entry>
+</XMLlist>

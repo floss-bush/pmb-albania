@@ -13,7 +13,7 @@
 	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
 	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
 
-	/!\ cette charte dépend de la présence de la charte du reseau
+	/!\ cette charte dÃ©pend de la prÃ©sence de la charte du reseau
 	"reseauandorre" dans vos styles !	
 *****************************************************************************************/
 
@@ -23,15 +23,11 @@
 biblio_important_p1
 #obligatoire
 *************************/
-<b><br /><br /><center><font size=4>Une Bibliothèque Pour la Psychanalyse vous souhaite de Bonnes Fêtes de Noël</font></center></b><br />
- 
-<center><img src="http://www.papanoel.free.fr/noel27.jpg"></center>
+<b>INFORMATIONS SUR LA BIBLIOTHÃˆQUE</b><br />
 
-<br /><b>INFORMATIONS SUR LA BIBLIOTHÈQUE</b><br />
+La bibliothÃ¨que met Ã  disposition un ensemble de livres, revues, documents dont le choix est fonction de leur intÃ©rÃªt pour la psychanalyse.<br />
 
-La bibliothèque met à disposition un ensemble de livres, revues, documents dont le choix est fonction de leur intérêt pour la psychanalyse.<br>
-
-La Bibliothèque s’adresse autant aux professionnels aux chercheurs aux étudiants qu’à tout public.<br /><br /><br />
+La BibliothÃ¨que sâ€™adresse autant aux professionnels, aux chercheurs, aux Ã©tudiants quâ€™Ã  tout public.<br /><br /><br />
 
 
 <b>VOUS POUVEZ:</b><br />
@@ -39,26 +35,54 @@ La Bibliothèque s’adresse autant aux professionnels aux chercheurs aux étudiants
 - Consulter le catalogue en ligne.<br />
 - Consulter sur place.<br />
 - Faire une recherche.<br />
-- Réserver un ouvrage.<br />
+- RÃ©server un ouvrage.<br />
 - Nous contacter.<br />
-- Devenir adhérent de la bibliothèque: 15€, étudiants: 10€
-<br />
-<br /><B>SALLE DE LECTURE:</b> 
-Salle Bernard Casanova. 46, rue de la Fosse Marine 37000 Tours.<br />
-<br />
+- Devenir adhÃ©rent de la bibliothÃ¨que: 15â‚¬, Ã©tudiants: 10â‚¬
+<br /><br />
+<B>SALLE DE LECTURE:</b> 
+Salle Bernard Casanova. 46, rue de la Fosse Marine 37000 Tours.<br /><br />
 
-<b>OUVERTURE:</b><br />
-* Permanence:<br />
-* Consulter l'agenda sur:<a href="mailto:unebpp@gmail.com"> AGENDA </a><br />
-* Sur demande.<br />
+<b>OUVERTURE :</b><br />
+<span class="permanence">* Permanence : Le jeudi de 15H Ã  18H - Prochain accueil le 17/02/2001        
+   Et/ou appeler au 02-47-51-84-19 </span><br />
+* Consulter l'agenda sur:<a href="https://mail.google.com/mail/?hl=fr&shva=1#inbox"> AGENDA <br /></a>
+* Sur demande.
 
-<br /><b>AUTRES ACTIVITÉS:</b><br />
+<br /><br />
 
-L’association met à disposition de ses adhérents la salle de lecture pour des groupes de travail Elle organise régulièrement des conférences sur la psychanalyse.<br />
-Pour tout renseignement, nous contacter.<br />
+<b>AUTRES ACTIVITÃ‰S:</b><br />
+
+Lâ€™association met Ã  disposition de ses adhÃ©rents la salle de lecture pour des groupes de travail Elle organise rÃ©guliÃ¨rement des confÃ©rences sur la psychanalyse.<br />
+Pour tout renseignement, nous contacter.
+
+<br /><br />
+
+<b>PRÃŠT AUX ADHÃ‰RENTS.</b>
 
 
-<br /><b>PRÊT AUX ADHÉRENTS.</b>
+/*************************
+biblio_important_p2
+#obligatoire
+*************************/
+<style type="text/css">
+#bandeau, #bandeau DIV {
+background:#e3e3e3;
+}
+</style>
+
+<center>
+<b><font size=4>Rendez vous</b><br /><br />
+
+<b>Claude RABANT</b><br />
+<font size=1>PrÃ©sentera son ouvrage <br /><br />
+
+<b><font size=3>MÃ©tamorphoses de la mÃ©lancolie</b></font><br /><br />
+<b><font size=2>vendredi 11 fÃ©vrier 2011 Ã  21h</b></font><br /><br />
+
+<font size=2>Centre de vie du Sanitas</font><br />
+<font size=2>10,place neuve 37000 Tours</font><br />
+<font size=2>SALLE F. MAURICE</font>
+</center>
 
 
 /*************************
@@ -67,46 +91,50 @@ lien_moteur_recherche
 *************************/
 <B>AUTRES SOURCES D'INFORMATIONS</b><br /><br /> 
 
-<a href="http://www.sudoc.abes.fr" target="blank"><b>SUDOC</b>:CATALOGUE collectif des universités de France</a>
+<a href="http://www.sudoc.abes.fr" target="blank"><b>SUDOC</b>:CATALOGUE collectif des universitÃ©s de France</a>
 <br /><br />
 
-<a href="http://portail.scd.univ-tours.fr" target="blank">CATALOGUE du <b>SCD</b> de l'Université de Tours</a>
+<a href="http://portail.scd.univ-tours.fr" target="blank">CATALOGUE du <b>SCD</b> de l'UniversitÃ© de Tours</a>
 
 
 /*************************
  biblio_adr1
  *************************/
 <br /><br />
-<a href="http://bpp-psychanalyse.bibli.fr/opac/index.php?lvl=infopages&pagesid=2"><b>CONSEILS POUR LA RECHERCHE</b></a>
+<a href="http://bpp-psychanalyse.bibli.fr/opac/index.php?lvl=infopages&pagesid=2"><b><font size=3>CONSEILS POUR LA RECHERCHE</b></a>
 
 
 /*************************
 biblio_main_header
 #obligatoire
 *************************/
-Une <span>B</span>ibliothèque <span>P</span>our la <span>P</span>sychanalyse
+Une <span>B</span>ibliothÃ¨que <span>P</span>our la <span>P</span>sychanalyse
 
 
 /*************************
 biblio_name
 #obligatoire
 *************************/
-<font size=3><i>Avec le soutien de la Ville de Tours</i></font><br /><br />
+<br /><br /><B> SIÃˆGE SOCIAL:</B> 13, rue Jules GrÃ©vy
+37000 Tours.<br> <BR> 
 
-<b>Bureau de l’association:</b><br />
 
-<br /><B>PRÉSIDENT:</B><br />
+
+<b>BUREAU DE L'ASSOCIATION:</b><br />
+
+<br /><B>PRÃ‰SIDENT:</B><br />
 Didier Grimault<br />
-<b>SECRÉTAIRE:</b><br />
+<b>SECRÃ‰TAIRE:</b><br />
 Marie-Claude Campagne<br />
-<b>TRÉSORIÈRE:</b><br />
+<b>TRÃ‰SORIÃˆRE:</b><br />
 Christine Gailliard <br />
 
-<br /><b>BASE DE DONNÉES</b>
+<br /><b>BASE DE DONNÃ‰ES</b>
 <br />QUENTIN Jacques: Conceptualisation
-<br />BERTIN Marie : Documentation
+<br />BERTIN Marie : Documentation <br>
 
-<br /><br /><B> SIÈGE SOCIALE:</B> 13, rue Jules Grévy
-37000 Tours.
+
+
+<BR><font size=3><i>Avec le soutien de la Ville de Tours</i></font><br /><br />
 
 
