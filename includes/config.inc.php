@@ -1,10 +1,10 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: config.inc.php,v 1.170.2.6 2011-10-10 13:23:32 touraine37 Exp $
 
-// fichier de configuration générale
+// fichier de configuration gï¿½nï¿½rale
 
 $pmb_version = "</b>3.4.10</b>";
 $pmb_version_brut = "3.4.10";
@@ -21,18 +21,18 @@ if(strpos($HTTP_SERVER_VARS['PHP_SELF'],'config.inc.php')) {
 	exit ;
 }
 
-$default_lang = 'fr_FR';
+$default_lang = 'sq_AL';
 $default_helpdir = $default_lang;
-// Character set = encodage des données. Attention ne pas modifier en cours d'utilisation, votre base de données serait pleine de caracteres bizarre !!!
+// Character set = encodage des donnï¿½es. Attention ne pas modifier en cours d'utilisation, votre base de donnï¿½es serait pleine de caracteres bizarre !!!
 $charset= 'iso-8859-1';
 
-// feuille de style à utiliser
+// feuille de style ï¿½ utiliser
 $stylesheet = 'light';
 
 // utilisation des raccourcis clavier (0=non ; 1=oui)
 $use_shortcuts = 1;
 
-// taille des fenêtres de selecteurs
+// taille des fenï¿½tres de selecteurs
 $selector_x_size = 400; 	# largeur
 $selector_y_size = 400;		# hauteur
 
@@ -64,32 +64,32 @@ define('EXTENSIONS_AUTH'		, 8192);
 define('DEMANDES_AUTH'			, 16384);
 define('FICHES_AUTH'			, 32768);
 
-// durée des sessions
+// durï¿½e des sessions
 define('SESSION_REACTIVATE', 7200); // refresh max = 120 minutes
-define('SESSION_MAXTIME', 86400);	// durée de vie maximum d'une session = 24h
+define('SESSION_MAXTIME', 86400);	// durï¿½e de vie maximum d'une session = 24h
 
-// définition des périodicités de pério
+// dï¿½finition des pï¿½riodicitï¿½s de pï¿½rio
 define('ABT_PERIODICITE_JOUR'		,    1);
 
-// définition des types d'audit
+// dï¿½finition des types d'audit
 define('AUDIT_NOTICE'	,    1);
 define('AUDIT_EXPL'		,    2);
 define('AUDIT_BULLETIN'	,    3);
 define('AUDIT_ACQUIS'	,    4);
 define('AUDIT_PRET'		,    5);
 
-/* la langue est fixée sur la valeur par défaut pour l'instant */
+/* la langue est fixï¿½e sur la valeur par dï¿½faut pour l'instant */
 $lang= $default_lang;
 $helpdir = $lang;
 
-/* répertoire où sont stockées les sauvegardes (dans le rép 'admin/backup') */
+/* rï¿½pertoire oï¿½ sont stockï¿½es les sauvegardes (dans le rï¿½p 'admin/backup') */
 $backup_dir = "backups";
 
-// est stockée en base mais par défaut, si vide ...
+// est stockï¿½e en base mais par dï¿½faut, si vide ...
 if (!$pmb_opac_url) $pmb_opac_url = "./opac_css/";
 	
-/* Nbre d'enregistrements affichés par page */
-/* autorités */                  /* each was 10 */
+/* Nbre d'enregistrements affichï¿½s par page */
+/* autoritï¿½s */                  /* each was 10 */
 $nb_per_page_author = 20 ;
 $nb_per_page_publisher = 20 ;
 $nb_per_page_collection = 20 ;
