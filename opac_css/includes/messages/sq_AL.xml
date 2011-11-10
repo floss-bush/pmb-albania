@@ -85,8 +85,8 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="barcode">barcode</entry>
   <entry code="title">titull</entry>
   <entry code="author">autor</entry>
-  <entry code="date_loan">marre</entry>
-  <entry code="date_back">prapa</entry>
+  <entry code="date_loan">huazuar</entry>
+  <entry code="date_back">per t'u kthyer</entry>
   <entry code="start">fillim</entry>
   <entry code="end">fund</entry>
   <entry code="first_page">faqja e pare</entry>
@@ -129,7 +129,7 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="common_tpl_admin_invite">hyrja per profesionistet</entry>
   <entry code="common_tpl_meteo_invite">moti</entry>
   <entry code="common_tpl_meteo">moti ne</entry>
-  <entry code="common_tpl_address">adrese</entry>
+  <entry code="common_tpl_address">Adresa</entry>
   <entry code="empr_tpl_emprheader">Informacion per lexuesin</entry>
   <entry code="simple_search_tpl_text">Ketu ju mund te kerkoni bazen e te dhenave per nje ose me shume fjalen (titullin, autorin, botues, temen, ...).</entry>
   <entry code="empr_tpl_title">Te dhenat per lexuesin</entry>
@@ -414,7 +414,7 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="common_tpl_contact">kontakt</entry>
   <entry code="see">shfaq</entry>
   <entry code="mention_edition_start">Trego botimin :</entry>
-  <entry code="common_tpl_lang_select">zgjidh gjuhen</entry>
+  <entry code="common_tpl_lang_select">Zgjidh gjuhen</entry>
   <entry code="dsi_bannette_acceder">Aksesoni informacionin tuaj te personalizuar</entry>
   <entry code="l_browse_bibliotheques">Bibliotekat</entry>
   <entry code="resa_doit_etre_abon">Duhet te autentifikoheni per te bere nje rezervim</entry>
@@ -524,12 +524,12 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="acquisition_sug_rec">marre</entry>
   <entry code="acquisition_sug_arc">arshivuar</entry>
   <entry code="voir_contenu_detail">Shih brenda ne detaje</entry>
-  <entry code="mdp_txt_intro_demande">Dergo email-it tuaj ne menyre qe ne mund te ju dergojme informacione per lidhjen.</entry>
-  <entry code="mdp_bt_send">Dergoj</entry>
+  <entry code="mdp_txt_intro_demande">Jepni email-it tuaj ne menyre qe t'ju dergojme informacione per lidhjen.</entry>
+  <entry code="mdp_bt_send">Dergo</entry>
   <entry code="mdp_mail_body"><![CDATA[Ktu jane informacionet tuaja per konesionin <b>!!biblioname!!</b> :<br /> -Login: !!login!! <br /> -Fjalekalimi: !!password!! <br /><br />Nqs keni probleme dergoni nje email tek : !!biblioemail!!.<br /><br />]]></entry>
   <entry code="mdp_mail_obj">Informacion per lidhje per !!biblioname!!</entry>
   <entry code="mdp_sent_ok">Informacionet per lidhjen i jane derguar</entry>
-  <entry code="mdp_no_email">Email gabuar apo te panjohur, ne qofte se ju jeni keni probleme per te derguar nje email !!biblioname!!.</entry>
+  <entry code="mdp_no_email">Email gabuar ose panjohur, ne qofte se ju jeni keni probleme dergoni nje email !!biblioemail!!.</entry>
   <entry code="mdp_forgotten">Keni harruar fjalekalimin?</entry>
   <entry code="onglet_empr_connect">Lidhu</entry>
   <entry code="onglet_empr_compte">Llogaria ime</entry>

@@ -725,7 +725,7 @@ function genere_double($depliable=1, $premier='ISBD') {
 	$this->double_ou_simple = 2 ;
 	$this->notice_childs = $this->genere_notice_childs();
 	if ($this->cart_allowed) 
-		$basket="<a href=\"cart_info.php?id=es".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\"><img src=\"".$opac_url_base."images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		$basket="<a href=\"cart_info.php?id=es".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\"><img src=\"images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 	else 
 		$basket="";
 	
@@ -830,7 +830,7 @@ function genere_simple($depliable=1, $what='ISBD') {
 		$case_a_cocher = "" ;
 	
 	if ($this->cart_allowed) 
-		$basket="<a href=\"cart_info.php?id=es".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\"><img src='".$opac_url_base."images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		$basket="<a href=\"cart_info.php?id=es".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\"><img src='images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 	else 
 		$basket="";
 	

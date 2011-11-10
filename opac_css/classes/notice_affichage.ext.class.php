@@ -294,7 +294,7 @@ class notice_affichage_custom_bretagne extends notice_affichage {
 		if ($zoneNote) $this->notice_public .= "\n\t<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_gen_start']."</span></td><td $colspanbretagne>".$zoneNote."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "\n\t<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td $colspanbretagne><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "\n\t<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td $colspanbretagne><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		// langues
 		if (count($this->langues)) {
@@ -801,15 +801,15 @@ class notice_affichage_mw extends notice_affichage {
 		global $opac_avis_allow;
 		global $opac_allow_add_tag;
 		
-		$basket="<img src='".$opac_url_base."mw/images/commun/cale.gif' border='0' width='1' height='8'><br /><div style='float:left;'>";
+		$basket="<img src='mw/images/commun/cale.gif' border='0' width='1' height='8'><br /><div style='float:left;'>";
 		if ($this->cart_allowed) {
-			$basket.="<a href='cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."' target='cart_info'><img src='".$opac_url_base."mw/images/commun/basket_small_20x20.gif' border='0' align='absmiddle' title=\"".$msg[notice_title_basket]."\" alt=\"".$msg[notice_title_basket]."\">".$msg[notice_bt_panier]."</a>";
+			$basket.="<a href='cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."' target='cart_info'><img src='mw/images/commun/basket_small_20x20.gif' border='0' align='absmiddle' title=\"".$msg[notice_title_basket]."\" alt=\"".$msg[notice_title_basket]."\">".$msg[notice_bt_panier]."</a>";
 		}
 		 if (($opac_avis_allow && $opac_avis_allow != 2) || ($_SESSION["user_code"] && $opac_avis_allow == 2)) {//Avis
-				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('avis.php?todo=liste&noticeid=$this->notice_id','avis','width=520,height=290,scrollbars=yes,resizable=yes')\"><img src='".$opac_url_base."mw/images/commun/avis.gif' align='absmiddle' border='0'>".$msg[notice_bt_avis]."</a><br /><br />";
+				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('avis.php?todo=liste&noticeid=$this->notice_id','avis','width=520,height=290,scrollbars=yes,resizable=yes')\"><img src='mw/images/commun/avis.gif' align='absmiddle' border='0'>".$msg[notice_bt_avis]."</a><br /><br />";
 		}
 		if (($opac_allow_add_tag==1)||(($opac_allow_add_tag==2)&&($_SESSION["user_code"]))){//add tags
-				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('addtags.php?noticeid=$this->notice_id','Ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes')\"><img src='".$opac_url_base."mw/images/commun/tag.gif'align='absmiddle' border='0'>".$msg[notice_bt_tag]."</a>";
+				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('addtags.php?noticeid=$this->notice_id','Ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes')\"><img src='mw/images/commun/tag.gif'align='absmiddle' border='0'>".$msg[notice_bt_tag]."</a>";
 		}
 		if ((!$this->cart_allowed)&&($opac_avis_allow==0)) {
 			$basket.="";
@@ -832,9 +832,9 @@ class notice_affichage_mw extends notice_affichage {
 			$template="
 			<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
 			if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 			$template.="		
 				<span class=\"notice-heada\">!!heada!!</span>
 	    		<br />
@@ -844,7 +844,7 @@ class notice_affichage_mw extends notice_affichage {
 			$template="<div class='parent'>
 							$case_a_cocher";
 			if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 			$template.="
 							<span class=\"notice-heada\">!!heada!!</span>";
 		}
@@ -896,15 +896,15 @@ class notice_affichage_mw extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 			else $case_a_cocher = "" ;
 		
-		$basket="<img src='".$opac_url_base."mw/images/commun/cale.gif' border='0' width='1' height='8'><br /><div style='float:left;'>";
+		$basket="<img src='mw/images/commun/cale.gif' border='0' width='1' height='8'><br /><div style='float:left;'>";
 		if ($this->cart_allowed) {
-			$basket.="<a href='cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."' target='cart_info'><img src='".$opac_url_base."mw/images/commun/basket_small_20x20.gif' border='0' align='absmiddle' title=\"".$msg[notice_title_basket]."\" alt=\"".$msg[notice_title_basket]."\">".$msg[notice_bt_panier]."</a>";
+			$basket.="<a href='cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."' target='cart_info'><img src='mw/images/commun/basket_small_20x20.gif' border='0' align='absmiddle' title=\"".$msg[notice_title_basket]."\" alt=\"".$msg[notice_title_basket]."\">".$msg[notice_bt_panier]."</a>";
 		}
 		if ($opac_avis_allow){	//Avis
-				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('avis.php?todo=liste&noticeid=$this->notice_id','avis','width=520,height=290,scrollbars=yes,resizable=yes')\"><img src='".$opac_url_base."mw/images/commun/avis.gif' align='absmiddle' border='0'>".$msg[notice_bt_avis]."</a>";
+				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('avis.php?todo=liste&noticeid=$this->notice_id','avis','width=520,height=290,scrollbars=yes,resizable=yes')\"><img src='mw/images/commun/avis.gif' align='absmiddle' border='0'>".$msg[notice_bt_avis]."</a>";
 		}
 		if (($opac_allow_add_tag==1)||(($opac_allow_add_tag==2)&&($_SESSION["user_code"]))){//add tags
-				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('addtags.php?noticeid=$this->notice_id','Ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes')\"><img src='".$opac_url_base."mw/images/commun/tag.gif' align='absmiddle' border='0'>".$msg[notice_bt_tag]."</a>";
+				$basket.="&nbsp;&nbsp;<a href='#' onclick=\"javascript:open('addtags.php?noticeid=$this->notice_id','Ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes')\"><img src='mw/images/commun/tag.gif' align='absmiddle' border='0'>".$msg[notice_bt_tag]."</a>";
 		}
 		if ((!$this->cart_allowed)&&($opac_avis_allow==0)) {
 			 	$basket.="";
@@ -922,9 +922,9 @@ class notice_affichage_mw extends notice_affichage {
 			$template="
 			<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
 			if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 			$template.="
 	    		<span class=\"notice-heada\">!!heada!!</span><br />
 	    		</div>			
@@ -935,7 +935,7 @@ class notice_affichage_mw extends notice_affichage {
 				\n<div id=\"el!!id!!Parent\" class=\"parent\">
 	    				$case_a_cocher";
 				if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 				$template.="
 	    				<span class=\"heada\">!!heada!!</span><br />
 		    			</div>			
@@ -1077,12 +1077,12 @@ class notice_affichage_livrjeunes extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 		else $case_a_cocher = "" ;
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='".$opac_url_base."images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if (($this->tag_allowed==1)||(($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag)))
-			$img_tag.="&nbsp;&nbsp;<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>&nbsp;&nbsp;";
+			$img_tag.="&nbsp;&nbsp;<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>&nbsp;&nbsp;";
 		
 		// LivrJeunes : avis supprim�s d'ici + what=PUBLIC
 		$what='PUBLIC';
@@ -1095,9 +1095,9 @@ class notice_affichage_livrjeunes extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\">";
 			if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 			$template.="
 	    		<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span><br />
 	    		</div>			
@@ -1109,7 +1109,7 @@ class notice_affichage_livrjeunes extends notice_affichage {
 				\n<div id=\"el!!id!!Parent\" class=\"parent\">
 	    				$case_a_cocher";
 			if ($icon) $template.="
-					<img src=\"".$opac_url_base."images/$icon\" />";
+					<img src=\"images/$icon\" />";
 			$template.="
 	    				<span class=\"heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span><br />
 		    			</div>			
@@ -1284,12 +1284,12 @@ class notice_affichage_abiodoc extends notice_affichage {
 		$this->premier = $premier ;
 		$this->double_ou_simple = 2 ;
 		$this->notice_childs = $this->genere_notice_childs();
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"".$opac_url_base."images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if ( ($this->tag_allowed==1) || ( ($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag) ) )
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2)) $img_tag .= $this->affichage_avis($this->notice_id);	
@@ -1306,12 +1306,12 @@ class notice_affichage_abiodoc extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\"><div class=\"notice-parent_abiodoc_col1\" >
 				$case_a_cocher
-	    		<img class='img_plus".$this->abiodoc_app_val."' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
+	    		<img class='img_plus".$this->abiodoc_app_val."' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
 			$template.="<span class='abiodoc_app".$this->abiodoc_app_val."'>".htmlentities($this->abiodoc_app_lib,ENT_QUOTES,$charset)."</span></div><div class=\"notice-parent_abiodoc_col2\" >";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -1324,7 +1324,7 @@ class notice_affichage_abiodoc extends notice_affichage {
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>";
 		}
@@ -1393,12 +1393,12 @@ class notice_affichage_abiodoc extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 		else $case_a_cocher = "" ;
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='".$opac_url_base."images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if (($this->tag_allowed==1)||(($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag)))
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2))
@@ -1413,12 +1413,12 @@ class notice_affichage_abiodoc extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\"><div class=\"notice-parent_abiodoc_col1\" >
 				$case_a_cocher
-	    		<img class='img_plus".$this->abiodoc_app_val."' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
+	    		<img class='img_plus".$this->abiodoc_app_val."' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
 			$template.="<span class='abiodoc_app".$this->abiodoc_app_val."'>".htmlentities($this->abiodoc_app_lib,ENT_QUOTES,$charset)."</span></div><div class=\"notice-parent_abiodoc_col2\" >";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -1433,7 +1433,7 @@ class notice_affichage_abiodoc extends notice_affichage {
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}			
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span><br />";
 		}
@@ -1568,7 +1568,7 @@ class notice_affichage_abiodoc extends notice_affichage {
 		if ($this->notice->lien) {
 			// ajout du lien pour les ressources electroniques
 			$this->notice_header .= "&nbsp;<span><a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header .= "<img src=\"".$opac_url_base."images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
+			$this->notice_header .= "<img src=\"images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			$this->notice_header .= " alt=\"";
 			$this->notice_header .= $this->notice->eformat;
 			$this->notice_header .= "\" title=\"";
@@ -1591,10 +1591,10 @@ class notice_affichage_abiodoc extends notice_affichage {
 			
 			if ($explnumrow->explnum_statut==1) {	//document payant
 				$this->notice_header .= "&nbsp;<span><a href=\"".$this->explnum_shoplink.$explnumrow->explnum_id."\" target=\"__LINK__\">";
-				$this->notice_header .= "<img src=\"".$opac_url_base."images/icon_k_16x16.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
+				$this->notice_header .= "<img src=\"images/icon_k_16x16.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			} else {								//document gratuit
-				$this->notice_header .= "&nbsp;<span><a href=\"".$opac_url_base."doc_num.php?explnum_id=".$explnumrow->explnum_id."\" target=\"__LINK__\">";
-				$this->notice_header .= "<img src=\"".$opac_url_base."images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
+				$this->notice_header .= "&nbsp;<span><a href=\"doc_num.php?explnum_id=".$explnumrow->explnum_id."\" target=\"__LINK__\">";
+				$this->notice_header .= "<img src=\"images/globe_orange.png\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			}
 			
 			$this->notice_header .= " alt=\"";
@@ -1605,7 +1605,7 @@ class notice_affichage_abiodoc extends notice_affichage {
 			$this->notice_header .= "</a></span>";
 		} elseif ($explnumscount > 1) {
 			$explnumrow = mysql_fetch_object($explnums);
-			$this->notice_header .= "<img src=\"".$opac_url_base."images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
+			$this->notice_header .= "<img src=\"images/globe_rouge.png\" border=\"0\" align=\"middle\" hspace=\"3\">";
 		}
 		
 	}
@@ -1666,16 +1666,16 @@ class notice_affichage_abiodoc extends notice_affichage {
 				$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset);
 				
 				if ($expl->explnum_vignette) {
-					$obj="<img src='".$opac_url_base."vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+					$obj="<img src='vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 				} else {// trouver l'icone correspondant au mime_type
-					$obj="<img src='".$opac_url_base."images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";
+					$obj="<img src='images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";
 				}		
 				$expl_liste_obj = "<center>";
 				
 				if ($expl->explnum_statut==1) {	//document payant
 					$expl_liste_obj .= "<a href='".$this->explnum_shoplink.$expl->explnum_id."' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				} else {						//document gratuit
-					$expl_liste_obj .= "<a href='".$opac_url_base."doc_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+					$expl_liste_obj .= "<a href='doc_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				}
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) {
@@ -2034,7 +2034,7 @@ class notice_affichage_mba extends notice_affichage {
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 		
 		//Champs personalis�s
 		$perso_aff = $perso_aff_suite = $titre = $loc = $etablissement = $date = $lieu_ed = "" ;
@@ -2229,7 +2229,7 @@ class notice_affichage_pmi extends notice_affichage {
 		if($this->customs["DOI"]) $ret .= $this->customs["DOI"];
 		
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		$this->affichage_suite = $ret ;
 		return $ret ;
@@ -2308,7 +2308,7 @@ class notice_affichage_pmi extends notice_affichage {
 				if ($notice->author_date) $auteur_isbd .= " (".$notice->author_date.")" ;
 			}	
 			// URL de l'auteur
-			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='".$opac_url_base."images/globe.gif' border='0'/></a>";
+			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='images/globe.gif' border='0'/></a>";
 			else $auteur_web_link = "" ;
 			if (!$this->to_print) $auteur_isbd .= $auteur_web_link ;
 			$auteur_isbd = inslink($auteur_isbd, str_replace("!!id!!", $notice->author_id, $this->lien_rech_auteur),$info_bulle) ;
@@ -2571,16 +2571,16 @@ class notice_affichage_pmi extends notice_affichage {
 					} 
 				$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset) ;
 				
-				if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+				if ($expl->explnum_vignette) $obj="<img src='/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 					else // trouver l'icone correspondant au mime_type
-						$obj="<img src='".$opac_url_base."/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
+						$obj="<img src='/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
 				$expl_liste_obj = "<center>";
 				
 				$words_to_find="";
 				if(($expl->explnum_mimetype=='application/pdf') ||($expl->explnum_mimetype=='URL' && (strpos($expl->explnum_nom,'.pdf')!==false))){
 					$words_to_find = "#search=\"".trim(str_replace('*','',implode(' ',$search_terms)))."\"";
 				}
-				$expl_liste_obj .= "<a href='".$opac_url_base."/doc_num.php?explnum_id=$expl->explnum_id$words_to_find' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+				$expl_liste_obj .= "<a href='/doc_num.php?explnum_id=$expl->explnum_id$words_to_find' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
 					elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;
@@ -2690,7 +2690,7 @@ class notice_affichage_pmi extends notice_affichage {
 			else $info_bulle=$this->notice->eformat;
 			// ajout du lien pour les ressource �lectroniques
 			$this->notice_header .= "&nbsp;<span><a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header .= "<img src=\"".$opac_url_base."images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
+			$this->notice_header .= "<img src=\"images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			$this->notice_header .= " alt=\"";
 			$this->notice_header .= $info_bulle;
 			$this->notice_header .= "\" title=\"";
@@ -3045,7 +3045,7 @@ class notice_affichage_supagro extends notice_affichage {
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		
 		if ($this->notice->lien) {
@@ -3090,12 +3090,12 @@ class notice_affichage_crips extends notice_affichage {
 		$this->double_ou_simple = 2 ;
 		$this->double_ou_simple = 2 ;
 		$this->notice_childs = $this->genere_notice_childs();
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"".$opac_url_base."images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if ( ($this->tag_allowed==1) || ( ($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag) ) )
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2)) $img_tag .= $this->affichage_avis($this->notice_id);	
@@ -3112,11 +3112,11 @@ class notice_affichage_crips extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_".$this->notice->typdoc."' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
+	    		<img class='img_".$this->notice->typdoc."' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
 //			if ($icon) {
 //    			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
 //    			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-//    			//$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+//    			//$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
 //    		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -3128,7 +3128,7 @@ class notice_affichage_crips extends notice_affichage {
 //			if ($icon) {
 //    			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
 //    			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-//    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+//    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
 //    		}
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>";
 		}
@@ -3195,12 +3195,12 @@ class notice_affichage_crips extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 		else $case_a_cocher = "" ;
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='".$opac_url_base."images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if (($this->tag_allowed==1)||(($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag)))
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2))
@@ -3215,11 +3215,11 @@ class notice_affichage_crips extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img  class='img_".$this->notice->typdoc."' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
+	    		<img  class='img_".$this->notice->typdoc."' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			//$template.="<img  src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			//$template.="<img  src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -3234,7 +3234,7 @@ class notice_affichage_crips extends notice_affichage {
 //			if ($icon) {
 //    			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
 //    			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-//    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+//    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
 //    		}			
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span><br />";
 		}
@@ -3361,7 +3361,7 @@ class notice_affichage_crips extends notice_affichage {
 			else $info_bulle=$this->notice->eformat;
 			// ajout du lien pour les ressource �lectroniques
 			$this->notice_header .= "&nbsp;<span><a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header .= "<img src=\"".$opac_url_base."styles/crips/images/oeil.png\" border=\"0\" hspace=\"3\"";
+			$this->notice_header .= "<img src=\"styles/crips/images/oeil.png\" border=\"0\" hspace=\"3\"";
 			$this->notice_header .= " alt=\"";
 			$this->notice_header .= $info_bulle;
 			$this->notice_header .= "\" title=\"";
@@ -3416,7 +3416,7 @@ class notice_affichage_crips extends notice_affichage {
 				if(strpos($this->notice->thumbnail_url,"AFFICHES_VIGNETTES") !== false){
 					$hauteur_vig = "";				
 				} else $hauteur_vig= " height=\"150px\" ";
-				if ($depliable) $image = "<img src='".$opac_url_base."images/vide.png' hspace='4' vspace='2' $hauteur_vig isbn='".$code_chiffre."' url_image='".$url_image."' border='1px solid #ccccff' vigurl=\"".$this->notice->thumbnail_url."\">";
+				if ($depliable) $image = "<img src='images/vide.png' hspace='4' vspace='2' $hauteur_vig isbn='".$code_chiffre."' url_image='".$url_image."' border='1px solid #ccccff' vigurl=\"".$this->notice->thumbnail_url."\">";
 				else {
 					if ($this->notice->thumbnail_url) $url_image_ok=$this->notice->thumbnail_url;
 					else $url_image_ok = str_replace("!!noticecode!!", $code_chiffre, $url_image) ;
@@ -3739,7 +3739,7 @@ class notice_affichage_crips extends notice_affichage {
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 
 		//Signataire
 		if($this->customs["SIGNATAIRE"]) $ret .= $this->customs["SIGNATAIRE"];
@@ -3820,7 +3820,7 @@ class notice_affichage_crips extends notice_affichage {
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 
 		//Signataire
 		if($this->customs["SIGNATAIRE"]) $ret .= $this->customs["SIGNATAIRE"];
@@ -3965,9 +3965,9 @@ class notice_affichage_cedias extends notice_affichage {
 					} 
 				$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset) ;
 				
-				if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+				if ($expl->explnum_vignette) $obj="<img src='/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 					else // trouver l'icone correspondant au mime_type
-						$obj="<img src='".$opac_url_base."/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
+						$obj="<img src='/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
 				$expl_liste_obj = "<center>";
 				
 				$words_to_find="";
@@ -4204,7 +4204,7 @@ class notice_affichage_ofdt extends notice_affichage {
 		if($this->notice->n_contenu) $ret .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['n_contenu_start']."</span></td><td>".nl2br(htmlentities($this->notice->n_contenu,ENT_QUOTES, $charset))."</td></tr>";
 	
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		//Champs personalis�s
 		$perso_aff = "" ;
@@ -4324,8 +4324,8 @@ class notice_affichage_commande_copie extends notice_affichage {
 		
 		if($condition_chap|| $condition_art)
 		$this->send_order.= "
-		&nbsp;<img src='".$opac_url_base."images_bsf/commander_$lang.gif' onclick='document.send_order$this->notice_id.submit();'>
-		<form method='post' name='send_order$this->notice_id' target='_blank' action='".$opac_url_base."index.php?lvl=extend&sub=send_order'>
+		&nbsp;<img src='images_bsf/commander_$lang.gif' onclick='document.send_order$this->notice_id.submit();'>
+		<form method='post' name='send_order$this->notice_id' target='_blank' action='index.php?lvl=extend&sub=send_order'>
 			<input type='hidden' name='order_notice_id' id='order_notice_id' value='$this->notice_id' />
 		</form>";
 	}
@@ -4343,12 +4343,12 @@ class notice_affichage_commande_copie extends notice_affichage {
 		$this->premier = $premier ;
 		$this->double_ou_simple = 2 ;
 		$this->notice_childs = $this->genere_notice_childs();
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"".$opac_url_base."images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if ( ($this->tag_allowed==1) || ( ($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag) ) )
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2)) $img_tag .= $this->affichage_avis($this->notice_id);	
@@ -4365,11 +4365,11 @@ class notice_affichage_commande_copie extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onclick=\"expandBase('el!!id!!', true);return false;\" hspace=\"3\" />";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onclick=\"expandBase('el!!id!!', true);return false;\" hspace=\"3\" />";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>!!send_order!!
@@ -4381,7 +4381,7 @@ class notice_affichage_commande_copie extends notice_affichage {
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>!!send_order!!";
 		}
@@ -4449,12 +4449,12 @@ class notice_affichage_commande_copie extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 		else $case_a_cocher = "" ;
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='".$opac_url_base."images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='images/basket_small_20x20.gif' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if (($this->tag_allowed==1)||(($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag)))
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2))
@@ -4469,11 +4469,11 @@ class notice_affichage_commande_copie extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>!!send_order!!
@@ -4488,7 +4488,7 @@ class notice_affichage_commande_copie extends notice_affichage {
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}			
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>!!send_order!!<br />";
 		}
@@ -4625,9 +4625,9 @@ class notice_affichage_reci extends notice_affichage {
 		// Permalink avec Id
 		if ($opac_permalink) {
 			if($this->notice->niveau_biblio != "b"){
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
 			}else {
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
 			}	
 		}
 		$this->affichage_suite = $ret ;
@@ -4655,12 +4655,12 @@ class notice_affichage_ireps extends notice_affichage {
 		$this->premier = $premier ;
 		$this->double_ou_simple = 2 ;
 		$this->notice_childs = $this->genere_notice_childs();
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"".$opac_url_base."/styles/ireps/images/panier.png\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"/styles/ireps/images/panier.png\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if ( ($this->tag_allowed==1) || ( ($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag) ) )
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";	
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2)) $img_tag .= $this->affichage_avis($this->notice_id);	
@@ -4679,12 +4679,12 @@ class notice_affichage_ireps extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg['expandable_notice']."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\" />";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    		
     			$info_bulle_icon=htmlentities($info_bulle_icon,ENT_QUOTES,$charset);	
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -4697,7 +4697,7 @@ class notice_affichage_ireps extends notice_affichage {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    	
     			$info_bulle_icon=htmlentities($info_bulle_icon,ENT_QUOTES,$charset);		
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>";
 		}
@@ -4792,12 +4792,12 @@ class notice_affichage_ireps extends notice_affichage {
 		if ($cart_aff_case_traitement) $case_a_cocher = "<input type='checkbox' value='!!id!!' name='notice[]'/>&nbsp;";
 		else $case_a_cocher = "" ;
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='".$opac_url_base."/styles/ireps/images/panier.png' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src='/styles/ireps/images/panier.png' align='absmiddle' border='0' title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		
 		//add tags
 		if (($this->tag_allowed==1)||(($this->tag_allowed==2)&&($_SESSION["user_code"])&&($allow_tag)))
-			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='".$opac_url_base."images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
+			$img_tag.="<a href='#' onclick=\"open('addtags.php?noticeid=$this->notice_id','ajouter_un_tag','width=350,height=150,scrollbars=yes,resizable=yes'); return false;\"><img src='images/tag.png' align='absmiddle' border='0' title=\"".$msg['notice_title_tag']."\" alt=\"".$msg['notice_title_tag']."\"></a>";
 		
 		 //Avis
 		if (($this->avis_allowed && $this->avis_allowed !=2)|| ($_SESSION["user_code"] && $this->avis_allowed ==2))
@@ -4813,12 +4813,12 @@ class notice_affichage_ireps extends notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg['info_bulle_icon']);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon); 
     			$info_bulle_icon= htmlentities($info_bulle_icon,ENT_QUOTES,$charset);			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>
@@ -4834,7 +4834,7 @@ class notice_affichage_ireps extends notice_affichage {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    		
     			$info_bulle_icon= htmlentities($info_bulle_icon,ENT_QUOTES,$charset);
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}			
     		$template.="<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span><br />";
 		}
@@ -4987,7 +4987,7 @@ class notice_affichage_ireps extends notice_affichage {
 			else $info_bulle=$this->notice->eformat;
 			// ajout du lien pour les ressource �lectroniques
 			$this->notice_header .= "&nbsp;<span class='notice_link'><a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header .= "<img src=\"".$opac_url_base."images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
+			$this->notice_header .= "<img src=\"images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			$this->notice_header .= " alt=\"";
 			$this->notice_header .= $info_bulle;
 			$this->notice_header .= "\" title=\"";
@@ -5128,9 +5128,9 @@ class notice_affichage_ireps extends notice_affichage {
 		// Permalink avec Id
 		if ($opac_permalink) {
 			if($this->notice->niveau_biblio != "b"){
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."</a></td></tr>";	
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>index.php?lvl=notice_display&id=".$this->notice_id."</a></td></tr>";	
 			}else {
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."</a></td></tr>";
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>index.php?lvl=bulletin_display&id=".$this->bulletin_id."</a></td></tr>";
 			}	
 		}
 		$this->affichage_suite = $ret ;
@@ -5229,7 +5229,7 @@ class notice_affichage_ireps extends notice_affichage {
 			for ($i=0; $i<count($colonnesarray); $i++) {
 				eval ("\$colencours=\$expl->".$colonnesarray[$i].";");
 				if ($colonnesarray[$i]=="location_libelle" && $expl->num_infopage) 
-					$expl_liste.="<td class='".$colonnesarray[$i]."'><a href=\"".$opac_url_base."index.php?lvl=infopages&pagesid=".$expl->num_infopage."\" alt=\"".$msg['location_more_info']."\" title=\"".$msg['location_more_info']."\">".htmlentities($colencours, ENT_QUOTES, $charset)."</a></td>";
+					$expl_liste.="<td class='".$colonnesarray[$i]."'><a href=\"index.php?lvl=infopages&pagesid=".$expl->num_infopage."\" alt=\"".$msg['location_more_info']."\" title=\"".$msg['location_more_info']."\">".htmlentities($colencours, ENT_QUOTES, $charset)."</a></td>";
 				else 
 					$expl_liste.="<td class='".$colonnesarray[$i]."'>".htmlentities($colencours,ENT_QUOTES, $charset)."</td>";
 			}
@@ -5366,7 +5366,7 @@ class notice_affichage_invs extends notice_affichage {
 				if ($notice->author_date) $auteur_isbd .= " (".$notice->author_date.")" ;
 			}	
 			// URL de l'auteur
-			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='".$opac_url_base."images/globe.gif' border='0'/></a>";
+			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='images/globe.gif' border='0'/></a>";
 			else $auteur_web_link = "" ;
 			if (!$this->to_print) $auteur_isbd .= $auteur_web_link ;
 			$auteur_isbd = inslink($auteur_isbd, str_replace("!!id!!", $notice->author_id, $this->lien_rech_auteur),$info_bulle) ;
@@ -5668,9 +5668,9 @@ class notice_affichage_invs extends notice_affichage {
 		// Permalink avec Id
 		if ($opac_permalink) {
 			if($this->notice->niveau_biblio != "b"){
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";	
 			}else {
-				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
+				$ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=bulletin_display&id=".$this->bulletin_id."'>".substr($opac_url_base."index.php?lvl=bulletin_display&id=".$this->bulletin_id,0,80)."</a></td></tr>";
 			}	
 		}
 		$this->affichage_suite = $ret ;
@@ -5907,7 +5907,7 @@ class notice_affichage_wmo extends notice_affichage {
 		
 		
 		// Permalink avec Id
-		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
+		if ($opac_permalink) $ret.= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg["notice_permalink"]."</span></td><td><a href='index.php?lvl=notice_display&id=".$this->notice_id."'>".substr($opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id,0,80)."</a></td></tr>";
 	
 		$this->affichage_suite = $ret ;
 		return $ret ;
@@ -5951,7 +5951,7 @@ class notice_affichage_wmo extends notice_affichage {
 				if ($notice->author_date) $auteur_isbd .= " (".$notice->author_date.")" ;
 			}	
 			// URL de l'auteur
-			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='".$opac_url_base."images/globe.gif' border='0'/></a>";
+			if ($notice->author_web) $auteur_web_link = " <a href='$notice->author_web' target='_blank'><img src='images/globe.gif' border='0'/></a>";
 			else $auteur_web_link = "" ;
 			if (!$this->to_print) $auteur_isbd .= $auteur_web_link ;
 			$auteur_isbd = inslink($auteur_isbd, str_replace("!!id!!", $notice->author_id, $this->lien_rech_auteur),$info_bulle) ;
@@ -6273,16 +6273,16 @@ class notice_affichage_wmo extends notice_affichage {
 					} 
 				$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset) ;
 				
-				if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+				if ($expl->explnum_vignette) $obj="<img src='/vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 					else // trouver l'icone correspondant au mime_type
-						$obj="<img src='".$opac_url_base."/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
+						$obj="<img src='/images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
 				$expl_liste_obj = "<center>";
 				
 				$words_to_find="";
 				if(($expl->explnum_mimetype=='application/pdf') ||($expl->explnum_mimetype=='URL' && (strpos($expl->explnum_nom,'.pdf')!==false))){
 					$words_to_find = "#search=\"".trim(str_replace('*','',implode(' ',$search_terms)))."\"";
 				}
-				$expl_liste_obj .= "<a href='".$opac_url_base."/doc_num.php?explnum_id=$expl->explnum_id$words_to_find' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
+				$expl_liste_obj .= "<a href='/doc_num.php?explnum_id=$expl->explnum_id$words_to_find' alt='$alt' title='$alt' target='_blank'>".$obj."</a><br />" ;
 				
 				if ($_mimetypes_byext_[$expl->explnum_extfichier]["label"]) $explmime_nom = $_mimetypes_byext_[$expl->explnum_extfichier]["label"] ;
 					elseif ($_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"]) $explmime_nom = $_mimetypes_bymimetype_[$expl->explnum_mimetype]["label"] ;
@@ -6402,12 +6402,12 @@ class notice_affichage_wmo extends notice_affichage {
 			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     		$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);   
     		
-			$this->notice_header .="<img src=\"".$opac_url_base."images/$icon\" class='icondoc' alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+			$this->notice_header .="<img src=\"images/$icon\" class='icondoc' alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
 		
 		
 		//Titre + WMO-URL de la notice sur le header
-		if ($this->notice_header && $this->notice->tit4) {$this->notice_header .= "<b class='heada_wmo'><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."' class='heada_wmo'>".$this->notice->tit1."&nbsp;: ".$this->notice->tit4."</a>";}
-			elseif (!$this->notice->tit4) $this->notice_header .= "<b class='heada_wmo'><a href='".$opac_url_base."index.php?lvl=notice_display&id=".$this->notice_id."' class='heada_wmo'>".$this->notice->tit1."</a>" ;
+		if ($this->notice_header && $this->notice->tit4) {$this->notice_header .= "<b class='heada_wmo'><a href='index.php?lvl=notice_display&id=".$this->notice_id."' class='heada_wmo'>".$this->notice->tit1."&nbsp;: ".$this->notice->tit4."</a>";}
+			elseif (!$this->notice->tit4) $this->notice_header .= "<b class='heada_wmo'><a href='index.php?lvl=notice_display&id=".$this->notice_id."' class='heada_wmo'>".$this->notice->tit1."</a>" ;
 		
 		
 		// r�cup�ration du titre de s�rie
@@ -6437,7 +6437,7 @@ class notice_affichage_wmo extends notice_affichage {
 			else $info_bulle=$this->notice->eformat;
 			// ajout du lien pour les ressource �lectroniques
 			$this->notice_header .= "&nbsp;<a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header .= "<img src=\"".$opac_url_base."styles/wmo/images/globe.gif\" class='globe_wmo'";
+			$this->notice_header .= "<img src=\"styles/wmo/images/globe.gif\" class='globe_wmo'";
 			$this->notice_header .= " alt=\"";
 			$this->notice_header .= $info_bulle;
 			$this->notice_header .= "\" title=\"";
@@ -6531,7 +6531,7 @@ class notice_affichage_wmo extends notice_affichage {
 		$memo_notice[$this->notice_id]["niveau_biblio"]	= $this->notice->niveau_biblio;
 		
 		
-		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"".$opac_url_base."images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
+		if ($this->cart_allowed) $basket="<a href=\"cart_info.php?id=".$this->notice_id."&header=".rawurlencode(strip_tags($this->notice_header))."\" target=\"cart_info\" class=\"img_basket\"><img src=\"images/basket_small_20x20.gif\" border=\"0\" title=\"".$msg['notice_title_basket']."\" alt=\"".$msg['notice_title_basket']."\"></a>"; 
 		else $basket="";
 		$this->notice_header .= "</span><br/><div class='basket_wmo'>".$basket."</div></span><hr id='record_separator'>";
 	}
@@ -6596,9 +6596,9 @@ class notice_affichage_ensosp extends notice_affichage {
 					} 
 				$alt = htmlentities($expl->explnum_nom." - ".$expl->explnum_mimetype,ENT_QUOTES, $charset) ;
 				
-				if ($expl->explnum_vignette) $obj="<img src='".$opac_url_base."vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
+				if ($expl->explnum_vignette) $obj="<img src='vig_num.php?explnum_id=$expl->explnum_id' alt='$alt' title='$alt' border='0'>";
 					else // trouver l'icone correspondant au mime_type
-						$obj="<img src='".$opac_url_base."images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
+						$obj="<img src='images/mimetype/".icone_mimetype($expl->explnum_mimetype, $expl->explnum_extfichier)."' alt='$alt' title='$alt' border='0'>";		
 				$expl_liste_obj = "<center>";
 				
 				$words_to_find="";
@@ -6609,7 +6609,7 @@ class notice_affichage_ensosp extends notice_affichage {
 					$allowed_mimetype = explode(",",str_replace("'","",$opac_photo_filtre_mimetype));
 				if ($allowed_mimetype && in_array($expl->explnum_mimetype,$allowed_mimetype)){
 					$link="
-						<script type='text/javascript' src='".$opac_url_base."visionneuse/javascript/visionneuse.js'></script>
+						<script type='text/javascript' src='visionneuse/javascript/visionneuse.js'></script>
 						<script type='text/javascript'>
 							if(typeof(sendToVisionneuse) == 'undefined'){
 								function sendToVisionneuse(explnum_id){
@@ -6778,7 +6778,7 @@ class notice_affichage_ensosp extends notice_affichage {
 			else $info_bulle=$this->notice->eformat;
 			// ajout du lien pour les ressource �lectroniques			
 			$this->notice_header_doclink .= "&nbsp;<span class='notice_link'><a href=\"".$this->notice->lien."\" target=\"__LINK__\">";
-			$this->notice_header_doclink .= "<img src=\"".$opac_url_base."images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
+			$this->notice_header_doclink .= "<img src=\"images/globe.gif\" border=\"0\" align=\"middle\" hspace=\"3\"";
 			$this->notice_header_doclink .= " alt=\"";
 			$this->notice_header_doclink .= $info_bulle;
 			$this->notice_header_doclink .= "\" title=\"";

@@ -9,6 +9,7 @@ $Id: languages.xml,v 1.14 2010-12-01 20:06:37 touraine37 Exp $
 -->
 
 <XMLlist>
+	<entry code="sq_AL">Shqip</entry>
 	<entry code="fr_FR">Français</entry>
 	<entry code="es_ES">Español</entry>
 <!-- pas suffisamment traduit
