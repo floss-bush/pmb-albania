@@ -369,7 +369,7 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="show_cart_print">Printo...</entry>
   <entry code="show_cart_content">Permbajtja e shportes tuaj</entry>
   <entry code="show_cart_n_notices">%s lajm(e)</entry>
-  <entry code="show_cart_is_empty">Shporta juar eshte bosh!</entry>
+  <entry code="show_cart_is_empty">Shporta juaj eshte bosh!</entry>
   <entry code="l_browse_title">Nuk dini cfare te kerkoni ? Hyni ne biblioteke...</entry>
   <entry code="l_title_search">Keni nje titull ose nje autor : %s klikoni ketu per te bere nje kerkim %s ose eksploroni seksionet..</entry>
   <entry code="l_rayons">Kthehuni tek lista e seksioneve</entry>
