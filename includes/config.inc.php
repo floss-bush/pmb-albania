@@ -27,7 +27,7 @@ $default_helpdir = $default_lang;
 $charset= 'iso-8859-1';
 
 // feuille de style � utiliser
-$stylesheet = 'light';
+$stylesheet = 'nova';
 
 // utilisation des raccourcis clavier (0=non ; 1=oui)
 $use_shortcuts = 1;
@@ -86,7 +86,7 @@ $helpdir = $lang;
 $backup_dir = "backups";
 
 // est stock�e en base mais par d�faut, si vide ...
-if (!$pmb_opac_url) $pmb_opac_url = "./opac_css/";
+if (!$pmb_opac_url) $pmb_opac_url = "";
 	
 /* Nbre d'enregistrements affich�s par page */
 /* autorit�s */                  /* each was 10 */
@@ -133,7 +133,7 @@ $alertsound[question]="<embed src='sounds/boing.wav' autostart='true' loop='fals
 $alertsound[application]="<embed src='sounds/boing.wav' autostart='true' loop='false' hidden='true' width='0' height='0'>";
 $param_sounds = 1 ;
 
-$homepage = 'http://www.sigb.net/';
+$homepage = 'http://bush.unishk.edu.al';
 
 @include_once("includes/config_local.inc.php") ;
 @include_once("config_local.inc.php") ;
