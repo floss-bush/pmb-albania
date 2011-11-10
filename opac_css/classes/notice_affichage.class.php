@@ -755,7 +755,7 @@ class notice_affichage {
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>".$this->notice_header_doclink."
@@ -912,11 +912,11 @@ class notice_affichage {
 			$template="
 				<div id=\"el!!id!!Parent\" class=\"notice-parent\">
 				$case_a_cocher
-	    		<img class='img_plus' src=\"".$opac_url_base."images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
+	    		<img class='img_plus' src=\"images/plus.gif\" name=\"imEx\" id=\"el!!id!!Img\" title=\"".$msg["expandable_notice"]."\" border=\"0\" onClick=\"expandBase('el!!id!!', true); return false;\" hspace=\"3\"/>";
 			if ($icon) {
     			$info_bulle_icon=str_replace("!!niveau_biblio!!",$biblio_doc[$this->notice->niveau_biblio],$msg["info_bulle_icon"]);
     			$info_bulle_icon=str_replace("!!typdoc!!",$tdoc->table[$this->notice->typdoc],$info_bulle_icon);    			
-    			$template.="<img src=\"".$opac_url_base."images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
+    			$template.="<img src=\"images/$icon\" alt='".$info_bulle_icon."' title='".$info_bulle_icon."'/>";
     		}
     		$template.="		
 				<span class=\"notice-heada\" draggable=\"yes\" dragtype=\"notice\" id=\"drag_noti_!!id!!\">!!heada!!</span>".$this->notice_header_doclink."
