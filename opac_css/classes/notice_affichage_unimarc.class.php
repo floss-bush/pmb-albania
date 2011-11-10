@@ -83,40 +83,40 @@ class notice_affichage_unimarc {
  	var $langues = array();
 	var $languesorg = array();
   	
-  	var $action		= '';	// URL à associer au header
-	var $header		= '';	// chaine accueillant le chapeau de notice (peut-être cliquable)
-	var $tit_serie		= '';	// titre de série si applicable
+  	var $action		= '';	// URL ï¿½ associer au header
+	var $header		= '';	// chaine accueillant le chapeau de notice (peut-ï¿½tre cliquable)
+	var $tit_serie		= '';	// titre de sï¿½rie si applicable
 	var $tit1		= '';	// valeur du titre 1
 	var $result		= '';	// affichage final
-	var $isbd		= '';	// isbd de la notice en fonction du level défini
+	var $isbd		= '';	// isbd de la notice en fonction du level dï¿½fini
 	var $expl		= 0;	// flag indiquant si on affiche les infos d'exemplaire
-	var $link_expl		= '';	// lien associé à un exemplaire
+	var $link_expl		= '';	// lien associï¿½ ï¿½ un exemplaire
 	var $show_resa		= 0;	// flag indiquant si on affiche les infos de resa
 	var $p_perso;
 	var $cart_allowed = 0;
 	var $avis_allowed = 0;
 	var $tag_allowed = 0;
 	var $to_print = 0;
-	var $affichage_resa_expl = "" ; // lien réservation, exemplaires et exemplaires numériques, en tableau comme il faut  
-	var $affichage_expl = "" ;  // la même chose mais sans le lien réservation
+	var $affichage_resa_expl = "" ; // lien rï¿½servation, exemplaires et exemplaires numï¿½riques, en tableau comme il faut  
+	var $affichage_expl = "" ;  // la mï¿½me chose mais sans le lien rï¿½servation
 
 	var $statut = 1 ;  			// Statut (id) de la notice
-	var $statut_notice = "" ;  	// Statut (libellé) de la notice
-	var $visu_notice = 1 ;  	// Visibilité de la notice à tout le monde
-	var $visu_notice_abon = 0 ; // Visibilité de la notice aux abonnés uniquement
-	var $visu_expl = 1 ;  		// Visibilité des exemplaires de la notice à tout le monde
-	var $visu_expl_abon = 0 ;  	// Visibilité des exemplaires de la notice aux abonnés uniquement
-	var $visu_explnum = 1 ;  	// Visibilité des exemplaires numériques de la notice à tout le monde
-	var $visu_explnum_abon = 0 ;// Visibilité des exemplaires numériques de la notice aux abonnés uniquement
+	var $statut_notice = "" ;  	// Statut (libellï¿½) de la notice
+	var $visu_notice = 1 ;  	// Visibilitï¿½ de la notice ï¿½ tout le monde
+	var $visu_notice_abon = 0 ; // Visibilitï¿½ de la notice aux abonnï¿½s uniquement
+	var $visu_expl = 1 ;  		// Visibilitï¿½ des exemplaires de la notice ï¿½ tout le monde
+	var $visu_expl_abon = 0 ;  	// Visibilitï¿½ des exemplaires de la notice aux abonnï¿½s uniquement
+	var $visu_explnum = 1 ;  	// Visibilitï¿½ des exemplaires numï¿½riques de la notice ï¿½ tout le monde
+	var $visu_explnum_abon = 0 ;// Visibilitï¿½ des exemplaires numï¿½riques de la notice aux abonnï¿½s uniquement
 	
 	var $childs = array() ; // filles de la notice
-	var $notice_childs = "" ; // l'équivalent à afficher
+	var $notice_childs = "" ; // l'ï¿½quivalent ï¿½ afficher
 	var $anti_loop="";
 	var $seule = 0 ;
 	var $premier = "PUBLIC" ;
 	var $double_ou_simple = 2 ;
 	var $avis_moyenne ; // Moyenne des  avis
-	var $avis_qte; // Quantité d'un avis 
+	var $avis_qte; // Quantitï¿½ d'un avis 
 	
 	var $antiloop=array();
 	
@@ -129,7 +129,7 @@ class notice_affichage_unimarc {
 	
 // constructeur------------------------------------------------------------
 function notice_affichage_unimarc($id, $liens, $cart=0, $to_print=0, $entrepots_localisations=array()) {
-  	// $id = id de la notice à afficher
+  	// $id = id de la notice ï¿½ afficher
   	// $liens	 = tableau de liens tel que ci-dessous
   	// $cart : afficher ou pas le lien caddie
   	// $to_print = affichage mode impression ou pas
@@ -163,7 +163,7 @@ function notice_affichage_unimarc($id, $liens, $cart=0, $to_print=0, $entrepots_
 		
 	$this->to_print = $to_print;
 	
-  	// $seule : si 1 la notice est affichée seule et dans ce cas les notices childs sont en mode dépliable
+  	// $seule : si 1 la notice est affichï¿½e seule et dans ce cas les notices childs sont en mode dï¿½pliable
   	global $seule ;
   	$this->seule = $seule ;
 
@@ -178,7 +178,7 @@ function notice_affichage_unimarc($id, $liens, $cart=0, $to_print=0, $entrepots_
 	//$this->p_perso=new parametres_perso("notices");
 }
 
-// récupération des valeurs en table---------------------------------------
+// rï¿½cupï¿½ration des valeurs en table---------------------------------------
 function fetch_data() {
 	global $dbh;
 
@@ -219,7 +219,7 @@ function fetch_data() {
 				case "hl":					
 					if($l->value == '2'){
 						$notice->niveau_hierar=$l->value;
-					} else $notice->niveau_hierar='0'; //On force le niveau à zéro
+					} else $notice->niveau_hierar='0'; //On force le niveau ï¿½ zï¿½ro
 					break;
 				//ISBN
 				case "010":
@@ -290,7 +290,7 @@ function fetch_data() {
 				case "330":
 					$notice->n_resume=$l->value;
 					break;
-				//Serie ou Pério
+				//Serie ou Pï¿½rio
 				case "461":		
 					switch($l->usubfield){
 						case 'x':
@@ -360,7 +360,7 @@ function fetch_data() {
 							$notice->thumbnail_url=$l->value;
 					}
 					break;
-				//Documents numériques
+				//Documents numï¿½riques
 				case "897":
 					$doc_nums[$l->field_order][$l->usubfield] = $l->value;
 					break;
@@ -785,7 +785,7 @@ function genere_double($depliable=1, $premier='ISBD') {
 			<div id='div_public!!id!!' style='display:block;'>!!PUBLIC!!</div>
   			<div id='div_isbd!!id!!' style='display:none;'>!!ISBD!!</div>";
 	
-	// Serials : différence avec les monographies on affiche [périodique] et [article] devant l'ISBD
+	// Serials : diffï¿½rence avec les monographies on affiche [pï¿½riodique] et [article] devant l'ISBD
 	if ($this->notice->niveau_biblio =='s') {
 		$lien_bull = (count($this->get_bulletins()) ? "&nbsp;<a href='index.php?lvl=notice_display&id=".$this->notice_id."'><i>".$msg["see_bull"]."</i></a>" : "");
 		$template_in = str_replace('!!ISBD!!', "<span class='fond-mere'>[".$msg['isbd_type_perio']."]</span>$lien_bull&nbsp;!!ISBD!!", $template_in);
@@ -1218,7 +1218,7 @@ function do_public($short=0,$ex=1) {
 		} else 
 			if (count($this->languesorg)) $this->notice_public .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['711']." :</span></td><td>".$this->construit_liste_langues($this->languesorg)."</td></tr>"; 
 
-	//Documents numériques
+	//Documents numï¿½riques
 	$this->notice_public .= "<tr><td align='right' class='bg-grey'><span class='etiq_champ'>".$msg['entrepot_notice_docnum']."</span></td><td>";
 	if ($this->docnums) {
 		$this->notice_public .= "<ul>";
@@ -1568,7 +1568,7 @@ function expl_list() {
 	$final_location = array();
 	foreach ($this->exemplaires as $expl) {
 		$alocation = array();
-		//Si on trouve une localisation, on la convertie en libelle et on l'oublie si spécifié
+		//Si on trouve une localisation, on la convertie en libelle et on l'oublie si spï¿½cifiï¿½
 		if (isset($expl["v"]) && preg_match("/\d{9}/", $expl["v"]) && $this->entrepots_localisations) {
 			if (isset($this->entrepots_localisations[$expl["v"]])) {
 				if (!$this->entrepots_localisations[$expl["v"]]["visible"]) {
