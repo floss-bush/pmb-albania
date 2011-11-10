@@ -1,0 +1,50 @@
+#
+#	Note explicative
+#
+#	Les contenus decrits ici ont pour but de renseigner les parametres
+#	dans la partie gestion de l'opac PMB. Les valeurs sont a renseigner 
+#	suivant les directives #obligatoire #recommande...
+#
+#	Il est possible que certains parametres non decrits ci-dessous n'aient pas l'affichage 
+#	souhaite, auquel cas il vous faudra contacter le realisateur de cette charte pour
+#	implementer le parametre en question.
+#	
+#	Une sauvegarde des valeurs est toujours souhaitee avant modification, 
+#	communement en collant le contenu du champ "Valeur" dans le champ "Explication"
+#
+
+/*************************
+biblio_important_p1
+#obligatoire
+*************************/
+<map name="map_lien_retour" id="map_lien_retour">
+<area shape="rect" coords="0,0,700,200" href="index.php?lvl=index" alt="Retour à l'accueil" /></map>
+#Suivi d'un texte court facultatif, prefere pour l'esthetique
+Texte court facultatif
+
+/*************************
+biblio_important_p2
+#facultatif
+*************************/
+Contenu textuel biblio_important_p2
+
+
+/*************************
+biblio_name
+#obligatoire
+*************************/
+BM Château du Loir
+
+
+/*************************
+biblio_preamble_p1
+#obligatoire
+*************************/
+<img src="./images/bar_spacer.gif" usemap="#map_lien_retour" class="lien_accueil" alt="" />
+Contenu textuel biblio_preamble_p1
+
+/*************************
+biblio_preamble_p2
+#facultatif
+*************************/
+Contenu textuel biblio_preamble_p2
