@@ -1,10 +1,10 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: audit.php,v 1.4 2010-05-31 12:55:42 gueluneau Exp $
 
-// définition du minimum nécéssaire 
+// dï¿½finition du minimum nï¿½cï¿½ssaire 
 $base_path=".";                            
 $base_auth = "CATALOGAGE_AUTH";  
 $base_title = "\$msg[audit_titre]";
@@ -23,7 +23,7 @@ switch($pmb_type_audit) {
 		}		
 		break;
 	case '2':
-		$audit = new audit($type_obj, $object_id) ;
+		$audit = new audit($type_obj, $object_id) ; 
 		$audit->get_all() ;
 		$all = $audit->all_audit ;
 		break;

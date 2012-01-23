@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: bull_info.inc.php,v 1.47.2.1 2011-08-31 09:20:45 dbellamy Exp $
 
@@ -49,7 +49,7 @@ function get_expl($expl) {
 		if (mysql_num_rows($result_prets)) $expl_pret = mysql_fetch_object($result_prets) ;
 		else $expl_pret="";
 		$situation = "";
-		// prêtable ou pas s'il est prêté, on affiche son état
+		// prï¿½table ou pas s'il est prï¿½tï¿½, on affiche son ï¿½tat
 		if (is_object($expl_pret) && $expl_pret->pret_idempr) {
 			// exemplaire sorti
 			$rqt_empr = "SELECT empr_nom, empr_prenom, id_empr, empr_cb FROM empr WHERE id_empr='$expl_pret->pret_idempr' ";
@@ -64,11 +64,11 @@ function get_expl($expl) {
 			}
 			$situation .= "<br />$img_ajout_empr_caddie<a href='./circ.php?categ=pret&form_cb=".rawurlencode($res_empr_obj->empr_cb)."'>$res_empr_obj->empr_prenom $res_empr_obj->empr_nom</a>";
 		} else {
-			// tester si réservé				
+			// tester si rï¿½servï¿½				
 			$result_resa = mysql_query("select 1 from resa where resa_cb='".addslashes($valeur->expl_cb)."' ", $dbh) or die ();
 			$reserve = mysql_num_rows($result_resa);
 			if ($reserve) 
-				$situation = "<strong>".$msg['expl_reserve']."</strong>"; // exemplaire réservé
+				$situation = "<strong>".$msg['expl_reserve']."</strong>"; // exemplaire rï¿½servï¿½
 			elseif ($valeur->pret_flag)  
 				$situation = "<strong>${msg[359]}</strong>"; // exemplaire disponible
 			else 
@@ -84,7 +84,7 @@ function get_expl($expl) {
 			$ajout_expl_panier ="";
 		}
 		
-		//si les transferts sont activés
+		//si les transferts sont activï¿½s
 		if ($pmb_transferts_actif) {
 			//si l'exemplaire n'est pas transferable on a une image vide
 			$dispo_pour_transfert = transfert::est_transferable ( $valeur->expl_id );
@@ -101,7 +101,7 @@ function get_expl($expl) {
 		$as_modif = true;		
 		global $flag_no_delete_bulletin;
 		$flag_no_delete_bulletin=0;
-		//visibilité des exemplaires
+		//visibilitï¿½ des exemplaires
 		if ($pmb_droits_explr_localises) {
 			$as_invis = in_array($valeur->expl_location,$explr_tab_invis);
 			$as_unmod = in_array($valeur->expl_location,$explr_tab_unmod);
@@ -150,7 +150,7 @@ function get_expl($expl) {
 }
 
 
-// get_analysis : retourne les dépouillements pour un bulletinage donné
+// get_analysis : retourne les dï¿½pouillements pour un bulletinage donnï¿½
 function get_analysis($bul_id) {
 	global $dbh;
 
@@ -159,15 +159,15 @@ function get_analysis($bul_id) {
 	$requete = "SELECT * FROM analysis WHERE analysis_bulletin=$bul_id ORDER BY analysis_notice"; 	
 	$myQuery = mysql_query($requete, $dbh);
 
-	// attention, c'est complexe là. on définit ce qui va se passer pour les liens affichés dans les notices
-	// 1. si le lien est vers une notice chapeau de périodique
+	// attention, c'est complexe lï¿½. on dï¿½finit ce qui va se passer pour les liens affichï¿½s dans les notices
+	// 1. si le lien est vers une notice chapeau de pï¿½riodique
 	$link_serial = "./catalog.php?categ=serials&sub=view&serial_id=!!id!!";
-	// 2. si le lien est vers un dépouillement
+	// 2. si le lien est vers un dï¿½pouillement
 	$link_analysis = "./catalog.php?categ=serials&sub=analysis&action=analysis_form&bul_id=$bul_id&analysis_id=!!id!!";
 	// 3. si le lien est vers un bulletin
 	$link_bulletin = "./catalog.php?categ=serials&sub=bulletinage&action=view&bul_id=!!id!!";
-	// note : si une de ces trois variables est vide, aucun lien n'est crée en ce qui la concerne dans les notices
-	// exemple : dans cette page, on affiche les infos sur ce bulletinage, il ne sert donc à rien d'afficher un lien
+	// note : si une de ces trois variables est vide, aucun lien n'est crï¿½e en ce qui la concerne dans les notices
+	// exemple : dans cette page, on affiche les infos sur ce bulletinage, il ne sert donc ï¿½ rien d'afficher un lien
 	// vers celui-ci. donc :
 	$link_bulletin = '';
 	 
@@ -182,7 +182,7 @@ function get_analysis($bul_id) {
 	return $analysis_list;
 } 
 
-// affichage d'informations pour une entrée de bulletinage
+// affichage d'informations pour une entrï¿½e de bulletinage
 function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0, $flag_pointe=0 ) {
 	global $dbh;
 	global $msg, $base_path, $charset;
@@ -271,7 +271,7 @@ function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0, 
 		$aff_expandable = str_replace('!!id!!', $bul_id, $javascript_template);
 		$aff_expandable = str_replace('!!heada!!', $cart_link." ".$bul_isbd, $aff_expandable);
 
-		// affichage des exemplaires associés
+		// affichage des exemplaires associï¿½s
 		$list_expl  = "<div class='exemplaires-perio'>";
 		$list_expl .= "<h3>".$msg[4012]."</h3>";
 		$list_expl .= "<div class='row'>".get_expl($myBul->expl)."</div></div>";
@@ -284,7 +284,7 @@ function show_bulletinage_info($bul_id, $lien_cart_ajout=1, $lien_cart_suppr=0, 
 			$affichage_final .=  $list_expl;
 		} 
 		
-		// zone d'affichage des dépouillements
+		// zone d'affichage des dï¿½pouillements
 		$liste = get_analysis($bul_id);
 		if($liste) {
 			$liste_dep = $liste;

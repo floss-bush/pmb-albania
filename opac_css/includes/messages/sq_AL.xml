@@ -709,8 +709,8 @@ $Id: sq_AL.xml,v 1.201 2011-11-10 10:05:05 gjergj sheldija Exp $ -->
   <entry code="subs_bouton_acces_compte">Mund te aksesoni tek llogaria juaj.</entry>
   <entry code="dsi_ban_typeexport">Prano edhe kete format :</entry>
   <entry code="dsi_ban_noexport">Asnje eksportim</entry>
-  <entry code="expl_header_expl_cb">Barkode</entry>
-  <entry code="expl_header_expl_cote">Inventari</entry>
+  <entry code="expl_header_expl_cb">Inventari</entry>
+  <entry code="expl_header_expl_cote">Signatura</entry>
   <entry code="expl_header_location_libelle">Vendndodhja</entry>
   <entry code="expl_header_section_libelle">Seksioni</entry>
   <entry code="expl_header_tdoc_libelle">Media</entry>

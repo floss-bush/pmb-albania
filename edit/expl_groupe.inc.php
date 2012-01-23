@@ -1,15 +1,15 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: expl_groupe.inc.php,v 1.33 2009-06-17 14:59:20 kantin Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
-//Récupération des variables postées, on en aura besoin pour les liens
+//Rï¿½cupï¿½ration des variables postï¿½es, on en aura besoin pour les liens
 $page=$_SERVER[SCRIPT_NAME];
 
-//Requete et calcul du nombre de pages à afficher selon la taille de la base 'pret'
+//Requete et calcul du nombre de pages ï¿½ afficher selon la taille de la base 'pret'
 // ********************************************************************************
 
 $sql = "";
@@ -26,17 +26,17 @@ $req_nombre_lignes_pret = mysql_query($sql);
 
 $nombre_lignes_pret = mysql_numrows($req_nombre_lignes_pret);
 
-//Si aucune limite_page n'a été passée, valeur par défaut : 10
+//Si aucune limite_page n'a ï¿½tï¿½ passï¿½e, valeur par dï¿½faut : 10
 if ($limite_page=="") {$limite_page = 10; }
 $nbpages= $nombre_lignes_pret / $limite_page; 
 
-// on arondi le nombre de page pour ne pas avoir de virgules, ici au chiffre supérieur 
+// on arondi le nombre de page pour ne pas avoir de virgules, ici au chiffre supï¿½rieur 
 $nbpages_arrondi = ceil($nbpages); 
 
-// on enlève 1 au nombre de pages, car la 1ere page affichée ne fait pas partie des pages suivantes
+// on enlï¿½ve 1 au nombre de pages, car la 1ere page affichï¿½e ne fait pas partie des pages suivantes
 $nbpages_arrondi = $nbpages_arrondi - 1; 
 
-// si par un quelconque hasard, on se retrouve après le dernier enregistrement, rechargement de la liste au premier ouvrage
+// si par un quelconque hasard, on se retrouve aprï¿½s le dernier enregistrement, rechargement de la liste au premier ouvrage
 if ($numero_page > $nbpages_arrondi) {
 	echo "<script language=\"javascript\">document.location.replace(\"".$page."?categ=".$categ."&sub=".$sub."&limite_page=".$limite_page."\");</script>";
 	}
@@ -70,7 +70,7 @@ $sql.= "        empr,pret,empr_groupe, groupe ";
 $sql .= "WHERE pret.pret_idempr = empr.id_empr AND pret.pret_idexpl = exemplaires.expl_id AND empr_groupe.empr_id = empr.id_empr AND groupe.id_groupe = empr_groupe.groupe_id ";
 $sql .= $critere_requete; 
 
-//Renvoi un tableau contenant la liste des groupes, ainsi que l'index du premier élément de ce groupe dans la requete.
+//Renvoi un tableau contenant la liste des groupes, ainsi que l'index du premier ï¿½lï¿½ment de ce groupe dans la requete.
 mysql_query("SET @rank :=0;");
 $sqlgroup = "
 SELECT id_groupe, libelle_groupe, MIN(rank) as min_pos FROM (
@@ -89,8 +89,8 @@ while ($row = mysql_fetch_array($req)) {
 	$groups[$row["id_groupe"]]=array("libelle" => $row["libelle_groupe"], "first_pos" => $row["min_pos"]-1);
 }
 
-// si la variable numero de page a une valeur ou est différente de 0,
-// on multiplie la limite par le numero de la page passée par l'url
+// si la variable numero de page a une valeur ou est diffï¿½rente de 0,
+// on multiplie la limite par le numero de la page passï¿½e par l'url
 // sinon, pas de variable numero_page
 if (!isset($gogroup_id)) 
 	$gogroup_id = -1;
@@ -108,7 +108,7 @@ else {
 
 $sql .= " LIMIT ".$limite_mysql.", ".$limite_page;
 
-// on lance la requête (mysql_query) et on impose un message d'erreur si la requête ne se passe pas bien (or die) 
+// on lance la requï¿½te (mysql_query) et on impose un message d'erreur si la requï¿½te ne se passe pas bien (or die) 
 $req = mysql_query($sql) or die("Erreur SQL !<br />".$sql."<br />".mysql_error()); 
 
 echo "<form class='form-$current_module' action=$page?categ=$categ&sub=$sub&limite_page=$limite_page&numero_page=$numero_page method=post>";
@@ -199,7 +199,7 @@ while ($data = mysql_fetch_array($req)) {
 	
 	$header_aut ? $auteur=$header_aut : $auteur="";
 
-	// on affiche les résultats 
+	// on affiche les rï¿½sultats 
 	if ($id_groupe!=$ancien_groupe) {
 		// compter les totaux pour ce groupe et les retards
 		$sqlcount = "SELECT count(pret_idexpl) as combien , IF(pret_retour>=curdate(),0,1) as retard ";
@@ -293,7 +293,7 @@ while ($data = mysql_fetch_array($req)) {
 			echo "<td><a href=\"./circ.php?categ=pret&form_cb=".rawurlencode($empr_cb)."\">".$empr_nom.", ".$empr_prenom."</a></td>"; 
 			echo "<td>".$aff_pret_date."</td>"; 
 			echo "<td><font $tit_color><b>".$aff_pret_retour."</font></b></td>";
-		/* test de date de retour dépassée */
+		/* test de date de retour dï¿½passï¿½e */
 	
 		switch ($sub) {
 			case "ppargroupe":
@@ -340,23 +340,23 @@ switch($sub) {
 }
 	
 //LIENS PAGE SUIVANTE et PAGE PRECEDENTE
-// si le nombre de page n'est pas 0 et si la variable numero_page n'est pas définie
-// dans cette condition, la variable numero_page est incrémenté et est inférieure à $nombre 
+// si le nombre de page n'est pas 0 et si la variable numero_page n'est pas dï¿½finie
+// dans cette condition, la variable numero_page est incrï¿½mentï¿½ et est infï¿½rieure ï¿½ $nombre 
 if( $nbpages_arrondi != 0 && empty($numero_page)) {
  	$navpage  ='< '.$msg[48].' | <a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page;
- 	$navpage .= '&numero_page=1">'.$msg[49].' ></a>'; // on passe la variable numero page à 1
+ 	$navpage .= '&numero_page=1">'.$msg[49].' ></a>'; // on passe la variable numero page ï¿½ 1
 	} elseif ($nbpages_arrondi !='0' && isset($numero_page) && $numero_page < $nbpages_arrondi) {
 		$suivant = $numero_page + 1; // on ajoute 1 au numero de page en cours 
 		$precedent = $numero_page - 1;
 		$navpage .= '<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$precedent;
- 		$navpage .= '">< '.$msg[48].'</a>'; // retour page précédente
+ 		$navpage .= '">< '.$msg[48].'</a>'; // retour page prï¿½cï¿½dente
 		$navpage .= '<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$suivant;
  		$navpage .= '">'.$msg[49].' ></a>'; //le lien pour les pages suivantes
-		} // dans cette condition, le lien qui sera affiché lorsque le nombre de page a été atteint
+		} // dans cette condition, le lien qui sera affichï¿½ lorsque le nombre de page a ï¿½tï¿½ atteint
 		  elseif ( $nbpages_arrondi !='0' && isset($numero_page) && $numero_page >= $nbpages_arrondi ) { 
 			$precedent = $numero_page - 1;
 			$navpage .= '<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$precedent;
- 			$navpage .= '">< '.$msg[48].'</a>'; // retour page précédente
+ 			$navpage .= '">< '.$msg[48].'</a>'; // retour page prï¿½cï¿½dente
 			}
 
 if ($bouton_imprime_tout) echo "

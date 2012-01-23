@@ -1,12 +1,12 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // | creator : Eric ROBERT                                                    |
 // | modified : Marco VANINETTI                                                           |
 // +-------------------------------------------------+
 // $Id: z_progression_cache.php,v 1.29 2010-04-16 08:54:22 gueluneau Exp $
 
-// définition du minimum nécéssaire 
+// dï¿½finition du minimum nï¿½cï¿½ssaire 
 $base_path="../..";
 $base_auth = "CATALOGAGE_AUTH";  
 $base_title = "";    
@@ -29,16 +29,16 @@ function critere_isbn ($val1) {
 	if(isEAN($val1)) {
 		// la saisie est un EAN -> on tente de le formater en ISBN
 		$val1 = z_EANtoISBN($val1);
-		// si échec, on prend l'EAN comme il vient
+		// si ï¿½chec, on prend l'EAN comme il vient
 		if(!$val1) $val1 = $val;
 		} else {
 			if(isISBN($val1)) {
 				// si la saisie est un ISBN
 				$val1 = z_formatISBN($val1,13);
-				// si échec, ISBN erroné on le prend sous cette forme
+				// si ï¿½chec, ISBN erronï¿½ on le prend sous cette forme
 				if(!$val1) $val1 = $val;
 				} else {
-					// ce n'est rien de tout ça, on prend la saisie telle quelle
+					// ce n'est rien de tout ï¿½a, on prend la saisie telle quelle
 					$val1 = $val;
 					}
 			}
@@ -53,8 +53,8 @@ $mioframe="frame1";
 // Fase 1: we prepare the query and the connection fore each biblio 
 ///////////////////////////////////////////////////////////////////
 
-//si può mettere prima del ciclo while principale....?
-// Remise à "" de tous les attributs de critère de recherche
+//si puï¿½ mettere prima del ciclo while principale....?
+// Remise ï¿½ "" de tous les attributs de critï¿½re de recherche
 $map=array();
 		
 $rqt_bib_attr=mysql_query("select attr_libelle from z_attr group by attr_libelle ");
@@ -77,7 +77,7 @@ while ($ligne=mysql_fetch_array($rq_bib_z3950)) {
 		$auth=$auth_user.$auth_pass;
 		$formato[$bib_id]=$format;
 
-	// chargement des attributs de la bib sélectionnée
+	// chargement des attributs de la bib sï¿½lectionnï¿½e
 	$rqt_bib_attr=mysql_query("select * from z_attr where attr_bib_id='$bib_id'");
 	while ($linea=mysql_fetch_array($rqt_bib_attr)) {
 		$attr_libelle=$linea["attr_libelle"];
@@ -86,7 +86,7 @@ while ($ligne=mysql_fetch_array($rq_bib_z3950)) {
 		$$var = $attr_attr ;
 	}
 
-	// On détermine la requête à envoyer
+	// On dï¿½termine la requï¿½te ï¿½ envoyer
 	$booleen="";
 	$critere1="";
 	$critere2="";
@@ -243,7 +243,7 @@ affiche_jsscript ($msg['z3950_zmsg_wait'], "#FFCC99", $mioframe);
 $options=array("timeout"=>45);
 $t1=time();
 
-//Override le timeout du serveur mysql, pour être sûr que le socket dure assez longtemps pour aller jusqu'aux ajouts des résultats dans la base. 
+//Override le timeout du serveur mysql, pour ï¿½tre sï¿½r que le socket dure assez longtemps pour aller jusqu'aux ajouts des rï¿½sultats dans la base. 
 $sql = "set wait_timeout = 120";
 mysql_query($sql);
 
@@ -258,6 +258,7 @@ showButRes();
 // Fase 3: Now get the results from the biblios 
 // obviously if the query was ok and there weren't errors
 ///////////////////////////////////////////////////////////////////
+
 while (list($bib_id,$id)=each($map)){
 		$error = yaz_error($id);
 		$error_info = yaz_addinfo($id);
@@ -281,9 +282,10 @@ while (list($bib_id,$id)=each($map)){
 			for ($p = 1; $p <= $lim_recherche; $p++) {
 				
 				$rec = yaz_record($id,$p,"raw");
-				
+				print_r($rec);
 				// DEBUG 
 				global $z3950_debug ;
+				$z3950_debug = true;
  				if ($z3950_debug) {
  					$fp = fopen ("../../temp/raw".rand().".marc","wb");
 	 				fwrite ($fp, $rec);
@@ -334,7 +336,7 @@ while (list($bib_id,$id)=each($map)){
 					$sql2.="values(0,'$last_query_id', '$bib_id', '$lu_isbn', '".addslashes($lu_titre)."', '".addslashes($lu_auteur)."', '".addslashes($lu_isbd)."','".addslashes($rec)."') ";
 					mysql_query ($sql2);
 					$ID_notice = mysql_insert_id();
-				} // fin du if qui vérifie que la notice n'est pas vide
+				} // fin du if qui vï¿½rifie que la notice n'est pas vide
 			} // fin for
 			yaz_close ($id);
 			$msg1 = str_replace ("!!total!!", $total, $msg[z3950_recup_fini]) ;

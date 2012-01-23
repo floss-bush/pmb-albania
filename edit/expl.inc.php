@@ -1,6 +1,6 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
 // $Id: expl.inc.php,v 1.35 2009-06-17 14:59:20 kantin Exp $
 
@@ -8,12 +8,12 @@ if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
 require_once ("$class_path/emprunteur.class.php");
 
-//Récupération des variables postées, on en aura besoin pour les liens
+//Rï¿½cupï¿½ration des variables postï¿½es, on en aura besoin pour les liens
 $page=$_SERVER[SCRIPT_NAME];
 
-// Pour localiser les éditions : $deflt2docs_location, $pmb_lecteurs_localises, $empr_location_id ;
+// Pour localiser les ï¿½ditions : $deflt2docs_location, $pmb_lecteurs_localises, $empr_location_id ;
 
-// Calcul du nombre de pages à afficher 
+// Calcul du nombre de pages ï¿½ afficher 
 $sql = "SELECT count(1) ";
 $sql.= "FROM (((exemplaires LEFT JOIN notices AS notices_m ON expl_notice = notices_m.notice_id ) ";
 $sql.= "LEFT JOIN bulletins ON expl_bulletin = bulletins.bulletin_id) ";
@@ -35,20 +35,20 @@ $req_nombre_lignes_pret = mysql_query($sql, $dbh);
 
 $nombre_lignes_pret = mysql_result($req_nombre_lignes_pret, 0, 0);
 
-//Si aucune limite_page n'a été passée, valeur par défaut : 10
+//Si aucune limite_page n'a ï¿½tï¿½ passï¿½e, valeur par dï¿½faut : 10
 if ($limite_page=="") {
 	$limite_page = 10; 
 }
 $nbpages= $nombre_lignes_pret / $limite_page; 
 
-// on arondi le nombre de page pour ne pas avoir de virgules, ici au chiffre supérieur 
+// on arondi le nombre de page pour ne pas avoir de virgules, ici au chiffre supï¿½rieur 
 $nbpages_arrondi = ceil($nbpages); 
 
-// on enlève 1 au nombre de pages, car la 1ere page affichée ne fait pas partie des pages suivantes
+// on enlï¿½ve 1 au nombre de pages, car la 1ere page affichï¿½e ne fait pas partie des pages suivantes
 $nbpages_arrondi = $nbpages_arrondi - 1; 
 
-// si la variable numero de page a une valeur ou est différente de 0,
-// on multiplie la limite par le numero de la page passée par l'url
+// si la variable numero de page a une valeur ou est diffï¿½rente de 0,
+// on multiplie la limite par le numero de la page passï¿½e par l'url
 // sinon, pas de variable numero_page
 if(isset($numero_page) || $numero_page != 0 ) { 
 	$limite_mysql = $limite_page * $numero_page; 
@@ -85,7 +85,7 @@ $req_count = mysql_query($sql_count) or die("Erreur SQL !<br />".$sql_count."<br
 while ($data_count = mysql_fetch_object($req_count)) { 
 	$nbtotal_prets[$data_count->retard]=$data_count->combien;
 }
-// construction du message ## prêts en retard sur un total de ##
+// construction du message ## prï¿½ts en retard sur un total de ##
 $msg[n_retards_sur_total_de] = str_replace ("!!nb_retards!!",$nbtotal_prets[RETARDS]*1,$msg[n_retards_sur_total_de]);
 $msg[n_retards_sur_total_de] = str_replace ("!!nb_total!!",($nbtotal_prets[RETARDS]+$nbtotal_prets[ENCOURS])*1,$msg[n_retards_sur_total_de]);
 echo $msg[n_retards_sur_total_de];
@@ -116,7 +116,7 @@ if ($pmb_lecteurs_localises) {
 $sql.= "expl_typdoc = idtyp_doc and pret_idexpl = expl_id  and empr.id_empr = pret.pret_idempr ";
 $sql = $sql.$critere_requete;
 $sql = $sql." LIMIT ".$limite_mysql.", ".$limite_page; 
-// on lance la requête (mysql_query) et on impose un message d'erreur si la requête ne se passe pas bien (or die) 
+// on lance la requï¿½te (mysql_query) et on impose un message d'erreur si la requï¿½te ne se passe pas bien (or die) 
 $req = mysql_query($sql) or die("Erreur SQL !<br />".$sql."<br />".mysql_error()); 
 
 // on va scanner tous les tuples un par un
@@ -168,7 +168,7 @@ while ($data = mysql_fetch_array($req)) {
 	
 	$header_aut ? $auteur=$header_aut : $auteur="";
 	if($retard || ($sub=='encours')) {	
-		// on affiche les résultats
+		// on affiche les rï¿½sultats
 		if ($retard) $tit_color="color='RED'";				
 		else $tit_color="";				
 	
@@ -201,7 +201,7 @@ while ($data = mysql_fetch_array($req)) {
 			echo "<td><font $tit_color><b>".$titre."</b></font></td>";
 		
 		echo "<td><font $tit_color>".$auteur."</font></td>";    
-		// **************** ajout icône ajout panier
+		// **************** ajout icï¿½ne ajout panier
 		if ($empr_show_caddie) {
 			$img_ajout_empr_caddie="<img src='./images/basket_empr.gif' align='middle' alt='basket' title=\"${msg[400]}\" onClick=\"openPopUp('./cart.php?object_type=EMPR&item=".$id_empr."', 'cart', 600, 700, -2, -2,'$selector_prop_ajout_caddie_empr')\">&nbsp;";
 		}
@@ -210,7 +210,7 @@ while ($data = mysql_fetch_array($req)) {
 		echo "<td>".$aff_pret_date."</td>"; 
 		echo "<td><font $tit_color><b>".$aff_pret_retour."</b></font></td>";
 	
-		/* test de date de retour dépassée */
+		/* test de date de retour dï¿½passï¿½e */
 		if ($retard) {			
 			$imprime_click = "onclick=\"openPopUp('./pdf.php?pdfdoc=lettre_retard&cb_doc=$id_expl&id_empr=$id_empr', 'lettre', 600, 500, -2, -2, 'toolbar=no, dependent=yes, resizable=yes'); return(false) \"";
 			$mail_click = "onclick=\"if (confirm('".$msg["mail_retard_confirm"]."')) {openPopUp('./mail.php?type_mail=mail_retard&cb_doc=$id_expl&id_empr=$id_empr', 'mail', 600, 500, -2, -2, 'toolbar=no, dependent=yes, resizable=yes, scrollbars=yes');} return(false) \"";
@@ -233,19 +233,19 @@ echo "</table>";
 $navpag="";
 if( $nbpages_arrondi != 0 && empty($numero_page)) {
  	$navpag = '&lt; '.$msg[48].' <a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page;
- 	$navpag .='&numero_page=1&empr_location_id='.$empr_location_id.'">'.$msg[49]. '></a>'; // on passe la variable numero page à 1
+ 	$navpag .='&numero_page=1&empr_location_id='.$empr_location_id.'">'.$msg[49]. '></a>'; // on passe la variable numero page ï¿½ 1
 } elseif ($nbpages_arrondi !='0' && isset($numero_page) && $numero_page < $nbpages_arrondi) {
 	$suivant = $numero_page + 1; // on ajoute 1 au numero de page en cours 
 	$precedent = $numero_page - 1;
 	$navpag .='<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$precedent;
-	$navpag .='&empr_location_id='.$empr_location_id.'">&lt; '.$msg[48].'</a>'; // retour page précédente
+	$navpag .='&empr_location_id='.$empr_location_id.'">&lt; '.$msg[48].'</a>'; // retour page prï¿½cï¿½dente
 	$navpag .='<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$suivant;
 	$navpag .='&empr_location_id='.$empr_location_id.'">'.$msg[49].' &gt;</a>'; //le lien pour les pages suivantes
-	} // dans cette condition, le lien qui sera affiché lorsque le nombre de page a été atteint
+	} // dans cette condition, le lien qui sera affichï¿½ lorsque le nombre de page a ï¿½tï¿½ atteint
 		elseif ( $nbpages_arrondi !='0' && isset($numero_page) && $numero_page >= $nbpages_arrondi ) { 
 			$precedent = $numero_page - 1;
 			$navpag .='<a href="'.$page.'?categ='.$categ.'&sub='.$sub.'&limite_page='.$limite_page.'&numero_page='.$precedent;
- 			$navpag .='&empr_location_id='.$empr_location_id.'">&lt; '.$msg[48].'</a>'; // retour page précédente
+ 			$navpag .='&empr_location_id='.$empr_location_id.'">&lt; '.$msg[48].'</a>'; // retour page prï¿½cï¿½dente
 		}
 
 // formulaire d'action tout imprimer, dispo uniquement si pas de relances pultiples

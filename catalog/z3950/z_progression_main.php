@@ -1,13 +1,13 @@
 <?php
 // +-------------------------------------------------+
-// © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
+// ï¿½ 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // | creator : Eric ROBERT                                                    |
 // |                                                                          |
-// | Ces scripts sont basés sur le travail de Quentin CHEVILLON               |
+// | Ces scripts sont basï¿½s sur le travail de Quentin CHEVILLON               |
 // +-------------------------------------------------+
 // $Id: z_progression_main.php,v 1.13 2008-12-11 09:50:10 kantin Exp $
 
-// définition du minimum nécéssaire 
+// dï¿½finition du minimum nï¿½cï¿½ssaire 
 $base_path="../..";
 $base_auth = "CATALOGAGE_AUTH";  
 $base_title = "";    
@@ -22,7 +22,7 @@ require_once ("z3950_func.inc.php");
 
 
 //
-// On détermine les Bibliothèques sélectionnées
+// On dï¿½termine les Bibliothï¿½ques sï¿½lectionnï¿½es
 //
 if ( ($clause=="")) {
 	echo $msg[z3950_no_bib_selectetd];
@@ -32,7 +32,7 @@ if ( ($clause=="")) {
 
 $selection_bib="where bib_id in (".$clause.") ";
 //
-// On récupère ID_query et on met à jour la base pour une prochaine recherche
+// On rï¿½cupï¿½re ID_query et on met ï¿½ jour la base pour une prochaine recherche
 //
 
 $sql = "insert into z_query (zquery_id, search_attr) values (0,'crit1=$crit1&val1=$val1&bool1=$bool1&crit2=$crit2&val2=$val2')";
@@ -42,7 +42,7 @@ $last_id_query = mysql_insert_id();
 // DEBUG NOTE: expand size frame3 to 50% to show messages from z_progression_cache and children  
 
 print "
-<frameset rows=\"*,20%,0%\"  frameborder=\"NO\">
+<frameset rows=\"*,20%,50%\"  frameborder=\"NO\">
 
 <frame name='droite' src='z_progression_visible.php?last_query_id=$last_id_query&tri1=$tri1&tri2=$tri2&selection_bib=$selection_bib&clause=$clause' frameborder=\"NO\">
 
