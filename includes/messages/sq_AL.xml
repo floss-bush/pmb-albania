@@ -1981,7 +1981,7 @@ $Id: sq_AL.xml,v 1.561 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="notice_commentaire_gestion">Shenim</entry>
 <entry code="notice_statut_gestion">status Item</entry>
 <entry code="noti_statut_class_html">Ngjyra:</entry>
-<entry code="isbn_duplicate_raz"> è stato ignorato." provoj per te konfirmuar</entry>
+<entry code="isbn_duplicate_raz">Kodi i dhene nuk eshte i sakte ose eshte injoruar</entry>
 <entry code="param_categories">Subjektet</entry>
 <entry code="param_empr">Antaret</entry>
 <entry code="param_ldap">LDAP</entry>
