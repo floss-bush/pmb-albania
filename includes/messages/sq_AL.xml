@@ -1279,10 +1279,10 @@ $Id: sq_AL.xml,v 1.561 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="caddie_type">Lloji shportes</entry>
 <entry code="caddie_comment">Shenim</entry>
 <entry code="caddie_autorisations">Autorizimet e dhena per:</entry>
-<entry code="caddie_add_expl">Shto nje kopje te</entry>
-<entry code="caddie_EXPL_added">Copy shtoi:</entry>
-<entry code="caddie_NOTI_added">Regjistro shtoi:</entry>
-<entry code="caddie_BULL_added">ceshtje shtoi:</entry>
+<entry code="caddie_add_expl">Shto nje ekement</entry>
+<entry code="caddie_EXPL_added">Ekzemplari u shtua:</entry>
+<entry code="caddie_NOTI_added">Skeda u shtua:</entry>
+<entry code="caddie_BULL_added">Buletini u shtua:</entry>
 <entry code="caddie_pointe_expl">Tag nje artikull</entry>
 <entry code="caddie_EXPL_pointe">tagged Item:</entry>
 <entry code="caddie_NOTI_pointe">Regjistro tagged:</entry>
@@ -3290,7 +3290,7 @@ $Id: sq_AL.xml,v 1.561 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="connecteurs_del_notice_confirm"> sei sicuro?</entry>
 <entry code="connecteurs_name_exists">Ky emer eshte perdorur tashme nga nje tjeter lidhes!</entry>
 <entry code="groupes_empr">Group (s)</entry>
-<entry code="n_retards_sur_total_de">! Nb_retards! pika vonuar (s) mbi! nb_total! hua aktual (s).</entry>
+<entry code="n_retards_sur_total_de">!!nb_retards!! materiale te vonuara ne nje total prej !!nb_total!! huazimesh.</entry>
 <entry code="categ_forb">Kjo kategori nuk mund te redaktohen</entry>
 <entry code="connecteurs_external_search">Jashtem Search</entry>
 <entry code="connecteurs_source_label">Burimet</entry>
@@ -3321,7 +3321,7 @@ $Id: sq_AL.xml,v 1.561 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="admin_menu_act_perso_clas">Klasifikim</entry>
 <entry code="admin_menu_modules">Modulet</entry>
 <entry code="proc_clas">Klasifikim</entry>
-<entry code="proc_clas_aucun">Nuk ndarje</entry>
+<entry code="proc_clas_aucun">Nuk ka ndarje</entry>
 <entry code="proc_clas_lib">Emri i sorting</entry>
 <entry code="proc_clas_bt_add">Add sorting</entry>
 <entry code="proc_clas_lib_already_used">Emri i perdorur tashme</entry>
@@ -3359,7 +3359,7 @@ $Id: sq_AL.xml,v 1.561 2010-09-21 14:14:08 ngantier Exp $ -->
 <entry code="rfid_retour_document_reserve_message">Ne pritje!</entry>
 <entry code="pointage_label_prochain_numero">ceshtje Next</entry>
 <entry code="lettre_titre_tel">Tel:</entry>
-<entry code="lettre_date_header"> lì!!date!!" Ne! Date!</entry>
+<entry code="lettre_date_header">!!ville!!, me !!date!!</entry>
 <entry code="admin_menu_req">Query Maker</entry>
 <entry code="req_bt_add">Add query</entry>
 <entry code="req_form_tit_add">Shtimi query</entry>
